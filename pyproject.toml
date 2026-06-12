@@ -3,7 +3,9 @@ name = "terrace"
 version = "0.1.0"
 description = "A football companion that replaces the doomscroll"
 requires-python = ">=3.12"
-dependencies = []
+dependencies = [
+    "pydantic>=2.13.4",
+]
 
 [dependency-groups]
 dev = [
