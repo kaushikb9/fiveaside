@@ -6,7 +6,7 @@ thin — each must leave the repo green and shippable.
 ## Night 1 — foundations + first digest
 
 - [x] Project skeleton: core/sources/render/web package layout per README, pydantic models for Fixture/Result/Standing (competition-agnostic), uv + pytest + ruff wiring, one trivial passing test
-- [ ] football-data.org client in sources/: fetch World Cup fixtures + results behind a SourceInterface, with recorded JSON fixtures for tests and graceful degradation on HTTP errors
+- [!] football-data.org client in sources/: fetch World Cup fixtures + results behind a SourceInterface, with recorded JSON fixtures for tests and graceful degradation on HTTP errors
 - [ ] Digest core: given fixtures/results data, generate a DailyDigest (yesterday's results with one-line stories, today's matches with kickoff times in IST, one "match of the day" pick) — pure functions, fully tested
 - [ ] Markdown renderer + `terrace digest` CLI command that prints today's digest
 
