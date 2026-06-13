@@ -1,9 +1,9 @@
-# terrace
+# Touchline
 
 A football companion that replaces the doomscroll. World Cup 2026 first (it's on
 now — Jun 11 to Jul 19), then club football via the same club-agnostic core.
 
-terrace ingests fixtures, results, standings, and news, and produces one calm,
+Touchline ingests fixtures, results, standings, and news, and produces one calm,
 fun **daily digest**: what happened, what matters today, what to watch next —
 so following the tournament doesn't require Twitter or Instagram.
 
@@ -24,7 +24,7 @@ src/terrace/web/       FastAPI app serving the digest as a responsive PWA
 ```
 
 - **Core is pure**: no I/O assumptions, fully unit-testable, surface-agnostic.
-- **First surfaces**: CLI (`terrace digest`) and a responsive **PWA** — installable
+- **First surfaces**: CLI (`touchline digest`) and a responsive **PWA** — installable
   on iPhone from Safari and usable on Mac, no App Store.
 - **Later surfaces** (cheap because the core doesn't care): Telegram delivery,
   native wrappers, widgets.

@@ -18,6 +18,7 @@ thin — each must leave the repo green and shippable.
 - [ ] Digest personality pass: a "what to watch today" section with a strong opinionated pick and one fun fact, generated from data (no LLM dependency yet)
 
 ## Later (don't pick up without human re-ordering)
+- [ ] Rename the Python package `terrace` -> `touchline` (imports, pyproject `[tool.hatch...packages]`, test imports); repo + identity already renamed. Do this only after the foundational PRs are merged to main.
 
 - [ ] Club mode: configure a club (Chelsea default) and competition set; club digest alongside WC
 - [ ] Telegram delivery adapter (reuse solo's bus or bot token)

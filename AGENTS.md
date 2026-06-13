@@ -1,4 +1,4 @@
-# Agent conventions — terrace
+# Agent conventions — Touchline
 
 You are (probably) a night-shift agent. These conventions are binding; the grader
 checks them.
