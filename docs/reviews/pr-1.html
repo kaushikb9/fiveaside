@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PR #1 — Project skeleton + domain models</title>
+<style>
+  :root{--bg:#0f1117;--panel:#181c26;--panel2:#1f2532;--line:#2c3344;--text:#e8ebf2;
+    --dim:#9aa3b5;--acc:#5eb0ff;--acc2:#7ee2b8;--warn:#ffb86b;--radius:12px;}
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{background:var(--bg);color:var(--text);font:16px/1.65 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;padding-bottom:64px}
+  .wrap{max-width:860px;margin:0 auto;padding:0 20px}
+  header{padding:44px 0 24px;border-bottom:1px solid var(--line);margin-bottom:28px}
+  .kicker{color:var(--acc2);text-transform:uppercase;letter-spacing:.12em;font-size:12px;font-weight:600}
+  h1{font-size:27px;line-height:1.25;margin:10px 0 10px}
+  .thesis{color:var(--dim);max-width:680px}
+  .meta{display:flex;gap:10px;flex-wrap:wrap;margin-top:14px;font-size:12.5px;color:var(--dim)}
+  .meta span{background:var(--panel);border:1px solid var(--line);padding:4px 10px;border-radius:999px}
+  h2{font-size:20px;margin:34px 0 12px;display:flex;align-items:baseline;gap:10px}
+  h2 .n{font-size:13px;color:var(--acc);font-weight:700}
+  .diagram{background:var(--panel2);border:1px solid var(--line);border-radius:var(--radius);
+    padding:18px 20px;font-family:ui-monospace,Menlo,monospace;font-size:13px;white-space:pre;
+    overflow-x:auto;color:var(--acc2);margin:8px 0 4px}
+  table{width:100%;border-collapse:collapse;margin:8px 0;font-size:14.5px}
+  td,th{text-align:left;padding:8px 10px;border-bottom:1px solid var(--line);vertical-align:top}
+  th{color:var(--dim);font-weight:600;font-size:12.5px;text-transform:uppercase;letter-spacing:.05em}
+  code{background:var(--panel2);border:1px solid var(--line);border-radius:5px;padding:1px 6px;
+    font-size:13.5px;font-family:ui-monospace,Menlo,monospace}
+  .concept{background:var(--panel);border:1px solid var(--line);border-left:3px solid var(--acc);
+    border-radius:10px;padding:16px 18px;margin:12px 0}
+  .concept h3{font-size:16px;color:var(--acc);margin-bottom:6px}
+  .concept .why{color:var(--dim);font-size:14px;margin-top:8px}
+  pre.snippet{background:var(--panel2);border:1px solid var(--line);border-radius:8px;padding:12px 14px;
+    overflow-x:auto;font-size:13px;line-height:1.5;margin:10px 0;font-family:ui-monospace,Menlo,monospace}
+  pre.snippet .k{color:var(--acc)}.kw{color:#c792ea}
+  ul{padding-left:20px}li{margin:5px 0}
+  .run{background:linear-gradient(180deg,var(--panel),var(--panel2));border:1px solid var(--acc2);
+    border-radius:var(--radius);padding:16px 20px;margin-top:8px}
+  .tag{display:inline-block;background:rgba(126,226,184,.12);color:var(--acc2);border:1px solid var(--acc2);
+    border-radius:6px;padding:1px 7px;font-size:12px;margin-left:6px}
+  footer{margin-top:40px;border-top:1px solid var(--line);padding-top:16px;font-size:12.5px;color:var(--dim)}
+</style>
+</head>
+<body>
+<header><div class="wrap">
+  <div class="kicker">terrace · night shift · visual review</div>
+  <h1>PR #1 — Project skeleton + domain models</h1>
+  <p class="thesis">The first thing the night shift built: the package skeleton and the
+  competition-agnostic data types everything else will speak in. No behavior yet — just
+  the shapes. This is the foundation review; read it once and the next four PRs will make sense.</p>
+  <div class="meta">
+    <span>8 files</span><span>+193 lines</span><span>grader: pass (0 revisions)</span>
+    <span>pydantic added</span><span>7 tests</span>
+  </div>
+</div></header>
+
+<div class="wrap">
+
+<h2><span class="n">01</span> The flow — where this sits</h2>
+<p>terrace is built as a <b>pure core surrounded by adapters</b>. This PR lays down the
+four rooms and furnishes the first one (the data models). Nothing here touches the
+network or the disk — that comes in later PRs, on the edges.</p>
+<div class="diagram">  the world ──▶  sources/      ──▶   core/        ──▶  render/   ──▶  you
+                (football API,      (the models in      (markdown,
+                 RSS — PR #2+)       THIS PR; digest      web — later)
+                                     logic later)
+                     │                    │
+                 fetches raw         pure data + rules,
+                 data, maps it       no I/O, fully testable
+                 into core types          ▲
+                                          │
+                              web/  (FastAPI surface, later)
+
+THIS PR ships:  the four empty rooms  +  core/models.py (the vocabulary)</div>
+<p style="color:var(--dim);font-size:14px">Why this matters: every later PR plugs into
+one room without disturbing the others. A football-API change touches only
+<code>sources/</code>; a new screen touches only <code>render/</code> or <code>web/</code>.
+The core never has to know.</p>
+
+<h2><span class="n">02</span> Files at a glance</h2>
+<table>
+  <tr><th>File</th><th>Its job</th></tr>
+  <tr><td><code>core/models.py</code></td><td>The whole point of the PR: <code>Competition, Team, Fixture, Result, Standing, MatchStatus</code> — the typed nouns of the app.</td></tr>
+  <tr><td><code>tests/test_models.py</code></td><td>7 tests: construction, the winner/draw rule, a negative-score rejection, goal-difference both signs.</td></tr>
+  <tr><td><code>core/ · sources/ · render/ · web/ __init__.py</code></td><td>Empty package markers — the four rooms, ready to furnish.</td></tr>
+  <tr><td><code>pyproject.toml · uv.lock</code></td><td>Adds the one dependency this PR needs: <code>pydantic</code>.</td></tr>
+</table>
+
+<h2><span class="n">03</span> Concepts worth pausing on</h2>
+
+<div class="concept">
+  <h3>Frozen models (immutability)</h3>
+  Every model sets <code>model_config = ConfigDict(frozen=True)</code>. Once you build a
+  <code>Fixture</code>, you can't mutate it — assignment raises.
+  <div class="why"><b>Why it's right here:</b> these objects represent <i>facts</i> (a match,
+  a result). Facts shouldn't be quietly edited after creation; if something changes, you
+  make a new one. Frozen data is also safe to pass around, cache, and compare without
+  worrying that some far-off function mutated it behind your back. It's the data-modelling
+  equivalent of "no surprises."</div>
+</div>
+
+<div class="concept">
+  <h3>Competition-agnostic by composition</h3>
+  The World Cup is nowhere hardcoded in the models. Instead, <code>Fixture</code> <i>has a</i>
+  <code>Competition</code> field. The same types model a Chelsea league game or a World Cup final.
+<pre class="snippet"><span class="kw">class</span> Fixture(BaseModel):
+    competition: Competition   <span class="k"># ← the comp is data, not a hardcoded assumption</span>
+    home: Team
+    away: Team
+    kickoff: datetime
+    group: str | None = None   <span class="k"># optional: WC has groups, leagues don't</span></pre>
+  <div class="why"><b>Why it's right here:</b> the roadmap's "later" section turns terrace
+  into a club companion. Because the comp is just a field, that future is a config change,
+  not a rewrite. This is "composition over hardcoding" — model the variable thing as data.</div>
+</div>
+
+<div class="concept">
+  <h3>Computed properties (derive, don't store)</h3>
+  <code>Result.winner</code> and <code>Standing.goal_difference</code> aren't stored fields —
+  they're computed from the data on access.
+<pre class="snippet">    <span class="kw">@property</span>
+    <span class="kw">def</span> winner(self) -> Team | None:
+        <span class="kw">if</span> self.home_score > self.away_score: <span class="kw">return</span> self.fixture.home
+        <span class="kw">if</span> self.away_score > self.home_score: <span class="kw">return</span> self.fixture.away
+        <span class="kw">return</span> None   <span class="k"># a draw — note it can't lie about the score</span></pre>
+  <div class="why"><b>Why it's right here:</b> a stored <code>winner</code> could drift out of
+  sync with the score. A derived one is always correct by construction, and the draw case
+  (<code>None</code>) is handled honestly instead of being a special string.</div>
+</div>
+
+<div class="concept">
+  <h3>Validation at the boundary (<code>Field(ge=0)</code>)</h3>
+  Scores and match counts declare <code>Field(ge=0)</code> — pydantic rejects a negative at
+  construction time with a <code>ValidationError</code>. The test deliberately proves it:
+  <code>Result(home_score=-1, ...)</code> raises.
+  <div class="why"><b>Why it's right here:</b> a negative score is nonsense; catching it the
+  instant bad data tries to become a model means the rest of the code never has to defend
+  against it. Validate once, at the edge, then trust the type everywhere inside.</div>
+</div>
+
+<div class="concept">
+  <h3>Testing the failure, not just the happy path</h3>
+  The rubric the grader enforces requires at least one <i>failure-mode</i> test. Here it's
+  the negative-score rejection — a test that asserts the code says <b>no</b> correctly.
+  <div class="why"><b>Why it's right here:</b> happy-path tests tell you the code works when
+  everything's fine; failure tests tell you it fails <i>safely</i> when it isn't. The second
+  kind is where real bugs hide. Good habit to expect in every PR.</div>
+</div>
+
+<h2><span class="n">04</span> Decisions &amp; trade-offs</h2>
+<ul>
+  <li><b>pydantic over plain dataclasses</b> — chosen for free validation and clean JSON
+  parsing later (the football API returns JSON; pydantic maps it in PR #2 with no hand-written parsing).</li>
+  <li><b>Models only, no logic</b> — the lead deliberately kept this slice to the vocabulary.
+  Digest rules and data-fetching are separate PRs. Thin slices stay reviewable and keep the repo green.</li>
+  <li><b>Deferred:</b> any I/O, the digest, the web surface — all later roadmap items that
+  build on these types.</li>
+</ul>
+
+<h2><span class="n">05</span> See it work</h2>
+<div class="run">
+<pre class="snippet">gh pr checkout 1          <span class="k"># grab the branch</span>
+uv sync &amp;&amp; uv run pytest  <span class="k"># 7 tests pass</span>
+uv run ruff check .       <span class="k"># clean</span></pre>
+</div>
+
+<footer>
+  Visual review for terrace PR #1, hand-written as the template the night shift's
+  <code>documentarian</code> emulates for every future PR. Per-PR reviews live in
+  <code>docs/reviews/</code>; the repo-wide concept overview is regenerated into
+  <code>docs/overview.html</code> via <code>nightshift docs</code>.
+</footer>
+
+</div>
+</body>
+</html>
