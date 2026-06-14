@@ -9,7 +9,7 @@ thin — each must leave the repo green and shippable.
 - [x] football-data.org client in sources/: fetch World Cup fixtures + results behind a SourceInterface, with recorded JSON fixtures for tests and graceful degradation on HTTP errors
 - [x] Digest core: given fixtures/results data, generate a DailyDigest (yesterday's results with one-line stories, today's matches with kickoff times in IST, one "match of the day" pick) — pure functions, fully tested
 - [x] Restore dedicated tests for core/models.py (lost in PR reconciliation): winner/draw logic, negative-score ValidationError, goal-difference both signs — match the current models, keep the suite green
-- [ ] Markdown renderer + `terrace digest` CLI command that prints today's digest
+- [x] Markdown renderer + `terrace digest` CLI command that prints today's digest
 
 ## Night 2 — the surface + the fun
 
