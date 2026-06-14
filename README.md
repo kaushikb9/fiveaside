@@ -24,7 +24,7 @@ src/terrace/web/       FastAPI app serving the digest as a responsive PWA
 ```
 
 - **Core is pure**: no I/O assumptions, fully unit-testable, surface-agnostic.
-- **First surfaces**: CLI (`touchline digest`) and a responsive **PWA** — installable
+- **First surfaces**: CLI (`uv run terrace digest`) and a responsive **PWA** — installable
   on iPhone from Safari and usable on Mac, no App Store.
 - **Later surfaces** (cheap because the core doesn't care): Telegram delivery,
   native wrappers, widgets.
