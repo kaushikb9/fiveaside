@@ -7,7 +7,7 @@ model is competition-agnostic -- nothing here hardcodes the World Cup.
 from datetime import datetime
 from enum import StrEnum
 
-from pydantic import BaseModel
+from pydantic import BaseModel, Field
 
 
 class MatchStatus(StrEnum):
@@ -49,11 +49,23 @@ class Result(BaseModel, frozen=True):
     kickoff: datetime
     home: Team
     away: Team
-    home_score: int
-    away_score: int
+    home_score: int = Field(ge=0)
+    away_score: int = Field(ge=0)
     winner: str | None = None
     matchday: int | None = None
     group: str | None = None
+
+    @property
+    def winning_team(self) -> Team | None:
+        if self.home_score > self.away_score:
+            return self.home
+        if self.away_score > self.home_score:
+            return self.away
+        return None
+
+    @property
+    def is_draw(self) -> bool:
+        return self.home_score == self.away_score
 
 
 class Standing(BaseModel, frozen=True):
@@ -70,3 +82,7 @@ class Standing(BaseModel, frozen=True):
     points: int
     goals_for: int
     goals_against: int
+
+    @property
+    def goal_difference(self) -> int:
+        return self.goals_for - self.goals_against
