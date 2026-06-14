@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>PR #6 — Markdown renderer + <code>terrace digest</code> CLI</title>
+<style>
+  :root{
+    --bg:#0f1115; --panel:#171a21; --panel2:#1d212b; --ink:#e7eaf0; --muted:#9aa3b2;
+    --line:#2a2f3a; --accent:#5fb3a1; --accent2:#7aa2f7; --warn:#e0af68; --good:#9ece6a;
+    --code:#0b0d12; --pink:#bb9af7;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);
+    font:16px/1.6 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    -webkit-text-size-adjust:100%}
+  .wrap{max-width:920px;margin:0 auto;padding:28px 20px 80px}
+  h1{font-size:26px;line-height:1.25;margin:0 0 6px}
+  h2{font-size:19px;margin:38px 0 14px;padding-bottom:8px;border-bottom:1px solid var(--line)}
+  h3{font-size:15px;margin:22px 0 8px;color:var(--accent)}
+  p{margin:10px 0}
+  code{font-family:"SF Mono",ui-monospace,Menlo,Consolas,monospace;font-size:.9em;
+    background:#222733;padding:1px 6px;border-radius:5px;color:#cdd6f4}
+  pre{background:var(--code);border:1px solid var(--line);border-radius:10px;
+    padding:14px 16px;overflow-x:auto;margin:12px 0}
+  pre code{background:none;padding:0;color:#c8d3f5;font-size:13px;line-height:1.55}
+  .muted{color:var(--muted)}
+  .thesis{font-size:17px;color:var(--muted);margin:8px 0 0}
+  .tag{display:inline-block;font-size:12px;color:var(--muted);border:1px solid var(--line);
+    padding:2px 9px;border-radius:999px;margin:2px 6px 2px 0}
+  .panel{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:16px 18px;margin:14px 0}
+  .grid{display:grid;gap:12px}
+  @media(min-width:640px){.cols-2{grid-template-columns:1fr 1fr}}
+  /* flow diagram */
+  .flow{display:flex;flex-wrap:wrap;align-items:stretch;gap:10px;justify-content:center;margin:6px 0}
+  .node{background:var(--panel2);border:1px solid var(--line);border-radius:10px;
+    padding:12px 14px;min-width:120px;flex:1 1 130px;text-align:center}
+  .node .t{font-weight:600;font-size:14px}
+  .node .s{font-size:12px;color:var(--muted);margin-top:3px}
+  .node.pure{border-color:#34514a}
+  .node.io{border-color:#3a4566}
+  .node.out{border-color:#4a4036}
+  .arrow{align-self:center;color:var(--accent);font-size:22px;flex:0 0 auto}
+  .pill{font-size:11px;border-radius:6px;padding:1px 7px;border:1px solid var(--line);color:var(--muted)}
+  .pill.pure{color:var(--accent);border-color:#34514a}
+  .pill.io{color:var(--accent2);border-color:#3a4566}
+  /* files table */
+  table{width:100%;border-collapse:collapse;margin:8px 0;font-size:14px}
+  td,th{border-bottom:1px solid var(--line);padding:9px 8px;text-align:left;vertical-align:top}
+  th{color:var(--muted);font-weight:600;font-size:12px;text-transform:uppercase;letter-spacing:.04em}
+  td code{font-size:12.5px;white-space:nowrap}
+  .new{color:var(--good);font-size:11px;border:1px solid #35502a;border-radius:5px;padding:0 6px}
+  .edit{color:var(--warn);font-size:11px;border:1px solid #4a4036;border-radius:5px;padding:0 6px}
+  .concept{border-left:3px solid var(--accent);padding-left:14px;margin:20px 0}
+  .concept h3{margin-top:0}
+  .why{background:#14241f;border:1px solid #2a4039;border-radius:8px;padding:8px 12px;margin-top:8px;font-size:14px}
+  .why b{color:var(--good)}
+  .warnbox{background:#241e14;border:1px solid #4a4036;border-radius:8px;padding:10px 14px;color:#e8d5b0}
+  .out-sample{background:var(--code);border:1px solid var(--line);border-radius:10px;padding:14px 16px;font-size:13.5px}
+  .out-sample .h{color:var(--accent)}
+  .out-sample .b{color:var(--ink)}
+  .out-sample .i{color:var(--muted);font-style:italic}
+  ul{margin:8px 0;padding-left:22px}
+  li{margin:4px 0}
+  .tradeoff{display:grid;gap:10px}
+  @media(min-width:640px){.tradeoff{grid-template-columns:1fr 1fr}}
+  .did h3{color:var(--good)} .deferred h3{color:var(--muted)}
+  a{color:var(--accent2)}
+  .legend{font-size:12px;color:var(--muted);margin-top:8px;text-align:center}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header>
+    <div class="muted" style="font-size:13px">PR #6 · touchline · nightshift/item-11</div>
+    <h1>Markdown renderer + <code>terrace digest</code> CLI</h1>
+    <p class="thesis">The first <em>surface</em> on top of the pure core: type <code>uv run terrace digest</code>
+      and today's football digest prints to your terminal as clean Markdown.</p>
+    <div style="margin-top:12px">
+      <span class="tag">+271 lines</span>
+      <span class="tag">7 files</span>
+      <span class="tag">stdlib only — no new deps</span>
+      <span class="tag">12 new tests</span>
+    </div>
+  </header>
+
+  <h2>The flow</h2>
+  <p>This change adds two thin layers — a <b>renderer</b> and a <b>CLI</b> — on top of work that
+    already existed (the source client and the digest builder). Data moves left → right;
+    nothing flows back.</p>
+
+  <div class="panel">
+    <div class="flow">
+      <div class="node io"><div class="t">FootballDataClient</div><div class="s">fetch_matches("WC")</div></div>
+      <div class="arrow">→</div>
+      <div class="node io"><div class="t">SourceResult</div><div class="s">ok, fixtures,<br>results, error</div></div>
+      <div class="arrow">→</div>
+      <div class="node pure"><div class="t">build_digest()</div><div class="s">DailyDigest</div></div>
+      <div class="arrow">→</div>
+      <div class="node pure"><div class="t">render_markdown()</div><div class="s">str</div></div>
+      <div class="arrow">→</div>
+      <div class="node out"><div class="t">print()</div><div class="s">stdout</div></div>
+    </div>
+    <div class="legend">
+      <span class="pill io">touches the network / world</span>&nbsp;&nbsp;
+      <span class="pill pure">pure — no I/O, deterministic</span>
+    </div>
+  </div>
+
+  <p>The new code in <code>cli.py</code> is just the <b>wiring</b>. <code>run_digest()</code> is the
+    testable core of the CLI — it takes a <code>MatchSource</code> and returns a string, so a test can
+    hand it a fake and never touch the network. <code>main()</code> is the only place that constructs
+    the real client and reaches for <code>stdout</code>.</p>
+
+  <pre><code><span class="muted"># cli.py — the whole orchestration, ~12 lines</span>
+def run_digest(source: MatchSource, *, now: datetime | None = None) -> str:
+    if now is None:
+        now = datetime.now(UTC)
+    res    = source.fetch_matches("WC")
+    digest = build_digest(res.fixtures, res.results, now=now)
+    output = render_markdown(digest)
+    if not res.ok:
+        output += f"\n> ⚠️ Some data was unavailable: {res.error}"
+    return output</code></pre>
+
+  <h2>Files at a glance</h2>
+  <table>
+    <tr><th>File</th><th></th><th>Its job</th></tr>
+    <tr><td><code>render/__init__.py</code></td><td><span class="new">new</span></td><td>Package marker so <code>terrace.render</code> is importable.</td></tr>
+    <tr><td><code>render/markdown.py</code></td><td><span class="new">new</span></td><td>Pure function <code>render_markdown(digest) → str</code>. Lays out the four sections.</td></tr>
+    <tr><td><code>cli.py</code></td><td><span class="new">new</span></td><td>argparse CLI with one <code>digest</code> subcommand. <code>run_digest()</code> + <code>main()</code>.</td></tr>
+    <tr><td><code>pyproject.toml</code></td><td><span class="edit">edit</span></td><td>Adds <code>[project.scripts] terrace = "terrace.cli:main"</code> — the console entry point.</td></tr>
+    <tr><td><code>tests/test_render.py</code></td><td><span class="new">new</span></td><td>7 tests: header, each section, MOTD present/absent, empty states.</td></tr>
+    <tr><td><code>tests/test_cli.py</code></td><td><span class="new">new</span></td><td>5 tests: happy path, failure mode, <code>--help</code> exit 0, no-command exit 2.</td></tr>
+    <tr><td><code>README.md</code></td><td><span class="edit">edit</span></td><td>One line: CLI usage now reads <code>uv run terrace digest</code>.</td></tr>
+  </table>
+  <p class="muted" style="font-size:13.5px">By design, nothing in <code>core/</code>, <code>sources/</code>,
+    or their tests was touched. This PR only <em>consumes</em> them.</p>
+
+  <h3>What the output looks like</h3>
+  <div class="out-sample">
+<span class="h"># Touchline — Sunday, 14 June 2026</span><br><br>
+<span class="h">## Yesterday</span><br>
+<span class="b">- Brazil edged Argentina 2–1.</span><br><br>
+<span class="h">## Today</span><br>
+<span class="b">- 8:30 PM IST — France vs Germany</span><br><br>
+<span class="h">## Match of the day</span><br>
+<span class="b">**France vs Germany** — Prime-time pick: France vs Germany at 8:30 PM IST.</span>
+  </div>
+  <p class="muted" style="font-size:13px">Empty days degrade to <code>_Nothing finished yesterday._</code> /
+    <code>_No matches today._</code>; the "Match of the day" heading is omitted entirely when there's no pick.</p>
+
+  <h2>Concepts that may be new</h2>
+  <p>Five ideas here are worth pausing on — each is a deliberate architectural choice, not incidental.</p>
+
+  <div class="concept">
+    <h3>1 · Ports &amp; adapters (the <code>MatchSource</code> seam)</h3>
+    <p><code>run_digest</code> doesn't ask for a <em>FootballDataClient</em>. It asks for a
+      <code>MatchSource</code> — an interface (a "port"). The real HTTP client is one adapter; the
+      test's <code>_FakeSource</code> is another. Same shape, different guts.</p>
+    <pre><code><span class="muted"># the test never opens a socket — it just satisfies the port</span>
+class _FakeSource:
+    def fetch_matches(self, competition: str) -> SourceResult:
+        return self._result   <span class="muted"># a hand-built result</span></code></pre>
+    <div class="why"><b>Why right here:</b> the digest logic is the valuable part and you want to test it
+      offline, fast, deterministically. The port lets the network live at the very edge (<code>main()</code>)
+      while everything inside stays swappable.</div>
+  </div>
+
+  <div class="concept">
+    <h3>2 · <code>Protocol</code> typing — structural, not inherited</h3>
+    <p>In <code>sources/base.py</code>, <code>MatchSource</code> is a <code>typing.Protocol</code>. Notice the
+      fake source <b>does not subclass anything</b>. Python's Protocol means "if it has a
+      <code>fetch_matches(competition) → SourceResult</code> method, it counts" — duck typing the type
+      checker can verify. This is the same idea as a Go interface.</p>
+    <pre><code>@runtime_checkable
+class MatchSource(Protocol):
+    def fetch_matches(self, competition: str) -> SourceResult: ...</code></pre>
+    <div class="why"><b>Why right here:</b> the fake in the test stays a plain class with zero import
+      coupling to the source package — yet <code>mypy</code>/<code>ruff</code> still confirm it fits the
+      port. Less ceremony than abstract base classes.</div>
+  </div>
+
+  <div class="concept">
+    <h3>3 · Graceful degradation via a result object</h3>
+    <p>A fetch can fail (network down, bad token). Instead of throwing, the source returns a
+      <code>SourceResult</code> carrying <code>ok=False</code>, empty lists, and an <code>error</code>
+      string. The CLI builds the digest from whatever came back and <em>appends a note</em> rather
+      than crashing:</p>
+    <pre><code>if not res.ok:
+    output += f"\n> ⚠️ Some data was unavailable: {res.error}"</code></pre>
+    <div class="warnbox" style="margin-top:10px">A failed run still prints a valid digest header plus a
+      blockquote: <code>&gt; ⚠️ Some data was unavailable: boom</code>. The user sees something useful,
+      never a stack trace.</div>
+    <div class="why"><b>Why right here:</b> this is a daily glanceable tool. "Show me what you have,
+      flag what's missing" beats "explode on a flaky API". The error is data, not an exception.</div>
+  </div>
+
+  <div class="concept">
+    <h3>4 · Pure core vs. impure shell</h3>
+    <p><code>render_markdown</code> and <code>build_digest</code> are <b>pure</b>: same inputs → same output,
+      no clock, no I/O, no network. Two clues prove it: the renderer imports only from
+      <code>core.digest</code>, and time enters only through the injected <code>now</code> parameter —
+      <code>datetime.now(UTC)</code> is called in exactly one place, defaulted in <code>run_digest</code>.</p>
+    <pre><code><span class="muted"># tests pin "now" so the date string is deterministic</span>
+NOW = datetime(2026, 6, 14, 12, 0, tzinfo=UTC)
+out = run_digest(_ok_source(), now=NOW)
+assert "# Touchline" in out</code></pre>
+    <div class="why"><b>Why right here:</b> injecting the clock makes <code>"Sunday, 14 June 2026"</code>
+      testable without freezing system time. Purity is what makes the core trivially unit-testable.</div>
+  </div>
+
+  <div class="concept">
+    <h3>5 · The console-script entry point</h3>
+    <p>Three lines in <code>pyproject.toml</code> turn a function into a terminal command:</p>
+    <pre><code>[project.scripts]
+terrace = "terrace.cli:main"</code></pre>
+    <p>On install, the packaging tool generates a <code>terrace</code> executable that calls
+      <code>terrace.cli.main()</code>. <code>main()</code> returns an <code>int</code> exit code
+      (<code>0</code> success, <code>2</code> for no/unknown subcommand) — the Unix convention — and the
+      <code>if __name__ == "__main__"</code> guard does <code>raise SystemExit(main())</code> so
+      <code>python -m terrace.cli</code> works too.</p>
+    <div class="why"><b>Why right here:</b> it's the cheapest possible "surface". The README's promise —
+      <code>uv run terrace digest</code> — is now wired end to end with zero new dependencies.</div>
+  </div>
+
+  <h2>Decisions &amp; trade-offs</h2>
+  <div class="tradeoff">
+    <div class="panel did">
+      <h3>✓ Chosen now</h3>
+      <ul>
+        <li>One subcommand, <b>no flags</b> — smallest useful slice.</li>
+        <li><b>Markdown</b> output (renders anywhere, diff-friendly, terminal-readable).</li>
+        <li><b>argparse</b> from stdlib — no Click/Typer dependency.</li>
+        <li>Zero-padded day (<code>%d</code>) for cross-platform portability (<code>%-d</code> is not portable).</li>
+        <li>Failure path appends a note; never raises to the user.</li>
+      </ul>
+    </div>
+    <div class="panel deferred">
+      <h3>· Deferred (on purpose)</h3>
+      <ul>
+        <li>HTML rendering / the FastAPI PWA surface.</li>
+        <li><code>--date</code>, <code>--competition</code>, <code>--json</code> flags.</li>
+        <li>Colored output, multiple subcommands.</li>
+        <li>RSS / news, any new dependency.</li>
+      </ul>
+    </div>
+  </div>
+  <p class="muted" style="font-size:13.5px">The renderer signature (<code>DailyDigest → str</code>) leaves
+    room for an <code>html.py</code> sibling later without changing the CLI's wiring — the digest stays
+    surface-agnostic.</p>
+
+  <h2>How to see it work</h2>
+  <pre><code><span class="muted"># run the digest (needs FOOTBALL_DATA_TOKEN in env for live data)</span>
+uv run terrace digest
+
+<span class="muted"># prove the entry point is wired — exits 0, shows the subcommand</span>
+uv run terrace digest --help
+
+<span class="muted"># full check: tests green, lint clean</span>
+uv run pytest
+uv run ruff check .</code></pre>
+  <p class="muted" style="font-size:13.5px">No token? The fetch fails gracefully — you'll still get a
+    dated header and the <code>⚠️ Some data was unavailable</code> note instead of a crash.</p>
+
+</div>
+</body>
+</html>
