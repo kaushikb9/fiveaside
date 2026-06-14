@@ -13,7 +13,7 @@ thin — each must leave the repo green and shippable.
 
 ## Night 2 — the surface + the fun
 
-- [ ] FastAPI web app: GET / renders the daily digest as a clean responsive HTML page (Jinja2), mobile-first, installable as a PWA (manifest + icons)
+- [x] FastAPI web app: GET / renders the daily digest as a clean responsive HTML page (Jinja2), mobile-first, installable as a PWA (manifest + icons)
 - [ ] News ingestion: pull 2-3 football RSS feeds in sources/, dedupe, attach the 3 most relevant headlines per digest section
 - [ ] Standings/groups view: World Cup group tables on the web app, updated from the same source client
 - [ ] Digest personality pass: a "what to watch today" section with a strong opinionated pick and one fun fact, generated from data (no LLM dependency yet)
