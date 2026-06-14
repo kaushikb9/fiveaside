@@ -152,6 +152,39 @@ def test_fetch_matches_falls_back_to_passed_competition_code_when_missing():
     assert result.fixtures[0].competition.name == "WC"
 
 
+def test_null_team_names_are_labeled_tbd_without_dropping_other_matches():
+    payload = _load_fixture()
+
+    def handler(request: httpx.Request) -> httpx.Response:
+        return httpx.Response(200, json=payload)
+
+    client = _client_with_transport(handler)
+    result = client.fetch_matches("WC")
+
+    assert result.ok is True
+    assert result.error is None
+
+    # knockout match with a null `name` on homeTeam is parsed, not dropped
+    null_name_match = next(f for f in result.fixtures if f.id == "1005")
+    assert null_name_match.home.name == "TBD"
+    assert null_name_match.home.code is None
+    assert null_name_match.away.name == "Brazil"
+
+    # knockout match with a wholly null homeTeam/awayTeam object is parsed too
+    null_team_match = next(f for f in result.fixtures if f.id == "1006")
+    assert null_team_match.home.name == "TBD"
+    assert null_team_match.home.code is None
+    assert null_team_match.away.name == "TBD"
+    assert null_team_match.away.code is None
+
+    # the presence of TBD matches must not suppress the rest of the payload
+    assert len(result.fixtures) == len(payload["matches"])
+    assert len(result.results) == 2
+    mex_can = next(r for r in result.results if r.id == "1001")
+    assert mex_can.home_score == 2
+    assert mex_can.away_score == 1
+
+
 def test_fetch_matches_default_competition_is_wc():
     payload = _load_fixture()
     seen_paths = []
