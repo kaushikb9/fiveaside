@@ -14,6 +14,7 @@ thin — each must leave the repo green and shippable.
 ## Night 2 — the surface + the fun
 
 - [x] FastAPI web app: GET / renders the daily digest as a clean responsive HTML page (Jinja2), mobile-first, installable as a PWA (manifest + icons)
+- [ ] Fix football client: handle null/TBD team names (knockout placeholders) — the API returns name=null for undetermined teams, which currently fails parsing and suppresses ALL live data. Skip or label such matches; add a fixture+test. (Found by running `terrace digest` during the live World Cup.)
 - [ ] News ingestion: pull 2-3 football RSS feeds in sources/, dedupe, attach the 3 most relevant headlines per digest section
 - [ ] Standings/groups view: World Cup group tables on the web app, updated from the same source client
 - [ ] Digest personality pass: a "what to watch today" section with a strong opinionated pick and one fun fact, generated from data (no LLM dependency yet)
