@@ -8,7 +8,7 @@ thin — each must leave the repo green and shippable.
 - [x] Project skeleton: core/sources/render/web package layout per README, pydantic models for Fixture/Result/Standing (competition-agnostic), uv + pytest + ruff wiring, one trivial passing test
 - [x] football-data.org client in sources/: fetch World Cup fixtures + results behind a SourceInterface, with recorded JSON fixtures for tests and graceful degradation on HTTP errors
 - [x] Digest core: given fixtures/results data, generate a DailyDigest (yesterday's results with one-line stories, today's matches with kickoff times in IST, one "match of the day" pick) — pure functions, fully tested
-- [ ] Restore dedicated tests for core/models.py (lost in PR reconciliation): winner/draw logic, negative-score ValidationError, goal-difference both signs — match the current models, keep the suite green
+- [x] Restore dedicated tests for core/models.py (lost in PR reconciliation): winner/draw logic, negative-score ValidationError, goal-difference both signs — match the current models, keep the suite green
 - [ ] Markdown renderer + `terrace digest` CLI command that prints today's digest
 
 ## Night 2 — the surface + the fun
