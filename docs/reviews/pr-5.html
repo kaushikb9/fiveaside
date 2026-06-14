@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PR #5 — Restore dedicated tests for core/models.py</title>
+<style>
+  :root{
+    --bg:#0f1115; --panel:#171a21; --panel2:#1d212b; --ink:#e7eaf0; --muted:#9aa3b2;
+    --line:#2a2f3a; --accent:#5db1ff; --green:#56d364; --amber:#e3b341;
+    --red:#fa7070; --mono:#c8d3e6;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);
+    font:16px/1.6 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    -webkit-text-size-adjust:100%}
+  .wrap{max-width:880px;margin:0 auto;padding:28px 20px 80px}
+  h1{font-size:24px;margin:0 0 6px;line-height:1.25}
+  h2{font-size:14px;letter-spacing:.08em;text-transform:uppercase;color:var(--accent);
+    margin:38px 0 14px;font-weight:700}
+  .thesis{color:var(--muted);font-size:16px;margin:0 0 4px}
+  .tag{display:inline-block;font-size:12px;color:var(--muted);border:1px solid var(--line);
+    border-radius:999px;padding:2px 10px;margin:2px 6px 2px 0}
+  .panel{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:18px 18px;margin:14px 0}
+  .muted{color:var(--muted)}
+  code,pre{font-family:"SF Mono",ui-monospace,Menlo,Consolas,monospace}
+  code{color:var(--mono);background:var(--panel2);padding:1px 6px;border-radius:5px;font-size:13.5px}
+  pre{background:#0c0e13;border:1px solid var(--line);border-radius:10px;padding:14px 16px;
+    overflow-x:auto;font-size:13px;line-height:1.5;color:var(--mono);margin:10px 0}
+  pre .add{color:var(--green)}
+  pre .cmt{color:#6b7384}
+  pre .kw{color:#ff9d6f}
+  .flow{display:flex;flex-wrap:wrap;align-items:stretch;gap:10px;margin:8px 0}
+  .node{flex:1 1 150px;background:var(--panel2);border:1px solid var(--line);border-radius:10px;
+    padding:12px;min-width:140px}
+  .node h4{margin:0 0 4px;font-size:14px}
+  .node p{margin:0;font-size:12.5px;color:var(--muted)}
+  .arrow{align-self:center;color:var(--accent);font-size:22px;padding:0 2px}
+  table{width:100%;border-collapse:collapse;margin:6px 0;font-size:14px}
+  td,th{border-bottom:1px solid var(--line);text-align:left;padding:9px 8px;vertical-align:top}
+  th{color:var(--muted);font-weight:600;font-size:12px;text-transform:uppercase;letter-spacing:.05em}
+  .pill{font-size:11px;border-radius:5px;padding:1px 7px;font-weight:700}
+  .new{background:rgba(86,211,100,.15);color:var(--green)}
+  .edit{background:rgba(227,179,65,.15);color:var(--amber)}
+  .concept{border-left:3px solid var(--accent);padding:4px 0 4px 16px;margin:18px 0}
+  .concept h3{margin:0 0 6px;font-size:16px}
+  .two{display:flex;gap:12px;flex-wrap:wrap}
+  .two>div{flex:1 1 240px;background:var(--panel2);border:1px solid var(--line);border-radius:10px;padding:12px 14px}
+  .two h4{margin:0 0 6px;font-size:13px;letter-spacing:.04em;text-transform:uppercase}
+  .keep h4{color:var(--green)} .defer h4{color:var(--amber)}
+  ul{margin:6px 0;padding-left:20px} li{margin:3px 0}
+  .cmd{background:#0c0e13;border:1px solid var(--line);border-radius:10px;padding:14px 16px;font-size:13.5px}
+  .ok{color:var(--green)}
+  a{color:var(--accent)}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <h1>Restore dedicated unit tests for <code>core/models.py</code></h1>
+  <p class="thesis">The domain models lost their behaviors and their test file during an earlier refactor.
+  This PR adds three small, score-derived behaviors back — and the dedicated test module that proves them.</p>
+  <div style="margin-top:10px">
+    <span class="tag">PR #5 · touchline</span>
+    <span class="tag">branch: nightshift/item-10</span>
+    <span class="tag">2 files · +98 / −2</span>
+    <span class="tag">additive only</span>
+  </div>
+
+  <h2>Why this exists</h2>
+  <div class="panel">
+    <p style="margin-top:0">The skeleton (PR #2) had rich models: a <code>Result.winner</code> property derived
+    from scores, <code>Field(ge=0)</code> guarding scores, and <code>Standing.goal_difference</code> — plus a
+    test file for all of it.</p>
+    <p>When the football-data work (PR #3/#4) reshaped <code>Result</code> into a <em>flat</em> model with a
+    <strong>stored</strong> <code>winner: str</code> field (<code>"HOME"/"AWAY"/"DRAW"</code>), those behaviors and
+    their test file were dropped. <code>digest.py</code> and <code>football_data.py</code> now depend on that
+    string field, so we can't just revert.</p>
+    <p style="margin-bottom:0"><strong>The move:</strong> keep the flat shape and the stored <code>winner</code>
+    string exactly as-is. Re-add the lost behaviors as <em>derived properties living alongside</em> the stored
+    field — and restore the dedicated tests, adapted to the flat model.</p>
+  </div>
+
+  <h2>The flow — what a Result now answers</h2>
+  <p class="muted" style="margin-top:0">Two parallel sources of truth, by design. The stored string serves the
+  pipeline; the new properties serve domain logic & tests. They never fight because the properties are computed
+  on read from the scores.</p>
+
+  <div class="flow">
+    <div class="node">
+      <h4>Construct</h4>
+      <p><code>Result(home_score=2, away_score=1, winner="HOME", …)</code></p>
+    </div>
+    <div class="arrow">→</div>
+    <div class="node" style="border-color:var(--amber)">
+      <h4>Validate on build</h4>
+      <p>pydantic checks <code>Field(ge=0)</code>. A negative score never constructs — raises <code>ValidationError</code>.</p>
+    </div>
+  </div>
+  <div class="flow">
+    <div class="node" style="border-color:var(--accent)">
+      <h4>Stored field (untouched)</h4>
+      <p><code>r.winner == "HOME"</code><br>Used by <code>digest.py</code> / <code>football_data.py</code>.</p>
+    </div>
+    <div class="arrow">＋</div>
+    <div class="node" style="border-color:var(--green)">
+      <h4>Derived on read (new)</h4>
+      <p><code>r.winning_team is r.home</code><br><code>r.is_draw is False</code><br>computed from the scores, no storage.</p>
+    </div>
+  </div>
+
+  <pre><span class="cmt"># core/models.py — the additive change</span>
+ home_score: int <span class="add">= Field(ge=0)</span>      <span class="cmt"># was: home_score: int</span>
+ away_score: int <span class="add">= Field(ge=0)</span>
+ winner: str | None = None         <span class="cmt"># ← UNCHANGED, pipeline depends on it</span>
+
+<span class="add"> @property
+ def winning_team(self) -> Team | None:
+     if self.home_score > self.away_score:
+         return self.home
+     if self.away_score > self.home_score:
+         return self.away
+     return None              </span><span class="cmt"># equal → None</span>
+
+<span class="add"> @property
+ def is_draw(self) -> bool:
+     return self.home_score == self.away_score</span></pre>
+
+  <pre><span class="cmt"># Standing gains one derived row-level stat</span>
+<span class="add"> @property
+ def goal_difference(self) -> int:
+     return self.goals_for - self.goals_against</span></pre>
+
+  <h2>Files at a glance</h2>
+  <table>
+    <tr><th>File</th><th></th><th>Its job in this PR</th></tr>
+    <tr>
+      <td><code>src/terrace/core/models.py</code></td>
+      <td><span class="pill edit">EDIT</span></td>
+      <td>Add <code>Field(ge=0)</code> to both scores; add <code>winning_team</code>, <code>is_draw</code> on
+      <code>Result</code> and <code>goal_difference</code> on <code>Standing</code>. The stored <code>winner</code>
+      string is left alone.</td>
+    </tr>
+    <tr>
+      <td><code>tests/test_models.py</code></td>
+      <td><span class="pill new">NEW</span></td>
+      <td>The restored dedicated module — 8 tests across three behavior groups, built with the same full-keyword
+      style as <code>test_digest.py</code>.</td>
+    </tr>
+  </table>
+
+  <h2>Concepts that may be new</h2>
+  <p class="muted" style="margin-top:0">Four ideas do the real work here. None are exotic, but each is a
+  deliberate choice worth seeing clearly.</p>
+
+  <div class="concept">
+    <h3>1 · Validation that lives in the type, not in your code</h3>
+    <p><code>home_score: int = Field(ge=0)</code> tells pydantic: <em>this field must be &ge; 0</em>. The check runs
+    automatically at construction. There is no <code>if score &lt; 0: raise</code> anywhere — an invalid object
+    simply <strong>can't exist</strong>. Downstream code never has to defend against a negative score, because one
+    can never be built.</p>
+    <p class="muted">This is the "make illegal states unrepresentable" idea: push the rule to the boundary (object
+    creation) so the rest of the system can assume validity. The test asserts the boundary holds, not the absence of
+    a value:</p>
+    <pre>with pytest.raises(ValidationError):
+    _result(-1, 0)</pre>
+  </div>
+
+  <div class="concept">
+    <h3>2 · Stored vs. derived — two truths on purpose</h3>
+    <p><code>winner: str</code> is <strong>stored</strong> (it comes from the football-data API and the pipeline reads
+    it). <code>winning_team</code> is <strong>derived</strong> — computed from the scores every time you ask, holding
+    nothing. The PR keeps both rather than picking one.</p>
+    <p>Why not just compute <code>winner</code> too? Because <code>digest.py</code> and <code>football_data.py</code>
+    already depend on the <code>"HOME"/"AWAY"/"DRAW"</code> string, and the work order forbids touching them. Adding a
+    parallel derived view is the <em>non-breaking</em> way to restore the lost behavior. The trade-off: two
+    representations can drift — but the derived one is always honest about the scores, which is exactly what the domain
+    tests want to check.</p>
+  </div>
+
+  <div class="concept">
+    <h3>3 · Computed properties on a frozen model</h3>
+    <p>The models are <code>frozen=True</code> (immutable — you can't reassign a field after creation). A
+    <code>@property</code> fits this perfectly: it adds <em>behavior</em> without adding mutable state. Calling
+    <code>r.winning_team</code> reads existing fields and returns a value; nothing is cached, nothing is set.
+    Immutability + pure derived reads = no chance of a stale or inconsistent field.</p>
+    <p class="muted">Note the test uses identity, not equality: <code>assert r.winning_team is r.home</code>. Because
+    <code>Team</code> is frozen, the property returns the very same object that was passed in — <code>is</code> is the
+    precise assertion.</p>
+  </div>
+
+  <div class="concept">
+    <h3>4 · A test factory keeps tests about one thing</h3>
+    <p>These frozen models need every field at construction. Rather than repeat ~10 keyword args per test, the file
+    defines small helpers and shared constants:</p>
+    <pre><span class="kw">def</span> _result(home_score, away_score) -> Result:
+    <span class="kw">return</span> Result(id="1", competition=COMPETITION, kickoff=KICKOFF,
+                  home=HOME, away=AWAY,
+                  home_score=home_score, away_score=away_score,
+                  winner=None, matchday=1, group="Group A")</pre>
+    <p>Now each test varies <em>only</em> the two numbers it cares about — the score behavior is foregrounded, the
+    boilerplate disappears. This mirrors the construction style already used in <code>test_digest.py</code>, so the
+    suite stays consistent.</p>
+  </div>
+
+  <h2>Decisions &amp; trade-offs</h2>
+  <div class="two">
+    <div class="keep">
+      <h4>✓ Chosen</h4>
+      <ul>
+        <li>Keep the flat <code>Result</code> and its stored <code>winner</code> string untouched.</li>
+        <li>Restore behaviors as <em>score-derived properties</em> beside the stored field.</li>
+        <li><code>Field(ge=0)</code> for score validation — declarative, at the boundary.</li>
+        <li>Core stays pure: only <code>pydantic</code> + stdlib imported.</li>
+        <li>Tests cover exactly the three named behaviors.</li>
+      </ul>
+    </div>
+    <div class="defer">
+      <h4>⟳ Deferred (on purpose)</h4>
+      <ul>
+        <li>No reshape back to the old nested <code>fixture=</code> form.</li>
+        <li>No <code>won/draw/lost</code>-vs-<code>played</code> consistency checks.</li>
+        <li>No bounds on <code>points</code> or other fields the roadmap didn't name.</li>
+        <li>No changes to <code>digest.py</code>, <code>football_data.py</code>, <code>render/</code>, or deps.</li>
+      </ul>
+    </div>
+  </div>
+  <p class="muted">This is a deliberately thin slice: restore coverage for three behaviors without expanding the
+  models' contract. Anything broader is a separate decision.</p>
+
+  <h2>How to see it work</h2>
+  <div class="cmd">
+    <div><span class="cmt"># run the full suite — new + existing tests stay green</span></div>
+    <div><span class="ok">uv run pytest</span></div>
+    <div style="margin-top:10px"><span class="cmt"># just the restored module</span></div>
+    <div><span class="ok">uv run pytest tests/test_models.py -v</span></div>
+    <div style="margin-top:10px"><span class="cmt"># lint (line length 100)</span></div>
+    <div><span class="ok">uv run ruff check .</span></div>
+  </div>
+  <p class="muted">Existing <code>test_digest.py</code> / <code>test_football_data.py</code> still pass — all their
+  scores are already &ge; 0, so <code>ge=0</code> changes nothing for them. <span style="color:var(--green)">Done means:</span>
+  8 new tests green, a negative score raises <code>ValidationError</code>, <code>winning_team</code> returns home /
+  away / <code>None</code> across win/win/draw, and <code>goal_difference</code> is signed correctly.</p>
+
+</div>
+</body>
+</html>
