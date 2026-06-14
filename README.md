@@ -26,6 +26,15 @@ src/terrace/web/       FastAPI app serving the digest as a responsive PWA
 - **Core is pure**: no I/O assumptions, fully unit-testable, surface-agnostic.
 - **First surfaces**: CLI (`uv run terrace digest`) and a responsive **PWA** — installable
   on iPhone from Safari and usable on Mac, no App Store.
+
+### Running the web surface
+
+```
+uv run uvicorn terrace.web.app:app --reload
+```
+
+Then open `http://localhost:8000` — Safari (Share → Add to Home Screen) and Chrome
+(install icon in the address bar) will offer to install it as an app.
 - **Later surfaces** (cheap because the core doesn't care): Telegram delivery,
   native wrappers, widgets.
 
