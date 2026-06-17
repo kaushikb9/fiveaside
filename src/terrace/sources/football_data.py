@@ -22,9 +22,12 @@ _WINNER_MAP = {
     "DRAW": "DRAW",
 }
 
+_TBD_NAME = "TBD"
+
 
 def _team(payload: dict[str, Any]) -> Team:
-    return Team(name=payload.get("name", ""), code=payload.get("tla"))
+    name = payload.get("name") or ""
+    return Team(name=name.strip() or _TBD_NAME, code=payload.get("tla"))
 
 
 def _parse_matches(payload: dict[str, Any], competition: str) -> SourceResult:
@@ -39,8 +42,8 @@ def _parse_matches(payload: dict[str, Any], competition: str) -> SourceResult:
 
     for match in payload.get("matches", []):
         status = _STATUS_MAP.get(match.get("status", ""), MatchStatus.SCHEDULED)
-        home = _team(match.get("homeTeam", {}))
-        away = _team(match.get("awayTeam", {}))
+        home = _team(match.get("homeTeam") or {})
+        away = _team(match.get("awayTeam") or {})
         common = {
             "id": str(match["id"]),
             "competition": comp,

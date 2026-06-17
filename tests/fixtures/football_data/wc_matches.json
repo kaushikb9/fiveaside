@@ -56,6 +56,30 @@
         "winner": null,
         "fullTime": {"home": null, "away": null}
       }
+    },
+    {
+      "id": 1005,
+      "utcDate": "2026-07-05T18:00:00Z",
+      "status": "SCHEDULED",
+      "stage": "ROUND_OF_16",
+      "homeTeam": {"name": null, "tla": null},
+      "awayTeam": {"name": "Brazil", "tla": "BRA"},
+      "score": {
+        "winner": null,
+        "fullTime": {"home": null, "away": null}
+      }
+    },
+    {
+      "id": 1006,
+      "utcDate": "2026-07-06T18:00:00Z",
+      "status": "SCHEDULED",
+      "stage": "ROUND_OF_16",
+      "homeTeam": null,
+      "awayTeam": null,
+      "score": {
+        "winner": null,
+        "fullTime": {"home": null, "away": null}
+      }
     }
   ]
 }

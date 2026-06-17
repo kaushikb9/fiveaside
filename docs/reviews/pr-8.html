@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>PR #8 — Football client handles null/TBD team names</title>
+<style>
+  :root{
+    --bg:#0f1417; --panel:#161d22; --panel2:#1c252b; --ink:#e8edf0;
+    --muted:#9bb0bd; --line:#2a363e; --accent:#5fd0a4; --warn:#e8a04d;
+    --bad:#e26d6d; --code:#11171b; --blue:#6db5e8;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);
+    font:16px/1.55 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;}
+  .wrap{max-width:880px;margin:0 auto;padding:28px 20px 80px;}
+  h1{font-size:25px;line-height:1.25;margin:0 0 6px;}
+  h2{font-size:15px;letter-spacing:.08em;text-transform:uppercase;color:var(--accent);
+    margin:42px 0 14px;border-bottom:1px solid var(--line);padding-bottom:7px;}
+  h3{font-size:16px;margin:20px 0 6px;}
+  p{margin:9px 0;}
+  .thesis{color:var(--muted);font-size:17px;margin:0 0 4px;}
+  .tag{display:inline-block;font-size:12px;letter-spacing:.05em;color:var(--muted);
+    border:1px solid var(--line);border-radius:20px;padding:3px 11px;margin:14px 8px 0 0;}
+  .panel{background:var(--panel);border:1px solid var(--line);border-radius:10px;
+    padding:16px 18px;margin:14px 0;}
+  code,pre{font-family:"SF Mono",ui-monospace,Menlo,Consolas,monospace;}
+  code{background:var(--code);padding:1px 6px;border-radius:5px;font-size:.86em;color:#cfe6dd;}
+  pre{background:var(--code);border:1px solid var(--line);border-radius:9px;
+    padding:13px 15px;overflow-x:auto;font-size:13.5px;line-height:1.5;margin:10px 0;}
+  pre .del{color:var(--bad);}
+  pre .add{color:var(--accent);}
+  pre .dim{color:#6b7d88;}
+  .muted{color:var(--muted);}
+  table{border-collapse:collapse;width:100%;margin:8px 0;font-size:14.5px;}
+  td,th{border:1px solid var(--line);padding:8px 11px;text-align:left;vertical-align:top;}
+  th{background:var(--panel2);font-weight:600;}
+  td code{white-space:nowrap;}
+  .flow{display:flex;flex-direction:column;gap:0;margin:8px 0;}
+  .node{background:var(--panel2);border:1px solid var(--line);border-radius:8px;
+    padding:11px 14px;font-size:14px;}
+  .node b{font-family:"SF Mono",monospace;font-size:13px;color:var(--blue);}
+  .arrow{text-align:center;color:var(--muted);font-size:18px;line-height:1.1;padding:5px 0;}
+  .split{display:flex;gap:12px;flex-wrap:wrap;}
+  .split>div{flex:1;min-width:240px;}
+  .bad-path{border-left:3px solid var(--bad);}
+  .good-path{border-left:3px solid var(--accent);}
+  .pill{font-size:12px;padding:2px 8px;border-radius:6px;font-weight:600;}
+  .pill.bad{background:rgba(226,109,109,.16);color:var(--bad);}
+  .pill.good{background:rgba(95,208,164,.16);color:var(--accent);}
+  .concept{border-left:3px solid var(--accent);padding-left:15px;margin:22px 0;}
+  .small{font-size:13.5px;}
+  ul{margin:8px 0;padding-left:22px;}
+  li{margin:5px 0;}
+  .kbd{background:var(--code);border:1px solid var(--line);border-radius:6px;padding:2px 7px;font-size:13px;}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <h1>Football client handles null/TBD team names</h1>
+  <p class="thesis">One unresolved knockout fixture used to blank out the <em>entire</em> live football section. Now those fixtures show up labeled <code>TBD</code> — everything else keeps flowing.</p>
+  <div>
+    <span class="tag">PR #8</span>
+    <span class="tag">branch: nightshift/item-14</span>
+    <span class="tag">3 files · +57 −3</span>
+    <span class="tag">parsing only — no model / renderer changes</span>
+  </div>
+
+  <h2>The problem in one picture</h2>
+  <p>During the live World Cup, <code>terrace digest</code> suddenly showed <strong>no football at all</strong>. The cause was a single field. football-data.org returns <code>"name": null</code> for a team that hasn't been decided yet (e.g. "winner of Round of 16, match 49"). That one null detonated the whole parse.</p>
+
+  <div class="panel">
+    <div class="flow">
+      <div class="node">API payload — <b>20 matches</b>, 19 fine, <span class="pill bad">1 with name:null</span></div>
+      <div class="arrow">│ loop over matches in <b>_parse_matches</b></div>
+      <div class="node bad-path"><b>_team({"name": null})</b> → <code>Team(name=None)</code> → pydantic <b>ValidationError</b> <span class="muted">(name is typed <code>str</code>)</span></div>
+      <div class="arrow">│ ValidationError <span class="muted">is a</span> ValueError</div>
+      <div class="node bad-path"><b>fetch_matches</b>'s <code>except (KeyError, TypeError, ValueError)</code> swallows it</div>
+      <div class="arrow">↓</div>
+      <div class="node bad-path"><code>SourceResult(ok=False, fixtures=[], results=[])</code> &nbsp;<span class="pill bad">all 20 dropped</span></div>
+    </div>
+    <p class="small muted" style="margin-bottom:0">The exception handler is broad on purpose — it protects the digest from a malformed payload. The bug is that a <em>normal</em> knockout value looked like a malformed payload. So the safety net suppressed good data.</p>
+  </div>
+
+  <h2>The flow after the fix</h2>
+  <p>The fix lives entirely in the source adapter. Two small guards stop the exception from ever firing, so the broad handler never trips on this case.</p>
+
+  <div class="panel split">
+    <div>
+      <div class="node good-path"><span class="pill good">guard 1 · null name</span><br>
+        <b>_team</b> coerces a missing / null / blank name to <code>"TBD"</code>. <code>code</code> stays whatever <code>tla</code> gives (may be <code>None</code>).</div>
+    </div>
+    <div>
+      <div class="node good-path"><span class="pill good">guard 2 · null object</span><br>
+        <b>_parse_matches</b> uses <code>match.get("homeTeam") <u>or</u> {}</code> so even a wholly-null team object becomes an empty dict before it reaches <code>_team</code>.</div>
+    </div>
+  </div>
+
+  <div class="panel">
+    <div class="flow">
+      <div class="node">API payload — 20 matches incl. <span class="pill good">TBD knockout</span></div>
+      <div class="arrow">↓</div>
+      <div class="node good-path">every team resolves to a valid <code>Team</code> — <code>name="TBD"</code> when unknown</div>
+      <div class="arrow">↓</div>
+      <div class="node good-path"><code>SourceResult(ok=True, fixtures=[20], results=[2])</code> &nbsp;<span class="pill good">nothing dropped</span></div>
+    </div>
+  </div>
+
+  <h3>The actual change</h3>
+  <pre><span class="dim"># src/terrace/sources/football_data.py</span>
+<span class="add">+_TBD_NAME = "TBD"</span>
+
+ def _team(payload: dict[str, Any]) -> Team:
+<span class="del">-    return Team(name=payload.get("name", ""), code=payload.get("tla"))</span>
+<span class="add">+    name = payload.get("name") or ""</span>
+<span class="add">+    return Team(name=name.strip() or _TBD_NAME, code=payload.get("tla"))</span>
+
+     for match in payload.get("matches", []):
+         ...
+<span class="del">-        home = _team(match.get("homeTeam", {}))</span>
+<span class="del">-        away = _team(match.get("awayTeam", {}))</span>
+<span class="add">+        home = _team(match.get("homeTeam") or {})</span>
+<span class="add">+        away = _team(match.get("awayTeam") or {})</span></pre>
+
+  <p class="small muted">Why <code>payload.get("name") or ""</code> instead of <code>.get("name", "")</code>? Because the key <em>exists</em> — its value is JSON <code>null</code>. A default only kicks in when the key is absent. <code>or ""</code> handles the present-but-null case, then <code>.strip() or _TBD_NAME</code> also catches whitespace-only names. Same trick with <code>or {}</code>: the key is present with value <code>null</code>, so the default <code>{}</code> never fired.</p>
+
+  <h2>Files at a glance</h2>
+  <table>
+    <tr><th>File</th><th>Job</th></tr>
+    <tr><td><code>sources/football_data.py</code></td><td>The fix: two null-safe guards in <code>_team</code> and <code>_parse_matches</code>.</td></tr>
+    <tr><td><code>tests/fixtures/football_data/wc_matches.json</code></td><td>Adds two knockout matches — one with <code>name:null</code> on a team, one with the whole <code>homeTeam</code>/<code>awayTeam</code> object <code>null</code>.</td></tr>
+    <tr><td><code>tests/test_football_data.py</code></td><td>Regression test: TBD matches parse <em>and</em> don't zero out the rest of the payload.</td></tr>
+  </table>
+
+  <h2>Concepts that may be new</h2>
+
+  <div class="concept">
+    <h3>1 · A validation error <em>is</em> a <code>ValueError</code></h3>
+    <p>The <code>Team</code> model declares <code>name: str</code>. Passing <code>None</code> raises a pydantic <code>ValidationError</code> — which subclasses Python's built-in <code>ValueError</code>. That inheritance is the whole bug: <code>fetch_matches</code> wraps parsing in <code>except (KeyError, TypeError, ValueError)</code> to survive junk payloads, and a <code>ValidationError</code> slips right into that net. So a perfectly normal knockout value was treated like corrupt data. Worth internalizing: broad <code>except ValueError</code> blocks will also catch your model-validation failures.</p>
+  </div>
+
+  <div class="concept">
+    <h3>2 · Normalize at the boundary, not in the model</h3>
+    <p>The tempting fix is to loosen the model: <code>name: str | None</code>. This PR deliberately doesn't. The repo's convention (AGENTS.md) is that I/O quirks live in <code>sources/</code> — the adapter that touches the outside world — while <code>core/models.py</code> stays a clean, strict contract. The "outside is messy, inside is clean" boundary means every other part of the app can trust that <code>Team.name</code> is always a real string. The mess is absorbed in exactly one place.</p>
+  </div>
+
+  <div class="concept">
+    <h3>3 · <code>frozen=True</code> models</h3>
+    <p><code>Team</code> is declared <code>class Team(BaseModel, frozen=True)</code> — immutable and hashable once built. That's why coercion happens <em>before</em> construction (in <code>_team</code>), not by mutating the object after. You can't reach in and patch <code>name</code> later; you decide the value at the moment of creation. Immutable value objects like this are safe to share, compare, and cache without worrying about something changing them underneath you.</p>
+  </div>
+
+  <div class="concept">
+    <h3>4 · Label, don't skip — graceful degradation</h3>
+    <p>Two ways to survive a TBD team: drop the match, or keep it with a placeholder. The PR keeps it. A knockout bracket where the fixtures vanish until teams are decided is worse than one that says "TBD vs Brazil, July 5." The existing renderer just prints <code>Team.name</code>, so <code>"TBD"</code> displays for free — no renderer change needed. Degrade the data quality, preserve the user's view.</p>
+  </div>
+
+  <div class="concept">
+    <h3>5 · The regression test guards the <em>failure mode</em>, not just the feature</h3>
+    <p>The important assertion isn't "TBD shows up" — it's that one bad match <strong>doesn't silently delete the good ones</strong>:</p>
+    <pre><span class="dim"># the real symptom that was reported</span>
+assert len(result.fixtures) == len(payload["matches"])  <span class="dim"># nothing dropped</span>
+assert len(result.results) == 2                          <span class="dim"># resolved games intact</span>
+assert mex_can.home_score == 2                           <span class="dim"># a real result still parses</span></pre>
+    <p class="small">It also pins the labeling contract: <code>home.name == "TBD"</code> and <code>home.code is None</code> for the unresolved side. A test that only checked the happy path would pass even if the suppression bug came back.</p>
+  </div>
+
+  <h2>Decisions &amp; trade-offs</h2>
+  <table>
+    <tr><th>Decision</th><th>Rationale</th></tr>
+    <tr><td>Coerce to literal <code>"TBD"</code></td><td>Cheapest thing that keeps fixtures visible. Smart placeholders ("Winner Group A") were explicitly deferred.</td></tr>
+    <tr><td>Fix in the adapter, leave <code>core/models.py</code> untouched</td><td>Keeps the model strict; quirks stay quarantined in <code>sources/</code>.</td></tr>
+    <tr><td><code>code</code> left as <code>None</code> for TBD</td><td>There's no real <code>tla</code> to invent. Honest absence beats a fake code.</td></tr>
+    <tr><td><span class="muted">Deferred:</span> renderer formatting for TBD fixtures</td><td>Out of scope. The renderer already displays whatever <code>name</code> holds.</td></tr>
+  </table>
+
+  <h2>How to see it work</h2>
+  <pre><span class="dim"># from the repo root</span>
+uv run pytest tests/test_football_data.py -k tbd   <span class="dim"># the new regression test</span>
+uv run pytest                                       <span class="dim"># full suite, should be green</span>
+uv run ruff check .                                 <span class="dim"># lint clean</span></pre>
+  <p class="small muted">The existing tests assert <code>len(fixtures) == len(matches)</code> and <code>len(results) == 2</code> — the two added knockout entries are SCHEDULED with no score, so the results count stays 2 and those assertions still hold unchanged.</p>
+
+</div>
+</body>
+</html>
