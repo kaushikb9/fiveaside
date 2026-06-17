@@ -86,3 +86,13 @@ class Standing(BaseModel, frozen=True):
     @property
     def goal_difference(self) -> int:
         return self.goals_for - self.goals_against
+
+
+class NewsItem(BaseModel, frozen=True):
+    """A single headline from a news feed."""
+
+    title: str
+    link: str
+    source: str  # human label of the feed, e.g. "BBC Sport"
+    published: datetime | None = None
+    summary: str | None = None
