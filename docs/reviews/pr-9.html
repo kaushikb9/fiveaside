@@ -1,0 +1,241 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>PR #9 — NewsSource interface + RSS fetch</title>
+<style>
+  :root{
+    --bg:#0f1115; --panel:#171a21; --panel2:#1d212b; --ink:#e7eaf0; --dim:#9aa3b2;
+    --line:#2a2f3a; --accent:#6ea8fe; --good:#4ade80; --warn:#fbbf24; --bad:#f87171;
+    --mono:"SF Mono",ui-monospace,Menlo,Consolas,monospace;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);
+    font:16px/1.6 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;
+    -webkit-text-size-adjust:100%}
+  .wrap{max-width:880px;margin:0 auto;padding:28px 20px 80px}
+  h1{font-size:25px;margin:0 0 6px;letter-spacing:-.01em}
+  h2{font-size:19px;margin:38px 0 14px;letter-spacing:-.01em}
+  .thesis{color:var(--dim);font-size:16px;margin:0 0 4px}
+  .tag{display:inline-block;font:12px/1 var(--mono);color:var(--accent);
+    border:1px solid var(--line);border-radius:999px;padding:5px 10px;margin:8px 8px 0 0}
+  .card{background:var(--panel);border:1px solid var(--line);border-radius:12px;
+    padding:16px 18px;margin:12px 0}
+  p{margin:10px 0}
+  code{font-family:var(--mono);font-size:.86em;background:var(--panel2);
+    padding:1px 6px;border-radius:5px;border:1px solid var(--line)}
+  pre{background:#0b0d11;border:1px solid var(--line);border-radius:10px;
+    padding:14px 16px;overflow:auto;font-family:var(--mono);font-size:13px;line-height:1.5}
+  pre .c{color:#7c8696}
+  pre .k{color:#c792ea}
+  pre .s{color:#9ad28a}
+  pre .f{color:#6ea8fe}
+  .grid{display:grid;gap:10px}
+  .files div{display:grid;grid-template-columns:auto 1fr;gap:12px;align-items:baseline;
+    padding:9px 0;border-bottom:1px solid var(--line)}
+  .files div:last-child{border-bottom:0}
+  .files .fn{font-family:var(--mono);font-size:13px;color:var(--accent);white-space:nowrap}
+  .files .new{color:var(--good)}
+  .files .desc{color:var(--dim);font-size:14.5px}
+  .flow{display:flex;flex-direction:column;gap:0;align-items:stretch}
+  .box{background:var(--panel2);border:1px solid var(--line);border-radius:10px;
+    padding:12px 14px}
+  .box b{font-family:var(--mono);font-size:13px;color:var(--ink)}
+  .box small{color:var(--dim);display:block;margin-top:3px;font-size:13px}
+  .arrow{text-align:center;color:var(--dim);font-size:18px;padding:4px 0}
+  .split{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+  @media(max-width:560px){.split{grid-template-columns:1fr}}
+  .pill{font:12px/1 var(--mono);padding:3px 8px;border-radius:6px;border:1px solid var(--line)}
+  .pill.ok{color:var(--good);border-color:#2c5} .pill.no{color:var(--bad);border-color:#a33}
+  .concept{border-left:3px solid var(--accent);padding-left:14px;margin:18px 0}
+  .concept h3{margin:0 0 4px;font-size:16px}
+  .why{color:var(--dim);font-size:14.5px;margin-top:6px}
+  ul{margin:8px 0;padding-left:20px} li{margin:5px 0}
+  .legend{color:var(--dim);font-size:13px;margin-top:8px}
+  table{width:100%;border-collapse:collapse;font-size:14.5px;margin-top:6px}
+  td{border-top:1px solid var(--line);padding:8px 6px;vertical-align:top}
+  td.k{color:var(--dim);white-space:nowrap;width:38%}
+  .hd{color:var(--dim);font-size:13px}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <p class="hd">PR #9 · branch <code>nightshift/item-17</code> · 5 files, +531</p>
+  <h1>NewsSource interface + RSS fetch (parsing only)</h1>
+  <p class="thesis">Add a clean, testable seam for pulling football headlines from RSS feeds into
+  pure domain objects — <b>no digest wiring yet</b>. This slice is all plumbing and parsing.</p>
+  <div>
+    <span class="tag">+ NewsItem model</span>
+    <span class="tag">+ NewsSource protocol</span>
+    <span class="tag">+ RSSNewsClient</span>
+    <span class="tag">stdlib XML, no new deps</span>
+    <span class="tag">19 tests</span>
+  </div>
+
+  <!-- ============================================================ -->
+  <h2>The flow</h2>
+  <p>A caller asks the client for news. The client hits each configured feed, hands the raw
+  bytes to a pure parser, and collects <code>NewsItem</code>s into one <code>NewsResult</code>.
+  Failures are absorbed at the edges so one bad feed (or one bad item) never blanks the rest.</p>
+
+  <div class="card flow">
+    <div class="box"><b>caller</b><small>holds an <code>RSSNewsClient</code>, calls <code>.fetch_news()</code></small></div>
+    <div class="arrow">↓</div>
+    <div class="box"><b>RSSNewsClient.fetch_news()</b>
+      <small>loops over <code>feeds = [(label, url), …]</code> &nbsp;·&nbsp; GET each via injected <code>httpx.Client</code></small></div>
+    <div class="arrow">↓ &nbsp; response.content (bytes) per feed</div>
+    <div class="box"><b>_parse_rss(content, label)</b> &nbsp;<span class="pill">pure function</span>
+      <small>ElementTree → iterate every <code>&lt;item&gt;</code> independently → build valid <code>NewsItem</code>s</small></div>
+    <div class="arrow">↓ &nbsp; list[NewsItem]</div>
+    <div class="box"><b>NewsResult</b>
+      <small>accumulate items across feeds, decide <code>ok</code> / <code>error</code></small></div>
+  </div>
+
+  <p style="margin-top:18px">The decision at the end is the interesting part — it encodes
+  <i>graceful degradation</i>:</p>
+  <div class="card">
+    <table>
+      <tr><td class="k"><span class="pill">no feeds configured</span></td>
+        <td><span class="pill ok">ok=True</span> &nbsp; items=[] &nbsp; — trivially fine</td></tr>
+      <tr><td class="k"><span class="pill">some feeds fail</span></td>
+        <td><span class="pill ok">ok=True</span> &nbsp; items = whatever succeeded &nbsp; — partial data still ships</td></tr>
+      <tr><td class="k"><span class="pill">all feeds fail</span></td>
+        <td><span class="pill no">ok=False</span> &nbsp; items=[] &nbsp; error = "<code>label: reason; …</code>"</td></tr>
+    </table>
+    <p class="legend">Same shape as the existing <code>SourceResult</code> for match data — callers
+    already know how to read an <code>ok</code> flag and ignore the rest on failure.</p>
+  </div>
+
+  <!-- ============================================================ -->
+  <h2>Files at a glance</h2>
+  <div class="card files">
+    <div><span class="fn">core/models.py</span><span class="desc">+10 lines: adds the frozen <code>NewsItem</code> model. Purely additive — nothing else touched.</span></div>
+    <div><span class="fn">sources/base.py</span><span class="desc">Adds <code>NewsResult</code> container + <code>NewsSource</code> Protocol, mirroring <code>SourceResult</code>/<code>MatchSource</code>.</span></div>
+    <div><span class="fn new">sources/rss.py</span><span class="desc"><b>New.</b> <code>_parse_rss()</code> (pure) + <code>RSSNewsClient</code> that implements the protocol.</span></div>
+    <div><span class="fn new">tests/fixtures/news/bbc_football.xml</span><span class="desc"><b>New.</b> A trimmed, realistic RSS 2.0 feed — 5 items, two deliberately broken.</span></div>
+    <div><span class="fn new">tests/test_rss.py</span><span class="desc"><b>New.</b> 19 tests over <code>httpx.MockTransport</code> — zero real network.</span></div>
+  </div>
+
+  <!-- ============================================================ -->
+  <h2>Concepts that may be new</h2>
+  <p class="why" style="margin-top:0">These are the ideas worth slowing down on — each is a deliberate design choice, not incidental.</p>
+
+  <div class="concept">
+    <h3>1 · Protocol typing (structural “interfaces” in Python)</h3>
+    <p>Python has no <code>interface</code> keyword. A <code>typing.Protocol</code> fills that gap:
+    it defines a <i>shape</i> — “anything with a <code>fetch_news() -&gt; NewsResult</code> method” — without
+    requiring classes to inherit from it.</p>
+    <pre><span class="k">@runtime_checkable</span>
+<span class="k">class</span> <span class="f">NewsSource</span>(Protocol):
+    <span class="k">def</span> <span class="f">fetch_news</span>(self) -> NewsResult: ...</pre>
+    <p><code>RSSNewsClient</code> never says <code>class RSSNewsClient(NewsSource)</code>. It simply
+    <i>has</i> the right method, so <code>isinstance(client, NewsSource)</code> is <code>True</code>
+    (that’s what <code>@runtime_checkable</code> enables, and a test asserts it).</p>
+    <p class="why"><b>Why here:</b> the digest layer (a later slice) can depend on the <code>NewsSource</code>
+    shape, and a real RSS client, a cache, or a fake test double can all satisfy it independently.
+    Loose coupling without an inheritance tree.</p>
+  </div>
+
+  <div class="concept">
+    <h3>2 · Dependency injection of the HTTP client</h3>
+    <p>The constructor takes an optional <code>client: httpx.Client</code>. In production it’s <code>None</code>,
+    so the class builds its own. In tests, the suite passes a client wired to <code>httpx.MockTransport</code>
+    that returns the fixture bytes — no socket ever opens.</p>
+    <pre><span class="k">def</span> <span class="f">__init__</span>(self, feeds=None, *, client=None, timeout=10.0):
+    self.feeds = feeds <span class="k">if</span> feeds <span class="k">is not None</span> <span class="k">else</span> list(_DEFAULT_FEEDS)
+    self._client = client <span class="k">or</span> httpx.Client(timeout=timeout)</pre>
+    <p class="why"><b>Why here:</b> the network is the one thing you can’t test reliably. Injecting the
+    client makes every behavior — happy path, HTTP 500, malformed XML — a deterministic unit test.
+    This mirrors how <code>FootballDataClient</code> is already tested in the repo.</p>
+  </div>
+
+  <div class="concept">
+    <h3>3 · Frozen pydantic models</h3>
+    <p><code>NewsItem</code> and <code>NewsResult</code> are declared <code>frozen=True</code> — immutable
+    after construction. Pydantic still validates types on the way in (a <code>title</code> must be
+    <code>str</code>; <code>published</code> is <code>datetime | None</code>).</p>
+    <pre><span class="k">class</span> <span class="f">NewsItem</span>(BaseModel, frozen=True):
+    title: str
+    link: str
+    source: str            <span class="c"># human label, e.g. "BBC Sport"</span>
+    published: datetime | None = None
+    summary: str | None = None</pre>
+    <p class="why"><b>Why here:</b> a parsed headline is a value, not a record you mutate. Freezing makes
+    items safe to pass around and cache, and keeps the core layer disciplined (pydantic + stdlib only —
+    no I/O leaks into the domain).</p>
+  </div>
+
+  <div class="concept">
+    <h3>4 · Per-record tolerance vs. all-or-nothing parsing</h3>
+    <p>This is the heart of the PR. A naive parser wraps the whole feed in one <code>try/except</code> —
+    so a single malformed <code>&lt;item&gt;</code> nukes every headline. Instead the parser loops item by
+    item and skips only the bad ones.</p>
+    <pre><span class="k">for</span> item_el <span class="k">in</span> root.iter(<span class="s">"item"</span>):
+    <span class="k">try</span>:
+        title = (title_el.text <span class="k">or</span> <span class="s">""</span>).strip() <span class="k">if</span> title_el <span class="k">is not None</span> <span class="k">else</span> <span class="s">""</span>
+        link  = ...
+        <span class="k">if not</span> title <span class="k">or not</span> link:
+            <span class="k">continue</span>                 <span class="c"># skip, don't crash</span>
+        published = None
+        <span class="k">try</span>:
+            published = parsedate_to_datetime(pub_date_el.text.strip())
+        <span class="k">except</span> Exception:
+            published = None        <span class="c"># bad date -> keep item, drop the date</span>
+        items.append(NewsItem(...))
+    <span class="k">except</span> Exception:
+        <span class="k">continue</span>                     <span class="c"># one bad item never suppresses the rest</span></pre>
+    <p>The fixture proves both branches: item #3 has no <code>&lt;title&gt;</code> (skipped → 5 items become 4),
+    and item #4 has <code>pubDate</code> = <code>"NOT A DATE AT ALL"</code> (kept, with <code>published=None</code>).</p>
+    <p class="why"><b>Why here:</b> RSS in the wild is messy. Codifies a hard-won team lesson — broad
+    try/except at the wrong granularity silently blanks whole sections. The fix is to fail at the
+    smallest unit, the individual record.</p>
+  </div>
+
+  <div class="concept">
+    <h3>5 · Standard-library XML — deliberately no <code>feedparser</code></h3>
+    <p>Parsing uses <code>xml.etree.ElementTree</code> and dates use <code>email.utils.parsedate_to_datetime</code>
+    (RSS <code>pubDate</code> is RFC-822, the same format email headers use). Both ship with Python.</p>
+    <p class="why"><b>Why here:</b> the work order explicitly bans new dependencies. The convenient choice
+    (<code>feedparser</code>) buys little for a trimmed feed and adds supply-chain + maintenance weight.
+    Hand-rolling ~40 lines against stdlib keeps <code>pyproject.toml</code> untouched.</p>
+  </div>
+
+  <!-- ============================================================ -->
+  <h2>Decisions &amp; trade-offs</h2>
+  <div class="card grid">
+    <div><b>Chosen:</b> two failure boundaries. A pure <code>_parse_rss()</code> with no I/O, and
+      a thin <code>fetch_news()</code> that owns networking and the <code>ok</code>/<code>error</code> decision.
+      Pure logic is trivially testable; impure edges stay small.</div>
+    <div><b>Chosen:</b> the <code>list[(label, url)]</code> shape supports many feeds <i>today</i>, but only
+      one BBC fixture is shipped. The multi-feed accumulation and partial-failure logic are already
+      written and tested via in-test feeds — the interface won’t churn when a second feed lands.</div>
+    <div><b>Deferred (on purpose):</b> digest wiring, attaching headlines to sections, relevance
+      scoring, dedup, and any second live feed. This slice changes <b>no user-visible output</b> — it
+      only adds a seam. Keeping it single-surface is itself a lesson applied (fat multi-file items blow
+      the budget).</div>
+    <div><b>Trade-off:</b> a bare <code>except Exception</code> guards both the per-item loop and the
+      per-feed loop. Broad, but intentional and tightly scoped — the goal is resilience, and each guard
+      wraps exactly one record/feed so nothing wider is swallowed.</div>
+  </div>
+
+  <!-- ============================================================ -->
+  <h2>How to see it work</h2>
+  <div class="card">
+    <pre><span class="c"># run the new tests (and the rest of the suite)</span>
+uv run pytest tests/test_rss.py -v
+uv run pytest
+
+<span class="c"># lint must be clean</span>
+uv run ruff check .</pre>
+    <p class="legend">The 19 tests in <code>tests/test_rss.py</code> cover: happy-path counts &amp; field
+    values, the missing-title skip, the bad-date → <code>None</code> case, HTTP 4xx/5xx and network errors
+    degrading to <span class="pill no">ok=False</span>, malformed XML, partial vs. total feed failure,
+    empty-feed handling, and the <code>isinstance(client, NewsSource)</code> structural check — all without
+    touching the network.</p>
+  </div>
+
+</div>
+</body>
+</html>
