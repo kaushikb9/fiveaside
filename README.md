@@ -34,7 +34,8 @@ uv run uvicorn terrace.web.app:app --reload
 ```
 
 Then open `http://localhost:8000` — Safari (Share → Add to Home Screen) and Chrome
-(install icon in the address bar) will offer to install it as an app.
+(install icon in the address bar) will offer to install it as an app. Visit
+`http://localhost:8000/standings` for the World Cup group tables.
 - **Later surfaces** (cheap because the core doesn't care): Telegram delivery,
   native wrappers, widgets.
 

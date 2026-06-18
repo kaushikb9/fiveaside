@@ -128,6 +128,10 @@
       <p>{{ digest.digest_date.strftime("%A, %d %B %Y") }}</p>
     </header>
 
+    <nav style="margin-bottom:1.5rem;font-size:0.9rem;">
+      <a href="/standings" style="color:var(--accent);text-decoration:none;">Group Standings →</a>
+    </nav>
+
     {% if degraded %}
     <div class="banner">⚠️ Some data was unavailable: {{ error }}</div>
     {% endif %}

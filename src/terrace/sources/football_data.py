@@ -4,9 +4,10 @@ import os
 from typing import Any
 
 import httpx
+from pydantic import ValidationError
 
-from terrace.core.models import Competition, Fixture, MatchStatus, Result, Team
-from terrace.sources.base import SourceResult
+from terrace.core.models import Competition, Fixture, MatchStatus, Result, Standing, Team
+from terrace.sources.base import SourceResult, StandingsResult
 
 _STATUS_MAP = {
     "SCHEDULED": MatchStatus.SCHEDULED,
@@ -74,6 +75,42 @@ def _parse_matches(payload: dict[str, Any], competition: str) -> SourceResult:
     return SourceResult(ok=True, fixtures=fixtures, results=results)
 
 
+def _parse_standings(payload: dict[str, Any], competition: str) -> StandingsResult:
+    comp_payload = payload.get("competition") or {}
+    comp = Competition(
+        code=comp_payload.get("code", competition),
+        name=comp_payload.get("name", competition),
+    )
+
+    standings: list[Standing] = []
+
+    for group_entry in payload.get("standings", []):
+        if group_entry.get("type") != "TOTAL":
+            continue
+        group = group_entry.get("group")
+        for row in group_entry.get("table", []):
+            try:
+                standings.append(
+                    Standing(
+                        competition=comp,
+                        group=group,
+                        position=row["position"],
+                        team=_team(row.get("team") or {}),
+                        played=row["playedGames"],
+                        won=row["won"],
+                        draw=row["draw"],
+                        lost=row["lost"],
+                        points=row["points"],
+                        goals_for=row["goalsFor"],
+                        goals_against=row["goalsAgainst"],
+                    )
+                )
+            except (KeyError, TypeError, ValueError, ValidationError):
+                continue
+
+    return StandingsResult(ok=True, standings=standings)
+
+
 class FootballDataClient:
     """`MatchSource` backed by football-data.org v4."""
 
@@ -107,3 +144,19 @@ class FootballDataClient:
         except (KeyError, TypeError, ValueError) as exc:
             error = f"unexpected payload: {exc}"
             return SourceResult(ok=False, fixtures=[], results=[], error=error)
+
+    def fetch_standings(self, competition: str = "WC") -> StandingsResult:
+        try:
+            response = self._client.get(f"{self.base_url}/competitions/{competition}/standings")
+            response.raise_for_status()
+            payload = response.json()
+        except httpx.HTTPError as exc:
+            return StandingsResult(ok=False, standings=[], error=str(exc))
+        except ValueError as exc:
+            return StandingsResult(ok=False, standings=[], error=f"invalid JSON: {exc}")
+
+        try:
+            return _parse_standings(payload, competition)
+        except (KeyError, TypeError, ValueError) as exc:
+            error = f"unexpected payload: {exc}"
+            return StandingsResult(ok=False, standings=[], error=error)
