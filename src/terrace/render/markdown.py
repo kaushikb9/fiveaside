@@ -15,6 +15,12 @@ def render_markdown(digest: DailyDigest) -> str:
         yesterday_lines.extend(f"- {story.story}" for story in digest.yesterday)
     else:
         yesterday_lines.append("_Nothing finished yesterday._")
+    if digest.yesterday_headlines:
+        yesterday_lines.append("**In the news**")
+        yesterday_lines.extend(
+            f"- [{item.title}]({item.link}) — {item.source}"
+            for item in digest.yesterday_headlines
+        )
     sections.append("\n".join(yesterday_lines))
 
     today_lines = ["## Today"]
@@ -25,6 +31,12 @@ def render_markdown(digest: DailyDigest) -> str:
         )
     else:
         today_lines.append("_No matches today._")
+    if digest.today_headlines:
+        today_lines.append("**In the news**")
+        today_lines.extend(
+            f"- [{item.title}]({item.link}) — {item.source}"
+            for item in digest.today_headlines
+        )
     sections.append("\n".join(today_lines))
 
     if digest.match_of_the_day is not None:
