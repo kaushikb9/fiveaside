@@ -18,7 +18,7 @@ thin — each must leave the repo green and shippable.
 - [x] NewsSource interface + RSS fetch in sources/ (1-2 feeds) with a recorded fixture and test — parsing only, no digest wiring yet
 - [x] Attach top-3 relevant headlines to each digest section (uses NewsSource)
 - [x] Standings/groups view: World Cup group tables on the web app, updated from the same source client
-- [ ] Digest personality pass: a "what to watch today" section with a strong opinionated pick and one fun fact, generated from data (no LLM dependency yet)
+- [x] Digest personality pass: a "what to watch today" section with a strong opinionated pick and one fun fact, generated from data (no LLM dependency yet)
 
 ## Later (don't pick up without human re-ordering)
 - [ ] Rename the Python package `terrace` -> `touchline` (imports, pyproject `[tool.hatch...packages]`, test imports); repo + identity already renamed. Do this only after the foundational PRs are merged to main.
