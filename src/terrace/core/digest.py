@@ -31,6 +31,12 @@ class MatchOfTheDay(BaseModel, frozen=True):
     reason: str
 
 
+class WhatToWatch(BaseModel, frozen=True):
+    card: MatchCard
+    take: str  # opinionated one-liner
+    fun_fact: str | None = None
+
+
 class DailyDigest(BaseModel, frozen=True):
     digest_date: date
     yesterday: list[ResultStory]
@@ -38,6 +44,7 @@ class DailyDigest(BaseModel, frozen=True):
     match_of_the_day: MatchOfTheDay | None
     yesterday_headlines: list[NewsItem] = []
     today_headlines: list[NewsItem] = []
+    what_to_watch: WhatToWatch | None = None
 
 
 def to_ist(dt: datetime) -> datetime:
@@ -93,6 +100,93 @@ def pick_match_of_the_day(cards: list[MatchCard]) -> MatchOfTheDay | None:
         f"at {best.kickoff_label}."
     )
     return MatchOfTheDay(card=best, reason=reason)
+
+
+def fun_fact(cards: list[MatchCard], results: list[Result]) -> str | None:
+    """Return the first applicable data-derived fun fact (deterministic priority order).
+
+    1. If *results* is non-empty: biggest-margin win so far.
+    2. elif *cards*: match-count sentence.
+    3. else None.
+    """
+    if results:
+        non_draws = [r for r in results if not r.is_draw]
+        if non_draws:
+            non_draws.sort(
+                key=lambda r: (-(abs(r.home_score - r.away_score)), r.kickoff, r.id)
+            )
+            best = non_draws[0]
+            winner_team = best.winning_team
+            if winner_team is not None:
+                loser_team = best.away if winner_team == best.home else best.home
+                hi = max(best.home_score, best.away_score)
+                lo = min(best.home_score, best.away_score)
+                return (
+                    f"Biggest win so far: {winner_team.name} {hi}–{lo} over {loser_team.name}."
+                )
+    if cards:
+        n = len(cards)
+        noun = "match" if n == 1 else "matches"
+        return f"{n} {noun} on the card today."
+    return None
+
+
+def pick_what_to_watch(cards: list[MatchCard], results: list[Result]) -> WhatToWatch | None:
+    """Narrative-weight pick for "What to watch today".
+
+    Scoring (deterministic):
+    - base  = card.fixture.matchday or 0
+    - +1 for each of home/away whose name appears as a winner in *results*
+
+    Tie-break: earliest kickoff_ist, then fixture.id (ascending).
+    """
+    if not cards:
+        return None
+
+    winner_names: set[str] = {
+        r.winning_team.name for r in results if r.winning_team is not None
+    }
+
+    def _score(card: MatchCard) -> int:
+        base = card.fixture.matchday or 0
+        momentum = sum(
+            1
+            for name in (card.fixture.home.name, card.fixture.away.name)
+            if name in winner_names
+        )
+        return base + momentum
+
+    best = min(
+        cards,
+        key=lambda c: (-_score(c), c.kickoff_ist, c.fixture.id),
+    )
+
+    home = best.fixture.home.name
+    away = best.fixture.away.name
+    kickoff_label = best.kickoff_label
+    matchday = best.fixture.matchday
+
+    home_won = home in winner_names
+    away_won = away in winner_names
+
+    if home_won and away_won:
+        take = (
+            f"Both {home} and {away} arrive on the back of wins — "
+            f"this is the one to watch at {kickoff_label}."
+        )
+    elif matchday:
+        take = (
+            f"Matchday {matchday} and everything still to play for — "
+            f"{home} vs {away} at {kickoff_label} is the pick."
+        )
+    else:
+        take = f"{home} vs {away} at {kickoff_label} is the pick of today's slate."
+
+    return WhatToWatch(
+        card=best,
+        take=take,
+        fun_fact=fun_fact(cards, results),
+    )
 
 
 def relevant_headlines(
@@ -193,4 +287,5 @@ def build_digest(
         match_of_the_day=pick_match_of_the_day(today),
         yesterday_headlines=yesterday_headlines,
         today_headlines=today_headlines,
+        what_to_watch=pick_what_to_watch(today, results),
     )

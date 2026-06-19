@@ -45,4 +45,13 @@ def render_markdown(digest: DailyDigest) -> str:
         away = motd.card.fixture.away.name
         sections.append(f"## Match of the day\n**{home} vs {away}** — {motd.reason}")
 
+    if digest.what_to_watch is not None:
+        wtw = digest.what_to_watch
+        home = wtw.card.fixture.home.name
+        away = wtw.card.fixture.away.name
+        wtw_lines = ["## What to watch today", f"**{home} vs {away}** — {wtw.take}"]
+        if wtw.fun_fact is not None:
+            wtw_lines.append(f"_Fun fact: {wtw.fun_fact}_")
+        sections.append("\n".join(wtw_lines))
+
     return "\n\n".join(sections)

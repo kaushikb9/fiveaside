@@ -3,9 +3,12 @@ from pathlib import Path
 
 from terrace.core.digest import (
     MatchCard,
+    WhatToWatch,
     build_digest,
     format_ist,
+    fun_fact,
     pick_match_of_the_day,
+    pick_what_to_watch,
     relevant_headlines,
     result_story,
     to_ist,
@@ -546,6 +549,406 @@ def test_relevant_headlines_dedup_keeps_highest_ranked():
     assert len(result) == 1
     # The dated version (item_a) sorts before the undated one → it wins dedup
     assert result[0].source == "BBC Sport"
+
+
+# -- fun_fact ------------------------------------------------------------------
+
+
+def test_fun_fact_empty_inputs_returns_none():
+    assert fun_fact([], []) is None
+
+
+def test_fun_fact_cards_only_returns_match_count_plural():
+    cards = [
+        _card("C1", ("Spain", "ESP"), ("Germany", "GER"), datetime(2026, 6, 13, 15, 0, tzinfo=UTC)),
+        _card("C2", ("France", "FRA"), ("Italy", "ITA"), datetime(2026, 6, 13, 18, 0, tzinfo=UTC)),
+    ]
+    assert fun_fact(cards, []) == "2 matches on the card today."
+
+
+def test_fun_fact_cards_only_singular():
+    cards = [
+        _card("C1", ("Spain", "ESP"), ("Germany", "GER"), datetime(2026, 6, 13, 15, 0, tzinfo=UTC)),
+    ]
+    assert fun_fact(cards, []) == "1 match on the card today."
+
+
+def test_fun_fact_results_win_branch_wins_over_match_count():
+    """When results are present, biggest-win branch takes priority over match-count."""
+    cards = [
+        _card("C1", ("Spain", "ESP"), ("Germany", "GER"), datetime(2026, 6, 13, 15, 0, tzinfo=UTC)),
+    ]
+    results = [
+        _result(
+            "R1",
+            ("Brazil", "BRA"),
+            ("Japan", "JPN"),
+            4,
+            0,
+            "HOME",
+            datetime(2026, 6, 12, 16, 0, tzinfo=UTC),
+        )
+    ]
+    fact = fun_fact(cards, results)
+    assert fact is not None
+    assert fact.startswith("Biggest win so far:")
+    assert "Brazil" in fact
+    assert "4–0" in fact
+    assert "Japan" in fact
+
+
+def test_fun_fact_biggest_win_picks_largest_margin():
+    results = [
+        _result(
+            "R1",
+            ("Mexico", "MEX"),
+            ("Canada", "CAN"),
+            2,
+            1,
+            "HOME",
+            datetime(2026, 6, 12, 16, 0, tzinfo=UTC),
+        ),
+        _result(
+            "R2",
+            ("Brazil", "BRA"),
+            ("South Korea", "KOR"),
+            5,
+            0,
+            "HOME",
+            datetime(2026, 6, 12, 18, 0, tzinfo=UTC),
+        ),
+    ]
+    fact = fun_fact([], results)
+    assert fact is not None
+    assert "Brazil" in fact
+    assert "5–0" in fact
+
+
+def test_fun_fact_skips_draws_for_biggest_win():
+    """All draws → no biggest-win fact, falls through to cards branch."""
+    cards = [
+        _card("C1", ("Spain", "ESP"), ("Germany", "GER"), datetime(2026, 6, 13, 15, 0, tzinfo=UTC)),
+    ]
+    results = [
+        _result(
+            "R1",
+            ("Mexico", "MEX"),
+            ("Canada", "CAN"),
+            1,
+            1,
+            "DRAW",
+            datetime(2026, 6, 12, 16, 0, tzinfo=UTC),
+        )
+    ]
+    fact = fun_fact(cards, results)
+    # All results are draws → falls through to card-count branch
+    assert fact == "1 match on the card today."
+
+
+# -- pick_what_to_watch --------------------------------------------------------
+
+
+def test_pick_what_to_watch_empty_cards_returns_none():
+    assert pick_what_to_watch([], []) is None
+
+
+def test_pick_what_to_watch_returns_wtw_instance():
+    cards = [
+        _card("C1", ("Spain", "ESP"), ("Germany", "GER"), datetime(2026, 6, 13, 15, 0, tzinfo=UTC)),
+    ]
+    result = pick_what_to_watch(cards, [])
+    assert isinstance(result, WhatToWatch)
+    assert result.card.fixture.id == "C1"
+
+
+def test_pick_what_to_watch_both_teams_in_form_take():
+    home_team = ("Brazil", "BRA")
+    away_team = ("Argentina", "ARG")
+    cards = [
+        _card("C1", home_team, away_team, datetime(2026, 6, 13, 15, 0, tzinfo=UTC)),
+    ]
+    results = [
+        _result(
+            "R1",
+            home_team,
+            ("Japan", "JPN"),
+            2,
+            0,
+            "HOME",
+            datetime(2026, 6, 12, 14, 0, tzinfo=UTC),
+        ),
+        _result(
+            "R2",
+            ("Spain", "ESP"),
+            away_team,
+            0,
+            1,
+            "AWAY",
+            datetime(2026, 6, 12, 16, 0, tzinfo=UTC),
+        ),
+    ]
+    wtw = pick_what_to_watch(cards, results)
+    assert wtw is not None
+    assert "Brazil" in wtw.take
+    assert "Argentina" in wtw.take
+    assert "back of wins" in wtw.take
+    assert "8:30 PM IST" in wtw.take  # kickoff_label included
+
+
+def test_pick_what_to_watch_matchday_take():
+    cards = [
+        _card("C1", ("Spain", "ESP"), ("Germany", "GER"), datetime(2026, 6, 13, 15, 0, tzinfo=UTC)),
+    ]
+    wtw = pick_what_to_watch(cards, [])
+    assert wtw is not None
+    # matchday=1 is set by _card/_fixture helper
+    assert "Matchday 1" in wtw.take
+    assert "Spain" in wtw.take
+    assert "Germany" in wtw.take
+    assert "8:30 PM IST" in wtw.take
+
+
+def test_pick_what_to_watch_fallback_take_when_no_matchday():
+    """Fixture with matchday=None → fallback take."""
+    fixture = Fixture(
+        id="F99",
+        competition=COMPETITION,
+        kickoff=datetime(2026, 6, 13, 15, 0, tzinfo=UTC),
+        home=_team("USA", "USA"),
+        away=_team("Wales", "WAL"),
+        status=MatchStatus.SCHEDULED,
+        matchday=None,
+    )
+    card = MatchCard(
+        fixture=fixture,
+        kickoff_ist=to_ist(datetime(2026, 6, 13, 15, 0, tzinfo=UTC)),
+        kickoff_label=format_ist(datetime(2026, 6, 13, 15, 0, tzinfo=UTC)),
+    )
+    wtw = pick_what_to_watch([card], [])
+    assert wtw is not None
+    assert "pick of today's slate" in wtw.take
+    assert "USA" in wtw.take
+    assert "Wales" in wtw.take
+
+
+def test_pick_what_to_watch_tiebreak_earliest_kickoff():
+    """When scores are equal, earliest kickoff_ist wins; then fixture.id."""
+    # matchday=1 for both, no results → equal scores; earlier kickoff should win
+    earlier = _card(
+        "A001",
+        ("Spain", "ESP"),
+        ("Germany", "GER"),
+        datetime(2026, 6, 13, 13, 0, tzinfo=UTC),  # 6:30 PM IST
+    )
+    later = _card(
+        "A002",
+        ("France", "FRA"),
+        ("Italy", "ITA"),
+        datetime(2026, 6, 13, 16, 0, tzinfo=UTC),  # 9:30 PM IST
+    )
+    wtw = pick_what_to_watch([later, earlier], [])
+    assert wtw is not None
+    assert wtw.card.fixture.id == "A001"
+
+
+def test_pick_what_to_watch_tiebreak_fixture_id_when_same_kickoff():
+    """When score and kickoff are equal, fixture.id (ascending) breaks the tie."""
+    ko = datetime(2026, 6, 13, 15, 0, tzinfo=UTC)
+    card_b = _card("B002", ("Brazil", "BRA"), ("Japan", "JPN"), ko)
+    card_a = _card("A001", ("Spain", "ESP"), ("Germany", "GER"), ko)
+    wtw = pick_what_to_watch([card_b, card_a], [])
+    assert wtw is not None
+    assert wtw.card.fixture.id == "A001"
+
+
+def test_pick_what_to_watch_higher_matchday_wins_over_lower():
+    """Higher matchday → higher score → wins even with later kickoff."""
+    low_day = Fixture(
+        id="F1",
+        competition=COMPETITION,
+        kickoff=datetime(2026, 6, 13, 12, 0, tzinfo=UTC),
+        home=_team("Mexico", "MEX"),
+        away=_team("Canada", "CAN"),
+        status=MatchStatus.SCHEDULED,
+        matchday=1,
+    )
+    high_day = Fixture(
+        id="F2",
+        competition=COMPETITION,
+        kickoff=datetime(2026, 6, 13, 16, 0, tzinfo=UTC),
+        home=_team("Brazil", "BRA"),
+        away=_team("Argentina", "ARG"),
+        status=MatchStatus.SCHEDULED,
+        matchday=3,
+    )
+    cards = [
+        MatchCard(
+            fixture=low_day,
+            kickoff_ist=to_ist(low_day.kickoff),
+            kickoff_label=format_ist(low_day.kickoff),
+        ),
+        MatchCard(
+            fixture=high_day,
+            kickoff_ist=to_ist(high_day.kickoff),
+            kickoff_label=format_ist(high_day.kickoff),
+        ),
+    ]
+    wtw = pick_what_to_watch(cards, [])
+    assert wtw is not None
+    assert wtw.card.fixture.id == "F2"
+
+
+def test_pick_what_to_watch_attaches_fun_fact():
+    cards = [
+        _card("C1", ("Spain", "ESP"), ("Germany", "GER"), datetime(2026, 6, 13, 15, 0, tzinfo=UTC)),
+    ]
+    wtw = pick_what_to_watch(cards, [])
+    assert wtw is not None
+    # With cards and no results → match-count fun_fact
+    assert wtw.fun_fact == "1 match on the card today."
+
+
+def test_build_digest_sets_what_to_watch():
+    fixtures = [
+        _fixture(
+            "T1",
+            ("Spain", "ESP"),
+            ("Germany", "GER"),
+            datetime(2026, 6, 13, 15, 0, tzinfo=UTC),
+        )
+    ]
+    now = datetime(2026, 6, 13, 6, 0, tzinfo=UTC)
+    digest = build_digest(fixtures, [], now=now)
+    assert digest.what_to_watch is not None
+    assert digest.what_to_watch.card.fixture.id == "T1"
+
+
+def test_build_digest_what_to_watch_none_when_no_today_fixtures():
+    now = datetime(2026, 6, 13, 6, 0, tzinfo=UTC)
+    digest = build_digest([], [], now=now)
+    assert digest.what_to_watch is None
+
+
+# -- fun_fact additional coverage (test-engineer additions) --------------------
+
+
+def test_fun_fact_all_draws_no_cards_returns_none():
+    """Failure-mode: results are all draws and cards is empty → None.
+
+    The draws-only branch produces no non_draws; the cards branch is also empty;
+    the function must fall all the way through and return None rather than
+    returning a stale or fabricated fact.
+    """
+    draw_result = _result(
+        "D1",
+        ("Mexico", "MEX"),
+        ("Canada", "CAN"),
+        2,
+        2,
+        "DRAW",
+        datetime(2026, 6, 12, 16, 0, tzinfo=UTC),
+    )
+    assert fun_fact([], [draw_result]) is None
+
+
+def test_fun_fact_same_margin_tiebreak_picks_earlier_kickoff():
+    """When two results share the same winning margin, the earlier kickoff wins."""
+    earlier = _result(
+        "E1",
+        ("Brazil", "BRA"),
+        ("Peru", "PER"),
+        3,
+        0,
+        "HOME",
+        datetime(2026, 6, 12, 13, 0, tzinfo=UTC),  # earlier UTC kickoff
+    )
+    later = _result(
+        "L1",
+        ("France", "FRA"),
+        ("Senegal", "SEN"),
+        3,
+        0,
+        "HOME",
+        datetime(2026, 6, 12, 17, 0, tzinfo=UTC),  # same margin, later kickoff
+    )
+    fact = fun_fact([], [later, earlier])
+    assert fact is not None
+    # Tiebreak: earliest kickoff → Brazil (earlier) is the "biggest win" fact
+    assert "Brazil" in fact
+    assert "3–0" in fact
+
+
+# -- pick_what_to_watch additional coverage ------------------------------------
+
+
+def test_pick_what_to_watch_only_home_team_in_form_does_not_use_both_wins_take():
+    """Partial momentum (only home in form) must NOT produce the 'back of wins' take."""
+    home_team = ("Brazil", "BRA")
+    away_team = ("Japan", "JPN")
+    cards = [
+        _card("C1", home_team, away_team, datetime(2026, 6, 13, 15, 0, tzinfo=UTC)),
+    ]
+    # Only home team (Brazil) is a winner; Japan has no recent win.
+    results = [
+        _result(
+            "R1",
+            home_team,
+            ("Canada", "CAN"),
+            2,
+            0,
+            "HOME",
+            datetime(2026, 6, 12, 14, 0, tzinfo=UTC),
+        ),
+    ]
+    wtw = pick_what_to_watch(cards, results)
+    assert wtw is not None
+    # One team in form → must NOT say "back of wins" (that requires BOTH)
+    assert "back of wins" not in wtw.take
+    # matchday=1 from _card helper, so we expect the matchday variant
+    assert "Matchday 1" in wtw.take
+
+
+def test_build_digest_what_to_watch_uses_all_results_for_momentum():
+    """build_digest passes the full *results* list (not just yesterday's results)
+    to pick_what_to_watch, so a result from several days ago still influences
+    the momentum score.
+    """
+    # Two fixtures today with equal matchday; Brazil plays the later one.
+    early_fixture = _fixture(
+        "A1",
+        ("Canada", "CAN"),
+        ("Mexico", "MEX"),
+        datetime(2026, 6, 13, 13, 0, tzinfo=UTC),  # earlier kickoff
+    )
+    late_fixture = _fixture(
+        "B1",
+        ("Brazil", "BRA"),
+        ("Japan", "JPN"),
+        datetime(2026, 6, 13, 16, 0, tzinfo=UTC),  # later kickoff
+    )
+    # A result from three days ago (not "yesterday") for Brazil.
+    # Without momentum, the earlier card (A1) would win the tiebreak.
+    # With Brazil's momentum (+1), B1 scores matchday(1)+1=2 vs A1's 1+0=1 → B1 wins.
+    old_result = _result(
+        "OLD",
+        ("Brazil", "BRA"),
+        ("Argentina", "ARG"),
+        3,
+        0,
+        "HOME",
+        datetime(2026, 6, 10, 16, 0, tzinfo=UTC),  # three days before digest_date
+    )
+    now = datetime(2026, 6, 13, 6, 0, tzinfo=UTC)  # digest_date = 2026-06-13
+
+    digest = build_digest([early_fixture, late_fixture], [old_result], now=now)
+
+    wtw = digest.what_to_watch
+    assert wtw is not None
+    # The late fixture (B1) must win because of Brazil's momentum from old_result.
+    assert wtw.card.fixture.id == "B1", (
+        "build_digest must pass ALL results to pick_what_to_watch, "
+        "not only yesterday's results"
+    )
 
 
 # -- purity --------------------------------------------------------------------
