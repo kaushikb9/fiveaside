@@ -6,8 +6,8 @@ from pathlib import Path
 import httpx
 import pytest
 
-from terrace.sources.base import NewsResult, NewsSource
-from terrace.sources.rss import RSSNewsClient
+from touchline.sources.base import NewsResult, NewsSource
+from touchline.sources.rss import RSSNewsClient
 
 FIXTURE_PATH = Path(__file__).parent / "fixtures" / "news" / "bbc_football.xml"
 

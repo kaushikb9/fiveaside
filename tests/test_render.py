@@ -1,8 +1,8 @@
 from datetime import UTC, date, datetime
 
-from terrace.core.digest import DailyDigest, MatchCard, MatchOfTheDay, ResultStory, WhatToWatch
-from terrace.core.models import Competition, Fixture, MatchStatus, NewsItem, Result, Team
-from terrace.render.markdown import render_markdown
+from touchline.core.digest import DailyDigest, MatchCard, MatchOfTheDay, ResultStory, WhatToWatch
+from touchline.core.models import Competition, Fixture, MatchStatus, NewsItem, Result, Team
+from touchline.render.markdown import render_markdown
 
 COMPETITION = Competition(code="WC", name="FIFA World Cup")
 

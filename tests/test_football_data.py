@@ -4,9 +4,9 @@ from pathlib import Path
 import httpx
 import pytest
 
-from terrace.core.models import MatchStatus
-from terrace.sources.base import MatchSource, SourceResult, StandingsSource
-from terrace.sources.football_data import FootballDataClient
+from touchline.core.models import MatchStatus
+from touchline.sources.base import MatchSource, SourceResult, StandingsSource
+from touchline.sources.football_data import FootballDataClient
 
 FIXTURE_PATH = Path(__file__).parent / "fixtures" / "football_data" / "wc_matches.json"
 STANDINGS_FIXTURE_PATH = Path(__file__).parent / "fixtures" / "football_data" / "wc_standings.json"

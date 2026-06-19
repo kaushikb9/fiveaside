@@ -3,11 +3,11 @@
 import argparse
 from datetime import UTC, datetime
 
-from terrace.core.digest import build_digest
-from terrace.render.markdown import render_markdown
-from terrace.sources.base import MatchSource, NewsSource
-from terrace.sources.football_data import FootballDataClient
-from terrace.sources.rss import RSSNewsClient
+from touchline.core.digest import build_digest
+from touchline.render.markdown import render_markdown
+from touchline.sources.base import MatchSource, NewsSource
+from touchline.sources.football_data import FootballDataClient
+from touchline.sources.rss import RSSNewsClient
 
 
 def run_digest(
@@ -54,7 +54,7 @@ def run_digest(
 
 
 def main(argv: list[str] | None = None) -> int:
-    parser = argparse.ArgumentParser(prog="terrace")
+    parser = argparse.ArgumentParser(prog="touchline")
     subparsers = parser.add_subparsers(dest="command")
     subparsers.add_parser("digest", help="Print today's football digest as Markdown.")
 

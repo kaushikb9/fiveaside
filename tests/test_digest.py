@@ -1,7 +1,7 @@
 from datetime import UTC, datetime
 from pathlib import Path
 
-from terrace.core.digest import (
+from touchline.core.digest import (
     MatchCard,
     WhatToWatch,
     build_digest,
@@ -13,7 +13,7 @@ from terrace.core.digest import (
     result_story,
     to_ist,
 )
-from terrace.core.models import Competition, Fixture, MatchStatus, NewsItem, Result, Team
+from touchline.core.models import Competition, Fixture, MatchStatus, NewsItem, Result, Team
 
 COMPETITION = Competition(code="WC", name="FIFA World Cup")
 
@@ -450,7 +450,7 @@ def test_build_digest_news_none_still_renders():
     """Digest with news=None renders without error."""
     now = datetime(2026, 6, 13, 6, 0, tzinfo=UTC)
     digest = build_digest([], [], now=now, news=None)
-    from terrace.render.markdown import render_markdown
+    from touchline.render.markdown import render_markdown
 
     output = render_markdown(digest)
     assert "# Touchline" in output
@@ -955,6 +955,6 @@ def test_build_digest_what_to_watch_uses_all_results_for_momentum():
 
 
 def test_digest_module_has_no_forbidden_imports():
-    source = Path("src/terrace/core/digest.py").read_text()
-    for forbidden in ("terrace.sources", "httpx", "fastapi", "import os", "from os"):
+    source = Path("src/touchline/core/digest.py").read_text()
+    for forbidden in ("touchline.sources", "httpx", "fastapi", "import os", "from os"):
         assert forbidden not in source

@@ -2,9 +2,9 @@ import subprocess
 import sys
 from datetime import UTC, datetime
 
-from terrace.cli import main, run_digest
-from terrace.core.models import Competition, Fixture, MatchStatus, NewsItem, Team
-from terrace.sources.base import NewsResult, SourceResult
+from touchline.cli import main, run_digest
+from touchline.core.models import Competition, Fixture, MatchStatus, NewsItem, Team
+from touchline.sources.base import NewsResult, SourceResult
 
 COMPETITION = Competition(code="WC", name="FIFA World Cup")
 
@@ -66,7 +66,7 @@ def test_run_digest_failure_mode_does_not_crash():
 
 def test_cli_help_exits_zero():
     result = subprocess.run(
-        [sys.executable, "-m", "terrace.cli", "digest", "--help"],
+        [sys.executable, "-m", "touchline.cli", "digest", "--help"],
         capture_output=True,
         text=True,
     )

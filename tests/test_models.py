@@ -3,7 +3,7 @@ from datetime import UTC, datetime
 import pytest
 from pydantic import ValidationError
 
-from terrace.core.models import Competition, Result, Standing, Team
+from touchline.core.models import Competition, Result, Standing, Team
 
 COMPETITION = Competition(code="WC", name="FIFA World Cup")
 KICKOFF = datetime(2026, 6, 12, 16, 0, tzinfo=UTC)

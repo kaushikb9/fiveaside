@@ -2,10 +2,10 @@ from datetime import UTC, datetime
 
 from fastapi.testclient import TestClient
 
-from terrace.core.models import Competition, Fixture, MatchStatus, Result, Standing, Team
-from terrace.sources.base import SourceResult, StandingsResult
-from terrace.sources.football_data import FootballDataClient
-from terrace.web.app import create_app
+from touchline.core.models import Competition, Fixture, MatchStatus, Result, Standing, Team
+from touchline.sources.base import SourceResult, StandingsResult
+from touchline.sources.football_data import FootballDataClient
+from touchline.web.app import create_app
 
 COMPETITION = Competition(code="WC", name="FIFA World Cup")
 NOW = datetime(2026, 6, 14, 12, 0, tzinfo=UTC)

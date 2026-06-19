@@ -6,8 +6,8 @@ from typing import Any
 import httpx
 from pydantic import ValidationError
 
-from terrace.core.models import Competition, Fixture, MatchStatus, Result, Standing, Team
-from terrace.sources.base import SourceResult, StandingsResult
+from touchline.core.models import Competition, Fixture, MatchStatus, Result, Standing, Team
+from touchline.sources.base import SourceResult, StandingsResult
 
 _STATUS_MAP = {
     "SCHEDULED": MatchStatus.SCHEDULED,

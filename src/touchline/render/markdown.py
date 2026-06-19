@@ -3,7 +3,7 @@
 Pure: no I/O, no third-party imports beyond the standard library.
 """
 
-from terrace.core.digest import DailyDigest
+from touchline.core.digest import DailyDigest
 
 
 def render_markdown(digest: DailyDigest) -> str:

@@ -1,6 +1,6 @@
 """Pure digest-building logic for Touchline.
 
-This module is pure: it imports only from ``terrace.core.models`` and the
+This module is pure: it imports only from ``touchline.core.models`` and the
 standard library. No I/O, no `datetime.now()` -- time enters only via the
 `now` parameter of `build_digest`.
 """
@@ -10,7 +10,7 @@ from datetime import UTC, date, datetime, timedelta, timezone
 
 from pydantic import BaseModel
 
-from terrace.core.models import Fixture, NewsItem, Result
+from touchline.core.models import Fixture, NewsItem, Result
 
 IST = timezone(timedelta(hours=5, minutes=30))
 

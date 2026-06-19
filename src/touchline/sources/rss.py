@@ -5,8 +5,8 @@ from email.utils import parsedate_to_datetime
 
 import httpx
 
-from terrace.core.models import NewsItem
-from terrace.sources.base import NewsResult
+from touchline.core.models import NewsItem
+from touchline.sources.base import NewsResult
 
 _DEFAULT_FEEDS: list[tuple[str, str]] = [
     ("BBC Sport", "https://feeds.bbci.co.uk/sport/football/rss.xml"),

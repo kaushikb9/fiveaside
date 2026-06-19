@@ -9,10 +9,10 @@ from fastapi.responses import FileResponse
 from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
 
-from terrace.core.digest import build_digest
-from terrace.core.models import Standing
-from terrace.sources.base import MatchSource, StandingsSource
-from terrace.sources.football_data import FootballDataClient
+from touchline.core.digest import build_digest
+from touchline.core.models import Standing
+from touchline.sources.base import MatchSource, StandingsSource
+from touchline.sources.football_data import FootballDataClient
 
 WEB_DIR = Path(__file__).parent
 STATIC_DIR = WEB_DIR / "static"

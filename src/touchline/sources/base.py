@@ -4,7 +4,7 @@ from typing import Protocol, runtime_checkable
 
 from pydantic import BaseModel
 
-from terrace.core.models import Fixture, NewsItem, Result, Standing
+from touchline.core.models import Fixture, NewsItem, Result, Standing
 
 
 class SourceResult(BaseModel, frozen=True):
