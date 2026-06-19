@@ -5,10 +5,11 @@ import httpx
 import pytest
 
 from terrace.core.models import MatchStatus
-from terrace.sources.base import MatchSource, SourceResult
+from terrace.sources.base import MatchSource, SourceResult, StandingsSource
 from terrace.sources.football_data import FootballDataClient
 
 FIXTURE_PATH = Path(__file__).parent / "fixtures" / "football_data" / "wc_matches.json"
+STANDINGS_FIXTURE_PATH = Path(__file__).parent / "fixtures" / "football_data" / "wc_standings.json"
 
 
 def _load_fixture() -> dict:
@@ -198,3 +199,140 @@ def test_fetch_matches_default_competition_is_wc():
 
     assert result.ok is True
     assert seen_paths == ["/v4/competitions/WC/matches"]
+
+
+# ---------------------------------------------------------------------------
+# Standings tests
+# ---------------------------------------------------------------------------
+
+
+def test_fetch_standings_parses_fixture():
+    payload = json.loads(STANDINGS_FIXTURE_PATH.read_text())
+
+    def handler(request: httpx.Request) -> httpx.Response:
+        assert request.url.path == "/v4/competitions/WC/standings"
+        return httpx.Response(200, json=payload)
+
+    client = _client_with_transport(handler)
+    result = client.fetch_standings("WC")
+
+    assert result.ok is True
+    assert result.error is None
+
+    # GROUP_A: 4 valid rows (malformed row missing `position` is skipped)
+    # GROUP_B: 4 valid rows — total 8; HOME-type entry is not counted
+    assert len(result.standings) == 8
+
+    # Correct position and points for Mexico (pos 1, 6 pts in GROUP_A)
+    mex = next(s for s in result.standings if s.team.name == "Mexico")
+    assert mex.position == 1
+    assert mex.points == 6
+    assert mex.group == "GROUP_A"
+
+    # All standings carry the correct competition code
+    assert all(s.competition.code == "WC" for s in result.standings)
+
+    # HOME-type group entries are not included
+    assert all(s.team.name != "BAD_ROW_NO_POSITION" for s in result.standings)
+
+
+def test_fetch_standings_skips_malformed_row_without_dropping_rest():
+    payload = json.loads(STANDINGS_FIXTURE_PATH.read_text())
+
+    def handler(request: httpx.Request) -> httpx.Response:
+        return httpx.Response(200, json=payload)
+
+    client = _client_with_transport(handler)
+    result = client.fetch_standings("WC")
+
+    assert result.ok is True
+    # The malformed row (missing `position`) is skipped, but the 8 valid rows remain
+    assert len(result.standings) == 8
+    group_a_rows = [s for s in result.standings if s.group == "GROUP_A"]
+    # GROUP_A has 5 rows in fixture but 1 is malformed → 4 valid
+    assert len(group_a_rows) == 4
+
+
+def test_fetch_standings_degrades_on_http_error():
+    def handler(request: httpx.Request) -> httpx.Response:
+        return httpx.Response(500, json={"message": "boom"})
+
+    client = _client_with_transport(handler)
+    result = client.fetch_standings("WC")
+
+    assert result.ok is False
+    assert result.standings == []
+    assert result.error is not None
+
+
+def test_client_satisfies_standings_source_protocol():
+    client = FootballDataClient(token="dummy")
+    src: StandingsSource = client
+    assert isinstance(src, StandingsSource)
+
+
+def test_fetch_standings_degrades_on_network_error():
+    """A low-level ConnectError is caught and returned as ok=False, not raised."""
+
+    def handler(request: httpx.Request) -> httpx.Response:
+        raise httpx.ConnectError("connection refused")
+
+    client = _client_with_transport(handler)
+    result = client.fetch_standings("WC")
+
+    assert result.ok is False
+    assert result.standings == []
+    assert result.error is not None
+
+
+def test_fetch_standings_degrades_on_invalid_json():
+    """Non-JSON bodies are caught and returned as ok=False, not raised."""
+
+    def handler(request: httpx.Request) -> httpx.Response:
+        return httpx.Response(
+            200, content=b"not json", headers={"content-type": "application/json"}
+        )
+
+    client = _client_with_transport(handler)
+    result = client.fetch_standings("WC")
+
+    assert result.ok is False
+    assert result.standings == []
+    assert result.error is not None
+
+
+def test_fetch_standings_filters_home_type_entries():
+    """Only entries where type == 'TOTAL' contribute standings rows;
+    HOME / AWAY entries must be silently ignored regardless of their contents."""
+    payload = json.loads(STANDINGS_FIXTURE_PATH.read_text())
+
+    def handler(request: httpx.Request) -> httpx.Response:
+        return httpx.Response(200, json=payload)
+
+    client = _client_with_transport(handler)
+    result = client.fetch_standings("WC")
+
+    assert result.ok is True
+    # The fixture's HOME-type GROUP_A block has rows for Mexico and USA whose
+    # data differs from the TOTAL block (e.g. playedGames=1 vs 2).  We prove
+    # none of those rows leaked in by checking that every Standing was built
+    # from a TOTAL entry (playedGames >= 2 in the fixture, HOME entries have 1).
+    assert all(s.played >= 2 for s in result.standings), (
+        "HOME-type rows (playedGames=1) must not appear in the result"
+    )
+
+
+def test_fetch_standings_default_competition_is_wc():
+    """Calling fetch_standings() with no arguments hits the WC endpoint."""
+    payload = json.loads(STANDINGS_FIXTURE_PATH.read_text())
+    seen_paths: list[str] = []
+
+    def handler(request: httpx.Request) -> httpx.Response:
+        seen_paths.append(request.url.path)
+        return httpx.Response(200, json=payload)
+
+    client = _client_with_transport(handler)
+    result = client.fetch_standings()
+
+    assert result.ok is True
+    assert seen_paths == ["/v4/competitions/WC/standings"]

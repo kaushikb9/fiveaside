@@ -10,7 +10,8 @@ from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
 
 from terrace.core.digest import build_digest
-from terrace.sources.base import MatchSource
+from terrace.core.models import Standing
+from terrace.sources.base import MatchSource, StandingsSource
 from terrace.sources.football_data import FootballDataClient
 
 WEB_DIR = Path(__file__).parent
@@ -19,7 +20,7 @@ TEMPLATES_DIR = WEB_DIR / "templates"
 
 
 def create_app(
-    source: MatchSource | None = None,
+    source: MatchSource | StandingsSource | None = None,
     *,
     now_fn: Callable[[], datetime] | None = None,
 ) -> FastAPI:
@@ -50,6 +51,25 @@ def create_app(
             "digest.html",
             {
                 "digest": digest,
+                "degraded": not res.ok,
+                "error": res.error,
+            },
+        )
+
+    @app.get("/standings")
+    def standings_page(request: Request):
+        res = source.fetch_standings("WC")  # type: ignore[union-attr]
+        groups: dict[str, list[Standing]] = {}
+        for s in res.standings:
+            key = s.group or "Unknown"
+            groups.setdefault(key, []).append(s)
+        # Sort each group's rows by position ascending.
+        groups = {k: sorted(v, key=lambda x: x.position) for k, v in sorted(groups.items())}
+        return templates.TemplateResponse(
+            request,
+            "standings.html",
+            {
+                "groups": groups,
                 "degraded": not res.ok,
                 "error": res.error,
             },

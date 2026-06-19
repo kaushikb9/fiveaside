@@ -4,7 +4,7 @@ from typing import Protocol, runtime_checkable
 
 from pydantic import BaseModel
 
-from terrace.core.models import Fixture, NewsItem, Result
+from terrace.core.models import Fixture, NewsItem, Result, Standing
 
 
 class SourceResult(BaseModel, frozen=True):
@@ -44,3 +44,22 @@ class NewsSource(Protocol):
     """A source of news headlines."""
 
     def fetch_news(self) -> NewsResult: ...
+
+
+class StandingsResult(BaseModel, frozen=True):
+    """Result of a standings fetch, carrying graceful degradation to callers.
+
+    On success: ``ok=True``, populated ``standings``, ``error=None``.
+    On failure: ``ok=False``, empty list, and a short human-readable ``error``.
+    """
+
+    ok: bool
+    standings: list[Standing]
+    error: str | None = None
+
+
+@runtime_checkable
+class StandingsSource(Protocol):
+    """A source of competition group/league standings."""
+
+    def fetch_standings(self, competition: str) -> StandingsResult: ...
