@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>PR #12 — "What to watch today"</title>
+<style>
+  :root{
+    --bg:#0f1115; --panel:#171a21; --panel2:#1d212b; --ink:#e7ebf0; --mut:#9aa4b2;
+    --line:#2a2f3a; --accent:#7cc4ff; --green:#7ee0a5; --amber:#f3c969; --pink:#f3a0c0;
+    --mono:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);
+    font:16px/1.6 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    -webkit-text-size-adjust:100%}
+  .wrap{max-width:920px;margin:0 auto;padding:28px 18px 80px}
+  h1{font-size:26px;margin:0 0 6px;letter-spacing:-.2px}
+  h2{font-size:20px;margin:38px 0 12px;letter-spacing:-.2px}
+  .sub{color:var(--mut);margin:0 0 4px}
+  .thesis{background:var(--panel);border:1px solid var(--line);border-left:3px solid var(--accent);
+    padding:14px 16px;border-radius:10px;margin:18px 0 6px}
+  .tag{display:inline-block;font:12px/1 var(--mono);color:var(--mut);
+    border:1px solid var(--line);border-radius:999px;padding:5px 10px;margin:4px 6px 0 0}
+  .panel{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:16px 18px;margin:12px 0}
+  p{margin:10px 0}
+  code{font-family:var(--mono);font-size:13px;background:#11141a;border:1px solid var(--line);
+    border-radius:5px;padding:1px 5px;color:#dfe6ee}
+  pre{background:#11141a;border:1px solid var(--line);border-radius:10px;padding:14px;overflow:auto;
+    font-family:var(--mono);font-size:13px;line-height:1.5;color:#dfe6ee;margin:10px 0}
+  pre .c{color:#6b7689}
+  pre .k{color:var(--pink)}
+  pre .s{color:var(--green)}
+  pre .n{color:var(--amber)}
+  .mut{color:var(--mut)}
+  /* flow diagram */
+  .flow{display:flex;flex-wrap:wrap;gap:10px;align-items:stretch;margin:14px 0}
+  .box{background:var(--panel2);border:1px solid var(--line);border-radius:10px;padding:11px 13px;
+    flex:1 1 150px;min-width:140px}
+  .box .t{font:12px/1 var(--mono);color:var(--accent);margin-bottom:6px}
+  .box small{color:var(--mut);display:block;font-size:12.5px;line-height:1.45}
+  .arrow{align-self:center;color:var(--mut);font-size:22px;padding:0 2px}
+  .grid{display:grid;grid-template-columns:1fr;gap:10px}
+  .file{display:grid;grid-template-columns:200px 1fr;gap:12px;padding:11px 0;border-bottom:1px solid var(--line)}
+  .file:last-child{border-bottom:0}
+  .file .fn{font-family:var(--mono);font-size:12.5px;color:var(--green);word-break:break-all}
+  .file .fd{color:var(--mut);font-size:14px}
+  .pill{font:11px/1 var(--mono);border-radius:5px;padding:3px 7px;border:1px solid var(--line)}
+  .add{color:var(--green);border-color:#244b34;background:#102016}
+  table{border-collapse:collapse;width:100%;font-size:14px;margin:8px 0}
+  th,td{border:1px solid var(--line);padding:8px 10px;text-align:left;vertical-align:top}
+  th{background:var(--panel2);color:var(--mut);font-weight:600}
+  .num{font-family:var(--mono);color:var(--amber)}
+  .lead{border-left:3px solid var(--green)}
+  .why{color:var(--green);font-size:13.5px;margin-top:8px}
+  @media(max-width:560px){.file{grid-template-columns:1fr}.box{flex-basis:100%}.arrow{transform:rotate(90deg)}}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <p class="sub">Pull Request #12 · branch <code>nightshift/item-22</code> · touchline</p>
+  <h1>Digest personality pass — “What to watch today”</h1>
+  <div class="thesis">
+    The daily markdown digest gains a calm, opinionated section: <b>one strong pick</b>
+    for today’s slate plus <b>one data-derived fun fact</b>. Everything is computed from
+    data the digest already holds — <b>no LLM, no new dependencies, fully deterministic</b>.
+  </div>
+  <div>
+    <span class="tag">+612 / −1 lines</span>
+    <span class="tag">4 files</span>
+    <span class="tag">additive only</span>
+    <span class="tag">pure core (pydantic + stdlib)</span>
+    <span class="tag">markdown / CLI surface only</span>
+  </div>
+
+  <!-- ───────────────── FLOW ───────────────── -->
+  <h2>The flow</h2>
+  <p>The digest pipeline was already in place. This PR slots two new pure functions
+  into <code>build_digest</code> and one new render block. Nothing existing was changed.</p>
+
+  <div class="flow">
+    <div class="box"><div class="t">inputs</div>
+      <small><code>fixtures</code> + <code>results</code><br>(plus <code>now</code>)</small></div>
+    <div class="arrow">→</div>
+    <div class="box"><div class="t">build_digest()</div>
+      <small>splits into <code>today</code> cards &amp; result stories</small></div>
+    <div class="arrow">→</div>
+    <div class="box lead"><div class="t">NEW · pick_what_to_watch</div>
+      <small>scores each card, picks one, writes a “take”</small></div>
+    <div class="arrow">→</div>
+    <div class="box lead"><div class="t">NEW · fun_fact</div>
+      <small>first applicable fact wins</small></div>
+    <div class="arrow">→</div>
+    <div class="box"><div class="t">DailyDigest</div>
+      <small>+ <code>what_to_watch</code> field</small></div>
+    <div class="arrow">→</div>
+    <div class="box"><div class="t">render_markdown</div>
+      <small>emits the new section (if present)</small></div>
+  </div>
+
+  <div class="panel">
+    <p style="margin-top:0"><b>Two heuristics, on purpose.</b> The existing
+    <code>match_of_the_day</code> uses a <i>prime-time</i> rule (kickoff closest to 8 PM IST).
+    The new <code>what_to_watch</code> uses a <i>narrative-weight</i> rule (stakes + momentum).
+    They answer different questions and are intentionally allowed to disagree.</p>
+  </div>
+
+  <!-- ───────────────── FILES ───────────────── -->
+  <h2>Files at a glance</h2>
+  <div class="panel grid">
+    <div class="file">
+      <div><span class="pill add">+95</span><br><span class="fn">src/terrace/core/digest.py</span></div>
+      <div class="fd">New frozen <code>WhatToWatch</code> model; pure functions <code>fun_fact()</code> and
+        <code>pick_what_to_watch()</code>; a <code>what_to_watch</code> field on <code>DailyDigest</code>;
+        one line wiring it into <code>build_digest</code>.</div>
+    </div>
+    <div class="file">
+      <div><span class="pill add">+9</span><br><span class="fn">src/terrace/render/markdown.py</span></div>
+      <div class="fd">After the Match-of-the-day block, emit <code>## What to watch today</code> — only
+        when the field is set; the fun-fact line only when it exists.</div>
+    </div>
+    <div class="file">
+      <div><span class="pill add">+403</span><br><span class="fn">tests/test_digest.py</span></div>
+      <div class="fd">Scoring, tie-breaks, fun-fact priority, the empty/empty <code>None</code> case, and
+        <code>build_digest</code> wiring. Also keeps the “no forbidden imports” guard green.</div>
+    </div>
+    <div class="file">
+      <div><span class="pill add">+106</span><br><span class="fn">tests/test_render.py</span></div>
+      <div class="fd">Asserts the heading, <code>**home vs away**</code>, and <code>_Fun fact:_</code> appear when
+        set — and that the whole section is <b>absent</b> when <code>what_to_watch is None</code>.</div>
+    </div>
+  </div>
+
+  <!-- ───────────────── CONCEPTS ───────────────── -->
+  <h2>Concepts that may be new</h2>
+
+  <div class="panel">
+    <p style="margin-top:0"><b>1 · A pure, deterministic “editor” instead of an LLM</b></p>
+    <p>The section reads like an opinion (“this is the one to watch”), but there is no model
+    call. The opinion is a <i>scoring function</i> over data already in hand. Same inputs →
+    byte-identical output, every time.</p>
+<pre><span class="c"># score = stakes + momentum</span>
+<span class="k">def</span> _score(card):
+    base     = card.fixture.matchday <span class="k">or</span> <span class="n">0</span>   <span class="c"># deeper in the competition = higher stakes</span>
+    momentum = <span class="k">sum</span>(<span class="n">1</span> <span class="k">for</span> name <span class="k">in</span> (home, away)
+                   <span class="k">if</span> name <span class="k">in</span> winner_names)       <span class="c"># +1 per team already winning</span>
+    <span class="k">return</span> base + momentum</pre>
+    <p class="why">Why it’s the right call here: the digest must be reproducible (tests assert exact
+    markdown) and cheap. A handful of fields beat a non-deterministic, billable LLM call.</p>
+  </div>
+
+  <div class="panel">
+    <p style="margin-top:0"><b>2 · Sorting <i>is</i> the tie-break — a stable key tuple</b></p>
+    <p>“Pick the max score, break ties by earliest kickoff, then id.” That entire sentence is one
+    sort key. Python compares tuples left-to-right, so ordering the fields encodes the priority.</p>
+<pre>best = <span class="k">min</span>(cards, key=<span class="k">lambda</span> c: (-_score(c), c.kickoff_ist, c.fixture.id))
+<span class="c">#                            ▲ negate    ▲ earlier      ▲ deterministic</span>
+<span class="c">#                            highest     wins ties      final tiebreak</span></pre>
+    <p>The trick worth noticing: it uses <code>min(...)</code> with a <b>negated score</b>. Highest score
+    becomes the smallest first element, while <code>kickoff_ist</code> and <code>id</code> stay ascending —
+    so “biggest, then earliest” falls out of a single pass. It mirrors the existing
+    <code>pick_match_of_the_day</code> style, so the codebase stays consistent.</p>
+    <p class="why">Why it matters: without that last <code>fixture.id</code> term, two equally good fixtures
+    at the same time could swap places between runs — and a test would flake. Determinism is a feature.</p>
+  </div>
+
+  <div class="panel">
+    <p style="margin-top:0"><b>3 · Frozen pydantic models + an optional field that stays backwards-compatible</b></p>
+    <p><code>WhatToWatch(BaseModel, frozen=True)</code> is immutable — once built it can’t be mutated,
+    which makes it safe to pass around and trust. The new field on the digest is declared with a default:</p>
+<pre>what_to_watch: WhatToWatch | <span class="k">None</span> = <span class="k">None</span></pre>
+    <p>That <code>= None</code> is doing quiet but important work: every existing
+    <code>DailyDigest(...)</code> call in the test suite stays valid without edits. The field is purely additive.</p>
+    <p class="why">Why it’s the right call: additive, defaulted fields let a model grow without a migration
+    or a sweep through every caller — the cheapest possible way to extend a shared type.</p>
+  </div>
+
+  <div class="panel">
+    <p style="margin-top:0"><b>4 · “First applicable wins” — priority as a fall-through ladder</b></p>
+    <p><code>fun_fact()</code> is a fixed ladder of facts. The first one that applies is returned; the rest
+    never run. No config, no ranking — just ordered <code>if</code> blocks.</p>
+<pre><span class="k">if</span> results:                         <span class="c"># 1. biggest non-draw margin so far</span>
+    ...
+    <span class="k">return</span> <span class="s">f"Biggest win so far: {winner} {hi}–{lo} over {loser}."</span>
+<span class="k">if</span> cards:                           <span class="c"># 2. fall back to a match count</span>
+    noun = <span class="s">"match"</span> <span class="k">if</span> n == <span class="n">1</span> <span class="k">else</span> <span class="s">"matches"</span>
+    <span class="k">return</span> <span class="s">f"{n} {noun} on the card today."</span>
+<span class="k">return</span> <span class="k">None</span>                         <span class="c"># 3. nothing to say</span></pre>
+    <p>Note the small craft: <code>is_draw</code> games are skipped (a 1–1 has no winner), and singular/plural
+    is handled so it never prints “1 matches”.</p>
+    <p class="why">Why it’s the right call: facts have a natural pecking order. A ladder makes that order
+    explicit and trivially testable — one test even asserts the biggest-win branch beats the count branch.</p>
+  </div>
+
+  <div class="panel">
+    <p style="margin-top:0"><b>5 · The “take” is a branch over which signal dominated</b></p>
+    <p>The one-liner isn’t a template with blanks — its <i>shape</i> changes based on why the fixture won,
+    so the prose always matches the data.</p>
+    <table>
+      <tr><th>condition</th><th>the take it writes</th></tr>
+      <tr><td>both teams are recent winners</td><td>“Both {home} and {away} arrive on the back of wins — this is the one to watch at {time}.”</td></tr>
+      <tr><td>else, a matchday exists</td><td>“Matchday {n} and everything still to play for — {home} vs {away} at {time} is the pick.”</td></tr>
+      <tr><td>else (fallback)</td><td>“{home} vs {away} at {time} is the pick of today’s slate.”</td></tr>
+    </table>
+    <p class="why">Every branch threads in <code>kickoff_label</code>, so the reader always gets the “when.”</p>
+  </div>
+
+  <!-- ───────────────── DECISIONS ───────────────── -->
+  <h2>Decisions &amp; trade-offs</h2>
+  <table>
+    <tr><th>Decision</th><th>Rationale</th></tr>
+    <tr><td>Compute only from <code>fixtures</code> + <code>results</code> already passed to <code>build_digest</code></td>
+        <td>Keeps core <b>pure</b> — no coupling to <code>standings</code> or <code>sources/</code>. Imports stay pydantic + stdlib + <code>terrace.core.models</code>, so the “no forbidden imports” test holds.</td></tr>
+    <tr><td>Two independent heuristics (<code>match_of_the_day</code> vs <code>what_to_watch</code>)</td>
+        <td>Different questions: prime-time slot vs narrative stakes. Left the old one untouched to avoid touching its tests.</td></tr>
+    <tr><td>Markdown / CLI surface only</td>
+        <td>Shippable thin slice. Showing the section on the <b>web PWA</b> (<code>web/templates/digest.html</code>, <code>standings.html</code>) was <b>deferred</b> — out of scope for this PR.</td></tr>
+    <tr><td>Render guards on <code>None</code></td>
+        <td>If there are no cards, the field is <code>None</code> and the section simply doesn’t render — graceful, no empty heading.</td></tr>
+    <tr><td><span class="mut">Subtlety to note:</span> <code>fun_fact</code> reads <i>all</i> <code>results</code></td>
+        <td>“Biggest win so far” spans the season’s results, not just yesterday — intentional, and worth knowing when reading output.</td></tr>
+  </table>
+
+  <!-- ───────────────── RUN ───────────────── -->
+  <h2>How to see it work</h2>
+  <div class="panel">
+    <p style="margin-top:0">Run the suite and the linter:</p>
+<pre>uv run pytest -q
+uv run ruff check .            <span class="c"># line length 100</span></pre>
+    <p>Generate a real digest and look for the new block (after “Match of the day”):</p>
+<pre>uv run terrace digest</pre>
+    <p>You should see, when there’s a slate today:</p>
+<pre><span class="n">## What to watch today</span>
+**Arsenal vs Liverpool** — Matchday 12 and everything still to play for — Arsenal vs Liverpool at 8:30 PM IST is the pick.
+<span class="mut">_Fun fact: Biggest win so far: Man City 4–0 over Burnley._</span></pre>
+    <p class="mut" style="font-size:13.5px">No matches today → the field is <code>None</code> and the whole section is omitted.</p>
+  </div>
+
+  <p class="mut" style="margin-top:34px;font-size:13px">Generated walkthrough for PR #12 · reflects the diff on
+  <code>nightshift/item-22</code> at review time.</p>
+
+</div>
+</body>
+</html>
