@@ -1,6 +1,6 @@
 from datetime import UTC, date, datetime
 
-from terrace.core.digest import DailyDigest, MatchCard, MatchOfTheDay, ResultStory
+from terrace.core.digest import DailyDigest, MatchCard, MatchOfTheDay, ResultStory, WhatToWatch
 from terrace.core.models import Competition, Fixture, MatchStatus, NewsItem, Result, Team
 from terrace.render.markdown import render_markdown
 
@@ -246,3 +246,107 @@ def test_headline_format_is_markdown_link_dash_source():
     out = render_markdown(digest)
     # Exact format check: link markdown + em-dash separator + source name
     assert "- [Germany win](https://example.com/ger) — Der Spiegel" in out
+
+
+# -- What to watch today rendering --------------------------------------------
+
+
+def _what_to_watch(*, fun_fact: str | None = "3 matches on the card today.") -> WhatToWatch:
+    card = _match_card()
+    return WhatToWatch(
+        card=card,
+        take=(
+            "Both France and Germany arrive on the back of wins — "
+            "this is the one to watch at 8:30 PM IST."
+        ),
+        fun_fact=fun_fact,
+    )
+
+
+def test_renders_what_to_watch_heading_and_teams():
+    wtw = _what_to_watch()
+    digest = DailyDigest(
+        digest_date=date(2026, 6, 14),
+        yesterday=[],
+        today=[_match_card()],
+        match_of_the_day=None,
+        what_to_watch=wtw,
+    )
+    out = render_markdown(digest)
+    assert "## What to watch today" in out
+    assert "**France vs Germany**" in out
+
+
+def test_renders_what_to_watch_take():
+    wtw = _what_to_watch()
+    digest = DailyDigest(
+        digest_date=date(2026, 6, 14),
+        yesterday=[],
+        today=[],
+        match_of_the_day=None,
+        what_to_watch=wtw,
+    )
+    out = render_markdown(digest)
+    assert "back of wins" in out
+
+
+def test_renders_fun_fact_line_when_present():
+    wtw = _what_to_watch(fun_fact="Biggest win so far: Brazil 4–0 over Japan.")
+    digest = DailyDigest(
+        digest_date=date(2026, 6, 14),
+        yesterday=[],
+        today=[],
+        match_of_the_day=None,
+        what_to_watch=wtw,
+    )
+    out = render_markdown(digest)
+    assert "_Fun fact: Biggest win so far: Brazil 4–0 over Japan._" in out
+
+
+def test_omits_fun_fact_line_when_none():
+    wtw = _what_to_watch(fun_fact=None)
+    digest = DailyDigest(
+        digest_date=date(2026, 6, 14),
+        yesterday=[],
+        today=[],
+        match_of_the_day=None,
+        what_to_watch=wtw,
+    )
+    out = render_markdown(digest)
+    assert "_Fun fact:" not in out
+
+
+def test_omits_what_to_watch_section_when_none():
+    digest = DailyDigest(
+        digest_date=date(2026, 6, 14),
+        yesterday=[],
+        today=[],
+        match_of_the_day=None,
+        what_to_watch=None,
+    )
+    out = render_markdown(digest)
+    assert "What to watch today" not in out
+
+
+def test_what_to_watch_section_appears_after_motd_section():
+    """'What to watch today' must come AFTER 'Match of the day' in the rendered output."""
+    card = _match_card()
+    motd = MatchOfTheDay(card=card, reason="Prime-time pick: France vs Germany at 8:30 PM IST.")
+    wtw = WhatToWatch(
+        card=card,
+        take="France vs Germany at 8:30 PM IST is the pick of today's slate.",
+        fun_fact=None,
+    )
+    digest = DailyDigest(
+        digest_date=date(2026, 6, 14),
+        yesterday=[],
+        today=[card],
+        match_of_the_day=motd,
+        what_to_watch=wtw,
+    )
+    out = render_markdown(digest)
+    motd_pos = out.index("## Match of the day")
+    wtw_pos = out.index("## What to watch today")
+    assert motd_pos < wtw_pos, (
+        "'What to watch today' must appear after 'Match of the day' in the rendered digest"
+    )
