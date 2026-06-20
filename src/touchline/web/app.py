@@ -9,7 +9,7 @@ from fastapi.responses import FileResponse
 from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
 
-from touchline.core.digest import build_digest
+from touchline.core.digest import build_digest, to_ist
 from touchline.core.models import Standing
 from touchline.sources.base import MatchSource, StandingsSource
 from touchline.sources.football_data import FootballDataClient
@@ -70,6 +70,39 @@ def create_app(
             "standings.html",
             {
                 "groups": groups,
+                "degraded": not res.ok,
+                "error": res.error,
+            },
+        )
+
+    @app.get("/match/{match_id}")
+    def match_page(request: Request, match_id: str):
+        res = source.fetch_match_detail(match_id)  # type: ignore[union-attr]
+        kickoff_label = None
+        countdown = None
+        if res.detail is not None:
+            ist = to_ist(res.detail.kickoff)
+            hour12 = ist.hour % 12 or 12
+            ampm = "AM" if ist.hour < 12 else "PM"
+            # Portable formatting (no %-d / %-I — non-portable, per team memory).
+            kickoff_label = f"{ist:%a} {ist.day} {ist:%b} · {hour12}:{ist:%M} {ampm} IST"
+            if not res.detail.is_finished:
+                secs = (res.detail.kickoff - now_fn()).total_seconds()
+                if secs < 0:
+                    countdown = "Kicking off"
+                elif secs < 3600:
+                    countdown = f"in {int(secs // 60)} min"
+                elif secs < 86400:
+                    countdown = f"in {int(secs // 3600)} hours"
+                else:
+                    countdown = f"in {int(secs // 86400)} days"
+        return templates.TemplateResponse(
+            request,
+            "match.html",
+            {
+                "detail": res.detail,
+                "kickoff_label": kickoff_label,
+                "countdown": countdown,
                 "degraded": not res.ok,
                 "error": res.error,
             },

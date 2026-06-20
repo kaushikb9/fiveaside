@@ -97,3 +97,47 @@ class NewsItem(BaseModel, frozen=True):
     source: str  # human label of the feed, e.g. "BBC Sport"
     published: datetime | None = None
     summary: str | None = None
+
+
+class Referee(BaseModel, frozen=True):
+    name: str
+    nationality: str | None = None
+
+
+class HeadToHead(BaseModel, frozen=True):
+    """Aggregate record of prior meetings between two teams."""
+
+    total: int = 0
+    home_wins: int = 0
+    away_wins: int = 0
+    draws: int = 0
+
+
+class MatchDetail(BaseModel, frozen=True):
+    """A single match with everything the detail view shows. Competition-agnostic.
+
+    Scorers/goal events are intentionally absent: the free data tier doesn't
+    expose them. Past matches carry full- and half-time scores; upcoming matches
+    carry the head-to-head record.
+    """
+
+    id: str
+    competition: Competition
+    home: Team
+    away: Team
+    kickoff: datetime
+    status: MatchStatus = MatchStatus.SCHEDULED
+    group: str | None = None
+    matchday: int | None = None
+    stage: str | None = None
+    home_score: int | None = None
+    away_score: int | None = None
+    ht_home: int | None = None
+    ht_away: int | None = None
+    winner: str | None = None  # "HOME" | "AWAY" | "DRAW"
+    referee: Referee | None = None
+    h2h: HeadToHead | None = None
+
+    @property
+    def is_finished(self) -> bool:
+        return self.status == MatchStatus.FINISHED

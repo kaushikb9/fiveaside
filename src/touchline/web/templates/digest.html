@@ -54,7 +54,8 @@
     .kick{display:inline-block;margin-top:8px;background:#0c2a1b;border:1px solid #1f6b46;
       color:var(--grass);font-weight:800;font-size:12px;padding:4px 12px;border-radius:999px}
     .match{display:flex;align-items:center;gap:12px;padding:13px 14px;border-radius:14px;
-      background:var(--card);border:1px solid var(--line);margin-bottom:9px;transition:.15s}
+      background:var(--card);border:1px solid var(--line);margin-bottom:9px;transition:.15s;
+      text-decoration:none;color:inherit}
     .match:active{transform:scale(.99);background:var(--card2)}
     .match .teams{flex:1;min-width:0}
     .match .row{display:flex;align-items:center;gap:9px}
@@ -63,7 +64,8 @@
     .match .time{flex:0 0 auto;text-align:right}
     .match .time .t{font-weight:800;font-size:13.5px;color:var(--blue);white-space:nowrap}
     .match .time .l{font-size:10px;color:var(--dim);text-transform:uppercase;letter-spacing:.06em}
-    .result{padding:13px 14px;border-radius:14px;background:var(--card);border:1px solid var(--line);margin-bottom:9px}
+    .result{display:block;padding:13px 14px;border-radius:14px;background:var(--card);
+      border:1px solid var(--line);margin-bottom:9px;text-decoration:none;color:inherit}
     .result .line{display:flex;align-items:center;gap:9px}
     .result .nm{flex:1;min-width:0;font-weight:700;font-size:14px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
     .result .sc{flex:0 0 auto;font-weight:900;font-size:16px;font-variant-numeric:tabular-nums;
@@ -113,7 +115,7 @@
   {% if digest.match_of_the_day %}
   {% set m = digest.match_of_the_day.card.fixture %}
   <section>
-    <div class="motd">
+    <a class="motd" href="/match/{{ m.id }}" style="display:block;text-decoration:none;color:inherit">
       <div class="tag">★ Match of the day</div>
       <div class="vs">
         <div class="side">{{ crest(m.home) }}<div class="nm">{{ m.home.name }}</div></div>
@@ -122,7 +124,7 @@
       </div>
       <div class="reason">{{ digest.match_of_the_day.reason }}<br>
         <span class="kick">⏰ {{ digest.match_of_the_day.card.kickoff_label }}</span></div>
-    </div>
+    </a>
   </section>
   {% endif %}
 
@@ -140,13 +142,13 @@
   <section>
     <div class="shead"><span class="ic">📅</span><h2>Today</h2><span class="rule"></span></div>
     {% for c in digest.today %}
-    <div class="match">
+    <a class="match" href="/match/{{ c.fixture.id }}">
       <div class="teams">
         <div class="row">{{ crest(c.fixture.home) }}<span class="nm">{{ c.fixture.home.name }}</span></div>
         <div class="row">{{ crest(c.fixture.away) }}<span class="nm">{{ c.fixture.away.name }}</span></div>
       </div>
-      <div class="time"><div class="t">{{ c.kickoff_label }}</div><div class="l">kickoff</div></div>
-    </div>
+      <div class="time"><div class="t">{{ c.kickoff_label }}</div><div class="l">preview ›</div></div>
+    </a>
     {% else %}<div class="empty">No matches today.</div>{% endfor %}
     {% if digest.today_headlines %}
     <div class="news" style="margin-top:12px">
@@ -160,7 +162,7 @@
   <section>
     <div class="shead"><span class="ic">🏁</span><h2>Yesterday</h2><span class="rule"></span></div>
     {% for s in digest.yesterday %}
-    <div class="result">
+    <a class="result" href="/match/{{ s.result.id }}">
       <div class="line">
         {{ crest(s.result.home) }}
         <span class="nm {{ 'win' if s.result.home_score > s.result.away_score }}">{{ s.result.home.name }}</span>
@@ -169,7 +171,7 @@
         {{ crest(s.result.away) }}
       </div>
       {% if s.story %}<div class="story">{{ s.story }}</div>{% endif %}
-    </div>
+    </a>
     {% else %}<div class="empty">Nothing finished yesterday.</div>{% endfor %}
     {% if digest.yesterday_headlines %}
     <div class="news" style="margin-top:12px">

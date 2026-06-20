@@ -4,7 +4,7 @@ from typing import Protocol, runtime_checkable
 
 from pydantic import BaseModel
 
-from touchline.core.models import Fixture, NewsItem, Result, Standing
+from touchline.core.models import Fixture, MatchDetail, NewsItem, Result, Standing
 
 
 class SourceResult(BaseModel, frozen=True):
@@ -63,3 +63,18 @@ class StandingsSource(Protocol):
     """A source of competition group/league standings."""
 
     def fetch_standings(self, competition: str) -> StandingsResult: ...
+
+
+class MatchDetailResult(BaseModel, frozen=True):
+    """Result of a single-match detail fetch, with graceful degradation."""
+
+    ok: bool
+    detail: MatchDetail | None = None
+    error: str | None = None
+
+
+@runtime_checkable
+class MatchDetailSource(Protocol):
+    """A source that can fetch one match's detail by id."""
+
+    def fetch_match_detail(self, match_id: str) -> MatchDetailResult: ...
