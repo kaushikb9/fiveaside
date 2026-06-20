@@ -21,6 +21,7 @@ class MatchStatus(StrEnum):
 class Team(BaseModel, frozen=True):
     name: str
     code: str | None = None
+    crest: str | None = None  # URL to the team badge image (may be absent for TBD teams)
 
 
 class Competition(BaseModel, frozen=True):

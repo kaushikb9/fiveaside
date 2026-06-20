@@ -28,7 +28,7 @@ _TBD_NAME = "TBD"
 
 def _team(payload: dict[str, Any]) -> Team:
     name = payload.get("name") or ""
-    return Team(name=name.strip() or _TBD_NAME, code=payload.get("tla"))
+    return Team(name=name.strip() or _TBD_NAME, code=payload.get("tla"), crest=payload.get("crest"))
 
 
 def _parse_matches(payload: dict[str, Any], competition: str) -> SourceResult:
