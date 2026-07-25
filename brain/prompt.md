@@ -39,7 +39,8 @@ Schema:
       "home": "...",
       "away": "...",
       "score": "2–1",
-      "competition": "Premier League",
+      "date": "Sun 24 May",
+      "competition": "PL",
       "result": "W",
       "home_crest": "...",
       "away_crest": "..."
@@ -49,7 +50,7 @@ Schema:
         "opponent": "...",
         "home": true,
         "kickoff_local": "Sat 22 Aug 20:00",
-        "competition": "Premier League",
+        "competition": "PL",
         "opponent_crest": "..."
       }
     ],
@@ -102,16 +103,13 @@ Schema:
 Rules:
 - `club` is structured facts copied from the bundle (the site renders it) —
   never invented, never embellished:
-  - Competition labels: every `competition` value found on match/table rows
-    in the bundle (`club_form[].competition`, `club_upcoming[].competition`,
-    `yesterday_results[].competition`, each competition's `code`) is a short
-    CODE (e.g. "PL"). The bundle's top-level `competitions[]` array has one
-    entry per competition with both `code` and a human `name` — for
-    `club.latest_result.competition`, `club.fixtures[].competition`,
-    `club.table.competition`, and rivals' `line`, map the code to the
-    matching `competitions[].name` (falling back to the code itself if no
-    entry matches). The one deliberate exception is `club.form[].competition`,
-    which KEEPS the short code — the form strip shows compact codes.
+  - Competition labels: the stat boards use SHORT codes, not full names.
+    For `club.latest_result.competition`, `club.fixtures[].competition`,
+    `club.form[].competition`, and rivals' `line`, copy the bundle's short
+    code (e.g. "PL", "CL") — with one display substitution: the FRIENDLIES
+    code is written as "FR". The single exception is `club.table.competition`,
+    which uses the human league name from the bundle's `competitions[].name`
+    (it is a section heading, e.g. "Premier League").
   - `latest_result`: the club's most recent completed match. Prefer the
     bundle's `yesterday_results` entry with `club_involved: true` (its
     `home`/`away`/`score` are already home–away ordered — copy straight
@@ -130,13 +128,15 @@ Rules:
     since the opponent is now `home`, the club's digit second since the
     club is now `away`). Getting this swap wrong renders a factually
     incorrect scoreline on the site, so double-check it against the raw
-    numbers, not just by eye. Set `competition` to the mapped human name
-    (see above), and set `result` to the newest `club_form` entry's
-    `result` ("W"/"L"/"D") when it's known — omit `result` entirely if you
-    can't determine it.
+    numbers, not just by eye. Set `competition` to the short code (see
+    above), and set `result` to the newest `club_form` entry's `result`
+    ("W"/"L"/"D") when it's known — omit `result` entirely if you can't
+    determine it. Set `date` to the match date formatted like the fixtures
+    list ("Sun 24 May"): `yesterday_results` rows carry it as `date`
+    already; on the `club_form` path, reformat that entry's ISO `date`.
   - `fixtures`: from `club_upcoming` — map each entry's `at_home` to
     `home`, carry `opponent`, `kickoff_local`, and `opponent_crest` across
-    unchanged, and set `competition` to the mapped human name (see above).
+    unchanged, and set `competition` to the short code (see above).
   - `table`: the club's own competition's human `name` for `competition`,
     the top-4 rows of that competition's `table` as `rows` (append the
     club's own row too if it sits below 4th — the site handles highlighting
@@ -163,8 +163,11 @@ Rules:
 - `team_watch` (optional, 2–4 players): in-form stars, fitness watches,
   academy prospects (`"talent": true`, tag like "Academy · 17"). Notes only
   from fetched sources.
-- `today`: 2–5 sentences. Quiet days are told honestly ("nothing on —
-  perfect night to close the app") — never padded.
+- `today`: if the club plays today or within the next 2–3 days, this
+  section is about that match — opponent, day and kickoff, and what
+  actually matters about it (2–5 sentences). If nothing is coming inside
+  ~2 days, keep it to 1–2 short sentences and sign off honestly ("nothing
+  on — perfect night to close the app") — never padded.
 - `wider`: 1–3 links from the day's discourse. The `hook` is the product —
   a pitch to the reader, not a summary. When the comment thread is the real
   value, link the thread and say so. `source` is the human label of where
@@ -176,9 +179,9 @@ Rules:
   a great older piece beats a mediocre new one.
 - `rivals`: optional, 2–4 clubs from the club's own league that matter to
   the title/top-four race, drawn from the bundle's table rows (`crest`
-  copied from there too). `line` is a factual chip using the mapped human
-  competition name, never the raw code (e.g. "#1 · 3 pts · Premier League"
-  or "plays tonight · Premier League"). `note` is the one place opinion
+  copied from there too). `line` is a factual chip using the short
+  competition code (e.g. "#1 · 3 pts · PL" or "plays tonight · PL").
+  `note` is the one place opinion
   meets other clubs' results — one honest, brain-written sentence.
 - After editing, run `node brain/validate.mjs site/data/digests.json` via
   Bash and fix anything it reports before finishing.

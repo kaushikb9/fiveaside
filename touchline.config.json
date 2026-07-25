@@ -1,6 +1,11 @@
 {
   "source": "espn",
-  "club": { "name": "Chelsea", "code": "CHE", "subreddit": "chelseafc" },
+  "club": {
+    "name": "Chelsea",
+    "code": "CHE",
+    "subreddit": "chelseafc",
+    "crest": "https://a.espncdn.com/i/teamlogos/soccer/500/363.png"
+  },
   "competitions": ["PL", "CL", "FRIENDLIES"],
   "timezone": "Asia/Kolkata",
   "feeds": [

@@ -42,7 +42,7 @@ function latestResultHTML(lr) {
       <div class="blabel">Latest result</div>
       <div class="brow${lr.result === "W" ? " win-row" : ""}">
         <span class="who">${crestHTML(lr.home_crest, lr.home)}${esc(lr.home)} <span class="score">${esc(lr.score)}</span> ${esc(lr.away)}${crestHTML(lr.away_crest, lr.away)}</span>
-        <span class="meta">${esc(lr.competition)} &middot; FT</span>
+        <span class="meta">${lr.date ? `${esc(lr.date)} &middot; ` : ""}${esc(lr.competition)} &middot; FT</span>
       </div>
     </div>`;
 }
@@ -225,7 +225,7 @@ async function applyConfig() {
   if (!config?.club?.name) return;
   $("#club-label").textContent = config.club.name;
   const crestEl = $("#club-crest");
-  crestEl.innerHTML = crestHTML(null, config.club.code || config.club.name, "sm");
+  crestEl.innerHTML = crestHTML(config.club.crest, config.club.code || config.club.name, "sm");
   crestEl.hidden = false;
   $("#strap-dot").hidden = false;
 }

@@ -26,11 +26,12 @@ def _involves_club(match: Fixture | Result, club: ClubConfig) -> bool:
     return _is_club(match.home, club) or _is_club(match.away, club)
 
 
-def _result_row(r: Result, club: ClubConfig) -> dict:
+def _result_row(r: Result, club: ClubConfig, tz: ZoneInfo) -> dict:
     return {
         "home": r.home.name,
         "away": r.away.name,
         "score": f"{r.home_score}–{r.away_score}",
+        "date": _local(r.kickoff, tz).strftime("%a %d %b"),
         "competition": r.competition.code,
         "club_involved": _involves_club(r, club),
         "home_crest": r.home.crest,
@@ -138,7 +139,7 @@ def build_facts(
                 "name": _competition_name(code, matches),
                 "yesterday_results": _cap_non_club(
                     [
-                        _result_row(r, club)
+                        _result_row(r, club, tz)
                         for r in sorted(matches.results, key=lambda r: r.kickoff)
                         if _local(r.kickoff, tz).date() == yesterday
                     ]

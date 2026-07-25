@@ -208,8 +208,8 @@ a.pick {
 }
 a.pick:hover, a.pick:focus-visible { border-color: var(--accent); outline: none; }
 .thumb { width: 54px; height: 54px; border-radius: 8px; flex: 0 0 auto; }
-a.pick .t { font-weight: 700; font-size: 15px; line-height: 1.4; }
-a.pick .hook { color: var(--dim); font-size: 14px; margin-top: 4px; line-height: 1.5; }
+a.pick .t { display: block; font-weight: 700; font-size: 15px; line-height: 1.4; }
+a.pick .hook { display: block; color: var(--dim); font-size: 14px; margin-top: 4px; line-height: 1.5; }
 a.pick .src { color: var(--faint); font-size: 12px; margin-top: 7px; letter-spacing: 0.03em; display: block; }
 
 .rivals { display: flex; flex-direction: column; gap: 10px; }

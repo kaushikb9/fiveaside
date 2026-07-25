@@ -87,6 +87,8 @@ for (const [i, d] of data.digests.entries()) {
     }
     if (lr.result !== undefined && !["W", "L", "D"].includes(lr.result))
       fail(`${where}: club.latest_result.result must be exactly "W", "L" or "D" when present`);
+    if (lr.date !== undefined && !isNonEmptyStr(lr.date))
+      fail(`${where}: club.latest_result.date must be a non-empty string when present`);
   }
 
   if (d.club.fixtures !== undefined) {

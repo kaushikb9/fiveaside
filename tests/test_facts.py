@@ -73,7 +73,7 @@ def test_buckets_yesterday_today_and_upcoming():
     assert comp["code"] == "PL"
     assert comp["name"] == "Premier League"
     assert comp["yesterday_results"] == [
-        {"home": "Chelsea", "away": "Arsenal", "score": "2–1",
+        {"home": "Chelsea", "away": "Arsenal", "score": "2–1", "date": "Sat 15 Aug",
          "competition": "PL", "club_involved": True,
          "home_crest": "https://crests.football-data.org/61.png",
          "away_crest": "https://crests.football-data.org/57.png"}

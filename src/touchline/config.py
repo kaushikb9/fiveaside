@@ -11,6 +11,7 @@ class ClubConfig(BaseModel, frozen=True):
     code: str  # abbreviation for your configured source: ESPN abbreviation (default,
     # e.g. "MAN" for Man United), football-data.org TLA, or unused for
     # api-football (which has no codes — match `name` to its team name instead)
+    crest: str | None = None  # URL of the club badge, shown in the site header
     subreddit: str | None = None
 
 
