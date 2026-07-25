@@ -97,10 +97,24 @@ Rules:
 - `club` is structured facts copied from the bundle (the site renders it) —
   never invented, never embellished:
   - `latest_result`: the club's most recent completed match. Prefer the
-    bundle's `yesterday_results` entry with `club_involved: true`; if there
-    isn't one, build it from the newest entry in `club_form` (opponent +
-    `at_home` tell you home/away; `score` and `competition` come straight
-    across).
+    bundle's `yesterday_results` entry with `club_involved: true` (its
+    `home`/`away`/`score` are already home–away ordered — copy straight
+    across). This is the less common path — `yesterday_results` only
+    covers matches from literally yesterday, so most days you'll use the
+    fallback: build it from the newest entry in `club_form`. There,
+    `opponent` + `at_home` tell you `home`/`away` (the club when
+    `at_home` is true, `opponent` otherwise), but `club_form`'s `score` is
+    always formatted **club digit first** ("club–opponent"), regardless of
+    home/away. So: if `at_home` is true, the club_form score is already
+    home–away order — copy it as-is. If `at_home` is false, the club is
+    the away team, so the club_form score is away–home order — you MUST
+    swap the two digits before writing `latest_result.score` (e.g.
+    club_form score "2–1" — club scored 2, opponent scored 1 — for an away
+    match becomes `latest_result.score` "1–2": the opponent's digit first
+    since the opponent is now `home`, the club's digit second since the
+    club is now `away`). Getting this swap wrong renders a factually
+    incorrect scoreline on the site, so double-check it against the raw
+    numbers, not just by eye.
   - `fixtures`: from `club_upcoming` — map each entry's `at_home` to
     `home`, carry `opponent`, `kickoff_local`, `competition`, and
     `opponent_crest` across unchanged.
@@ -112,9 +126,13 @@ Rules:
   - `form`: the bundle's `club_form`, REVERSED to oldest→newest (the bundle
     is newest-first; the digest reads oldest-first, newest last).
   - Crest URLs are copied verbatim from the bundle — never guessed.
-- Omit any of the above keys (or the whole `club` object, `wider`, `read`,
-  `rivals`) when the bundle has no data for it. Do not emit empty
-  arrays/objects to fill a slot.
+- `club` and `wider` are ALWAYS present — the validator requires both on
+  every entry. On a day with no club data at all, emit `club` as `{}`; on a
+  day with no discourse worth linking, emit `wider` as `[]`. Everything
+  else is truly optional and should be omitted (not emitted as an empty
+  string/array/object) when the bundle has no data for it: `club`'s nested
+  keys (`latest_result`, `fixtures`, `table`, `form`), `read`, `rivals`, and
+  the optional nested fields noted above (crest fields, `source`, `image`).
 - `headline` earns the open. Specific beats clever; clever beats generic.
 - `yesterday` / `today`: 2–5 sentences each. Quiet days are told honestly
   ("nothing on — perfect night to close the app") — never padded.
