@@ -1397,6 +1397,21 @@ that touch other tasks (all new digest fields are optional in the validator):
 - **Link thumbnails** (Tasks 5, 6, 7): `wider[]` items and `read` gain optional `"image"`
   (a URL — the brain uses the page's `og:image` when it finds one, else omits). The site shows
   a 54px rounded thumb when present and a source-colored fallback tile when absent.
+- **Split stat blocks** (Tasks 5, 6, 7): the digest `club` object is organized as separate
+  labeled blocks, rendered in this order: `"latest_result"` (single result object — replaces
+  the `results` array; on multi-match days the brain picks the club's most recent),
+  `"fixtures"` (up-next list; the site renders the opponent name with an `H`/`A` chip, never
+  "vs"/"at" words), and a form+table split block. `"table"` becomes a mini-table:
+  `{"competition": "Premier League", "rows": [{"pos": 1, "team": "...", "crest": null, "played": 1, "points": 3}], "club_position": 2}`
+  — top 4 rows, plus the club's row appended when it sits below 4th; the club's row is
+  highlighted. Facts side: the bundle's full `table` already carries this data; add `"crest"`
+  to `_table_rows` entries (from `Standing.team.crest`).
+- **Rival watch** (Tasks 5, 6, 7): new optional digest field
+  `"rivals": [{"club": "...", "crest": null, "line": "#1 · 3 pts · Premier League", "note": "one-sentence brain-written sneak peek"}]`
+  — 2–4 top clubs from the same league (from the bundle's table + the day's discourse),
+  rendered as the LAST section of the digest, after `read`. The brain prompt instructs: pick
+  clubs that matter to the title/top-four race, one honest sentence each, `line` is the
+  factual chip (position/points, or "plays tonight" when they're yet to play).
 
 Task executors: where this addendum names a field the original task code omits, the addendum
 wins — extend the shown code and its tests accordingly.
