@@ -1372,6 +1372,35 @@ git commit -m "docs: rewrite README for v2 self-hosting model"
 
 ---
 
+## Design Addendum (2026-07-25, post-mockup review — supersedes Task 6's HTML/CSS sketches)
+
+The approved visual direction is committed at `docs/superpowers/mockups/2026-07-25-site-mockup.html`
+(self-contained; crests are inlined as data URIs for preview only — the real site loads crest
+URLs from the digest data). Task 6 implements THAT design: newspaper masthead with pitchline
+mark, serif headlines, monospace scoreboard, light + dark themes via tokens. Content deltas
+that touch other tasks (all new digest fields are optional in the validator):
+
+- **Crests** (Tasks 3, 5, 6): in `core/facts.py`, `_result_row` and `_fixture_row` gain
+  `"home_crest"`/`"away_crest"` (from `Team.crest`, may be `null`); `_club_form` entries and
+  `club_upcoming` entries gain `"opponent_crest"`. Digest schema: `club.results[]` carries
+  `home_crest`/`away_crest`, `club.fixtures[]` carries `opponent_crest`. The site renders an
+  initials placeholder circle when a crest is `null`.
+- **Competition names** (Tasks 3, 5, 6, 7): each entry in the bundle's `competitions[]` gains
+  `"name"` (from `Competition.name`, falling back to the code). Every score/fixture/table row
+  in the digest keeps its `competition` label and the site displays it on every row
+  (e.g. "Premier League · FT", "Sat 22 Aug · 20:00 · Premier League").
+- **Form strip** (Tasks 5, 6, 7): the digest `club` object gains
+  `"form": [{"result": "W|L|D", "score": "2–0", "opponent": "...", "opponent_crest": null, "competition": "PL"}, ...]`
+  — copied by the brain from the bundle's `club_form` (oldest first, newest last). The site
+  renders it FotMob-style: color-coded score pill (`--win` green / `--draw` grey / `--loss` red),
+  opponent crest below, competition code beneath, newest entry underlined with the accent.
+- **Link thumbnails** (Tasks 5, 6, 7): `wider[]` items and `read` gain optional `"image"`
+  (a URL — the brain uses the page's `og:image` when it finds one, else omits). The site shows
+  a 54px rounded thumb when present and a source-colored fallback tile when absent.
+
+Task executors: where this addendum names a field the original task code omits, the addendum
+wins — extend the shown code and its tests accordingly.
+
 ## Self-Review Notes
 
 - **Spec coverage:** cleanup → Task 1; preferences → Task 2; facts CLI → Tasks 3–4; digest schema + reliability/validation → Task 5; site → Task 6; brain + sources → Task 7; deploy → Task 8; README/self-hosting + success criteria → Task 9. "Deliberately not built" items appear in no task, as intended.
