@@ -46,9 +46,27 @@ for (const [i, d] of data.digests.entries()) {
   if (seen.has(d.date)) fail(`${where}: duplicate date`);
   seen.add(d.date);
 
-  for (const key of ["headline", "yesterday", "today"]) {
+  for (const key of ["headline", "today"]) {
     if (typeof d[key] !== "string" || !d[key].trim())
       fail(`${where}: '${key}' must be a non-empty string`);
+  }
+  if (d.yesterday !== undefined)
+    fail(`${where}: 'yesterday' is no longer valid — the schema uses the 'week' array now`);
+  if (!Array.isArray(d.week) || d.week.length === 0)
+    fail(`${where}: 'week' must be a non-empty array`);
+  for (const item of d.week) {
+    if (!isNonEmptyStr(item?.kicker) || !isNonEmptyStr(item?.text))
+      fail(`${where}: every 'week' item needs non-empty kicker and text`);
+  }
+  if (d.team_watch !== undefined) {
+    if (!Array.isArray(d.team_watch)) fail(`${where}: 'team_watch' must be an array`);
+    for (const p of d.team_watch) {
+      for (const key of ["name", "tag", "note"])
+        if (!isNonEmptyStr(p?.[key]))
+          fail(`${where}: every 'team_watch' item needs non-empty ${key}`);
+      if (p.talent !== undefined && typeof p.talent !== "boolean")
+        fail(`${where}: team_watch 'talent' must be a boolean when present`);
+    }
   }
 
   if (!isPlainObject(d.club)) fail(`${where}: 'club' must be an object`);

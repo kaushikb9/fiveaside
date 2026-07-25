@@ -71,7 +71,12 @@ Schema:
     ]
   },
   "headline": "one line that captures the day",
-  "yesterday": "prose: the story of what happened",
+  "week": [
+    { "kicker": "Two-nil to start.", "text": "One or two sentences of what happened and why it matters." }
+  ],
+  "team_watch": [
+    { "name": "Estêvão", "tag": "RW · 19", "note": "One line, from a fetched source — never an invented stat.", "talent": false }
+  ],
   "today": "prose: what's on and why it matters, with an honest take",
   "wider": [
     {
@@ -150,8 +155,15 @@ Rules:
   keys (`latest_result`, `fixtures`, `table`, `form`), `read`, `rivals`, and
   the optional nested fields noted above (crest fields, `source`, `image`).
 - `headline` earns the open. Specific beats clever; clever beats generic.
-- `yesterday` / `today`: 2–5 sentences each. Quiet days are told honestly
-  ("nothing on — perfect night to close the app") — never padded.
+- `week` (REQUIRED, 3–5 items): the last ~7 days — results, transfers,
+  friendlies, club news. Kicker ≤ 6 punchy words ending with a period; text
+  1–2 sentences. This replaces the old `yesterday` field, which is now
+  rejected.
+- `team_watch` (optional, 2–4 players): in-form stars, fitness watches,
+  academy prospects (`"talent": true`, tag like "Academy · 17"). Notes only
+  from fetched sources.
+- `today`: 2–5 sentences. Quiet days are told honestly ("nothing on —
+  perfect night to close the app") — never padded.
 - `wider`: 1–3 links from the day's discourse. The `hook` is the product —
   a pitch to the reader, not a summary. When the comment thread is the real
   value, link the thread and say so. `source` is the human label of where
