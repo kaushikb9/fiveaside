@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>about · Touchline</title>
+  <meta name="description" content="Why Touchline exists: one page of football a day. No scroll, no bait.">
+  <link rel="stylesheet" href="../style.css">
+  <link rel="icon" href="../icon.svg" type="image/svg+xml">
+  <script>
+    // Apply the saved theme before first paint to avoid a flash. "auto" = no attribute.
+    (function () {
+      var theme = localStorage.getItem("touchline-theme");
+      if (theme === "light" || theme === "dark")
+        document.documentElement.setAttribute("data-theme", theme);
+    })();
+  </script>
+</head>
+<body>
+  <div class="page">
+    <button id="theme-toggle" class="theme-btn" type="button" aria-label="Switch theme"></button>
+    <header>
+      <div class="masthead"><a href="../" style="color:inherit;text-decoration:none">Touchline</a></div>
+      <div class="pitchline" aria-hidden="true"></div>
+      <div class="strap"><span>one page a day &mdash; no scroll, no bait</span></div>
+    </header>
+
+    <main>
+      <article class="digest">
+        <div class="eyebrow">About</div>
+        <h1>Following football shouldn't feel like work</h1>
+
+        <section>
+          <p>Loving the beautiful game now comes with a tax. Keeping up means
+          drowning in reddit threads about a referee you'll never think about
+          again, or wading through football twitter, where every match is a
+          war and every teenager a failure by half-time. The game is
+          beautiful; the feeds about it mostly aren't.</p>
+          <p><strong>Touchline is the opposite machine.</strong> One calm page
+          each morning: what happened, what's coming, who's worth watching,
+          one thing worth actually reading &mdash; and then it ends. There is
+          nothing to pull down, nothing to refresh, nobody yelling. The
+          absence of more is the feature.</p>
+        </section>
+
+        <section>
+          <h2>Convictions baked in</h2>
+          <ul class="brief">
+            <li><strong>The pulse, not the flood.</strong> <span class="tail">Enough
+            to stay on top of the game and hold your own at the pub &mdash;
+            scores, the table, the week's real stories, the kid coming through
+            at the academy. Never an overdose. If it doesn't help you love the
+            game more, it doesn't make the page.</span></li>
+            <li><strong>Fun is the point.</strong> <span class="tail">Football is
+            joy, drama, and occasionally heartbreak by the 94th minute.
+            The digest is written like a friend catching you up over coffee,
+            not a wire service &mdash; opinionated picks, honest quiet days,
+            the odd wound reopened gently.</span></li>
+            <li><strong>Local-first, yours-first.</strong> <span class="tail">The
+            editor is an AI brain that runs on my machine, with my club and my
+            preferences, every morning with coffee. A static page and one JSON
+            file are the whole product. Fork it, put your club in the config,
+            run your own &mdash; nothing phones home.</span></li>
+            <li><strong>Facts from data, color from discourse.</strong>
+            <span class="tail">Scores, tables and fixtures come from real match
+            data; the mood comes from what fans are actually talking about.
+            The brain is never allowed to invent a scoreline or a transfer fee
+            &mdash; a validator checks its homework before anything ships.</span></li>
+            <li><strong>Built to learn.</strong> <span class="tail">Sibling of
+            <a href="https://antifeed.pages.dev/about/" target="_blank" rel="noopener">antifeed</a>,
+            and the same experiment underneath: what happens when you point an
+            AI agent at a daily editorial job and let a human only steer taste?
+            Building the machine is half the fun of owning it.</span></li>
+          </ul>
+        </section>
+
+        <p><a href="../">&larr; back to today's page</a></p>
+      </article>
+    </main>
+
+    <footer>Written each morning by the brain, read in under a minute &middot;
+      <a href="https://github.com/kaushikb9/touchline" target="_blank" rel="noopener" style="color:inherit">source</a> &middot;
+      <a href="https://kaushikbhat.com" target="_blank" rel="noopener" style="color:inherit">kb</a></footer>
+  </div>
+
+  <script>
+    (function () {
+      var button = document.getElementById("theme-toggle");
+      var MODES = ["auto", "light", "dark"];
+      var label = { auto: "◐ auto", light: "○ light", dark: "● dark" };
+      function apply(mode) {
+        if (mode === "auto") {
+          document.documentElement.removeAttribute("data-theme");
+          localStorage.removeItem("touchline-theme");
+        } else {
+          document.documentElement.setAttribute("data-theme", mode);
+          localStorage.setItem("touchline-theme", mode);
+        }
+        button.textContent = label[mode];
+      }
+      var mode = localStorage.getItem("touchline-theme");
+      if (MODES.indexOf(mode) === -1) mode = "auto";
+      apply(mode);
+      button.addEventListener("click", function () {
+        mode = MODES[(MODES.indexOf(mode) + 1) % MODES.length];
+        apply(mode);
+      });
+    })();
+  </script>
+</body>
+</html>

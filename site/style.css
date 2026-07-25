@@ -168,6 +168,7 @@ section h2 {
 section h2::after { content: ""; flex: 1; height: 1px; background: var(--line); }
 section p { font-size: 16px; max-width: 64ch; }
 section p + p { margin-top: 10px; }
+.digest p a, .digest .tail a { color: var(--accent-ink); text-underline-offset: 3px; }
 
 /* The Athletic-style briefing list: bold kicker + one sentence per item */
 ul.brief { list-style: none; display: flex; flex-direction: column; gap: 13px; max-width: 64ch; }
