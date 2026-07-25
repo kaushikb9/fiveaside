@@ -1,0 +1,247 @@
+/* Touchline reader stylesheet.
+   Ported from the approved mockup at
+   .superpowers/sdd/2026-07-25-touchline-v2-antifeed-model/mockup-template.html
+   Additions beyond the mockup are marked below (empty state, thumb fallback tiles). */
+:root {
+  --bg: #f7f9f5;
+  --ink: #1a221c;
+  --dim: #5c6a60;
+  --faint: #8a978d;
+  --line: #d8e0d8;
+  --card: #ffffff;
+  --accent: #1e7d4c;
+  --accent-ink: #14603a;
+  --club: #034694;
+  --club-bg: #e7eef8;
+  --score-bg: #eef3ee;
+  --win: #2e9e63;
+  --loss: #c94f4f;
+  --draw: #78857c;
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #0d1411; --ink: #e8ede8; --dim: #9db0a3; --faint: #6c7d71;
+    --line: #24312a; --card: #121b16; --accent: #4cc487; --accent-ink: #4cc487;
+    --club: #6ea8e0; --club-bg: #14202e; --score-bg: #16201a;
+    --win: #2e9e63; --loss: #c05252; --draw: #5d6a61;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #0d1411; --ink: #e8ede8; --dim: #9db0a3; --faint: #6c7d71;
+  --line: #24312a; --card: #121b16; --accent: #4cc487; --accent-ink: #4cc487;
+  --club: #6ea8e0; --club-bg: #14202e; --score-bg: #16201a;
+  --win: #2e9e63; --loss: #c05252; --draw: #5d6a61;
+}
+:root[data-theme="light"] {
+  --bg: #f7f9f5; --ink: #1a221c; --dim: #5c6a60; --faint: #8a978d;
+  --line: #d8e0d8; --card: #ffffff; --accent: #1e7d4c; --accent-ink: #14603a;
+  --club: #034694; --club-bg: #e7eef8; --score-bg: #eef3ee;
+  --win: #2e9e63; --loss: #c94f4f; --draw: #78857c;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  background: var(--bg); color: var(--ink);
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  line-height: 1.6;
+}
+.page { max-width: 640px; margin: 0 auto; padding: 0 20px 72px; }
+
+header { padding: 44px 0 0; }
+.masthead {
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 30px; font-weight: 700; letter-spacing: 0.22em;
+  text-transform: uppercase; text-align: center;
+}
+.pitchline { position: relative; height: 26px; margin: 10px 0 6px; }
+.pitchline::before {
+  content: ""; position: absolute; left: 0; right: 0; top: 50%;
+  height: 2px; background: var(--accent); opacity: 0.85;
+}
+.pitchline::after {
+  content: ""; position: absolute; left: 50%; top: 50%;
+  width: 22px; height: 22px; transform: translate(-50%, -50%);
+  border: 2px solid var(--accent); border-radius: 50%;
+  background: var(--bg);
+}
+.strap {
+  display: flex; justify-content: center; gap: 10px; align-items: center;
+  font-size: 12.5px; color: var(--dim); letter-spacing: 0.04em;
+}
+.strap .crest { width: 18px; height: 18px; }
+.club-chip { color: var(--club); font-weight: 700; }
+
+.crest { width: 22px; height: 22px; object-fit: contain; flex: 0 0 auto; }
+.crest.sm { width: 18px; height: 18px; }
+.crest.ph {
+  display: inline-flex; align-items: center; justify-content: center;
+  border-radius: 50%; background: var(--club-bg); color: var(--dim);
+  font-size: 8px; font-weight: 800; letter-spacing: 0.02em;
+  font-family: -apple-system, sans-serif;
+}
+
+article.digest { padding: 34px 0 8px; }
+.eyebrow {
+  font-size: 12px; font-weight: 700; text-transform: uppercase;
+  letter-spacing: 0.16em; color: var(--accent-ink);
+}
+.digest h1 {
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 33px; line-height: 1.18; font-weight: 700;
+  letter-spacing: -0.01em; margin: 8px 0 4px; text-wrap: balance;
+}
+.digest .standfirst { color: var(--dim); font-size: 15px; margin-bottom: 20px; }
+
+/* Scoreboard blocks: labeled, monospace, tabular */
+.board {
+  background: var(--score-bg); border: 1px solid var(--line); border-radius: 8px;
+  font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+  font-size: 13.5px; margin: 0 0 12px; overflow-x: auto;
+}
+.blabel {
+  font-size: 10.5px; font-weight: 700; text-transform: uppercase;
+  letter-spacing: 0.14em; color: var(--faint);
+  padding: 10px 14px 0;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+}
+.board .brow {
+  display: flex; justify-content: space-between; align-items: center; gap: 16px;
+  padding: 10px 14px; white-space: nowrap;
+}
+.board .brow + .brow { border-top: 1px solid var(--line); }
+.board .who { display: flex; align-items: center; gap: 8px; }
+.board .score { font-weight: 700; font-variant-numeric: tabular-nums; }
+.board .win-row .score { color: var(--accent-ink); }
+.board .meta { color: var(--faint); font-size: 12px; }
+.ha {
+  font-size: 10px; font-weight: 700; color: var(--dim);
+  border: 1px solid var(--line); border-radius: 4px; padding: 0 5px;
+  font-family: -apple-system, sans-serif;
+}
+
+/* Form + table side by side */
+.split { display: flex; flex-wrap: wrap; }
+.split > div { flex: 1 1 260px; padding-bottom: 12px; }
+.split > div + div { border-left: 1px solid var(--line); }
+@media (max-width: 560px) {
+  .split > div + div { border-left: none; border-top: 1px solid var(--line); }
+}
+.form-row { display: flex; gap: 16px; overflow-x: auto; padding: 10px 14px 0; }
+.fi { display: flex; flex-direction: column; align-items: center; gap: 6px; }
+.fi .pill {
+  font-size: 12px; font-weight: 700; padding: 2px 9px; border-radius: 6px;
+  color: #fff; font-variant-numeric: tabular-nums;
+}
+.fi .pill.w { background: var(--win); }
+.fi .pill.l { background: var(--loss); }
+.fi .pill.d { background: var(--draw); }
+.fi.latest .pill { box-shadow: 0 3px 0 var(--accent); }
+.fi .comp { font-size: 10px; color: var(--faint); }
+
+.mini { padding: 4px 6px 0; }
+.mini .mrow {
+  display: flex; align-items: center; gap: 8px;
+  padding: 5px 8px; border-radius: 6px; font-variant-numeric: tabular-nums;
+}
+.mini .pos { width: 18px; text-align: right; color: var(--faint); font-size: 12px; }
+.mini .tname { flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; }
+.mini .num { width: 30px; text-align: right; color: var(--dim); font-size: 12.5px; }
+.mini .mrow.us {
+  background: var(--club-bg); font-weight: 700;
+}
+.mini .mrow.us .tname { color: var(--club); }
+.mini .mhead { color: var(--faint); font-size: 10.5px; }
+.mini .mhead .tname, .mini .mhead .num { font-weight: 400; }
+
+section { margin: 24px 0; }
+section h2 {
+  font-size: 12px; font-weight: 800; text-transform: uppercase;
+  letter-spacing: 0.16em; color: var(--dim); margin-bottom: 8px;
+}
+section p { font-size: 16px; max-width: 62ch; }
+section p + p { margin-top: 10px; }
+
+.matchrow {
+  display: flex; align-items: center; gap: 10px; margin-top: 12px;
+  background: var(--card); border: 1px solid var(--line); border-radius: 8px;
+  padding: 11px 14px; font-size: 14.5px;
+}
+.matchrow .meta { color: var(--faint); font-size: 12.5px; margin-left: auto; white-space: nowrap; }
+
+.linklist { display: flex; flex-direction: column; gap: 10px; }
+a.pick {
+  display: flex; gap: 14px; align-items: flex-start; text-decoration: none; color: inherit;
+  background: var(--card); border: 1px solid var(--line); border-radius: 8px;
+  padding: 13px 16px;
+}
+a.pick:hover, a.pick:focus-visible { border-color: var(--accent); outline: none; }
+.thumb { width: 54px; height: 54px; border-radius: 8px; flex: 0 0 auto; }
+a.pick .t { font-weight: 700; font-size: 15px; }
+a.pick .hook { color: var(--dim); font-size: 14px; margin-top: 3px; }
+a.pick .src { color: var(--faint); font-size: 12px; margin-top: 6px; letter-spacing: 0.03em; display: block; }
+
+/* Rival watch */
+.rivals { display: flex; flex-direction: column; gap: 10px; }
+.rival {
+  display: flex; gap: 12px; align-items: flex-start;
+  background: var(--card); border: 1px solid var(--line); border-radius: 8px;
+  padding: 12px 14px;
+}
+.rival .crest { width: 26px; height: 26px; margin-top: 2px; }
+.rival .rtop { display: flex; align-items: baseline; gap: 10px; flex-wrap: wrap; }
+.rival .rname { font-weight: 700; font-size: 15px; }
+.rival .rmeta {
+  font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+  font-size: 11.5px; color: var(--faint); font-variant-numeric: tabular-nums;
+}
+.rival .rnote { color: var(--dim); font-size: 14px; margin-top: 2px; }
+
+.archive-rule {
+  margin: 40px 0 12px; display: flex; align-items: center; gap: 12px;
+  font-size: 12px; font-weight: 800; text-transform: uppercase;
+  letter-spacing: 0.16em; color: var(--dim);
+}
+.archive-rule::after { content: ""; flex: 1; height: 1px; background: var(--line); }
+details.arch { border-bottom: 1px solid var(--line); }
+details.arch summary {
+  cursor: pointer; padding: 14px 2px; list-style: none;
+  display: flex; gap: 14px; align-items: baseline;
+}
+details.arch summary::-webkit-details-marker { display: none; }
+details.arch summary:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+details.arch .adate {
+  font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+  font-size: 12px; color: var(--faint); white-space: nowrap;
+  font-variant-numeric: tabular-nums;
+}
+details.arch .ahead {
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 16px; color: var(--dim);
+}
+details.arch[open] .ahead { color: var(--ink); }
+details.arch .abody { padding: 0 2px 18px; color: var(--dim); font-size: 15px; max-width: 62ch; }
+
+footer {
+  text-align: center; color: var(--faint); font-size: 12.5px;
+  padding-top: 56px; letter-spacing: 0.04em;
+}
+@media (prefers-reduced-motion: no-preference) {
+  a.pick { transition: border-color 120ms ease; }
+}
+
+/* --- Additions beyond the mockup: not shown in the static preview --- */
+
+/* Loading / empty / error states in #main before data resolves. */
+.empty { color: var(--faint); font-style: italic; padding: 24px 0; }
+.empty code {
+  font-style: normal;
+  font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+}
+
+/* Fallback tile for wider/read links with no `image`: source-colored square
+   with the first letter of the title (mockup's inline SVGs were previews of this). */
+.thumb.ph {
+  display: flex; align-items: center; justify-content: center;
+  color: #fff; font-family: Georgia, "Times New Roman", serif;
+  font-weight: 700; font-size: 20px;
+}
