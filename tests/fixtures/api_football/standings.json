@@ -1,0 +1,17 @@
+{
+  "response": [
+    {
+      "league": {
+        "id": 39,
+        "name": "Premier League",
+        "standings": [
+          [
+            {"rank": 1, "team": {"id": 42, "name": "Arsenal", "logo": "https://media.api-sports.io/football/teams/42.png"}, "points": 3, "group": "Premier League", "all": {"played": 1, "win": 1, "draw": 0, "lose": 0, "goals": {"for": 2, "against": 0}}},
+            {"rank": 2, "team": {"id": 49, "name": "Chelsea", "logo": "https://media.api-sports.io/football/teams/49.png"}, "points": 3, "group": "Premier League", "all": {"played": 1, "win": 1, "draw": 0, "lose": 0, "goals": {"for": 2, "against": 1}}},
+            {"rank": 3, "team": {"id": 36, "name": "Fulham", "logo": null}, "points": 1, "group": "Premier League", "all": {"played": 1, "win": 0, "draw": 1, "lose": 0, "goals": {"for": 1, "against": 1}}}
+          ]
+        ]
+      }
+    }
+  ]
+}
