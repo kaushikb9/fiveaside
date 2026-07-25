@@ -42,8 +42,10 @@ site/                   static reader; site/data/digests.json is the database
    (set `FOOTBALL_DATA_TOKEN`, from [football-data.org](https://www.football-data.org/)).
 4. Install [Claude Code](https://claude.com/claude-code) (the brain runs
    `claude -p`), plus `uv` and `node`.
-5. First deploy: `npx wrangler login`, then `./deploy.sh` (creates the
-   Pages project), then run `./brain/curate.sh` each morning.
+5. First deploy: `npx wrangler login`, then
+   `npx wrangler pages project create <your-project> --production-branch main`
+   (once — deploy runs non-interactively and cannot create the project),
+   then `./deploy.sh`. After that, run `./brain/curate.sh` each morning.
 
 Nothing runs centrally: the brain runs on your machine, with your
 preferences, and publishes to your Cloudflare Pages project.
