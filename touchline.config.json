@@ -1,0 +1,10 @@
+{
+  "club": { "name": "Chelsea", "code": "CHE", "subreddit": "chelseafc" },
+  "competitions": ["PL", "CL"],
+  "timezone": "Asia/Kolkata",
+  "feeds": [
+    { "label": "The Guardian Football", "url": "https://www.theguardian.com/football/rss" },
+    { "label": "BBC Football", "url": "https://feeds.bbci.co.uk/sport/football/rss.xml" }
+  ],
+  "voice": "calm, sharp, no hype; written for a fan who missed the day, not a stranger"
+}
