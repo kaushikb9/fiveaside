@@ -119,7 +119,7 @@ function hashStr(s) {
 }
 function thumbHTML(item) {
   if (item.image) return `<img class="thumb" src="${esc(item.image)}" alt="">`;
-  const letter = (item.title.trim()[0] || "•").toUpperCase();
+  const letter = ((item.source ?? item.title).trim()[0] || "•").toUpperCase();
   const color = THUMB_COLORS[hashStr(item.title) % THUMB_COLORS.length];
   return `<div class="thumb ph" style="background:${color}">${esc(letter)}</div>`;
 }
@@ -128,7 +128,7 @@ function linkCard(item) {
   return `
     <a class="pick" href="${esc(item.url)}" target="_blank" rel="noopener">
       ${thumbHTML(item)}
-      <span><span class="t">${esc(item.title)}</span><span class="hook">${esc(item.hook)}</span></span>
+      <span><span class="t">${esc(item.title)}</span><span class="hook">${esc(item.hook)}</span>${item.source ? `<span class="src">${esc(item.source)}</span>` : ""}</span>
     </a>`;
 }
 

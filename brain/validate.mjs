@@ -25,12 +25,14 @@ const isNonEmptyStr = (v) => typeof v === "string" && v.trim() !== "";
 const isPlainObject = (v) => typeof v === "object" && v !== null && !Array.isArray(v);
 const isNumber = (v) => typeof v === "number" && Number.isFinite(v);
 
-// title/url/hook rule shared by `wider[]` items and `read`, with optional `image`.
+// title/url/hook rule shared by `wider[]` items and `read`, with optional `image`/`source`.
 function checkLink(where, label, item) {
   if (!item?.title || !item?.url || !item?.hook)
     fail(`${where}: ${label} needs title/url/hook`);
   if (item.image !== undefined && typeof item.image !== "string")
     fail(`${where}: ${label}.image must be a string when present`);
+  if (item.source !== undefined && !isNonEmptyStr(item.source))
+    fail(`${where}: ${label}.source must be a non-empty string when present`);
 }
 
 for (const [i, d] of data.digests.entries()) {
