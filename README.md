@@ -2,6 +2,9 @@
 
 One page of football a day. No scroll, no bait.
 
+**Live:** [touchline.kaushikbhat.com](https://touchline.kaushikbhat.com) ·
+[why this exists](https://touchline.kaushikbhat.com/about/)
+
 Touchline is a self-hostable football companion built on a simple model
 (borrowed from [antifeed](https://github.com/kaushikb9/antifeed)): a static
 site whose only database is a JSON file, plus a **brain** — headless Claude
@@ -14,7 +17,7 @@ site produces pixels.**
 
 ```
 touchline.config.json   your club, competitions, timezone, feeds, voice
-src/touchline/          facts CLI: `touchline facts` -> JSON bundle (football-data.org)
+src/touchline/          facts CLI: `touchline facts` -> JSON bundle (ESPN by default)
 brain/                  prompt + sources + curate.sh (headless Claude Code)
 site/                   static reader; site/data/digests.json is the database
 ```
