@@ -143,7 +143,7 @@ class ESPNClient:
         )
         url = f"{self.base_url}/site/v2/sports/soccer/{league}/scoreboard"
         try:
-            response = self._client.get(url, params={"dates": window, "limit": 200})
+            response = self._client.get(url, params={"dates": window, "limit": 400})
             response.raise_for_status()
             payload = response.json()
         except httpx.HTTPError as exc:

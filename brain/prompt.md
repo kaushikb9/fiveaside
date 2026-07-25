@@ -152,8 +152,9 @@ Rules:
   day with no discourse worth linking, emit `wider` as `[]`. Everything
   else is truly optional and should be omitted (not emitted as an empty
   string/array/object) when the bundle has no data for it: `club`'s nested
-  keys (`latest_result`, `fixtures`, `table`, `form`), `read`, `rivals`, and
-  the optional nested fields noted above (crest fields, `source`, `image`).
+  keys (`latest_result`, `fixtures`, `table`, `form`), `read`, `rivals`,
+  `team_watch`, and the optional nested fields noted above (crest fields,
+  `source`, `image`).
 - `headline` earns the open. Specific beats clever; clever beats generic.
 - `week` (REQUIRED, 3–5 items): the last ~7 days — results, transfers,
   friendlies, club news. Kicker ≤ 6 punchy words ending with a period; text

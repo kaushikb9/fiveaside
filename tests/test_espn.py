@@ -76,6 +76,7 @@ def test_fetch_matches_requests_date_window():
     # NOW is 2026-05-30: window = 120 days back to 45 days forward
     assert "eng.1" in seen["url"]
     assert "dates=20260130-20260714" in seen["url"]
+    assert "limit=400" in seen["url"]
 
 
 def test_friendlies_league_mapping():
