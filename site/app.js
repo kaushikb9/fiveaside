@@ -142,6 +142,37 @@ function readHTML(read) {
   return `<section><h2>One good read</h2><div class="linklist">${linkCard(read)}</div></section>`;
 }
 
+const weekHTML = (items) =>
+  items?.length
+    ? `<section><h2>This week</h2><ul class="brief">${items
+        .map(
+          (w) =>
+            `<li><strong>${esc(w.kicker)}</strong> <span class="tail">${esc(w.text)}</span></li>`
+        )
+        .join("")}</ul></section>`
+    : "";
+
+const teamWatchInitials = (name) =>
+  String(name ?? "")
+    .split(/\s+/)
+    .filter(Boolean)
+    .slice(0, 2)
+    .map((w) => w[0].toUpperCase())
+    .join("");
+
+const teamWatchHTML = (players) =>
+  players?.length
+    ? `<section><h2>Team watch</h2><div class="players">${players
+        .map(
+          (p) =>
+            `<div class="player"><span class="avatar${p.talent ? " talent" : ""}">${esc(teamWatchInitials(p.name))}</span>` +
+            `<div><div class="ptop"><span class="pname">${esc(p.name)}</span>` +
+            `<span class="ptag${p.talent ? " talent" : ""}">${esc(p.tag)}</span></div>` +
+            `<div class="pnote">${esc(p.note)}</div></div></div>`
+        )
+        .join("")}</div></section>`
+    : "";
+
 function rivalsHTML(rivals) {
   if (!rivals?.length) return "";
   const items = rivals
@@ -170,11 +201,12 @@ function digestContent(d) {
     ${latestResultHTML(club.latest_result)}
     ${fixturesHTML(club.fixtures)}
     ${splitHTML(club)}
-    <section><h2>Yesterday</h2><p>${esc(d.yesterday)}</p></section>
+    ${weekHTML(d.week)}
     <section><h2>Today</h2><p>${esc(d.today)}</p></section>
-    ${widerHTML(d.wider)}
+    ${teamWatchHTML(d.team_watch)}
     ${readHTML(d.read)}
-    ${rivalsHTML(d.rivals)}`;
+    ${rivalsHTML(d.rivals)}
+    ${widerHTML(d.wider)}`;
 }
 
 async function loadJSON(path) {
