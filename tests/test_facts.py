@@ -91,12 +91,38 @@ def test_buckets_yesterday_today_and_upcoming():
     assert comp["club_position"] == {"pos": 1, "points": 3, "played": 1}
     assert comp["errors"] == {"matches": None, "standings": None}
 
-    # Only f2 is within the 14-day horizon; f3 is beyond it.
+    # No date ceiling: both f2 and f3 appear, ordered by kickoff.
     assert facts["club_upcoming"] == [
         {"opponent": "Aston Villa", "at_home": False,
          "kickoff_local": "Tue 18 Aug 19:30", "competition": "PL",
-         "opponent_crest": "https://crests.football-data.org/58.png"}
+         "opponent_crest": "https://crests.football-data.org/58.png"},
+        {"opponent": "Tottenham", "at_home": True,
+         "kickoff_local": "Sun 20 Sep 19:30", "competition": "PL",
+         "opponent_crest": None},
     ]
+
+
+def test_club_upcoming_limited_to_next_five():
+    fixtures = [
+        _fixture(f"f{i}", datetime(2026, 9, i + 1, 14, 0, tzinfo=UTC), CHELSEA, ARSENAL)
+        for i in range(7)
+    ]
+    facts = _bundle(fixtures=fixtures)
+    assert len(facts["club_upcoming"]) == 5
+    assert facts["club_upcoming"][0]["kickoff_local"].startswith("Tue 01 Sep")
+
+
+def test_non_club_rows_capped_at_ten():
+    # 15 non-club matches today + 1 club match today: club row always kept.
+    fixtures = [
+        _fixture(f"n{i}", datetime(2026, 8, 16, 10 + (i % 8), i * 3 % 60, tzinfo=UTC), SPURS, VILLA)
+        for i in range(15)
+    ]
+    fixtures.append(_fixture("club1", datetime(2026, 8, 16, 18, 0, tzinfo=UTC), CHELSEA, ARSENAL))
+    facts = _bundle(fixtures=fixtures)
+    today = facts["competitions"][0]["today_matches"]
+    assert len(today) == 11  # 10 non-club + the club match
+    assert any(m["club_involved"] for m in today)
 
 
 def test_club_form_is_newest_first_from_clubs_perspective():

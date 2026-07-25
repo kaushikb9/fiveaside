@@ -9,7 +9,7 @@ import httpx
 from touchline.core.models import Competition, Fixture, MatchStatus, Result, Standing, Team
 from touchline.sources.base import SourceResult, StandingsResult
 
-_LEAGUE_MAP = {"PL": "eng.1", "CL": "uefa.champions"}
+_LEAGUE_MAP = {"PL": "eng.1", "CL": "uefa.champions", "FRIENDLIES": "club.friendly"}
 
 _LIVE_STATUSES = {
     "STATUS_IN_PLAY",
@@ -18,8 +18,8 @@ _LIVE_STATUSES = {
     "STATUS_SECOND_HALF",
 }
 
-PAST_DAYS = 45
-FUTURE_DAYS = 21
+PAST_DAYS = 120
+FUTURE_DAYS = 45
 
 _TBD_NAME = "TBD"
 

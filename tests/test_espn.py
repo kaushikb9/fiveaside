@@ -73,9 +73,22 @@ def test_fetch_matches_requests_date_window():
 
     client = _client_with(handler)
     client.fetch_matches("PL")
-    # NOW is 2026-05-30: window = 45 days back to 21 days forward
+    # NOW is 2026-05-30: window = 120 days back to 45 days forward
     assert "eng.1" in seen["url"]
-    assert "dates=20260415-20260620" in seen["url"]
+    assert "dates=20260130-20260714" in seen["url"]
+
+
+def test_friendlies_league_mapping():
+    seen = {}
+
+    def handler(request: httpx.Request) -> httpx.Response:
+        seen["url"] = str(request.url)
+        return httpx.Response(200, json={"leagues": [], "events": []})
+
+    client = _client_with(handler)
+    res = client.fetch_matches("FRIENDLIES")
+    assert res.ok
+    assert "club.friendly" in seen["url"]
 
 
 def test_fetch_standings_parses_rows():

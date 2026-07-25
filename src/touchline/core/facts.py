@@ -7,7 +7,8 @@ from touchline.config import ClubConfig, TouchlineConfig
 from touchline.core.models import Fixture, MatchStatus, Result, Standing, Team
 from touchline.sources.base import SourceResult, StandingsResult
 
-UPCOMING_HORIZON_DAYS = 14
+UPCOMING_LIMIT = 5
+NON_CLUB_ROW_CAP = 10
 FORM_LIMIT = 5
 
 
@@ -90,6 +91,19 @@ def _club_form(results: list[Result], club: ClubConfig, tz: ZoneInfo) -> list[di
     return form
 
 
+def _cap_non_club(rows: list[dict]) -> list[dict]:
+    """Keep every club row; cap the rest at NON_CLUB_ROW_CAP, preserving order."""
+    kept: list[dict] = []
+    non_club = 0
+    for row in rows:
+        if row["club_involved"]:
+            kept.append(row)
+        elif non_club < NON_CLUB_ROW_CAP:
+            kept.append(row)
+            non_club += 1
+    return kept
+
+
 def _competition_name(code: str, matches: SourceResult) -> str:
     if matches.fixtures:
         return matches.fixtures[0].competition.name
@@ -108,11 +122,10 @@ def build_facts(
     tz = ZoneInfo(config.timezone)
     today = _local(now, tz).date()
     yesterday = today - timedelta(days=1)
-    horizon = today + timedelta(days=UPCOMING_HORIZON_DAYS)
     club = config.club
 
     competitions: list[dict] = []
-    club_upcoming: list[dict] = []
+    upcoming_candidates: list[tuple[datetime, dict]] = []
     all_results: list[Result] = []
 
     for code, matches, standings in comp_data:
@@ -123,16 +136,20 @@ def build_facts(
             {
                 "code": code,
                 "name": _competition_name(code, matches),
-                "yesterday_results": [
-                    _result_row(r, club)
-                    for r in sorted(matches.results, key=lambda r: r.kickoff)
-                    if _local(r.kickoff, tz).date() == yesterday
-                ],
-                "today_matches": [
-                    _fixture_row(f, club, tz)
-                    for f in sorted(matches.fixtures, key=lambda f: f.kickoff)
-                    if _local(f.kickoff, tz).date() == today
-                ],
+                "yesterday_results": _cap_non_club(
+                    [
+                        _result_row(r, club)
+                        for r in sorted(matches.results, key=lambda r: r.kickoff)
+                        if _local(r.kickoff, tz).date() == yesterday
+                    ]
+                ),
+                "today_matches": _cap_non_club(
+                    [
+                        _fixture_row(f, club, tz)
+                        for f in sorted(matches.fixtures, key=lambda f: f.kickoff)
+                        if _local(f.kickoff, tz).date() == today
+                    ]
+                ),
                 "table": _table_rows(standings.standings),
                 "club_position": (
                     {"pos": club_row.position, "points": club_row.points, "played": club_row.played}
@@ -143,23 +160,26 @@ def build_facts(
             }
         )
 
-        for f in sorted(matches.fixtures, key=lambda f: f.kickoff):
+        for f in matches.fixtures:
             f_date = _local(f.kickoff, tz).date()
-            if (
-                _involves_club(f, club)
-                and f.status == MatchStatus.SCHEDULED
-                and today < f_date <= horizon
-            ):
-                opponent = f.away if _is_club(f.home, club) else f.home
-                club_upcoming.append(
-                    {
-                        "opponent": opponent.name,
-                        "at_home": _is_club(f.home, club),
-                        "kickoff_local": _local(f.kickoff, tz).strftime("%a %d %b %H:%M"),
-                        "competition": f.competition.code,
-                        "opponent_crest": opponent.crest,
-                    }
+            if _involves_club(f, club) and f.status == MatchStatus.SCHEDULED and f_date > today:
+                upcoming_candidates.append(
+                    (
+                        f.kickoff,
+                        {
+                            "opponent": f.away.name if _is_club(f.home, club) else f.home.name,
+                            "opponent_crest": (
+                                f.away.crest if _is_club(f.home, club) else f.home.crest
+                            ),
+                            "at_home": _is_club(f.home, club),
+                            "kickoff_local": _local(f.kickoff, tz).strftime("%a %d %b %H:%M"),
+                            "competition": f.competition.code,
+                        },
+                    )
                 )
+
+    upcoming_candidates.sort(key=lambda pair: pair[0])
+    club_upcoming = [row for _, row in upcoming_candidates[:UPCOMING_LIMIT]]
 
     return {
         "date": today.isoformat(),
