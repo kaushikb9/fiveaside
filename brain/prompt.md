@@ -39,7 +39,8 @@ Schema:
       "home": "...",
       "away": "...",
       "score": "2–1",
-      "competition": "PL",
+      "competition": "Premier League",
+      "result": "W",
       "home_crest": "...",
       "away_crest": "..."
     },
@@ -48,7 +49,7 @@ Schema:
         "opponent": "...",
         "home": true,
         "kickoff_local": "Sat 22 Aug 20:00",
-        "competition": "PL",
+        "competition": "Premier League",
         "opponent_crest": "..."
       }
     ],
@@ -96,6 +97,16 @@ Schema:
 Rules:
 - `club` is structured facts copied from the bundle (the site renders it) —
   never invented, never embellished:
+  - Competition labels: every `competition` value found on match/table rows
+    in the bundle (`club_form[].competition`, `club_upcoming[].competition`,
+    `yesterday_results[].competition`, each competition's `code`) is a short
+    CODE (e.g. "PL"). The bundle's top-level `competitions[]` array has one
+    entry per competition with both `code` and a human `name` — for
+    `club.latest_result.competition`, `club.fixtures[].competition`,
+    `club.table.competition`, and rivals' `line`, map the code to the
+    matching `competitions[].name` (falling back to the code itself if no
+    entry matches). The one deliberate exception is `club.form[].competition`,
+    which KEEPS the short code — the form strip shows compact codes.
   - `latest_result`: the club's most recent completed match. Prefer the
     bundle's `yesterday_results` entry with `club_involved: true` (its
     `home`/`away`/`score` are already home–away ordered — copy straight
@@ -114,17 +125,22 @@ Rules:
     since the opponent is now `home`, the club's digit second since the
     club is now `away`). Getting this swap wrong renders a factually
     incorrect scoreline on the site, so double-check it against the raw
-    numbers, not just by eye.
+    numbers, not just by eye. Set `competition` to the mapped human name
+    (see above), and set `result` to the newest `club_form` entry's
+    `result` ("W"/"L"/"D") when it's known — omit `result` entirely if you
+    can't determine it.
   - `fixtures`: from `club_upcoming` — map each entry's `at_home` to
-    `home`, carry `opponent`, `kickoff_local`, `competition`, and
-    `opponent_crest` across unchanged.
+    `home`, carry `opponent`, `kickoff_local`, and `opponent_crest` across
+    unchanged, and set `competition` to the mapped human name (see above).
   - `table`: the club's own competition's human `name` for `competition`,
     the top-4 rows of that competition's `table` as `rows` (append the
     club's own row too if it sits below 4th — the site handles highlighting
     it via `club_position`), and `club_position` as the plain number
     (`club_position.pos` in the bundle).
   - `form`: the bundle's `club_form`, REVERSED to oldest→newest (the bundle
-    is newest-first; the digest reads oldest-first, newest last).
+    is newest-first; the digest reads oldest-first, newest last). Unlike
+    every other `club.*` field, `competition` here stays the raw short code
+    from the bundle — do NOT map it to the human name.
   - Crest URLs are copied verbatim from the bundle — never guessed.
 - `club` and `wider` are ALWAYS present — the validator requires both on
   every entry. On a day with no club data at all, emit `club` as `{}`; on a
@@ -147,9 +163,9 @@ Rules:
   a great older piece beats a mediocre new one.
 - `rivals`: optional, 2–4 clubs from the club's own league that matter to
   the title/top-four race, drawn from the bundle's table rows (`crest`
-  copied from there too). `line` is a factual chip (e.g. "#1 · 3 pts ·
-  Premier League" or "plays tonight · Premier League"). `note` is the one
-  place opinion meets other clubs' results — one honest, brain-written
-  sentence.
+  copied from there too). `line` is a factual chip using the mapped human
+  competition name, never the raw code (e.g. "#1 · 3 pts · Premier League"
+  or "plays tonight · Premier League"). `note` is the one place opinion
+  meets other clubs' results — one honest, brain-written sentence.
 - After editing, run `node brain/validate.mjs site/data/digests.json` via
   Bash and fix anything it reports before finishing.
