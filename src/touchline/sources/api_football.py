@@ -55,17 +55,24 @@ def _matchday(round_label: str | None) -> int | None:
 def _parse_fixtures(payload: dict[str, Any], competition: str) -> SourceResult:
     fixtures: list[Fixture] = []
     results: list[Result] = []
-    comp_name = competition
 
-    for entry in payload.get("response", []):
+    entries = payload.get("response", [])
+    comp_name = next(
+        (
+            (entry.get("league") or {}).get("name")
+            for entry in entries
+            if (entry.get("league") or {}).get("name")
+        ),
+        competition,
+    )
+    comp = Competition(code=competition, name=comp_name)
+
+    for entry in entries:
         try:
             fixture_payload = entry.get("fixture") or {}
             league = entry.get("league") or {}
             teams = entry.get("teams") or {}
             goals = entry.get("goals") or {}
-            if league.get("name"):
-                comp_name = league["name"]
-            comp = Competition(code=competition, name=comp_name)
             home_payload = teams.get("home")
             away_payload = teams.get("away")
             if not home_payload or not away_payload:

@@ -29,9 +29,13 @@ site/                   static reader; site/data/digests.json is the database
 ## Self-hosting
 
 1. Fork this repo.
-2. Edit `touchline.config.json` — club name + [football-data.org TLA code](https://www.football-data.org/),
+2. Edit `touchline.config.json` — club name + club `code`, plus
    competitions, your timezone, feeds, and the voice you want the digest
-   written in.
+   written in. The `code` must match your configured `source` (step 3): the
+   ESPN abbreviation for `espn` (default — e.g. `MAN` for Manchester United,
+   not football-data's `MUN`), the [football-data.org TLA](https://www.football-data.org/)
+   for `football-data`, or nothing at all for `api-football` — it has no
+   club codes, so the club `name` must match its team name exactly instead.
 3. Pick a data source in `touchline.config.json` (`"source"`): `espn` (default,
    no key needed), `api-football` (set `API_FOOTBALL_KEY`, from
    [api-football.com](https://www.api-football.com/)), or `football-data`

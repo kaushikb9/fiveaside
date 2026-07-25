@@ -6,7 +6,7 @@ import httpx
 
 from touchline.core.models import MatchStatus
 from touchline.sources.base import MatchSource, StandingsSource
-from touchline.sources.espn import ESPNClient
+from touchline.sources.espn import ESPNClient, _status
 
 FIXTURES = Path(__file__).parent / "fixtures" / "espn"
 NOW = datetime(2026, 5, 30, 12, 0, tzinfo=UTC)
@@ -83,11 +83,36 @@ def test_fetch_standings_parses_rows():
     res = client.fetch_standings("PL")
     assert res.ok
     assert len(res.standings) == 4
+
     row = res.standings[0]
-    assert row.position >= 1
-    assert row.played >= 0
-    assert row.team.name != ""
+    assert row.position == 1
+    assert row.team.name == "AFC Bournemouth"
+    assert row.played == 34
+    assert row.won == 20
+    assert row.draw == 8
+    assert row.lost == 6
+    assert row.points == 68
+    assert row.goals_for == 65
+    assert row.goals_against == 30
     assert row.team.crest and row.team.crest.startswith("http")
+
+    row2 = res.standings[1]
+    assert row2.position == 2
+    assert row2.team.name == "Arsenal"
+    assert row2.played == 34
+    assert row2.won == 18
+    assert row2.draw == 9
+    assert row2.lost == 7
+    assert row2.points == 63
+    assert row2.goals_for == 58
+    assert row2.goals_against == 35
+
+
+def test_status_maps_live_scheduled_finished():
+    assert _status({"name": "STATUS_HALFTIME", "completed": False}) == MatchStatus.LIVE
+    assert _status({"name": "STATUS_IN_PLAY", "completed": False}) == MatchStatus.LIVE
+    assert _status({"completed": True}) == MatchStatus.FINISHED
+    assert _status({"name": "STATUS_SCHEDULED", "completed": False}) == MatchStatus.SCHEDULED
 
 
 def test_unknown_competition_degrades():

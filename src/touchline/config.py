@@ -8,7 +8,9 @@ from pydantic import BaseModel, Field
 
 class ClubConfig(BaseModel, frozen=True):
     name: str
-    code: str  # football-data.org team TLA, e.g. "CHE"
+    code: str  # abbreviation for your configured source: ESPN abbreviation (default,
+    # e.g. "MAN" for Man United), football-data.org TLA, or unused for
+    # api-football (which has no codes — match `name` to its team name instead)
     subreddit: str | None = None
 
 
