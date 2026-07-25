@@ -9,15 +9,12 @@ from pydantic import ValidationError
 from touchline.core.models import (
     Competition,
     Fixture,
-    HeadToHead,
-    MatchDetail,
     MatchStatus,
-    Referee,
     Result,
     Standing,
     Team,
 )
-from touchline.sources.base import MatchDetailResult, SourceResult, StandingsResult
+from touchline.sources.base import SourceResult, StandingsResult
 
 _STATUS_MAP = {
     "SCHEDULED": MatchStatus.SCHEDULED,
@@ -121,54 +118,6 @@ def _parse_standings(payload: dict[str, Any], competition: str) -> StandingsResu
     return StandingsResult(ok=True, standings=standings)
 
 
-def _parse_match_detail(match: dict[str, Any], h2h: dict[str, Any] | None) -> MatchDetail:
-    comp_payload = match.get("competition") or {}
-    comp = Competition(
-        code=comp_payload.get("code", "WC"), name=comp_payload.get("name", "WC")
-    )
-    score = match.get("score") or {}
-    full_time = score.get("fullTime") or {}
-    half_time = score.get("halfTime") or {}
-
-    referee: Referee | None = None
-    refs = match.get("referees") or []
-    main_ref = next((r for r in refs if (r.get("type") or "").upper() == "REFEREE"), None)
-    main_ref = main_ref or (refs[0] if refs else None)
-    if main_ref and main_ref.get("name"):
-        referee = Referee(name=main_ref["name"], nationality=main_ref.get("nationality"))
-
-    h2h_model: HeadToHead | None = None
-    if h2h:
-        agg = h2h.get("aggregates") or {}
-        home = agg.get("homeTeam") or {}
-        away = agg.get("awayTeam") or {}
-        h2h_model = HeadToHead(
-            total=agg.get("numberOfMatches", 0) or 0,
-            home_wins=home.get("wins", 0) or 0,
-            away_wins=away.get("wins", 0) or 0,
-            draws=home.get("draws", 0) or 0,
-        )
-
-    return MatchDetail(
-        id=str(match["id"]),
-        competition=comp,
-        home=_team(match.get("homeTeam") or {}),
-        away=_team(match.get("awayTeam") or {}),
-        kickoff=match["utcDate"],
-        status=_STATUS_MAP.get(match.get("status", ""), MatchStatus.SCHEDULED),
-        group=match.get("group"),
-        matchday=match.get("matchday"),
-        stage=match.get("stage"),
-        home_score=full_time.get("home"),
-        away_score=full_time.get("away"),
-        ht_home=half_time.get("home"),
-        ht_away=half_time.get("away"),
-        winner=_WINNER_MAP.get(score.get("winner", "")),
-        referee=referee,
-        h2h=h2h_model,
-    )
-
-
 class FootballDataClient:
     """`MatchSource` backed by football-data.org v4."""
 
@@ -218,33 +167,3 @@ class FootballDataClient:
         except (KeyError, TypeError, ValueError) as exc:
             error = f"unexpected payload: {exc}"
             return StandingsResult(ok=False, standings=[], error=error)
-
-    def fetch_match_detail(self, match_id: str) -> MatchDetailResult:
-        try:
-            response = self._client.get(f"{self.base_url}/matches/{match_id}")
-            response.raise_for_status()
-            payload = response.json()
-        except httpx.HTTPError as exc:
-            return MatchDetailResult(ok=False, error=str(exc))
-        except ValueError as exc:
-            return MatchDetailResult(ok=False, error=f"invalid JSON: {exc}")
-
-        match = payload.get("match", payload)  # some responses wrap the match; tolerate both
-
-        # Head-to-head only matters for upcoming matches; fetch best-effort so a
-        # failure (or rate limit) on it never sinks the page.
-        h2h: dict[str, Any] | None = None
-        if match.get("status", "") in ("SCHEDULED", "TIMED"):
-            try:
-                h2h_resp = self._client.get(
-                    f"{self.base_url}/matches/{match_id}/head2head", params={"limit": 10}
-                )
-                h2h_resp.raise_for_status()
-                h2h = h2h_resp.json()
-            except (httpx.HTTPError, ValueError):
-                h2h = None
-
-        try:
-            return MatchDetailResult(ok=True, detail=_parse_match_detail(match, h2h))
-        except (KeyError, TypeError, ValueError) as exc:
-            return MatchDetailResult(ok=False, error=f"unexpected payload: {exc}")
