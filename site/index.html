@@ -6,9 +6,18 @@
   <title>Touchline</title>
   <link rel="stylesheet" href="style.css">
   <link rel="icon" href="icon.svg" type="image/svg+xml">
+  <script>
+    // Apply the saved theme before first paint to avoid a flash. "auto" = no attribute.
+    (function () {
+      var theme = localStorage.getItem("touchline-theme");
+      if (theme === "light" || theme === "dark")
+        document.documentElement.setAttribute("data-theme", theme);
+    })();
+  </script>
 </head>
 <body>
   <div class="page">
+    <button id="theme-toggle" class="theme-btn" type="button" aria-label="Switch theme"></button>
     <header>
       <div class="masthead">Touchline</div>
       <div class="pitchline" aria-hidden="true"></div>

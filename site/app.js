@@ -259,6 +259,37 @@ async function load() {
   main.innerHTML = html;
 }
 
+// Theme toggle: auto (follow OS) -> light -> dark -> auto. Persisted in localStorage;
+// the inline <head> script re-applies it before first paint on later visits.
+function setupThemeToggle() {
+  const button = $("#theme-toggle");
+  if (!button) return;
+  const MODES = ["auto", "light", "dark"];
+  const label = { auto: "◐ auto", light: "○ light", dark: "● dark" };
+
+  const apply = (mode) => {
+    if (mode === "auto") {
+      document.documentElement.removeAttribute("data-theme");
+      localStorage.removeItem("touchline-theme");
+    } else {
+      document.documentElement.setAttribute("data-theme", mode);
+      localStorage.setItem("touchline-theme", mode);
+    }
+    button.textContent = label[mode];
+  };
+
+  let mode = localStorage.getItem("touchline-theme");
+  if (!MODES.includes(mode)) mode = "auto";
+  apply(mode);
+
+  button.addEventListener("click", () => {
+    mode = MODES[(MODES.indexOf(mode) + 1) % MODES.length];
+    apply(mode);
+  });
+}
+
+setupThemeToggle();
+
 load().catch((err) => {
   $("#main").innerHTML = `<p class="empty">Could not load digests: ${esc(err.message)}</p>`;
 });
