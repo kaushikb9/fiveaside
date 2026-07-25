@@ -1,47 +1,59 @@
 # Touchline
 
-A football companion that replaces the doomscroll. World Cup 2026 first (it's on
-now — Jun 11 to Jul 19), then club football via the same club-agnostic core.
+One page of football a day. No scroll, no bait.
 
-Touchline ingests fixtures, results, standings, and news, and produces one calm,
-fun **daily digest**: what happened, what matters today, what to watch next —
-so following the tournament doesn't require Twitter or Instagram.
+Touchline is a self-hostable football companion built on a simple model
+(borrowed from [antifeed](https://github.com/kaushikb9/antifeed)): a static
+site whose only database is a JSON file, plus a **brain** — headless Claude
+Code, run locally each morning — that gathers the facts, reads the day's
+discourse, and writes one calm, opinionated page: what happened, what's on
+today, and what's worth your click.
 
-## Built by the night shift
-
-This repo is built primarily by [nightshift](https://github.com/kaushikb9/nightshift),
-an autonomous agent engineering team. Humans write `ROADMAP.md`, `rubrics/`, and PR
-reviews; agents write the code at night. `MEMORY.md` is the team's own accumulated
-experience. If you're reading a PR here, odds are no human typed it.
-
-## Architecture: core + adapters (platform flexibility is a requirement)
+The boundary rule: **Python produces facts, the brain produces prose, the
+site produces pixels.**
 
 ```
-src/terrace/core/      pure Python domain: ingest, models, digest generation
-src/terrace/sources/   data-source clients (football-data.org, RSS) behind interfaces
-src/terrace/render/    digest -> markdown / HTML
-src/terrace/web/       FastAPI app serving the digest as a responsive PWA
+touchline.config.json   your club, competitions, timezone, feeds, voice
+src/touchline/          facts CLI: `touchline facts` -> JSON bundle (football-data.org)
+brain/                  prompt + sources + curate.sh (headless Claude Code)
+site/                   static reader; site/data/digests.json is the database
 ```
 
-- **Core is pure**: no I/O assumptions, fully unit-testable, surface-agnostic.
-- **First surfaces**: CLI (`uv run touchline digest`) and a responsive **PWA** — installable
-  on iPhone from Safari and usable on Mac, no App Store.
+## Daily use
 
-### Running the web surface
-
-```
-uv run uvicorn terrace.web.app:app --reload
+```sh
+./brain/curate.sh              # with morning coffee: facts -> brain -> validate -> commit -> deploy
+./brain/curate.sh --no-deploy  # same, but stop before deploying
 ```
 
-Then open `http://localhost:8000` — Safari (Share → Add to Home Screen) and Chrome
-(install icon in the address bar) will offer to install it as an app. Visit
-`http://localhost:8000/standings` for the World Cup group tables.
-- **Later surfaces** (cheap because the core doesn't care): Telegram delivery,
-  native wrappers, widgets.
+## Self-hosting
 
-## Status
+1. Fork this repo.
+2. Edit `touchline.config.json` — club name + [football-data.org TLA code](https://www.football-data.org/),
+   competitions, your timezone, feeds, and the voice you want the digest
+   written in.
+3. Get a free token at football-data.org and export it:
+   `export FOOTBALL_DATA_TOKEN=...`
+4. Install [Claude Code](https://claude.com/claude-code) (the brain runs
+   `claude -p`), plus `uv` and `node`.
+5. First deploy: `npx wrangler login`, then `./deploy.sh` (creates the
+   Pages project), then run `./brain/curate.sh` each morning.
 
-Scaffold. The night shift starts on `ROADMAP.md` tonight.
+Nothing runs centrally: the brain runs on your machine, with your
+preferences, and publishes to your Cloudflare Pages project.
+
+## Development
+
+```sh
+uv run pytest -q                     # Python suite
+node brain/validate.mjs              # check the database
+cd site && python3 -m http.server    # local preview
+```
+
+## Deliberately not built (yet)
+
+Match pages, standings pages, PWA install, push/Telegram/email delivery,
+preference sync, automated scheduling. Each may return if the habit sticks.
 
 ## License
 
