@@ -55,7 +55,36 @@ def test_main_facts_uses_config_path(tmp_path, capsys, monkeypatch):
     )
     import touchline.cli as cli
 
-    monkeypatch.setattr(cli, "FootballDataClient", lambda: FakeSource())
+    monkeypatch.setitem(cli.SOURCES, "espn", lambda: FakeSource())
+    assert main(["facts", "--config", str(config_path)]) == 0
+    bundle = json.loads(capsys.readouterr().out)
+    assert bundle["club"]["code"] == "CHE"
+
+
+def test_sources_registry_covers_all_config_values():
+    from touchline.cli import SOURCES
+    from touchline.sources.api_football import APIFootballClient
+    from touchline.sources.espn import ESPNClient
+    from touchline.sources.football_data import FootballDataClient
+
+    assert SOURCES == {
+        "espn": ESPNClient,
+        "api-football": APIFootballClient,
+        "football-data": FootballDataClient,
+    }
+
+
+def test_main_facts_instantiates_configured_source(tmp_path, capsys, monkeypatch):
+    config_path = tmp_path / "touchline.config.json"
+    config_path.write_text(
+        json.dumps(
+            {"club": {"name": "Chelsea", "code": "CHE"}, "competitions": ["PL"], "source": "espn"}
+        ),
+        encoding="utf-8",
+    )
+    import touchline.cli as cli
+
+    monkeypatch.setitem(cli.SOURCES, "espn", lambda: FakeSource())
     assert main(["facts", "--config", str(config_path)]) == 0
     bundle = json.loads(capsys.readouterr().out)
     assert bundle["club"]["code"] == "CHE"

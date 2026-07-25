@@ -50,3 +50,27 @@ def test_empty_competitions_rejected():
 def test_repo_config_is_valid():
     cfg = load_config("touchline.config.json")
     assert cfg.competitions
+
+
+def test_source_defaults_to_espn(tmp_path):
+    path = tmp_path / "touchline.config.json"
+    path.write_text(
+        json.dumps({"club": {"name": "Chelsea", "code": "CHE"}, "competitions": ["PL"]}),
+        encoding="utf-8",
+    )
+    assert load_config(path).source == "espn"
+
+
+def test_source_accepts_known_values():
+    for value in ("espn", "api-football", "football-data"):
+        cfg = TouchlineConfig(
+            club={"name": "Chelsea", "code": "CHE"}, competitions=["PL"], source=value
+        )
+        assert cfg.source == value
+
+
+def test_source_rejects_unknown_value():
+    with pytest.raises(ValidationError):
+        TouchlineConfig(
+            club={"name": "Chelsea", "code": "CHE"}, competitions=["PL"], source="fotmob"
+        )

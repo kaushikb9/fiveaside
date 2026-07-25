@@ -2,7 +2,7 @@
 
 1. **Facts bundle** (provided in the task message — output of
    `uv run touchline facts`): ground truth for scores, fixtures, tables,
-   form. Free-tier football-data.org under the hood.
+   form. Served by the source selected in `touchline.config.json` (`source`: ESPN by default; api-football or football-data.org selectable).
 2. **r/soccer, top of the last day** —
    https://www.reddit.com/r/soccer/top/.rss?t=day — the community-voted
    pulse of the game. (Reddit's public .json endpoints 403; RSS works.)

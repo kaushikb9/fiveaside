@@ -6,7 +6,15 @@ from datetime import UTC, datetime
 
 from touchline.config import TouchlineConfig, load_config
 from touchline.core.facts import build_facts
+from touchline.sources.api_football import APIFootballClient
+from touchline.sources.espn import ESPNClient
 from touchline.sources.football_data import FootballDataClient
+
+SOURCES: dict[str, type] = {
+    "espn": ESPNClient,
+    "api-football": APIFootballClient,
+    "football-data": FootballDataClient,
+}
 
 
 def run_facts(source, config: TouchlineConfig, *, now: datetime | None = None) -> str:
@@ -32,7 +40,7 @@ def main(argv: list[str] | None = None) -> int:
 
     if args.command == "facts":
         config = load_config(args.config)
-        print(run_facts(FootballDataClient(), config))
+        print(run_facts(SOURCES[config.source](), config))
         return 0
 
     parser.print_help()

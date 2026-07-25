@@ -1,6 +1,7 @@
 """Owner preferences: loading touchline.config.json."""
 
 from pathlib import Path
+from typing import Literal
 
 from pydantic import BaseModel, Field
 
@@ -22,6 +23,7 @@ class TouchlineConfig(BaseModel, frozen=True):
     timezone: str = "UTC"
     feeds: list[FeedConfig] = []
     voice: str = ""
+    source: Literal["espn", "api-football", "football-data"] = "espn"
 
 
 def load_config(path: str | Path = "touchline.config.json") -> TouchlineConfig:

@@ -32,8 +32,10 @@ site/                   static reader; site/data/digests.json is the database
 2. Edit `touchline.config.json` — club name + [football-data.org TLA code](https://www.football-data.org/),
    competitions, your timezone, feeds, and the voice you want the digest
    written in.
-3. Get a free token at football-data.org and export it:
-   `export FOOTBALL_DATA_TOKEN=...`
+3. Pick a data source in `touchline.config.json` (`"source"`): `espn` (default,
+   no key needed), `api-football` (set `API_FOOTBALL_KEY`, from
+   [api-football.com](https://www.api-football.com/)), or `football-data`
+   (set `FOOTBALL_DATA_TOKEN`, from [football-data.org](https://www.football-data.org/)).
 4. Install [Claude Code](https://claude.com/claude-code) (the brain runs
    `claude -p`), plus `uv` and `node`.
 5. First deploy: `npx wrangler login`, then `./deploy.sh` (creates the
