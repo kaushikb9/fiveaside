@@ -40,7 +40,7 @@ function latestResultHTML(lr) {
   return `
     <div class="board">
       <div class="blabel">Latest result</div>
-      <div class="brow win-row">
+      <div class="brow${lr.result === "W" ? " win-row" : ""}">
         <span class="who">${crestHTML(lr.home_crest, lr.home)}${esc(lr.home)} <span class="score">${esc(lr.score)}</span> ${esc(lr.away)}${crestHTML(lr.away_crest, lr.away)}</span>
         <span class="meta">${esc(lr.competition)} &middot; FT</span>
       </div>
@@ -65,7 +65,7 @@ function fixturesHTML(fixtures) {
 function formTitle(f, isLast) {
   const verbs = {
     W: `Beat ${f.opponent} ${f.score}`,
-    L: `Lost ${f.score} at ${f.opponent}`,
+    L: `Lost ${f.score} to ${f.opponent}`,
     D: `Drew ${f.score} with ${f.opponent}`,
   };
   const base = `${verbs[f.result] ?? `${f.result} ${f.score} vs ${f.opponent}`}, ${f.competition}`;

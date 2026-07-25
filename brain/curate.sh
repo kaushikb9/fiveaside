@@ -3,8 +3,12 @@
 set -euo pipefail
 cd "$(dirname "$0")/.."
 
-TODAY="$(date +%F)"
 FACTS="$(uv run touchline facts)"
+TODAY="$(printf '%s' "$FACTS" | node -pe 'JSON.parse(require("fs").readFileSync(0,"utf8")).date')"
+if [[ ! "$TODAY" =~ ^[0-9]{4}-[0-9]{2}-[0-9]{2}$ ]]; then
+  echo "could not extract a valid 'date' from the facts bundle" >&2
+  exit 1
+fi
 CONFIG="$(cat touchline.config.json)"
 
 claude -p "$(cat brain/prompt.md)
@@ -24,8 +28,13 @@ $FACTS" \
 node brain/validate.mjs site/data/digests.json \
   || { echo "digests.json failed validation — NOT committing"; exit 1; }
 
+if git diff --quiet -- site/data/digests.json; then
+  echo "nothing new to publish"
+  exit 0
+fi
+
 git add site/data/digests.json
-git commit -m "digest: $TODAY" || echo "nothing new committed"
+git commit -m "digest: $TODAY"
 
 if [ "${1:-}" != "--no-deploy" ]; then
   ./deploy.sh

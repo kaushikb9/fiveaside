@@ -1,6 +1,6 @@
 /* Touchline reader stylesheet.
    Ported from the approved mockup at
-   .superpowers/sdd/2026-07-25-touchline-v2-antifeed-model/mockup-template.html
+   docs/superpowers/mockups/2026-07-25-site-mockup.html
    Additions beyond the mockup are marked below (empty state, thumb fallback tiles). */
 :root {
   --bg: #f7f9f5;

@@ -16,21 +16,26 @@ try {
   fail(err.message);
 }
 
-if (!Array.isArray(data.digests)) fail("top-level 'digests' must be an array");
-
-const dateRe = /^\d{4}-\d{2}-\d{2}$/;
-const seen = new Set();
-
 const isNonEmptyStr = (v) => typeof v === "string" && v.trim() !== "";
 const isPlainObject = (v) => typeof v === "object" && v !== null && !Array.isArray(v);
 const isNumber = (v) => typeof v === "number" && Number.isFinite(v);
 
+if (!isPlainObject(data)) fail("top-level JSON must be an object");
+if (!Array.isArray(data.digests)) fail("top-level 'digests' must be an array");
+
+const dateRe = /^\d{4}-\d{2}-\d{2}$/;
+const seen = new Set();
+const urlRe = /^https?:\/\//;
+
 // title/url/hook rule shared by `wider[]` items and `read`, with optional `image`/`source`.
 function checkLink(where, label, item) {
-  if (!item?.title || !item?.url || !item?.hook)
+  if (!isNonEmptyStr(item?.title) || !isNonEmptyStr(item?.url) || !isNonEmptyStr(item?.hook))
     fail(`${where}: ${label} needs title/url/hook`);
-  if (item.image !== undefined && typeof item.image !== "string")
-    fail(`${where}: ${label}.image must be a string when present`);
+  if (!urlRe.test(item.url)) fail(`${where}: ${label}.url must start with http:// or https://`);
+  if (item.image !== undefined) {
+    if (!isNonEmptyStr(item.image) || !urlRe.test(item.image))
+      fail(`${where}: ${label}.image must be a non-empty http(s) URL string when present`);
+  }
   if (item.source !== undefined && !isNonEmptyStr(item.source))
     fail(`${where}: ${label}.source must be a non-empty string when present`);
 }
@@ -62,6 +67,8 @@ for (const [i, d] of data.digests.entries()) {
       if (lr[key] !== undefined && lr[key] !== null && typeof lr[key] !== "string")
         fail(`${where}: club.latest_result.${key} must be a string or null when present`);
     }
+    if (lr.result !== undefined && !["W", "L", "D"].includes(lr.result))
+      fail(`${where}: club.latest_result.result must be exactly "W", "L" or "D" when present`);
   }
 
   if (d.club.fixtures !== undefined) {
