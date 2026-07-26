@@ -55,7 +55,8 @@ cd site && python3 -m http.server  # local preview
 
 ## Deployment
 
-Cloudflare Pages project `touchline`, custom domain
-https://touchline.kaushikbhat.com. Deploys are non-interactive
+Cloudflare Pages project `touchline-chelsea`, live at
+https://touchline-chelsea.pages.dev (no custom domain). Deploys are
+non-interactive
 (`CI=1`); the project already exists — just `./deploy.sh`. The owner runs
 `./brain/curate.sh` manually each morning; there is deliberately no cron.

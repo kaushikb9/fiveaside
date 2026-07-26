@@ -2,8 +2,8 @@
 
 One page of football a day. No scroll, no bait.
 
-**Live:** [touchline.kaushikbhat.com](https://touchline.kaushikbhat.com) ·
-[why this exists](https://touchline.kaushikbhat.com/about/)
+**Live:** [touchline-chelsea.pages.dev](https://touchline-chelsea.pages.dev) ·
+[why this exists](https://touchline-chelsea.pages.dev/about/)
 
 Touchline is a self-hostable football companion built on a simple model
 (borrowed from [antifeed](https://github.com/kaushikb9/antifeed)): a static
