@@ -234,6 +234,230 @@
           "note": "Iraola is backing his existing backroom staff to cure their set-piece ills — the same week Chelsea simply bought the best set-piece coach in the league."
         }
       ]
+    },
+    {
+      "date": "2026-07-26",
+      "club": {
+        "latest_result": {
+          "home": "Sunderland",
+          "away": "Chelsea",
+          "score": "2–1",
+          "date": "Sun 24 May",
+          "competition": "PL",
+          "result": "L",
+          "home_crest": "https://a.espncdn.com/i/teamlogos/soccer/500/366.png",
+          "away_crest": "https://a.espncdn.com/i/teamlogos/soccer/500/363.png"
+        },
+        "fixtures": [
+          {
+            "opponent": "Juventus",
+            "home": true,
+            "kickoff_local": "Wed 05 Aug 17:00",
+            "competition": "FR",
+            "opponent_crest": "https://a.espncdn.com/i/teamlogos/soccer/500/111.png"
+          },
+          {
+            "opponent": "AC Milan",
+            "home": true,
+            "kickoff_local": "Sat 08 Aug 17:30",
+            "competition": "FR",
+            "opponent_crest": "https://a.espncdn.com/i/teamlogos/soccer/500/103.png"
+          },
+          {
+            "opponent": "Johor Darul Ta'zim",
+            "home": false,
+            "kickoff_local": "Sun 09 Aug 17:30",
+            "competition": "FR",
+            "opponent_crest": "https://a.espncdn.com/i/teamlogos/soccer/500/17689.png"
+          },
+          {
+            "opponent": "Real Sociedad",
+            "home": true,
+            "kickoff_local": "Sat 15 Aug 18:30",
+            "competition": "FR",
+            "opponent_crest": "https://a.espncdn.com/i/teamlogos/soccer/500/89.png"
+          },
+          {
+            "opponent": "Fulham",
+            "home": false,
+            "kickoff_local": "Tue 25 Aug 00:30",
+            "competition": "PL",
+            "opponent_crest": "https://a.espncdn.com/i/teamlogos/soccer/500/370.png"
+          }
+        ],
+        "table": {
+          "competition": "English Premier League",
+          "rows": [
+            {
+              "pos": 1,
+              "team": "AFC Bournemouth",
+              "crest": "https://a.espncdn.com/i/teamlogos/soccer/500/349.png",
+              "played": 0,
+              "points": 0
+            },
+            {
+              "pos": 2,
+              "team": "Arsenal",
+              "crest": "https://a.espncdn.com/i/teamlogos/soccer/500/359.png",
+              "played": 0,
+              "points": 0
+            },
+            {
+              "pos": 3,
+              "team": "Aston Villa",
+              "crest": "https://a.espncdn.com/i/teamlogos/soccer/500/362.png",
+              "played": 0,
+              "points": 0
+            },
+            {
+              "pos": 4,
+              "team": "Brentford",
+              "crest": "https://a.espncdn.com/i/teamlogos/soccer/500/337.png",
+              "played": 0,
+              "points": 0
+            },
+            {
+              "pos": 6,
+              "team": "Chelsea",
+              "crest": "https://a.espncdn.com/i/teamlogos/soccer/500/363.png",
+              "played": 0,
+              "points": 0
+            }
+          ],
+          "club_position": 6
+        },
+        "form": [
+          {
+            "result": "L",
+            "score": "0–3",
+            "opponent": "Brighton & Hove Albion",
+            "opponent_crest": "https://a.espncdn.com/i/teamlogos/soccer/500/331.png",
+            "competition": "PL"
+          },
+          {
+            "result": "L",
+            "score": "1–3",
+            "opponent": "Nottingham Forest",
+            "opponent_crest": "https://a.espncdn.com/i/teamlogos/soccer/500/393.png",
+            "competition": "PL"
+          },
+          {
+            "result": "D",
+            "score": "1–1",
+            "opponent": "Liverpool",
+            "opponent_crest": "https://a.espncdn.com/i/teamlogos/soccer/500/364.png",
+            "competition": "PL"
+          },
+          {
+            "result": "W",
+            "score": "2–1",
+            "opponent": "Tottenham Hotspur",
+            "opponent_crest": "https://a.espncdn.com/i/teamlogos/soccer/500/367.png",
+            "competition": "PL"
+          },
+          {
+            "result": "L",
+            "score": "1–2",
+            "opponent": "Sunderland",
+            "opponent_crest": "https://a.espncdn.com/i/teamlogos/soccer/500/366.png",
+            "competition": "PL"
+          }
+        ]
+      },
+      "headline": "Chalobah's Como move stalls just as Arsenal reveal how close they came to signing Rogers themselves",
+      "week": [
+        {
+          "kicker": "Chalobah's exit hits a snag.",
+          "text": "Romano reports Chelsea rejected Como's revised €25m-plus-€5m proposal for Trevoh Chalobah as too low — Chelsea want more than €30m and Como are now exploring other centre-backs. A step back from Ben Jacobs' \"talks accelerating\" report just hours earlier."
+        },
+        {
+          "kicker": "Arsenal's £80m ceiling cost them Rogers.",
+          "text": "The Guardian confirms Arsenal also chased Morgan Rogers this summer but wouldn't go past £80m — Chelsea's £117m record bid simply outbid them. Arteta has since turned to Christos Tzolis (£34m, done) and now a shock approach for Real Madrid's Vinícius Júnior."
+        },
+        {
+          "kicker": "Asia tour squad takes shape.",
+          "text": "Geovany Quenda will join the pre-season tour, per Bobby Vincent, but Emmanuel Emegha won't travel — Nizaar Kinsella reports he's still on track for the Premier League opener, just not this trip."
+        },
+        {
+          "kicker": "Third kit leaked.",
+          "text": "Images said to be next season's third kit did the rounds on r/chelseafc overnight — no official unveiling yet, but the reaction on the sub was warm."
+        }
+      ],
+      "team_watch": [
+        {
+          "name": "Morgan Rogers",
+          "tag": "AM · £117m",
+          "note": "Turns out Arsenal wanted him too — the Guardian reports Arteta wouldn't pay past £80m, and Chelsea's £117m simply won the race.",
+          "talent": false
+        },
+        {
+          "name": "Maxence Lacroix",
+          "tag": "CB · £52m",
+          "note": "Clubs are exchanging documents to finalise the move this week, per Romano — the medical is already done.",
+          "talent": false
+        },
+        {
+          "name": "Geovany Quenda",
+          "tag": "RW",
+          "note": "Confirmed for the pre-season tour, per Bobby Vincent.",
+          "talent": false
+        },
+        {
+          "name": "Emmanuel Emegha",
+          "tag": "ST · £21.6m",
+          "note": "Will sit out the tour to keep recovering but is expected back for the Premier League opener, per Nizaar Kinsella.",
+          "talent": false
+        }
+      ],
+      "today": "No fixture — Juventus at the Bridge is still ten days out. But the tour is live: the first 15 minutes of open training from Sydney's Allianz Stadium streams today for CFC+ subscribers, the first real look at Rogers and Lacroix in Chelsea training kit. Otherwise it's a boardroom day — Como's rejected Chalobah offer needs sorting before the squad flies out.",
+      "wider": [
+        {
+          "title": "Arsenal make shock approach to sign Vinícius Júnior from Real Madrid",
+          "url": "https://www.theguardian.com/football/2026/jul/25/arsenal-inquiry-transfer-vinicius-junior-real-madrid",
+          "hook": "Arsenal just found out what losing the Rogers race actually cost them — and their answer is a bid for Real Madrid's best forward.",
+          "source": "The Guardian Football",
+          "image": "https://i.guim.co.uk/img/media/a09717740bb5d8e91cdd94b5bac1cb4427a5d622/332_0_4796_3838/master/4796.jpg?width=1200&height=630&quality=85&auto=format&fit=crop&precrop=40:21,offset-x50,offset-y0&overlay-align=bottom%2Cleft&overlay-width=100p&overlay-base64=L2ltZy9zdGF0aWMvb3ZlcmxheXMvdGctZGVmYXVsdC5wbmc&enable=upscale&s=9a546c6378e62cd32f2753f956f24720"
+        },
+        {
+          "title": "Mineros and Correcaminos players refuse to play the opening minute in Liga de Expansión match to protest the removal of promotion and relegation in Mexican football",
+          "url": "https://www.reddit.com/r/soccer/comments/1v6k9yx/mineros_and_correcaminos_players_refuse_to_play/",
+          "hook": "The day's most-upvoted story on r/soccer has nothing to do with a big club — two lower-league Mexican sides staged a real protest, and it's worth knowing about.",
+          "source": "r/soccer · top of the day"
+        }
+      ],
+      "read": {
+        "title": "'You need to evolve': Enzo Maresca plots life after Pep at Manchester City",
+        "url": "https://www.theguardian.com/football/2026/jul/24/enzo-maresco-manchester-city-pep-guardiola",
+        "hook": "Maresca opened his City reign with a tribute to the late Kevin Keegan — his real inheritance is a Rodri decision that could define the season.",
+        "source": "The Guardian Football",
+        "image": "https://i.guim.co.uk/img/media/e049e72e60d7fee6e2f76de517ee34ed4d68eba8/817_0_4084_3267/master/4084.jpg?width=1200&height=630&quality=85&auto=format&fit=crop&precrop=40:21,offset-x50,offset-y0&overlay-align=bottom%2Cleft&overlay-width=100p&overlay-base64=L2ltZy9zdGF0aWMvb3ZlcmxheXMvdGctZGVmYXVsdC5wbmc&enable=upscale&s=eb4d749d8f6fba11ccf28e987dfa9697"
+      },
+      "rivals": [
+        {
+          "club": "Arsenal",
+          "crest": "https://a.espncdn.com/i/teamlogos/soccer/500/359.png",
+          "line": "signed Tzolis £34m · PL",
+          "note": "Arteta already landed Christos Tzolis for £34m this week and is now angling for Vinícius Júnior — but it was Arsenal's refusal to pay past £80m that handed Chelsea the Rogers race in the first place."
+        },
+        {
+          "club": "Manchester City",
+          "crest": "https://a.espncdn.com/i/teamlogos/soccer/500/382.png",
+          "line": "pre-season · PL",
+          "note": "Maresca's unveiling doubled as a tribute to the late Kevin Keegan, but his real problem is a full dressing room: Rodri, fresh off a World Cup Golden Ball, goes for back surgery Monday with Real Madrid still circling."
+        },
+        {
+          "club": "Manchester United",
+          "crest": "https://a.espncdn.com/i/teamlogos/soccer/500/360.png",
+          "line": "pre-season · FR",
+          "note": "Mason Mount has looked genuinely rejuvenated alongside Andrey Santos — the midfielder Chelsea just sold them for £50m — in United's first two friendlies. Carrick's midfield rebuild is quietly working."
+        },
+        {
+          "club": "Liverpool",
+          "crest": "https://a.espncdn.com/i/teamlogos/soccer/500/364.png",
+          "line": "beat Sunderland 4–2 · FR",
+          "note": "Iraola's first game in charge was a win, but Joe Gomez hobbled off inside ten minutes and two teenagers had to finish the game at centre-back — the defensive headache Chelsea should be glad isn't theirs."
+        }
+      ]
     }
   ]
 }
