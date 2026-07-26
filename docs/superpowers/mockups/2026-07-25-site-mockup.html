@@ -225,6 +225,30 @@
   }
   .rival .rnote { color: var(--dim); font-size: 14px; margin-top: 3px; line-height: 1.5; }
 
+  /* Rumour mill: league-wide gossip, graded by heat */
+  .rumours { display: flex; flex-direction: column; gap: 10px; }
+  .rumour {
+    background: var(--card); border: 1px solid var(--line); border-radius: 10px;
+    padding: 12px 15px;
+  }
+  .rumour .mtop { display: flex; align-items: baseline; gap: 10px; flex-wrap: wrap; }
+  .rumour .mplayer { font-weight: 700; font-size: 15px; }
+  .rumour .route {
+    font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+    font-size: 11.5px; color: var(--faint); font-variant-numeric: tabular-nums;
+  }
+  .rumour .route .dest { color: var(--dim); font-weight: 700; }
+  .heat {
+    margin-left: auto; font-size: 10.5px; font-weight: 700;
+    text-transform: uppercase; letter-spacing: 0.06em;
+    border-radius: 4px; padding: 1px 7px; white-space: nowrap;
+  }
+  .heat.done { background: var(--win); color: #fff; }
+  .heat.close { color: var(--accent-ink); border: 1px solid var(--accent); }
+  .heat.talks { color: var(--dim); border: 1px solid var(--line); }
+  .heat.smoke { color: var(--faint); border: 1px dashed var(--line); }
+  .rumour .mnote { color: var(--dim); font-size: 14px; margin-top: 3px; line-height: 1.5; }
+
   .archive-rule {
     margin: 44px 0 12px; display: flex; align-items: center; gap: 12px;
     font-size: 12px; font-weight: 800; text-transform: uppercase;
@@ -412,6 +436,44 @@
               <div class="rtop"><span class="rname">Liverpool</span><span class="rmeta">plays tonight · Premier League</span></div>
               <div class="rnote">At Newcastle at 21:00 — the Konaté-shaped hole in defence gets its first real exam.</div>
             </div>
+          </div>
+        </div>
+      </section>
+
+      <section>
+        <h2>Rumour mill</h2>
+        <div class="rumours">
+          <div class="rumour">
+            <div class="mtop">
+              <span class="mplayer">Ademola Lookman</span>
+              <span class="route">Atalanta → <span class="dest">Chelsea</span> · ~£60m</span>
+              <span class="heat talks">talks</span>
+            </div>
+            <div class="mnote">The striker itch, again. Atalanta want £60m, Chelsea have offered structure — per Romano, the player has already said yes.</div>
+          </div>
+          <div class="rumour">
+            <div class="mtop">
+              <span class="mplayer">Alexander Isak</span>
+              <span class="route">Newcastle → <span class="dest">Barcelona</span> · £120m</span>
+              <span class="heat close">close</span>
+            </div>
+            <div class="mnote">Barcelona have registered him before agreeing the fee, which is the most Barcelona thing imaginable. Newcastle briefing "no sale" with decreasing conviction.</div>
+          </div>
+          <div class="rumour">
+            <div class="mtop">
+              <span class="mplayer">Rodri</span>
+              <span class="route">Man City → <span class="dest">Real Madrid</span></span>
+              <span class="heat smoke">smoke</span>
+            </div>
+            <div class="mnote">Madrid's flirtation resurfaces every window and Marca is at it again. Nothing concrete — but he came off at half-time yesterday, and the timing writes itself.</div>
+          </div>
+          <div class="rumour">
+            <div class="mtop">
+              <span class="mplayer">Raheem Sterling</span>
+              <span class="route">Chelsea → <span class="dest">Fenerbahçe</span> · loan</span>
+              <span class="heat done">here we go</span>
+            </div>
+            <div class="mnote">Romano's full "here we go" — loan with an obligation if they make the Champions League. Everyone gets what they need.</div>
           </div>
         </div>
       </section>

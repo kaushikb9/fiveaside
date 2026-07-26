@@ -9,6 +9,9 @@
 3. **Club subreddit** — https://www.reddit.com/r/<club.subreddit>/top/.rss?t=day
    with `club.subreddit` from OWNER CONFIG — the fan mood.
 4. **Editorial feeds** — every entry in OWNER CONFIG `feeds` (label + URL).
+5. **Rival subreddits** — https://www.reddit.com/r/<rivals[].subreddit>/top/.rss?t=day
+   for each entry in OWNER CONFIG `rivals` — each rival club's own top
+   story of the day, feeding the `rivals` notes.
 
 Evergreen football writing is welcome for `read` — a great older piece
 beats a mediocre new one.

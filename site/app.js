@@ -190,6 +190,27 @@ function rivalsHTML(rivals) {
   return `<section><h2>Rival watch</h2><div class="rivals">${items}</div></section>`;
 }
 
+// Heat labels are the data values; "here we go" maps to the solid .done chip.
+const HEAT_CLASS = { "here we go": "done", close: "close", talks: "talks", smoke: "smoke" };
+
+function rumoursHTML(rumours) {
+  if (!rumours?.length) return "";
+  const items = rumours
+    .map(
+      (r) => `
+      <div class="rumour">
+        <div class="mtop">
+          <span class="mplayer">${esc(r.player)}</span>
+          <span class="route">${esc(r.from)} &rarr; <span class="dest">${esc(r.to)}</span>${r.fee ? ` &middot; ${esc(r.fee)}` : ""}</span>
+          <span class="heat ${HEAT_CLASS[r.heat] ?? "smoke"}">${esc(r.heat)}</span>
+        </div>
+        <div class="mnote">${esc(r.note)}</div>
+      </div>`
+    )
+    .join("");
+  return `<section><h2>Rumour mill</h2><div class="rumours">${items}</div></section>`;
+}
+
 // Everything inside a digest, without an outer wrapper — reused for both the
 // latest entry (wrapped in <article class="digest">) and archived entries
 // (wrapped in <div class="abody"> inside a collapsed <details>).
@@ -206,6 +227,7 @@ function digestContent(d) {
     ${teamWatchHTML(d.team_watch)}
     ${readHTML(d.read)}
     ${rivalsHTML(d.rivals)}
+    ${rumoursHTML(d.rumours)}
     ${widerHTML(d.wider)}`;
 }
 

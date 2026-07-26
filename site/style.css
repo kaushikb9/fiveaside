@@ -237,6 +237,30 @@ a.pick .src { color: var(--faint); font-size: 12px; margin-top: 7px; letter-spac
 }
 .rival .rnote { color: var(--dim); font-size: 14px; margin-top: 3px; line-height: 1.5; }
 
+/* Rumour mill: league-wide gossip, graded by heat */
+.rumours { display: flex; flex-direction: column; gap: 10px; }
+.rumour {
+  background: var(--card); border: 1px solid var(--line); border-radius: 10px;
+  padding: 12px 15px;
+}
+.rumour .mtop { display: flex; align-items: baseline; gap: 10px; flex-wrap: wrap; }
+.rumour .mplayer { font-weight: 700; font-size: 15px; }
+.rumour .route {
+  font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+  font-size: 11.5px; color: var(--faint); font-variant-numeric: tabular-nums;
+}
+.rumour .route .dest { color: var(--dim); font-weight: 700; }
+.heat {
+  margin-left: auto; font-size: 10.5px; font-weight: 700;
+  text-transform: uppercase; letter-spacing: 0.06em;
+  border-radius: 4px; padding: 1px 7px; white-space: nowrap;
+}
+.heat.done { background: var(--win); color: #fff; }
+.heat.close { color: var(--accent-ink); border: 1px solid var(--accent); }
+.heat.talks { color: var(--dim); border: 1px solid var(--line); }
+.heat.smoke { color: var(--faint); border: 1px dashed var(--line); }
+.rumour .mnote { color: var(--dim); font-size: 14px; margin-top: 3px; line-height: 1.5; }
+
 .archive-rule {
   margin: 44px 0 12px; display: flex; align-items: center; gap: 12px;
   font-size: 12px; font-weight: 800; text-transform: uppercase;

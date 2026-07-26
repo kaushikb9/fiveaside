@@ -141,6 +141,21 @@ for (const [i, d] of data.digests.entries()) {
   }
   if (d.read != null) checkLink(where, "'read'", d.read);
 
+  if (d.rumours !== undefined) {
+    if (!Array.isArray(d.rumours)) fail(`${where}: 'rumours' must be an array when present`);
+    const heats = ["here we go", "close", "talks", "smoke"];
+    for (const [ri, r] of d.rumours.entries()) {
+      const rwhere = `${where}, rumours[${ri}]`;
+      for (const key of ["player", "from", "to", "note"]) {
+        if (!isNonEmptyStr(r?.[key])) fail(`${rwhere}: '${key}' must be a non-empty string`);
+      }
+      if (!heats.includes(r?.heat))
+        fail(`${rwhere}: 'heat' must be one of ${heats.map((h) => `"${h}"`).join(", ")}`);
+      if (r.fee !== undefined && !isNonEmptyStr(r.fee))
+        fail(`${rwhere}: 'fee' must be a non-empty string when present`);
+    }
+  }
+
   if (d.rivals !== undefined) {
     if (!Array.isArray(d.rivals)) fail(`${where}: 'rivals' must be an array when present`);
     for (const [ri, r] of d.rivals.entries()) {

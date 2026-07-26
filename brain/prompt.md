@@ -96,6 +96,16 @@ Schema:
       "line": "#1 · 3 pts · Premier League",
       "note": "one honest sentence"
     }
+  ],
+  "rumours": [
+    {
+      "player": "...",
+      "from": "...",
+      "to": "...",
+      "fee": "~£60m",
+      "heat": "talks",
+      "note": "one dry sentence, from a fetched source"
+    }
   ]
 }
 ```
@@ -153,9 +163,20 @@ Rules:
   else is truly optional and should be omitted (not emitted as an empty
   string/array/object) when the bundle has no data for it: `club`'s nested
   keys (`latest_result`, `fixtures`, `table`, `form`), `read`, `rivals`,
-  `team_watch`, and the optional nested fields noted above (crest fields,
-  `source`, `image`).
+  `team_watch`, `rumours`, and the optional nested fields noted above
+  (crest fields, `source`, `image`).
 - `headline` earns the open. Specific beats clever; clever beats generic.
+- ONE home per story. A fact or storyline appears in exactly one section:
+  if a transfer leads `week`, it doesn't get restated in `team_watch` or a
+  rival's `note`; if a piece is the `read`, its angle doesn't double as a
+  `wider` hook or rival note. Pick the section where it lands hardest and
+  cut it everywhere else. Before finishing, reread the whole entry as the
+  reader would — top to bottom — and delete any sentence that tells them
+  something they've already been told.
+- Never pad a section to fill it. Every optional section should be dropped —
+  or run short — the moment its remaining items would just retell the day's
+  news in a different shape. Three sections with distinct material beat
+  five that echo each other.
 - `week` (REQUIRED, 3–5 items): the last ~7 days — results, transfers,
   friendlies, club news. Kicker ≤ 6 punchy words ending with a period; text
   1–2 sentences. This replaces the old `yesterday` field, which is now
@@ -168,7 +189,11 @@ Rules:
   actually matters about it (2–5 sentences). If nothing is coming inside
   ~2 days, keep it to 1–2 short sentences and sign off honestly ("nothing
   on — perfect night to close the app") — never padded.
-- `wider`: 1–3 links from the day's discourse. The `hook` is the product —
+- `wider`: 1–3 links from the day's discourse about the WIDER game. A story
+  whose subject is one of the OWNER CONFIG `rivals` belongs in that club's
+  `rivals` note, not here — even a big one (a shock transfer, a manager
+  crisis); rival watch is where the reader looks for rival news.
+  The `hook` is the product —
   a pitch to the reader, not a summary. When the comment thread is the real
   value, link the thread and say so. `source` is the human label of where
   it came from (e.g. "The Guardian Football", "r/soccer · top of the day").
@@ -177,11 +202,27 @@ Rules:
 - `read`: optional; include only when something genuinely clears the bar.
   Same `source`/`image` treatment as `wider`. Evergreen writing is welcome —
   a great older piece beats a mediocre new one.
-- `rivals`: optional, 2–4 clubs from the club's own league that matter to
-  the title/top-four race, drawn from the bundle's table rows (`crest`
-  copied from there too). `line` is a factual chip using the short
+- `rivals`: one entry for EVERY club in OWNER CONFIG `rivals` — the list is
+  owner-curated, don't trim or extend it. Copy `crest` from the config
+  entry. For each rival, check their subreddit's top-of-day RSS
+  (`rivals[].subreddit` — see brain/sources.md) for that club's own top
+  story before writing the note. `line` is a factual chip using the short
   competition code (e.g. "#1 · 3 pts · PL" or "plays tonight · PL").
-  `note` is the one place opinion
-  meets other clubs' results — one honest, brain-written sentence.
+  `note` is one honest, brain-written sentence about that club's OWN world —
+  their signing, their injury crisis, their dressing-room drama — written to
+  be interesting on its own terms. Do NOT frame it as what it means for the
+  reader's club ("the race they handed us", "glad that's not our problem") —
+  the reader draws that line themselves. On a rival's quiet day, one modest
+  factual sentence beats manufactured drama.
+- `rumours`: transfer windows ONLY — omit the key entirely outside them.
+  2–5 items covering the whole league's market, not just the club: mix the
+  club's ins and outs with rivals' business and the window's wildest story.
+  `fee` is optional — include it only when a source names a figure. `heat`
+  grades the source, not the excitement: "here we go" = done/confirmed by a
+  tier-1 reporter; "close" = advanced/medical stage; "talks" = genuine
+  negotiations reported; "smoke" = paper talk and agent noise. Every `note`
+  comes from a fetched source — never an invented fee, club, or stage.
+  One-home-per-story applies: a deal big enough to lead `week` (or a rival's
+  `note`) lives there, not here — the mill is for the market's undercard.
 - After editing, run `node brain/validate.mjs site/data/digests.json` via
   Bash and fix anything it reports before finishing.
