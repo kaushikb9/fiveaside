@@ -25,16 +25,25 @@ $FACTS" \
   --allowedTools "WebSearch,WebFetch,Read,Edit,Write,Bash(node:*),Bash(curl:*)" \
   --permission-mode acceptEdits
 
-node brain/validate.mjs site/data/digests.json \
-  || { echo "digests.json failed validation — NOT committing"; exit 1; }
-
 if git diff --quiet -- site/data/digests.json; then
   echo "nothing new to publish"
   exit 0
 fi
 
+# stamp the refresh time the site footer shows
+node -e '
+  const fs = require("fs");
+  const p = "site/data/digests.json";
+  const d = JSON.parse(fs.readFileSync(p, "utf8"));
+  fs.writeFileSync(p, JSON.stringify({ ...d, generated_at: new Date().toISOString() }, null, 2) + "\n");
+'
+
+node brain/validate.mjs site/data/digests.json \
+  || { echo "digests.json failed validation — NOT committing"; exit 1; }
+
 git add site/data/digests.json
 git commit -m "digest: $TODAY"
+git push -q || echo "push failed — run 'git push' manually"
 
 if [ "${1:-}" != "--no-deploy" ]; then
   ./deploy.sh

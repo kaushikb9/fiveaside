@@ -252,6 +252,27 @@ async function applyConfig() {
   $("#strap-dot").hidden = false;
 }
 
+// Footer stamp for `generated_at` (written by curate.sh), shown in the
+// reader's local time. Falls back to the newest digest's date when absent.
+function showRefreshed(iso, latestDate) {
+  const el = $("#last-refresh");
+  if (!el) return;
+  let text;
+  if (iso) {
+    const d = new Date(iso);
+    if (Number.isNaN(d.getTime())) return;
+    const day = d.toLocaleDateString("en-GB", { day: "numeric", month: "short" });
+    const time = d.toLocaleTimeString("en-GB", { hour: "2-digit", minute: "2-digit" });
+    text = `refreshed ${day}, ${time}`;
+  } else if (latestDate) {
+    text = `refreshed ${fmtShort(latestDate)}`;
+  } else {
+    return;
+  }
+  el.textContent = ` · ${text}`;
+  el.hidden = false;
+}
+
 async function load() {
   await applyConfig();
 
@@ -262,6 +283,8 @@ async function load() {
     main.innerHTML = `<p class="empty">No digests yet &mdash; run <code>./brain/curate.sh</code>.</p>`;
     return;
   }
+
+  showRefreshed(data.generated_at, entries[0].date);
 
   const [latest, ...past] = entries;
   let html = `<article class="digest">${digestContent(latest)}</article>`;

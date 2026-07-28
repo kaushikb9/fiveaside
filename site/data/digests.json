@@ -1,4 +1,5 @@
 {
+  "generated_at": "2026-07-28T16:05:46.500Z",
   "digests": [
     {
       "date": "2026-07-25",
@@ -447,6 +448,457 @@
           "fee": "€100m + Gyökeres",
           "heat": "smoke",
           "note": "Marca floats cash plus Gyökeres; Atlético insist he's not for sale. File under silly season until an actual bid exists."
+        }
+      ]
+    },
+    {
+      "date": "2026-07-27",
+      "club": {
+        "latest_result": {
+          "home": "Sunderland",
+          "away": "Chelsea",
+          "score": "2–1",
+          "date": "Sun 24 May",
+          "competition": "PL",
+          "result": "L",
+          "home_crest": "https://a.espncdn.com/i/teamlogos/soccer/500/366.png",
+          "away_crest": "https://a.espncdn.com/i/teamlogos/soccer/500/363.png"
+        },
+        "fixtures": [
+          {
+            "opponent": "Juventus",
+            "home": true,
+            "kickoff_local": "Wed 05 Aug 17:00",
+            "competition": "FR",
+            "opponent_crest": "https://a.espncdn.com/i/teamlogos/soccer/500/111.png"
+          },
+          {
+            "opponent": "AC Milan",
+            "home": true,
+            "kickoff_local": "Sat 08 Aug 17:30",
+            "competition": "FR",
+            "opponent_crest": "https://a.espncdn.com/i/teamlogos/soccer/500/103.png"
+          },
+          {
+            "opponent": "Johor Darul Ta'zim",
+            "home": false,
+            "kickoff_local": "Sun 09 Aug 17:30",
+            "competition": "FR",
+            "opponent_crest": "https://a.espncdn.com/i/teamlogos/soccer/500/17689.png"
+          },
+          {
+            "opponent": "Real Sociedad",
+            "home": true,
+            "kickoff_local": "Sat 15 Aug 18:30",
+            "competition": "FR",
+            "opponent_crest": "https://a.espncdn.com/i/teamlogos/soccer/500/89.png"
+          },
+          {
+            "opponent": "Fulham",
+            "home": false,
+            "kickoff_local": "Tue 25 Aug 00:30",
+            "competition": "PL",
+            "opponent_crest": "https://a.espncdn.com/i/teamlogos/soccer/500/370.png"
+          }
+        ],
+        "table": {
+          "competition": "English Premier League",
+          "rows": [
+            {
+              "pos": 1,
+              "team": "AFC Bournemouth",
+              "crest": "https://a.espncdn.com/i/teamlogos/soccer/500/349.png",
+              "played": 0,
+              "points": 0
+            },
+            {
+              "pos": 2,
+              "team": "Arsenal",
+              "crest": "https://a.espncdn.com/i/teamlogos/soccer/500/359.png",
+              "played": 0,
+              "points": 0
+            },
+            {
+              "pos": 3,
+              "team": "Aston Villa",
+              "crest": "https://a.espncdn.com/i/teamlogos/soccer/500/362.png",
+              "played": 0,
+              "points": 0
+            },
+            {
+              "pos": 4,
+              "team": "Brentford",
+              "crest": "https://a.espncdn.com/i/teamlogos/soccer/500/337.png",
+              "played": 0,
+              "points": 0
+            },
+            {
+              "pos": 6,
+              "team": "Chelsea",
+              "crest": "https://a.espncdn.com/i/teamlogos/soccer/500/363.png",
+              "played": 0,
+              "points": 0
+            }
+          ],
+          "club_position": 6
+        },
+        "form": [
+          {
+            "result": "L",
+            "score": "0–3",
+            "opponent": "Brighton & Hove Albion",
+            "opponent_crest": "https://a.espncdn.com/i/teamlogos/soccer/500/331.png",
+            "competition": "PL"
+          },
+          {
+            "result": "L",
+            "score": "1–3",
+            "opponent": "Nottingham Forest",
+            "opponent_crest": "https://a.espncdn.com/i/teamlogos/soccer/500/393.png",
+            "competition": "PL"
+          },
+          {
+            "result": "D",
+            "score": "1–1",
+            "opponent": "Liverpool",
+            "opponent_crest": "https://a.espncdn.com/i/teamlogos/soccer/500/364.png",
+            "competition": "PL"
+          },
+          {
+            "result": "W",
+            "score": "2–1",
+            "opponent": "Tottenham Hotspur",
+            "opponent_crest": "https://a.espncdn.com/i/teamlogos/soccer/500/367.png",
+            "competition": "PL"
+          },
+          {
+            "result": "L",
+            "score": "1–2",
+            "opponent": "Sunderland",
+            "opponent_crest": "https://a.espncdn.com/i/teamlogos/soccer/500/366.png",
+            "competition": "PL"
+          }
+        ]
+      },
+      "headline": "Five defenders for sale, Lacroix confirmed — BlueCo's age rule dies quietly",
+      "week": [
+        {
+          "kicker": "Lacroix, confirmed.",
+          "text": "The 26-year-old Crystal Palace centre-back has passed his medical and Chelsea are finalising a £52m deal — the first transfer fee they have paid for a player aged 26 or over since 2022, quietly retiring one of BlueCo's firmest recruitment policies."
+        },
+        {
+          "kicker": "Five defenders out.",
+          "text": "Fofana, Chalobah, Badiashile, Adarabioyo, and Mamadou Sarr are all officially available, per Football365 — Chelsea were carrying too many centre-backs and the clearout is now formal rather than rumoured."
+        },
+        {
+          "kicker": "Coaching staff raid on Villa.",
+          "text": "BBC Sport reports Chelsea are in talks to bring Austin MacPhee — Aston Villa's set-piece coach — to Cobham this summer, with other clubs competing for his services."
+        }
+      ],
+      "team_watch": [
+        {
+          "name": "Jamie Gittens",
+          "tag": "RW · 22",
+          "note": "Told BBC Sport he considers Alonso 'world-class' and 'one of the best' in his first pre-season interview — a player who sounds like he will run hard for this manager.",
+          "talent": false
+        },
+        {
+          "name": "Morgan Rogers",
+          "tag": "AM · 23",
+          "note": "BBC Sport published an analysis this week of how his skillset complements Cole Palmer's in Alonso's system — the case for the £117m record fee is already being made out loud.",
+          "talent": false
+        },
+        {
+          "name": "Cole Palmer",
+          "tag": "AM · 24",
+          "note": "Football365 report he is 'completely off limits' to any suitor this summer — Alonso is building the attack around him and Rogers.",
+          "talent": false
+        }
+      ],
+      "today": "No fixture — Juventus at Stamford Bridge is nine days out. Live club data is unavailable today, the stats feed returning errors across all sources. A desk day: five defenders to place, a set-piece coach to sign, and Alonso's list presumably still open.",
+      "wider": [
+        {
+          "title": "PSG pull out of Diomande race — Real confident of signing forward",
+          "url": "https://www.skysports.com/football/news/12040/13567238/yan-diomande-transfer-news-psg-pull-out-of-race-for-rb-leipzig-forward-real-madrid-confident-of-signing-ivorian",
+          "hook": "PSG walked away calling the demands 'completely disproportionate and distortive' — Real Madrid are now alone in pole for the 19-year-old at potentially over £85m. The summer's most revealing breakdown of how clubs and players value each other.",
+          "source": "Sky Sports",
+          "image": "https://e0.365dm.com/26/07/768x432/skysports-diomande-rb-leipzig_7306872.jpg?20260726210321"
+        }
+      ],
+      "rivals": [
+        {
+          "club": "Arsenal",
+          "crest": "https://a.espncdn.com/i/teamlogos/soccer/500/359.png",
+          "line": "in for Álvarez · PL",
+          "note": "Arsenal have lodged a £72m offer for Dani Olmo and remain confident of landing Julián Álvarez at a potential British-record fee — Arteta and Berta are spending this summer as if it is the last chance to close the gap."
+        },
+        {
+          "club": "Manchester City",
+          "crest": "https://a.espncdn.com/i/teamlogos/soccer/500/382.png",
+          "line": "pre-season · PL",
+          "note": "Rodri has agreed personal terms with Real Madrid, leaving City with no contractual lever to keep their best player — Maresca is inheriting a squad that may look significantly different by the time the season starts."
+        },
+        {
+          "club": "Manchester United",
+          "crest": "https://a.espncdn.com/i/teamlogos/soccer/500/360.png",
+          "line": "signing Tchouameni · PL",
+          "note": "Real Madrid have cleared the path for Aurélien Tchouameni to leave for £68m — alongside Santos and Tielemans, Carrick's midfield rebuild is starting to look like it has a logic to it."
+        },
+        {
+          "club": "Liverpool",
+          "crest": "https://a.espncdn.com/i/teamlogos/soccer/500/364.png",
+          "line": "Salah in doubt · PL",
+          "note": "Besiktas have submitted a final offer for Mohamed Salah and Liverpool have not yet said no — Iraola won his first game 4–2 over Sunderland, but the question of what happens to Salah hangs over everything."
+        }
+      ],
+      "rumours": [
+        {
+          "player": "Savinho",
+          "from": "Manchester City",
+          "to": "Tottenham",
+          "fee": "~£60m",
+          "heat": "close",
+          "note": "Romano says the deal is 'absolutely on' — De Zerbi has his first-choice winger and Tottenham are waiting only for City's formal go-ahead."
+        },
+        {
+          "player": "Bradley Barcola",
+          "from": "PSG",
+          "to": "Liverpool / Arsenal",
+          "fee": "~£145m",
+          "heat": "smoke",
+          "note": "PSG have set their asking price at £145m and multiple English clubs are listed as interested — nobody has yet matched it, and it is unclear who blinks first."
+        },
+        {
+          "player": "Cristian Romero",
+          "from": "Tottenham",
+          "to": "Inter Milan",
+          "heat": "talks",
+          "note": "The Guardian reports early negotiations between Tottenham and Inter — a sale that would reopen Spurs' defensive planning just as Savinho is set to arrive at the other end."
+        }
+      ]
+    },
+    {
+      "date": "2026-07-28",
+      "club": {
+        "latest_result": {
+          "home": "Sunderland",
+          "away": "Chelsea",
+          "score": "2–1",
+          "date": "Sun 24 May",
+          "competition": "PL",
+          "result": "L",
+          "home_crest": "https://a.espncdn.com/i/teamlogos/soccer/500/366.png",
+          "away_crest": "https://a.espncdn.com/i/teamlogos/soccer/500/363.png"
+        },
+        "fixtures": [
+          {
+            "opponent": "Juventus",
+            "home": true,
+            "kickoff_local": "Wed 05 Aug 17:00",
+            "competition": "FR",
+            "opponent_crest": "https://a.espncdn.com/i/teamlogos/soccer/500/111.png"
+          },
+          {
+            "opponent": "AC Milan",
+            "home": true,
+            "kickoff_local": "Sat 08 Aug 17:30",
+            "competition": "FR",
+            "opponent_crest": "https://a.espncdn.com/i/teamlogos/soccer/500/103.png"
+          },
+          {
+            "opponent": "Johor Darul Ta'zim",
+            "home": false,
+            "kickoff_local": "Sun 09 Aug 17:30",
+            "competition": "FR",
+            "opponent_crest": "https://a.espncdn.com/i/teamlogos/soccer/500/17689.png"
+          },
+          {
+            "opponent": "Real Sociedad",
+            "home": true,
+            "kickoff_local": "Sat 15 Aug 18:30",
+            "competition": "FR",
+            "opponent_crest": "https://a.espncdn.com/i/teamlogos/soccer/500/89.png"
+          },
+          {
+            "opponent": "Fulham",
+            "home": false,
+            "kickoff_local": "Tue 25 Aug 00:30",
+            "competition": "PL",
+            "opponent_crest": "https://a.espncdn.com/i/teamlogos/soccer/500/370.png"
+          }
+        ],
+        "table": {
+          "competition": "English Premier League",
+          "rows": [
+            {
+              "pos": 1,
+              "team": "AFC Bournemouth",
+              "crest": "https://a.espncdn.com/i/teamlogos/soccer/500/349.png",
+              "played": 0,
+              "points": 0
+            },
+            {
+              "pos": 2,
+              "team": "Arsenal",
+              "crest": "https://a.espncdn.com/i/teamlogos/soccer/500/359.png",
+              "played": 0,
+              "points": 0
+            },
+            {
+              "pos": 3,
+              "team": "Aston Villa",
+              "crest": "https://a.espncdn.com/i/teamlogos/soccer/500/362.png",
+              "played": 0,
+              "points": 0
+            },
+            {
+              "pos": 4,
+              "team": "Brentford",
+              "crest": "https://a.espncdn.com/i/teamlogos/soccer/500/337.png",
+              "played": 0,
+              "points": 0
+            },
+            {
+              "pos": 6,
+              "team": "Chelsea",
+              "crest": "https://a.espncdn.com/i/teamlogos/soccer/500/363.png",
+              "played": 0,
+              "points": 0
+            }
+          ],
+          "club_position": 6
+        },
+        "form": [
+          {
+            "result": "L",
+            "score": "0–3",
+            "opponent": "Brighton & Hove Albion",
+            "opponent_crest": "https://a.espncdn.com/i/teamlogos/soccer/500/331.png",
+            "competition": "PL"
+          },
+          {
+            "result": "L",
+            "score": "1–3",
+            "opponent": "Nottingham Forest",
+            "opponent_crest": "https://a.espncdn.com/i/teamlogos/soccer/500/393.png",
+            "competition": "PL"
+          },
+          {
+            "result": "D",
+            "score": "1–1",
+            "opponent": "Liverpool",
+            "opponent_crest": "https://a.espncdn.com/i/teamlogos/soccer/500/364.png",
+            "competition": "PL"
+          },
+          {
+            "result": "W",
+            "score": "2–1",
+            "opponent": "Tottenham Hotspur",
+            "opponent_crest": "https://a.espncdn.com/i/teamlogos/soccer/500/367.png",
+            "competition": "PL"
+          },
+          {
+            "result": "L",
+            "score": "1–2",
+            "opponent": "Sunderland",
+            "opponent_crest": "https://a.espncdn.com/i/teamlogos/soccer/500/366.png",
+            "competition": "PL"
+          }
+        ]
+      },
+      "headline": "The Alonso era kicks off in Sydney — and the model blinks: Chelsea open talks for Henderson, 36, and Welbeck, 35",
+      "week": [
+        {
+          "kicker": "Henderson and Welbeck. Really.",
+          "text": "Chelsea have opened talks for Brentford's Jordan Henderson, 36, and held positive talks with Brighton over Danny Welbeck, 35, per BBC Sport — framed inside the club as an admission the young-signings model needs a 'tweak'. Welbeck scored a career-high 13 league goals last season and is keen; Brentford would let Henderson leave on a free."
+        },
+        {
+          "kicker": "Rogers and Palmer coexist.",
+          "text": "Alonso told BBC Sport his £117m record signing and Cole Palmer can play together rather than compete for the same shirt — the tactical question hanging over the fee, answered by the manager before a competitive ball has been kicked."
+        },
+        {
+          "kicker": "The tour is airborne.",
+          "text": "The squad left London for a five-match swing through Australia, Hong Kong, Indonesia and Malaysia, opening with the Sydney Super Cup — the first sustained look at how Alonso actually wants this team to play."
+        }
+      ],
+      "team_watch": [
+        {
+          "name": "Geovany Quenda",
+          "tag": "RW · 19",
+          "note": "Missing the Australia leg with a minor injury — expected back for the Asia leg, with the Juventus friendly on 5 August the earliest, per Absolute Chelsea.",
+          "talent": false
+        },
+        {
+          "name": "Mahdi Nicoll-Jazuli",
+          "tag": "Academy · 16",
+          "note": "Alonso on the 16-year-old's tour so far: 'great dynamism, he has quality, a very complete player' — praise that specific from this manager is not handed out to keep parents happy.",
+          "talent": true
+        }
+      ],
+      "today": "Match day — the first of the Xabi Alonso era. Western Sydney Wanderers at Accor Stadium, 3:15pm IST kickoff (7:45pm in Sydney), the opening game of the Sydney Super Cup and of the tour; CFC+ streams it live. The squad is thinned by World Cup recovery timelines, so expect academy names around the edges of a first look at Alonso's Chelsea. Tottenham, in town for the same tournament, follow on Saturday. One honest note: the stats feed failed across every competition again today, so the score and table boards are dark — the words here are hand-verified while the numbers wait on a fix.",
+      "wider": [
+        {
+          "title": "English football agrees trial to end goalkeeper tactical timeouts",
+          "url": "https://www.bbc.co.uk/sport/football/articles/clyjxd53zkpo",
+          "hook": "The quiet law trial that could kill football's most cynical time-wasting habit — tested in England first, watched everywhere.",
+          "source": "BBC Sport"
+        },
+        {
+          "title": "Pirlo out of running for Italy job over link to Russian betting company",
+          "url": "https://www.bbc.co.uk/news/articles/c4g49r2338xo",
+          "hook": "Andrea Pirlo withdrew from the Italy job race over ties to a Russian betting firm — the sharpest collision yet between football's sponsorship money and its politics.",
+          "source": "BBC News"
+        }
+      ],
+      "rivals": [
+        {
+          "club": "Arsenal",
+          "crest": "https://a.espncdn.com/i/teamlogos/soccer/500/359.png",
+          "line": "in for Vinícius Júnior · PL",
+          "note": "Real Madrid have opened contract-renewal talks with Vinícius Júnior while Arsenal wait — the pursuit is approved at every level of the club, but Mourinho doesn't want him sold, and until Madrid's talks collapse there is no deal to chase."
+        },
+        {
+          "club": "Manchester City",
+          "crest": "https://a.espncdn.com/i/teamlogos/soccer/500/382.png",
+          "line": "bracing for a Rodri bid · PL",
+          "note": "The club are braced for Real Madrid's opening bid for Rodri, with Spanish reports putting City's asking price at €80m — Maresca is planning a pre-season around a player who may not be there when it ends."
+        },
+        {
+          "club": "Manchester United",
+          "crest": "https://a.espncdn.com/i/teamlogos/soccer/500/360.png",
+          "line": "closing on Tchouameni · PL",
+          "note": "Real Madrid's U-turn has made Aurélien Tchouameni available at £68m and the player is reportedly willing — United see the long-term No 6 they have lacked since Casemiro, if the fee and wages can fit Ineos's budget discipline."
+        },
+        {
+          "club": "Liverpool",
+          "crest": "https://a.espncdn.com/i/teamlogos/soccer/500/364.png",
+          "line": "pre-season · PL",
+          "note": "'Maybe there have been too many fresh starts. But I don't care' — Federico Chiesa is staying to fight for a place under Iraola, while BBC analysis argues centre-back is the position the new manager must fix first."
+        }
+      ],
+      "rumours": [
+        {
+          "player": "John Stones",
+          "from": "Manchester City",
+          "to": "Inter Milan",
+          "fee": "free",
+          "heat": "close",
+          "note": "Advanced talks on a free transfer, per BBC Sport — another cornerstone of the Guardiola years negotiating his own exit."
+        },
+        {
+          "player": "Bruno Guimarães",
+          "from": "Newcastle United",
+          "to": "Arsenal",
+          "heat": "talks",
+          "note": "Howe admits he is unsure over his captain's future amid Arsenal interest, per BBC — Newcastle are still expected to reject anything near the £70m being floated."
+        },
+        {
+          "player": "Aladji Bamba",
+          "from": "Monaco",
+          "to": "Newcastle United",
+          "fee": "~£34m",
+          "heat": "here we go",
+          "note": "Done — signed in a deal potentially reaching £34m, per BBC Sport. The window's quietest big fee."
         }
       ]
     }
