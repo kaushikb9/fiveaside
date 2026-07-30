@@ -5,3 +5,7 @@ __pycache__/
 site/data/config.json
 .wrangler/
 brain/auto.log
+brain/scratch/
+.claude/
+.pytest_cache/
+.ruff_cache/

@@ -68,4 +68,4 @@ preference sync, automated scheduling. Each may return if the habit sticks.
 
 ## License
 
-MIT
+MIT — see [LICENSE](LICENSE).

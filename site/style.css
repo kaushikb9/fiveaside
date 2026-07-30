@@ -290,6 +290,8 @@ footer {
   text-align: center; color: var(--faint); font-size: 12.5px;
   padding-top: 56px; letter-spacing: 0.04em;
 }
+footer .footer-line { display: block; }
+footer .footer-line + .footer-line { margin-top: 5px; }
 @media (prefers-reduced-motion: no-preference) {
   a.pick { transition: border-color 120ms ease; }
 }
