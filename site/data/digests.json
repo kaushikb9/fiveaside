@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-07-29T03:48:55.997Z",
+  "generated_at": "2026-07-31T15:44:49.614Z",
   "digests": [
     {
       "date": "2026-07-25",
@@ -1153,6 +1153,267 @@
           "to": "TBD",
           "heat": "smoke",
           "note": "Several Premier League and European clubs are keen at the right price, per Sky Sports — with a UEFA wrinkle: any sale to Villa within 45 days of the Morgan Rogers deal counts as a swap."
+        }
+      ]
+    },
+    {
+      "date": "2026-07-31",
+      "club": {
+        "latest_result": {
+          "home": "Chelsea",
+          "away": "Western Sydney Wanderers",
+          "score": "6–4",
+          "date": "Tue 28 Jul",
+          "competition": "FR",
+          "result": "W",
+          "home_crest": "https://a.espncdn.com/i/teamlogos/soccer/500/363.png",
+          "away_crest": "https://r2.thesportsdb.com/images/media/team/badge/yotugj1759632879.png"
+        },
+        "fixtures": [
+          {
+            "opponent": "Tottenham Hotspur",
+            "home": true,
+            "kickoff_local": "Sat 01 Aug 15:15",
+            "competition": "FR",
+            "opponent_crest": "https://r2.thesportsdb.com/images/media/team/badge/dfyfhl1604094109.png"
+          },
+          {
+            "opponent": "Juventus",
+            "home": true,
+            "kickoff_local": "Wed 05 Aug 17:00",
+            "competition": "FR",
+            "opponent_crest": "https://a.espncdn.com/i/teamlogos/soccer/500/111.png"
+          },
+          {
+            "opponent": "AC Milan",
+            "home": true,
+            "kickoff_local": "Sat 08 Aug 17:30",
+            "competition": "FR",
+            "opponent_crest": "https://a.espncdn.com/i/teamlogos/soccer/500/103.png"
+          },
+          {
+            "opponent": "Johor Darul Ta'zim",
+            "home": false,
+            "kickoff_local": "Sun 09 Aug 17:30",
+            "competition": "FR",
+            "opponent_crest": "https://a.espncdn.com/i/teamlogos/soccer/500/17689.png"
+          },
+          {
+            "opponent": "Real Sociedad",
+            "home": true,
+            "kickoff_local": "Sat 15 Aug 18:30",
+            "competition": "FR",
+            "opponent_crest": "https://a.espncdn.com/i/teamlogos/soccer/500/89.png"
+          }
+        ],
+        "table": {
+          "competition": "English Premier League",
+          "rows": [
+            {
+              "pos": 1,
+              "team": "AFC Bournemouth",
+              "crest": "https://a.espncdn.com/i/teamlogos/soccer/500/349.png",
+              "played": 0,
+              "points": 0
+            },
+            {
+              "pos": 2,
+              "team": "Arsenal",
+              "crest": "https://a.espncdn.com/i/teamlogos/soccer/500/359.png",
+              "played": 0,
+              "points": 0
+            },
+            {
+              "pos": 3,
+              "team": "Aston Villa",
+              "crest": "https://a.espncdn.com/i/teamlogos/soccer/500/362.png",
+              "played": 0,
+              "points": 0
+            },
+            {
+              "pos": 4,
+              "team": "Brentford",
+              "crest": "https://a.espncdn.com/i/teamlogos/soccer/500/337.png",
+              "played": 0,
+              "points": 0
+            },
+            {
+              "pos": 6,
+              "team": "Chelsea",
+              "crest": "https://a.espncdn.com/i/teamlogos/soccer/500/363.png",
+              "played": 0,
+              "points": 0
+            }
+          ],
+          "club_position": 6
+        },
+        "form": [
+          {
+            "result": "L",
+            "score": "1–3",
+            "opponent": "Nottingham Forest",
+            "opponent_crest": "https://a.espncdn.com/i/teamlogos/soccer/500/393.png",
+            "competition": "PL"
+          },
+          {
+            "result": "D",
+            "score": "1–1",
+            "opponent": "Liverpool",
+            "opponent_crest": "https://a.espncdn.com/i/teamlogos/soccer/500/364.png",
+            "competition": "PL"
+          },
+          {
+            "result": "W",
+            "score": "2–1",
+            "opponent": "Tottenham Hotspur",
+            "opponent_crest": "https://a.espncdn.com/i/teamlogos/soccer/500/367.png",
+            "competition": "PL"
+          },
+          {
+            "result": "L",
+            "score": "1–2",
+            "opponent": "Sunderland",
+            "opponent_crest": "https://a.espncdn.com/i/teamlogos/soccer/500/366.png",
+            "competition": "PL"
+          },
+          {
+            "result": "W",
+            "score": "6–4",
+            "opponent": "Western Sydney Wanderers",
+            "opponent_crest": "https://r2.thesportsdb.com/images/media/team/badge/yotugj1759632879.png",
+            "competition": "FR"
+          }
+        ]
+      },
+      "headline": "A £10m fine, six points saved, and Mudryk cleared",
+      "week": [
+        {
+          "kicker": "The bill for the Abramovich years.",
+          "text": "The FA fined Chelsea £10m and handed down a suspended two-window transfer ban for agent breaches between 2009 and 2022 — an original suspended six-point deduction was overturned on appeal. The offences were self-reported by the new ownership, and the club says this closes every regulatory proceeding against it."
+        },
+        {
+          "kicker": "Mudryk is back.",
+          "text": "Mykhailo Mudryk is free to play again after winning his appeal against a doping ban. Whatever role Xabi Alonso has in mind for him, he at least gets to compete for it."
+        },
+        {
+          "kicker": "Lacroix makes ten.",
+          "text": "Maxence Lacroix signed from Crystal Palace, calling Chelsea a \"beautiful club\" and pitching himself as a leader from the back. Alonso says he wants four or five centre-backs in his squad — he currently has ten, so the maths points to departures."
+        },
+        {
+          "kicker": "Ten goals in Sydney.",
+          "text": "The tour opened with a 6–4 win over Western Sydney Wanderers on Tuesday — entertainment guaranteed, defending optional."
+        },
+        {
+          "kicker": "Palmer holds the trademark.",
+          "text": "Cole Palmer says he's trademarked the celebration he shares with Morgan Rogers — \"bailiffs at his door\" if it's misused — and admits he fell asleep at half-time of England v Mexico. Pre-season press conferences are better with him in them."
+        }
+      ],
+      "team_watch": [
+        {
+          "name": "Romeo Lavia",
+          "tag": "CM",
+          "note": "\"He's okay for tomorrow\" — Alonso confirms he's fit for the Tottenham friendly, which after Lavia's injury history counts as news."
+        },
+        {
+          "name": "Mahdi Nicoll-Jazuli",
+          "tag": "Academy · 16",
+          "note": "Palmer's scouting report: \"He's got all the attributes to play at this club. Even next season he could possibly be ready.\"",
+          "talent": true
+        }
+      ],
+      "today": "Tottenham on Saturday, 3:15pm — the first real measure of Alonso's Chelsea after the tour-opening goalfest. Lavia is fit, Caicedo and Jackson have just landed in Sydney, and the opposition now belongs to Roberto De Zerbi, so both sides are auditioning new ideas. It kicks off a run of three European heavyweights in a week: Spurs, then Juventus on Wednesday, Milan next Saturday.",
+      "wider": [
+        {
+          "title": "Infantino increasingly embattled after senior adviser resigns over World Cup sell-off plans",
+          "url": "https://www.theguardian.com/football/2026/jul/31/fifa-world-cup-privatisation-consultation-sell-off-plan",
+          "hook": "UEFA, CONCACAF and the AFC are lined up against FIFA's plan to sell a stake in the World Cup — and now Infantino's own senior adviser has quit rather than defend it. The game's biggest institutional fight in years.",
+          "source": "The Guardian Football",
+          "image": "https://i.guim.co.uk/img/media/b86216e6886c6bf8a63b6c73019125e4de5f3d94/154_589_3960_3169/master/3960.jpg?width=1200&height=630&quality=85&auto=format&fit=crop&precrop=40:21,offset-x50,offset-y0&overlay-align=bottom%2Cleft&overlay-width=100p&overlay-base64=L2ltZy9zdGF0aWMvb3ZlcmxheXMvdGctZGVmYXVsdC5wbmc&enable=upscale&s=840f6d0782aa88b0847d333463a1fdf7"
+        },
+        {
+          "title": "Rottach-Egern, playing a friendly against Bayern, subbed on the club's cashier",
+          "url": "https://www.reddit.com/r/soccer/comments/1vb0orl/rottachegern_who_are_playing_a_friendly_match/",
+          "hook": "Bayern put 15 past a Bavarian village side that brought their cashier off the bench. The thread is the point — football at its silliest and most likeable.",
+          "source": "r/soccer · top of the day"
+        },
+        {
+          "title": "Premier League agrees proposal to share an extra £1.5bn with EFL clubs",
+          "url": "https://www.theguardian.com/football/2026/jul/30/premier-league-propose-to-share-an-extra-15bn-with-efl-clubs",
+          "hook": "Buried under the FIFA noise: the biggest redistribution deal English football has agreed in years, and it reshapes the whole pyramid.",
+          "source": "The Guardian Football",
+          "image": "https://i.guim.co.uk/img/media/d5e5815e98f47f06fd270378b8a77fc8dc582487/300_0_2700_2160/master/2700.jpg?width=1200&height=630&quality=85&auto=format&fit=crop&precrop=40:21,offset-x50,offset-y0&overlay-align=bottom%2Cleft&overlay-width=100p&overlay-base64=L2ltZy9zdGF0aWMvb3ZlcmxheXMvdGctZGVmYXVsdC5wbmc&enable=upscale&s=e4d194a47fb97f675f9c96be61da86fc"
+        }
+      ],
+      "read": {
+        "title": "Franco Baresi was not only the captain but the moral heart of Sacchi's great Milan team",
+        "url": "https://www.theguardian.com/football/2026/jul/31/franco-baresi-was-not-only-the-captain-but-the-moral-heart-of-sacchis-great-milan-team",
+        "hook": "Baresi died today at 66. The Guardian's farewell to the libero who defined a position, a club and an era — worth your ten minutes even on a Chelsea page.",
+        "source": "The Guardian Football",
+        "image": "https://i.guim.co.uk/img/media/fcae0f9cc8f4fb9fc1e07d63e8cdcf39ca515838/203_0_2378_1902/master/2378.jpg?width=1200&height=630&quality=85&auto=format&fit=crop&precrop=40:21,offset-x50,offset-y0&overlay-align=bottom%2Cleft&overlay-width=100p&overlay-base64=L2ltZy9zdGF0aWMvb3ZlcmxheXMvdGctZGVmYXVsdC5wbmc&enable=upscale&s=3bd74a75e2c612313071aa7f0c0e73bf"
+      },
+      "rivals": [
+        {
+          "club": "Arsenal",
+          "crest": "https://a.espncdn.com/i/teamlogos/soccer/500/359.png",
+          "line": "at Girona Sat · FR",
+          "note": "An agreement in principle with Newcastle for Bruno Guimarães at €90m, per L'Équipe — and he wasn't on the flight to Newcastle's pre-season camp."
+        },
+        {
+          "club": "Manchester City",
+          "crest": "https://a.espncdn.com/i/teamlogos/soccer/500/382.png",
+          "line": "Inter friendly next · FR",
+          "note": "City sounded out PSG and Bayern to stir a market for Rodri; neither will spend time on a player whose mind is reportedly already made up."
+        },
+        {
+          "club": "Manchester United",
+          "crest": "https://a.espncdn.com/i/teamlogos/soccer/500/360.png",
+          "line": "Atlético in Stockholm · FR",
+          "note": "United are exploring a move for Newcastle's 21-year-old left-back Lewis Hall, a name on their list since March."
+        },
+        {
+          "club": "Liverpool",
+          "crest": "https://a.espncdn.com/i/teamlogos/soccer/500/364.png",
+          "line": "beat Wrexham 1–0 · FR",
+          "note": "Andoni Iraola's first big call: Wirtz is a No 10 in his system, not a left winger — and Szoboszlai says the intensity that went missing is back."
+        }
+      ],
+      "rumours": [
+        {
+          "player": "Trevoh Chalobah",
+          "from": "Chelsea",
+          "to": "Como",
+          "fee": "~€30m",
+          "heat": "talks",
+          "note": "Como's improved €28m-plus-bonuses offer is due a Chelsea response within a day, per Italian reports — the defender already has personal terms agreed."
+        },
+        {
+          "player": "John Stones",
+          "from": "Manchester City",
+          "to": "Internazionale",
+          "heat": "here we go",
+          "note": "The Guardian's roundup has Stones sealing his move to Inter — a quiet end to a decade of not-quite-quiet City service."
+        },
+        {
+          "player": "Curtis Jones",
+          "from": "Liverpool",
+          "to": "Internazionale",
+          "fee": "€35m",
+          "heat": "talks",
+          "note": "Inter's intermediaries floated €35m, per The Athletic's Horncastle — short of what Liverpool think he's worth."
+        },
+        {
+          "player": "Vinícius Júnior",
+          "from": "Real Madrid",
+          "to": "Arsenal",
+          "heat": "smoke",
+          "note": "Madrid have made their renewal offer final — sign it or a summer sale gets considered. Sami Mokbel says Arsenal are confident he'd come, with \"a lot of ifs, buts and maybes\" still attached."
+        },
+        {
+          "player": "Michael Olise",
+          "from": "Bayern Munich",
+          "to": "Real Madrid",
+          "heat": "smoke",
+          "note": "Uli Hoeneß laughed his head off at the rumour: \"The Emperor of China could come to us and we still wouldn't talk to him about selling Olise.\""
         }
       ]
     }
