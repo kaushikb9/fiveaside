@@ -39,8 +39,12 @@ site/                   static reader; site/data/digests.json is the database
    not football-data's `MUN`), the [football-data.org TLA](https://www.football-data.org/)
    for `football-data`, or nothing at all for `api-football` — it has no
    club codes, so the club `name` must match its team name exactly instead.
-3. Pick a data source in `touchline.config.json` (`"source"`): `espn` (default,
-   no key needed), `api-football` (set `API_FOOTBALL_KEY`, from
+3. Pick a data source in `touchline.config.json` (`"source"`):
+   `espn+thesportsdb` (recommended, no key needed — ESPN for league data
+   plus [TheSportsDB](https://www.thesportsdb.com/)'s free per-team feed,
+   which catches tour friendlies ESPN misses; set `club.thesportsdb_id` to
+   your club's numeric TheSportsDB team id), `espn` (no key needed),
+   `api-football` (set `API_FOOTBALL_KEY`, from
    [api-football.com](https://www.api-football.com/)), or `football-data`
    (set `FOOTBALL_DATA_TOKEN`, from [football-data.org](https://www.football-data.org/)).
 4. Install [Claude Code](https://claude.com/claude-code) (the brain runs

@@ -55,23 +55,37 @@ def test_main_facts_uses_config_path(tmp_path, capsys, monkeypatch):
     )
     import touchline.cli as cli
 
-    monkeypatch.setitem(cli.SOURCES, "espn", lambda: FakeSource())
+    monkeypatch.setitem(cli.SOURCES, "espn", lambda config: FakeSource())
     assert main(["facts", "--config", str(config_path)]) == 0
     bundle = json.loads(capsys.readouterr().out)
     assert bundle["club"]["code"] == "CHE"
 
 
 def test_sources_registry_covers_all_config_values():
-    from touchline.cli import SOURCES
-    from touchline.sources.api_football import APIFootballClient
-    from touchline.sources.espn import ESPNClient
-    from touchline.sources.football_data import FootballDataClient
+    from typing import get_args
 
-    assert SOURCES == {
-        "espn": ESPNClient,
-        "api-football": APIFootballClient,
-        "football-data": FootballDataClient,
-    }
+    from touchline.cli import SOURCES
+
+    literal = TouchlineConfig.model_fields["source"].annotation
+    assert set(SOURCES) == set(get_args(literal))
+
+
+def test_layered_source_built_with_club_team_id():
+    from touchline.cli import SOURCES
+    from touchline.sources.espn import ESPNClient
+    from touchline.sources.layered import LayeredSource
+    from touchline.sources.thesportsdb import TheSportsDBClient
+
+    config = TouchlineConfig(
+        club=ClubConfig(name="Chelsea", code="CHE", thesportsdb_id="133610"),
+        competitions=["PL"],
+        source="espn+thesportsdb",
+    )
+    source = SOURCES["espn+thesportsdb"](config)
+    assert isinstance(source, LayeredSource)
+    assert isinstance(source.primary, ESPNClient)
+    assert isinstance(source.overlay, TheSportsDBClient)
+    assert source.overlay.team_id == "133610"
 
 
 def test_main_facts_instantiates_configured_source(tmp_path, capsys, monkeypatch):
@@ -84,7 +98,7 @@ def test_main_facts_instantiates_configured_source(tmp_path, capsys, monkeypatch
     )
     import touchline.cli as cli
 
-    monkeypatch.setitem(cli.SOURCES, "espn", lambda: FakeSource())
+    monkeypatch.setitem(cli.SOURCES, "espn", lambda config: FakeSource())
     assert main(["facts", "--config", str(config_path)]) == 0
     bundle = json.loads(capsys.readouterr().out)
     assert bundle["club"]["code"] == "CHE"

@@ -1,10 +1,11 @@
 {
-  "source": "espn",
+  "source": "espn+thesportsdb",
   "club": {
     "name": "Chelsea",
     "code": "CHE",
     "subreddit": "chelseafc",
-    "crest": "https://a.espncdn.com/i/teamlogos/soccer/500/363.png"
+    "crest": "https://a.espncdn.com/i/teamlogos/soccer/500/363.png",
+    "thesportsdb_id": "133610"
   },
   "competitions": ["PL", "CL", "FRIENDLIES"],
   "rivals": [

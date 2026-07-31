@@ -1,0 +1,58 @@
+{
+  "events": [
+    {
+      "idEvent": "2414272",
+      "strEvent": "Chelsea vs Tottenham Hotspur",
+      "strSport": "Soccer",
+      "idLeague": "4569",
+      "strLeague": "Club Friendlies",
+      "strSeason": "2026",
+      "strHomeTeam": "Chelsea",
+      "strAwayTeam": "Tottenham Hotspur",
+      "intHomeScore": null,
+      "intAwayScore": null,
+      "dateEvent": "2026-08-01",
+      "strTime": "09:45:00",
+      "strTimestamp": "2026-08-01T09:45:00",
+      "idHomeTeam": "133610",
+      "strHomeTeamBadge": "https://www.thesportsdb.com/images/media/team/badge/pbf4ul1782638263.png",
+      "idAwayTeam": "133616",
+      "strAwayTeamBadge": "https://r2.thesportsdb.com/images/media/team/badge/dfyfhl1604094109.png",
+      "strVenue": "Allianz Stadium",
+      "strStatus": "NS",
+      "strPostponed": "no"
+    },
+    {
+      "idEvent": "2494100",
+      "strEvent": "Fulham vs Chelsea",
+      "strSport": "Soccer",
+      "idLeague": "4328",
+      "strLeague": "English Premier League",
+      "strSeason": "2026-2027",
+      "strHomeTeam": "Fulham",
+      "strAwayTeam": "Chelsea",
+      "intHomeScore": null,
+      "intAwayScore": null,
+      "dateEvent": "2026-08-24",
+      "strTime": "19:00:00",
+      "strTimestamp": "2026-08-24T19:00:00",
+      "idHomeTeam": "133600",
+      "strHomeTeamBadge": "https://r2.thesportsdb.com/images/media/team/badge/vsrwvx1448813527.png",
+      "idAwayTeam": "133610",
+      "strAwayTeamBadge": "https://www.thesportsdb.com/images/media/team/badge/pbf4ul1782638263.png",
+      "strVenue": "Craven Cottage",
+      "strStatus": "NS",
+      "strPostponed": "no"
+    },
+    {
+      "idEvent": "2494999",
+      "strEvent": "Corrupted vs Event",
+      "strSport": "Soccer",
+      "strLeague": "Club Friendlies",
+      "strHomeTeam": "Corrupted",
+      "strAwayTeam": "Event",
+      "strTimestamp": "not-a-timestamp",
+      "strStatus": "NS"
+    }
+  ]
+}

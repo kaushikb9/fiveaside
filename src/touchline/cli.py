@@ -2,6 +2,7 @@
 
 import argparse
 import json
+from collections.abc import Callable
 from datetime import UTC, datetime
 
 from touchline.config import TouchlineConfig, load_config
@@ -9,11 +10,17 @@ from touchline.core.facts import build_facts
 from touchline.sources.api_football import APIFootballClient
 from touchline.sources.espn import ESPNClient
 from touchline.sources.football_data import FootballDataClient
+from touchline.sources.layered import LayeredSource
+from touchline.sources.thesportsdb import TheSportsDBClient
 
-SOURCES: dict[str, type] = {
-    "espn": ESPNClient,
-    "api-football": APIFootballClient,
-    "football-data": FootballDataClient,
+# Each entry builds a source from the loaded config (most ignore it).
+SOURCES: dict[str, Callable[[TouchlineConfig], object]] = {
+    "espn": lambda config: ESPNClient(),
+    "api-football": lambda config: APIFootballClient(),
+    "football-data": lambda config: FootballDataClient(),
+    "espn+thesportsdb": lambda config: LayeredSource(
+        ESPNClient(), TheSportsDBClient(config.club.thesportsdb_id)
+    ),
 }
 
 
@@ -40,7 +47,7 @@ def main(argv: list[str] | None = None) -> int:
 
     if args.command == "facts":
         config = load_config(args.config)
-        print(run_facts(SOURCES[config.source](), config))
+        print(run_facts(SOURCES[config.source](config), config))
         return 0
 
     parser.print_help()

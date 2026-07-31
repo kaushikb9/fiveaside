@@ -62,7 +62,7 @@ def test_source_defaults_to_espn(tmp_path):
 
 
 def test_source_accepts_known_values():
-    for value in ("espn", "api-football", "football-data"):
+    for value in ("espn", "api-football", "football-data", "espn+thesportsdb"):
         cfg = TouchlineConfig(
             club={"name": "Chelsea", "code": "CHE"}, competitions=["PL"], source=value
         )

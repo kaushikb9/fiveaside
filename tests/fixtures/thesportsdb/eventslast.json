@@ -1,0 +1,60 @@
+{
+  "results": [
+    {
+      "idEvent": "2413990",
+      "strEvent": "Chelsea vs Western Sydney Wanderers",
+      "strSport": "Soccer",
+      "idLeague": "4569",
+      "strLeague": "Club Friendlies",
+      "strSeason": "2026",
+      "strHomeTeam": "Chelsea",
+      "strAwayTeam": "Western Sydney Wanderers",
+      "intHomeScore": "6",
+      "intAwayScore": "4",
+      "dateEvent": "2026-07-28",
+      "strTime": "09:45:00",
+      "strTimestamp": "2026-07-28T09:45:00",
+      "idHomeTeam": "133610",
+      "strHomeTeamBadge": "https://www.thesportsdb.com/images/media/team/badge/pbf4ul1782638263.png",
+      "idAwayTeam": "134712",
+      "strAwayTeamBadge": "https://r2.thesportsdb.com/images/media/team/badge/wsw1604094109.png",
+      "strVenue": "Allianz Stadium",
+      "strStatus": "FT",
+      "strPostponed": "no"
+    },
+    {
+      "idEvent": "2413500",
+      "strEvent": "Chelsea vs Tottenham Hotspur",
+      "strSport": "Soccer",
+      "idLeague": "4328",
+      "strLeague": "English Premier League",
+      "strSeason": "2025-2026",
+      "strHomeTeam": "Chelsea",
+      "strAwayTeam": "Tottenham Hotspur",
+      "intHomeScore": "2",
+      "intAwayScore": "1",
+      "dateEvent": "2026-05-19",
+      "strTime": "19:00:00",
+      "strTimestamp": "2026-05-19T19:00:00",
+      "idHomeTeam": "133610",
+      "strHomeTeamBadge": "https://www.thesportsdb.com/images/media/team/badge/pbf4ul1782638263.png",
+      "idAwayTeam": "133616",
+      "strAwayTeamBadge": "https://r2.thesportsdb.com/images/media/team/badge/dfyfhl1604094109.png",
+      "strVenue": "Stamford Bridge",
+      "strStatus": "FT",
+      "strPostponed": "no"
+    },
+    {
+      "idEvent": "2413501",
+      "strEvent": "Chelsea vs Unscored Friendly",
+      "strSport": "Soccer",
+      "strLeague": "Club Friendlies",
+      "strHomeTeam": "Chelsea",
+      "strAwayTeam": "Unscored Friendly",
+      "intHomeScore": null,
+      "intAwayScore": null,
+      "strTimestamp": "2026-07-20T09:00:00",
+      "strStatus": "FT"
+    }
+  ]
+}

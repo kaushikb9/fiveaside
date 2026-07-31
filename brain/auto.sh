@@ -10,8 +10,12 @@ cd "$(dirname "$0")/.."
 [ "$(date +%H)" -ge 7 ] || exit 0
 
 # sync first — the other laptop may have curated already
-# (--autostash: a stray uncommitted edit must not wedge the pull for days)
-git pull --rebase --autostash -q || { echo "[auto] $(date '+%F %T') — git pull failed, skipping"; exit 0; }
+# (--autostash: a stray uncommitted edit must not wedge the pull; timeout +
+# non-interactive ssh: a hung fetch once blocked launchd for 33 hours)
+export GIT_TERMINAL_PROMPT=0
+export GIT_SSH_COMMAND="ssh -oBatchMode=yes -oConnectTimeout=15"
+timeout 90 git pull --rebase --autostash -q \
+  || { echo "[auto] $(date '+%F %T') — git pull failed/timed out, skipping"; exit 0; }
 
 # already curated today? (source of truth: the data itself, not a stamp file)
 LATEST=$(node -e "const d=require('./site/data/digests.json').digests;console.log(d.map(x=>x.date).sort().pop())")

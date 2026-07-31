@@ -13,6 +13,8 @@ class ClubConfig(BaseModel, frozen=True):
     # api-football (which has no codes — match `name` to its team name instead)
     crest: str | None = None  # URL of the club badge, shown in the site header
     subreddit: str | None = None
+    thesportsdb_id: str | None = None  # TheSportsDB numeric team id (e.g. "133610"
+    # for Chelsea) — required only by the espn+thesportsdb layered source
 
 
 class FeedConfig(BaseModel, frozen=True):
@@ -26,7 +28,7 @@ class TouchlineConfig(BaseModel, frozen=True):
     timezone: str = "UTC"
     feeds: list[FeedConfig] = []
     voice: str = ""
-    source: Literal["espn", "api-football", "football-data"] = "espn"
+    source: Literal["espn", "api-football", "football-data", "espn+thesportsdb"] = "espn"
 
 
 def load_config(path: str | Path = "touchline.config.json") -> TouchlineConfig:
