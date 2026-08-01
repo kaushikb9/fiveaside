@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-07-31T15:44:49.614Z",
+  "generated_at": "2026-08-01T15:10:10.465Z",
   "digests": [
     {
       "date": "2026-07-25",
@@ -1414,6 +1414,259 @@
           "to": "Real Madrid",
           "heat": "smoke",
           "note": "Uli Hoeneß laughed his head off at the rumour: \"The Emperor of China could come to us and we still wouldn't talk to him about selling Olise.\""
+        }
+      ]
+    },
+    {
+      "date": "2026-08-01",
+      "club": {
+        "latest_result": {
+          "home": "Chelsea",
+          "away": "Tottenham Hotspur",
+          "score": "1–2",
+          "date": "Sat 01 Aug",
+          "competition": "FR",
+          "result": "L",
+          "home_crest": "https://www.thesportsdb.com/images/media/team/badge/pbf4ul1782638263.png",
+          "away_crest": "https://r2.thesportsdb.com/images/media/team/badge/dfyfhl1604094109.png"
+        },
+        "fixtures": [
+          {
+            "opponent": "Juventus",
+            "home": true,
+            "kickoff_local": "Wed 05 Aug 17:00",
+            "competition": "FR",
+            "opponent_crest": "https://a.espncdn.com/i/teamlogos/soccer/500/111.png"
+          },
+          {
+            "opponent": "AC Milan",
+            "home": true,
+            "kickoff_local": "Sat 08 Aug 17:30",
+            "competition": "FR",
+            "opponent_crest": "https://a.espncdn.com/i/teamlogos/soccer/500/103.png"
+          },
+          {
+            "opponent": "Johor Darul Ta'zim",
+            "home": false,
+            "kickoff_local": "Sun 09 Aug 17:30",
+            "competition": "FR",
+            "opponent_crest": "https://a.espncdn.com/i/teamlogos/soccer/500/17689.png"
+          },
+          {
+            "opponent": "Real Sociedad",
+            "home": true,
+            "kickoff_local": "Sat 15 Aug 18:30",
+            "competition": "FR",
+            "opponent_crest": "https://a.espncdn.com/i/teamlogos/soccer/500/89.png"
+          },
+          {
+            "opponent": "Fulham",
+            "home": false,
+            "kickoff_local": "Tue 25 Aug 00:30",
+            "competition": "PL",
+            "opponent_crest": "https://a.espncdn.com/i/teamlogos/soccer/500/370.png"
+          }
+        ],
+        "table": {
+          "competition": "English Premier League",
+          "rows": [
+            {
+              "pos": 1,
+              "team": "AFC Bournemouth",
+              "crest": "https://a.espncdn.com/i/teamlogos/soccer/500/349.png",
+              "played": 0,
+              "points": 0
+            },
+            {
+              "pos": 2,
+              "team": "Arsenal",
+              "crest": "https://a.espncdn.com/i/teamlogos/soccer/500/359.png",
+              "played": 0,
+              "points": 0
+            },
+            {
+              "pos": 3,
+              "team": "Aston Villa",
+              "crest": "https://a.espncdn.com/i/teamlogos/soccer/500/362.png",
+              "played": 0,
+              "points": 0
+            },
+            {
+              "pos": 4,
+              "team": "Brentford",
+              "crest": "https://a.espncdn.com/i/teamlogos/soccer/500/337.png",
+              "played": 0,
+              "points": 0
+            },
+            {
+              "pos": 6,
+              "team": "Chelsea",
+              "crest": "https://a.espncdn.com/i/teamlogos/soccer/500/363.png",
+              "played": 0,
+              "points": 0
+            }
+          ],
+          "club_position": 6
+        },
+        "form": [
+          {
+            "result": "D",
+            "score": "1–1",
+            "opponent": "Liverpool",
+            "opponent_crest": "https://a.espncdn.com/i/teamlogos/soccer/500/364.png",
+            "competition": "PL"
+          },
+          {
+            "result": "W",
+            "score": "2–1",
+            "opponent": "Tottenham Hotspur",
+            "opponent_crest": "https://a.espncdn.com/i/teamlogos/soccer/500/367.png",
+            "competition": "PL"
+          },
+          {
+            "result": "L",
+            "score": "1–2",
+            "opponent": "Sunderland",
+            "opponent_crest": "https://a.espncdn.com/i/teamlogos/soccer/500/366.png",
+            "competition": "PL"
+          },
+          {
+            "result": "W",
+            "score": "6–4",
+            "opponent": "Western Sydney Wanderers",
+            "opponent_crest": "https://r2.thesportsdb.com/images/media/team/badge/yotugj1759632879.png",
+            "competition": "FR"
+          },
+          {
+            "result": "L",
+            "score": "1–2",
+            "opponent": "Tottenham Hotspur",
+            "opponent_crest": "https://r2.thesportsdb.com/images/media/team/badge/dfyfhl1604094109.png",
+            "competition": "FR"
+          }
+        ]
+      },
+      "headline": "Ten-man Spurs steal it at 90+2; Henderson arrives on a free",
+      "week": [
+        {
+          "kicker": "Ten men, one sucker punch.",
+          "text": "Chelsea lost 1–2 to ten-man Tottenham in Sydney, Richarlison winning it at 90+2. The first defeat of the Alonso era's first tour, and losing a man was the more productive half of the bargain."
+        },
+        {
+          "kicker": "Henderson signs, for nothing.",
+          "text": "Jordan Henderson put pen to paper on Saturday, per Ben Jacobs — a free transfer from Brentford, and exactly the kind of senior dressing-room voice this young squad has been missing."
+        },
+        {
+          "kicker": "João Pedro to 2033.",
+          "text": "Fabrizio Romano reports a verbal agreement on a new long-term contract with a raise — struck after Chelsea turned away calls from three top clubs. 'Untouchable' is the word being used."
+        },
+        {
+          "kicker": "Hong Kong, then patience.",
+          "text": "Mudryk will rejoin the squad at the tour's next stop, and Alonso is already cooling the room: 'we expect that it will take time' after 20 months of training alone at non-league Uxbridge."
+        },
+        {
+          "kicker": "Cucurella and the postman.",
+          "text": "Marc Cucurella let his postman in Horsham wear his World Cup winner's medal — third-most upvoted thing on r/soccer all day, and the most Cucurella story imaginable."
+        }
+      ],
+      "team_watch": [
+        {
+          "name": "Estêvão",
+          "tag": "RW · 19",
+          "note": "Even in defeat, a sequence of his link-up play with Palestra was r/chelseafc's post of the day — the tour's clearest sign of a right side taking shape."
+        },
+        {
+          "name": "Roméo Lavia",
+          "tag": "CM",
+          "note": "Declared fit on Friday, in the starting XI against Spurs on Saturday. Given his history, back-to-back availability is the quiet win of the week."
+        }
+      ],
+      "today": "Today's football is already done and dusted — nothing more on the slate tonight. Juventus on Wednesday (5pm IST) is the next appointment; until then, log off with a clear conscience.",
+      "wider": [
+        {
+          "title": "Gianni Infantino 'has lost Uefa's confidence' after Fifa chief scraps World Cup sell-off plan",
+          "url": "https://www.theguardian.com/football/2026/aug/01/gianni-infantino-fifa-world-cup-sell-off-plans-scrapped-reaction-uefa-football",
+          "hook": "The $20bn sell-off is dead, FIFA's own executives are breaking ranks, and UEFA is now openly briefing that Infantino should go. Five days that cracked the most powerful job in football.",
+          "source": "The Guardian Football",
+          "image": "https://i.guim.co.uk/img/media/98c488cf95b17c0d620a279067c8487ae9a6938b/208_0_2809_2248/master/2809.jpg?width=1200&height=630&quality=85&auto=format&fit=crop&precrop=40:21,offset-x50,offset-y0&overlay-align=bottom%2Cleft&overlay-width=100p&overlay-base64=L2ltZy9zdGF0aWMvb3ZlcmxheXMvdGctZGVmYXVsdC5wbmc&enable=upscale&s=108ff65d73b3e7e8ab8f76ba811bfe1b"
+        },
+        {
+          "title": "Not so black and white: how Eddie Howe lost control at Newcastle in one summer",
+          "url": "https://www.theguardian.com/football/2026/jul/30/not-so-black-and-white-how-one-summer-saw-eddie-howe-lose-control-at-newcastle",
+          "hook": "Eddie Howe walked away this week. Louise Taylor pieces together how a Champions League club lost its manager in a single summer of drift — the season's first real cautionary tale.",
+          "source": "The Guardian Football",
+          "image": "https://i.guim.co.uk/img/media/f1e2e9b5db6d70e797263eea6cab955fd43575d7/1717_576_4262_3410/master/4262.jpg?width=1200&height=630&quality=85&auto=format&fit=crop&precrop=40:21,offset-x50,offset-y0&overlay-align=bottom%2Cleft&overlay-width=100p&overlay-base64=L2ltZy9zdGF0aWMvb3ZlcmxheXMvdGctZGVmYXVsdC5wbmc&enable=upscale&s=9cb25f0cc1b5d02771b25e1061c777aa"
+        }
+      ],
+      "read": {
+        "title": "Marketing stunt or 'extraordinary' transfer? Ravenna fans ride wave of the Ronaldinho Effect",
+        "url": "https://www.theguardian.com/football/2026/aug/01/marketing-stunt-or-extraordinary-transfer-ravenna-fans-ronaldinho",
+        "hook": "Ronaldinho, 46, is going to play in Serie C. The fans are divided, the ticket office isn't — a lovely piece about what a legend is actually for.",
+        "source": "The Guardian Football",
+        "image": "https://i.guim.co.uk/img/media/40b06000524430ceabc1189458f55f54f905172a/818_190_2995_2396/master/2995.jpg?width=1200&height=630&quality=85&auto=format&fit=crop&precrop=40:21,offset-x50,offset-y0&overlay-align=bottom%2Cleft&overlay-width=100p&overlay-base64=L2ltZy9zdGF0aWMvb3ZlcmxheXMvdGctZGVmYXVsdC5wbmc&enable=upscale&s=e87dbbdfef1c968ac5211fc99e12e1f1"
+      },
+      "rivals": [
+        {
+          "club": "Arsenal",
+          "crest": "https://a.espncdn.com/i/teamlogos/soccer/500/359.png",
+          "line": "at Girona tonight · FR",
+          "note": "Bruno Guimarães is theirs — £70m fixed plus £10m in add-ons, per Bruno Andrade — ending a week of will-he-fly-won't-he with Newcastle."
+        },
+        {
+          "club": "Manchester City",
+          "crest": "https://a.espncdn.com/i/teamlogos/soccer/500/382.png",
+          "line": "faced Inter today · FR",
+          "note": "Foden captained them against Inter on the day r/MCFC's top post counted the departed: a first season with no Kompany, Agüero, De Bruyne or Guardiola — and only Dias, Foden and Haaland left if Rodri goes."
+        },
+        {
+          "club": "Manchester United",
+          "crest": "https://a.espncdn.com/i/teamlogos/soccer/500/360.png",
+          "line": "faced Atlético today · FR",
+          "note": "Simon Stone reports Shea Lacey and Tyler Fletcher are earmarked for first-team breakthroughs this season — and Lacey duly started against Atlético hours later."
+        },
+        {
+          "club": "Liverpool",
+          "crest": "https://a.espncdn.com/i/teamlogos/soccer/500/364.png",
+          "line": "US tour ends v Leeds Sun · FR",
+          "note": "The leaked Szoboszlai–Jones argument over the captain's armband dissolved into keepy-uppies at open training — 'they're friends again', shrugs the subreddit's top post."
+        }
+      ],
+      "rumours": [
+        {
+          "player": "Trevoh Chalobah",
+          "from": "Chelsea",
+          "to": "Como",
+          "fee": "~€30m",
+          "heat": "close",
+          "note": "Romano says Como expect the final green light from Chelsea — Chalobah agreed personal terms days ago."
+        },
+        {
+          "player": "Pep Chavarría",
+          "from": "Rayo Vallecano",
+          "to": "Chelsea",
+          "heat": "talks",
+          "note": "Chelsea have improved their bid for the left-back Xabi Alonso wants, per Romano, with negotiations moving forward."
+        },
+        {
+          "player": "Vinícius Júnior",
+          "from": "Real Madrid",
+          "to": "Arsenal",
+          "heat": "talks",
+          "note": "Ornstein says the coming days decide it: extend at Madrid, leave free in 2027, or push for Arsenal now — who are described as all in."
+        },
+        {
+          "player": "Savinho",
+          "from": "Manchester City",
+          "to": "Tottenham Hotspur",
+          "heat": "smoke",
+          "note": "Spurs' £237m window may not be done — the BBC understands Savinho is a target, with Cody Gakpo also in the frame."
+        },
+        {
+          "player": "Nicolas Jackson",
+          "from": "Chelsea",
+          "to": "Aston Villa",
+          "heat": "smoke",
+          "note": "Villa's interest is real, says Ben Jacobs, but UEFA's new 45-day rule on swap deals means nothing moves fast — deadline-day arithmetic."
         }
       ]
     }
