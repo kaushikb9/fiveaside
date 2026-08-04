@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-03T15:20:28.971Z",
+  "generated_at": "2026-08-04T05:01:34.355Z",
   "digests": [
     {
       "date": "2026-07-25",
@@ -1916,6 +1916,232 @@
           "to": "Atlético Madrid",
           "heat": "smoke",
           "note": "Monday's Guardian rumour mill has Atlético offering Grealish an escape route this window — nothing firmer than that yet."
+        }
+      ]
+    },
+    {
+      "date": "2026-08-04",
+      "club": {
+        "latest_result": {
+          "home": "Chelsea",
+          "away": "Tottenham Hotspur",
+          "score": "1–2",
+          "date": "Sat 01 Aug",
+          "competition": "FR",
+          "result": "L",
+          "home_crest": "https://a.espncdn.com/i/teamlogos/soccer/500/363.png",
+          "away_crest": "https://r2.thesportsdb.com/images/media/team/badge/dfyfhl1604094109.png"
+        },
+        "fixtures": [
+          {
+            "opponent": "Juventus",
+            "home": true,
+            "kickoff_local": "Wed 05 Aug 17:00",
+            "competition": "FR",
+            "opponent_crest": "https://a.espncdn.com/i/teamlogos/soccer/500/111.png"
+          },
+          {
+            "opponent": "AC Milan",
+            "home": true,
+            "kickoff_local": "Sat 08 Aug 17:30",
+            "competition": "FR",
+            "opponent_crest": "https://a.espncdn.com/i/teamlogos/soccer/500/103.png"
+          },
+          {
+            "opponent": "Johor Darul Ta'zim",
+            "home": false,
+            "kickoff_local": "Sun 09 Aug 17:30",
+            "competition": "FR",
+            "opponent_crest": "https://a.espncdn.com/i/teamlogos/soccer/500/17689.png"
+          },
+          {
+            "opponent": "Real Sociedad",
+            "home": true,
+            "kickoff_local": "Sat 15 Aug 18:30",
+            "competition": "FR",
+            "opponent_crest": "https://a.espncdn.com/i/teamlogos/soccer/500/89.png"
+          },
+          {
+            "opponent": "Fulham",
+            "home": false,
+            "kickoff_local": "Tue 25 Aug 00:30",
+            "competition": "PL",
+            "opponent_crest": "https://a.espncdn.com/i/teamlogos/soccer/500/370.png"
+          }
+        ],
+        "table": {
+          "competition": "English Premier League",
+          "rows": [
+            {
+              "pos": 1,
+              "team": "AFC Bournemouth",
+              "crest": "https://a.espncdn.com/i/teamlogos/soccer/500/349.png",
+              "played": 0,
+              "points": 0
+            },
+            {
+              "pos": 2,
+              "team": "Arsenal",
+              "crest": "https://a.espncdn.com/i/teamlogos/soccer/500/359.png",
+              "played": 0,
+              "points": 0
+            },
+            {
+              "pos": 3,
+              "team": "Aston Villa",
+              "crest": "https://a.espncdn.com/i/teamlogos/soccer/500/362.png",
+              "played": 0,
+              "points": 0
+            },
+            {
+              "pos": 4,
+              "team": "Brentford",
+              "crest": "https://a.espncdn.com/i/teamlogos/soccer/500/337.png",
+              "played": 0,
+              "points": 0
+            },
+            {
+              "pos": 6,
+              "team": "Chelsea",
+              "crest": "https://a.espncdn.com/i/teamlogos/soccer/500/363.png",
+              "played": 0,
+              "points": 0
+            }
+          ],
+          "club_position": 6
+        },
+        "form": [
+          {
+            "result": "L",
+            "score": "1–3",
+            "opponent": "Nottingham Forest",
+            "opponent_crest": "https://a.espncdn.com/i/teamlogos/soccer/500/393.png",
+            "competition": "PL"
+          },
+          {
+            "result": "D",
+            "score": "1–1",
+            "opponent": "Liverpool",
+            "opponent_crest": "https://a.espncdn.com/i/teamlogos/soccer/500/364.png",
+            "competition": "PL"
+          },
+          {
+            "result": "W",
+            "score": "2–1",
+            "opponent": "Tottenham Hotspur",
+            "opponent_crest": "https://a.espncdn.com/i/teamlogos/soccer/500/367.png",
+            "competition": "PL"
+          },
+          {
+            "result": "L",
+            "score": "1–2",
+            "opponent": "Sunderland",
+            "opponent_crest": "https://a.espncdn.com/i/teamlogos/soccer/500/366.png",
+            "competition": "PL"
+          },
+          {
+            "result": "L",
+            "score": "1–2",
+            "opponent": "Tottenham Hotspur",
+            "opponent_crest": "https://r2.thesportsdb.com/images/media/team/badge/dfyfhl1604094109.png",
+            "competition": "FR"
+          }
+        ]
+      },
+      "headline": "Henderson is a Blue, and Alonso is the reason why",
+      "week": [
+        {
+          "kicker": "Henderson, unveiled.",
+          "text": "Monday made it official, and his first interview named the draw: 'I spoke to Xabi. We had very good conversations… he was a big reason why I wanted to come here,' per Ben Jacobs. The squad's missing senior voice, found on a free."
+        },
+        {
+          "kicker": "Twenty years, £31m, done.",
+          "text": "Chalobah's move to Como is complete at £31m, per the BBC — and the subreddit's most-upvoted post of the day was simply the goodbye: 'After 20 years in Chelsea, Chalobah is out 💙💙.' He leaves for Italy and Champions League football with the fans' blessing."
+        },
+        {
+          "kicker": "Rosenior's ten lost minutes.",
+          "text": "The Athletic reports Liam Rosenior has confronted the squad about emotional maturity: Chelsea would be on top, something would go against them, and they'd lose focus for the next ten minutes — and often the match. Naming the flaw is step one."
+        },
+        {
+          "kicker": "The Hong Kong refresh.",
+          "text": "The camp is assembling in Hong Kong — Kinsella lists Welbeck, Mudryk, Quenda, Penders, Caicedo and Jackson among the arrivals, with Austin MacPhee also set to join. Going the other way: Genesis Antwi, off to Strasbourg on a season-long loan."
+        }
+      ],
+      "today": "Juventus on Wednesday, 5pm — the first of two Italian tests in four days, with Milan to follow on Saturday and Johor closing the Asia leg on Sunday. It's also the first match since the Spurs defeat, and possibly first minutes in blue for Henderson and Welbeck. The results are noise; who Alonso trusts from this newly assembled cast isn't. Fulham away opens the league in three weeks.",
+      "wider": [
+        {
+          "title": "Donald Trump 'will do everything possible' to keep Infantino as FIFA president",
+          "url": "https://www.reddit.com/r/soccer/comments/1vej1gf/thetelegraph_donald_trump_will_do_everything/",
+          "hook": "Europe kept walking on Monday — Serbia and Sweden joined the revolt — so Infantino's re-election campaign has moved to the White House, with talks with Marco Rubio reportedly lined up. The thread is r/soccer at full roar.",
+          "source": "r/soccer · top of the day"
+        },
+        {
+          "title": "Memphis Depay's demands to renew at Corinthians: a private box, the stadium for his own shows, half the show revenue",
+          "url": "https://www.reddit.com/r/soccer/comments/1ven59z/gazeta_memphis_depays_has_put_out_his_demands_to/",
+          "hook": "…plus a percentage of future prize money even after he leaves. Per Gazeta this is a genuine negotiating position, not satire. Worth it for the comments alone.",
+          "source": "r/soccer · top of the day"
+        },
+        {
+          "title": "Senegal's Adji Ndiaye saves Morocco's penalty twice after a retake is ordered",
+          "url": "https://www.reddit.com/r/soccer/comments/1vesidk/senegals_adji_ndiaye_saves_moroccos_penalty_twice/",
+          "hook": "Same keeper, same taker, saved twice — the WAFCON clip of the day, and the rare rewatch that gets better when you know the second save is coming.",
+          "source": "r/soccer · top of the day"
+        }
+      ],
+      "read": {
+        "title": "The five big beasts are gone: who will be the Premier League's next alpha manager?",
+        "url": "https://www.theguardian.com/football/2026/aug/02/premier-league-managers-arteta-alonso-de-zerbi-carrick-klopp-guardiola",
+        "hook": "Jonathan Wilson on the vacuum left by the Klopp–Guardiola generation and who inherits the room. The Chelsea passage is the reason to click: Alonso called one of Europe's most promising young managers, with time to impose his ideas and a squad fresher than almost every opponent it will face.",
+        "source": "The Guardian Football",
+        "image": "https://i.guim.co.uk/img/media/4e4edf2754e332a379c814ff14cdb76b9e039d43/0_0_5000_4000/master/5000.jpg?width=1200&height=630&quality=85&auto=format&fit=crop&precrop=40:21,offset-x50,offset-y0&overlay-align=bottom%2Cleft&overlay-width=100p&overlay-base64=L2ltZy9zdGF0aWMvb3ZlcmxheXMvdGctb3BpbmlvbnMucG5n&enable=upscale&s=e1b5fb668bd28faa6a6777df19ac3b98"
+      },
+      "rivals": [
+        {
+          "club": "Arsenal",
+          "crest": "https://a.espncdn.com/i/teamlogos/soccer/500/359.png",
+          "line": "pre-season · PL",
+          "note": "The Guimarães saga hit its briefing-war stage — Bruno Andrade says it's been done since the weekend, Newcastle say they rejected the first official bid, and direct talks have finally opened with the player expected to push to leave."
+        },
+        {
+          "club": "Manchester City",
+          "crest": "https://a.espncdn.com/i/teamlogos/soccer/500/382.png",
+          "line": "pre-season · PL",
+          "note": "Antoine Semenyo's first big interview is all buy-in — 'from day one, Enzo Maresca has got his ideas to us' — a settled note in a summer that hasn't offered their fans many."
+        },
+        {
+          "club": "Manchester United",
+          "crest": "https://a.espncdn.com/i/teamlogos/soccer/500/360.png",
+          "line": "pre-season · PL",
+          "note": "The World Cup contingent reported back — Fernandes, Dalot, Cunha and Mazraoui are in for fitness testing — while Simon Stone digs into what Ratcliffe's new 'Theatre of Dreams' would actually take to build."
+        },
+        {
+          "club": "Liverpool",
+          "crest": "https://a.espncdn.com/i/teamlogos/soccer/500/364.png",
+          "line": "pre-season · PL",
+          "note": "They've opened at over €100m for Bradley Barcola; PSG are holding at €170m, and that gap is now the axis their whole window turns on."
+        }
+      ],
+      "rumours": [
+        {
+          "player": "Axel Disasi",
+          "from": "Chelsea",
+          "to": "Crystal Palace",
+          "heat": "talks",
+          "note": "Palace are set to submit an offer, with Disasi their priority to replace Maxence Lacroix, per Fabrice Hawkins — talks between the clubs are ongoing and Italian clubs are still circling."
+        },
+        {
+          "player": "Mykhailo Mudryk",
+          "from": "Chelsea",
+          "to": "Strasbourg",
+          "heat": "smoke",
+          "note": "Three Premier League clubs have enquired since his return was confirmed, per Kieran Gill — a season-long loan to Strasbourg is the other option on the table."
+        },
+        {
+          "player": "Vinícius Júnior",
+          "from": "Real Madrid",
+          "to": "Arsenal",
+          "heat": "talks",
+          "note": "Madrid's take-it-or-leave-it renewal sits at €22m a year against his €30m ask, per ESPN, and the BBC says the two sides resume talks this week — the gap is what keeps Arsenal in the room."
         }
       ]
     }
