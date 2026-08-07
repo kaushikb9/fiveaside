@@ -20,8 +20,9 @@ not a fixture dump. Write in the voice described in OWNER CONFIG `voice`.
 Read `brain/sources.md` for the concrete list. Summary: r/soccer top-of-day
 RSS is the community-voted pulse; the club subreddit (OWNER CONFIG
 `club.subreddit`) is the fan mood; the RSS feeds in OWNER CONFIG `feeds`
-are the editorial layer. Verify every URL you include actually loads
-(WebFetch) before including it.
+are the editorial layer; the transfer-reporter feeds (sources.md §6) are
+the market wire — mandatory reading during a transfer window. Verify every
+URL you include actually loads (WebFetch) before including it.
 
 ## The entry
 
@@ -166,6 +167,8 @@ Rules:
   `team_watch`, `rumours`, and the optional nested fields noted above
   (crest fields, `source`, `image`).
 - `headline` earns the open. Specific beats clever; clever beats generic.
+  Never use the phrase "here we go" in the headline (or anywhere in prose) —
+  it's reporter branding, not editorial voice.
 - ONE home per story. A fact or storyline appears in exactly one section:
   if a transfer leads `week`, it doesn't get restated in `team_watch` or a
   rival's `note`; if a piece is the `read`, its angle doesn't double as a
@@ -215,13 +218,31 @@ Rules:
   the reader draws that line themselves. On a rival's quiet day, one modest
   factual sentence beats manufactured drama.
 - `rumours`: transfer windows ONLY — omit the key entirely outside them.
-  2–5 items covering the whole league's market, not just the club: mix the
+  3–7 items covering the whole league's market, not just the club: mix the
   club's ins and outs with rivals' business and the window's wildest story.
+  During a window, ALWAYS sweep the transfer-reporter feeds in
+  brain/sources.md before writing this section. Two kinds of story are
+  mandatory whenever a fetched source carries them — missing one is a
+  failed digest: (1) the club's own incomings at any credible stage, and
+  (2) another club's reported interest in one of the club's OWN players
+  (an outgoing threat matters more to the reader than any rival's
+  business). One-home-per-story still applies — a deal big enough to lead
+  `week` lives there — but it must land SOMEWHERE.
   `fee` is optional — include it only when a source names a figure. `heat`
-  grades the source, not the excitement: "here we go" = done/confirmed by a
-  tier-1 reporter; "close" = advanced/medical stage; "talks" = genuine
-  negotiations reported; "smoke" = paper talk and agent noise. Every `note`
-  comes from a fetched source — never an invented fee, club, or stage.
+  grades the source, not the excitement: "done" = done/confirmed by a
+  tier-1 reporter (write the value "done" — never "here we go"; older
+  entries carry that legacy value, new ones must not); "close" =
+  advanced/medical stage; "talks" = genuine negotiations reported;
+  "smoke" = paper talk and agent noise. Reporter weighting: David Ornstein
+  is the tier-1 reporter — his word alone can carry "done" or "close".
+  Kieran Gill and Nizaar Kinsella are trusted on the club's own business.
+  Fabrizio Romano is a legitimate source for market gossip — use him
+  freely for "talks" and "smoke", and for deals already confirmed
+  elsewhere — but his headline claims run ahead of reality: a Romano-only
+  report never grades "done" or "close" without a second independent
+  source (Ornstein, Gill, Kinsella, the club itself, or a tier-1 outlet).
+  Every `note` comes from a fetched source — never an invented fee, club,
+  or stage.
   One-home-per-story applies: a deal big enough to lead `week` (or a rival's
   `note`) lives there, not here — the mill is for the market's undercard.
 - After editing, run `node brain/validate.mjs site/data/digests.json` via

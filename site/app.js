@@ -190,8 +190,8 @@ function rivalsHTML(rivals) {
   return `<section><h2>Rival watch</h2><div class="rivals">${items}</div></section>`;
 }
 
-// Heat labels are the data values; "here we go" maps to the solid .done chip.
-const HEAT_CLASS = { "here we go": "done", close: "close", talks: "talks", smoke: "smoke" };
+// Heat labels are the data values; "here we go" is the legacy spelling of "done".
+const HEAT_CLASS = { done: "done", "here we go": "done", close: "close", talks: "talks", smoke: "smoke" };
 
 function rumoursHTML(rumours) {
   if (!rumours?.length) return "";

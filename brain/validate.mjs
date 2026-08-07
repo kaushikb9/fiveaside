@@ -143,7 +143,8 @@ for (const [i, d] of data.digests.entries()) {
 
   if (d.rumours !== undefined) {
     if (!Array.isArray(d.rumours)) fail(`${where}: 'rumours' must be an array when present`);
-    const heats = ["here we go", "close", "talks", "smoke"];
+    // "here we go" is legacy-only: old entries keep it, new ones write "done".
+    const heats = ["done", "here we go", "close", "talks", "smoke"];
     for (const [ri, r] of d.rumours.entries()) {
       const rwhere = `${where}, rumours[${ri}]`;
       for (const key of ["player", "from", "to", "note"]) {
