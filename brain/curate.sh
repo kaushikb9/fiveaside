@@ -38,8 +38,16 @@ node -e '
   fs.writeFileSync(p, JSON.stringify({ ...d, generated_at: new Date().toISOString() }, null, 2) + "\n");
 '
 
+# On validation failure, keep the rejected output for debugging but RESTORE
+# digests.json — otherwise the invalid entry sits in the working tree with
+# today's date, auto.sh reads it, concludes today is done, and the day's
+# digest silently never happens.
 node brain/validate.mjs site/data/digests.json \
-  || { echo "digests.json failed validation — NOT committing"; exit 1; }
+  || { echo "digests.json failed validation — NOT committing";
+       cp site/data/digests.json "brain/scratch/rejected-$TODAY.json";
+       git checkout -- site/data/digests.json;
+       echo "rejected output saved to brain/scratch/rejected-$TODAY.json; digests.json restored so the next hourly run retries";
+       exit 1; }
 
 git add site/data/digests.json
 git commit -m "digest: $TODAY"

@@ -5,6 +5,10 @@ boundary: **Python produces facts, the brain produces prose, the site
 produces pixels.** Work on one side of a boundary without leaking into
 another.
 
+Touchline runs its own palette (pitch green, club blue) on purpose, but
+follows the shared **structure** — see `../design-system/` for the token
+contract and the cross-app product/interaction invariants.
+
 ## Map
 
 - `src/touchline/` — facts CLI (`uv run touchline facts`). Pure core
@@ -58,5 +62,8 @@ cd site && python3 -m http.server  # local preview
 Cloudflare Pages project `touchline-chelsea`, live at
 https://touchline-chelsea.pages.dev (no custom domain). Deploys are
 non-interactive
-(`CI=1`); the project already exists — just `./deploy.sh`. The owner runs
-`./brain/curate.sh` manually each morning; there is deliberately no cron.
+(`CI=1`); the project already exists — just `./deploy.sh`. The digest runs
+itself: `brain/auto.sh` fires hourly via launchd (`com.kb.touchline.plist`,
+same pattern as antifeed — pull with autostash + timeout, stand down if
+today's digest exists, otherwise `./brain/curate.sh`). Manual runs still
+work any time.
