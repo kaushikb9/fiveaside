@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-06T04:40:21.981Z",
+  "generated_at": "2026-08-08T07:57:53.960Z",
   "digests": [
     {
       "date": "2026-07-25",
@@ -2650,6 +2650,263 @@
           "to": "Atlético Madrid",
           "heat": "smoke",
           "note": "Rubén Uría reports Osimhen has offered himself to Atlético at an agent-quoted €75m and would take a pay cut to go — and that Atleti turned it down, because Julián Álvarez is staying."
+        }
+      ]
+    },
+    {
+      "date": "2026-08-08",
+      "club": {
+        "latest_result": {
+          "home": "Chelsea",
+          "away": "Juventus",
+          "score": "0–1",
+          "date": "Wed 05 Aug",
+          "competition": "FR",
+          "result": "L",
+          "home_crest": "https://a.espncdn.com/i/teamlogos/soccer/500/363.png",
+          "away_crest": "https://a.espncdn.com/i/teamlogos/soccer/500/111.png"
+        },
+        "fixtures": [
+          {
+            "opponent": "Johor Darul Ta'zim",
+            "home": false,
+            "kickoff_local": "Sun 09 Aug 17:30",
+            "competition": "FR",
+            "opponent_crest": "https://a.espncdn.com/i/teamlogos/soccer/500/17689.png"
+          },
+          {
+            "opponent": "Real Sociedad",
+            "home": true,
+            "kickoff_local": "Sat 15 Aug 18:30",
+            "competition": "FR",
+            "opponent_crest": "https://a.espncdn.com/i/teamlogos/soccer/500/89.png"
+          },
+          {
+            "opponent": "Fulham",
+            "home": false,
+            "kickoff_local": "Tue 25 Aug 00:30",
+            "competition": "PL",
+            "opponent_crest": "https://a.espncdn.com/i/teamlogos/soccer/500/370.png"
+          },
+          {
+            "opponent": "Brighton & Hove Albion",
+            "home": true,
+            "kickoff_local": "Sun 30 Aug 18:30",
+            "competition": "PL",
+            "opponent_crest": "https://a.espncdn.com/i/teamlogos/soccer/500/331.png"
+          },
+          {
+            "opponent": "Arsenal",
+            "home": false,
+            "kickoff_local": "Sun 06 Sep 21:00",
+            "competition": "PL",
+            "opponent_crest": "https://a.espncdn.com/i/teamlogos/soccer/500/359.png"
+          }
+        ],
+        "table": {
+          "competition": "English Premier League",
+          "rows": [
+            {
+              "pos": 1,
+              "team": "AFC Bournemouth",
+              "crest": "https://a.espncdn.com/i/teamlogos/soccer/500/349.png",
+              "played": 0,
+              "points": 0
+            },
+            {
+              "pos": 2,
+              "team": "Arsenal",
+              "crest": "https://a.espncdn.com/i/teamlogos/soccer/500/359.png",
+              "played": 0,
+              "points": 0
+            },
+            {
+              "pos": 3,
+              "team": "Aston Villa",
+              "crest": "https://a.espncdn.com/i/teamlogos/soccer/500/362.png",
+              "played": 0,
+              "points": 0
+            },
+            {
+              "pos": 4,
+              "team": "Brentford",
+              "crest": "https://a.espncdn.com/i/teamlogos/soccer/500/337.png",
+              "played": 0,
+              "points": 0
+            },
+            {
+              "pos": 6,
+              "team": "Chelsea",
+              "crest": "https://a.espncdn.com/i/teamlogos/soccer/500/363.png",
+              "played": 0,
+              "points": 0
+            }
+          ],
+          "club_position": 6
+        },
+        "form": [
+          {
+            "result": "L",
+            "score": "1–3",
+            "opponent": "Nottingham Forest",
+            "opponent_crest": "https://a.espncdn.com/i/teamlogos/soccer/500/393.png",
+            "competition": "PL"
+          },
+          {
+            "result": "D",
+            "score": "1–1",
+            "opponent": "Liverpool",
+            "opponent_crest": "https://a.espncdn.com/i/teamlogos/soccer/500/364.png",
+            "competition": "PL"
+          },
+          {
+            "result": "W",
+            "score": "2–1",
+            "opponent": "Tottenham Hotspur",
+            "opponent_crest": "https://a.espncdn.com/i/teamlogos/soccer/500/367.png",
+            "competition": "PL"
+          },
+          {
+            "result": "L",
+            "score": "1–2",
+            "opponent": "Sunderland",
+            "opponent_crest": "https://a.espncdn.com/i/teamlogos/soccer/500/366.png",
+            "competition": "PL"
+          },
+          {
+            "result": "L",
+            "score": "0–1",
+            "opponent": "Juventus",
+            "opponent_crest": "https://a.espncdn.com/i/teamlogos/soccer/500/111.png",
+            "competition": "FR"
+          }
+        ]
+      },
+      "headline": "A price on Enzo, and Milan before dinner",
+      "week": [
+        {
+          "kicker": "Enzo now has a price.",
+          "text": "Kieran Gill’s brief in the Mail: Manchester City and Real Madrid continue to be linked with Enzo Fernández, no official approach has been made, and if one comes, the suitor will be told Chelsea want more than the £117m they paid for Morgan Rogers this summer. He is due back at Cobham soon after his World Cup break, and talks with the club and his camp are expected to follow."
+        },
+        {
+          "kicker": "Forty-one, minus.",
+          "text": "Alonso said it plainly on Friday: Chelsea will sell centre-backs before the window closes. Nizaar Kinsella’s BBC piece works through the wider arithmetic — a 41-man squad that has to be cut down — while the Mail’s read on the clear-out is that the club see no reason to panic-sell to get there."
+        },
+        {
+          "kicker": "The room is won.",
+          "text": "Friday’s press conference had Alonso talking about “reset energy” after the “scars” of Madrid, and telling reporters this squad has “big potential to improve”. The Mail’s inside-the-tour piece describes a coach who has impressed his new players quickly — golf in Jakarta included."
+        },
+        {
+          "kicker": "The loan office opens.",
+          "text": "Simon Johnson expects Ryan Kavuma-McQueen to complete a loan to Portsmouth next week after touring with the senior squad, and Kinsella reports Wigan are keen on Reggie Walsh — not done yet, but the aim in both cases is the same: men’s football, somewhere it counts."
+        }
+      ],
+      "team_watch": [
+        {
+          "name": "Mike Penders",
+          "tag": "GK",
+          "note": "First pre-season minutes are in the legs — “hungry for more”, per his Instagram — and Alonso named him alongside Sánchez and Sharman-Lowe on Friday: “to have this security in goal is important”."
+        },
+        {
+          "name": "Marco Palestra",
+          "tag": "RB",
+          "note": "Told the Mail he went from the “slowest” player in his youth teams to Italy’s fastest, turned down Inter to come to London, and talks openly about following Zola’s path at the Bridge."
+        }
+      ],
+      "today": "AC Milan at 5.30pm, then Johor Darul Ta’zim tomorrow to close the Asia leg — two matches in twenty-four hours, so the squad gets split down the middle. That makes today’s team sheet the most honest document of the tour: whoever starts against Milan is closer to Alonso’s first XI than whoever gets Johor. Real Sociedad at the Bridge next Saturday is the dress rehearsal; Fulham on the 25th is the real thing.",
+      "wider": [
+        {
+          "title": "Jay-Z’s Roc Nation Sports making waves in European football transfer market",
+          "url": "https://www.theguardian.com/football/2026/aug/07/jay-z-roc-nation-sports-european-football-transfer-market-vinicius-junior-yan-diomande",
+          "hook": "The agency that just closed Vinícius Júnior’s contract to 2032 and brokered Yan Diomande’s £115m move is now working on a Premier League loan for Endrick. Worth reading to understand who actually does the deals your club announces.",
+          "source": "The Guardian Football",
+          "image": "https://i.guim.co.uk/img/media/241eae4079055f5c13928e3c6b5ce72cf82cdb3b/311_0_5899_4719/master/5899.jpg?width=1200&height=630&quality=85&auto=format&fit=crop&precrop=40:21,offset-x50,offset-y0&overlay-align=bottom%2Cleft&overlay-width=100p&overlay-base64=L2ltZy9zdGF0aWMvb3ZlcmxheXMvdGctZGVmYXVsdC5wbmc&enable=upscale&s=835da787e49386f3ee6d08a15c639e90"
+        },
+        {
+          "title": "Solid perimeter walls around pitches banned by FA after death of Billy Vigar",
+          "url": "https://www.bbc.com/sport/football/articles/c74gwz54jedo",
+          "hook": "The safety review after the former Arsenal youngster’s death has outlawed brick, breeze-block and concrete barriers across the National League system — and existing walls must come down. A rule change that will outlast every transfer this window.",
+          "source": "BBC Sport",
+          "image": "https://ichef.bbci.co.uk/ace/branded_sport/1200/cpsprodpb/d385/live/b60eb950-9260-11f1-b9ff-37ae3aba3894.jpg"
+        }
+      ],
+      "read": {
+        "title": "Two weeks that rocked Fifa: how Gianni Infantino unravelled, day by day",
+        "url": "https://www.theguardian.com/football/2026/aug/08/two-weeks-that-rocked-fifa-how-gianni-infantinos-implosion-unfolded",
+        "hook": "The apology letter was Wednesday’s news; this is the whole fortnight reconstructed — the sell-off plan he hid from his own officials, the no-confidence votes, UEFA’s boycott, and how a man who never loses control lost it day by day.",
+        "source": "The Guardian Football",
+        "image": "https://i.guim.co.uk/img/media/1cf11d307d6e5cc0ce1bae63f7271eaa05243e9b/312_0_3128_2502/master/3128.jpg?width=1200&height=630&quality=85&auto=format&fit=crop&precrop=40:21,offset-x50,offset-y0&overlay-align=bottom%2Cleft&overlay-width=100p&overlay-base64=L2ltZy9zdGF0aWMvb3ZlcmxheXMvdGctZGVmYXVsdC5wbmc&enable=upscale&s=a7793a4abcfcbce93ad339f5c2c89b5f"
+      },
+      "rivals": [
+        {
+          "club": "Arsenal",
+          "crest": "https://a.espncdn.com/i/teamlogos/soccer/500/359.png",
+          "line": "pre-season · PL",
+          "note": "The Bruno Guimarães deal has reached the announcement-imminent stage — talks with Newcastle near agreement, sporting director Ross Wilson conceding the player wanted the move, and Matthias Jaissle admitting the decision “was already made” before he could argue."
+        },
+        {
+          "club": "Manchester City",
+          "crest": "https://a.espncdn.com/i/teamlogos/soccer/500/382.png",
+          "line": "pre-season · PL",
+          "note": "Rodri’s move to Barcelona went from a rejected £38.5m opening bid to a club-to-club agreement of around €50m inside a day, per RAC1 — the Spain captain is expected at Barça training on the 12th."
+        },
+        {
+          "club": "Manchester United",
+          "crest": "https://a.espncdn.com/i/teamlogos/soccer/500/360.png",
+          "line": "pre-season · PL",
+          "note": "They meet PSG in Gothenburg today, while the left-back search stalls: Newcastle have told them Lewis Hall is not for sale after rejecting an initial enquiry, with £60m reportedly set aside for him."
+        },
+        {
+          "club": "Liverpool",
+          "crest": "https://a.espncdn.com/i/teamlogos/soccer/500/364.png",
+          "line": "pre-season · PL",
+          "note": "Ronald Araújo is arriving from Barcelona on a season-long loan with an option to buy — a deal done in days once Flick told him he would not be a key player, and cover they need with Leoni still rehabbing and Bradley injured."
+        }
+      ],
+      "rumours": [
+        {
+          "player": "Pep Chavarría",
+          "from": "Rayo Vallecano",
+          "to": "Chelsea",
+          "fee": "€19m + €2m add-ons",
+          "heat": "close",
+          "note": "Romano had club-to-club signatures on Wednesday night and the medical underway on Friday; the subreddit has already dug up the announcement graphic, so the wait is only for the press office."
+        },
+        {
+          "player": "Martín Zubimendi",
+          "from": "Arsenal",
+          "to": "Chelsea",
+          "heat": "smoke",
+          "note": "Simon Phillips says Alonso has flagged the midfielder he once pushed Real Madrid to sign as a player he likes — and even Phillips is explicit that nobody is claiming a bid."
+        },
+        {
+          "player": "Bradley Barcola",
+          "from": "PSG",
+          "to": "Liverpool",
+          "fee": "~€115m",
+          "heat": "talks",
+          "note": "L’Équipe says Liverpool’s first offer of around €115m is coming and will be rejected; Paris’s own briefing puts the sale price above €150m, and Tanzi reports both sides know the opener is not enough."
+        },
+        {
+          "player": "Cristian Romero",
+          "from": "Tottenham",
+          "to": "Atlético Madrid",
+          "heat": "talks",
+          "note": "The Guardian has Spurs and Atlético in genuine talks with Van de Ven set for a new deal — while OK Doble Amarilla claims Barcelona’s late entry has put the agreed terms on hold."
+        },
+        {
+          "player": "Joshua Zirkzee",
+          "from": "Manchester United",
+          "to": "Juventus",
+          "heat": "talks",
+          "note": "Cornacchia reports Juventus are going all-out and United have okayed a loan, with Jonathan David set to exit Turin to make room."
+        },
+        {
+          "player": "Gabriel Jesus",
+          "from": "Arsenal",
+          "to": "Napoli",
+          "heat": "smoke",
+          "note": "Romano says his new agent — who also represents Allegri — met Napoli, and Gabriel is open to Serie A; Arsenal will only consider a permanent exit, and Napoli need to move Lukaku on first."
         }
       ]
     }
