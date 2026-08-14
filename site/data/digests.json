@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-13T08:49:08.119Z",
+  "generated_at": "2026-08-14T03:56:22.638Z",
   "digests": [
     {
       "date": "2026-07-25",
@@ -3419,6 +3419,240 @@
           "fee": "€45m",
           "heat": "talks",
           "note": "Plettenberg reports an official €45m offer is on Arsenal’s table with Martinelli Galatasaray’s top priority; ESPN Brasil’s Bruno Andrade says Arsenal would sell nearer €50m."
+        }
+      ]
+    },
+    {
+      "date": "2026-08-14",
+      "club": {
+        "latest_result": {
+          "home": "Johor Darul Ta’zim",
+          "away": "Chelsea",
+          "score": "3–3",
+          "date": "Sun 09 Aug",
+          "competition": "FR",
+          "result": "D",
+          "home_crest": "https://a.espncdn.com/i/teamlogos/soccer/500/17689.png",
+          "away_crest": "https://a.espncdn.com/i/teamlogos/soccer/500/363.png"
+        },
+        "fixtures": [
+          {
+            "opponent": "Real Sociedad",
+            "home": true,
+            "kickoff_local": "Sat 15 Aug 18:30",
+            "competition": "FR",
+            "opponent_crest": "https://a.espncdn.com/i/teamlogos/soccer/500/89.png"
+          },
+          {
+            "opponent": "Fulham",
+            "home": false,
+            "kickoff_local": "Tue 25 Aug 00:30",
+            "competition": "PL",
+            "opponent_crest": "https://a.espncdn.com/i/teamlogos/soccer/500/370.png"
+          },
+          {
+            "opponent": "Brighton & Hove Albion",
+            "home": true,
+            "kickoff_local": "Sun 30 Aug 18:30",
+            "competition": "PL",
+            "opponent_crest": "https://a.espncdn.com/i/teamlogos/soccer/500/331.png"
+          },
+          {
+            "opponent": "Arsenal",
+            "home": false,
+            "kickoff_local": "Sun 06 Sep 21:00",
+            "competition": "PL",
+            "opponent_crest": "https://a.espncdn.com/i/teamlogos/soccer/500/359.png"
+          },
+          {
+            "opponent": "Hull City",
+            "home": true,
+            "kickoff_local": "Sat 12 Sep 19:30",
+            "competition": "PL",
+            "opponent_crest": "https://a.espncdn.com/i/teamlogos/soccer/500/306.png"
+          }
+        ],
+        "table": {
+          "competition": "English Premier League",
+          "rows": [
+            {
+              "pos": 1,
+              "team": "AFC Bournemouth",
+              "crest": "https://a.espncdn.com/i/teamlogos/soccer/500/349.png",
+              "played": 0,
+              "points": 0
+            },
+            {
+              "pos": 2,
+              "team": "Arsenal",
+              "crest": "https://a.espncdn.com/i/teamlogos/soccer/500/359.png",
+              "played": 0,
+              "points": 0
+            },
+            {
+              "pos": 3,
+              "team": "Aston Villa",
+              "crest": "https://a.espncdn.com/i/teamlogos/soccer/500/362.png",
+              "played": 0,
+              "points": 0
+            },
+            {
+              "pos": 4,
+              "team": "Brentford",
+              "crest": "https://a.espncdn.com/i/teamlogos/soccer/500/337.png",
+              "played": 0,
+              "points": 0
+            },
+            {
+              "pos": 6,
+              "team": "Chelsea",
+              "crest": "https://a.espncdn.com/i/teamlogos/soccer/500/363.png",
+              "played": 0,
+              "points": 0
+            }
+          ],
+          "club_position": 6
+        },
+        "form": [
+          {
+            "result": "W",
+            "score": "2–1",
+            "opponent": "Tottenham Hotspur",
+            "opponent_crest": "https://a.espncdn.com/i/teamlogos/soccer/500/367.png",
+            "competition": "PL"
+          },
+          {
+            "result": "L",
+            "score": "1–2",
+            "opponent": "Sunderland",
+            "opponent_crest": "https://a.espncdn.com/i/teamlogos/soccer/500/366.png",
+            "competition": "PL"
+          },
+          {
+            "result": "L",
+            "score": "0–1",
+            "opponent": "Juventus",
+            "opponent_crest": "https://a.espncdn.com/i/teamlogos/soccer/500/111.png",
+            "competition": "FR"
+          },
+          {
+            "result": "W",
+            "score": "3–0",
+            "opponent": "AC Milan",
+            "opponent_crest": "https://a.espncdn.com/i/teamlogos/soccer/500/103.png",
+            "competition": "FR"
+          },
+          {
+            "result": "D",
+            "score": "3–3",
+            "opponent": "Johor Darul Ta’zim",
+            "opponent_crest": "https://a.espncdn.com/i/teamlogos/soccer/500/17689.png",
+            "competition": "FR"
+          }
+        ]
+      },
+      "headline": "Enzo’s deadline expires tonight — and there’s still no bid",
+      "week": [
+        {
+          "kicker": "Five o’clock, nothing official.",
+          "text": "The £120m ultimatum runs out at 5pm UK today, and as of Thursday afternoon Romano says no official bid for Enzo Fernández had arrived — South American outlets claim City tabled €120m, the right number in the wrong currency. The Standard’s Dom Smith knocks down the reported £102.5m offer entirely and carries the club’s line: miss today and he isn’t sold until next summer at the earliest."
+        },
+        {
+          "kicker": "Badiashile: Naples, nearly.",
+          "text": "Chelsea and Napoli have agreed his exit — an initial loan around €3m with a €27m option to buy, per Loïc Tanzi — though the defender was still to give his own approval last night. Kinsella notes it burns an international loan spot, with Kendry Paez expected back from River Plate at some stage."
+        },
+        {
+          "kicker": "Chalobah says goodbye.",
+          "text": "His first words on the Como move that closed last week topped the subreddit all day: “I’ve been there my whole life; it’s a club I’ll always have in my heart… It was a hard decision.”"
+        }
+      ],
+      "today": "No club football tonight. Tomorrow brings Real Sociedad to the Bridge, 6.30pm — the last friendly, and Alonso’s final chance to lock in the first XI before the league opens at Fulham on the 25th. After six pre-season games of rotating shapes and back lines, this is the one where the teamsheet starts meaning something.",
+      "wider": [
+        {
+          "title": "Leicester City put up for sale for more than £200m",
+          "url": "https://www.bbc.co.uk/sport/football/articles/ce3qp0yy0j9o",
+          "hook": "The 2016 title and the FA Cup make the sales brochure; League One and £103.6m of bank loans don’t. The BBC on the quiet auction of football’s fallen fairytale.",
+          "source": "BBC Sport",
+          "image": "https://ichef.bbci.co.uk/ace/branded_sport/1200/cpsprodpb/f152/live/fccfa0a0-971c-11f1-bb91-6bb44c42ed47.jpg"
+        },
+        {
+          "title": "Celta Vigo’s La Liga opener postponed due to fungal outbreak on pitch",
+          "url": "https://www.theguardian.com/football/2026/aug/13/celta-vigo-la-liga-opener-osasuna-postponed-due-to-fungus-on-pitch",
+          "hook": "Balaídos is officially “unfit for football” after a fungal outbreak ate the turf, so Sunday against Osasuna is off — La Liga inspected the pitch and sided with the fungus.",
+          "source": "The Guardian Football",
+          "image": "https://i.guim.co.uk/img/media/82d0fc13ab6c4dcfb73e03b74efd93700dc60b75/1616_975_3734_2988/master/3734.jpg?width=1200&height=630&quality=85&auto=format&fit=crop&precrop=40:21,offset-x50,offset-y0&overlay-align=bottom%2Cleft&overlay-width=100p&overlay-base64=L2ltZy9zdGF0aWMvb3ZlcmxheXMvdGctZGVmYXVsdC5wbmc&enable=upscale&s=55183bcfd2258000501a612cd83f9b2e"
+        },
+        {
+          "title": "Super Cup referee thanks UEFA for the opportunity — after a denied US visa cost him the World Cup",
+          "url": "https://www.reddit.com/r/soccer/comments/1vn7m8i/supercup_referee_thanking_uefa_for_the/",
+          "hook": "Nearly 10,000 upvotes for a referee’s thank-you note, and a comment thread considerably angrier than he allowed himself to be.",
+          "source": "r/soccer · top of the day",
+          "image": "https://external-preview.redd.it/1jwfhanpj4jh1.jpg?width=900&height=471.204188482&auto=webp&crop=900:471.204188482,smart&s=079fff11ebbe1e1ea4fdb9816c25ab2c05bb3303"
+        }
+      ],
+      "read": {
+        "title": "Handling hate and seeking stability — Fofana’s Chelsea journey",
+        "url": "https://www.bbc.co.uk/sport/football/articles/c62vddx10gjo",
+        "hook": "Kinsella sits down with the last survivor of the summer-2022 intake — at 25, now Chelsea’s longest-serving player bar Reece James. Tears, the racist abuse he chose to publish, and why he believes the stable years start now.",
+        "source": "BBC Sport",
+        "image": "https://ichef.bbci.co.uk/ace/branded_sport/1200/cpsprodpb/6f19/live/3d1c5f00-9140-11f1-8927-dfbc4ce08d71.jpg"
+      },
+      "rivals": [
+        {
+          "club": "Arsenal",
+          "crest": "https://a.espncdn.com/i/teamlogos/soccer/500/359.png",
+          "line": "1–1 v Como · FR",
+          "note": "The striker hunt has a name: Matt Law reports Arsenal and Galatasaray are in talks over Victor Osimhen, while the BBC has fresh talks running for Villa’s Ezri Konsa."
+        },
+        {
+          "club": "Manchester City",
+          "crest": "https://a.espncdn.com/i/teamlogos/soccer/500/382.png",
+          "line": "pre-season · PL",
+          "note": "Reijnders is off to Al-Qadsiah barely a year after arriving — around £52m agreed between the clubs, per the BBC — on the same day Doku signed a new contract to 2031."
+        },
+        {
+          "club": "Manchester United",
+          "crest": "https://a.espncdn.com/i/teamlogos/soccer/500/360.png",
+          "line": "1–1 v Leeds · FR",
+          "note": "Carrick ruled out a £100m signing but says United still need a left-back and a central midfielder before the window shuts — and Rashford has rejoined the squad."
+        },
+        {
+          "club": "Liverpool",
+          "crest": "https://a.espncdn.com/i/teamlogos/soccer/500/364.png",
+          "line": "pre-season · PL",
+          "note": "Alexis Mac Allister’s father says flatly that he stays, while Romano has the club still chasing two wingers — contacts ongoing over PSG’s Bradley Barcola, the Ibrahim Mbaye deal now off."
+        }
+      ],
+      "rumours": [
+        {
+          "player": "Pedro Neto",
+          "from": "Chelsea",
+          "to": "Premier League rivals",
+          "heat": "smoke",
+          "note": "The BBC reports Premier League rivals circling Neto, and ESPN’s James Olley lists him among the options Arsenal are weighing for their left side."
+        },
+        {
+          "player": "Landon Emenalo",
+          "from": "Chelsea",
+          "to": "Celtic",
+          "heat": "close",
+          "note": "Simon Johnson reports the under-21 defender is close to a season-long loan at Celtic — not done, with interest from several leagues, but the Scots are favourites."
+        },
+        {
+          "player": "Savinho",
+          "from": "Manchester City",
+          "to": "Tottenham",
+          "fee": "£85m",
+          "heat": "talks",
+          "note": "Cahê Mota reports Tottenham have lodged a formal £85m offer with Manchester City for the winger."
+        },
+        {
+          "player": "Ferran Torres",
+          "from": "Barcelona",
+          "to": "PSG",
+          "fee": "~£43m",
+          "heat": "close",
+          "note": "The BBC says the clubs have agreed a fee of about £43m — and Cadena Ser adds that keeping it under €55m spares Barça a €10m sell-on owed to Manchester City."
         }
       ]
     }
