@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-15T05:34:18.769Z",
+  "generated_at": "2026-08-16T06:08:42.052Z",
   "digests": [
     {
       "date": "2026-07-25",
@@ -3894,6 +3894,268 @@
           "to": "Barcelona",
           "heat": "smoke",
           "note": "Álvarez told Cadena SER he mishandled the Barça links and recommitted to Atlético — hours before reports from Argentina left the club “stunned”, with Sport floating Luis Suárez as Barça’s plan B."
+        }
+      ]
+    },
+    {
+      "date": "2026-08-16",
+      "club": {
+        "latest_result": {
+          "home": "Chelsea",
+          "away": "Real Sociedad",
+          "score": "3–1",
+          "date": "Sat 15 Aug",
+          "competition": "FR",
+          "result": "W",
+          "home_crest": "https://a.espncdn.com/i/teamlogos/soccer/500/363.png",
+          "away_crest": "https://a.espncdn.com/i/teamlogos/soccer/500/89.png"
+        },
+        "fixtures": [
+          {
+            "opponent": "Fulham",
+            "home": false,
+            "kickoff_local": "Tue 25 Aug 00:30",
+            "competition": "PL",
+            "opponent_crest": "https://a.espncdn.com/i/teamlogos/soccer/500/370.png"
+          },
+          {
+            "opponent": "Brighton & Hove Albion",
+            "home": true,
+            "kickoff_local": "Sun 30 Aug 18:30",
+            "competition": "PL",
+            "opponent_crest": "https://a.espncdn.com/i/teamlogos/soccer/500/331.png"
+          },
+          {
+            "opponent": "Arsenal",
+            "home": false,
+            "kickoff_local": "Sun 06 Sep 21:00",
+            "competition": "PL",
+            "opponent_crest": "https://a.espncdn.com/i/teamlogos/soccer/500/359.png"
+          },
+          {
+            "opponent": "Hull City",
+            "home": true,
+            "kickoff_local": "Sat 12 Sep 19:30",
+            "competition": "PL",
+            "opponent_crest": "https://a.espncdn.com/i/teamlogos/soccer/500/306.png"
+          },
+          {
+            "opponent": "Brentford",
+            "home": false,
+            "kickoff_local": "Sat 19 Sep 00:30",
+            "competition": "PL",
+            "opponent_crest": "https://a.espncdn.com/i/teamlogos/soccer/500/337.png"
+          }
+        ],
+        "table": {
+          "competition": "English Premier League",
+          "rows": [
+            {
+              "pos": 1,
+              "team": "AFC Bournemouth",
+              "crest": "https://a.espncdn.com/i/teamlogos/soccer/500/349.png",
+              "played": 0,
+              "points": 0
+            },
+            {
+              "pos": 2,
+              "team": "Arsenal",
+              "crest": "https://a.espncdn.com/i/teamlogos/soccer/500/359.png",
+              "played": 0,
+              "points": 0
+            },
+            {
+              "pos": 3,
+              "team": "Aston Villa",
+              "crest": "https://a.espncdn.com/i/teamlogos/soccer/500/362.png",
+              "played": 0,
+              "points": 0
+            },
+            {
+              "pos": 4,
+              "team": "Brentford",
+              "crest": "https://a.espncdn.com/i/teamlogos/soccer/500/337.png",
+              "played": 0,
+              "points": 0
+            },
+            {
+              "pos": 6,
+              "team": "Chelsea",
+              "crest": "https://a.espncdn.com/i/teamlogos/soccer/500/363.png",
+              "played": 0,
+              "points": 0
+            }
+          ],
+          "club_position": 6
+        },
+        "form": [
+          {
+            "result": "L",
+            "score": "1–2",
+            "opponent": "Sunderland",
+            "opponent_crest": "https://a.espncdn.com/i/teamlogos/soccer/500/366.png",
+            "competition": "PL"
+          },
+          {
+            "result": "L",
+            "score": "0–1",
+            "opponent": "Juventus",
+            "opponent_crest": "https://a.espncdn.com/i/teamlogos/soccer/500/111.png",
+            "competition": "FR"
+          },
+          {
+            "result": "W",
+            "score": "3–0",
+            "opponent": "AC Milan",
+            "opponent_crest": "https://a.espncdn.com/i/teamlogos/soccer/500/103.png",
+            "competition": "FR"
+          },
+          {
+            "result": "D",
+            "score": "3–3",
+            "opponent": "Johor Darul Ta'zim",
+            "opponent_crest": "https://a.espncdn.com/i/teamlogos/soccer/500/17689.png",
+            "competition": "FR"
+          },
+          {
+            "result": "W",
+            "score": "3–1",
+            "opponent": "Real Sociedad",
+            "opponent_crest": "https://a.espncdn.com/i/teamlogos/soccer/500/89.png",
+            "competition": "FR"
+          }
+        ]
+      },
+      "headline": "A 3–1 housewarming — and boos for Enzo",
+      "week": [
+        {
+          "kicker": "First night in the new home.",
+          "text": "Chelsea closed pre-season by beating Real Sociedad 3–1 in Xabi Alonso’s first match at Stamford Bridge — Morgan Rogers opened it inside ten minutes and João Pedro put them back ahead just after half-time. “It was emotional to feel my first time in the new home,” Alonso said, talking of connections and energy; the BBC read the same game as a first glimpse of his blueprint."
+        },
+        {
+          "kicker": "City haven’t gone away.",
+          "text": "Enzo Fernández came back to a split Bridge — some chanted his name, others booed, per Ben Jacobs. The £120m deadline has passed, but Romano reports City have spoken to his camp again and are weighing another attempt. The leverage has flipped, though: with the verbal exit clause dead, Chelsea now set the price."
+        },
+        {
+          "kicker": "CFC+ owes you a refund.",
+          "text": "The club admitted the Sociedad stream failed for some Match Pass buyers on CFC+ and is emailing refund instructions — the in-house broadcaster falling over on the manager’s first Bridge outing."
+        }
+      ],
+      "team_watch": [
+        {
+          "name": "João Pedro",
+          "tag": "FW",
+          "note": "Seven pre-season goals — the subreddit did the maths: that’s Brazil’s entire World Cup tally, matched by one man in a month of friendlies."
+        },
+        {
+          "name": "Pedro Neto",
+          "tag": "RW",
+          "note": "The Sofascore line against Sociedad: three key passes, two-of-two dribbles, every tackle won. Sharp from the first whistle of the season to come."
+        },
+        {
+          "name": "Wesley Fofana",
+          "tag": "CB",
+          "note": "Per Nizaar Kinsella, no Chelsea player logged more pre-season minutes — quietly the best fitness news of the summer."
+        }
+      ],
+      "today": "Nothing on — pre-season is done and the opener at Fulham is still nine days out (Tue 25 Aug, 00:30 IST). Enjoy the last quiet Sunday before the season eats your weekends.",
+      "wider": [
+        {
+          "title": "Musiala faints in the Leipzig friendly — and Saibari, who lived through the Nouri tragedy, reacts first",
+          "url": "https://www.reddit.com/r/soccer/comments/1vp6vf1/after_his_friend_abdelhak_nouri_suffered_a/",
+          "hook": "Musiala is reportedly fine — it was the heat — but the story is Saibari’s reflex, learned the hardest way possible. The comment thread, full of people who never forgot Nouri, is the real read.",
+          "source": "r/soccer · top of the day"
+        },
+        {
+          "title": "Bournemouth to ‘do better’ after ‘disgusting’ email",
+          "url": "https://www.bbc.co.uk/sport/football/articles/cy8ee0gzqx2o",
+          "hook": "A club servant of nearly 60 years let go by email, two weeks before the season. The apology is somehow worse than the sin.",
+          "source": "BBC Sport",
+          "image": "https://ichef.bbci.co.uk/ace/branded_sport/1200/cpsprodpb/c0d5/live/058b5740-98b0-11f1-9a0b-ef36d15fc6b3.jpg"
+        },
+        {
+          "title": "FIFA releases ref-cam footage of the World Cup final",
+          "url": "https://www.reddit.com/r/soccer/comments/1voykmv/fifa_release_ref_cam_footage_of_the_2026_world/",
+          "hook": "Spain–Argentina from the one angle nobody had. Worth five minutes of your quiet Sunday.",
+          "source": "r/soccer"
+        }
+      ],
+      "read": {
+        "title": "Farewell Cristian Romero, you actually always were ‘that type of player’",
+        "url": "https://www.theguardian.com/football/2026/aug/15/farewell-cristian-romero-that-type-of-player-atletico-madrid-argentina",
+        "hook": "Romero leaves for Atlético as exactly the player everyone always said he was. Rushden’s send-off is funny, fond and quietly relieved — the rare transfer piece worth reading after the deal is done.",
+        "source": "The Guardian Football",
+        "image": "https://i.guim.co.uk/img/media/72d385bef1f04b171ccaf8dabcef306138f6a3c5/30_0_2402_1921/master/2402.jpg?width=1200&height=630&quality=85&auto=format&fit=crop&precrop=40:21,offset-x50,offset-y0&overlay-align=bottom%2Cleft&overlay-width=100p&overlay-base64=L2ltZy9zdGF0aWMvb3ZlcmxheXMvdGctb3BpbmlvbnMucG5n&enable=upscale&s=b35279295434200c8024136af21b81ca"
+      },
+      "rivals": [
+        {
+          "club": "Arsenal",
+          "crest": "https://a.espncdn.com/i/teamlogos/soccer/500/359.png",
+          "line": "Shield final today · PL",
+          "note": "The first trophy of the title defence is on offer in Cardiff today — Jonathan Wilson’s preview asks the only question that matters after a 22-year wait for the 14th: is the hunger still there?"
+        },
+        {
+          "club": "Manchester City",
+          "crest": "https://a.espncdn.com/i/teamlogos/soccer/500/382.png",
+          "line": "Shield final today · PL",
+          "note": "Maresca confirmed Ruben Dias and Erling Haaland as his captains, and Jack Gaughan reports the staff are reworking the build-up — three men back, nothing elaborate — to fit Donnarumma’s feet."
+        },
+        {
+          "club": "Manchester United",
+          "crest": "https://a.espncdn.com/i/teamlogos/soccer/500/360.png",
+          "line": "pre-season · PL",
+          "note": "Rashford was back on the bench in a 2–4 defeat to Amorim’s Milan — wearing nine, “for this match only”, the club insists — while Amorim spent the evening joking with United fans that it’s “more boring now”."
+        },
+        {
+          "club": "Liverpool",
+          "crest": "https://a.espncdn.com/i/teamlogos/soccer/500/364.png",
+          "line": "plays Como today · FR",
+          "note": "Ronald Araújo is in, and GOAL’s window report card already grades the swoop “an act of pure desperation” — Iraola gets a first look in today’s Como friendly."
+        }
+      ],
+      "rumours": [
+        {
+          "player": "Nicolas Jackson",
+          "from": "Chelsea",
+          "to": "Villa / Spurs / Atlético",
+          "heat": "smoke",
+          "note": "Fabrice Hawkins names all three as monitoring, with Chelsea’s £60m valuation “a major obstacle” — which is presumably the point of it."
+        },
+        {
+          "player": "Liam Delap",
+          "from": "Chelsea",
+          "to": "Como",
+          "heat": "talks",
+          "note": "Ben Jacobs says Delap would rather stay in the Premier League and is waiting on English offers — Como’s interest is real, the feeling isn’t mutual."
+        },
+        {
+          "player": "Jarell Quansah",
+          "from": "Bayer Leverkusen",
+          "to": "Arsenal",
+          "heat": "talks",
+          "note": "Romano reports official contact with Leverkusen came overnight; Ornstein had already confirmed the interest in The Athletic a day earlier."
+        },
+        {
+          "player": "Bradley Barcola",
+          "from": "PSG",
+          "to": "Liverpool",
+          "fee": "~£47m",
+          "heat": "talks",
+          "note": "“When a player doesn’t have a smile” — Luis Enrique opened the door himself, and Romano reports a financial agreement taking shape."
+        },
+        {
+          "player": "Zion Suzuki",
+          "from": "Parma",
+          "to": "Aston Villa",
+          "heat": "close",
+          "note": "PSG cancelled his medical over last-minute agent commissions; within a day the Guardian had Villa closing in, with Emiliano Martínez nearing the exit."
+        },
+        {
+          "player": "Tijjani Reijnders",
+          "from": "Manchester City",
+          "to": "Al Qadsiah",
+          "heat": "done",
+          "note": "Maresca explained the exit himself — the Saudi side beat Newcastle to a deal City didn’t fight to stop."
         }
       ]
     }
