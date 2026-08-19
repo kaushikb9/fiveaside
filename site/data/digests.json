@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-18T02:12:21.419Z",
+  "generated_at": "2026-08-19T03:48:40.208Z",
   "digests": [
     {
       "date": "2026-07-25",
@@ -4403,6 +4403,257 @@
           "fee": "loan + £8.6m option",
           "heat": "close",
           "note": "Spurs accepted the offer per the Athletic, with the BBC putting an £8.6m purchase option on the loan — a first-choice keeper out the door a week before the season."
+        }
+      ]
+    },
+    {
+      "date": "2026-08-19",
+      "club": {
+        "latest_result": {
+          "home": "Chelsea",
+          "away": "Real Sociedad",
+          "score": "3–1",
+          "date": "Sat 15 Aug",
+          "competition": "FR",
+          "result": "W",
+          "home_crest": "https://a.espncdn.com/i/teamlogos/soccer/500/363.png",
+          "away_crest": "https://a.espncdn.com/i/teamlogos/soccer/500/89.png"
+        },
+        "fixtures": [
+          {
+            "opponent": "Fulham",
+            "home": false,
+            "kickoff_local": "Tue 25 Aug 00:30",
+            "competition": "PL",
+            "opponent_crest": "https://a.espncdn.com/i/teamlogos/soccer/500/370.png"
+          },
+          {
+            "opponent": "Brighton & Hove Albion",
+            "home": true,
+            "kickoff_local": "Sun 30 Aug 18:30",
+            "competition": "PL",
+            "opponent_crest": "https://a.espncdn.com/i/teamlogos/soccer/500/331.png"
+          },
+          {
+            "opponent": "Arsenal",
+            "home": false,
+            "kickoff_local": "Sun 06 Sep 21:00",
+            "competition": "PL",
+            "opponent_crest": "https://a.espncdn.com/i/teamlogos/soccer/500/359.png"
+          },
+          {
+            "opponent": "Hull City",
+            "home": true,
+            "kickoff_local": "Sat 12 Sep 19:30",
+            "competition": "PL",
+            "opponent_crest": "https://a.espncdn.com/i/teamlogos/soccer/500/306.png"
+          },
+          {
+            "opponent": "Brentford",
+            "home": false,
+            "kickoff_local": "Sat 19 Sep 00:30",
+            "competition": "PL",
+            "opponent_crest": "https://a.espncdn.com/i/teamlogos/soccer/500/337.png"
+          }
+        ],
+        "table": {
+          "competition": "English Premier League",
+          "rows": [
+            {
+              "pos": 1,
+              "team": "AFC Bournemouth",
+              "crest": "https://a.espncdn.com/i/teamlogos/soccer/500/349.png",
+              "played": 0,
+              "points": 0
+            },
+            {
+              "pos": 2,
+              "team": "Arsenal",
+              "crest": "https://a.espncdn.com/i/teamlogos/soccer/500/359.png",
+              "played": 0,
+              "points": 0
+            },
+            {
+              "pos": 3,
+              "team": "Aston Villa",
+              "crest": "https://a.espncdn.com/i/teamlogos/soccer/500/362.png",
+              "played": 0,
+              "points": 0
+            },
+            {
+              "pos": 4,
+              "team": "Brentford",
+              "crest": "https://a.espncdn.com/i/teamlogos/soccer/500/337.png",
+              "played": 0,
+              "points": 0
+            },
+            {
+              "pos": 6,
+              "team": "Chelsea",
+              "crest": "https://a.espncdn.com/i/teamlogos/soccer/500/363.png",
+              "played": 0,
+              "points": 0
+            }
+          ],
+          "club_position": 6
+        },
+        "form": [
+          {
+            "result": "L",
+            "score": "1–2",
+            "opponent": "Sunderland",
+            "opponent_crest": "https://a.espncdn.com/i/teamlogos/soccer/500/366.png",
+            "competition": "PL"
+          },
+          {
+            "result": "L",
+            "score": "0–1",
+            "opponent": "Juventus",
+            "opponent_crest": "https://a.espncdn.com/i/teamlogos/soccer/500/111.png",
+            "competition": "FR"
+          },
+          {
+            "result": "W",
+            "score": "3–0",
+            "opponent": "AC Milan",
+            "opponent_crest": "https://a.espncdn.com/i/teamlogos/soccer/500/103.png",
+            "competition": "FR"
+          },
+          {
+            "result": "D",
+            "score": "3–3",
+            "opponent": "Johor Darul Ta'zim",
+            "opponent_crest": "https://a.espncdn.com/i/teamlogos/soccer/500/17689.png",
+            "competition": "FR"
+          },
+          {
+            "result": "W",
+            "score": "3–1",
+            "opponent": "Real Sociedad",
+            "opponent_crest": "https://a.espncdn.com/i/teamlogos/soccer/500/89.png",
+            "competition": "FR"
+          }
+        ]
+      },
+      "headline": "Everything’s priced, nothing’s moving",
+      "week": [
+        {
+          "kicker": "Enzo: nobody blinks.",
+          "text": "Romano has City “still calling the agent” and expects another run at it — while Chelsea’s message hardens: “We are in control. We decide. And we will be happy to keep him.” The BBC reports Jorge Mendes is now trying to broker a resolution one way or the other."
+        },
+        {
+          "kicker": "A specialist for dead balls.",
+          "text": "Austin MacPhee is in as set-piece coach. “We want to have the best possible specialists in their departments,” Alonso told Kinsella — the quietest, most Alonso hire of the summer."
+        },
+        {
+          "kicker": "Badiashile lands in Rome.",
+          "text": "Alfredo Pedullà has the defender arriving Tuesday night with his Napoli loan medical set for Wednesday — the exit that’s been coming all week finally has a date."
+        },
+        {
+          "kicker": "October bends to television.",
+          "text": "Three of October’s Premier League fixtures have been picked for live broadcast and handed new kick-off times, the club confirmed — worth a diary check."
+        }
+      ],
+      "today": "Nothing on tonight, and nothing until Fulham away on Monday night (00:30 IST Tuesday) — six days of Cobham training pictures and market noise. A good week to let the digest do the watching.",
+      "wider": [
+        {
+          "title": "Jamal Musiala says ‘treatable seizures’ are reason for two collapses in four days",
+          "url": "https://www.theguardian.com/football/2026/aug/18/jamal-musiala-treatable-seizures-statement-collapses-bayern-munich",
+          "hook": "He collapsed twice in four days, and the explanation came from the player himself rather than a club statement: short-term, treatable seizures. Read it before the speculation industry does its thing.",
+          "source": "The Guardian Football",
+          "image": "https://i.guim.co.uk/img/media/db27ecc99db5325d7af567aacd1af3c6f7aaf489/440_0_5284_4229/master/5284.jpg?width=1200&height=630&quality=85&auto=format&fit=crop&precrop=40:21,offset-x50,offset-y0&overlay-align=bottom%2Cleft&overlay-width=100p&overlay-base64=L2ltZy9zdGF0aWMvb3ZlcmxheXMvdGctZGVmYXVsdC5wbmc&enable=upscale&s=0372b5cc52c70464519be8df9e330f1b"
+        },
+        {
+          "title": "Israel withdraws support for embattled Fifa president Gianni Infantino",
+          "url": "https://www.theguardian.com/football/2026/aug/18/israel-withdraws-support-for-embattled-fifa-president-gianni-infantino",
+          "hook": "The revolt over the Lamour sacking is spreading — a national FA has now pulled its support entirely, and it isn’t the only one edging towards the exit.",
+          "source": "The Guardian Football",
+          "image": "https://i.guim.co.uk/img/media/47721a2ee603085fc9d1333cb5df079d944be858/271_0_3405_2724/master/3405.jpg?width=1200&height=630&quality=85&auto=format&fit=crop&precrop=40:21,offset-x50,offset-y0&overlay-align=bottom%2Cleft&overlay-width=100p&overlay-base64=L2ltZy9zdGF0aWMvb3ZlcmxheXMvdGctZGVmYXVsdC5wbmc&enable=upscale&s=09b7f792843f2f6e6db71a7c2e0b7370"
+        }
+      ],
+      "read": {
+        "title": "Chelsea’s boardroom rift: if Boehly goes who will Clearlake have left to blame?",
+        "url": "https://www.theguardian.com/football/2026/aug/18/chelsea-todd-boehly-mark-walter-clearlake-capital-ownership",
+        "hook": "Sam Cunningham turns the buyout talks into the sharper question: once the designated scapegoat leaves the room, whose project — and whose fault — is all of this? The best thing written on the ownership mess so far.",
+        "source": "The Guardian Football",
+        "image": "https://i.guim.co.uk/img/media/4ead7116325e70109d51e315765412e81f237b5e/187_0_2241_1793/master/2241.jpg?width=1200&height=630&quality=85&auto=format&fit=crop&precrop=40:21,offset-x50,offset-y0&overlay-align=bottom%2Cleft&overlay-width=100p&overlay-base64=L2ltZy9zdGF0aWMvb3ZlcmxheXMvdGctZGVmYXVsdC5wbmc&enable=upscale&s=5a3986b1a7248ba64f03419673607bab"
+      },
+      "rivals": [
+        {
+          "club": "Arsenal",
+          "crest": "https://a.espncdn.com/i/teamlogos/soccer/500/359.png",
+          "line": "pre-season · PL",
+          "note": "James McNicholas reports the window’s remaining focus is the left wing — with flexibility to pivot right should a Kenan Yildiz or Julián Alvarez ever shake loose from the long-term target list."
+        },
+        {
+          "club": "Manchester City",
+          "crest": "https://a.espncdn.com/i/teamlogos/soccer/500/382.png",
+          "line": "pre-season · PL",
+          "note": "Rodri’s £65m move to Barcelona was completed on Tuesday — “my heart will always be blue,” he said on the way out — while Jeremy Doku’s calf injury rules him out of the opener."
+        },
+        {
+          "club": "Manchester United",
+          "crest": "https://a.espncdn.com/i/teamlogos/soccer/500/360.png",
+          "line": "pre-season · PL",
+          "note": "Marcus Rashford made a surprise return to Old Trafford to mentor teenagers JJ Gabriel and Shea Lacey, and Mike Keegan reports club chiefs came away “seriously impressed”."
+        },
+        {
+          "club": "Liverpool",
+          "crest": "https://a.espncdn.com/i/teamlogos/soccer/500/364.png",
+          "line": "pre-season · PL",
+          "note": "The Amit Bhatia-led, Bezos-backed 1892 Holdings consortium has bought almost 40% of the club — and the Guardian reckons it could hold a majority within a year."
+        }
+      ],
+      "rumours": [
+        {
+          "player": "Pedro Neto",
+          "from": "Chelsea",
+          "to": "Al-Hilal",
+          "heat": "talks",
+          "note": "The Saudi side have agreed personal terms per the Mail’s Kieran Gill; Chelsea’s answer is an asking price nudging £100m, per both Gill and the BBC’s Kinsella."
+        },
+        {
+          "player": "Liam Delap",
+          "from": "Chelsea",
+          "to": "Newcastle",
+          "fee": "~£50m",
+          "heat": "smoke",
+          "note": "Football Insider says he’s open to it and that Alonso doesn’t see him long-term — Everton and Forest are also in a race Chelsea have priced at around £50m."
+        },
+        {
+          "player": "Nicolas Jackson",
+          "from": "Chelsea",
+          "to": "Napoli",
+          "heat": "smoke",
+          "note": "Pedullà has the Azzurri circling again, a year on from the last time — though they need sales before anything concrete, and they aren’t alone in the running."
+        },
+        {
+          "player": "Deivid Washington",
+          "from": "Chelsea",
+          "to": "Strasbourg",
+          "heat": "talks",
+          "note": "Kinsella reports talks for the £17m striker, who is open to France — with Portugal the fallback if it stalls."
+        },
+        {
+          "player": "Karim Coulibaly",
+          "from": "Werder Bremen",
+          "to": "Strasbourg",
+          "heat": "smoke",
+          "note": "Romano’s wrinkle: Strasbourg lead the race, but BlueCo internally sees “Chelsea potential” in the centre-back — the sister-club pipeline at work."
+        },
+        {
+          "player": "Nico González",
+          "from": "Man City",
+          "to": "Newcastle",
+          "heat": "talks",
+          "note": "Ornstein reports the talks are genuine — City’s midfield clear-out continues."
+        },
+        {
+          "player": "Ollie Watkins",
+          "from": "Aston Villa",
+          "to": "Al-Hilal",
+          "heat": "talks",
+          "note": "The formal offer finally landed — and Ornstein says Villa are set to reject it."
         }
       ]
     }
