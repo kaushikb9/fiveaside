@@ -22,6 +22,12 @@ class FeedConfig(BaseModel, frozen=True):
     url: str
 
 
+class FPLConfig(BaseModel, frozen=True):
+    team_id: int | None = None  # the owner's FPL entry id, once the season starts
+    league_ids: list[int] = []  # mini-leagues to track
+    horizon_gws: int = 6  # fixture-ticker lookahead
+
+
 class TouchlineConfig(BaseModel, frozen=True):
     club: ClubConfig
     competitions: list[str] = Field(min_length=1)
@@ -29,6 +35,7 @@ class TouchlineConfig(BaseModel, frozen=True):
     feeds: list[FeedConfig] = []
     voice: str = ""
     source: Literal["espn", "api-football", "football-data", "espn+thesportsdb"] = "espn"
+    fpl: FPLConfig = Field(default_factory=FPLConfig)
 
 
 def load_config(path: str | Path = "touchline.config.json") -> TouchlineConfig:

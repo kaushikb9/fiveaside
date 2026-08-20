@@ -88,6 +88,24 @@ def test_layered_source_built_with_club_team_id():
     assert source.overlay.team_id == "133610"
 
 
+def test_main_fpl_prints_bundle(tmp_path, capsys, monkeypatch):
+    config_path = tmp_path / "touchline.config.json"
+    config_path.write_text(
+        json.dumps({"club": {"name": "Chelsea", "code": "CHE"}, "competitions": ["PL"]}),
+        encoding="utf-8",
+    )
+    import touchline.cli as cli
+    from tests.test_fpl import _client_with, _fixture_handler
+
+    monkeypatch.setattr(cli, "FPLClient", lambda: _client_with(_fixture_handler))
+    assert main(["fpl", "--config", str(config_path)]) == 0
+    bundle = json.loads(capsys.readouterr().out)
+    # time-independent assertions only: run_fpl uses the real clock
+    assert len(bundle["teams"]) == 4
+    assert "Haaland" in [p["name"] for p in bundle["players"]]
+    assert set(bundle["errors"]) == {"bootstrap", "fixtures"}
+
+
 def test_main_facts_instantiates_configured_source(tmp_path, capsys, monkeypatch):
     config_path = tmp_path / "touchline.config.json"
     config_path.write_text(

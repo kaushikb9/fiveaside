@@ -18,12 +18,23 @@ timeout 90 git pull --rebase --autostash -q \
   || { echo "[auto] $(date '+%F %T') — git pull failed/timed out, skipping"; exit 0; }
 
 # already curated today? (source of truth: the data itself, not a stamp file)
+# Two independent products, two freshness checks — neither suppresses the other.
 LATEST=$(node -e "const d=require('./site/data/digests.json').digests;console.log(d.map(x=>x.date).sort().pop())")
-[ "$LATEST" = "$(date +%F)" ] && exit 0
+FPL_DATE=$(node -e "try{console.log(String(require('./site/data/fpl.json').generated_at||'').slice(0,10))}catch{console.log('')}")
+DIGEST_DUE=$([ "$LATEST" = "$(date +%F)" ] || echo yes)
+FPL_DUE=$([ "$FPL_DATE" = "$(date +%F)" ] || echo yes)
+[ -n "$DIGEST_DUE$FPL_DUE" ] || exit 0
 
 # offline? try again next hour
 curl -sf --max-time 10 https://touchline-chelsea.pages.dev >/dev/null || exit 0
 
-echo "[auto] $(date '+%F %T') — digest due, running"
-./brain/curate.sh
+# `|| echo` so a failed run doesn't starve the other product under set -e
+if [ -n "$DIGEST_DUE" ]; then
+  echo "[auto] $(date '+%F %T') — digest due, running"
+  ./brain/curate.sh || echo "[auto] $(date '+%F %T') — digest run failed"
+fi
+if [ -n "$FPL_DUE" ]; then
+  echo "[auto] $(date '+%F %T') — fpl due, running"
+  ./brain/curate-fpl.sh || echo "[auto] $(date '+%F %T') — fpl run failed"
+fi
 echo "[auto] $(date '+%F %T') — done"

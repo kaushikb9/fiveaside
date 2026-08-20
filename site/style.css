@@ -17,6 +17,11 @@
   --win: #2e9e63;
   --loss: #c94f4f;
   --draw: #78857c;
+  --fdr1-bg: #256e43; --fdr1-ink: #ffffff;
+  --fdr2-bg: #b9dcc3; --fdr2-ink: #1a3b26;
+  --fdr3-bg: #eef3ee; --fdr3-ink: #5c6a60;
+  --fdr4-bg: #ecc4c4; --fdr4-ink: #5d2222;
+  --fdr5-bg: #b04a4a; --fdr5-ink: #ffffff;
 }
 @media (prefers-color-scheme: dark) {
   :root {
@@ -24,6 +29,11 @@
     --line: #24312a; --card: #121b16; --accent: #4cc487; --accent-ink: #4cc487;
     --club: #6ea8e0; --club-bg: #14202e; --score-bg: #16201a;
     --win: #2e9e63; --loss: #c05252; --draw: #5d6a61;
+    --fdr1-bg: #1f5c3c; --fdr1-ink: #d9efe2;
+    --fdr2-bg: #1c3a29; --fdr2-ink: #9fceb0;
+    --fdr3-bg: #16201a; --fdr3-ink: #6c7d71;
+    --fdr4-bg: #4a2323; --fdr4-ink: #d8a3a3;
+    --fdr5-bg: #7d2f2f; --fdr5-ink: #f1d9d9;
   }
 }
 :root[data-theme="dark"] {
@@ -31,12 +41,22 @@
   --line: #24312a; --card: #121b16; --accent: #4cc487; --accent-ink: #4cc487;
   --club: #6ea8e0; --club-bg: #14202e; --score-bg: #16201a;
   --win: #2e9e63; --loss: #c05252; --draw: #5d6a61;
+  --fdr1-bg: #1f5c3c; --fdr1-ink: #d9efe2;
+  --fdr2-bg: #1c3a29; --fdr2-ink: #9fceb0;
+  --fdr3-bg: #16201a; --fdr3-ink: #6c7d71;
+  --fdr4-bg: #4a2323; --fdr4-ink: #d8a3a3;
+  --fdr5-bg: #7d2f2f; --fdr5-ink: #f1d9d9;
 }
 :root[data-theme="light"] {
   --bg: #f7f9f5; --ink: #1a221c; --dim: #5c6a60; --faint: #8a978d;
   --line: #d8e0d8; --card: #ffffff; --accent: #1e7d4c; --accent-ink: #14603a;
   --club: #034694; --club-bg: #e7eef8; --score-bg: #eef3ee;
   --win: #2e9e63; --loss: #c94f4f; --draw: #78857c;
+  --fdr1-bg: #256e43; --fdr1-ink: #ffffff;
+  --fdr2-bg: #b9dcc3; --fdr2-ink: #1a3b26;
+  --fdr3-bg: #eef3ee; --fdr3-ink: #5c6a60;
+  --fdr4-bg: #ecc4c4; --fdr4-ink: #5d2222;
+  --fdr5-bg: #b04a4a; --fdr5-ink: #ffffff;
 }
 
 * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -312,3 +332,84 @@ footer .footer-line + .footer-line { margin-top: 5px; }
   color: #fff; font-family: Georgia, "Times New Roman", serif;
   font-weight: 700; font-size: 20px;
 }
+
+/* --- FPL planner (site/fpl/) — squad boards, watchlist states, signals,
+   FDR ticker, ledger. Reuses .board/.players/.rumours structure above. --- */
+
+/* Squad boards: bet-note lines under a row, C/V/bet badges, bench order */
+.board .bnote {
+  padding: 0 16px 10px 40px; color: var(--dim); font-size: 12.5px;
+  white-space: normal; line-height: 1.5;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+}
+.bnote + .brow { border-top: 1px solid var(--line); }
+.cap {
+  font-size: 10px; font-weight: 800; border-radius: 4px; padding: 0 5px;
+  background: var(--accent); color: #fff;
+  font-family: -apple-system, sans-serif;
+}
+.cap.v { background: none; color: var(--accent-ink); border: 1px solid var(--accent); }
+.bet {
+  font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em;
+  color: var(--club); border: 1px solid var(--club); border-radius: 4px; padding: 0 5px;
+  font-family: -apple-system, sans-serif;
+}
+.bord { width: 14px; text-align: right; color: var(--faint); font-size: 11px; }
+.board.bench .brow { color: var(--dim); }
+
+/* Watchlist status tags (base .ptag look) */
+.ptag.rising { color: var(--accent-ink); border-color: var(--accent); }
+.ptag.cooling { color: var(--loss); border-color: var(--loss); }
+
+/* Signal tag pills + the so-what line (cards reuse .rumour) */
+.sig {
+  margin-left: auto; font-size: 10.5px; font-weight: 700;
+  text-transform: uppercase; letter-spacing: 0.06em;
+  border-radius: 4px; padding: 1px 7px; white-space: nowrap;
+}
+.sig.injury { background: var(--loss); color: #fff; }
+.sig.rotation { color: var(--dim); border: 1px solid var(--line); }
+.sig.price { color: var(--accent-ink); border: 1px solid var(--accent); }
+.sig.news { color: var(--faint); border: 1px dashed var(--line); }
+.maction { color: var(--accent-ink); font-size: 13px; font-weight: 600; margin-top: 5px; }
+.rumour .mnote + .mnote { margin-top: 6px; }
+.rumour .route a { color: inherit; text-underline-offset: 2px; }
+
+/* Ledger verdict pills */
+.vpill {
+  margin-left: auto; font-size: 10.5px; font-weight: 700;
+  text-transform: uppercase; letter-spacing: 0.06em;
+  border-radius: 4px; padding: 1px 7px; color: #fff; white-space: nowrap;
+}
+.vpill.hit { background: var(--win); }
+.vpill.miss { background: var(--loss); }
+.vpill.open { background: none; color: var(--dim); border: 1px solid var(--line); }
+
+/* Fixture-difficulty ticker grid */
+.fdr {
+  background: var(--card); border: 1px solid var(--line); border-radius: 10px;
+  padding: 10px; overflow-x: auto;
+  font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace; font-size: 11px;
+}
+.frow { display: flex; gap: 4px; align-items: stretch; padding: 2px 0; min-width: 480px; }
+.frow.fhead .fc { color: var(--faint); font-size: 10px; background: none; }
+.ft {
+  width: 38px; flex: 0 0 auto; display: flex; align-items: center;
+  font-weight: 700; color: var(--dim);
+}
+.fslot { flex: 1 1 0; min-width: 46px; display: flex; flex-direction: column; gap: 2px; }
+.fc {
+  border-radius: 5px; display: flex; align-items: center; justify-content: center;
+  padding: 3px 0; font-variant-numeric: tabular-nums; letter-spacing: 0.03em;
+}
+.fc.blank { color: var(--faint); }
+.fc.fdr1 { background: var(--fdr1-bg); color: var(--fdr1-ink); }
+.fc.fdr2 { background: var(--fdr2-bg); color: var(--fdr2-ink); }
+.fc.fdr3 { background: var(--fdr3-bg); color: var(--fdr3-ink); }
+.fc.fdr4 { background: var(--fdr4-bg); color: var(--fdr4-ink); }
+.fc.fdr5 { background: var(--fdr5-bg); color: var(--fdr5-ink); }
+.favg {
+  width: 34px; flex: 0 0 auto; display: flex; align-items: center; justify-content: flex-end;
+  color: var(--faint); font-variant-numeric: tabular-nums;
+}
+.fdr-note { color: var(--faint); font-size: 12px; font-style: italic; margin-top: 8px; }

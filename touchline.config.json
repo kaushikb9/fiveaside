@@ -15,6 +15,7 @@
     { "name": "Liverpool", "subreddit": "LiverpoolFC", "crest": "https://a.espncdn.com/i/teamlogos/soccer/500/364.png" }
   ],
   "timezone": "Asia/Kolkata",
+  "fpl": { "team_id": null, "league_ids": [], "horizon_gws": 6 },
   "feeds": [
     { "label": "The Guardian Football", "url": "https://www.theguardian.com/football/rss" },
     { "label": "BBC Football", "url": "https://feeds.bbci.co.uk/sport/football/rss.xml" }
