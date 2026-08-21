@@ -6,21 +6,11 @@
     "deadline_local": "Fri 21 Aug, 23:00"
   },
   "call": {
-    "headline": "Spread out behind Haaland — and bet on the Palmer bounce-back",
-    "reasoning": "Haaland (239 points, all of City's penalties, BOU-cry-COV to start) is the anchor and the GW1 captain. The £12.0m Bruno Fernandes stays unbought: Mbeumo, Shaw and Lammens already carry Man Utd's league-best opening run at £17.5m combined, and the money funds a four-strong midfield instead. The conviction bet is Palmer at 10.5% ownership — confirmed on penalties, a 214-point ceiling two seasons back, and a Xabi Alonso reset, with Fulham and Brighton before the Arsenal test. Kerkez and Hume are the cheap structural bets: nailed full-backs on the two best fixture runs outside Manchester. Arsenal assets are deliberately avoided — Saliba and Timber are out and the backline is being rebuilt in the transfer market.",
+    "headline": "Final sweep clean — lock it in: Haaland captains at home to Bournemouth",
+    "reasoning": "Deadline-day check before tonight's 23:00 cutoff: all fifteen are available on the live API, and Thursday's ten press conferences produced no late scratch among them. The day-0 squad stands as built — no tinkering for tinkering's sake. Haaland at home to Bournemouth is the armband's easiest week of the season; Palmer keeps the vice into Monday night at Fulham, which is where the gameweek — and the first read on the bets — finishes.",
     "captain": "Haaland",
     "vice": "Palmer",
-    "chip": "no chip — Bench Boost and Triple Captain wait for data",
-    "alternatives": [
-      {
-        "call": "B.Fernandes (£12.0m) instead of Palmer + the bench upgrades",
-        "why_not": "235 points last season and the league's best GW1-3 run — but three cheaper Man Utd assets already ride that wave, and £12.0m in one slot starves the rest of the XI."
-      },
-      {
-        "call": "Isak (£9.0m) as the second striker",
-        "why_not": "Undisputed at Liverpool now Ekitiké is injured, but 694 minutes across last season is a sharpness risk João Pedro at £7.5m doesn't carry."
-      }
-    ]
+    "chip": "no chip — Bench Boost and Triple Captain wait for data"
   },
   "squad": {
     "formation": "3-4-3",
@@ -72,7 +62,7 @@
         "role": "bench",
         "bench_order": 2,
         "bet": true,
-        "note": "Sunderland are fully fit with the joint-best GW1-3 run in the league (ips, FUL, bre) — first man off the bench."
+        "note": "Nailed right-back in a fully fit Sunderland defence with the joint-best GW1-3 run in the league (ips, FUL, bre) — first man off the bench."
       },
       {
         "name": "Diop",
@@ -90,7 +80,7 @@
         "role": "start",
         "vice": true,
         "bet": true,
-        "note": "10.5% owned after a down year, but the penalties are his, the 214-point season is real, and Alonso called him ready. Fulham then Brighton before the hard part."
+        "note": "10.5% owned after a down year, but the 214-point season is real, Alonso called him ready, and Fulham then Brighton come before the hard part."
       },
       {
         "name": "Semenyo",
@@ -151,7 +141,7 @@
       "team": "CHE",
       "pos": "MID",
       "price": 7.5,
-      "ownership": "25.7%",
+      "ownership": "25.4%",
       "status": "hold",
       "note": "Alonso says the late World Cup returnees may need time — enters the squad once he starts two straight."
     },
@@ -160,7 +150,7 @@
       "team": "BRE",
       "pos": "FWD",
       "price": 8,
-      "ownership": "17.7%",
+      "ownership": "17.6%",
       "status": "rising",
       "note": "22 goals and every Brentford penalty last season; the pivot if a second premium forward is ever needed."
     },
@@ -169,7 +159,7 @@
       "team": "LIV",
       "pos": "MID",
       "price": 7.5,
-      "ownership": "13.7%",
+      "ownership": "13.5%",
       "status": "hold",
       "note": "Year two in England, Salah's minutes to inherit — watch whether the creative load runs through him or Szoboszlai."
     },
@@ -178,9 +168,9 @@
       "team": "MUN",
       "pos": "FWD",
       "price": 7,
-      "ownership": "1.5%",
+      "ownership": "1.4%",
       "status": "hold",
-      "note": "No pre-season minutes yet, but once fit he leads the line behind the league's best fixture run."
+      "note": "Back in training this week but carrying a shin flag and zero pre-season minutes — once he starts, he leads the line behind the league's best fixture run."
     },
     {
       "name": "Estêvão",
@@ -197,57 +187,35 @@
       "pos": "MID",
       "price": 7.5,
       "ownership": "7.9%",
-      "status": "hold",
-      "note": "13 assists in 1,772 minutes last season — explosive per-90, but Maresca's rotation makes him a watch, not a buy."
+      "status": "rising",
+      "note": "13 assists in 1,772 minutes last season — explosive per-90; a start against Bournemouth is the trigger to move."
     }
   ],
   "signals": [
     {
-      "tag": "injury",
-      "team": "ARS",
-      "player": "Saliba",
-      "text": "Saliba (back) is out long-term, Timber (groin) for weeks, and Bruno Guimarães is a GW1 doubt after the Community Shield. Arteta all but confirmed an emergency centre-back signing.",
-      "source": "FFScout · Arteta presser",
-      "action": "no Arsenal defenders despite Calafiori's 33% ownership",
+      "tag": "news",
+      "team": "CHE",
+      "player": "Palmer",
+      "text": "Asked to name his penalty taker, Alonso demurred: \"I don't know which ones were [the takers] last season, but yes, we have our own decisions… hopefully we have a penalty and you can see that on Monday.\"",
+      "source": "Alonso presser · FFScout",
+      "action": "the pens strand of the Palmer bet is unconfirmed — watch Monday at Fulham",
       "url": "https://www.fantasyfootballscout.co.uk/2026/08/20/fpl-gameweek-1-team-news-thursdays-live-injury-updates"
     },
     {
-      "tag": "injury",
+      "tag": "news",
       "team": "MCI",
-      "player": "Doku",
-      "text": "Doku is reported out for several weeks (the API's 75% flag is stale), and Matheus Nunes was injured in the Community Shield warm-up.",
-      "source": "FFScout early team news",
-      "action": "clears the left wing for Semenyo — already in the squad"
-    },
-    {
-      "tag": "rotation",
-      "team": "CHE",
-      "player": "Rogers",
-      "text": "Alonso on the late World Cup returnees: \"they would need maybe a little bit more time, but they are selectable.\"",
-      "source": "Alonso presser · FFScout",
-      "action": "Rogers to watchlist, not squad; decide again after GW2"
+      "text": "City agreed a £75m verbal deal to sell Savinho to Spurs, with the BBC reporting parallel talks for Marmoush — two attackers heading out while Doku is already sidelined for weeks.",
+      "source": "BBC Sport · Fabrizio Romano",
+      "action": "Semenyo's flank keeps clearing — hold; Cherki moves to rising"
     },
     {
       "tag": "injury",
-      "team": "MUN",
-      "player": "Šeško",
-      "text": "Šeško has not kicked a ball all pre-season (calf); Mount is touch-and-go; Ugarte and de Ligt are out.",
-      "source": "Carrick presser · FFScout",
-      "action": "Man Utd exposure via Mbeumo, Shaw and Lammens only"
-    },
-    {
-      "tag": "news",
-      "team": "TOT",
-      "text": "Kudus, Kulusevski, Simons and Odobert all out or short of fitness; Porro and van de Ven had no pre-season. The fixtures are good; the team is not ready.",
-      "source": "FFScout early team news",
-      "action": "no Spurs starters — Dubravka is bench-fodder only"
-    },
-    {
-      "tag": "news",
-      "team": "NEW",
-      "text": "New manager Jaissle, Livramento and Joelinton out, and the Woltemade/Wissa/Osula pecking order is unsettled.",
-      "source": "Jaissle presser · FFScout",
-      "action": "no Newcastle attackers until the hierarchy shows itself"
+      "team": "ARS",
+      "player": "Bruno G.",
+      "text": "Rice and Saka are \"ready to be involved\" against Coventry; Bruno Guimarães remains a thigh doubt, Timber is not yet training with the group, and Arteta all but confirmed a centre-back signing to patch the line.",
+      "source": "Arteta presser · FFScout",
+      "action": "still no Arsenal defenders despite Calafiori's 34% ownership",
+      "url": "https://www.fantasyfootballscout.co.uk/2026/08/20/fpl-gameweek-1-team-news-thursdays-live-injury-updates"
     }
   ],
   "ticker": {
@@ -1124,5 +1092,5 @@
       "verdict": "open"
     }
   ],
-  "generated_at": "2026-08-20T19:15:07.580Z"
+  "generated_at": "2026-08-21T02:21:51.466Z"
 }
