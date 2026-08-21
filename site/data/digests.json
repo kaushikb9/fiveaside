@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-20T10:00:03.905Z",
+  "generated_at": "2026-08-21T02:15:46.197Z",
   "digests": [
     {
       "date": "2026-07-25",
@@ -4919,6 +4919,265 @@
           "to": "Juventus",
           "heat": "done",
           "note": "The keeper jetted to Turin once the Martínez deal collapsed and has completed his loan move, per the Mail's Window Watch and the BBC wire."
+        }
+      ]
+    },
+    {
+      "date": "2026-08-21",
+      "club": {
+        "latest_result": {
+          "home": "Chelsea",
+          "away": "Real Sociedad",
+          "score": "3–1",
+          "date": "Sat 15 Aug",
+          "competition": "FR",
+          "result": "W",
+          "home_crest": "https://a.espncdn.com/i/teamlogos/soccer/500/363.png",
+          "away_crest": "https://a.espncdn.com/i/teamlogos/soccer/500/89.png"
+        },
+        "fixtures": [
+          {
+            "opponent": "Fulham",
+            "home": false,
+            "kickoff_local": "Tue 25 Aug 00:30",
+            "competition": "PL",
+            "opponent_crest": "https://a.espncdn.com/i/teamlogos/soccer/500/370.png"
+          },
+          {
+            "opponent": "Brighton & Hove Albion",
+            "home": true,
+            "kickoff_local": "Sun 30 Aug 18:30",
+            "competition": "PL",
+            "opponent_crest": "https://a.espncdn.com/i/teamlogos/soccer/500/331.png"
+          },
+          {
+            "opponent": "Arsenal",
+            "home": false,
+            "kickoff_local": "Sun 06 Sep 21:00",
+            "competition": "PL",
+            "opponent_crest": "https://a.espncdn.com/i/teamlogos/soccer/500/359.png"
+          },
+          {
+            "opponent": "Hull City",
+            "home": true,
+            "kickoff_local": "Sat 12 Sep 19:30",
+            "competition": "PL",
+            "opponent_crest": "https://a.espncdn.com/i/teamlogos/soccer/500/306.png"
+          },
+          {
+            "opponent": "Brentford",
+            "home": false,
+            "kickoff_local": "Sat 19 Sep 00:30",
+            "competition": "PL",
+            "opponent_crest": "https://a.espncdn.com/i/teamlogos/soccer/500/337.png"
+          }
+        ],
+        "table": {
+          "competition": "English Premier League",
+          "rows": [
+            {
+              "pos": 1,
+              "team": "AFC Bournemouth",
+              "crest": "https://a.espncdn.com/i/teamlogos/soccer/500/349.png",
+              "played": 0,
+              "points": 0
+            },
+            {
+              "pos": 2,
+              "team": "Arsenal",
+              "crest": "https://a.espncdn.com/i/teamlogos/soccer/500/359.png",
+              "played": 0,
+              "points": 0
+            },
+            {
+              "pos": 3,
+              "team": "Aston Villa",
+              "crest": "https://a.espncdn.com/i/teamlogos/soccer/500/362.png",
+              "played": 0,
+              "points": 0
+            },
+            {
+              "pos": 4,
+              "team": "Brentford",
+              "crest": "https://a.espncdn.com/i/teamlogos/soccer/500/337.png",
+              "played": 0,
+              "points": 0
+            },
+            {
+              "pos": 6,
+              "team": "Chelsea",
+              "crest": "https://a.espncdn.com/i/teamlogos/soccer/500/363.png",
+              "played": 0,
+              "points": 0
+            }
+          ],
+          "club_position": 6
+        },
+        "form": [
+          {
+            "result": "L",
+            "score": "1–2",
+            "opponent": "Sunderland",
+            "opponent_crest": "https://a.espncdn.com/i/teamlogos/soccer/500/366.png",
+            "competition": "PL"
+          },
+          {
+            "result": "L",
+            "score": "0–1",
+            "opponent": "Juventus",
+            "opponent_crest": "https://a.espncdn.com/i/teamlogos/soccer/500/111.png",
+            "competition": "FR"
+          },
+          {
+            "result": "W",
+            "score": "3–0",
+            "opponent": "AC Milan",
+            "opponent_crest": "https://a.espncdn.com/i/teamlogos/soccer/500/103.png",
+            "competition": "FR"
+          },
+          {
+            "result": "D",
+            "score": "3–3",
+            "opponent": "Johor Darul Ta'zim",
+            "opponent_crest": "https://a.espncdn.com/i/teamlogos/soccer/500/17689.png",
+            "competition": "FR"
+          },
+          {
+            "result": "W",
+            "score": "3–1",
+            "opponent": "Real Sociedad",
+            "opponent_crest": "https://a.espncdn.com/i/teamlogos/soccer/500/89.png",
+            "competition": "FR"
+          }
+        ]
+      },
+      "headline": "\"Enzo is a Chelsea player\" — for now",
+      "week": [
+        {
+          "kicker": "No guarantees on Enzo.",
+          "text": "\"Enzo is a Chelsea player. He's getting ready for Monday,\" said Alonso — who then declined to promise anything beyond the window. The Guardian reports City are still weighing a bid even with the £120m deadline gone, and that Chelsea have identified Alex Scott and Adam Wharton as replacements if it lands."
+        },
+        {
+          "kicker": "The contract queue has names.",
+          "text": "Kinsella says Colwill and Estêvão head the list for new deals once the window shuts — the same reporting that now sizes João Pedro's renewal as running to 2034: the 2032 agreement plus a two-year club option."
+        },
+        {
+          "kicker": "Delap's market triples.",
+          "text": "He's available at about £50m, per the BBC, and Ben Jacobs has Leeds and Nottingham Forest joining Everton in the race — with the buying clubs betting that nearer £40m gets it done."
+        }
+      ],
+      "team_watch": [
+        {
+          "name": "Levi Colwill",
+          "tag": "CB · 23",
+          "note": "\"If he's feeling okay, he's for me one of the best centre-backs in the world — so complete, so dominant,\" Alonso said on Thursday, naming him a key player for the season."
+        },
+        {
+          "name": "João Pedro",
+          "tag": "ST · 24",
+          "note": "Eight goals in seven pre-season games and likely to start at Fulham, per Kinsella — who notes he was the first Chelsea striker since Diego Costa to hit 20 in a season without a penalty."
+        }
+      ],
+      "today": "The league comes back tonight, but Chelsea's opener is Monday at Fulham — 00:30 IST, so technically Tuesday. Alonso's line for the weekend: \"We are ready.\" Three days of other people's football first.",
+      "wider": [
+        {
+          "title": "New corner rules: the Premier League's plan to end set-piece chaos",
+          "url": "https://www.bbc.co.uk/sport/football/articles/c0jl03lv775o",
+          "hook": "Holding, shoving and six-yard-box wrestling got an epidemic diagnosis last season — this is the referees' cure, live from tonight. Read it before you scream at the first soft free-kick.",
+          "source": "BBC Sport",
+          "image": "https://ichef.bbci.co.uk/ace/branded_sport/1200/cpsprodpb/df50/live/adedee20-1642-11f1-9293-5bf16ec577d6.jpg"
+        },
+        {
+          "title": "Ronaldinho, 46, on mission of love and happiness – and maybe goals – at Serie C's Ravenna",
+          "url": "https://www.theguardian.com/football/2026/aug/20/ronaldinho-46-serie-c-ravenna-unveiling-comeback",
+          "hook": "A 46-year-old Ballon d'Or winner unveiled at an Italian third-tier club, promising 'love and happiness — and maybe goals'. The disbelieving locals are coming around; you will too.",
+          "source": "The Guardian Football",
+          "image": "https://i.guim.co.uk/img/media/e35c9752859e3b6f2dd3481f5f22ef5d37d79c52/1265_450_3364_2691/master/3364.jpg?width=1200&height=630&quality=85&auto=format&fit=crop&precrop=40:21,offset-x50,offset-y0&overlay-align=bottom%2Cleft&overlay-width=100p&overlay-base64=L2ltZy9zdGF0aWMvb3ZlcmxheXMvdGctZGVmYXVsdC5wbmc&enable=upscale&s=2108f7c7caddf108c74e575394cfea64"
+        },
+        {
+          "title": "Opening half-hour of TNT Sports' Premier League broadcasts to be shown on YouTube",
+          "url": "https://www.theguardian.com/football/2026/aug/20/opening-half-hour-of-tnt-sports-premier-league-broadcasts-to-be-shown-on-youtube",
+          "hook": "Team news and buildup for every TNT game, free on YouTube from this weekend — a small, genuinely fan-friendly change to how the league reaches you.",
+          "source": "The Guardian Football",
+          "image": "https://i.guim.co.uk/img/media/8cc9b592234301adb2cf5096f5bb94bc16848f7a/705_0_5000_4000/master/5000.jpg?width=1200&height=630&quality=85&auto=format&fit=crop&precrop=40:21,offset-x50,offset-y0&overlay-align=bottom%2Cleft&overlay-width=100p&overlay-base64=L2ltZy9zdGF0aWMvb3ZlcmxheXMvdGctZGVmYXVsdC5wbmc&enable=upscale&s=b9548eb442a1ba94a7af7111c5f3cde8"
+        }
+      ],
+      "read": {
+        "title": "Premier League: 10 things to look out for as the new season kicks off",
+        "url": "https://www.theguardian.com/football/2026/aug/21/premier-league-10-things-to-look-out-for-as-new-season-kicks-off",
+        "hook": "Ten storylines for the opening weekend — Nwaneri's exit route, United's rebuilt midfield, Keegan tributes at Newcastle — so Saturday's chaos arrives pre-annotated.",
+        "source": "The Guardian Football",
+        "image": "https://i.guim.co.uk/img/media/9582f87c8db86570ee73d59bec8f3afaa67d3ffe/0_0_5000_4000/master/5000.jpg?width=1200&height=630&quality=85&auto=format&fit=crop&precrop=40:21,offset-x50,offset-y0&overlay-align=bottom%2Cleft&overlay-width=100p&overlay-base64=L2ltZy9zdGF0aWMvb3ZlcmxheXMvdGctZGVmYXVsdC5wbmc&enable=upscale&s=32a137e7c0c240cb01f2ee2fa70a961b"
+      },
+      "rivals": [
+        {
+          "club": "Arsenal",
+          "crest": "https://a.espncdn.com/i/teamlogos/soccer/500/359.png",
+          "line": "opens tonight · PL",
+          "note": "The curtain-raiser is theirs — Coventry at the Emirates, with Konsa's £51m move due to be sealed in time — while Atlético reportedly agreed to sell them Julián Álvarez, only for the player to say no."
+        },
+        {
+          "club": "Manchester City",
+          "crest": "https://a.espncdn.com/i/teamlogos/soccer/500/382.png",
+          "line": "opens this weekend · PL",
+          "note": "The Savinho–Marmoush package to Spurs is agreed at €99m, per GeGlobo; Palace told them Adam Wharton isn't for sale this summer, says Ornstein, so Palmeiras winger Allan Elias is next on the list."
+        },
+        {
+          "club": "Manchester United",
+          "crest": "https://a.espncdn.com/i/teamlogos/soccer/500/360.png",
+          "line": "opens at Hull · PL",
+          "note": "Carrick called talk of an easy start 'ridiculous' before Hull, welcomed Mount, Sesko and De Ligt back to training — and even Brighton-side reporting now expects the Baleba deal to happen."
+        },
+        {
+          "club": "Liverpool",
+          "crest": "https://a.espncdn.com/i/teamlogos/soccer/500/364.png",
+          "line": "opens this weekend · PL",
+          "note": "Brighton rejected their £50m for Yankuba Minteh, per Pearce and Ornstein — though Brighton-watchers expect it to happen eventually — and Curtis Jones flew out for his Inter medical after the €35m deal was struck."
+        }
+      ],
+      "rumours": [
+        {
+          "player": "Nicolas Jackson",
+          "from": "Chelsea",
+          "to": "Atlético Madrid",
+          "heat": "talks",
+          "note": "Loan interest firmed into reported talks on Thursday, and Goal counts Aston Villa in the race for him too."
+        },
+        {
+          "player": "Pedro Neto",
+          "from": "Chelsea",
+          "to": "Tottenham",
+          "heat": "smoke",
+          "note": "Romano says Spurs have joined the chase; The Athletic's counter is that Chelsea's valuation is enormous and they aren't pushing to sell."
+        },
+        {
+          "player": "Deivid Washington",
+          "from": "Chelsea",
+          "to": "Strasbourg",
+          "heat": "talks",
+          "note": "Kinsella reports Strasbourg are in talks for the young striker."
+        },
+        {
+          "player": "Taylor Harwood-Bellis",
+          "from": "Southampton",
+          "to": "Aston Villa",
+          "fee": "£18m bid",
+          "heat": "talks",
+          "note": "The bid went in and was rejected, per the BBC — Villa's centre-back search goes on."
+        },
+        {
+          "player": "Ayyoub Bouaddi",
+          "from": "Lille",
+          "to": "Manchester City",
+          "heat": "talks",
+          "note": "Advanced talks, per Ben Jacobs, with Romano reporting new rounds scheduled to finish the deal."
+        },
+        {
+          "player": "Kenan Yildiz",
+          "from": "Juventus",
+          "to": "Arsenal",
+          "heat": "smoke",
+          "note": "Friday's BBC gossip column has Arsenal exploring a move for the Juventus forward."
         }
       ]
     }
