@@ -29,6 +29,11 @@
     --st-miss: #c94f4f;   --st-miss-ink: #ffffff;
     --st-unl: #8a5f0a;    --st-unl-ink: #ffffff;
     --st-luck: #2f5e9e;   --st-luck-ink: #ffffff;
+    --fdr1-bg: #256e43; --fdr1-ink: #ffffff;
+    --fdr2-bg: #b9dcc3; --fdr2-ink: #1a3b26;
+    --fdr3-bg: #eef3ee; --fdr3-ink: #5c6a60;
+    --fdr4-bg: #ecc4c4; --fdr4-ink: #5d2222;
+    --fdr5-bg: #b04a4a; --fdr5-ink: #ffffff;
   }
   @media (prefers-color-scheme: dark) {
     :root {
@@ -39,6 +44,11 @@
       --st-miss: #c05252; --st-miss-ink: #ffffff;
       --st-unl: #d8a44c;  --st-unl-ink: #201703;
       --st-luck: #6ea8e0; --st-luck-ink: #0d1411;
+      --fdr1-bg: #1f5c3c; --fdr1-ink: #d9efe2;
+      --fdr2-bg: #1c3a29; --fdr2-ink: #9fceb0;
+      --fdr3-bg: #16201a; --fdr3-ink: #6c7d71;
+      --fdr4-bg: #4a2323; --fdr4-ink: #d8a3a3;
+      --fdr5-bg: #7d2f2f; --fdr5-ink: #f1d9d9;
     }
   }
 
@@ -109,6 +119,12 @@
   }
   .deadline .dl { font-weight: 700; text-transform: uppercase; font-size: 10.5px; letter-spacing: 0.12em; color: var(--faint); margin-right: 6px; }
   .deadline strong { color: var(--accent-ink); font-weight: 700; }
+  .deadline.urgent {
+    width: fit-content; margin: 14px auto 0;
+    background: var(--score-bg); border: 1px solid var(--accent); border-radius: 8px;
+    padding: 7px 14px; color: var(--ink); font-size: 13px;
+  }
+  .deadline.urgent .dl { color: var(--accent-ink); }
 
   main { padding-top: 8px; }
 
@@ -191,7 +207,7 @@
   button.star[aria-pressed="true"] { color: var(--accent-ink); }
 
   /* ---- sections: small-caps header + hairline, verbatim ---- */
-  section { margin: 34px 0; }
+  section { margin: 32px 0; }
   section > h2 {
     font-size: 12px; font-weight: 800; text-transform: uppercase;
     letter-spacing: 0.16em; color: var(--dim); margin-bottom: 12px;
@@ -205,7 +221,7 @@
   }
   section p { font-size: 16px; max-width: 64ch; }
 
-  /* briefing list */
+  /* briefing list — prose only */
   ul.brief { list-style: none; display: flex; flex-direction: column; gap: 13px; max-width: 64ch; }
   ul.brief li { position: relative; padding-left: 20px; font-size: 16px; }
   ul.brief li::before {
@@ -216,9 +232,110 @@
   ul.brief .tail { color: var(--dim); }
   .up { color: var(--accent-ink); font-weight: 700; }
 
-  /* ---- collapsed squads: one card, summary line, formation inside ---- */
+  /* ---- shared micro-chips ---- */
+  .tchip {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    font-size: 9px; font-weight: 800; letter-spacing: 0.05em;
+    color: var(--faint); border: 1px solid var(--line); border-radius: 3px;
+    padding: 0 4px; flex: 0 0 auto; line-height: 1.6; text-transform: uppercase;
+  }
+  .cap {
+    font-size: 9px; font-weight: 800; border-radius: 3px; padding: 0 4px;
+    background: var(--accent); color: #fff; flex: 0 0 auto;
+    font-family: -apple-system, sans-serif; line-height: 1.6;
+  }
+  .cap.v { background: none; color: var(--accent-ink); border: 1px solid var(--accent); }
+  .bet {
+    font-size: 9px; font-weight: 800; letter-spacing: 0.05em; text-transform: uppercase;
+    color: var(--st-luck); border: 1px solid var(--st-luck); border-radius: 3px;
+    padding: 0 4px; flex: 0 0 auto; line-height: 1.6;
+    font-family: -apple-system, sans-serif;
+  }
+  .dag { color: var(--st-luck); font-weight: 700; font-style: normal; }
+
+  /* ---- signal cards (the week) ---- */
+  .signals { display: flex; flex-direction: column; gap: 8px; }
+  .signal {
+    display: flex; gap: 11px; align-items: flex-start;
+    background: var(--card); border: 1px solid var(--line); border-radius: 10px;
+    padding: 9px 13px;
+  }
+  .sig {
+    flex: 0 0 76px; text-align: center; margin-top: 3px;
+    font-size: 9.5px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.06em;
+    border-radius: 4px; padding: 1px 0; white-space: nowrap;
+  }
+  .sig.injury { background: var(--st-miss); color: var(--st-miss-ink); }
+  .sig.ban { background: var(--st-unl); color: var(--st-unl-ink); }
+  .sig.doubt { color: var(--st-miss); border: 1px solid var(--st-miss); padding: 0; }
+  .sig.managers { color: var(--dim); border: 1px solid var(--line); padding: 0; }
+  .signal .stext { font-size: 14px; line-height: 1.5; min-width: 0; }
+  .signal .stext b { font-size: 14.5px; }
+  .signal .tail { color: var(--dim); }
+
+  /* ---- bar boards (template board, captain poll) ---- */
+  .tboard { padding: 0 14px 12px; }
+  .tboard .blabel { padding: 11px 0 0; }
+  .tgroup {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    font-size: 10px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase;
+    color: var(--faint); padding: 9px 0 3px;
+  }
+  .trow { display: flex; align-items: center; gap: 8px; padding: 3px 0; font-variant-numeric: tabular-nums; }
+  .trow .tname {
+    flex: 0 0 88px; font-size: 12.5px;
+    white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+  }
+  .tbar { flex: 1 1 40px; height: 4px; background: var(--line); border-radius: 2px; overflow: hidden; }
+  .tbar i { display: block; height: 100%; background: var(--accent); border-radius: 2px; }
+  .tpct { flex: 0 0 30px; text-align: right; font-size: 11.5px; color: var(--dim); }
+  .tboard.poll { padding-bottom: 11px; }
+  .tboard.poll .trow:first-of-type { margin-top: 5px; }
+
+  /* ---- penalty takers: two-column chip grid ---- */
+  .pengrid { display: grid; grid-template-columns: 1fr 1fr; gap: 0 18px; max-width: 64ch; }
+  .pen {
+    display: flex; align-items: baseline; gap: 9px;
+    padding: 6px 2px; border-top: 1px solid var(--line); font-size: 14.5px;
+  }
+  .pen:nth-child(-n+2) { border-top: none; }
+  .pen.wide { grid-column: 1 / -1; }
+  .pen .popen { font-style: italic; color: var(--dim); font-size: 13.5px; }
+  @media (max-width: 355px) {
+    .pengrid { grid-template-columns: 1fr; }
+    .pen:nth-child(2) { border-top: 1px solid var(--line); }
+  }
+
+  /* ---- fixture runs: colored FDR strips ---- */
+  .fdrwrap { display: grid; grid-template-columns: 1fr 1fr; gap: 2px 18px; padding: 9px 14px 13px; }
+  @media (max-width: 355px) { .fdrwrap { grid-template-columns: 1fr; } }
+  .flabel {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    font-size: 10px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase;
+    color: var(--faint); padding: 3px 0 5px;
+  }
+  .frw { display: flex; align-items: center; gap: 4px; padding: 2px 0; }
+  .fteam {
+    flex: 0 0 30px; font-weight: 700; font-size: 12px;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  }
+  .fc {
+    flex: 1 1 0; min-width: 0; text-align: center;
+    font-size: 10px; letter-spacing: 0.03em; border-radius: 4px; padding: 2.5px 0;
+    font-variant-numeric: tabular-nums;
+  }
+  .fc.fdr1 { background: var(--fdr1-bg); color: var(--fdr1-ink); }
+  .fc.fdr2 { background: var(--fdr2-bg); color: var(--fdr2-ink); }
+  .fc.fdr3 { background: var(--fdr3-bg); color: var(--fdr3-ink); }
+  .fc.fdr4 { background: var(--fdr4-bg); color: var(--fdr4-ink); }
+  .fc.fdr5 { background: var(--fdr5-bg); color: var(--fdr5-ink); }
+  .favg { flex: 0 0 30px; text-align: right; color: var(--faint); font-size: 10.5px; font-variant-numeric: tabular-nums; }
+  .fx-key { color: var(--faint); font-size: 13px; }
+
+  /* ---- squad boards: pos chip · name · badges · team · price ---- */
   details.squad {
     background: var(--card); border: 1px solid var(--line); border-radius: 10px;
+    overflow: hidden;
   }
   details.squad summary {
     cursor: pointer; list-style: none;
@@ -240,49 +357,68 @@
     font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
     font-size: 12px; color: var(--faint); font-variant-numeric: tabular-nums;
   }
-  .sq { border-top: 1px solid var(--line); padding: 8px 15px 12px; }
-  .pos-row { display: flex; gap: 12px; padding: 6px 0; align-items: baseline; }
-  .pos {
-    flex: 0 0 30px; font-size: 10px; font-weight: 700; letter-spacing: 0.1em;
-    color: var(--faint); text-transform: uppercase;
-  }
-  .names {
-    display: flex; flex-wrap: wrap; gap: 3px 14px; min-width: 0;
+  .sqb {
+    border-top: 1px solid var(--line); background: var(--score-bg);
+    padding: 7px 14px 9px;
     font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
     font-size: 12.5px; font-variant-numeric: tabular-nums;
   }
-  .names > span { white-space: nowrap; }
-  .pr { font-style: normal; color: var(--faint); font-size: 11px; margin-left: 3px; }
-  .pos-row.bench .names { color: var(--dim); }
-  .bo { font-style: normal; color: var(--faint); font-size: 10.5px; margin-right: 4px; }
-  .cap {
-    font-size: 9px; font-weight: 800; border-radius: 3px; padding: 0 4px;
-    background: var(--accent); color: #fff; margin-left: 4px;
-    font-family: -apple-system, sans-serif; vertical-align: 1px;
+  .srow { display: flex; align-items: center; gap: 7px; padding: 3px 0; min-width: 0; }
+  .posc {
+    flex: 0 0 34px; text-align: center;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    font-size: 9px; font-weight: 800; letter-spacing: 0.08em; text-transform: uppercase;
+    color: var(--faint); border: 1px solid var(--line); border-radius: 4px; line-height: 1.7;
   }
-  .cap.v { background: none; color: var(--accent-ink); border: 1px solid var(--accent); }
-  .dag { color: var(--accent-ink); font-weight: 700; }
+  .sname { min-width: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .srow .tchip { margin-left: auto; }
+  .sprice { flex: 0 0 32px; text-align: right; color: var(--dim); font-size: 11.5px; }
+  .srow.bench { color: var(--dim); }
+  .srow.bench .posc { border-style: dashed; }
+  .srow.b1 { border-top: 1px solid var(--line); margin-top: 5px; padding-top: 7px; }
+  .bo { flex: 0 0 10px; text-align: right; font-style: normal; color: var(--faint); font-size: 10.5px; }
   .foot {
     border-top: 1px solid var(--line); padding: 9px 15px 11px;
     font-size: 12.5px; color: var(--faint); line-height: 1.55;
   }
   .snote { color: var(--dim); font-size: 13.5px; margin-top: 10px; max-width: 64ch; }
+  .digest details.squad { margin: 4px 0 16px; }
 
-  /* ---- chip clock: quiet ruled rows ---- */
-  .chip { display: flex; gap: 12px; padding: 9px 2px; align-items: baseline; }
+  /* ---- chip clock: token · window · expiry chip ---- */
+  .chip { display: flex; gap: 11px; padding: 9px 2px; align-items: baseline; }
   .chip + .chip { border-top: 1px solid var(--line); }
-  .cname { font-weight: 700; font-size: 13.5px; white-space: nowrap; flex: 0 0 122px; }
+  .ctok {
+    flex: 0 0 44px; text-align: center;
+    font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+    font-size: 11px; font-weight: 700; color: var(--ink);
+    border: 1px solid var(--line); border-radius: 5px; padding: 1px 0;
+    white-space: nowrap; align-self: center;
+  }
   .cnote { color: var(--dim); font-size: 14px; flex: 1; min-width: 0; }
+  .cnote b { color: var(--ink); }
   .cexp {
     font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
-    font-size: 11px; color: var(--faint); white-space: nowrap;
+    font-size: 10.5px; color: var(--faint); white-space: nowrap;
+    border: 1px solid var(--line); border-radius: 4px; padding: 0 6px;
+    align-self: center;
   }
-  @media (max-width: 480px) { .cname { flex-basis: 104px; font-size: 13px; } }
 
-  /* ---- watchlist ---- */
-  .wrow { display: flex; align-items: baseline; gap: 9px; padding: 8px 2px; flex-wrap: wrap; }
-  .wrow + .wrow { border-top: 1px solid var(--line); }
-  .wname { font-weight: 700; font-size: 15px; flex: 0 0 76px; }
+  /* ---- watchlist: player cards with avatar initials ---- */
+  .players { display: flex; flex-direction: column; gap: 8px; }
+  .player {
+    display: flex; gap: 12px; align-items: flex-start;
+    background: var(--card); border: 1px solid var(--line); border-radius: 10px;
+    padding: 10px 13px;
+  }
+  .avatar {
+    width: 34px; height: 34px; border-radius: 50%; flex: 0 0 auto;
+    display: flex; align-items: center; justify-content: center;
+    background: var(--score-bg); color: var(--dim); border: 1px solid var(--line);
+    font-weight: 800; font-size: 12px; letter-spacing: 0.02em; margin-top: 2px;
+  }
+  .avatar.rising { color: var(--accent-ink); border-color: var(--accent); }
+  .ptop { display: flex; align-items: baseline; gap: 9px; flex-wrap: wrap; }
+  .pname { font-weight: 700; font-size: 15px; }
   .ptag {
     font-size: 10.5px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em;
     color: var(--dim); border: 1px solid var(--line); border-radius: 4px; padding: 1px 6px;
@@ -290,62 +426,24 @@
   }
   .ptag.rising { color: var(--accent-ink); border-color: var(--accent); }
   .ptag.hold { color: var(--dim); }
-  button.ptag { cursor: pointer; font-family: inherit; }
-  button.ptag[aria-pressed="true"] { color: var(--accent-ink); border-color: var(--accent); }
-  .wtail { color: var(--dim); font-size: 14px; flex: 1 1 14ch; min-width: 0; }
+  .pnote { color: var(--dim); font-size: 14px; margin-top: 2px; line-height: 1.5; }
 
-  /* ---- debrief: collapsed, with stamp dots on the summary ---- */
-  .dots { display: inline-flex; gap: 4px; align-items: center; }
-  .dots i { width: 7px; height: 7px; border-radius: 50%; display: block; }
-  .dots .d-hit { background: var(--st-hit); }
-  .dots .d-miss { background: var(--st-miss); }
-  .dots .d-unl { background: var(--st-unl); }
-  .dots .d-luck { background: var(--st-luck); }
-  .drow {
-    display: flex; gap: 12px; align-items: flex-start;
-    padding: 9px 15px; border-top: 1px solid var(--line);
+  /* ---- open wagers: cards with a settle chip ---- */
+  .wagers { display: flex; flex-direction: column; gap: 8px; }
+  .wcard {
+    display: flex; align-items: baseline; gap: 10px; flex-wrap: wrap;
+    background: var(--card); border: 1px solid var(--line); border-radius: 10px;
+    padding: 9px 13px; font-size: 14px;
   }
-  .drow:first-of-type { border-top: 1px solid var(--line); }
-  .dmain { flex: 1; min-width: 0; font-size: 14px; line-height: 1.5; }
-  .dmain b { font-size: 14.5px; }
-  .dtail { color: var(--dim); }
-  .stampp {
-    flex: 0 0 auto; margin-top: 2px;
-    font-size: 10px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.06em;
-    border-radius: 4px; padding: 1px 7px; white-space: nowrap;
-    font-family: -apple-system, sans-serif;
-  }
-  .stampp.hit  { background: var(--st-hit);  color: var(--st-hit-ink); }
-  .stampp.miss { background: var(--st-miss); color: var(--st-miss-ink); }
-  .stampp.unl  { background: var(--st-unl);  color: var(--st-unl-ink); }
-  .stampp.luck { background: var(--st-luck); color: var(--st-luck-ink); }
-  .lesson {
-    border-top: 1px solid var(--line); padding: 10px 15px 12px;
-    font-size: 13.5px; color: var(--dim); line-height: 1.55;
-  }
-  .llab {
-    display: block; font-size: 10px; font-weight: 700; letter-spacing: 0.12em;
-    text-transform: uppercase; color: var(--accent-ink); margin-bottom: 2px;
+  .wcard .wtext { color: var(--dim); flex: 1 1 20ch; min-width: 0; line-height: 1.5; }
+  .wcard .wtext b { color: var(--ink); }
+  .settle {
+    margin-left: auto; font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+    font-size: 10.5px; color: var(--faint); border: 1px solid var(--line); border-radius: 4px;
+    padding: 0 6px; white-space: nowrap; font-variant-numeric: tabular-nums;
   }
 
-  /* ---- the race: mini table with benchmark ghost rows ---- */
-  .board.race { padding: 6px 8px 8px; }
-  .mrow {
-    display: flex; align-items: baseline; gap: 8px;
-    padding: 5px 8px; border-radius: 6px; font-variant-numeric: tabular-nums;
-    font-size: 13px;
-  }
-  .mrow .mpos { width: 18px; text-align: right; color: var(--faint); font-size: 12px; flex: 0 0 auto; }
-  .mrow .tname { flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-  .mrow .num { width: 34px; text-align: right; color: var(--dim); font-size: 12.5px; flex: 0 0 auto; }
-  .mrow.us { background: var(--card); font-weight: 700; border: 1px solid var(--accent); }
-  .mrow.us .tname { color: var(--accent-ink); }
-  .mrow.ghost .tname { color: var(--faint); font-style: italic; }
-  .mrow.ghost .num { color: var(--faint); }
-  .mrow.more { color: var(--faint); font-size: 12px; }
-  .raceline { color: var(--dim); font-size: 13.5px; margin-top: 10px; }
-
-  /* ---- doctrine: three quiet lines ---- */
+  /* ---- doctrine: numbered quiet lines ---- */
   .doc { display: flex; gap: 11px; align-items: baseline; padding: 7px 2px; }
   .doc + .doc { border-top: 1px solid var(--line); }
   .dnum {
@@ -359,6 +457,31 @@
     padding: 0 5px; margin-left: 4px; white-space: nowrap;
   }
 
+  /* ---- the race: manager chip cloud + benchmark ghost rows ---- */
+  .mgrcloud { display: flex; flex-wrap: wrap; gap: 6px; padding: 6px 14px 12px; }
+  .mgr {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    font-size: 11px; font-weight: 600; color: var(--dim);
+    border: 1px solid var(--line); border-radius: 999px; padding: 1px 9px;
+    white-space: nowrap;
+  }
+  .mgr.us { color: var(--accent-ink); border-color: var(--accent); font-weight: 700; }
+  .ghosts { border-top: 1px solid var(--line); padding: 8px 14px 11px; }
+  .ghead {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    font-size: 10px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase;
+    color: var(--faint); padding-bottom: 2px;
+  }
+  .grow { display: flex; align-items: baseline; gap: 8px; padding: 2px 0; font-size: 12.5px; font-variant-numeric: tabular-nums; }
+  .grow .gname { color: var(--faint); font-style: italic; }
+  .grow .gpts { margin-left: auto; color: var(--faint); }
+  .race-note {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    font-size: 13px; color: var(--dim); line-height: 1.6;
+    padding: 0 14px 4px; max-width: none;
+  }
+  .race-note b { color: var(--ink); }
+
   /* ---- the seam: personal above, commons below ---- */
   .commons-rule {
     margin: 44px 0 4px; display: flex; align-items: center; gap: 12px;
@@ -367,43 +490,6 @@
   }
   .commons-rule::after { content: ""; flex: 1; height: 1px; background: var(--line); }
   .commons-rule .cr-sub { font-weight: 400; letter-spacing: 0.08em; color: var(--faint); font-size: 11px; }
-
-  /* ---- fixtures note ---- */
-  .fx {
-    font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
-    font-size: 13.5px; letter-spacing: 0.02em; white-space: nowrap;
-  }
-  .fx-key { color: var(--faint); font-size: 13px; }
-
-  /* ---- day-0 additions (same grammar, four small extensions) ---- */
-  .deadline.urgent {
-    width: fit-content; margin: 14px auto 0;
-    background: var(--score-bg); border: 1px solid var(--accent); border-radius: 8px;
-    padding: 7px 14px; color: var(--ink); font-size: 13px;
-  }
-  .deadline.urgent .dl { color: var(--accent-ink); }
-  .digest details.squad { margin: 4px 0 16px; }
-  .cnote b { color: var(--ink); }
-  .pens .dnum { flex: 0 0 36px; }
-  .pens b { color: var(--ink); }
-  .fdr { display: grid; grid-template-columns: 1fr 1fr; gap: 2px 16px; padding: 8px 8px 10px; }
-  .flabel {
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-    font-size: 10px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase;
-    color: var(--faint); padding: 2px 2px 4px;
-  }
-  .fdr .mrow { gap: 6px; padding: 3px 2px; }
-  .fdr .club { flex: 0 0 34px; font-weight: 700; font-size: 12px; }
-  .fdr .num { width: 32px; font-size: 12px; }
-  .fdr .frun { margin-left: auto; color: var(--faint); font-size: 10.5px; white-space: nowrap; }
-  @media (max-width: 355px) { .fdr { grid-template-columns: 1fr; } }
-  .race-note {
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-    font-size: 13.5px; color: var(--dim); line-height: 1.6;
-    padding: 12px 14px; text-align: center; max-width: none;
-  }
-  .race-note b { color: var(--ink); }
-  .race-note .bmark { color: var(--faint); font-style: italic; }
 
   /* ---- stamp + footer ---- */
   .stamp-wrap { text-align: center; padding-top: 46px; }
@@ -472,12 +558,22 @@
             <span class="sum-sub">the squad to enter</span>
             <span class="sum-right"><span class="dag">&dagger;</span> 3 bets</span>
           </summary>
-          <div class="sq">
-            <div class="pos-row"><span class="pos">GK</span><div class="names"><span>Lammens</span></div></div>
-            <div class="pos-row"><span class="pos">Def</span><div class="names"><span>Kerkez<span class="dag">&dagger;</span></span><span>Gu&eacute;hi</span><span>Shaw</span></div></div>
-            <div class="pos-row"><span class="pos">Mid</span><div class="names"><span>Palmer<span class="dag">&dagger;</span><span class="cap v">V</span></span><span>Semenyo</span><span>Mbeumo</span><span>Szoboszlai</span></div></div>
-            <div class="pos-row"><span class="pos">Fwd</span><div class="names"><span>Haaland<span class="cap">C</span></span><span>Jo&atilde;o Pedro</span><span>Calvert-Lewin</span></div></div>
-            <div class="pos-row bench"><span class="pos">Ben</span><div class="names"><span><i class="bo">1</i>Dubravka</span><span><i class="bo">2</i>Hume<span class="dag">&dagger;</span></span><span><i class="bo">3</i>Hughes</span><span><i class="bo">4</i>Diop</span></div></div>
+          <div class="sqb">
+            <div class="srow"><span class="posc">GK</span><span class="sname">Lammens</span><span class="tchip">MUN</span><span class="sprice">5.0</span></div>
+            <div class="srow"><span class="posc">Def</span><span class="sname">Kerkez</span><span class="bet">bet</span><span class="dag">&dagger;</span><span class="tchip">LIV</span><span class="sprice">5.5</span></div>
+            <div class="srow"><span class="posc">Def</span><span class="sname">Gu&eacute;hi</span><span class="tchip">MCI</span><span class="sprice">6.0</span></div>
+            <div class="srow"><span class="posc">Def</span><span class="sname">Shaw</span><span class="tchip">MUN</span><span class="sprice">4.5</span></div>
+            <div class="srow"><span class="posc">Mid</span><span class="sname">Palmer</span><span class="cap v">V</span><span class="bet">bet</span><span class="dag">&dagger;</span><span class="tchip">CHE</span><span class="sprice">9.5</span></div>
+            <div class="srow"><span class="posc">Mid</span><span class="sname">Semenyo</span><span class="tchip">MCI</span><span class="sprice">8.5</span></div>
+            <div class="srow"><span class="posc">Mid</span><span class="sname">Mbeumo</span><span class="tchip">MUN</span><span class="sprice">8.0</span></div>
+            <div class="srow"><span class="posc">Mid</span><span class="sname">Szoboszlai</span><span class="tchip">LIV</span><span class="sprice">7.0</span></div>
+            <div class="srow"><span class="posc">Fwd</span><span class="sname">Haaland</span><span class="cap">C</span><span class="tchip">MCI</span><span class="sprice">15.5</span></div>
+            <div class="srow"><span class="posc">Fwd</span><span class="sname">Jo&atilde;o Pedro</span><span class="tchip">CHE</span><span class="sprice">7.5</span></div>
+            <div class="srow"><span class="posc">Fwd</span><span class="sname">Calvert-Lewin</span><span class="tchip">LEE</span><span class="sprice">6.0</span></div>
+            <div class="srow bench b1"><span class="posc">GK</span><i class="bo">1</i><span class="sname">Dubravka</span><span class="tchip">TOT</span><span class="sprice">4.0</span></div>
+            <div class="srow bench"><span class="posc">Def</span><i class="bo">2</i><span class="sname">Hume</span><span class="bet">bet</span><span class="dag">&dagger;</span><span class="tchip">SUN</span><span class="sprice">4.5</span></div>
+            <div class="srow bench"><span class="posc">Mid</span><i class="bo">3</i><span class="sname">Hughes</span><span class="tchip">CRY</span><span class="sprice">4.5</span></div>
+            <div class="srow bench"><span class="posc">Def</span><i class="bo">4</i><span class="sname">Diop</span><span class="tchip">IPS</span><span class="sprice">4.0</span></div>
           </div>
           <div class="foot"><span class="dag">&dagger;</span> the bets &mdash; Palmer: pens + the bounce-back &middot; Kerkez: Liverpool&rsquo;s undisputed LB at 4% owned &middot; Hume: the league&rsquo;s joint-kindest run.</div>
         </details>
@@ -508,34 +604,46 @@
 
       <section>
         <h2>The watchlist</h2>
-        <div class="wrow">
-          <span class="wname">Thiago</span>
-          <span class="ptag rising">&nearr; rising</span>
-          <span class="wtail">22 goals + pens; the pivot if a second premium is needed</span>
-        </div>
-        <div class="wrow">
-          <span class="wname">Rogers</span>
-          <span class="ptag hold">&rarr; hold</span>
-          <span class="wtail">Alonso says late returnees need time</span>
-        </div>
-        <div class="wrow">
-          <span class="wname">Est&ecirc;v&atilde;o</span>
-          <span class="ptag rising">&nearr; rising</span>
-          <span class="wtail">claim a wing spot and he&rsquo;s the value entry</span>
-        </div>
-        <div class="wrow">
-          <span class="wname">&Scaron;e&scaron;ko</span>
-          <span class="ptag hold">&rarr; hold</span>
-          <span class="wtail">first-start watch</span>
+        <div class="players">
+          <div class="player">
+            <span class="avatar rising" aria-hidden="true">TH</span>
+            <div>
+              <div class="ptop"><span class="pname">Thiago</span><span class="tchip">BRE</span><span class="ptag rising">&nearr; rising</span></div>
+              <p class="pnote">22 goals + pens; the pivot if a second premium is needed</p>
+            </div>
+          </div>
+          <div class="player">
+            <span class="avatar" aria-hidden="true">RO</span>
+            <div>
+              <div class="ptop"><span class="pname">Rogers</span><span class="tchip">CHE</span><span class="ptag hold">&rarr; hold</span></div>
+              <p class="pnote">Alonso says late returnees need time</p>
+            </div>
+          </div>
+          <div class="player">
+            <span class="avatar rising" aria-hidden="true">ES</span>
+            <div>
+              <div class="ptop"><span class="pname">Est&ecirc;v&atilde;o</span><span class="tchip">CHE</span><span class="ptag rising">&nearr; rising</span></div>
+              <p class="pnote">claim a wing spot and he&rsquo;s the value entry</p>
+            </div>
+          </div>
+          <div class="player">
+            <span class="avatar" aria-hidden="true">&Scaron;E</span>
+            <div>
+              <div class="ptop"><span class="pname">&Scaron;e&scaron;ko</span><span class="tchip">MUN</span><span class="ptag hold">&rarr; hold</span></div>
+              <p class="pnote">first-start watch</p>
+            </div>
+          </div>
         </div>
       </section>
 
       <section>
         <h2>Open wagers <span class="h2-right">the ledger opens tonight</span></h2>
-        <div class="chip"><span class="cnote"><b>Palmer</b> outscores <b>B.Fernandes</b> over GW1&ndash;6</span><span class="cexp">settles GW6</span></div>
-        <div class="chip"><span class="cnote"><b>Kerkez</b> &ge;3 clean sheets by GW8</span><span class="cexp">settles GW8</span></div>
-        <div class="chip"><span class="cnote"><b>Hume</b>&rsquo;s Sunderland run pays through GW3</span><span class="cexp">settles GW3</span></div>
-        <div class="chip"><span class="cnote">Season wager &mdash; this squad beats <b>the bus</b> by GW8</span><span class="cexp">settles GW8</span></div>
+        <div class="wagers">
+          <div class="wcard"><span class="wtext"><b>Palmer</b> outscores <b>B.Fernandes</b> over GW1&ndash;6</span><span class="settle">settles GW6</span></div>
+          <div class="wcard"><span class="wtext"><b>Kerkez</b> &ge;3 clean sheets by GW8</span><span class="settle">settles GW8</span></div>
+          <div class="wcard"><span class="wtext"><b>Hume</b>&rsquo;s Sunderland run pays through GW3</span><span class="settle">settles GW3</span></div>
+          <div class="wcard"><span class="wtext">Season wager &mdash; this squad beats <b>the bus</b> by GW8</span><span class="settle">settles GW8</span></div>
+        </div>
       </section>
 
       <section>
@@ -546,10 +654,27 @@
 
       <section>
         <h2>The race <span class="h2-right">mini-league &middot; FPL 26-27</span></h2>
-        <div class="board race">
-          <p class="race-note">Kicks off tonight. <b>11 managers</b> registered;
-          <span class="bmark">the bus</span> and <span class="bmark">the wildcard XI</span>
-          ride along as benchmarks. First table after GW1.</p>
+        <div class="board">
+          <div class="blabel">11 managers registered</div>
+          <div class="mgrcloud">
+            <span class="mgr us">Wabi Sabi Xabi</span>
+            <span class="mgr">Gunners.exe</span>
+            <span class="mgr">Mad11</span>
+            <span class="mgr">WorldChamps</span>
+            <span class="mgr">Vabby_Blues</span>
+            <span class="mgr">CFC</span>
+            <span class="mgr">Youri kiddin&rsquo; me!</span>
+            <span class="mgr">Yogesh11</span>
+            <span class="mgr">IceMan</span>
+            <span class="mgr">Peaky Malayali FC</span>
+            <span class="mgr">+1 more</span>
+          </div>
+          <div class="ghosts">
+            <div class="ghead">Benchmarks &mdash; ride along</div>
+            <div class="grow"><span class="gname">the bus</span><span class="gpts">&mdash;</span></div>
+            <div class="grow"><span class="gname">the wildcard XI</span><span class="gpts">&mdash;</span></div>
+          </div>
+          <p class="race-note">Kicks off tonight. First table after GW1.</p>
         </div>
       </section>
 
@@ -570,53 +695,67 @@
 
     <section>
       <h2>The week <span class="h2-right">opening night</span></h2>
-      <ul class="brief">
-        <li><strong>Saliba and Timber out</strong> <span class="tail">&mdash; back and groin; Arsenal shopping for an emergency CB.</span></li>
-        <li><strong>Doku out &ldquo;several weeks&rdquo;</strong> <span class="tail">&mdash; calf; the API flag lags the presser.</span></li>
-        <li><strong>&Scaron;e&scaron;ko: zero pre-season minutes</strong> <span class="tail">&mdash; first-start watch.</span></li>
-        <li><strong>Fofana suspended GW1&ndash;2.</strong></li>
-        <li><strong>Bruno Guimar&atilde;es a doubt</strong> <span class="tail">&mdash; thigh, picked up in the Community Shield.</span></li>
-        <li><strong>Eight clubs open under new managers</strong> <span class="tail">&mdash; minutes are guesses until three XIs.</span></li>
-      </ul>
+      <div class="signals">
+        <div class="signal"><span class="sig injury">Injury</span><div class="stext"><b>Saliba and Timber out</b> <span class="tail">&mdash; back and groin; Arsenal shopping for an emergency CB.</span></div></div>
+        <div class="signal"><span class="sig injury">Injury</span><div class="stext"><b>Doku out &ldquo;several weeks&rdquo;</b> <span class="tail">&mdash; calf; the API flag lags the presser.</span></div></div>
+        <div class="signal"><span class="sig doubt">Doubt</span><div class="stext"><b>&Scaron;e&scaron;ko: zero pre-season minutes</b> <span class="tail">&mdash; first-start watch.</span></div></div>
+        <div class="signal"><span class="sig ban">Ban</span><div class="stext"><b>Fofana suspended GW1&ndash;2.</b></div></div>
+        <div class="signal"><span class="sig doubt">Doubt</span><div class="stext"><b>Bruno Guimar&atilde;es</b> <span class="tail">&mdash; thigh, picked up in the Community Shield.</span></div></div>
+        <div class="signal"><span class="sig managers">Managers</span><div class="stext"><b>Eight clubs open under new managers</b> <span class="tail">&mdash; minutes are guesses until three XIs.</span></div></div>
+      </div>
     </section>
 
     <section>
       <h2>The template board <span class="h2-right">ownership %</span></h2>
-      <details class="squad">
-        <summary>
-          <span class="chev" aria-hidden="true"></span>
-          <span class="sum-main">Most-owned</span>
-          <span class="sum-sub">Haaland 69 &middot; B.Fernandes 50 &middot; the full board by position</span>
-          <span class="sum-right">17 names</span>
-        </summary>
-        <div class="sq">
-          <div class="pos-row"><span class="pos">GK</span><div class="names"><span>Raya<i class="pr">36</i></span><span>Kinsky<i class="pr">22</i></span><span>Verbruggen<i class="pr">20</i></span></div></div>
-          <div class="pos-row"><span class="pos">Def</span><div class="names"><span>Calafiori<i class="pr">33</i></span><span>Gabriel<i class="pr">30</i></span><span>O&rsquo;Reilly<i class="pr">21</i></span><span>Shaw<i class="pr">21</i></span><span>Gu&eacute;hi<i class="pr">19</i></span></div></div>
-          <div class="pos-row"><span class="pos">Mid</span><div class="names"><span>B.Fernandes<i class="pr">50</i></span><span>Szoboszlai<i class="pr">41</i></span><span>Mbeumo<i class="pr">35</i></span><span>Semenyo<i class="pr">26</i></span><span>Rogers<i class="pr">26</i></span></div></div>
-          <div class="pos-row"><span class="pos">Fwd</span><div class="names"><span>Haaland<i class="pr">69</i></span><span>Jo&atilde;o Pedro<i class="pr">62</i></span><span>Thiago<i class="pr">18</i></span><span>Isak<i class="pr">16</i></span></div></div>
-        </div>
-      </details>
+      <div class="board tboard">
+        <div class="blabel">Most-owned &middot; 17 names</div>
+        <div class="tgroup">GK</div>
+        <div class="trow"><span class="tname">Raya</span><span class="tchip">ARS</span><span class="tbar"><i style="width:36%"></i></span><span class="tpct">36</span></div>
+        <div class="trow"><span class="tname">Kinsky</span><span class="tchip">TOT</span><span class="tbar"><i style="width:22%"></i></span><span class="tpct">22</span></div>
+        <div class="trow"><span class="tname">Verbruggen</span><span class="tchip">BHA</span><span class="tbar"><i style="width:20%"></i></span><span class="tpct">20</span></div>
+        <div class="tgroup">Def</div>
+        <div class="trow"><span class="tname">Calafiori</span><span class="tchip">ARS</span><span class="tbar"><i style="width:33%"></i></span><span class="tpct">33</span></div>
+        <div class="trow"><span class="tname">Gabriel</span><span class="tchip">ARS</span><span class="tbar"><i style="width:30%"></i></span><span class="tpct">30</span></div>
+        <div class="trow"><span class="tname">O&rsquo;Reilly</span><span class="tchip">MCI</span><span class="tbar"><i style="width:21%"></i></span><span class="tpct">21</span></div>
+        <div class="trow"><span class="tname">Shaw</span><span class="tchip">MUN</span><span class="tbar"><i style="width:21%"></i></span><span class="tpct">21</span></div>
+        <div class="trow"><span class="tname">Gu&eacute;hi</span><span class="tchip">MCI</span><span class="tbar"><i style="width:19%"></i></span><span class="tpct">19</span></div>
+        <div class="tgroup">Mid</div>
+        <div class="trow"><span class="tname">B.Fernandes</span><span class="tchip">MUN</span><span class="tbar"><i style="width:50%"></i></span><span class="tpct">50</span></div>
+        <div class="trow"><span class="tname">Szoboszlai</span><span class="tchip">LIV</span><span class="tbar"><i style="width:41%"></i></span><span class="tpct">41</span></div>
+        <div class="trow"><span class="tname">Mbeumo</span><span class="tchip">MUN</span><span class="tbar"><i style="width:35%"></i></span><span class="tpct">35</span></div>
+        <div class="trow"><span class="tname">Semenyo</span><span class="tchip">MCI</span><span class="tbar"><i style="width:26%"></i></span><span class="tpct">26</span></div>
+        <div class="trow"><span class="tname">Rogers</span><span class="tchip">CHE</span><span class="tbar"><i style="width:26%"></i></span><span class="tpct">26</span></div>
+        <div class="tgroup">Fwd</div>
+        <div class="trow"><span class="tname">Haaland</span><span class="tchip">MCI</span><span class="tbar"><i style="width:69%"></i></span><span class="tpct">69</span></div>
+        <div class="trow"><span class="tname">Jo&atilde;o Pedro</span><span class="tchip">CHE</span><span class="tbar"><i style="width:62%"></i></span><span class="tpct">62</span></div>
+        <div class="trow"><span class="tname">Thiago</span><span class="tchip">BRE</span><span class="tbar"><i style="width:18%"></i></span><span class="tpct">18</span></div>
+        <div class="trow"><span class="tname">Isak</span><span class="tchip">LIV</span><span class="tbar"><i style="width:16%"></i></span><span class="tpct">16</span></div>
+      </div>
       <p class="snote">Ownership is a risk fact, not an argument &mdash; but pass on a 30%+ asset only with a priced case.</p>
     </section>
 
     <section>
       <h2>The captain poll</h2>
-      <p><strong>Haaland</strong> is the runaway most-captained &mdash; City host Bournemouth.
-      Distant seconds: <strong>B.Fernandes</strong> at Hull, <strong>Jo&atilde;o Pedro</strong>
-      at Fulham on Monday.</p>
+      <div class="board tboard poll">
+        <div class="blabel">Share of captains</div>
+        <div class="trow"><span class="tname">Haaland</span><span class="tchip">MCI</span><span class="tbar"><i style="width:62%"></i></span><span class="tpct">62%</span></div>
+        <div class="trow"><span class="tname">B.Fernandes</span><span class="tchip">MUN</span><span class="tbar"><i style="width:11%"></i></span><span class="tpct">11%</span></div>
+        <div class="trow"><span class="tname">Jo&atilde;o Pedro</span><span class="tchip">CHE</span><span class="tbar"><i style="width:8%"></i></span><span class="tpct">8%</span></div>
+      </div>
+      <p class="snote">Haaland is the runaway most-captained &mdash; City host Bournemouth. Distant seconds: B.Fernandes at Hull, Jo&atilde;o Pedro at Fulham on Monday.</p>
     </section>
 
     <section>
       <h2>Penalty takers <span class="h2-right">verified</span></h2>
-      <div class="pens">
-        <div class="doc"><span class="dnum">CHE</span><span class="dtext"><b>Palmer</b></span></div>
-        <div class="doc"><span class="dnum">MCI</span><span class="dtext"><b>Haaland</b></span></div>
-        <div class="doc"><span class="dnum">MUN</span><span class="dtext"><b>B.Fernandes</b></span></div>
-        <div class="doc"><span class="dnum">BRE</span><span class="dtext"><b>Thiago</b></span></div>
-        <div class="doc"><span class="dnum">ARS</span><span class="dtext"><b>Saka</b></span></div>
-        <div class="doc"><span class="dnum">LIV</span><span class="dtext">Salah&rsquo;s pens vacated &mdash; expect a <b>Szoboszlai</b>/<b>Wirtz</b> split</span></div>
-        <div class="doc"><span class="dnum">AVL</span><span class="dtext"><b>Watkins</b></span></div>
-        <div class="doc"><span class="dnum">CRY</span><span class="dtext"><b>Mateta</b></span></div>
+      <div class="pengrid">
+        <div class="pen"><span class="tchip">CHE</span><b>Palmer</b></div>
+        <div class="pen"><span class="tchip">MCI</span><b>Haaland</b></div>
+        <div class="pen"><span class="tchip">MUN</span><b>B.Fernandes</b></div>
+        <div class="pen"><span class="tchip">BRE</span><b>Thiago</b></div>
+        <div class="pen"><span class="tchip">ARS</span><b>Saka</b></div>
+        <div class="pen"><span class="tchip">AVL</span><b>Watkins</b></div>
+        <div class="pen"><span class="tchip">CRY</span><b>Mateta</b></div>
+        <div class="pen wide"><span class="tchip">LIV</span><span class="popen">Salah&rsquo;s pens vacated &mdash; expect a Szoboszlai/Wirtz split</span></div>
       </div>
       <p class="snote">New managers may reshuffle quietly &mdash; a confirmed take beats last season&rsquo;s list.</p>
     </section>
@@ -624,22 +763,22 @@
     <section>
       <h2>Fixture runs <span class="h2-right">GW1&ndash;3 &middot; avg FDR</span></h2>
       <div class="board">
-        <div class="fdr">
+        <div class="fdrwrap">
           <div>
             <div class="flabel">Kindest</div>
-            <div class="mrow"><span class="club">MUN</span><span class="num">2.33</span><span class="frun">hul IPS eve</span></div>
-            <div class="mrow"><span class="club">SUN</span><span class="num">2.33</span><span class="frun">ips FUL bre</span></div>
-            <div class="mrow"><span class="club">LIV</span><span class="num">2.67</span><span class="frun">new NFO ips</span></div>
-            <div class="mrow"><span class="club">MCI</span><span class="num">2.67</span><span class="frun">BOU cry COV</span></div>
-            <div class="mrow"><span class="club">TOT</span><span class="num">2.67</span><span class="frun">bre NEW nfo</span></div>
-            <div class="mrow"><span class="club">BRE</span><span class="num">2.67</span><span class="frun">TOT lee SUN</span></div>
+            <div class="frw"><span class="fteam">MUN</span><span class="fc fdr2">hul</span><span class="fc fdr2">IPS</span><span class="fc fdr3">eve</span><span class="favg">2.33</span></div>
+            <div class="frw"><span class="fteam">SUN</span><span class="fc fdr2">ips</span><span class="fc fdr2">FUL</span><span class="fc fdr3">bre</span><span class="favg">2.33</span></div>
+            <div class="frw"><span class="fteam">LIV</span><span class="fc fdr3">new</span><span class="fc fdr3">NFO</span><span class="fc fdr2">ips</span><span class="favg">2.67</span></div>
+            <div class="frw"><span class="fteam">MCI</span><span class="fc fdr3">BOU</span><span class="fc fdr3">cry</span><span class="fc fdr2">COV</span><span class="favg">2.67</span></div>
+            <div class="frw"><span class="fteam">TOT</span><span class="fc fdr3">bre</span><span class="fc fdr3">NEW</span><span class="fc fdr2">nfo</span><span class="favg">2.67</span></div>
+            <div class="frw"><span class="fteam">BRE</span><span class="fc fdr4">TOT</span><span class="fc fdr2">lee</span><span class="fc fdr2">SUN</span><span class="favg">2.67</span></div>
           </div>
           <div>
             <div class="flabel">Hardest</div>
-            <div class="mrow"><span class="club">COV</span><span class="num">4.00</span><span class="frun">ars HUL mci</span></div>
-            <div class="mrow"><span class="club">BOU</span><span class="num">3.67</span><span class="frun">mci EVE new</span></div>
-            <div class="mrow"><span class="club">CHE</span><span class="num">3.33</span><span class="frun">ful BHA ars</span></div>
-            <div class="mrow"><span class="club">ARS</span><span class="num">3.33</span><span class="frun">COV avl CHE</span></div>
+            <div class="frw"><span class="fteam">COV</span><span class="fc fdr5">ars</span><span class="fc fdr2">HUL</span><span class="fc fdr5">mci</span><span class="favg">4.00</span></div>
+            <div class="frw"><span class="fteam">BOU</span><span class="fc fdr5">mci</span><span class="fc fdr3">EVE</span><span class="fc fdr3">new</span><span class="favg">3.67</span></div>
+            <div class="frw"><span class="fteam">CHE</span><span class="fc fdr2">ful</span><span class="fc fdr3">BHA</span><span class="fc fdr5">ars</span><span class="favg">3.33</span></div>
+            <div class="frw"><span class="fteam">ARS</span><span class="fc fdr2">COV</span><span class="fc fdr4">avl</span><span class="fc fdr4">CHE</span><span class="favg">3.33</span></div>
           </div>
         </div>
       </div>
@@ -655,12 +794,22 @@
           <span class="sum-sub">the set-and-forget benchmark</span>
           <span class="sum-right">rides in the race</span>
         </summary>
-        <div class="sq">
-          <div class="pos-row"><span class="pos">GK</span><div class="names"><span>Raya</span></div></div>
-          <div class="pos-row"><span class="pos">Def</span><div class="names"><span>Calafiori</span><span>Gu&eacute;hi</span><span>Shaw</span></div></div>
-          <div class="pos-row"><span class="pos">Mid</span><div class="names"><span>B.Fernandes<span class="cap v">V</span></span><span>Mbeumo</span><span>Szoboszlai</span><span>Rogers</span></div></div>
-          <div class="pos-row"><span class="pos">Fwd</span><div class="names"><span>Haaland<span class="cap">C</span></span><span>Jo&atilde;o Pedro</span><span>Calvert-Lewin</span></div></div>
-          <div class="pos-row bench"><span class="pos">Ben</span><div class="names"><span><i class="bo">1</i>Dubravka</span><span><i class="bo">2</i>Hume</span><span><i class="bo">3</i>Hughes</span><span><i class="bo">4</i>Diop</span></div></div>
+        <div class="sqb">
+          <div class="srow"><span class="posc">GK</span><span class="sname">Verbruggen</span><span class="tchip">BHA</span><span class="sprice">4.5</span></div>
+          <div class="srow"><span class="posc">Def</span><span class="sname">Calafiori</span><span class="tchip">ARS</span><span class="sprice">5.5</span></div>
+          <div class="srow"><span class="posc">Def</span><span class="sname">Gu&eacute;hi</span><span class="tchip">MCI</span><span class="sprice">6.0</span></div>
+          <div class="srow"><span class="posc">Def</span><span class="sname">Shaw</span><span class="tchip">MUN</span><span class="sprice">4.5</span></div>
+          <div class="srow"><span class="posc">Mid</span><span class="sname">B.Fernandes</span><span class="cap v">V</span><span class="tchip">MUN</span><span class="sprice">12.0</span></div>
+          <div class="srow"><span class="posc">Mid</span><span class="sname">Mbeumo</span><span class="tchip">MUN</span><span class="sprice">8.0</span></div>
+          <div class="srow"><span class="posc">Mid</span><span class="sname">Szoboszlai</span><span class="tchip">LIV</span><span class="sprice">7.0</span></div>
+          <div class="srow"><span class="posc">Mid</span><span class="sname">Tzolis</span><span class="tchip">ARS</span><span class="sprice">6.5</span></div>
+          <div class="srow"><span class="posc">Fwd</span><span class="sname">Haaland</span><span class="cap">C</span><span class="tchip">MCI</span><span class="sprice">15.5</span></div>
+          <div class="srow"><span class="posc">Fwd</span><span class="sname">Jo&atilde;o Pedro</span><span class="tchip">CHE</span><span class="sprice">7.5</span></div>
+          <div class="srow"><span class="posc">Fwd</span><span class="sname">Calvert-Lewin</span><span class="tchip">LEE</span><span class="sprice">6.0</span></div>
+          <div class="srow bench b1"><span class="posc">GK</span><i class="bo">1</i><span class="sname">Dubravka</span><span class="tchip">TOT</span><span class="sprice">4.0</span></div>
+          <div class="srow bench"><span class="posc">Def</span><i class="bo">2</i><span class="sname">Hume</span><span class="tchip">SUN</span><span class="sprice">4.5</span></div>
+          <div class="srow bench"><span class="posc">Mid</span><i class="bo">3</i><span class="sname">Hughes</span><span class="tchip">CRY</span><span class="sprice">4.5</span></div>
+          <div class="srow bench"><span class="posc">Def</span><i class="bo">4</i><span class="sname">Diop</span><span class="tchip">IPS</span><span class="sprice">4.0</span></div>
         </div>
       </details>
       <p class="snote">Fifteen picked for reliability, serviced only at international breaks. If weekly management can&rsquo;t beat this, it isn&rsquo;t working.</p>
@@ -675,12 +824,22 @@
           <span class="sum-sub">the best from-scratch squad today</span>
           <span class="sum-right">&pound;100.0m</span>
         </summary>
-        <div class="sq">
-          <div class="pos-row"><span class="pos">GK</span><div class="names"><span>Lammens</span></div></div>
-          <div class="pos-row"><span class="pos">Def</span><div class="names"><span>Kerkez</span><span>Gu&eacute;hi</span><span>Shaw</span></div></div>
-          <div class="pos-row"><span class="pos">Mid</span><div class="names"><span>Palmer</span><span>Semenyo</span><span>Mbeumo</span><span>Szoboszlai</span></div></div>
-          <div class="pos-row"><span class="pos">Fwd</span><div class="names"><span>Haaland<span class="cap">C</span></span><span>Jo&atilde;o Pedro</span><span>Calvert-Lewin</span></div></div>
-          <div class="pos-row bench"><span class="pos">Ben</span><div class="names"><span><i class="bo">1</i>Dubravka</span><span><i class="bo">2</i>Hume</span><span><i class="bo">3</i>Hughes</span><span><i class="bo">4</i>Diop</span></div></div>
+        <div class="sqb">
+          <div class="srow"><span class="posc">GK</span><span class="sname">Lammens</span><span class="tchip">MUN</span><span class="sprice">5.0</span></div>
+          <div class="srow"><span class="posc">Def</span><span class="sname">Kerkez</span><span class="tchip">LIV</span><span class="sprice">5.5</span></div>
+          <div class="srow"><span class="posc">Def</span><span class="sname">Gu&eacute;hi</span><span class="tchip">MCI</span><span class="sprice">6.0</span></div>
+          <div class="srow"><span class="posc">Def</span><span class="sname">Shaw</span><span class="tchip">MUN</span><span class="sprice">4.5</span></div>
+          <div class="srow"><span class="posc">Mid</span><span class="sname">Palmer</span><span class="tchip">CHE</span><span class="sprice">9.5</span></div>
+          <div class="srow"><span class="posc">Mid</span><span class="sname">Semenyo</span><span class="tchip">MCI</span><span class="sprice">8.5</span></div>
+          <div class="srow"><span class="posc">Mid</span><span class="sname">Mbeumo</span><span class="tchip">MUN</span><span class="sprice">8.0</span></div>
+          <div class="srow"><span class="posc">Mid</span><span class="sname">Szoboszlai</span><span class="tchip">LIV</span><span class="sprice">7.0</span></div>
+          <div class="srow"><span class="posc">Fwd</span><span class="sname">Haaland</span><span class="cap">C</span><span class="tchip">MCI</span><span class="sprice">15.5</span></div>
+          <div class="srow"><span class="posc">Fwd</span><span class="sname">Jo&atilde;o Pedro</span><span class="tchip">CHE</span><span class="sprice">7.5</span></div>
+          <div class="srow"><span class="posc">Fwd</span><span class="sname">Calvert-Lewin</span><span class="tchip">LEE</span><span class="sprice">6.0</span></div>
+          <div class="srow bench b1"><span class="posc">GK</span><i class="bo">1</i><span class="sname">Dubravka</span><span class="tchip">TOT</span><span class="sprice">4.0</span></div>
+          <div class="srow bench"><span class="posc">Def</span><i class="bo">2</i><span class="sname">Hume</span><span class="tchip">SUN</span><span class="sprice">4.5</span></div>
+          <div class="srow bench"><span class="posc">Mid</span><i class="bo">3</i><span class="sname">Hughes</span><span class="tchip">CRY</span><span class="sprice">4.5</span></div>
+          <div class="srow bench"><span class="posc">Def</span><i class="bo">4</i><span class="sname">Diop</span><span class="tchip">IPS</span><span class="sprice">4.0</span></div>
         </div>
       </details>
       <p class="snote">Day 0: identical to the recommended squad &mdash; the two diverge the moment real transfers cost something.</p>
@@ -688,10 +847,10 @@
 
     <section>
       <h2>The chip clock</h2>
-      <div class="chip"><span class="cname">Wildcard &#8470;1</span><span class="cnote">earliest sensible window GW6&ndash;8 &mdash; post-break, real data exists</span><span class="cexp">GW19</span></div>
-      <div class="chip"><span class="cname">Free Hit &#8470;1</span><span class="cnote">hold for a blank; none exist yet</span><span class="cexp">GW19</span></div>
-      <div class="chip"><span class="cname">Bench Boost &#8470;1</span><span class="cnote">wants a clean double; none exist yet</span><span class="cexp">GW19</span></div>
-      <div class="chip"><span class="cname">Triple Captain &#8470;1</span><span class="cnote">premium home double or bust</span><span class="cexp">GW19</span></div>
+      <div class="chip"><span class="ctok">WC1</span><span class="cnote">earliest sensible window GW6&ndash;8 &mdash; post-break, real data exists</span><span class="cexp">GW19</span></div>
+      <div class="chip"><span class="ctok">FH1</span><span class="cnote">hold for a blank; none exist yet</span><span class="cexp">GW19</span></div>
+      <div class="chip"><span class="ctok">BB1</span><span class="cnote">wants a clean double; none exist yet</span><span class="cexp">GW19</span></div>
+      <div class="chip"><span class="ctok">TC1</span><span class="cnote">premium home double or bust</span><span class="cexp">GW19</span></div>
       <p class="snote">First-half chips die at the GW19 deadline (2 Jan). Playing BB or TC in GW1 is burning optionality for noise.</p>
     </section>
 

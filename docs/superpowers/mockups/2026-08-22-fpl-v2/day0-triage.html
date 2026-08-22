@@ -13,6 +13,7 @@ try{if(localStorage.getItem('touchline-quiet-sync')==='1')document.documentEleme
 :root{
   color-scheme: light dark;
   --paper:#f7f9f5;
+  --card:#ffffff;
   --ink:#1c231d;
   --muted:#57625a;
   --faint:#6d7870;
@@ -22,6 +23,14 @@ try{if(localStorage.getItem('touchline-quiet-sync')==='1')document.documentEleme
   --miss:#ab3a35;
   --unlucky:#8f6109;
   --lucky:#2f5fa7;
+  --club:#034694;
+  --club-bg:#e7eef8;
+  --score-bg:#eef3ee;
+  --fdr1-bg:#256e43; --fdr1-ink:#ffffff;
+  --fdr2-bg:#b9dcc3; --fdr2-ink:#1a3b26;
+  --fdr3-bg:#eef3ee; --fdr3-ink:#5c6a60;
+  --fdr4-bg:#ecc4c4; --fdr4-ink:#5d2222;
+  --fdr5-bg:#b04a4a; --fdr5-ink:#ffffff;
   --serif:Georgia,'Times New Roman',serif;
   --sans:-apple-system,BlinkMacSystemFont,'Segoe UI',system-ui,sans-serif;
   --mono:ui-monospace,'SF Mono',SFMono-Regular,Menlo,Consolas,monospace;
@@ -29,6 +38,7 @@ try{if(localStorage.getItem('touchline-quiet-sync')==='1')document.documentEleme
 @media (prefers-color-scheme: dark){
   :root{
     --paper:#0d1411;
+    --card:#121b16;
     --ink:#e4ebe5;
     --muted:#9daaa0;
     --faint:#7f8b81;
@@ -38,6 +48,14 @@ try{if(localStorage.getItem('touchline-quiet-sync')==='1')document.documentEleme
     --miss:#e0837d;
     --unlucky:#d4a44a;
     --lucky:#82aade;
+    --club:#6ea8e0;
+    --club-bg:#14202e;
+    --score-bg:#16201a;
+    --fdr1-bg:#1f5c3c; --fdr1-ink:#d9efe2;
+    --fdr2-bg:#1c3a29; --fdr2-ink:#9fceb0;
+    --fdr3-bg:#16201a; --fdr3-ink:#6c7d71;
+    --fdr4-bg:#4a2323; --fdr4-ink:#d8a3a3;
+    --fdr5-bg:#7d2f2f; --fdr5-ink:#f1d9d9;
   }
 }
 
@@ -110,31 +128,35 @@ html.synced #syncBtn{
   font:400 11.5px/1.8 var(--mono);color:var(--faint);
   margin-top:22px;letter-spacing:.02em;
 }
-.meta + .meta{margin-top:2px}
 .meta .team{color:var(--ink)}
-.meta .count{color:var(--green)}
+/* the one status-block visual: the deadline countdown as the live site's eyebrow */
+.eyebrow{
+  font:600 11px/1.7 var(--sans);letter-spacing:.16em;text-transform:uppercase;
+  color:var(--green);margin-top:22px;
+}
+.meta + .eyebrow{margin-top:6px}
 
-/* ————— quiet lists ————— */
+/* ————— quiet rows ————— */
 .group{margin-top:34px}
 .group > h2{
   font:600 11px/1 var(--sans);letter-spacing:.2em;text-transform:uppercase;
   color:var(--faint);padding-bottom:11px;border-bottom:1px solid var(--hair);
 }
-.group details + details{border-top:1px solid var(--hair)}
+.group > :not(h2) + :not(h2){border-top:1px solid var(--hair)}
 summary{list-style:none;cursor:pointer}
 summary::-webkit-details-marker{display:none}
-summary.row{display:flex;align-items:baseline;gap:12px;padding:15px 2px}
-summary.row h3{
+.row{display:flex;align-items:baseline;gap:12px;padding:15px 2px}
+.row h3{
   flex:0 0 92px;font:600 11px/1.5 var(--sans);letter-spacing:.13em;
   text-transform:uppercase;color:var(--ink);
 }
-summary.row h3 .callstar{color:var(--green);letter-spacing:0}
-summary.row .sum{
+.row h3 .callstar{color:var(--green);letter-spacing:0}
+.row .sum{
   flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;
   font-size:14px;color:var(--muted);
 }
 summary.row:hover .sum{color:var(--ink)}
-summary.row .hint{font:400 11px/1.5 var(--mono);color:var(--faint);white-space:nowrap}
+.row .hint{font:400 11px/1.5 var(--mono);color:var(--faint);white-space:nowrap}
 .chev{
   flex:0 0 auto;align-self:center;width:7px;height:7px;margin-left:2px;
   border-right:1.5px solid var(--faint);border-bottom:1.5px solid var(--faint);
@@ -142,6 +164,7 @@ summary.row .hint{font:400 11px/1.5 var(--mono);color:var(--faint);white-space:n
 }
 details[open] .chev{transform:rotate(45deg)}
 details[open] summary.row h3{color:var(--green)}
+.flat .row{cursor:default}
 .body{padding:4px 2px 30px;font-size:14.5px;line-height:1.65;color:var(--muted)}
 .body strong{font-weight:500;color:var(--ink)}
 @media (min-width:700px){
@@ -156,40 +179,57 @@ details[open] summary.row h3{color:var(--green)}
 }
 .note{margin-top:14px}
 .season{font:400 11.5px/1.6 var(--mono);color:var(--faint);margin-top:10px;letter-spacing:.02em}
-.up{color:var(--green)}
-
-/* pitch (formations as centered text lines) */
-.pitch{text-align:center;padding:8px 0 2px}
-.pitch .line{padding:4px 0;color:var(--ink);font-size:14.5px}
-.pitch .line i,.benchline i{font-style:normal;color:var(--faint);padding:0 3px}
-.pitch .pr{font:400 10.5px/1 var(--mono);color:var(--faint);margin-left:1px}
-.badge{
-  font:600 9.5px/1 var(--mono);color:var(--muted);
-  border:1px solid var(--hair);border-radius:3px;padding:1.5px 3.5px;
-  vertical-align:1.5px;margin-left:2px;
-}
-.badge.c{color:var(--green);border-color:color-mix(in srgb, var(--green) 45%, transparent)}
-.benchline{
-  text-align:center;padding-top:10px;color:var(--muted);font-size:13.5px;
-}
-.benchline .k{min-width:0;margin-right:8px}
-.benchline .pr{font:400 10.5px/1 var(--mono);color:var(--faint)}
-.pitch sup{font-size:9.5px;color:var(--green);line-height:0}
+.capsnote{font:400 10.5px/1.6 var(--mono);color:var(--faint);margin-top:8px}
 .foot{font-size:12.5px;color:var(--faint);margin-top:12px}
+
+/* ————— squad board (the live scoreboard block) ————— */
+.board{
+  background:var(--score-bg);border:1px solid var(--hair);border-radius:10px;
+  font:400 12.5px/1.5 var(--mono);margin:6px 0 2px;overflow-x:auto;
+}
+.brow{display:flex;align-items:center;gap:8px;padding:7px 12px;white-space:nowrap}
+.brow + .brow{border-top:1px solid var(--hair)}
+.pos{
+  flex:0 0 36px;text-align:center;font:600 9px/1.8 var(--sans);letter-spacing:.1em;
+  color:var(--faint);border:1px solid var(--hair);border-radius:3px;
+}
+.pname{min-width:0;overflow:hidden;text-overflow:ellipsis;color:var(--ink);font-weight:600}
+.pname sup{font-size:9px;color:var(--green);line-height:0}
+.tchip{
+  font:600 10px/1.7 var(--mono);color:var(--faint);
+  border:1px solid var(--hair);border-radius:4px;padding:0 4px;
+}
+.price{margin-left:auto;color:var(--muted);font-variant-numeric:tabular-nums}
+.cap{
+  font:800 9.5px/1.7 var(--sans);background:var(--green);color:var(--paper);
+  border-radius:4px;padding:0 5px;
+}
+.cap.v{
+  background:none;color:var(--green);
+  border:1px solid color-mix(in srgb, var(--green) 55%, transparent);
+}
+.bet{
+  font:700 9px/1.7 var(--sans);letter-spacing:.06em;text-transform:uppercase;
+  color:var(--club);border:1px solid color-mix(in srgb, var(--club) 55%, transparent);
+  border-radius:4px;padding:0 4px;
+}
+.brow.bench{color:var(--faint)}
+.brow.bench .pname{color:var(--muted);font-weight:500}
+.brow.bench .price{color:var(--faint)}
+.bord{flex:0 0 10px;text-align:right;font-size:10.5px;color:var(--faint)}
 
 /* the call */
 .callhead{font:400 19px/1.4 var(--serif);color:var(--ink);margin-bottom:14px;text-wrap:balance}
+.moves{margin-top:12px}
 .moves p{margin:3px 0}
 .reason{margin-top:14px}
 .wager{font:400 11.5px/1.8 var(--mono);color:var(--faint);margin-top:12px;letter-spacing:.02em}
-.fyi{margin-top:20px;border-top:1px solid var(--hair);padding-top:14px}
 .fyilabel{
   font:600 10px/1 var(--sans);letter-spacing:.16em;text-transform:uppercase;
   color:var(--faint);margin-bottom:8px;
 }
 .fyirow{display:flex;align-items:baseline;gap:8px;margin:5px 0}
 .fyirow .move{flex:1;min-width:0}
-.fyirow .cost{font:400 11.5px/1 var(--mono);color:var(--faint)}
 button.star{
   background:none;border:none;cursor:pointer;padding:2px 6px;
   font-size:15px;line-height:1;color:var(--faint);align-self:center;
@@ -197,58 +237,123 @@ button.star{
 button.star:hover{color:var(--muted)}
 button.star[aria-pressed="true"]{color:var(--green)}
 
-/* watchlist */
-.watch{list-style:none}
-.watch li{padding:6px 0}
-.watch .wname{color:var(--ink);font-weight:500}
-.watch .warrow{color:var(--faint);padding:0 1px}
-.watch .warrow.up{color:var(--green)}
-.watch .wtag{
-  font:600 10px/1 var(--sans);letter-spacing:.12em;text-transform:uppercase;
-  color:var(--faint);margin:0 2px;
+/* ————— bars (ownership / captain share) ————— */
+.bars{display:flex;flex-direction:column;gap:6px;padding-top:2px}
+.glabel{
+  font:600 10px/1 var(--sans);letter-spacing:.14em;text-transform:uppercase;
+  color:var(--faint);margin:9px 0 1px;
 }
-.watch .wtag.starred{color:var(--green)}
-.watch button.star{padding:0 3px}
+.bars .glabel:first-child{margin-top:2px}
+.barrow{display:grid;grid-template-columns:96px 36px 1fr 36px;gap:8px;align-items:center}
+.barrow.nochip{grid-template-columns:96px 1fr 36px}
+.barrow .bname{font-size:13px;font-weight:600;color:var(--ink);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.barrow .tchip{justify-self:start}
+.track{display:block;height:3px;background:var(--hair);border-radius:2px;overflow:hidden}
+.fill{display:block;height:100%;background:var(--green);border-radius:2px}
+.barrow .pct{font:400 11px/1.5 var(--mono);color:var(--muted);text-align:right;font-variant-numeric:tabular-nums}
 
-/* debrief */
-.stamps{list-style:none}
-.stamps li{display:grid;grid-template-columns:66px 1fr;gap:2px 12px;padding:6px 0;align-items:baseline}
-.stamp{
-  font:600 10px/1.6 var(--sans);letter-spacing:.13em;text-transform:uppercase;
-  justify-self:start;border:1px solid;border-radius:999px;padding:1px 7px;
+/* ————— signal cards (the week) ————— */
+.cards{display:flex;flex-direction:column;gap:8px;padding-top:2px}
+.card{background:var(--card);border:1px solid var(--hair);border-radius:10px;padding:9px 13px}
+.ctop{display:flex;align-items:baseline;gap:9px;flex-wrap:wrap}
+.subj{font-weight:600;color:var(--ink);font-size:14px}
+.cnote{color:var(--muted);font-size:13px;margin-top:2px;line-height:1.5}
+.sig{
+  font:700 9.5px/1.8 var(--sans);letter-spacing:.08em;text-transform:uppercase;
+  border-radius:4px;padding:0 6px;white-space:nowrap;
 }
-.stamp.hit{color:var(--hit);border-color:color-mix(in srgb, var(--hit) 40%, transparent)}
-.stamp.miss{color:var(--miss);border-color:color-mix(in srgb, var(--miss) 40%, transparent)}
-.stamp.unlucky{color:var(--unlucky);border-color:color-mix(in srgb, var(--unlucky) 45%, transparent)}
-.stamp.lucky{color:var(--lucky);border-color:color-mix(in srgb, var(--lucky) 40%, transparent)}
-.lesson{margin-top:18px}
-.lessonlabel{
-  font:600 10px/1 var(--sans);letter-spacing:.16em;text-transform:uppercase;
-  color:var(--faint);margin-bottom:8px;
-}
-.lessontext{
-  font:italic 400 16.5px/1.5 var(--serif);color:var(--ink);
-  border-left:2px solid var(--green);padding-left:14px;text-wrap:balance;
+.sig.injury{background:var(--miss);color:var(--paper)}
+.sig.ban{color:var(--miss);border:1px solid color-mix(in srgb, var(--miss) 55%, transparent)}
+.sig.doubt{color:var(--unlucky);border:1px solid color-mix(in srgb, var(--unlucky) 55%, transparent)}
+.sig.mgrs{color:var(--faint);border:1px dashed var(--hair)}
+
+/* ————— brief (prose-only lists) ————— */
+ul.brief{list-style:none;display:flex;flex-direction:column;gap:10px;padding-top:2px}
+ul.brief li{position:relative;padding-left:18px}
+ul.brief li::before{
+  content:"";position:absolute;left:1px;top:.62em;
+  width:8px;height:2px;background:var(--green);border-radius:1px;
 }
 
-/* the race */
-.table{list-style:none}
-.table li{display:flex;align-items:baseline;gap:12px;padding:5px 0}
-.table .rk{flex:0 0 16px;font:400 11px/1.5 var(--mono);color:var(--faint)}
-.table .nm{flex:1;min-width:0;color:var(--ink)}
-.table .pts{font:400 13px/1.5 var(--mono);color:var(--muted)}
-.table li.you .nm{font-weight:600}
-.table li.you .nm .youstar{color:var(--green)}
-.table li.you .pts{color:var(--ink)}
-.table li.more .nm{color:var(--faint);font-size:12.5px}
-.benchmarks{
-  font:400 11.5px/1.8 var(--mono);color:var(--faint);
-  border-top:1px solid var(--hair);margin-top:10px;padding-top:10px;letter-spacing:.02em;
-}
-.raceline{font:italic 400 15.5px/1.5 var(--serif);color:var(--muted);margin-top:12px}
-.raceline strong{font-style:normal}
+/* ————— penalty takers ————— */
+.pens{display:grid;grid-template-columns:1fr 1fr;gap:5px 18px;padding-top:2px}
+.pen{display:flex;align-items:baseline;gap:8px}
+.pen strong{font-weight:600}
+.pen.open{grid-column:1/-1;font-style:italic;color:var(--faint)}
+.pen.open strong{color:var(--muted);font-weight:500}
 
-/* doctrine */
+/* ————— FDR strips ————— */
+.rh{
+  font:600 10px/1.6 var(--sans);letter-spacing:.14em;text-transform:uppercase;
+  color:var(--faint);margin:2px 0 5px;
+}
+.rh + .rh, .fdrgrid + .rh{margin-top:14px}
+.fdrgrid{display:flex;flex-direction:column;gap:3px}
+.frow{display:grid;grid-template-columns:40px 1fr 1fr 1fr 38px;gap:3px;align-items:stretch}
+.ft{display:flex;align-items:center;font:600 11px/1 var(--mono);color:var(--ink)}
+.favg{
+  display:flex;align-items:center;justify-content:flex-end;
+  font:400 11px/1 var(--mono);color:var(--faint);font-variant-numeric:tabular-nums;
+}
+.fc{
+  border-radius:5px;display:flex;align-items:center;justify-content:center;
+  padding:4px 0;font:400 10.5px/1 var(--mono);letter-spacing:.04em;
+}
+.fc.f1{background:var(--fdr1-bg);color:var(--fdr1-ink)}
+.fc.f2{background:var(--fdr2-bg);color:var(--fdr2-ink)}
+.fc.f3{background:var(--fdr3-bg);color:var(--fdr3-ink)}
+.fc.f4{background:var(--fdr4-bg);color:var(--fdr4-ink)}
+.fc.f5{background:var(--fdr5-bg);color:var(--fdr5-ink)}
+
+/* ————— player cards (watchlist) ————— */
+.pcards{display:flex;flex-direction:column;gap:8px;padding-top:2px}
+.pcard{
+  display:flex;gap:12px;align-items:flex-start;
+  background:var(--card);border:1px solid var(--hair);border-radius:10px;padding:10px 13px;
+}
+.avatar{
+  width:34px;height:34px;border-radius:50%;flex:0 0 auto;
+  display:flex;align-items:center;justify-content:center;
+  background:var(--club-bg);color:var(--club);
+  font:800 11.5px/1 var(--sans);letter-spacing:.02em;
+}
+.avatar.talent{background:var(--score-bg);color:var(--green)}
+.ptop{display:flex;align-items:baseline;gap:8px;flex-wrap:wrap}
+.wname{font-weight:600;color:var(--ink);font-size:14px}
+.ptag{
+  font:700 9.5px/1.8 var(--sans);letter-spacing:.08em;text-transform:uppercase;
+  color:var(--faint);border:1px solid var(--hair);border-radius:4px;padding:0 6px;
+}
+.ptag.rising{color:var(--green);border-color:color-mix(in srgb, var(--green) 55%, transparent)}
+.pnote{color:var(--muted);font-size:13px;margin-top:2px;line-height:1.5}
+
+/* ————— wager cards ————— */
+.wcards{display:flex;flex-direction:column;gap:8px;padding-top:2px}
+.wcard{
+  display:flex;align-items:baseline;gap:12px;
+  background:var(--card);border:1px solid var(--hair);border-radius:10px;padding:10px 13px;
+}
+.wtext{flex:1;min-width:0;font-size:13.5px}
+.settle{
+  font:400 10.5px/1.9 var(--mono);color:var(--faint);
+  border:1px solid var(--hair);border-radius:4px;padding:0 6px;white-space:nowrap;
+}
+
+/* ————— chip clock ————— */
+.chiprows{display:flex;flex-direction:column;padding-top:2px}
+.chiprow{display:flex;align-items:baseline;gap:11px;padding:8px 0}
+.chiprow + .chiprow{border-top:1px solid var(--hair)}
+.ctok{
+  flex:0 0 auto;font:600 10.5px/1.8 var(--mono);color:var(--ink);
+  border:1px solid var(--hair);border-radius:4px;padding:0 6px;
+}
+.cwin{flex:1;min-width:0;font-size:13.5px}
+.exp{
+  font:400 10.5px/1.9 var(--mono);color:var(--faint);
+  border:1px solid var(--hair);border-radius:4px;padding:0 6px;white-space:nowrap;
+}
+
+/* ————— doctrine ————— */
 .doct{list-style:none}
 .doct li{padding:5px 0}
 .doct .dn{font:400 11px/1.5 var(--mono);color:var(--faint);margin-right:8px}
@@ -258,27 +363,22 @@ button.star[aria-pressed="true"]{color:var(--green)}
   border-radius:999px;padding:1.5px 7px;margin-left:6px;vertical-align:1px;white-space:nowrap;
 }
 
-/* the week + chips + wagers */
-.week{list-style:none}
-.week li{padding:6px 0}
-.chips{list-style:none}
-.chips li{padding:7px 0}
-.chips .cx{font:400 11px/1.5 var(--mono);color:var(--faint);white-space:nowrap}
-.week .cx{font:400 11px/1.5 var(--mono);color:var(--faint);white-space:nowrap}
-
-/* fixtures + boards */
-.fx{font:400 12.5px/1.5 var(--mono);color:var(--muted);letter-spacing:.02em}
-.fx strong{font-weight:600;color:var(--ink)}
-.capsnote{font:400 10.5px/1.6 var(--mono);color:var(--faint);margin-top:8px}
-.runs{display:grid;grid-template-columns:1fr 1fr;gap:2px 12px;padding-top:2px}
-.runs > div{min-width:0}
-.runs .rh{
-  font:600 10px/1.6 var(--sans);letter-spacing:.14em;text-transform:uppercase;
-  color:var(--faint);padding-bottom:4px;
+/* ————— the race ————— */
+.raceline{font:italic 400 15.5px/1.5 var(--serif);color:var(--muted)}
+.raceline strong{font-style:normal}
+.cloud{display:flex;flex-wrap:wrap;gap:6px;padding-top:12px}
+.mchip{
+  font-size:11.5px;color:var(--muted);border:1px solid var(--hair);
+  border-radius:999px;padding:3px 10px;white-space:nowrap;
 }
-.runs p{padding:2px 0}
-.tmpl li{padding:4px 0}
-.tmpl .k{min-width:44px}
+.mchip.you{
+  color:var(--green);font-weight:600;
+  border-color:color-mix(in srgb, var(--green) 45%, transparent);
+}
+.bm{margin-top:12px;border-top:1px solid var(--hair);padding-top:8px}
+.bmrow{display:flex;align-items:baseline;gap:12px;color:var(--faint);font-size:13px;padding:2px 0}
+.bmrow .bmn{flex:1;min-width:0}
+.bmrow .bmp{font:400 12px/1.5 var(--mono)}
 
 /* ————— footer ————— */
 footer{
@@ -289,7 +389,7 @@ footer{
   display:inline-block;font:400 10.5px/1 var(--mono);letter-spacing:.08em;
   color:var(--faint);border:1px solid var(--hair);border-radius:999px;padding:6px 13px;
 }
-.sig{font-size:11px;color:var(--faint);margin-top:12px}
+.sig-line{font-size:11px;color:var(--faint);margin-top:12px}
 
 @media (prefers-reduced-motion: reduce){
   *,*::before,*::after{transition:none!important;animation:none!important}
@@ -320,14 +420,14 @@ footer{
     <div class="when-public">
       <p class="big">Deadline <span class="now">tonight</span>, 23:00&nbsp;IST.</p>
       <p class="sub">The commons below has the season primer.</p>
-      <p class="meta">GW1 deadline · tonight, Fri 21 Aug · 23:00 IST · <span class="count">in 8h</span></p>
+      <p class="eyebrow">GW1 deadline · tonight, Fri 21 Aug · 23:00 IST · in 8h</p>
     </div>
 
     <div class="when-synced">
       <p class="big"><span class="now">Tonight needs you:</span><br>enter the team.</p>
       <p class="sub">The call is below — 15 names, £100.0m.<br>Deadline 23:00 IST.</p>
       <p class="meta"><span class="team">Wabi Sabi Xabi</span> · team not entered yet · budget £100.0m · mini-league FPL 26-27 · 11 managers registered</p>
-      <p class="meta">GW1 deadline · tonight, Fri 21 Aug · 23:00 IST · <span class="count">in 8h</span></p>
+      <p class="eyebrow">GW1 deadline · tonight, Fri 21 Aug · 23:00 IST · in 8h</p>
     </div>
   </section>
 
@@ -344,12 +444,22 @@ footer{
       </summary>
       <div class="body">
         <p class="callhead">“Spread out behind Haaland — and bet on the Palmer bounce-back.”</p>
-        <div class="pitch">
-          <p class="line">Lammens</p>
-          <p class="line">Kerkez<sup>†</sup><i>·</i>Guéhi<i>·</i>Shaw</p>
-          <p class="line">Palmer<sup>†</sup><span class="badge">V</span><i>·</i>Semenyo<i>·</i>Mbeumo<i>·</i>Szoboszlai</p>
-          <p class="line">Haaland<span class="badge c">C</span><i>·</i>João Pedro<i>·</i>Calvert-Lewin</p>
-          <p class="benchline"><span class="k">bench</span><span class="pr">1</span> Dubravka<i>·</i><span class="pr">2</span> Hume<sup>†</sup><i>·</i><span class="pr">3</span> Hughes<i>·</i><span class="pr">4</span> Diop</p>
+        <div class="board" aria-label="The call — full squad, 3-4-3">
+          <div class="brow"><span class="pos">GK</span><span class="pname">Lammens</span><span class="tchip">MUN</span><span class="price">5.0</span></div>
+          <div class="brow"><span class="pos">DEF</span><span class="pname">Kerkez<sup>†</sup></span><span class="bet">bet</span><span class="tchip">LIV</span><span class="price">5.5</span></div>
+          <div class="brow"><span class="pos">DEF</span><span class="pname">Guéhi</span><span class="tchip">MCI</span><span class="price">6.0</span></div>
+          <div class="brow"><span class="pos">DEF</span><span class="pname">Shaw</span><span class="tchip">MUN</span><span class="price">4.5</span></div>
+          <div class="brow"><span class="pos">MID</span><span class="pname">Palmer<sup>†</sup></span><span class="cap v">V</span><span class="bet">bet</span><span class="tchip">CHE</span><span class="price">9.5</span></div>
+          <div class="brow"><span class="pos">MID</span><span class="pname">Semenyo</span><span class="tchip">MCI</span><span class="price">8.5</span></div>
+          <div class="brow"><span class="pos">MID</span><span class="pname">Mbeumo</span><span class="tchip">MUN</span><span class="price">8.0</span></div>
+          <div class="brow"><span class="pos">MID</span><span class="pname">Szoboszlai</span><span class="tchip">LIV</span><span class="price">7.0</span></div>
+          <div class="brow"><span class="pos">FWD</span><span class="pname">Haaland</span><span class="cap">C</span><span class="tchip">MCI</span><span class="price">15.5</span></div>
+          <div class="brow"><span class="pos">FWD</span><span class="pname">João Pedro</span><span class="tchip">CHE</span><span class="price">7.5</span></div>
+          <div class="brow"><span class="pos">FWD</span><span class="pname">Calvert-Lewin</span><span class="tchip">LEE</span><span class="price">6.0</span></div>
+          <div class="brow bench"><span class="bord">1</span><span class="pos">GK</span><span class="pname">Dubravka</span><span class="tchip">TOT</span><span class="price">4.0</span></div>
+          <div class="brow bench"><span class="bord">2</span><span class="pos">DEF</span><span class="pname">Hume<sup>†</sup></span><span class="bet">bet</span><span class="tchip">SUN</span><span class="price">4.5</span></div>
+          <div class="brow bench"><span class="bord">3</span><span class="pos">MID</span><span class="pname">Hughes</span><span class="tchip">CRY</span><span class="price">4.5</span></div>
+          <div class="brow bench"><span class="bord">4</span><span class="pos">DEF</span><span class="pname">Diop</span><span class="tchip">IPS</span><span class="price">4.0</span></div>
         </div>
         <div class="moves">
           <p><span class="k">enter</span> <strong>15 names</strong> · 3-4-3 · £100.0m spent · £0.0 bank</p>
@@ -384,12 +494,36 @@ footer{
         <span class="chev" aria-hidden="true"></span>
       </summary>
       <div class="body">
-        <ul class="watch">
-          <li><span class="wname">Thiago</span> <span class="warrow up" aria-hidden="true">↗</span> <span class="wtag">rising</span> — 22 goals + pens; the pivot if a second premium is needed</li>
-          <li><span class="wname">Rogers</span> <span class="warrow" aria-hidden="true">→</span> <span class="wtag">hold</span> — Alonso says late returnees need time</li>
-          <li><span class="wname">Estêvão</span> <span class="warrow up" aria-hidden="true">↗</span> <span class="wtag">rising</span> — claim a wing spot and he’s the value entry</li>
-          <li><span class="wname">Šeško</span> <span class="warrow" aria-hidden="true">→</span> <span class="wtag">hold</span> — first-start watch</li>
-        </ul>
+        <div class="pcards">
+          <div class="pcard">
+            <span class="avatar talent" aria-hidden="true">TH</span>
+            <div>
+              <p class="ptop"><span class="wname">Thiago</span> <span class="tchip">BRE</span> <span class="ptag rising">rising</span></p>
+              <p class="pnote">22 goals + pens; the pivot if a second premium is needed.</p>
+            </div>
+          </div>
+          <div class="pcard">
+            <span class="avatar" aria-hidden="true">RO</span>
+            <div>
+              <p class="ptop"><span class="wname">Rogers</span> <span class="tchip">CHE</span> <span class="ptag">hold</span></p>
+              <p class="pnote">Alonso says late returnees need time.</p>
+            </div>
+          </div>
+          <div class="pcard">
+            <span class="avatar talent" aria-hidden="true">ES</span>
+            <div>
+              <p class="ptop"><span class="wname">Estêvão</span> <span class="tchip">CHE</span> <span class="ptag rising">rising</span></p>
+              <p class="pnote">Claim a wing spot and he’s the value entry.</p>
+            </div>
+          </div>
+          <div class="pcard">
+            <span class="avatar" aria-hidden="true">ŠE</span>
+            <div>
+              <p class="ptop"><span class="wname">Šeško</span> <span class="tchip">MUN</span> <span class="ptag">hold</span></p>
+              <p class="pnote">First-start watch.</p>
+            </div>
+          </div>
+        </div>
       </div>
     </details>
 
@@ -401,12 +535,12 @@ footer{
         <span class="chev" aria-hidden="true"></span>
       </summary>
       <div class="body">
-        <ul class="week">
-          <li><strong>Palmer outscores B.Fernandes</strong> over GW1–6 <span class="cx">· settles GW6</span></li>
-          <li><strong>Kerkez ≥3 clean sheets</strong> by GW8 <span class="cx">· settles GW8</span></li>
-          <li><strong>Hume’s Sunderland run pays</strong> through GW3 <span class="cx">· settles GW3</span></li>
-          <li><strong>This squad beats The Bus</strong> by GW8 <span class="cx">· the season wager</span></li>
-        </ul>
+        <div class="wcards">
+          <p class="wcard"><span class="wtext"><strong>Palmer outscores B.Fernandes</strong> over GW1–6</span><span class="settle">settles GW6</span></p>
+          <p class="wcard"><span class="wtext"><strong>Kerkez ≥3 clean sheets</strong> by GW8</span><span class="settle">settles GW8</span></p>
+          <p class="wcard"><span class="wtext"><strong>Hume’s Sunderland run pays</strong> through GW3</span><span class="settle">settles GW3</span></p>
+          <p class="wcard"><span class="wtext"><strong>This squad beats The Bus</strong> by GW8</span><span class="settle">season wager</span></p>
+        </div>
         <p class="note">Nothing has settled — no football has been played. Stamps arrive with the GW1 debrief.</p>
       </div>
     </details>
@@ -435,6 +569,14 @@ footer{
       </summary>
       <div class="body">
         <p class="raceline">“Kicks off tonight. 11 managers registered in <strong>FPL 26-27</strong>; The Bus and the Wildcard XI ride along as benchmarks. First table after GW1.”</p>
+        <div class="cloud" aria-label="Registered managers">
+          <span class="mchip you">★ Wabi Sabi Xabi</span>
+          <span class="mchip">Gunners.exe</span><span class="mchip">Mad11</span><span class="mchip">WorldChamps</span><span class="mchip">Vabby_Blues</span><span class="mchip">CFC</span><span class="mchip">Youri kiddin’ me!</span><span class="mchip">Yogesh11</span><span class="mchip">IceMan</span><span class="mchip">Peaky Malayali FC</span><span class="mchip">+1 more</span>
+        </div>
+        <div class="bm">
+          <p class="bmrow"><span class="bmn">The Bus</span><span class="bmp">—</span></p>
+          <p class="bmrow"><span class="bmn">Wildcard XI</span><span class="bmp">—</span></p>
+        </div>
       </div>
     </details>
   </section>
@@ -451,10 +593,10 @@ footer{
         <span class="chev" aria-hidden="true"></span>
       </summary>
       <div class="body">
-        <ul class="week">
-          <li><strong>The price predictor is official</strong> — every player’s % progress toward a rise or fall, in the game, refreshed every 15 min.</li>
-          <li><strong>Defensive contribution points stay</strong> — 2 pts for defenders hitting 10+ CBIT, midfielders and forwards 12+.</li>
-          <li><strong>The bonus system is reworked</strong> — tackled-penalty BPS gone, CB double-dipping diluted, keepers earn save-quality BPS.</li>
+        <ul class="brief">
+          <li><strong>The price predictor is official</strong> — in-game % progress toward a rise or fall, refreshed every 15 min.</li>
+          <li><strong>Defensive contribution points stay</strong> — 2 pts at 10+ CBIT for defenders, 12+ for the rest.</li>
+          <li><strong>The bonus system is reworked</strong> — tackled-pen BPS gone, CB double-dips diluted, keepers earn save-quality BPS.</li>
           <li><strong>Two full chip sets</strong> — the first set dies at the GW19 deadline (2 Jan).</li>
         </ul>
       </div>
@@ -468,35 +610,69 @@ footer{
         <span class="chev" aria-hidden="true"></span>
       </summary>
       <div class="body">
-        <ul class="week">
-          <li><strong>Saliba (back) and Timber (groin) OUT</strong> — Arsenal shopping for an emergency CB.</li>
-          <li><strong>Doku out “several weeks”</strong> (calf) — the API flag lags the presser.</li>
-          <li><strong>Šeško: zero pre-season minutes</strong> — first-start watch.</li>
-          <li><strong>Fofana suspended</strong> GW1–2.</li>
-          <li><strong>Bruno Guimarães a doubt</strong> — thigh, picked up in the Community Shield.</li>
-          <li><strong>Eight clubs open under new managers</strong> — minutes are guesses until three XIs.</li>
-        </ul>
+        <div class="cards">
+          <div class="card">
+            <p class="ctop"><span class="sig injury">injury</span><span class="subj">Saliba &amp; Timber</span></p>
+            <p class="cnote">Back and groin — both OUT; Arsenal shopping for an emergency CB.</p>
+          </div>
+          <div class="card">
+            <p class="ctop"><span class="sig injury">injury</span><span class="subj">Doku</span></p>
+            <p class="cnote">Out “several weeks” (calf) — the API flag lags the presser.</p>
+          </div>
+          <div class="card">
+            <p class="ctop"><span class="sig doubt">doubt</span><span class="subj">Šeško</span></p>
+            <p class="cnote">Zero pre-season minutes — first-start watch.</p>
+          </div>
+          <div class="card">
+            <p class="ctop"><span class="sig ban">ban</span><span class="subj">Fofana</span></p>
+            <p class="cnote">Suspended GW1–2.</p>
+          </div>
+          <div class="card">
+            <p class="ctop"><span class="sig doubt">doubt</span><span class="subj">Bruno Guimarães</span></p>
+            <p class="cnote">Thigh, picked up in the Community Shield.</p>
+          </div>
+          <div class="card">
+            <p class="ctop"><span class="sig mgrs">managers</span><span class="subj">Eight clubs open under new managers</span></p>
+            <p class="cnote">Minutes are guesses until three XIs.</p>
+          </div>
+        </div>
       </div>
     </details>
 
-    <details>
-      <summary class="row">
+    <div class="flat">
+      <div class="row">
         <h3>template board</h3>
         <span class="sum">Haaland 69% and João Pedro 62% anchor every draft</span>
         <span class="hint">16 names</span>
-        <span class="chev" aria-hidden="true"></span>
-      </summary>
+      </div>
       <div class="body">
-        <ul class="week tmpl">
-          <li><span class="k">gk</span> <span class="fx"><strong>Raya</strong> 36 · <strong>Kinsky</strong> 22 · <strong>Verbruggen</strong> 20</span></li>
-          <li><span class="k">def</span> <span class="fx"><strong>Calafiori</strong> 33 · <strong>Gabriel</strong> 30 · <strong>O’Reilly</strong> 21 · <strong>Shaw</strong> 21 · <strong>Guéhi</strong> 19</span></li>
-          <li><span class="k">mid</span> <span class="fx"><strong>B.Fernandes</strong> 50 · <strong>Szoboszlai</strong> 41 · <strong>Mbeumo</strong> 35 · <strong>Semenyo</strong> 26 · <strong>Rogers</strong> 26</span></li>
-          <li><span class="k">fwd</span> <span class="fx"><strong>Haaland</strong> 69 · <strong>João Pedro</strong> 62 · <strong>Thiago</strong> 18 · <strong>Isak</strong> 16</span></li>
-        </ul>
+        <div class="bars">
+          <p class="glabel">gk</p>
+          <div class="barrow"><span class="bname">Raya</span><span class="tchip">ARS</span><span class="track"><span class="fill" style="width:36%"></span></span><span class="pct">36%</span></div>
+          <div class="barrow"><span class="bname">Kinsky</span><span class="tchip">TOT</span><span class="track"><span class="fill" style="width:22%"></span></span><span class="pct">22%</span></div>
+          <div class="barrow"><span class="bname">Verbruggen</span><span class="tchip">BHA</span><span class="track"><span class="fill" style="width:20%"></span></span><span class="pct">20%</span></div>
+          <p class="glabel">def</p>
+          <div class="barrow"><span class="bname">Calafiori</span><span class="tchip">ARS</span><span class="track"><span class="fill" style="width:33%"></span></span><span class="pct">33%</span></div>
+          <div class="barrow"><span class="bname">Gabriel</span><span class="tchip">ARS</span><span class="track"><span class="fill" style="width:30%"></span></span><span class="pct">30%</span></div>
+          <div class="barrow"><span class="bname">O’Reilly</span><span class="tchip">MCI</span><span class="track"><span class="fill" style="width:21%"></span></span><span class="pct">21%</span></div>
+          <div class="barrow"><span class="bname">Shaw</span><span class="tchip">MUN</span><span class="track"><span class="fill" style="width:21%"></span></span><span class="pct">21%</span></div>
+          <div class="barrow"><span class="bname">Guéhi</span><span class="tchip">MCI</span><span class="track"><span class="fill" style="width:19%"></span></span><span class="pct">19%</span></div>
+          <p class="glabel">mid</p>
+          <div class="barrow"><span class="bname">B.Fernandes</span><span class="tchip">MUN</span><span class="track"><span class="fill" style="width:50%"></span></span><span class="pct">50%</span></div>
+          <div class="barrow"><span class="bname">Szoboszlai</span><span class="tchip">LIV</span><span class="track"><span class="fill" style="width:41%"></span></span><span class="pct">41%</span></div>
+          <div class="barrow"><span class="bname">Mbeumo</span><span class="tchip">MUN</span><span class="track"><span class="fill" style="width:35%"></span></span><span class="pct">35%</span></div>
+          <div class="barrow"><span class="bname">Semenyo</span><span class="tchip">MCI</span><span class="track"><span class="fill" style="width:26%"></span></span><span class="pct">26%</span></div>
+          <div class="barrow"><span class="bname">Rogers</span><span class="tchip">CHE</span><span class="track"><span class="fill" style="width:26%"></span></span><span class="pct">26%</span></div>
+          <p class="glabel">fwd</p>
+          <div class="barrow"><span class="bname">Haaland</span><span class="tchip">MCI</span><span class="track"><span class="fill" style="width:69%"></span></span><span class="pct">69%</span></div>
+          <div class="barrow"><span class="bname">João Pedro</span><span class="tchip">CHE</span><span class="track"><span class="fill" style="width:62%"></span></span><span class="pct">62%</span></div>
+          <div class="barrow"><span class="bname">Thiago</span><span class="tchip">BRE</span><span class="track"><span class="fill" style="width:18%"></span></span><span class="pct">18%</span></div>
+          <div class="barrow"><span class="bname">Isak</span><span class="tchip">LIV</span><span class="track"><span class="fill" style="width:16%"></span></span><span class="pct">16%</span></div>
+        </div>
         <p class="capsnote">most-owned by position · ownership %</p>
         <p class="note">Ownership is a risk fact, not an argument — but pass on a 30%+ asset only with a priced case.</p>
       </div>
-    </details>
+    </div>
 
     <details>
       <summary class="row">
@@ -506,7 +682,13 @@ footer{
         <span class="chev" aria-hidden="true"></span>
       </summary>
       <div class="body">
-        <p><strong>Haaland</strong> is the runaway most-captained — City host Bournemouth. Distant seconds: <strong>B.Fernandes</strong> (at Hull) and <strong>João Pedro</strong> (at Fulham, Monday).</p>
+        <div class="bars">
+          <div class="barrow nochip"><span class="bname">Haaland</span><span class="track"><span class="fill" style="width:62%"></span></span><span class="pct">62%</span></div>
+          <div class="barrow nochip"><span class="bname">B.Fernandes</span><span class="track"><span class="fill" style="width:11%"></span></span><span class="pct">11%</span></div>
+          <div class="barrow nochip"><span class="bname">João Pedro</span><span class="track"><span class="fill" style="width:8%"></span></span><span class="pct">8%</span></div>
+        </div>
+        <p class="capsnote">share of all captaincies</p>
+        <p class="note">The runaway pick hosts Bournemouth; the distant seconds are at Hull, and at Fulham on Monday.</p>
       </div>
     </details>
 
@@ -518,16 +700,16 @@ footer{
         <span class="chev" aria-hidden="true"></span>
       </summary>
       <div class="body">
-        <ul class="week">
-          <li><span class="cx">CHE</span> <strong>Palmer</strong></li>
-          <li><span class="cx">MCI</span> <strong>Haaland</strong></li>
-          <li><span class="cx">MUN</span> <strong>B.Fernandes</strong></li>
-          <li><span class="cx">BRE</span> <strong>Thiago</strong></li>
-          <li><span class="cx">ARS</span> <strong>Saka</strong></li>
-          <li><span class="cx">LIV</span> <strong>Salah-vacated</strong> — expect a Szoboszlai/Wirtz split</li>
-          <li><span class="cx">AVL</span> <strong>Watkins</strong></li>
-          <li><span class="cx">CRY</span> <strong>Mateta</strong></li>
-        </ul>
+        <div class="pens">
+          <p class="pen"><span class="tchip">CHE</span> <strong>Palmer</strong></p>
+          <p class="pen"><span class="tchip">MCI</span> <strong>Haaland</strong></p>
+          <p class="pen"><span class="tchip">MUN</span> <strong>B.Fernandes</strong></p>
+          <p class="pen"><span class="tchip">BRE</span> <strong>Thiago</strong></p>
+          <p class="pen"><span class="tchip">ARS</span> <strong>Saka</strong></p>
+          <p class="pen"><span class="tchip">AVL</span> <strong>Watkins</strong></p>
+          <p class="pen"><span class="tchip">CRY</span> <strong>Mateta</strong></p>
+          <p class="pen open"><span class="tchip">LIV</span> <strong>Salah-vacated</strong> — expect a Szoboszlai/Wirtz split</p>
+        </div>
         <p class="note">New managers may reshuffle quietly — a confirmed take beats last season’s list.</p>
       </div>
     </details>
@@ -540,23 +722,21 @@ footer{
         <span class="chev" aria-hidden="true"></span>
       </summary>
       <div class="body">
-        <div class="runs">
-          <div>
-            <p class="rh">kindest</p>
-            <p class="fx"><strong>MUN</strong> 2.33 hul IPS eve</p>
-            <p class="fx"><strong>SUN</strong> 2.33 ips FUL bre</p>
-            <p class="fx"><strong>LIV</strong> 2.67 new NFO ips</p>
-            <p class="fx"><strong>MCI</strong> 2.67 BOU cry COV</p>
-            <p class="fx"><strong>TOT</strong> 2.67 bre NEW nfo</p>
-            <p class="fx"><strong>BRE</strong> 2.67 TOT lee SUN</p>
-          </div>
-          <div>
-            <p class="rh">hardest</p>
-            <p class="fx"><strong>COV</strong> 4.00 ars HUL mci</p>
-            <p class="fx"><strong>BOU</strong> 3.67 mci EVE new</p>
-            <p class="fx"><strong>CHE</strong> 3.33 ful BHA ars</p>
-            <p class="fx"><strong>ARS</strong> 3.33 COV avl CHE</p>
-          </div>
+        <p class="rh">kindest</p>
+        <div class="fdrgrid">
+          <div class="frow"><span class="ft">MUN</span><span class="fc f2">hul</span><span class="fc f2">IPS</span><span class="fc f3">eve</span><span class="favg">2.33</span></div>
+          <div class="frow"><span class="ft">SUN</span><span class="fc f2">ips</span><span class="fc f2">FUL</span><span class="fc f3">bre</span><span class="favg">2.33</span></div>
+          <div class="frow"><span class="ft">LIV</span><span class="fc f3">new</span><span class="fc f3">NFO</span><span class="fc f2">ips</span><span class="favg">2.67</span></div>
+          <div class="frow"><span class="ft">MCI</span><span class="fc f3">BOU</span><span class="fc f3">cry</span><span class="fc f2">COV</span><span class="favg">2.67</span></div>
+          <div class="frow"><span class="ft">TOT</span><span class="fc f3">bre</span><span class="fc f3">NEW</span><span class="fc f2">nfo</span><span class="favg">2.67</span></div>
+          <div class="frow"><span class="ft">BRE</span><span class="fc f3">TOT</span><span class="fc f2">lee</span><span class="fc f3">SUN</span><span class="favg">2.67</span></div>
+        </div>
+        <p class="rh">hardest</p>
+        <div class="fdrgrid">
+          <div class="frow"><span class="ft">COV</span><span class="fc f5">ars</span><span class="fc f2">HUL</span><span class="fc f5">mci</span><span class="favg">4.00</span></div>
+          <div class="frow"><span class="ft">BOU</span><span class="fc f5">mci</span><span class="fc f3">EVE</span><span class="fc f3">new</span><span class="favg">3.67</span></div>
+          <div class="frow"><span class="ft">CHE</span><span class="fc f3">ful</span><span class="fc f3">BHA</span><span class="fc f4">ars</span><span class="favg">3.33</span></div>
+          <div class="frow"><span class="ft">ARS</span><span class="fc f2">COV</span><span class="fc f4">avl</span><span class="fc f4">CHE</span><span class="favg">3.33</span></div>
         </div>
         <p class="capsnote">avg FDR, GW1–3 · caps = home</p>
         <p class="note">Official FDR is pre-season guesswork — our own difficulty model takes over from GW6.</p>
@@ -571,12 +751,22 @@ footer{
         <span class="chev" aria-hidden="true"></span>
       </summary>
       <div class="body">
-        <div class="pitch">
-          <p class="line">Raya</p>
-          <p class="line">Calafiori<i>·</i>Guéhi<i>·</i>Shaw</p>
-          <p class="line">B.Fernandes<span class="badge">V</span><i>·</i>Mbeumo<i>·</i>Szoboszlai<i>·</i>Rogers</p>
-          <p class="line">Haaland<span class="badge c">C</span><i>·</i>João Pedro<i>·</i>Calvert-Lewin</p>
-          <p class="benchline"><span class="k">bench</span>Dubravka<i>·</i>Hume<i>·</i>Hughes<i>·</i>Diop</p>
+        <div class="board" aria-label="The bus team — full squad, 3-4-3">
+          <div class="brow"><span class="pos">GK</span><span class="pname">Raya</span><span class="tchip">ARS</span><span class="price">5.0</span></div>
+          <div class="brow"><span class="pos">DEF</span><span class="pname">Calafiori</span><span class="tchip">ARS</span><span class="price">5.0</span></div>
+          <div class="brow"><span class="pos">DEF</span><span class="pname">Guéhi</span><span class="tchip">MCI</span><span class="price">6.0</span></div>
+          <div class="brow"><span class="pos">DEF</span><span class="pname">Shaw</span><span class="tchip">MUN</span><span class="price">4.5</span></div>
+          <div class="brow"><span class="pos">MID</span><span class="pname">B.Fernandes</span><span class="cap v">V</span><span class="tchip">MUN</span><span class="price">12.0</span></div>
+          <div class="brow"><span class="pos">MID</span><span class="pname">Mbeumo</span><span class="tchip">MUN</span><span class="price">8.0</span></div>
+          <div class="brow"><span class="pos">MID</span><span class="pname">Szoboszlai</span><span class="tchip">LIV</span><span class="price">7.0</span></div>
+          <div class="brow"><span class="pos">MID</span><span class="pname">Rogers</span><span class="tchip">CHE</span><span class="price">6.5</span></div>
+          <div class="brow"><span class="pos">FWD</span><span class="pname">Haaland</span><span class="cap">C</span><span class="tchip">MCI</span><span class="price">15.5</span></div>
+          <div class="brow"><span class="pos">FWD</span><span class="pname">João Pedro</span><span class="tchip">CHE</span><span class="price">7.5</span></div>
+          <div class="brow"><span class="pos">FWD</span><span class="pname">Calvert-Lewin</span><span class="tchip">LEE</span><span class="price">6.0</span></div>
+          <div class="brow bench"><span class="bord">1</span><span class="pos">GK</span><span class="pname">Dubravka</span><span class="tchip">TOT</span><span class="price">4.0</span></div>
+          <div class="brow bench"><span class="bord">2</span><span class="pos">DEF</span><span class="pname">Hume</span><span class="tchip">SUN</span><span class="price">4.5</span></div>
+          <div class="brow bench"><span class="bord">3</span><span class="pos">MID</span><span class="pname">Hughes</span><span class="tchip">CRY</span><span class="price">4.5</span></div>
+          <div class="brow bench"><span class="bord">4</span><span class="pos">DEF</span><span class="pname">Diop</span><span class="tchip">IPS</span><span class="price">4.0</span></div>
         </div>
         <p class="note">Fifteen picked for reliability, serviced only at international breaks. If weekly management can’t beat this, it isn’t working.</p>
         <p class="season">boards tonight · first score after GW1</p>
@@ -591,12 +781,22 @@ footer{
         <span class="chev" aria-hidden="true"></span>
       </summary>
       <div class="body">
-        <div class="pitch">
-          <p class="line">Lammens</p>
-          <p class="line">Kerkez<i>·</i>Guéhi<i>·</i>Shaw</p>
-          <p class="line">Palmer<i>·</i>Semenyo<i>·</i>Mbeumo<i>·</i>Szoboszlai</p>
-          <p class="line">Haaland<span class="badge c">C</span><i>·</i>João Pedro<i>·</i>Calvert-Lewin</p>
-          <p class="benchline"><span class="k">bench</span>Dubravka<i>·</i>Hume<i>·</i>Hughes<i>·</i>Diop</p>
+        <div class="board" aria-label="Wildcard XI — full squad, 3-4-3">
+          <div class="brow"><span class="pos">GK</span><span class="pname">Lammens</span><span class="tchip">MUN</span><span class="price">5.0</span></div>
+          <div class="brow"><span class="pos">DEF</span><span class="pname">Kerkez</span><span class="tchip">LIV</span><span class="price">5.5</span></div>
+          <div class="brow"><span class="pos">DEF</span><span class="pname">Guéhi</span><span class="tchip">MCI</span><span class="price">6.0</span></div>
+          <div class="brow"><span class="pos">DEF</span><span class="pname">Shaw</span><span class="tchip">MUN</span><span class="price">4.5</span></div>
+          <div class="brow"><span class="pos">MID</span><span class="pname">Palmer</span><span class="tchip">CHE</span><span class="price">9.5</span></div>
+          <div class="brow"><span class="pos">MID</span><span class="pname">Semenyo</span><span class="tchip">MCI</span><span class="price">8.5</span></div>
+          <div class="brow"><span class="pos">MID</span><span class="pname">Mbeumo</span><span class="tchip">MUN</span><span class="price">8.0</span></div>
+          <div class="brow"><span class="pos">MID</span><span class="pname">Szoboszlai</span><span class="tchip">LIV</span><span class="price">7.0</span></div>
+          <div class="brow"><span class="pos">FWD</span><span class="pname">Haaland</span><span class="cap">C</span><span class="tchip">MCI</span><span class="price">15.5</span></div>
+          <div class="brow"><span class="pos">FWD</span><span class="pname">João Pedro</span><span class="tchip">CHE</span><span class="price">7.5</span></div>
+          <div class="brow"><span class="pos">FWD</span><span class="pname">Calvert-Lewin</span><span class="tchip">LEE</span><span class="price">6.0</span></div>
+          <div class="brow bench"><span class="bord">1</span><span class="pos">GK</span><span class="pname">Dubravka</span><span class="tchip">TOT</span><span class="price">4.0</span></div>
+          <div class="brow bench"><span class="bord">2</span><span class="pos">DEF</span><span class="pname">Hume</span><span class="tchip">SUN</span><span class="price">4.5</span></div>
+          <div class="brow bench"><span class="bord">3</span><span class="pos">MID</span><span class="pname">Hughes</span><span class="tchip">CRY</span><span class="price">4.5</span></div>
+          <div class="brow bench"><span class="bord">4</span><span class="pos">DEF</span><span class="pname">Diop</span><span class="tchip">IPS</span><span class="price">4.0</span></div>
         </div>
         <p class="note">Day 0: identical to the recommended squad — they diverge the moment real transfers cost something.</p>
         <p class="season">re-picked weekly · first score after GW1</p>
@@ -611,12 +811,12 @@ footer{
         <span class="chev" aria-hidden="true"></span>
       </summary>
       <div class="body">
-        <ul class="chips">
-          <li><strong>Wildcard №1</strong> — earliest sensible window GW6–8, post-break <span class="cx">· expires GW19</span></li>
-          <li><strong>Free Hit №1</strong> — hold for a blank; none exist yet <span class="cx">· expires GW19</span></li>
-          <li><strong>Bench Boost №1</strong> — wants a clean double; none exist yet <span class="cx">· expires GW19</span></li>
-          <li><strong>Triple Captain №1</strong> — premium home double or bust <span class="cx">· expires GW19</span></li>
-        </ul>
+        <div class="chiprows">
+          <p class="chiprow"><span class="ctok">WC1</span><span class="cwin">earliest sensible window GW6–8, post-break</span><span class="exp">GW19</span></p>
+          <p class="chiprow"><span class="ctok">FH1</span><span class="cwin">hold for a blank; none exist yet</span><span class="exp">GW19</span></p>
+          <p class="chiprow"><span class="ctok">BB1</span><span class="cwin">wants a clean double; none exist yet</span><span class="exp">GW19</span></p>
+          <p class="chiprow"><span class="ctok">TC1</span><span class="cwin">premium home double or bust</span><span class="exp">GW19</span></p>
+        </div>
         <p class="note">First-half chips die at the GW19 deadline (2 Jan). Playing Bench Boost or Triple Captain in GW1 is burning optionality for noise.</p>
       </div>
     </details>
@@ -626,7 +826,7 @@ footer{
 
 <footer>
   <p><span class="stampnote">MOCKUP · day-0 snapshot · dummy data on real fixtures</span></p>
-  <p class="sig">Touchline · FPL — one calm page, no hype</p>
+  <p class="sig-line">Touchline · FPL — one calm page, no hype</p>
 </footer>
 
 <script>
