@@ -754,9 +754,19 @@ footer .footer-line + .footer-line { margin-top: 5px; }
     font-size: 10px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase;
     color: var(--faint); padding-bottom: 2px;
   }
-  .grow { display: flex; align-items: baseline; gap: 8px; padding: 2px 0; font-size: 12.5px; font-variant-numeric: tabular-nums; }
-  .grow .gname { color: var(--faint); font-style: italic; }
-  .grow .gpts { margin-left: auto; color: var(--faint); }
+  .grow {
+    display: flex; align-items: baseline; gap: 8px; padding: 3px 14px;
+    font-size: 12.5px; font-variant-numeric: tabular-nums;
+  }
+  .grow .gname { flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .grow .gpts { color: var(--dim); width: 34px; text-align: right; }
+  /* the owner keeps the club-blue highlight the digest table uses for "us" */
+  .grow.us { background: var(--club-bg); border-radius: 6px; font-weight: 700; }
+  .grow.us .gname { color: var(--club); }
+  .grow.us .gpts, .grow.us .gwpts, .grow.us .rrank { color: var(--ink); }
+  /* benchmark rows read as the shadows they are */
+  .grow.ghost .gname { color: var(--faint); font-style: italic; }
+  .grow.ghost .gpts { color: var(--faint); }
   .race-note {
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
     font-size: 13px; color: var(--dim); line-height: 1.6;
