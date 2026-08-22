@@ -1,26 +1,32 @@
 {
   "season": "2026/27",
   "gameweek": {
-    "id": 1,
-    "deadline_utc": "2026-08-21T17:30:00Z",
-    "deadline_local": "Fri 21 Aug, 23:00"
+    "id": 2,
+    "deadline_utc": "2026-08-28T17:30:00Z",
+    "deadline_local": "Fri 28 Aug, 23:00"
   },
   "call": {
-    "headline": "Final sweep clean — lock it in: Haaland captains at home to Bournemouth",
-    "reasoning": "Deadline-day check before tonight's 23:00 cutoff: all fifteen are available on the live API, and Thursday's ten press conferences produced no late scratch among them. The day-0 squad stands as built — no tinkering for tinkering's sake. Haaland at home to Bournemouth is the armband's easiest week of the season; Palmer keeps the vice into Monday night at Fulham, which is where the gameweek — and the first read on the bets — finishes.",
+    "headline": "No move — bank the transfer; Haaland keeps the armband at Selhurst Park",
+    "reasoning": "Friday was one game out of ten: thirteen of your fifteen haven't kicked a ball yet, so there is no evidence to act on and nothing to fix — all fifteen are available on the live API and the bank is £0.0m. The free transfer rolls. Haaland captains at Crystal Palace: 69.4% owned, a fixture City win most weeks, and no returner in the squad with a stronger claim. The first real read on this squad — Bruno over Palmer, the Kerkez wager — arrives Monday night at Craven Cottage, and GW1 settles in the log right after; the verdict stays open until then, because settling it off one Arsenal game would be guessing.",
     "captain": "Haaland",
-    "vice": "Palmer",
-    "chip": "no chip — Bench Boost and Triple Captain wait for data"
+    "vice": "B.Fernandes",
+    "chip": "no chip — the first-half set keeps until GW19 and nothing here needs one",
+    "alternatives": [
+      {
+        "call": "B.Fernandes (C) at home to Ipswich",
+        "why_not": "at 51.9% owned against the kindest fixture on the slate it's genuinely close, but the week-two evidence for splitting from Haaland's 69.4% armband is exactly zero — revisit when City visit Old Trafford in GW4."
+      }
+    ]
   },
   "squad": {
     "formation": "3-4-3",
     "bank": "£0.0m",
     "players": [
       {
-        "name": "Lammens",
-        "team": "MUN",
+        "name": "Verbruggen",
+        "team": "BHA",
         "pos": "GK",
-        "price": 5,
+        "price": 4.5,
         "role": "start"
       },
       {
@@ -38,13 +44,13 @@
         "price": 5.5,
         "role": "start",
         "bet": true,
-        "note": "Liverpool's undisputed left-back (Robertson sold) at 4% ownership — new-NFO-ips run, £1.0m cheaper than Virgil for the same clean sheets."
+        "note": "Liverpool's undisputed left-back (Robertson now at Spurs) at 3.8% ownership — £1.0m cheaper than Virgil for the same clean sheets."
       },
       {
-        "name": "Guéhi",
-        "team": "MCI",
+        "name": "Calafiori",
+        "team": "ARS",
         "pos": "DEF",
-        "price": 6,
+        "price": 5.5,
         "role": "start"
       },
       {
@@ -62,7 +68,7 @@
         "role": "bench",
         "bench_order": 2,
         "bet": true,
-        "note": "Nailed right-back in a fully fit Sunderland defence with the joint-best GW1-3 run in the league (ips, FUL, bre) — first man off the bench."
+        "note": "Nailed right-back in a settled Sunderland defence; Fulham at home this week is exactly the fixture he's in the squad for — first man off the bench."
       },
       {
         "name": "Diop",
@@ -73,21 +79,12 @@
         "bench_order": 4
       },
       {
-        "name": "Palmer",
-        "team": "CHE",
+        "name": "B.Fernandes",
+        "team": "MUN",
         "pos": "MID",
-        "price": 9.5,
+        "price": 12,
         "role": "start",
-        "vice": true,
-        "bet": true,
-        "note": "10.5% owned after a down year, but the 214-point season is real, Alonso called him ready, and Fulham then Brighton come before the hard part."
-      },
-      {
-        "name": "Semenyo",
-        "team": "MCI",
-        "pos": "MID",
-        "price": 8.5,
-        "role": "start"
+        "vice": true
       },
       {
         "name": "Mbeumo",
@@ -97,10 +94,17 @@
         "role": "start"
       },
       {
-        "name": "Szoboszlai",
-        "team": "LIV",
+        "name": "Tzolis",
+        "team": "ARS",
         "pos": "MID",
-        "price": 7,
+        "price": 6.5,
+        "role": "start"
+      },
+      {
+        "name": "Rogers",
+        "team": "CHE",
+        "pos": "MID",
+        "price": 7.5,
         "role": "start"
       },
       {
@@ -137,40 +141,31 @@
   },
   "watchlist": [
     {
-      "name": "Rogers",
+      "name": "Palmer",
       "team": "CHE",
       "pos": "MID",
-      "price": 7.5,
-      "ownership": "25.4%",
+      "price": 9.5,
+      "ownership": "10.4%",
       "status": "hold",
-      "note": "Alonso says the late World Cup returnees may need time — enters the squad once he starts two straight."
-    },
-    {
-      "name": "Thiago",
-      "team": "BRE",
-      "pos": "FWD",
-      "price": 8,
-      "ownership": "17.6%",
-      "status": "rising",
-      "note": "22 goals and every Brentford penalty last season; the pivot if a second premium forward is ever needed."
-    },
-    {
-      "name": "Wirtz",
-      "team": "LIV",
-      "pos": "MID",
-      "price": 7.5,
-      "ownership": "13.5%",
-      "status": "hold",
-      "note": "Year two in England, Salah's minutes to inherit — watch whether the creative load runs through him or Szoboszlai."
+      "note": "The road not taken in your final draft — the Bruno-over-Palmer ledger runs to GW6–8, and Monday at Fulham opens his evidence file."
     },
     {
       "name": "Šeško",
       "team": "MUN",
       "pos": "FWD",
       "price": 7,
-      "ownership": "1.4%",
+      "ownership": "1.3%",
       "status": "hold",
-      "note": "Back in training this week but carrying a shin flag and zero pre-season minutes — once he starts, he leads the line behind the league's best fixture run."
+      "note": "Once fit and starting he leads the line behind the league's kindest run — the £1.0m step up from Calvert-Lewin when the evidence arrives."
+    },
+    {
+      "name": "Cherki",
+      "team": "MCI",
+      "pos": "MID",
+      "price": 7.5,
+      "ownership": "7.8%",
+      "status": "rising",
+      "note": "13 assists in 1,772 minutes last season, and Doku's calf (out to 5 Sep) clears the flank — a start against Bournemouth then Palace is the trigger."
     },
     {
       "name": "Estêvão",
@@ -179,88 +174,148 @@
       "price": 6.5,
       "ownership": "1.3%",
       "status": "rising",
-      "note": "2g/5a in 839 debut minutes; if he claims a wing spot the £6.5m entry to Chelsea's attack is the value pick."
+      "note": "2g/5a in 839 debut minutes; if he claims a wing spot he's the £6.5m entry to Chelsea's attack."
     },
     {
-      "name": "Cherki",
-      "team": "MCI",
+      "name": "Thiago",
+      "team": "BRE",
+      "pos": "FWD",
+      "price": 8,
+      "ownership": "17.1%",
+      "status": "hold",
+      "note": "22 goals and every Brentford penalty last season; still the pivot if a second premium forward is ever needed."
+    },
+    {
+      "name": "Wirtz",
+      "team": "LIV",
       "pos": "MID",
       "price": 7.5,
-      "ownership": "7.9%",
-      "status": "rising",
-      "note": "13 assists in 1,772 minutes last season — explosive per-90; a start against Bournemouth is the trigger to move."
+      "ownership": "12.6%",
+      "status": "cooling",
+      "note": "Still no minutes evidence on whether Liverpool's creative load runs through him or Szoboszlai — drops off unless the first two weeks show it."
     }
   ],
   "signals": [
     {
       "tag": "news",
-      "team": "CHE",
-      "player": "Palmer",
-      "text": "Asked to name his penalty taker, Alonso demurred: \"I don't know which ones were [the takers] last season, but yes, we have our own decisions… hopefully we have a penalty and you can see that on Monday.\"",
-      "source": "Alonso presser · FFScout",
-      "action": "the pens strand of the Palmer bet is unconfirmed — watch Monday at Fulham",
-      "url": "https://www.fantasyfootballscout.co.uk/2026/08/20/fpl-gameweek-1-team-news-thursdays-live-injury-updates"
-    },
-    {
-      "tag": "news",
-      "team": "MCI",
-      "text": "City agreed a £75m verbal deal to sell Savinho to Spurs, with the BBC reporting parallel talks for Marmoush — two attackers heading out while Doku is already sidelined for weeks.",
-      "source": "BBC Sport · Fabrizio Romano",
-      "action": "Semenyo's flank keeps clearing — hold; Cherki moves to rising"
+      "player": "Tzolis",
+      "team": "ARS",
+      "text": "Seven shot involvements and the assist for Saka's goal against Coventry, with Arteta calling his recent form \"phenomenal\" and Martinelli left out of the squad entirely — but Rice and Saka took every corner, and Tzolis wasn't involved.",
+      "source": "FFScout Scout Notes",
+      "action": "hold and enjoy — the ceiling stays open-play only until he's on set pieces",
+      "url": "https://www.fantasyfootballscout.co.uk/2026/08/22/fpl-notes-bruno-g-injury-latest-tzolis-sharp-odegaard-rhythm"
     },
     {
       "tag": "injury",
+      "player": "Šeško",
+      "team": "MUN",
+      "text": "Carries a shin flag at 75% into Saturday's trip to Hull — his first shot at league minutes after zero pre-season.",
+      "source": "FPL API",
+      "action": "the one thing that could reopen this week's call — a start plus Monday's retro puts Calvert-Lewin → Šeško on the table before Friday"
+    },
+    {
+      "tag": "injury",
+      "player": "Henderson",
+      "team": "CRY",
+      "text": "Palace's keeper takes an ankle flag (75%) into the weekend, with City at Selhurst Park next.",
+      "source": "FPL API",
+      "action": "nothing to do — a patched-up Palace only firms the Haaland armband"
+    },
+    {
+      "tag": "news",
+      "player": "Konsa",
       "team": "ARS",
-      "player": "Bruno G.",
-      "text": "Rice and Saka are \"ready to be involved\" against Coventry; Bruno Guimarães remains a thigh doubt, Timber is not yet training with the group, and Arteta all but confirmed a centre-back signing to patch the line.",
-      "source": "Arteta presser · FFScout",
-      "action": "still no Arsenal defenders despite Calafiori's 34% ownership",
-      "url": "https://www.fantasyfootballscout.co.uk/2026/08/20/fpl-gameweek-1-team-news-thursdays-live-injury-updates"
+      "text": "The £55m move from Villa is complete, and Ornstein has him in line to debut against his old club on 31 Aug — Arsenal's patch for a defence missing Saliba and Timber.",
+      "source": "r/FantasyPL · David Ornstein",
+      "action": "a £4.5m Arsenal defender who starts is a future bench upgrade on Diop — watch his minutes",
+      "url": "https://www.reddit.com/r/FantasyPL/comments/1vua96g/ezri_konsa_in_line_to_make_arsenal_debut_at_aston/"
     }
   ],
   "ticker": {
-    "from_gw": 1,
+    "from_gw": 2,
     "gws": 6,
     "rows": [
       {
-        "team": "EVE",
-        "avg": 2.83,
+        "team": "NEW",
+        "avg": 2.67,
         "fixtures": [
           {
-            "gw": 1,
-            "opp": "CRY",
-            "home": true,
-            "fdr": 3
-          },
-          {
             "gw": 2,
-            "opp": "BOU",
-            "home": false,
-            "fdr": 3
-          },
-          {
-            "gw": 3,
-            "opp": "MUN",
-            "home": true,
-            "fdr": 4
-          },
-          {
-            "gw": 4,
             "opp": "TOT",
             "home": false,
             "fdr": 3
           },
           {
+            "gw": 3,
+            "opp": "BOU",
+            "home": true,
+            "fdr": 3
+          },
+          {
+            "gw": 4,
+            "opp": "LEE",
+            "home": false,
+            "fdr": 3
+          },
+          {
             "gw": 5,
-            "opp": "IPS",
+            "opp": "HUL",
             "home": true,
             "fdr": 2
           },
           {
             "gw": 6,
-            "opp": "HUL",
+            "opp": "COV",
             "home": false,
             "fdr": 2
+          },
+          {
+            "gw": 7,
+            "opp": "AVL",
+            "home": true,
+            "fdr": 3
+          }
+        ]
+      },
+      {
+        "team": "COV",
+        "avg": 2.83,
+        "fixtures": [
+          {
+            "gw": 2,
+            "opp": "HUL",
+            "home": true,
+            "fdr": 2
+          },
+          {
+            "gw": 3,
+            "opp": "MCI",
+            "home": false,
+            "fdr": 5
+          },
+          {
+            "gw": 4,
+            "opp": "BHA",
+            "home": true,
+            "fdr": 2
+          },
+          {
+            "gw": 5,
+            "opp": "NFO",
+            "home": false,
+            "fdr": 3
+          },
+          {
+            "gw": 6,
+            "opp": "NEW",
+            "home": true,
+            "fdr": 2
+          },
+          {
+            "gw": 7,
+            "opp": "TOT",
+            "home": false,
+            "fdr": 3
           }
         ]
       },
@@ -268,12 +323,6 @@
         "team": "LIV",
         "avg": 2.83,
         "fixtures": [
-          {
-            "gw": 1,
-            "opp": "NEW",
-            "home": false,
-            "fdr": 3
-          },
           {
             "gw": 2,
             "opp": "NFO",
@@ -303,130 +352,94 @@
             "opp": "MCI",
             "home": true,
             "fdr": 4
+          },
+          {
+            "gw": 7,
+            "opp": "BRE",
+            "home": false,
+            "fdr": 3
           }
         ]
       },
       {
-        "team": "MUN",
+        "team": "MCI",
         "avg": 2.83,
         "fixtures": [
           {
-            "gw": 1,
-            "opp": "HUL",
+            "gw": 2,
+            "opp": "CRY",
             "home": false,
+            "fdr": 3
+          },
+          {
+            "gw": 3,
+            "opp": "COV",
+            "home": true,
             "fdr": 2
           },
           {
-            "gw": 2,
+            "gw": 4,
+            "opp": "MUN",
+            "home": false,
+            "fdr": 4
+          },
+          {
+            "gw": 5,
+            "opp": "SUN",
+            "home": true,
+            "fdr": 2
+          },
+          {
+            "gw": 6,
+            "opp": "LIV",
+            "home": false,
+            "fdr": 4
+          },
+          {
+            "gw": 7,
             "opp": "IPS",
             "home": true,
             "fdr": 2
-          },
-          {
-            "gw": 3,
-            "opp": "EVE",
-            "home": false,
-            "fdr": 3
-          },
-          {
-            "gw": 4,
-            "opp": "MCI",
-            "home": true,
-            "fdr": 4
-          },
-          {
-            "gw": 5,
-            "opp": "FUL",
-            "home": false,
-            "fdr": 3
-          },
-          {
-            "gw": 6,
-            "opp": "TOT",
-            "home": true,
-            "fdr": 3
           }
         ]
       },
       {
-        "team": "NEW",
+        "team": "TOT",
         "avg": 2.83,
         "fixtures": [
           {
-            "gw": 1,
-            "opp": "LIV",
-            "home": true,
-            "fdr": 4
-          },
-          {
             "gw": 2,
-            "opp": "TOT",
-            "home": false,
-            "fdr": 3
+            "opp": "NEW",
+            "home": true,
+            "fdr": 2
           },
           {
             "gw": 3,
-            "opp": "BOU",
-            "home": true,
+            "opp": "NFO",
+            "home": false,
             "fdr": 3
           },
           {
             "gw": 4,
-            "opp": "LEE",
-            "home": false,
+            "opp": "EVE",
+            "home": true,
             "fdr": 3
           },
           {
             "gw": 5,
-            "opp": "HUL",
-            "home": true,
-            "fdr": 2
-          },
-          {
-            "gw": 6,
-            "opp": "COV",
-            "home": false,
-            "fdr": 2
-          }
-        ]
-      },
-      {
-        "team": "ARS",
-        "avg": 3,
-        "fixtures": [
-          {
-            "gw": 1,
-            "opp": "COV",
-            "home": true,
-            "fdr": 2
-          },
-          {
-            "gw": 2,
             "opp": "AVL",
-            "home": false,
-            "fdr": 4
-          },
-          {
-            "gw": 3,
-            "opp": "CHE",
             "home": true,
-            "fdr": 4
-          },
-          {
-            "gw": 4,
-            "opp": "SUN",
-            "home": false,
-            "fdr": 3
-          },
-          {
-            "gw": 5,
-            "opp": "BHA",
-            "home": false,
             "fdr": 3
           },
           {
             "gw": 6,
-            "opp": "LEE",
+            "opp": "MUN",
+            "home": false,
+            "fdr": 4
+          },
+          {
+            "gw": 7,
+            "opp": "COV",
             "home": true,
             "fdr": 2
           }
@@ -437,12 +450,6 @@
         "avg": 3,
         "fixtures": [
           {
-            "gw": 1,
-            "opp": "BHA",
-            "home": false,
-            "fdr": 3
-          },
-          {
             "gw": 2,
             "opp": "ARS",
             "home": true,
@@ -470,6 +477,12 @@
             "gw": 6,
             "opp": "BRE",
             "home": true,
+            "fdr": 3
+          },
+          {
+            "gw": 7,
+            "opp": "NEW",
+            "home": false,
             "fdr": 3
           }
         ]
@@ -479,12 +492,6 @@
         "avg": 3,
         "fixtures": [
           {
-            "gw": 1,
-            "opp": "AVL",
-            "home": true,
-            "fdr": 3
-          },
-          {
             "gw": 2,
             "opp": "CHE",
             "home": false,
@@ -512,6 +519,12 @@
             "gw": 6,
             "opp": "SUN",
             "home": false,
+            "fdr": 3
+          },
+          {
+            "gw": 7,
+            "opp": "CRY",
+            "home": true,
             "fdr": 3
           }
         ]
@@ -521,12 +534,6 @@
         "avg": 3,
         "fixtures": [
           {
-            "gw": 1,
-            "opp": "FUL",
-            "home": false,
-            "fdr": 3
-          },
-          {
             "gw": 2,
             "opp": "BHA",
             "home": true,
@@ -554,6 +561,12 @@
             "gw": 6,
             "opp": "BOU",
             "home": true,
+            "fdr": 3
+          },
+          {
+            "gw": 7,
+            "opp": "EVE",
+            "home": false,
             "fdr": 3
           }
         ]
@@ -563,12 +576,6 @@
         "avg": 3,
         "fixtures": [
           {
-            "gw": 1,
-            "opp": "EVE",
-            "home": false,
-            "fdr": 3
-          },
-          {
             "gw": 2,
             "opp": "MCI",
             "home": true,
@@ -597,298 +604,94 @@
             "opp": "NFO",
             "home": true,
             "fdr": 3
-          }
-        ]
-      },
-      {
-        "team": "IPS",
-        "avg": 3,
-        "fixtures": [
-          {
-            "gw": 1,
-            "opp": "SUN",
-            "home": true,
-            "fdr": 2
           },
           {
-            "gw": 2,
-            "opp": "MUN",
-            "home": false,
-            "fdr": 4
-          },
-          {
-            "gw": 3,
-            "opp": "LIV",
-            "home": true,
-            "fdr": 4
-          },
-          {
-            "gw": 4,
-            "opp": "CRY",
-            "home": false,
-            "fdr": 3
-          },
-          {
-            "gw": 5,
-            "opp": "EVE",
-            "home": false,
-            "fdr": 3
-          },
-          {
-            "gw": 6,
-            "opp": "FUL",
-            "home": true,
-            "fdr": 2
-          }
-        ]
-      },
-      {
-        "team": "MCI",
-        "avg": 3,
-        "fixtures": [
-          {
-            "gw": 1,
-            "opp": "BOU",
-            "home": true,
-            "fdr": 3
-          },
-          {
-            "gw": 2,
-            "opp": "CRY",
-            "home": false,
-            "fdr": 3
-          },
-          {
-            "gw": 3,
-            "opp": "COV",
-            "home": true,
-            "fdr": 2
-          },
-          {
-            "gw": 4,
-            "opp": "MUN",
-            "home": false,
-            "fdr": 4
-          },
-          {
-            "gw": 5,
-            "opp": "SUN",
-            "home": true,
-            "fdr": 2
-          },
-          {
-            "gw": 6,
-            "opp": "LIV",
-            "home": false,
-            "fdr": 4
-          }
-        ]
-      },
-      {
-        "team": "NFO",
-        "avg": 3,
-        "fixtures": [
-          {
-            "gw": 1,
-            "opp": "LEE",
-            "home": true,
-            "fdr": 2
-          },
-          {
-            "gw": 2,
-            "opp": "LIV",
-            "home": false,
-            "fdr": 4
-          },
-          {
-            "gw": 3,
-            "opp": "TOT",
-            "home": true,
-            "fdr": 3
-          },
-          {
-            "gw": 4,
-            "opp": "AVL",
-            "home": false,
-            "fdr": 4
-          },
-          {
-            "gw": 5,
-            "opp": "COV",
-            "home": true,
-            "fdr": 2
-          },
-          {
-            "gw": 6,
-            "opp": "CRY",
-            "home": false,
-            "fdr": 3
-          }
-        ]
-      },
-      {
-        "team": "SUN",
-        "avg": 3,
-        "fixtures": [
-          {
-            "gw": 1,
-            "opp": "IPS",
-            "home": false,
-            "fdr": 2
-          },
-          {
-            "gw": 2,
-            "opp": "FUL",
-            "home": true,
-            "fdr": 2
-          },
-          {
-            "gw": 3,
-            "opp": "BRE",
-            "home": false,
-            "fdr": 3
-          },
-          {
-            "gw": 4,
-            "opp": "ARS",
-            "home": true,
-            "fdr": 4
-          },
-          {
-            "gw": 5,
-            "opp": "MCI",
-            "home": false,
-            "fdr": 5
-          },
-          {
-            "gw": 6,
+            "gw": 7,
             "opp": "BHA",
-            "home": true,
-            "fdr": 2
+            "home": false,
+            "fdr": 3
           }
         ]
       },
       {
-        "team": "TOT",
+        "team": "EVE",
         "avg": 3,
         "fixtures": [
           {
-            "gw": 1,
-            "opp": "BRE",
-            "home": false,
-            "fdr": 3
-          },
-          {
             "gw": 2,
-            "opp": "NEW",
-            "home": true,
-            "fdr": 2
-          },
-          {
-            "gw": 3,
-            "opp": "NFO",
-            "home": false,
-            "fdr": 3
-          },
-          {
-            "gw": 4,
-            "opp": "EVE",
-            "home": true,
-            "fdr": 3
-          },
-          {
-            "gw": 5,
-            "opp": "AVL",
-            "home": true,
-            "fdr": 3
-          },
-          {
-            "gw": 6,
-            "opp": "MUN",
-            "home": false,
-            "fdr": 4
-          }
-        ]
-      },
-      {
-        "team": "BRE",
-        "avg": 3.17,
-        "fixtures": [
-          {
-            "gw": 1,
-            "opp": "TOT",
-            "home": true,
-            "fdr": 3
-          },
-          {
-            "gw": 2,
-            "opp": "LEE",
-            "home": false,
-            "fdr": 3
-          },
-          {
-            "gw": 3,
-            "opp": "SUN",
-            "home": true,
-            "fdr": 2
-          },
-          {
-            "gw": 4,
             "opp": "BOU",
             "home": false,
             "fdr": 3
           },
           {
+            "gw": 3,
+            "opp": "MUN",
+            "home": true,
+            "fdr": 4
+          },
+          {
+            "gw": 4,
+            "opp": "TOT",
+            "home": false,
+            "fdr": 3
+          },
+          {
             "gw": 5,
+            "opp": "IPS",
+            "home": true,
+            "fdr": 2
+          },
+          {
+            "gw": 6,
+            "opp": "HUL",
+            "home": false,
+            "fdr": 2
+          },
+          {
+            "gw": 7,
             "opp": "CHE",
             "home": true,
             "fdr": 4
-          },
-          {
-            "gw": 6,
-            "opp": "AVL",
-            "home": false,
-            "fdr": 4
           }
         ]
       },
       {
-        "team": "COV",
-        "avg": 3.17,
+        "team": "FUL",
+        "avg": 3,
         "fixtures": [
           {
-            "gw": 1,
-            "opp": "ARS",
-            "home": false,
-            "fdr": 5
-          },
-          {
             "gw": 2,
-            "opp": "HUL",
-            "home": true,
-            "fdr": 2
-          },
-          {
-            "gw": 3,
-            "opp": "MCI",
-            "home": false,
-            "fdr": 5
-          },
-          {
-            "gw": 4,
-            "opp": "BHA",
-            "home": true,
-            "fdr": 2
-          },
-          {
-            "gw": 5,
-            "opp": "NFO",
+            "opp": "SUN",
             "home": false,
             "fdr": 3
           },
           {
+            "gw": 3,
+            "opp": "CRY",
+            "home": true,
+            "fdr": 3
+          },
+          {
+            "gw": 4,
+            "opp": "LIV",
+            "home": false,
+            "fdr": 4
+          },
+          {
+            "gw": 5,
+            "opp": "MUN",
+            "home": true,
+            "fdr": 4
+          },
+          {
             "gw": 6,
-            "opp": "NEW",
+            "opp": "IPS",
+            "home": false,
+            "fdr": 2
+          },
+          {
+            "gw": 7,
+            "opp": "HUL",
             "home": true,
             "fdr": 2
           }
@@ -896,14 +699,8 @@
       },
       {
         "team": "HUL",
-        "avg": 3.17,
+        "avg": 3,
         "fixtures": [
-          {
-            "gw": 1,
-            "opp": "MUN",
-            "home": true,
-            "fdr": 4
-          },
           {
             "gw": 2,
             "opp": "COV",
@@ -933,103 +730,103 @@
             "opp": "EVE",
             "home": true,
             "fdr": 3
+          },
+          {
+            "gw": 7,
+            "opp": "FUL",
+            "home": false,
+            "fdr": 3
           }
         ]
       },
       {
-        "team": "LEE",
-        "avg": 3.17,
+        "team": "MUN",
+        "avg": 3,
         "fixtures": [
           {
-            "gw": 1,
-            "opp": "NFO",
-            "home": false,
-            "fdr": 3
-          },
-          {
             "gw": 2,
-            "opp": "BRE",
+            "opp": "IPS",
             "home": true,
-            "fdr": 3
+            "fdr": 2
           },
           {
             "gw": 3,
-            "opp": "BHA",
+            "opp": "EVE",
             "home": false,
             "fdr": 3
           },
           {
             "gw": 4,
-            "opp": "NEW",
+            "opp": "MCI",
             "home": true,
-            "fdr": 2
+            "fdr": 4
           },
           {
             "gw": 5,
-            "opp": "CRY",
-            "home": true,
+            "opp": "FUL",
+            "home": false,
             "fdr": 3
           },
           {
             "gw": 6,
-            "opp": "ARS",
+            "opp": "TOT",
+            "home": true,
+            "fdr": 3
+          },
+          {
+            "gw": 7,
+            "opp": "LEE",
             "home": false,
-            "fdr": 5
+            "fdr": 3
           }
         ]
       },
       {
-        "team": "FUL",
-        "avg": 3.33,
+        "team": "ARS",
+        "avg": 3.17,
         "fixtures": [
           {
-            "gw": 1,
+            "gw": 2,
+            "opp": "AVL",
+            "home": false,
+            "fdr": 4
+          },
+          {
+            "gw": 3,
             "opp": "CHE",
             "home": true,
             "fdr": 4
           },
           {
-            "gw": 2,
+            "gw": 4,
             "opp": "SUN",
             "home": false,
             "fdr": 3
           },
           {
-            "gw": 3,
-            "opp": "CRY",
-            "home": true,
+            "gw": 5,
+            "opp": "BHA",
+            "home": false,
             "fdr": 3
           },
           {
-            "gw": 4,
-            "opp": "LIV",
-            "home": false,
-            "fdr": 4
-          },
-          {
-            "gw": 5,
-            "opp": "MUN",
-            "home": true,
-            "fdr": 4
-          },
-          {
             "gw": 6,
-            "opp": "IPS",
-            "home": false,
+            "opp": "LEE",
+            "home": true,
             "fdr": 2
+          },
+          {
+            "gw": 7,
+            "opp": "NFO",
+            "home": false,
+            "fdr": 3
           }
         ]
       },
       {
         "team": "BOU",
-        "avg": 3.67,
+        "avg": 3.17,
         "fixtures": [
-          {
-            "gw": 1,
-            "opp": "MCI",
-            "home": false,
-            "fdr": 5
-          },
           {
             "gw": 2,
             "opp": "EVE",
@@ -1059,18 +856,234 @@
             "opp": "CHE",
             "home": false,
             "fdr": 4
+          },
+          {
+            "gw": 7,
+            "opp": "SUN",
+            "home": true,
+            "fdr": 2
+          }
+        ]
+      },
+      {
+        "team": "SUN",
+        "avg": 3.17,
+        "fixtures": [
+          {
+            "gw": 2,
+            "opp": "FUL",
+            "home": true,
+            "fdr": 2
+          },
+          {
+            "gw": 3,
+            "opp": "BRE",
+            "home": false,
+            "fdr": 3
+          },
+          {
+            "gw": 4,
+            "opp": "ARS",
+            "home": true,
+            "fdr": 4
+          },
+          {
+            "gw": 5,
+            "opp": "MCI",
+            "home": false,
+            "fdr": 5
+          },
+          {
+            "gw": 6,
+            "opp": "BHA",
+            "home": true,
+            "fdr": 2
+          },
+          {
+            "gw": 7,
+            "opp": "BOU",
+            "home": false,
+            "fdr": 3
+          }
+        ]
+      },
+      {
+        "team": "BRE",
+        "avg": 3.33,
+        "fixtures": [
+          {
+            "gw": 2,
+            "opp": "LEE",
+            "home": false,
+            "fdr": 3
+          },
+          {
+            "gw": 3,
+            "opp": "SUN",
+            "home": true,
+            "fdr": 2
+          },
+          {
+            "gw": 4,
+            "opp": "BOU",
+            "home": false,
+            "fdr": 3
+          },
+          {
+            "gw": 5,
+            "opp": "CHE",
+            "home": true,
+            "fdr": 4
+          },
+          {
+            "gw": 6,
+            "opp": "AVL",
+            "home": false,
+            "fdr": 4
+          },
+          {
+            "gw": 7,
+            "opp": "LIV",
+            "home": true,
+            "fdr": 4
+          }
+        ]
+      },
+      {
+        "team": "LEE",
+        "avg": 3.33,
+        "fixtures": [
+          {
+            "gw": 2,
+            "opp": "BRE",
+            "home": true,
+            "fdr": 3
+          },
+          {
+            "gw": 3,
+            "opp": "BHA",
+            "home": false,
+            "fdr": 3
+          },
+          {
+            "gw": 4,
+            "opp": "NEW",
+            "home": true,
+            "fdr": 2
+          },
+          {
+            "gw": 5,
+            "opp": "CRY",
+            "home": true,
+            "fdr": 3
+          },
+          {
+            "gw": 6,
+            "opp": "ARS",
+            "home": false,
+            "fdr": 5
+          },
+          {
+            "gw": 7,
+            "opp": "MUN",
+            "home": true,
+            "fdr": 4
+          }
+        ]
+      },
+      {
+        "team": "NFO",
+        "avg": 3.33,
+        "fixtures": [
+          {
+            "gw": 2,
+            "opp": "LIV",
+            "home": false,
+            "fdr": 4
+          },
+          {
+            "gw": 3,
+            "opp": "TOT",
+            "home": true,
+            "fdr": 3
+          },
+          {
+            "gw": 4,
+            "opp": "AVL",
+            "home": false,
+            "fdr": 4
+          },
+          {
+            "gw": 5,
+            "opp": "COV",
+            "home": true,
+            "fdr": 2
+          },
+          {
+            "gw": 6,
+            "opp": "CRY",
+            "home": false,
+            "fdr": 3
+          },
+          {
+            "gw": 7,
+            "opp": "ARS",
+            "home": true,
+            "fdr": 4
+          }
+        ]
+      },
+      {
+        "team": "IPS",
+        "avg": 3.5,
+        "fixtures": [
+          {
+            "gw": 2,
+            "opp": "MUN",
+            "home": false,
+            "fdr": 4
+          },
+          {
+            "gw": 3,
+            "opp": "LIV",
+            "home": true,
+            "fdr": 4
+          },
+          {
+            "gw": 4,
+            "opp": "CRY",
+            "home": false,
+            "fdr": 3
+          },
+          {
+            "gw": 5,
+            "opp": "EVE",
+            "home": false,
+            "fdr": 3
+          },
+          {
+            "gw": 6,
+            "opp": "FUL",
+            "home": true,
+            "fdr": 2
+          },
+          {
+            "gw": 7,
+            "opp": "MCI",
+            "home": false,
+            "fdr": 5
           }
         ]
       }
     ]
   },
   "plan": {
-    "outlook": "The squad is built to go three gameweeks untouched: Haaland captains all three (BOU, cry, COV), and every starter has at least two green fixtures in that window. Bank the GW2 free transfer unless an injury forces a move. First real decision point is GW4, when the Manchester runs cool and there is minutes evidence on Rogers, Šeško, Wirtz and Estêvão.",
+    "outlook": "Joint-4th of 11 in FPL 26-27 on 15 points, leaders on 26 — and the gap is exactly one Arsenal attacker wide: both 26s are Friday-night Arsenal triples (Raya–Calafiori–White and Calafiori–Tzolis–Ødegaard), your own pair banked 15 of the same goals, and thirteen of your players are still to play. Nothing structural has gone wrong. The squad runs untouched to GW3 barring flags; the first forced thought is GW4, when the United trio's run hits City at Old Trafford and the Haaland captain path (cry, COV, then that derby) needs a real answer.",
     "items": [
       {
-        "label": "Team ID",
-        "when": "after you enter the squad",
-        "note": "send it over and the brain starts reading your actual picks, points and league standings from the API"
+        "label": "GW1 retro",
+        "when": "Tue 25 Aug",
+        "note": "the gameweek ends Monday at Craven Cottage; the log settles then — Bruno-over-Palmer and the Kerkez clean-sheet wager get their first honest entries"
       },
       {
         "label": "Wildcard",
@@ -1078,9 +1091,9 @@
         "note": "hold through the first international break — that is when the market misprices and the data is real"
       },
       {
-        "label": "Price watch",
-        "when": "first 2 weeks",
-        "note": "early risers among the bets (Palmer, Kerkez) lock in value; the brain flags moves in the daily run"
+        "label": "Leaders' squads",
+        "when": "before GW3",
+        "note": "all eleven rivals' picks are public; the two Arsenal-triple 26s are the drift number to track, not a shopping list"
       }
     ]
   },
@@ -1090,7 +1103,13 @@
       "date": "2026-08-21",
       "call": "Day-0 squad: Haaland (C) vs BOU; bets on Palmer, Kerkez, Hume; passed on Bruno Fernandes at £12.0m with Mbeumo/Shaw/Lammens carrying the Man Utd run.",
       "verdict": "open"
+    },
+    {
+      "gw": 2,
+      "date": "2026-08-22",
+      "call": "No move, transfer banked; Haaland (C) at Crystal Palace, B.Fernandes vice, 3-4-3 unchanged. Flagged Šeško's minutes as the one thing that could reopen the call before Friday.",
+      "verdict": "open"
     }
   ],
-  "generated_at": "2026-08-21T02:21:51.466Z"
+  "generated_at": "2026-08-22T12:35:47.270Z"
 }
