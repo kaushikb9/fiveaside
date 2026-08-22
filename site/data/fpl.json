@@ -10,24 +10,24 @@
     "finished": false
   },
   "call": {
-    "headline": "No move — bank the transfer; Haaland keeps the armband at Selhurst Park",
-    "reasoning": "Friday was one game out of ten: thirteen of your fifteen haven't kicked a ball yet, so there is no evidence to act on and nothing to fix — all fifteen are available on the live API and the bank is £0.0m. The free transfer rolls. Haaland captains at Crystal Palace: 69.4% owned, a fixture City win most weeks, and no returner in the squad with a stronger claim. The first real read on this squad — Bruno over Palmer, the Kerkez wager — arrives Monday night at Craven Cottage, and GW1 settles in the log right after; the verdict stays open until then, because settling it off one Arsenal game would be guessing.",
+    "headline": "Hold everything — no transfer, Haaland keeps the armband at Selhurst Park",
+    "reasoning": "Manchester United lost 2-0 at newly promoted Hull, both goals headed in from set pieces, and your three United men returned five points between them off £24.5m. That is the loudest thing that has happened to this squad and it is still not a reason to act: GW2 is Ipswich at home, an FDR 2 and the kindest fixture on your side of the ticker, and selling into it is the textbook overreaction. The real United question is GW4, when City visit Old Trafford — decide it with three XIs of evidence rather than one. Nothing else is forced. There are no flags in the fifteen, the bank is £0.0m, and the free transfer only lands when GW1 settles on Monday night; five of your players, Haaland included, still have fixtures to play in it. He captains at Crystal Palace on 69.2% ownership with no rival claim in the squad.",
     "captain": "Haaland",
     "vice": "B.Fernandes",
     "chip": "no chip — the first-half set keeps until GW19 and nothing here needs one",
+    "template_drift": "−2 vs the bus (Kerkez and Rogers for Guéhi and Szoboszlai) — and both sit on the same 21 points so far, so the deviation has cost nothing yet",
     "alternatives": [
       {
         "kind": "template-first",
-        "move": "B.Fernandes (C) at home to Ipswich",
-        "note": "at 51.6% owned against the kindest fixture on the slate it is genuinely close — but the evidence for splitting from Haaland's armband is zero. Revisit when City visit Old Trafford in GW4."
+        "move": "João Pedro (C) at home to Brighton",
+        "note": "the only other 60%-owned captain in the squad, and a genuinely soft home fixture — but a £7.5m forward's ceiling is not a reason to take the armband off a £15.5m one."
       },
       {
         "kind": "upside",
-        "move": "Thiago in for Calvert-Lewin",
-        "note": "22 goals and every Brentford penalty last season; the pivot if a second premium forward is ever wanted."
+        "move": "Dewsbury-Hall in for Rogers",
+        "note": "£1.0m cheaper and playing every minute; the swap becomes live if Monday's Chelsea XI leaves Rogers out."
       }
-    ],
-    "template_drift": "−2 vs the bus — Tzolis and Calafiori in, Rogers' Chelsea seat still open"
+    ]
   },
   "squad": {
     "formation": "3-4-3",
@@ -55,7 +55,7 @@
         "price": 5.5,
         "role": "start",
         "bet": true,
-        "note": "Liverpool's undisputed left-back (Robertson now at Spurs) at 3.8% ownership — £1.0m cheaper than Virgil for the same clean sheets."
+        "note": "Liverpool's undisputed left-back at 3.8% ownership — £1.0m cheaper than Virgil for the same clean sheets. Newcastle away on Sunday is the first of the eight the wager rides on."
       },
       {
         "name": "Calafiori",
@@ -79,7 +79,7 @@
         "role": "bench",
         "bench_order": 2,
         "bet": true,
-        "note": "Nailed right-back in a settled Sunderland defence; Fulham at home this week is exactly the fixture he's in the squad for — first man off the bench."
+        "note": "Nailed right-back in a settled Sunderland defence; Fulham at home in GW2 is exactly the fixture he is in the squad for — first man off the bench."
       },
       {
         "name": "Diop",
@@ -154,7 +154,7 @@
     "team_name": "Wabi Sabi Xabi",
     "manager": "Kaushik Bhat",
     "entered": true,
-    "overall_rank": 4388570,
+    "overall_rank": 4758823,
     "total_points": 21,
     "gw_points": 21,
     "bank": 0,
@@ -318,54 +318,54 @@
       "team": "CHE",
       "pos": "MID",
       "price": 9.5,
-      "ownership": "10.4%",
+      "ownership": "10.5%",
       "status": "hold",
-      "note": "The road not taken in your final draft — the Bruno-over-Palmer ledger runs to GW6–8, and Monday at Fulham opens his evidence file."
+      "note": "The road not taken in your final draft. Chelsea don't play until Monday at Fulham, so the Bruno-over-Palmer ledger only opens there — and the game's own list still has him on Chelsea's penalties, whatever Alonso would and wouldn't confirm."
     },
     {
       "name": "Šeško",
       "team": "MUN",
       "pos": "FWD",
       "price": 7,
-      "ownership": "1.3%",
-      "status": "hold",
-      "note": "Once fit and starting he leads the line behind the league's kindest run — the £1.0m step up from Calvert-Lewin when the evidence arrives."
+      "ownership": "1.4%",
+      "status": "cooling",
+      "note": "The flag cleared, and then Carrick benched him at Hull and gave him 23 minutes. Back to watching until he starts a league game — a striker who missed all of pre-season is not a £1.0m upgrade on anyone."
+    },
+    {
+      "name": "Dewsbury-Hall",
+      "team": "EVE",
+      "pos": "MID",
+      "price": 6.5,
+      "ownership": "3.3%",
+      "status": "rising",
+      "note": "Ninety minutes and the opener in Everton's 2-0 over Palace: 11 points from a £6.5m central midfielder in a side that kept the clean sheet too. A second return and he is the Rogers alternative, not a hedge."
+    },
+    {
+      "name": "Woltemade",
+      "team": "NEW",
+      "pos": "FWD",
+      "price": 6,
+      "ownership": "1.8%",
+      "status": "rising",
+      "note": "Newcastle's penalty taker at £6.0m in front of the kindest six-game run on the ticker (2.67 average, the best of any club). That is the seat Calvert-Lewin currently holds, on a worse run."
     },
     {
       "name": "Cherki",
       "team": "MCI",
       "pos": "MID",
       "price": 7.5,
-      "ownership": "7.8%",
+      "ownership": "7.9%",
       "status": "rising",
-      "note": "13 assists in 1,772 minutes last season, and Doku's calf (out to 5 Sep) clears the flank — a start against Bournemouth then Palace is the trigger."
-    },
-    {
-      "name": "Estêvão",
-      "team": "CHE",
-      "pos": "MID",
-      "price": 6.5,
-      "ownership": "1.3%",
-      "status": "rising",
-      "note": "2g/5a in 839 debut minutes; if he claims a wing spot he's the £6.5m entry to Chelsea's attack."
+      "note": "13 assists in 1,772 minutes last season and a clear flank in front of him. A start against Bournemouth on Sunday is the trigger."
     },
     {
       "name": "Thiago",
       "team": "BRE",
       "pos": "FWD",
       "price": 8,
-      "ownership": "17.1%",
-      "status": "hold",
-      "note": "22 goals and every Brentford penalty last season; still the pivot if a second premium forward is ever needed."
-    },
-    {
-      "name": "Wirtz",
-      "team": "LIV",
-      "pos": "MID",
-      "price": 7.5,
-      "ownership": "12.6%",
+      "ownership": "17.2%",
       "status": "cooling",
-      "note": "Still no minutes evidence on whether Liverpool's creative load runs through him or Szoboszlai — drops off unless the first two weeks show it."
+      "note": "22 goals and every Brentford penalty last season, but the ticker turns hard on him — Chelsea, Villa and Liverpool across GW5–7 is the worst run of any forward at this price. The window on the pivot is closing."
     }
   ],
   "wagers": [
@@ -373,25 +373,25 @@
       "claim": "Palmer outscores B.Fernandes over GW1–6",
       "settles_gw": 6,
       "owner": "brain",
-      "standing": "opened at the GW1 deadline"
+      "standing": "Bruno 2 points at Hull; Palmer doesn't play until Monday. Nothing decided, but the ledger is open."
     },
     {
       "claim": "Owning Calafiori + Tzolis beats owning no Arsenal by GW6",
       "settles_gw": 6,
       "owner": "kb",
-      "standing": "KB's override — both hauled on opening night"
+      "standing": "KB's override — 15 points from £12.0m in the 3-0 over Coventry. Ahead."
     },
     {
       "claim": "Kerkez keeps ≥3 clean sheets by GW8",
       "settles_gw": 8,
       "owner": "brain",
-      "standing": "not owned in the end — tracked as a paper bet"
+      "standing": "Owned in the end; Newcastle away on Sunday is the first of the eight."
     },
     {
       "claim": "This squad beats The Bus by GW8",
       "settles_gw": 8,
       "owner": "brain",
-      "standing": "the season's null-hypothesis test"
+      "standing": "Dead level at 21 apiece through six fixtures — Kerkez, Rogers, Guéhi and Szoboszlai are all still to play."
     }
   ],
   "doctrine": [
@@ -415,6 +415,13 @@
       "established": "GW1",
       "grade": "pattern",
       "status": "new"
+    },
+    {
+      "id": "D4",
+      "text": "Opening weekend prices nothing. A promoted side beating a giant is one result until the same shape holds twice — sell on a pattern, never on a scoreline.",
+      "established": "GW1",
+      "grade": "observation",
+      "status": "new"
     }
   ],
   "race": {
@@ -424,13 +431,13 @@
     "rows": [
       {
         "rank": 1,
-        "name": "Mad11",
-        "total": 39,
+        "name": "Gunners.exe",
+        "total": 40,
         "is_owner": false
       },
       {
         "rank": 2,
-        "name": "Gunners.exe",
+        "name": "Mad11",
         "total": 35,
         "is_owner": false
       },
@@ -499,7 +506,7 @@
         "total": null
       }
     ],
-    "note": "GW1 is still being played — Chelsea and Fulham close it out on Monday night. Benchmark totals start once the gameweek settles."
+    "note": "Gunners.exe leads on 40 off a Friday-night Arsenal haul. You are joint-5th on 21 with five players — Haaland among them — yet to kick a ball in the gameweek. Benchmark totals start once GW1 settles on Monday."
   },
   "log": [
     {
@@ -511,12 +518,12 @@
     {
       "gw": 2,
       "date": "2026-08-22",
-      "call": "No move, transfer banked; Haaland (C) at Crystal Palace, B.Fernandes vice, 3-4-3 unchanged. Flagged Šeško's minutes as the one thing that could reopen the call before Friday.",
+      "call": "Held through the Hull result: no transfer, the free one banked, all three United men kept into Ipswich at home. Haaland (C) at Selhurst Park, B.Fernandes vice, 3-4-3 unchanged.",
       "verdict": "open"
     }
   ],
   "plan": {
-    "outlook": "Joint-4th of 11 in FPL 26-27 on 15 points, leaders on 26 — and the gap is exactly one Arsenal attacker wide: both 26s are Friday-night Arsenal triples (Raya–Calafiori–White and Calafiori–Tzolis–Ødegaard), your own pair banked 15 of the same goals, and thirteen of your players are still to play. Nothing structural has gone wrong. The squad runs untouched to GW3 barring flags; the first forced thought is GW4, when the United trio's run hits City at Old Trafford and the Haaland captain path (cry, COV, then that derby) needs a real answer.",
+    "outlook": "Joint-5th of 11 on 21 points with the leaders on 40, and the gap is still one Friday night wide — Arsenal's 3-0 built both of the totals above 35, and your own Arsenal pair banked 15 of the same points. What Saturday added is a warning rather than a wound: Manchester United lost at Hull and the three of them you own paid five points. That is a GW4 problem, not a GW2 one. Five of your fifteen have not played yet, so this squad's real shape is unknown until Monday night at Craven Cottage. Run it untouched to GW3 barring flags.",
     "items": [
       {
         "label": "GW1 retro",
@@ -524,14 +531,14 @@
         "note": "the gameweek ends Monday at Craven Cottage; the log settles then — Bruno-over-Palmer and the Kerkez clean-sheet wager get their first honest entries"
       },
       {
-        "label": "Wildcard",
-        "when": "GW8-12",
-        "note": "hold through the first international break — that is when the market misprices and the data is real"
+        "label": "The United question",
+        "when": "GW4 — 12 Sep",
+        "note": "three United men run into City at Old Trafford. Two more XIs of evidence first; if Ipswich at home doesn't fix the attack, one of the three goes then"
       },
       {
-        "label": "Leaders' squads",
-        "when": "before GW3",
-        "note": "all eleven rivals' picks are public; the two Arsenal-triple 26s are the drift number to track, not a shopping list"
+        "label": "Wildcard",
+        "when": "GW8–12",
+        "note": "hold through the first international break — that is when the market misprices and the data is real"
       }
     ]
   },
@@ -556,37 +563,45 @@
   "signals": [
     {
       "tag": "news",
-      "player": "Tzolis",
-      "team": "ARS",
-      "text": "Seven shot involvements and the assist for Saka's goal against Coventry, with Arteta calling his recent form \"phenomenal\" and Martinelli left out of the squad entirely — but Rice and Saka took every corner, and Tzolis wasn't involved.",
-      "source": "FFScout Scout Notes",
-      "action": "hold and enjoy — the ceiling stays open-play only until he's on set pieces",
-      "url": "https://www.fantasyfootballscout.co.uk/2026/08/22/fpl-notes-bruno-g-injury-latest-tzolis-sharp-odegaard-rhythm"
-    },
-    {
-      "tag": "injury",
-      "player": "Šeško",
       "team": "MUN",
-      "text": "Carries a shin flag at 75% into Saturday's trip to Hull — his first shot at league minutes after zero pre-season.",
-      "source": "FPL API",
-      "action": "the one thing that could reopen this week's call — a start plus Monday's retro puts Calvert-Lewin → Šeško on the table before Friday"
+      "text": "Hull City 2-0 Manchester United — both goals headed in from set pieces by centre-backs Ajayi and Mendy, against a United side rebuilt in midfield over the summer. Carrick afterwards: the defeat \"won't change our course\".",
+      "source": "The Guardian",
+      "action": "hold the three of them through Ipswich at home; the sell decision belongs to GW4 at Old Trafford",
+      "url": "https://www.theguardian.com/football/2026/aug/22/hull-manchester-united-premier-league-match-report"
     },
     {
       "tag": "injury",
-      "player": "Henderson",
-      "team": "CRY",
-      "text": "Palace's keeper takes an ankle flag (75%) into the weekend, with City at Selhurst Park next.",
-      "source": "FPL API",
-      "action": "nothing to do — a patched-up Palace only firms the Haaland armband"
+      "player": "Amad",
+      "team": "MUN",
+      "text": "Pulled out of the Hull squad with a niggle picked up at the end of the week; the club hope he is back soon, per Carrick. Mbeumo came in for him and Cunha kept his place.",
+      "source": "FFScout · Simon Stone",
+      "action": "Cunha's seat is safe while Amad is out — he is the £8.0m United midfielder to hold if you own one",
+      "url": "https://www.fantasyfootballscout.co.uk/2026/08/22/hull-v-man-utd-team-news-amad-out-mbeumo-cunha-start"
     },
     {
       "tag": "news",
-      "player": "Konsa",
-      "team": "ARS",
-      "text": "The £55m move from Villa is complete, and Ornstein has him in line to debut against his old club on 31 Aug — Arsenal's patch for a defence missing Saliba and Timber.",
-      "source": "r/FantasyPL · David Ornstein",
-      "action": "a £4.5m Arsenal defender who starts is a future bench upgrade on Diop — watch his minutes",
-      "url": "https://www.reddit.com/r/FantasyPL/comments/1vua96g/ezri_konsa_in_line_to_make_arsenal_debut_at_aston/"
+      "player": "Šeško",
+      "team": "MUN",
+      "text": "Flag cleared to 100%, then named among the substitutes at Hull after missing all of pre-season; 23 minutes off the bench.",
+      "source": "FPL API",
+      "action": "the Calvert-Lewin → Šeško trigger did not fire — he waits until he starts"
+    },
+    {
+      "tag": "rotation",
+      "player": "Rogers",
+      "team": "CHE",
+      "text": "Alonso on his late World Cup returnees: they \"came a little bit later and they would need maybe a little bit more time, but they are for sure selectable for the line-up\". Chelsea don't play until Monday at Fulham.",
+      "source": "FFScout press conference",
+      "action": "the last unknown in your GW1 — a bench on Monday makes Dewsbury-Hall a live GW3 move",
+      "url": "https://www.fantasyfootballscout.co.uk/2026/08/21/rogers-enzo-welbeck-chelsea-injury-latest-for-fpl-gameweek-1"
+    },
+    {
+      "tag": "injury",
+      "player": "Doku",
+      "team": "MCI",
+      "text": "Calf injury with an expected return of 5 September — he misses Bournemouth, Palace and Coventry.",
+      "source": "FPL API",
+      "action": "that is Cherki's window; a start on Sunday makes him the cheapest City attacker worth owning"
     }
   ],
   "template": [
@@ -666,7 +681,7 @@
         {
           "name": "Mbeumo",
           "team": "MUN",
-          "ownership": 38.6,
+          "ownership": 38.5,
           "price": 8
         },
         {
@@ -695,7 +710,7 @@
         {
           "name": "João Pedro",
           "team": "CHE",
-          "ownership": 64.2,
+          "ownership": 64.1,
           "price": 7.5
         },
         {
@@ -728,7 +743,7 @@
       {
         "name": "João Pedro",
         "team": "CHE",
-        "ownership": 64.2
+        "ownership": 64.1
       },
       {
         "name": "B.Fernandes",
@@ -1809,8 +1824,8 @@
   },
   "wildcard": {
     "formation": "3-4-3",
-    "note": "The best from-scratch fifteen at today's prices, re-picked every deadline. The ceiling — no human holds a free weekly re-pick.",
-    "value": "£98.0m",
+    "value": "£98.5m",
+    "note": "The best legal from-scratch fifteen at today's prices, re-picked every deadline. Two changes this week, both made on the ticker rather than on Friday's scores: Woltemade for Thiago (£2.0m cheaper, Newcastle's penalties, the kindest six-game run in the league) and Saka for Szoboszlai (Arsenal's penalties and corners, at a quarter of Szoboszlai's ownership).",
     "players": [
       {
         "name": "Verbruggen",
@@ -1855,10 +1870,10 @@
         "role": "start"
       },
       {
-        "name": "Szoboszlai",
-        "team": "LIV",
+        "name": "Saka",
+        "team": "ARS",
         "pos": "MID",
-        "price": 7,
+        "price": 9.5,
         "role": "start"
       },
       {
@@ -1885,10 +1900,10 @@
         "vice": true
       },
       {
-        "name": "Thiago",
-        "team": "BRE",
+        "name": "Woltemade",
+        "team": "NEW",
         "pos": "FWD",
-        "price": 8,
+        "price": 6,
         "role": "start"
       },
       {
@@ -1953,5 +1968,6 @@
       }
     ],
     "note": "First-half chips die at the GW19 deadline (2 Jan). A good week used beats a perfect week hoarded."
-  }
+  },
+  "generated_at": "2026-08-22T17:59:41.019Z"
 }
