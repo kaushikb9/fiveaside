@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light dark">
+<title>The Manager's Desk</title>
+<script>try{if(localStorage.getItem('touchline-fpl-sync')==='1')document.documentElement.classList.add('synced')}catch(e){}</script>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{
+  color-scheme:light dark;
+  --paper:#f7f9f5;--ink:#1a221c;--dim:#5c6a60;--line:#d8e0d8;--card:#fff;--acc:#1e7d4c;
+  --miss:#a13232;--un:#8a5f0a;--luck:#2f5e9e;
+  --serif:Georgia,'Times New Roman',serif;
+  --sans:-apple-system,BlinkMacSystemFont,'Segoe UI',system-ui,sans-serif;
+  --mono:ui-monospace,'SF Mono',Menlo,Consolas,monospace;
+}
+@media (prefers-color-scheme:dark){
+  :root{--paper:#0d1411;--ink:#e8ede8;--dim:#9db0a3;--line:#24312a;--card:#121b16;--acc:#4cc487;
+  --miss:#e07a7a;--un:#d8a44c;--luck:#6ea8e0}
+}
+html{-webkit-text-size-adjust:100%}
+body{background:var(--paper);color:var(--ink);font:15px/1.6 var(--sans)}
+.n{font-family:var(--mono);font-size:.94em}
+.dim{color:var(--dim)}
+sup{font-size:9px;color:var(--acc);line-height:0}
+:focus-visible{outline:2px solid var(--acc);outline-offset:2px;border-radius:3px}
+html:not(.synced) .s-only{display:none!important}
+html.synced .p-only{display:none!important}
+
+.wrap{max-width:912px;margin:0 auto;padding:26px 22px 40px}
+.mast{display:flex;justify-content:space-between;align-items:flex-start;gap:16px;padding-bottom:20px;border-bottom:1px solid var(--line);margin-bottom:30px}
+h1{font:700 25px/1.15 var(--serif);letter-spacing:-.01em}
+.strap{color:var(--dim);font-size:13px;margin-top:5px}
+.syncbtn{font:600 10.5px var(--sans);letter-spacing:.12em;text-transform:uppercase;color:var(--dim);background:var(--card);border:1px solid var(--line);border-radius:999px;padding:8px 14px;cursor:pointer;white-space:nowrap;margin-top:4px;transition:color .15s,border-color .15s}
+.syncbtn:hover{color:var(--ink);border-color:var(--dim)}
+html.synced .syncbtn{color:var(--acc);border-color:var(--acc)}
+.syncbtn .per{display:none}
+html.synced .syncbtn .per{display:inline}
+html.synced .syncbtn .pub{display:none}
+
+@media (min-width:820px){
+  .layout{display:grid;grid-template-columns:200px minmax(0,620px);gap:48px;align-items:start}
+}
+.rail{border:1px solid var(--line);background:var(--card);border-radius:10px;padding:16px 18px;margin-bottom:30px}
+@media (min-width:820px){
+  .rail{border:0;background:none;border-radius:0;padding:0;margin:0;position:sticky;top:28px}
+}
+.rteam{font:700 17px/1.3 var(--serif);margin-bottom:8px}
+.rstats{display:flex;flex-wrap:wrap;gap:5px 18px;font-size:12.5px;list-style:none}
+.rstats li{display:flex;gap:6px;align-items:baseline}
+.rstats .k{color:var(--dim)}
+.rstats .v{font-family:var(--mono);font-size:12px}
+@media (min-width:820px){
+  .rstats{display:block}
+  .rstats li{justify-content:space-between;padding:7px 0;border-top:1px solid var(--line)}
+}
+.rchips{display:flex;gap:5px;margin-top:10px}
+.chip{font:11px var(--mono);color:var(--dim);border:1px solid var(--line);border-radius:4px;padding:2px 6px}
+.rdl{margin-top:14px;padding-top:12px;border-top:1px solid var(--line)}
+.rail .p-only.rdl{margin-top:0;padding-top:0;border-top:0}
+.rk-k{font:600 10px var(--sans);letter-spacing:.14em;text-transform:uppercase;color:var(--dim);margin-bottom:4px}
+.rdl .when{font-size:12.5px;color:var(--dim)}
+.count{display:block;font:600 14px var(--mono);color:var(--acc);margin-top:3px}
+.railnote{color:var(--dim);font-size:12.5px;font-style:italic;margin-top:12px;line-height:1.5}
+
+.col>*{margin-bottom:38px}
+.col>*:last-child{margin-bottom:0}
+h2,h3{font:600 11px var(--sans);letter-spacing:.15em;text-transform:uppercase;color:var(--dim)}
+h2{margin-bottom:12px}
+h3{font-size:10px;margin-bottom:6px}
+.h2row{display:flex;justify-content:space-between;align-items:baseline;gap:12px;margin-bottom:12px}
+.h2row h2{margin-bottom:0}
+.h2sub{font:11px var(--mono);color:var(--dim)}
+.card{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:20px 22px}
+
+ul,ol{list-style:none}
+.rowlist li{padding:10px 0;border-top:1px solid var(--line)}
+.rowlist li:first-child{border-top:0}
+.pulse li{font-size:14.5px}
+.up{color:var(--acc)}
+
+details.card{padding:0}
+summary{list-style:none;cursor:pointer;display:flex;align-items:baseline;gap:12px;padding:16px 22px}
+summary::-webkit-details-marker{display:none}
+summary h2{margin:0}
+summary .sum{flex:1;font:11px var(--mono);color:var(--dim);text-align:right}
+summary .tw{font-family:var(--mono);color:var(--dim);font-size:13px}
+details[open] summary{border-bottom:1px solid var(--line)}
+.xi{padding:14px 22px 18px}
+.form{text-align:center;font-size:13.5px;line-height:2.1}
+.mid{color:var(--dim)}
+.bd{display:inline-block;font:700 9px/1 var(--mono);border:1px solid var(--acc);color:var(--acc);border-radius:3px;padding:2px 3.5px;margin-left:3px;vertical-align:1.5px}
+.bd.v{border-color:var(--dim);color:var(--dim)}
+.benchl{margin-top:12px;padding-top:10px;border-top:1px solid var(--line);text-align:center;font-size:12.5px;color:var(--dim)}
+.verdict{margin-top:12px;font:italic 14px/1.55 var(--serif);color:var(--dim)}
+
+.clock li{display:grid;grid-template-columns:40px 1fr auto;gap:12px;align-items:baseline;font-size:13.5px}
+.clock .c{font:600 12px var(--mono)}
+.clock .w{color:var(--dim)}
+.clock .x{font:11px var(--mono);color:var(--dim);white-space:nowrap}
+.footline{margin-top:10px;font-size:12.5px;color:var(--dim)}
+.fixnote p{font:italic 15.5px/1.7 var(--serif)}
+
+.call{border-top:2px solid var(--acc)}
+.call h2{color:var(--acc)}
+.callhead{font:700 23px/1.3 var(--serif);letter-spacing:-.01em;margin:2px 0 14px}
+.moves{display:flex;flex-wrap:wrap;gap:6px 20px;font-size:13.5px;padding:10px 0;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+.moves .k{color:var(--dim);margin-right:5px}
+.moves b{font-weight:600}
+.why{font-size:14px;line-height:1.65;margin:13px 0 11px}
+.wager{color:var(--dim);font-size:12.5px}
+
+.pitchbox{position:relative;border:1px solid var(--line);border-radius:8px;padding:14px 4px;margin-bottom:12px;overflow:hidden}
+.pitchbox::before{content:"";position:absolute;left:0;right:0;top:50%;border-top:1px solid var(--line)}
+.pitchbox::after{content:"";position:absolute;left:50%;top:50%;width:84px;height:84px;margin:-42px 0 0 -42px;border:1px solid var(--line);border-radius:50%}
+.prow{position:relative;display:flex;justify-content:space-evenly;margin:13px 0;z-index:1}
+.pl{font-size:12px;line-height:1.3;text-align:center;background:var(--card);padding:1px 5px;border-radius:4px;max-width:26%}
+.fine{color:var(--dim);font-size:12px;line-height:1.55;margin-top:8px}
+
+.strip .cols{display:block}
+@media (min-width:820px){.strip .cols{display:grid;grid-template-columns:1fr 1fr;gap:36px}}
+.strip .cols>div{margin-bottom:18px}
+.strip .cols>div:last-child{margin-bottom:0}
+.fyi li,.watch li{display:flex;align-items:center;gap:10px;padding:8px 0;border-top:1px solid var(--line);font-size:13.5px}
+.tag{font:600 9.5px var(--sans);letter-spacing:.1em;text-transform:uppercase;color:var(--dim);min-width:58px}
+.mv{flex:1}
+.cost{font:11.5px var(--mono);color:var(--dim);white-space:nowrap}
+.star{background:none;border:0;color:var(--dim);font-size:16px;line-height:1;cursor:pointer;padding:2px 3px;transition:color .15s}
+.star:hover{color:var(--ink)}
+.star.on{color:var(--acc)}
+.dir{font-family:var(--mono);color:var(--dim);width:18px;text-align:center;flex:none}
+.ys{font:600 9.5px var(--sans);letter-spacing:.1em;text-transform:uppercase;color:var(--acc)}
+.wnote{color:var(--dim)}
+
+.deb .drow{display:flex;justify-content:space-between;gap:12px;align-items:baseline;font-size:14px}
+.st{font:600 9.5px/1 var(--sans);letter-spacing:.09em;text-transform:uppercase;border:1px solid currentColor;border-radius:3px;padding:3px 6px;white-space:nowrap}
+.st .n{font-size:9.5px}
+.hit{color:var(--acc)}
+.msd{color:var(--miss)}
+.unl{color:var(--un)}
+.lck{color:var(--luck)}
+.dn{color:var(--dim);font-size:12.5px;margin-top:3px}
+.lesson{margin-top:15px;padding-top:13px;border-top:1px solid var(--line)}
+.lq{font:italic 15px/1.55 var(--serif);margin-top:4px}
+
+.race li{display:grid;grid-template-columns:22px 1fr auto;gap:10px;align-items:baseline;padding:7px 0;border-top:1px solid var(--line);font-size:13.5px}
+.race li:first-child{border-top:0}
+.race .rr{font:11.5px var(--mono);color:var(--dim)}
+.race .pt{font-family:var(--mono);font-size:13px}
+.race .me .nm{font-weight:600}
+.race .me .rr,.race .me .pt{color:var(--ink);font-weight:600}
+.race .me .nm::before{content:"★ ";color:var(--acc)}
+.race .gh,.race .gh .pt{color:var(--dim);font-size:12.5px}
+.race .gh .nm{font-style:italic}
+.edge{font:italic 14px/1.5 var(--serif);margin-top:12px}
+
+footer{margin-top:46px;padding-top:16px;border-top:1px solid var(--line);display:flex;justify-content:space-between;flex-wrap:wrap;gap:6px 16px;font:600 10px var(--sans);letter-spacing:.14em;text-transform:uppercase;color:var(--dim)}
+
+@media (prefers-reduced-motion:reduce){*,*::before,*::after{transition:none!important;animation:none!important}}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header class="mast">
+  <div>
+    <h1>Touchline · FPL</h1>
+    <p class="strap">the fantasy companion — one calm page, no hype</p>
+  </div>
+  <button id="sync" class="syncbtn" aria-pressed="false"><span class="pub">Sync team</span><span class="per">Wabi Sabi Xabi</span></button>
+</header>
+
+<div class="layout">
+
+<aside class="rail">
+  <!-- unsynced rail -->
+  <div class="p-only rdl">
+    <p class="rk-k">GW2 deadline</p>
+    <p class="when">Fri 28 Aug · 23:00 IST</p>
+    <span class="count">in 2d 4h</span>
+    <p class="railnote">Sync your team to see your desk here.</p>
+  </div>
+  <!-- synced rail -->
+  <div class="s-only">
+    <p class="rteam">Wabi Sabi Xabi</p>
+    <ul class="rstats">
+      <li><span class="k">GW1</span><span class="v">61 pts</span></li>
+      <li><span class="k">Overall rank</span><span class="v">1.4M</span></li>
+      <li><span class="k">Mini-league</span><span class="v">3rd of 11</span></li>
+      <li><span class="k">Bank</span><span class="v">£0.0m</span></li>
+      <li><span class="k">Free transfers</span><span class="v">1</span></li>
+    </ul>
+    <div class="rchips" aria-label="Chips in hand"><span class="chip">WC</span><span class="chip">FH</span><span class="chip">BB</span><span class="chip">TC</span></div>
+    <div class="rdl">
+      <p class="rk-k">GW2 deadline</p>
+      <p class="when">Fri 28 Aug · 23:00 IST</p>
+      <span class="count">in 2d 4h</span>
+    </div>
+  </div>
+</aside>
+
+<main class="col">
+
+  <!-- ═══ PUBLIC ═══ -->
+
+  <section class="p-only">
+    <h2>Week pulse</h2>
+    <ul class="rowlist pulse">
+      <li>Doku out ~<span class="n">3</span> weeks — City's left wing opens up.</li>
+      <li>Thiago <span class="n">92%</span> toward <span class="n">+0.1</span> tonight <span class="up">▲</span></li>
+      <li>Palmer trained fully — knock story dies.</li>
+    </ul>
+  </section>
+
+  <details class="p-only card">
+    <summary><h2>The bus team</h2><span class="sum">3-4-3 · set &amp; forget</span><span class="tw">57 pts</span></summary>
+    <div class="xi">
+      <div class="form">
+        <div>Verbruggen</div>
+        <div>Gabriel <span class="mid">·</span> Virgil <span class="mid">·</span> Calafiori</div>
+        <div>Saka <span class="mid">·</span> B.Fernandes<span class="bd v">V</span> <span class="mid">·</span> Mbeumo <span class="mid">·</span> Szoboszlai</div>
+        <div>Haaland<span class="bd">C</span> <span class="mid">·</span> João Pedro <span class="mid">·</span> Thiago</div>
+      </div>
+      <p class="benchl">Bench — Dubravka · Guéhi · Hume · Diop</p>
+      <p class="verdict">Left untouched all season, this beats a badly-managed team. Serviced at international breaks. Season: <span class="n">57</span> pts.</p>
+    </div>
+  </details>
+
+  <details class="p-only card">
+    <summary><h2>Wildcard XI</h2><span class="sum">re-picked weekly</span><span class="tw">71 pts</span></summary>
+    <div class="xi">
+      <div class="form">
+        <div>Raya</div>
+        <div>Calafiori <span class="mid">·</span> Virgil <span class="mid">·</span> Kerkez</div>
+        <div>Saka <span class="mid">·</span> Semenyo <span class="mid">·</span> Mbeumo <span class="mid">·</span> Rogers</div>
+        <div>Haaland<span class="bd">C</span> <span class="mid">·</span> João Pedro <span class="mid">·</span> Gyökeres</div>
+      </div>
+      <p class="verdict">The ceiling — no human holds a free weekly re-pick. Season: <span class="n">71</span> pts.</p>
+    </div>
+  </details>
+
+  <section class="p-only">
+    <h2>Chip clock</h2>
+    <ul class="rowlist clock">
+      <li><span class="c">WC1</span><span class="w">window GW6–8</span><span class="x">expires GW19</span></li>
+      <li><span class="c">FH1</span><span class="w">hold for a blank — none scheduled</span><span class="x">expires GW19</span></li>
+      <li><span class="c">BB1</span><span class="w">wants a clean double</span><span class="x">expires GW19</span></li>
+      <li><span class="c">TC1</span><span class="w">premium home double or bust</span><span class="x">expires GW19</span></li>
+    </ul>
+    <p class="footline">First-half chips die at the GW19 deadline (<span class="n">2 Jan</span>).</p>
+  </section>
+
+  <section class="p-only fixnote">
+    <h2>Fixtures</h2>
+    <p>Runs to target: Man&nbsp;Utd (IPS·eve·CHE, caps=home) and Sunderland (FUL·bre·CRY) kindest next three; avoid Arsenal's ars·NEW·mci swing until GW5.</p>
+  </section>
+
+  <!-- ═══ PERSONAL ═══ -->
+
+  <section class="s-only card call">
+    <h2>★ The call</h2>
+    <p class="callhead">Hold everything: the squad did its job.</p>
+    <div class="moves">
+      <span><span class="k">Moves</span><b>none — bank the FT</b></span>
+      <span><span class="k">Captain</span><b>Haaland</b></span>
+      <span><span class="k">Vice</span><b>B.Fernandes</b></span>
+      <span><span class="k">Chip</span><b>none</b></span>
+    </div>
+    <p class="why"><span class="n">61</span> points, four clear of the median, and every open bet still live. This squad was built to go three gameweeks untouched — a transfer now buys nothing the fixtures don't already give you. Sit on the free transfer, let the armband ride, and execute after Friday's pressers, not before them.</p>
+    <p class="wager">Wager — "the hold beats any −4 by GW4" · template drift <span class="n">+1</span></p>
+  </section>
+
+  <section class="s-only card">
+    <div class="h2row"><h2>Team sheet</h2><span class="h2sub">GW2 · 3-4-3</span></div>
+    <div class="pitchbox">
+      <div class="prow"><span class="pl">Verbruggen</span></div>
+      <div class="prow"><span class="pl">Kerkez<sup>†</sup></span><span class="pl">Calafiori</span><span class="pl">Shaw</span></div>
+      <div class="prow"><span class="pl">B.Fernandes<span class="bd v">V</span></span><span class="pl">Mbeumo</span><span class="pl">Tzolis</span><span class="pl">Rogers</span></div>
+      <div class="prow"><span class="pl">Haaland<span class="bd">C</span></span><span class="pl">João Pedro</span><span class="pl">Calvert-Lewin</span></div>
+    </div>
+    <p class="benchl">Bench — <span class="n">1</span> Dubravka · <span class="n">2</span> Hume<sup>†</sup> · <span class="n">3</span> Hughes · <span class="n">4</span> Diop</p>
+    <p class="fine"><sup>†</sup> open bets — Kerkez ≥<span class="n">3</span> CS by GW8 (<span class="n">1</span> banked) · Hume: Sunderland run pays through GW3.</p>
+  </section>
+
+  <section class="s-only strip">
+    <h2>This week</h2>
+    <div class="cols">
+      <div>
+        <h3>FYI — only if you must</h3>
+        <ul class="fyi">
+          <li><span class="tag">cautious</span><span class="mv">DCL → Gyökeres</span><span class="cost">1 FT</span><button class="star" data-id="fyi-gyokeres" aria-label="Star move: DCL to Gyökeres" aria-pressed="false">☆</button></li>
+          <li><span class="tag">bold</span><span class="mv">Rogers → Saka</span><span class="cost">−4</span><button class="star" data-id="fyi-saka" aria-label="Star move: Rogers to Saka" aria-pressed="false">☆</button></li>
+        </ul>
+      </div>
+      <div>
+        <h3>Watchlist</h3>
+        <ul class="watch">
+          <li><button class="star dir" data-id="watch-saka" data-on="1" aria-label="Star player: Saka" aria-pressed="true">★</button><span class="mv">Saka <span class="ys">your star</span> <span class="wnote">— brain answers next run</span></span></li>
+          <li><span class="dir">↗</span><span class="mv">Thiago <span class="wnote">— rising</span></span></li>
+          <li><span class="dir">↗</span><span class="mv">Estêvão <span class="wnote">— rising</span></span></li>
+          <li><span class="dir">→</span><span class="mv">Šeško <span class="wnote">— hold</span></span></li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="s-only card deb">
+    <div class="h2row"><h2>Debrief</h2><span class="h2sub">GW1 · 61 pts</span></div>
+    <ul class="rowlist">
+      <li>
+        <div class="drow"><span>Haaland armband</span><span class="st hit">Hit <span class="n">+9</span></span></div>
+      </li>
+      <li>
+        <div class="drow"><span>Zero-Arsenal line</span><span class="st msd">Miss</span></div>
+        <p class="dn">Champions' pair returned <span class="n">15</span>; your override banked them.</p>
+      </li>
+      <li>
+        <div class="drow"><span>Kerkez clean sheet</span><span class="st unl">Unlucky</span></div>
+        <p class="dn"><span class="n">0.6</span> xGC, 89th-minute deflection.</p>
+      </li>
+      <li>
+        <div class="drow"><span>Verbruggen over Lammens</span><span class="st lck">Lucky</span></div>
+      </li>
+    </ul>
+    <div class="lesson">
+      <h3>Lesson · pattern · 2nd sighting</h3>
+      <p class="lq">"Champions' template assets are default-own; passing needs a priced case."</p>
+    </div>
+  </section>
+
+  <section class="s-only card">
+    <div class="h2row"><h2>The race</h2><span class="h2sub">mini-league · 11 teams</span></div>
+    <ol class="race">
+      <li><span class="rr n">1</span><span class="nm">Gunners.exe</span><span class="pt">68</span></li>
+      <li><span class="rr n">2</span><span class="nm">Mad11</span><span class="pt">66</span></li>
+      <li class="me"><span class="rr n">3</span><span class="nm">Wabi Sabi Xabi</span><span class="pt">61</span></li>
+      <li><span class="rr n">4</span><span class="nm">WorldChamps</span><span class="pt">58</span></li>
+      <li><span class="rr n">5</span><span class="nm">Vabby_Blues</span><span class="pt">55</span></li>
+      <li class="gh"><span class="rr"></span><span class="nm">+ 6 more</span><span class="pt"></span></li>
+      <li class="gh"><span class="rr">—</span><span class="nm">Wildcard XI</span><span class="pt">71</span></li>
+      <li class="gh"><span class="rr">—</span><span class="nm">Bus team</span><span class="pt">57</span></li>
+    </ol>
+    <p class="edge">Gunners.exe's lead is one player — Saka's nine.</p>
+  </section>
+
+</main>
+</div>
+
+<footer>
+  <span>Mockup · dummy points on real fixtures</span>
+  <span>Touchline · FPL</span>
+</footer>
+
+</div>
+<script>
+(function(){
+  var d=document,root=d.documentElement,sb=d.getElementById('sync');
+  sb.setAttribute('aria-pressed',String(root.classList.contains('synced')));
+  sb.addEventListener('click',function(){
+    var on=root.classList.toggle('synced');
+    sb.setAttribute('aria-pressed',String(on));
+    try{localStorage.setItem('touchline-fpl-sync',on?'1':'0')}catch(e){}
+  });
+  var KEY='touchline-fpl-stars',stars={};
+  try{stars=JSON.parse(localStorage.getItem(KEY)||'{}')||{}}catch(e){}
+  function paint(b,on){b.classList.toggle('on',on);b.firstChild.nodeValue=on?'★':'☆';b.setAttribute('aria-pressed',String(on))}
+  Array.prototype.forEach.call(d.querySelectorAll('.star'),function(b){
+    var id=b.getAttribute('data-id');
+    paint(b,(id in stars)?!!stars[id]:b.getAttribute('data-on')==='1');
+    b.addEventListener('click',function(){
+      var v=!b.classList.contains('on');
+      stars[id]=v;paint(b,v);
+      try{localStorage.setItem(KEY,JSON.stringify(stars))}catch(e){}
+    });
+  });
+})();
+</script>
+</body>
+</html>

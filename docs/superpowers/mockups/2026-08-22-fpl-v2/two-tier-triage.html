@@ -1,0 +1,569 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Touchline · FPL — The Quiet Page</title>
+<script>
+/* restore sync state before first paint; default is unsynced */
+try{if(localStorage.getItem('touchline-quiet-sync')==='1')document.documentElement.classList.add('synced')}catch(e){}
+</script>
+<style>
+/* ————— tokens ————— */
+:root{
+  color-scheme: light dark;
+  --paper:#f7f9f5;
+  --ink:#1c231d;
+  --muted:#57625a;
+  --faint:#6d7870;
+  --green:#1e7d4c;
+  --hair:rgba(28,35,29,.14);
+  --hit:#1e7d4c;
+  --miss:#ab3a35;
+  --unlucky:#8f6109;
+  --lucky:#2f5fa7;
+  --serif:Georgia,'Times New Roman',serif;
+  --sans:-apple-system,BlinkMacSystemFont,'Segoe UI',system-ui,sans-serif;
+  --mono:ui-monospace,'SF Mono',SFMono-Regular,Menlo,Consolas,monospace;
+}
+@media (prefers-color-scheme: dark){
+  :root{
+    --paper:#0d1411;
+    --ink:#e4ebe5;
+    --muted:#9daaa0;
+    --faint:#7f8b81;
+    --green:#4cc487;
+    --hair:rgba(228,235,229,.13);
+    --hit:#4cc487;
+    --miss:#e0837d;
+    --unlucky:#d4a44a;
+    --lucky:#82aade;
+  }
+}
+
+/* ————— base ————— */
+*{box-sizing:border-box;margin:0;padding:0}
+html{background:var(--paper)}
+body{
+  background:var(--paper);color:var(--ink);
+  font:15px/1.6 var(--sans);
+  -webkit-font-smoothing:antialiased;
+  -webkit-tap-highlight-color:transparent;
+}
+main{max-width:660px;margin:0 auto;padding:0 22px}
+::selection{background:color-mix(in srgb, var(--green) 22%, transparent)}
+a:focus-visible,button:focus-visible,summary:focus-visible{
+  outline:2px solid var(--green);outline-offset:3px;border-radius:6px;
+}
+
+/* sync visibility: personal layer appears only on html.synced */
+.when-synced{display:none}
+html.synced .when-synced{display:revert;animation:appear .45s ease}
+html.synced .when-public{display:none}
+@keyframes appear{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:none}}
+
+/* ————— masthead ————— */
+.mast{display:flex;justify-content:space-between;align-items:flex-start;gap:16px;padding-top:30px}
+.mast h1{font:400 21px/1.2 var(--serif);letter-spacing:.01em}
+.mast h1 .fpl{color:var(--green)}
+.mastnav{display:flex;align-items:center;gap:14px;padding-top:3px;flex-shrink:0}
+.mastnav a{
+  font-size:11.5px;color:var(--muted);text-decoration:underline;
+  text-decoration-color:var(--hair);text-underline-offset:3px;
+}
+.mastnav a:hover{color:var(--ink);text-decoration-color:var(--faint)}
+#syncBtn{
+  font:600 10.5px/1 var(--sans);letter-spacing:.13em;text-transform:uppercase;
+  color:var(--muted);background:none;border:1px solid var(--hair);
+  border-radius:999px;padding:7px 13px;cursor:pointer;white-space:nowrap;
+}
+#syncBtn:hover{color:var(--ink);border-color:var(--faint)}
+html.synced #syncBtn{
+  color:var(--green);
+  border-color:var(--green);
+  border-color:color-mix(in srgb, var(--green) 45%, transparent);
+}
+#syncBtn .live{font-size:8px;vertical-align:1px;margin-right:2px}
+.strap{font-size:12.5px;color:var(--muted);margin-top:4px}
+
+/* ————— the status block ————— */
+.status{padding:58px 0 46px}
+.kicker{
+  font:600 11px/1 var(--sans);letter-spacing:.18em;text-transform:uppercase;
+  color:var(--faint);margin-bottom:20px;
+}
+.big{
+  font:400 clamp(30px,7.4vw,42px)/1.18 var(--serif);
+  letter-spacing:-.01em;text-wrap:balance;color:var(--ink);
+}
+.big .dim{color:var(--muted)}
+.sub{
+  font:400 clamp(18px,4.8vw,23px)/1.4 var(--serif);
+  color:var(--muted);margin-top:14px;text-wrap:balance;
+}
+.sub .hold{
+  color:var(--green);font-style:normal;font-weight:400;
+  font-variant-caps:all-small-caps;letter-spacing:.08em;
+}
+.meta{
+  font:400 11.5px/1.8 var(--mono);color:var(--faint);
+  margin-top:22px;letter-spacing:.02em;
+}
+.meta + .meta{margin-top:2px}
+.meta .team{color:var(--ink)}
+.meta .count{color:var(--green)}
+
+/* ————— quiet lists ————— */
+.group{margin-top:34px}
+.group > h2{
+  font:600 11px/1 var(--sans);letter-spacing:.2em;text-transform:uppercase;
+  color:var(--faint);padding-bottom:11px;border-bottom:1px solid var(--hair);
+}
+.group details + details{border-top:1px solid var(--hair)}
+summary{list-style:none;cursor:pointer}
+summary::-webkit-details-marker{display:none}
+summary.row{display:flex;align-items:baseline;gap:12px;padding:15px 2px}
+summary.row h3{
+  flex:0 0 92px;font:600 11px/1.5 var(--sans);letter-spacing:.13em;
+  text-transform:uppercase;color:var(--ink);
+}
+summary.row h3 .callstar{color:var(--green);letter-spacing:0}
+summary.row .sum{
+  flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;
+  font-size:14px;color:var(--muted);
+}
+summary.row:hover .sum{color:var(--ink)}
+summary.row .hint{font:400 11px/1.5 var(--mono);color:var(--faint);white-space:nowrap}
+.chev{
+  flex:0 0 auto;align-self:center;width:7px;height:7px;margin-left:2px;
+  border-right:1.5px solid var(--faint);border-bottom:1.5px solid var(--faint);
+  transform:rotate(-45deg);transition:transform .18s ease;
+}
+details[open] .chev{transform:rotate(45deg)}
+details[open] summary.row h3{color:var(--green)}
+.body{padding:4px 2px 30px;font-size:14.5px;line-height:1.65;color:var(--muted)}
+.body strong{font-weight:500;color:var(--ink)}
+@media (min-width:700px){
+  .body{padding-left:104px}
+}
+
+/* ————— shared body pieces ————— */
+.k{
+  display:inline-block;min-width:76px;
+  font:600 10px/1.6 var(--sans);letter-spacing:.14em;text-transform:uppercase;
+  color:var(--faint);
+}
+.note{margin-top:14px}
+.season{font:400 11.5px/1.6 var(--mono);color:var(--faint);margin-top:10px;letter-spacing:.02em}
+.up{color:var(--green)}
+
+/* pitch (formations as centered text lines) */
+.pitch{text-align:center;padding:8px 0 2px}
+.pitch .line{padding:4px 0;color:var(--ink);font-size:14.5px}
+.pitch .line i,.benchline i{font-style:normal;color:var(--faint);padding:0 3px}
+.pitch .pr{font:400 10.5px/1 var(--mono);color:var(--faint);margin-left:1px}
+.badge{
+  font:600 9.5px/1 var(--mono);color:var(--muted);
+  border:1px solid var(--hair);border-radius:3px;padding:1.5px 3.5px;
+  vertical-align:1.5px;margin-left:2px;
+}
+.badge.c{color:var(--green);border-color:color-mix(in srgb, var(--green) 45%, transparent)}
+.benchline{
+  text-align:center;padding-top:10px;color:var(--muted);font-size:13.5px;
+}
+.benchline .k{min-width:0;margin-right:8px}
+.pitch sup{font-size:9.5px;color:var(--green);line-height:0}
+.foot{font-size:12.5px;color:var(--faint);margin-top:12px}
+
+/* the call */
+.callhead{font:400 19px/1.4 var(--serif);color:var(--ink);margin-bottom:14px;text-wrap:balance}
+.moves p{margin:3px 0}
+.reason{margin-top:14px}
+.wager{font:400 11.5px/1.8 var(--mono);color:var(--faint);margin-top:12px;letter-spacing:.02em}
+.fyi{margin-top:20px;border-top:1px solid var(--hair);padding-top:14px}
+.fyilabel{
+  font:600 10px/1 var(--sans);letter-spacing:.16em;text-transform:uppercase;
+  color:var(--faint);margin-bottom:8px;
+}
+.fyirow{display:flex;align-items:baseline;gap:8px;margin:5px 0}
+.fyirow .move{flex:1;min-width:0}
+.fyirow .cost{font:400 11.5px/1 var(--mono);color:var(--faint)}
+button.star{
+  background:none;border:none;cursor:pointer;padding:2px 6px;
+  font-size:15px;line-height:1;color:var(--faint);align-self:center;
+}
+button.star:hover{color:var(--muted)}
+button.star[aria-pressed="true"]{color:var(--green)}
+
+/* watchlist */
+.watch{list-style:none}
+.watch li{padding:6px 0}
+.watch .wname{color:var(--ink);font-weight:500}
+.watch .warrow{color:var(--faint);padding:0 1px}
+.watch .warrow.up{color:var(--green)}
+.watch .wtag{
+  font:600 10px/1 var(--sans);letter-spacing:.12em;text-transform:uppercase;
+  color:var(--faint);margin:0 2px;
+}
+.watch .wtag.starred{color:var(--green)}
+.watch button.star{padding:0 3px}
+
+/* debrief */
+.stamps{list-style:none}
+.stamps li{display:grid;grid-template-columns:66px 1fr;gap:2px 12px;padding:6px 0;align-items:baseline}
+.stamp{
+  font:600 10px/1.6 var(--sans);letter-spacing:.13em;text-transform:uppercase;
+  justify-self:start;border:1px solid;border-radius:999px;padding:1px 7px;
+}
+.stamp.hit{color:var(--hit);border-color:color-mix(in srgb, var(--hit) 40%, transparent)}
+.stamp.miss{color:var(--miss);border-color:color-mix(in srgb, var(--miss) 40%, transparent)}
+.stamp.unlucky{color:var(--unlucky);border-color:color-mix(in srgb, var(--unlucky) 45%, transparent)}
+.stamp.lucky{color:var(--lucky);border-color:color-mix(in srgb, var(--lucky) 40%, transparent)}
+.lesson{margin-top:18px}
+.lessonlabel{
+  font:600 10px/1 var(--sans);letter-spacing:.16em;text-transform:uppercase;
+  color:var(--faint);margin-bottom:8px;
+}
+.lessontext{
+  font:italic 400 16.5px/1.5 var(--serif);color:var(--ink);
+  border-left:2px solid var(--green);padding-left:14px;text-wrap:balance;
+}
+
+/* the race */
+.table{list-style:none}
+.table li{display:flex;align-items:baseline;gap:12px;padding:5px 0}
+.table .rk{flex:0 0 16px;font:400 11px/1.5 var(--mono);color:var(--faint)}
+.table .nm{flex:1;min-width:0;color:var(--ink)}
+.table .pts{font:400 13px/1.5 var(--mono);color:var(--muted)}
+.table li.you .nm{font-weight:600}
+.table li.you .nm .youstar{color:var(--green)}
+.table li.you .pts{color:var(--ink)}
+.table li.more .nm{color:var(--faint);font-size:12.5px}
+.benchmarks{
+  font:400 11.5px/1.8 var(--mono);color:var(--faint);
+  border-top:1px solid var(--hair);margin-top:10px;padding-top:10px;letter-spacing:.02em;
+}
+.raceline{font:italic 400 15.5px/1.5 var(--serif);color:var(--muted);margin-top:12px}
+
+/* doctrine */
+.doct{list-style:none}
+.doct li{padding:5px 0}
+.doct .dn{font:400 11px/1.5 var(--mono);color:var(--faint);margin-right:8px}
+.doct .new{
+  font:600 9.5px/1 var(--sans);letter-spacing:.12em;text-transform:uppercase;
+  color:var(--green);border:1px solid color-mix(in srgb, var(--green) 45%, transparent);
+  border-radius:999px;padding:1.5px 7px;margin-left:6px;vertical-align:1px;
+}
+
+/* the week + chips */
+.week{list-style:none}
+.week li{padding:6px 0}
+.chips{list-style:none}
+.chips li{padding:7px 0}
+.chips .cx{font:400 11px/1.5 var(--mono);color:var(--faint);white-space:nowrap}
+
+/* fixtures */
+.fx{font:400 12.5px/1.5 var(--mono);color:var(--muted);letter-spacing:.02em}
+.capsnote{font:400 10.5px/1.6 var(--mono);color:var(--faint);margin-top:8px}
+
+/* ————— footer ————— */
+footer{
+  border-top:1px solid var(--hair);margin-top:56px;
+  padding:26px 22px 52px;text-align:center;
+}
+.stampnote{
+  display:inline-block;font:400 10.5px/1 var(--mono);letter-spacing:.08em;
+  color:var(--faint);border:1px solid var(--hair);border-radius:999px;padding:6px 13px;
+}
+.sig{font-size:11px;color:var(--faint);margin-top:12px}
+
+@media (prefers-reduced-motion: reduce){
+  *,*::before,*::after{transition:none!important;animation:none!important}
+}
+</style>
+</head>
+<body>
+<main>
+
+  <header>
+    <div class="mast">
+      <h1>Touchline <span class="fpl">· FPL</span></h1>
+      <nav class="mastnav" aria-label="Site">
+        <a href="#" aria-label="Back to the daily digest">← daily digest</a>
+        <button id="syncBtn" aria-pressed="false">
+          <span class="when-public">sync</span>
+          <span class="when-synced"><span class="live" aria-hidden="true">●</span> Wabi Sabi Xabi</span>
+        </button>
+      </nav>
+    </div>
+    <p class="strap">the fantasy companion — one calm page, no hype</p>
+  </header>
+
+  <!-- ————— THE STATUS BLOCK: the whole page in one glance ————— -->
+  <section class="status" aria-label="Status">
+    <p class="kicker">gameweek 2</p>
+
+    <div class="when-public">
+      <p class="big">Nothing urgent.<br><span class="dim">Deadline Friday, 23:00 IST.</span></p>
+      <p class="meta">GW2 deadline · Fri 28 Aug · 23:00 IST · <span class="count">in 2d 4h</span></p>
+    </div>
+
+    <div class="when-synced">
+      <p class="big">Nothing needs you today.</p>
+      <p class="sub">The call is <em class="hold">hold</em> — captain Haaland.<br>Next look: Friday, after pressers.</p>
+      <p class="meta"><span class="team">Wabi Sabi Xabi</span> · GW1: 61 pts · OR 1.4M · 3rd of 11 · £0.0m bank · 1 FT · chips all intact</p>
+      <p class="meta">GW2 deadline · Fri 28 Aug · 23:00 IST · <span class="count">in 2d 4h</span></p>
+    </div>
+  </section>
+
+  <!-- ————— YOURS (personal tier) ————— -->
+  <section class="group when-synced" aria-label="Yours">
+    <h2>yours</h2>
+
+    <details>
+      <summary class="row">
+        <h3><span class="callstar">★</span> the call</h3>
+        <span class="sum">Hold everything — bank the FT</span>
+        <span class="hint">C Haaland</span>
+        <span class="chev" aria-hidden="true"></span>
+      </summary>
+      <div class="body">
+        <p class="callhead">“Hold everything: the squad did its job.”</p>
+        <div class="moves">
+          <p><span class="k">moves</span> <strong>none</strong> — bank the FT</p>
+          <p><span class="k">armband</span> <strong>Haaland</strong> captain · B.Fernandes vice</p>
+          <p><span class="k">chip</span> none</p>
+        </div>
+        <p class="reason">Sixty-one points, four clear of the league median, every bet still open. Nothing this week clears the bar for a move — this squad was built to go three gameweeks untouched. Execute after Friday’s pressers.</p>
+        <p class="wager">wager · the hold beats any −4 by GW4 &nbsp;·&nbsp; template drift +1</p>
+        <div class="fyi">
+          <p class="fyilabel">fyi — only if you must</p>
+          <p class="fyirow"><span class="k">cautious</span> <span class="move">DCL → Gyökeres <span class="cost">(1 FT)</span></span> <button class="star" aria-pressed="false" aria-label="Star the cautious move: Calvert-Lewin to Gyökeres">☆</button></p>
+          <p class="fyirow"><span class="k">bold</span> <span class="move">Rogers → Saka <span class="cost">(−4)</span> — closes the Arsenal gap</span> <button class="star" aria-pressed="false" aria-label="Star the bold move: Rogers to Saka">☆</button></p>
+        </div>
+      </div>
+    </details>
+
+    <details>
+      <summary class="row">
+        <h3>team sheet</h3>
+        <span class="sum">Haaland C · B.Fernandes V · no chip</span>
+        <span class="hint">3-4-3</span>
+        <span class="chev" aria-hidden="true"></span>
+      </summary>
+      <div class="body">
+        <div class="pitch">
+          <p class="line">Verbruggen</p>
+          <p class="line">Kerkez<sup>†</sup><i>·</i>Calafiori<i>·</i>Shaw</p>
+          <p class="line">B.Fernandes<span class="badge">V</span><i>·</i>Mbeumo<i>·</i>Tzolis<i>·</i>Rogers</p>
+          <p class="line">Haaland<span class="badge c">C</span><i>·</i>João Pedro<i>·</i>Calvert-Lewin</p>
+          <p class="benchline"><span class="k">bench</span>Dubravka<i>·</i>Hume<sup>†</sup><i>·</i>Hughes<i>·</i>Diop</p>
+        </div>
+        <p class="foot">† open bets — Kerkez: ≥3 clean sheets by GW8 (one banked) · Hume: the Sunderland run pays through GW3.</p>
+      </div>
+    </details>
+
+    <details>
+      <summary class="row">
+        <h3>watchlist</h3>
+        <span class="sum">Saka answers on the next brain run</span>
+        <span class="hint">4 · 2 rising</span>
+        <span class="chev" aria-hidden="true"></span>
+      </summary>
+      <div class="body">
+        <ul class="watch">
+          <li><span class="wname">Saka</span> <button class="star" aria-pressed="true" aria-label="Unstar Saka">★</button> <span class="wtag starred">your star</span> — brain answers next run</li>
+          <li><span class="wname">Thiago</span> <span class="warrow up" aria-hidden="true">↗</span> <span class="wtag">rising</span> — the pivot if a second premium is needed</li>
+          <li><span class="wname">Estêvão</span> <span class="warrow up" aria-hidden="true">↗</span> <span class="wtag">rising</span> — minutes trending up</li>
+          <li><span class="wname">Šeško</span> <span class="warrow" aria-hidden="true">→</span> <span class="wtag">hold</span> — first-start watch</li>
+        </ul>
+      </div>
+    </details>
+
+    <details>
+      <summary class="row">
+        <h3>debrief</h3>
+        <span class="sum">GW1 — the armband landed, the Arsenal line didn’t</span>
+        <span class="hint">4 stamps, 1 lesson</span>
+        <span class="chev" aria-hidden="true"></span>
+      </summary>
+      <div class="body">
+        <ul class="stamps">
+          <li><span class="stamp hit">hit</span><span><strong>Haaland armband</strong> — +9 on the field.</span></li>
+          <li><span class="stamp miss">miss</span><span><strong>Zero-Arsenal line</strong> — the champions’ pair returned 15; your override banked them.</span></li>
+          <li><span class="stamp unlucky">unlucky</span><span><strong>Kerkez clean sheet</strong> — 0.6 xGC, an 89th-minute deflection.</span></li>
+          <li><span class="stamp lucky">lucky</span><span><strong>Verbruggen over Lammens</strong> — process said Lammens.</span></li>
+        </ul>
+        <div class="lesson">
+          <p class="lessonlabel">lesson · pattern · 2nd sighting</p>
+          <p class="lessontext">“Champions’ template assets are default-own; passing needs a priced case.”</p>
+        </div>
+      </div>
+    </details>
+
+    <details>
+      <summary class="row">
+        <h3>the race</h3>
+        <span class="sum">Gunners.exe’s lead is one player</span>
+        <span class="hint">3rd of 11</span>
+        <span class="chev" aria-hidden="true"></span>
+      </summary>
+      <div class="body">
+        <ol class="table" aria-label="Mini-league FPL 26-27">
+          <li><span class="rk">1</span><span class="nm">Gunners.exe</span><span class="pts">68</span></li>
+          <li><span class="rk">2</span><span class="nm">Mad11</span><span class="pts">66</span></li>
+          <li class="you"><span class="rk">3</span><span class="nm"><span class="youstar">★</span> Wabi Sabi Xabi</span><span class="pts">61</span></li>
+          <li><span class="rk">4</span><span class="nm">WorldChamps</span><span class="pts">58</span></li>
+          <li><span class="rk">5</span><span class="nm">Vabby_Blues</span><span class="pts">55</span></li>
+          <li class="more"><span class="rk"></span><span class="nm">+ 6 more</span></li>
+        </ol>
+        <p class="benchmarks">benchmarks · Wildcard XI 71 · The Bus 57</p>
+        <p class="raceline">“Gunners.exe’s lead is one player — Saka’s nine.”</p>
+      </div>
+    </details>
+
+    <details>
+      <summary class="row">
+        <h3>doctrine</h3>
+        <span class="sum">Standing rules the desk obeys</span>
+        <span class="hint">3 · 1 new</span>
+        <span class="chev" aria-hidden="true"></span>
+      </summary>
+      <div class="body">
+        <ol class="doct">
+          <li><span class="dn">D1</span> Rank insurance is a real cost.</li>
+          <li><span class="dn">D2</span> New-manager minutes are unknowable until three XIs.</li>
+          <li><span class="dn">D3</span> Champions’ template assets are default-own. <span class="new">new</span></li>
+        </ol>
+      </div>
+    </details>
+  </section>
+
+  <!-- ————— THE COMMONS (public tier) ————— -->
+  <section class="group" aria-label="The commons">
+    <h2>the commons</h2>
+
+    <details>
+      <summary class="row">
+        <h3>the week</h3>
+        <span class="sum">Doku out three weeks; Palmer’s scare dies</span>
+        <span class="hint">3 notes</span>
+        <span class="chev" aria-hidden="true"></span>
+      </summary>
+      <div class="body">
+        <ul class="week">
+          <li><strong>Doku ruled out ~3 weeks</strong> — City’s left wing opens up.</li>
+          <li><strong>Thiago 92% toward +0.1 tonight</strong> <span class="up" aria-hidden="true">▲</span></li>
+          <li><strong>Palmer trained fully</strong> — the knock story dies.</li>
+        </ul>
+      </div>
+    </details>
+
+    <details>
+      <summary class="row">
+        <h3>the bus team</h3>
+        <span class="sum">The set-and-forget benchmark, serviced monthly</span>
+        <span class="hint">57 pts</span>
+        <span class="chev" aria-hidden="true"></span>
+      </summary>
+      <div class="body">
+        <div class="pitch">
+          <p class="line">Verbruggen<span class="pr">4.5</span></p>
+          <p class="line">Gabriel<span class="pr">6.0</span><i>·</i>Virgil<span class="pr">6.0</span><i>·</i>Calafiori<span class="pr">5.5</span></p>
+          <p class="line">Saka<span class="pr">10.0</span><i>·</i>B.Fernandes<span class="badge">V</span><span class="pr">9.0</span><i>·</i>Mbeumo<span class="pr">8.0</span><i>·</i>Szoboszlai<span class="pr">6.5</span></p>
+          <p class="line">Haaland<span class="badge c">C</span><span class="pr">14.0</span><i>·</i>João Pedro<span class="pr">7.5</span><i>·</i>Thiago<span class="pr">6.0</span></p>
+          <p class="benchline"><span class="k">bench</span>Dubravka<span class="pr">4.0</span><i>·</i>Guéhi<span class="pr">4.5</span><i>·</i>Hume<span class="pr">4.5</span><i>·</i>Diop<span class="pr">4.0</span></p>
+        </div>
+        <p class="note">Left untouched all season, this beats a badly-managed team. Serviced at international breaks.</p>
+        <p class="season">season so far · 57 pts</p>
+      </div>
+    </details>
+
+    <details>
+      <summary class="row">
+        <h3>wildcard xi</h3>
+        <span class="sum">The from-scratch ceiling, re-picked weekly</span>
+        <span class="hint">71 pts</span>
+        <span class="chev" aria-hidden="true"></span>
+      </summary>
+      <div class="body">
+        <div class="pitch">
+          <p class="line">Raya<span class="pr">5.5</span></p>
+          <p class="line">Calafiori<span class="pr">5.5</span><i>·</i>Virgil<span class="pr">6.0</span><i>·</i>Kerkez<span class="pr">6.0</span></p>
+          <p class="line">Saka<span class="pr">10.0</span><i>·</i>Semenyo<span class="pr">7.0</span><i>·</i>Mbeumo<span class="pr">8.0</span><i>·</i>Rogers<span class="pr">7.0</span></p>
+          <p class="line">Haaland<span class="badge c">C</span><span class="pr">14.0</span><i>·</i>João Pedro<span class="pr">7.5</span><i>·</i>Gyökeres<span class="pr">9.0</span></p>
+        </div>
+        <p class="note">The ceiling — no human holds a free weekly re-pick.</p>
+        <p class="season">season so far · 71 pts</p>
+      </div>
+    </details>
+
+    <details>
+      <summary class="row">
+        <h3>chip clock</h3>
+        <span class="sum">No chip has a window yet</span>
+        <span class="hint">4 intact</span>
+        <span class="chev" aria-hidden="true"></span>
+      </summary>
+      <div class="body">
+        <ul class="chips">
+          <li><strong>Wildcard №1</strong> — best window GW6–8: post-break, real data exists <span class="cx">· expires GW19</span></li>
+          <li><strong>Free Hit №1</strong> — hold for a blank; none scheduled yet <span class="cx">· expires GW19</span></li>
+          <li><strong>Bench Boost №1</strong> — wants a clean double; none scheduled yet <span class="cx">· expires GW19</span></li>
+          <li><strong>Triple Captain №1</strong> — premium home double or bust <span class="cx">· expires GW19</span></li>
+        </ul>
+        <p class="note">First-half chips die at the GW19 deadline (2 Jan). A good week used beats a perfect week hoarded.</p>
+      </div>
+    </details>
+
+    <details>
+      <summary class="row">
+        <h3>fixtures</h3>
+        <span class="sum">Man Utd and Sunderland run kindest</span>
+        <span class="hint">next 3</span>
+        <span class="chev" aria-hidden="true"></span>
+      </summary>
+      <div class="body">
+        <p>Runs to target: <strong>Man Utd</strong> <span class="fx">IPS·eve·CHE</span> and <strong>Sunderland</strong> <span class="fx">FUL·bre·CRY</span> have the kindest next three; avoid buying into <strong>Arsenal</strong>’s <span class="fx">ars·NEW·mci</span> swing until GW5.</p>
+        <p class="capsnote">caps = home fixture</p>
+      </div>
+    </details>
+  </section>
+
+</main>
+
+<footer>
+  <p><span class="stampnote">MOCKUP · dummy points on real fixtures</span></p>
+  <p class="sig">Touchline · FPL — one calm page, no hype</p>
+</footer>
+
+<script>
+(function(){
+  var KEY='touchline-quiet-sync';
+  var root=document.documentElement;
+  var btn=document.getElementById('syncBtn');
+
+  function paint(){
+    btn.setAttribute('aria-pressed', root.classList.contains('synced') ? 'true' : 'false');
+  }
+
+  btn.addEventListener('click', function(){
+    root.classList.toggle('synced');
+    try{ localStorage.setItem(KEY, root.classList.contains('synced') ? '1' : '0'); }catch(e){}
+    paint();
+  });
+  paint();
+
+  /* visual star toggles */
+  var stars=document.querySelectorAll('button.star');
+  for(var i=0;i<stars.length;i++){
+    stars[i].addEventListener('click', function(){
+      var on=this.getAttribute('aria-pressed')==='true';
+      this.setAttribute('aria-pressed', on ? 'false' : 'true');
+      this.textContent = on ? '☆' : '★';
+    });
+  }
+})();
+</script>
+</body>
+</html>

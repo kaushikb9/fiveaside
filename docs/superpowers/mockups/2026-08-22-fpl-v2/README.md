@@ -10,3 +10,16 @@ Concept A "Matchday Programme" per the Long Season dossier sign-off.
 - `poster.html` — bold sports editorial: cream/black/acid-yellow, huge condensed type, color-block plates, stamp marginalia.
 
 Open locally in a browser; each is standalone (no network).
+
+## Round 2 — two-tier architecture (public commons + sync personal layer)
+
+KB's feedback on round 1: all four too busy; attention clarity is the bar.
+Pivot: generic public FPL page (bus team, wildcard XI, chip clock, week
+pulse, fixture note) + a "sync" toggle revealing the personal layer
+(call, team sheet, watchlist, debrief, mini-league race). Sync is a
+declutter gate, not secrecy. Each mockup defaults to the public view;
+the sync button (top area) flips states and persists.
+
+- `two-tier-home.html` — the faithful extension: live-touchline grammar, personal slots in above "THE COMMONS · same for everyone".
+- `two-tier-triage.html` — the quiet page: one big status ("Nothing needs you today"), everything else one-line expandable rows in YOURS / THE COMMONS.
+- `two-tier-desk.html` — the manager's desk: sticky rail of your numbers beside five calm surfaces; dugout's soul at touchline density.
