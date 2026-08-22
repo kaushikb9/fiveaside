@@ -1,25 +1,183 @@
 {
   "events": [
-    {"id": 1, "name": "Gameweek 1", "deadline_time": "2026-08-21T17:30:00Z", "finished": false, "is_next": true, "chip_plays": []},
-    {"id": 2, "name": "Gameweek 2", "deadline_time": "2026-08-28T17:15:00Z", "finished": false, "is_next": false, "chip_plays": []},
-    {"id": 3, "name": "Gameweek 3", "deadline_time": "2026-09-12T10:00:00Z", "finished": false, "is_next": false, "chip_plays": []}
+    {
+      "id": 1,
+      "name": "Gameweek 1",
+      "deadline_time": "2026-08-21T17:30:00Z",
+      "finished": false,
+      "is_next": true,
+      "chip_plays": [],
+      "is_current": true,
+      "most_captained": 40
+    },
+    {
+      "id": 2,
+      "name": "Gameweek 2",
+      "deadline_time": "2026-08-28T17:15:00Z",
+      "finished": false,
+      "is_next": false,
+      "chip_plays": []
+    },
+    {
+      "id": 3,
+      "name": "Gameweek 3",
+      "deadline_time": "2026-09-12T10:00:00Z",
+      "finished": false,
+      "is_next": false,
+      "chip_plays": []
+    }
   ],
   "teams": [
-    {"id": 1, "name": "Arsenal", "short_name": "ARS", "strength": 5},
-    {"id": 2, "name": "Chelsea", "short_name": "CHE", "strength": 4},
-    {"id": 3, "name": "Liverpool", "short_name": "LIV", "strength": 5},
-    {"id": 4, "name": "Hull City", "short_name": "HUL", "strength": 2}
+    {
+      "id": 1,
+      "name": "Arsenal",
+      "short_name": "ARS",
+      "strength": 5
+    },
+    {
+      "id": 2,
+      "name": "Chelsea",
+      "short_name": "CHE",
+      "strength": 4
+    },
+    {
+      "id": 3,
+      "name": "Liverpool",
+      "short_name": "LIV",
+      "strength": 5
+    },
+    {
+      "id": 4,
+      "name": "Hull City",
+      "short_name": "HUL",
+      "strength": 2
+    }
   ],
   "elements": [
-    {"id": 10, "web_name": "Raya", "team": 1, "element_type": 1, "now_cost": 60, "selected_by_percent": "36.4", "status": "a", "news": "", "chance_of_playing_next_round": null, "form": "0.0", "total_points": 0},
-    {"id": 11, "web_name": "Sánchez", "team": 2, "element_type": 1, "now_cost": 50, "selected_by_percent": "2.3", "status": "a", "news": "", "chance_of_playing_next_round": null, "form": "0.0", "total_points": 0},
-    {"id": 20, "web_name": "Gabriel", "team": 1, "element_type": 2, "now_cost": 80, "selected_by_percent": "29.7", "status": "a", "news": "", "chance_of_playing_next_round": null, "form": "0.0", "total_points": 0},
-    {"id": 21, "web_name": "Lacroix", "team": 2, "element_type": 2, "now_cost": 60, "selected_by_percent": "9.9", "status": "a", "news": "", "chance_of_playing_next_round": null, "form": "0.0", "total_points": 0},
-    {"id": 30, "web_name": "Palmer", "team": 2, "element_type": 3, "now_cost": 95, "selected_by_percent": "10.5", "status": "a", "news": "", "chance_of_playing_next_round": null, "form": "0.0", "total_points": 0},
-    {"id": 31, "web_name": "InjuredStar", "team": 3, "element_type": 3, "now_cost": 75, "selected_by_percent": "15.0", "status": "d", "news": "Knee injury - 75% chance of playing", "chance_of_playing_next_round": 75, "form": "0.0", "total_points": 0},
-    {"id": 32, "web_name": "FringeInjured", "team": 4, "element_type": 3, "now_cost": 45, "selected_by_percent": "0.1", "status": "i", "news": "Ankle injury - out until October", "chance_of_playing_next_round": 0, "form": "0.0", "total_points": 0},
-    {"id": 33, "web_name": "FringeFit", "team": 4, "element_type": 3, "now_cost": 45, "selected_by_percent": "0.0", "status": "a", "news": "", "chance_of_playing_next_round": null, "form": "0.0", "total_points": 0},
-    {"id": 40, "web_name": "Haaland", "team": 3, "element_type": 4, "now_cost": 155, "selected_by_percent": "69.3", "status": "a", "news": "", "chance_of_playing_next_round": null, "form": "0.0", "total_points": 0},
-    {"id": 99, "team": 1, "element_type": 4}
+    {
+      "id": 10,
+      "web_name": "Raya",
+      "team": 1,
+      "element_type": 1,
+      "now_cost": 60,
+      "selected_by_percent": "36.4",
+      "status": "a",
+      "news": "",
+      "chance_of_playing_next_round": null,
+      "form": "0.0",
+      "total_points": 0
+    },
+    {
+      "id": 11,
+      "web_name": "Sánchez",
+      "team": 2,
+      "element_type": 1,
+      "now_cost": 50,
+      "selected_by_percent": "2.3",
+      "status": "a",
+      "news": "",
+      "chance_of_playing_next_round": null,
+      "form": "0.0",
+      "total_points": 0
+    },
+    {
+      "id": 20,
+      "web_name": "Gabriel",
+      "team": 1,
+      "element_type": 2,
+      "now_cost": 80,
+      "selected_by_percent": "29.7",
+      "status": "a",
+      "news": "",
+      "chance_of_playing_next_round": null,
+      "form": "0.0",
+      "total_points": 0,
+      "penalties_order": 2
+    },
+    {
+      "id": 21,
+      "web_name": "Lacroix",
+      "team": 2,
+      "element_type": 2,
+      "now_cost": 60,
+      "selected_by_percent": "9.9",
+      "status": "a",
+      "news": "",
+      "chance_of_playing_next_round": null,
+      "form": "0.0",
+      "total_points": 0
+    },
+    {
+      "id": 30,
+      "web_name": "Palmer",
+      "team": 2,
+      "element_type": 3,
+      "now_cost": 95,
+      "selected_by_percent": "10.5",
+      "status": "a",
+      "news": "",
+      "chance_of_playing_next_round": null,
+      "form": "0.0",
+      "total_points": 0,
+      "penalties_order": 1
+    },
+    {
+      "id": 31,
+      "web_name": "InjuredStar",
+      "team": 3,
+      "element_type": 3,
+      "now_cost": 75,
+      "selected_by_percent": "15.0",
+      "status": "d",
+      "news": "Knee injury - 75% chance of playing",
+      "chance_of_playing_next_round": 75,
+      "form": "0.0",
+      "total_points": 0
+    },
+    {
+      "id": 32,
+      "web_name": "FringeInjured",
+      "team": 4,
+      "element_type": 3,
+      "now_cost": 45,
+      "selected_by_percent": "0.1",
+      "status": "i",
+      "news": "Ankle injury - out until October",
+      "chance_of_playing_next_round": 0,
+      "form": "0.0",
+      "total_points": 0
+    },
+    {
+      "id": 33,
+      "web_name": "FringeFit",
+      "team": 4,
+      "element_type": 3,
+      "now_cost": 45,
+      "selected_by_percent": "0.0",
+      "status": "a",
+      "news": "",
+      "chance_of_playing_next_round": null,
+      "form": "0.0",
+      "total_points": 0
+    },
+    {
+      "id": 40,
+      "web_name": "Haaland",
+      "team": 3,
+      "element_type": 4,
+      "now_cost": 155,
+      "selected_by_percent": "69.3",
+      "status": "a",
+      "news": "",
+      "chance_of_playing_next_round": null,
+      "form": "0.0",
+      "total_points": 0,
+      "penalties_order": 1
+    },
+    {
+      "id": 99,
+      "team": 1,
+      "element_type": 4
+    }
   ]
 }

@@ -8,11 +8,13 @@
     "thesportsdb_id": "133610"
   },
   "competitions": ["PL", "CL", "FRIENDLIES"],
-  "rivals": [
+  "top_clubs": [
     { "name": "Arsenal", "subreddit": "Gunners", "crest": "https://a.espncdn.com/i/teamlogos/soccer/500/359.png" },
     { "name": "Manchester City", "subreddit": "MCFC", "crest": "https://a.espncdn.com/i/teamlogos/soccer/500/382.png" },
     { "name": "Manchester United", "subreddit": "reddevils", "crest": "https://a.espncdn.com/i/teamlogos/soccer/500/360.png" },
-    { "name": "Liverpool", "subreddit": "LiverpoolFC", "crest": "https://a.espncdn.com/i/teamlogos/soccer/500/364.png" }
+    { "name": "Liverpool", "subreddit": "LiverpoolFC", "crest": "https://a.espncdn.com/i/teamlogos/soccer/500/364.png" },
+    { "name": "Tottenham Hotspur", "subreddit": "coys", "crest": "https://a.espncdn.com/i/teamlogos/soccer/500/367.png" },
+    { "name": "Newcastle United", "subreddit": "NUFC", "crest": "https://a.espncdn.com/i/teamlogos/soccer/500/361.png" }
   ],
   "timezone": "Asia/Kolkata",
   "fpl": { "team_id": 7149204, "league_ids": [391164], "horizon_gws": 6 },

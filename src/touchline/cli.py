@@ -38,10 +38,22 @@ def run_facts(source, config: TouchlineConfig, *, now: datetime | None = None) -
 
 
 def run_fpl(client, config: TouchlineConfig, *, now: datetime | None = None) -> str:
-    """Fetch FPL bootstrap + fixtures from `client` and return the fpl facts bundle as JSON."""
+    """Fetch FPL bootstrap + fixtures (+ the owner's team) and return the bundle as JSON."""
     if now is None:
         now = datetime.now(UTC)
-    bundle = build_fpl_facts(client.fetch_bootstrap(), client.fetch_fixtures(), config, now=now)
+    bootstrap = client.fetch_bootstrap()
+    fixtures = client.fetch_fixtures()
+
+    entry = None
+    if config.fpl.team_id:
+        playing = next((e for e in bootstrap.events if e.is_current), None)
+        entry = client.fetch_entry(
+            config.fpl.team_id,
+            event=playing.id if playing else None,
+            league_ids=config.fpl.league_ids,
+        )
+
+    bundle = build_fpl_facts(bootstrap, fixtures, config, now=now, entry=entry)
     return json.dumps(bundle, indent=2, ensure_ascii=False)
 
 

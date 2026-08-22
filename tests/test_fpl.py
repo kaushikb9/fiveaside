@@ -76,7 +76,7 @@ def test_build_picks_next_gameweek_and_formats_ist_deadline():
         "deadline_local": "Fri 21 Aug, 23:00",
     }
     assert [d["gw"] for d in bundle["next_deadlines"]] == [2, 3]
-    assert bundle["errors"] == {"bootstrap": None, "fixtures": None}
+    assert bundle["errors"] == {"bootstrap": None, "fixtures": None, "entry": None}
 
 
 def test_build_after_deadline_rolls_to_next_gameweek():
@@ -99,6 +99,144 @@ def test_ticker_rows_sorted_by_easiest_run():
         {"gw": 1, "opp": "CHE", "home": True, "fdr": 3},
         {"gw": 2, "opp": "HUL", "home": False, "fdr": 2},
     ]
+
+
+def test_template_board_groups_most_owned_by_position():
+    groups = _bundle()["template"]
+    assert [g["pos"] for g in groups] == ["GK", "DEF", "MID", "FWD"]
+    gk = next(g for g in groups if g["pos"] == "GK")
+    # ordered by ownership desc; the fixture has 2 keepers
+    assert [r["name"] for r in gk["rows"]] == ["Raya", "Sánchez"]
+    assert gk["rows"][0] == {"name": "Raya", "team": "ARS", "ownership": 36.4, "price": 6.0}
+
+
+def test_penalty_takers_only_first_choice():
+    rows = _bundle()["penalties"]
+    # Gabriel is second choice (order 2) -> excluded; one row per club with a taker
+    assert rows == [
+        {"team": "CHE", "taker": "Palmer", "price": 9.5},
+        {"team": "LIV", "taker": "Haaland", "price": 15.5},
+    ]
+
+
+def test_captain_poll_carries_most_captained_without_inventing_shares():
+    poll = _bundle()["captain_poll"]
+    assert poll["most_captained"] == {"name": "Haaland", "team": "LIV", "ownership": 69.3}
+    assert [r["name"] for r in poll["rows"]][0] == "Haaland"
+    # ownership is a real number; no fabricated captaincy percentage anywhere
+    assert all(set(r) == {"name", "team", "ownership"} for r in poll["rows"])
+
+
+def test_live_gameweek_tracks_the_one_being_played():
+    bundle = _bundle()
+    # GW1 is in play (is_current) while GW2 is the one being planned for
+    assert bundle["live_gameweek"] == {"id": 1, "finished": False}
+    assert bundle["gameweek"]["id"] == 1
+
+
+def test_entry_absent_degrades_to_none():
+    bundle = _bundle()
+    assert bundle["desk"] is None
+    assert bundle["leagues"] == []
+    assert bundle["errors"]["entry"] is None
+
+
+def test_entry_and_league_parse_into_desk_and_rows():
+    def handler(request: httpx.Request) -> httpx.Response:
+        path = request.url.path
+        if "bootstrap-static" in path:
+            return httpx.Response(200, json=json.loads((FIXTURES / "bootstrap.json").read_text()))
+        if "leagues-classic" in path:
+            return httpx.Response(
+                200,
+                json={
+                    "league": {"name": "FPL 26-27"},
+                    "standings": {
+                        "results": [
+                            {
+                                "rank": 1,
+                                "entry_name": "Rival",
+                                "player_name": "R",
+                                "entry": 999,
+                                "total": 70,
+                                "event_total": 70,
+                            },
+                            {
+                                "rank": 2,
+                                "entry_name": "Wabi Sabi Xabi",
+                                "player_name": "KB",
+                                "entry": 7149204,
+                                "total": 61,
+                                "event_total": 61,
+                            },
+                        ]
+                    },
+                },
+            )
+        if "picks" in path:
+            return httpx.Response(
+                200,
+                json={
+                    "entry_history": {"event_transfers": 1},
+                    "picks": [{"element": 40, "position": 1, "is_captain": True}],
+                },
+            )
+        if "/entry/" in path:
+            return httpx.Response(
+                200,
+                json={
+                    "name": "Wabi Sabi Xabi",
+                    "player_first_name": "Kaushik",
+                    "player_last_name": "Bhat",
+                    "summary_overall_rank": 1400000,
+                    "summary_overall_points": 61,
+                    "summary_event_points": 61,
+                    "last_deadline_bank": 0,
+                    "last_deadline_value": 1000,
+                    "chips": [{"name": "wildcard"}],
+                },
+            )
+        return httpx.Response(200, json=json.loads((FIXTURES / "fixtures.json").read_text()))
+
+    config = TouchlineConfig(
+        club=ClubConfig(name="Chelsea", code="CHE"),
+        competitions=["PL"],
+        timezone="Asia/Kolkata",
+        fpl={"team_id": 7149204, "league_ids": [391164]},
+    )
+    client = _client_with(handler)
+    entry = client.fetch_entry(7149204, event=1, league_ids=[391164])
+    bundle = build_fpl_facts(
+        client.fetch_bootstrap(), client.fetch_fixtures(), config, now=NOW, entry=entry
+    )
+
+    desk = bundle["desk"]
+    assert desk["team_name"] == "Wabi Sabi Xabi"
+    assert desk["manager"] == "Kaushik Bhat"
+    assert desk["entered"] is True
+    assert desk["value"] == 100.0 and desk["bank"] == 0.0
+    assert desk["chips_used"] == ["wildcard"]
+
+    league = bundle["leagues"][0]
+    assert league["name"] == "FPL 26-27"
+    assert [r["is_owner"] for r in league["rows"]] == [False, True]
+
+
+def test_entry_degrades_without_costing_the_bundle():
+    def handler(request: httpx.Request) -> httpx.Response:
+        if "/entry/" in request.url.path:
+            return httpx.Response(500)
+        return _fixture_handler(request)
+
+    client = _client_with(handler)
+    entry = client.fetch_entry(7149204, event=1, league_ids=[391164])
+    assert not entry.ok and entry.error
+    bundle = build_fpl_facts(
+        client.fetch_bootstrap(), client.fetch_fixtures(), CONFIG, now=NOW, entry=entry
+    )
+    assert bundle["desk"] is None
+    assert bundle["errors"]["entry"]
+    assert bundle["template"]  # the rest of the bundle survives
 
 
 def test_compaction_keeps_flagged_drops_fringe():

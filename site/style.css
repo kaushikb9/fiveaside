@@ -22,6 +22,10 @@
   --fdr3-bg: #eef3ee; --fdr3-ink: #5c6a60;
   --fdr4-bg: #ecc4c4; --fdr4-ink: #5d2222;
   --fdr5-bg: #b04a4a; --fdr5-ink: #ffffff;
+  --st-hit: #2e9e63; --st-hit-ink: #ffffff;
+  --st-miss: #c94f4f; --st-miss-ink: #ffffff;
+  --st-unl: #8a5f0a; --st-unl-ink: #ffffff;
+  --st-luck: #2f5e9e; --st-luck-ink: #ffffff;
 }
 @media (prefers-color-scheme: dark) {
   :root {
@@ -34,6 +38,10 @@
     --fdr3-bg: #16201a; --fdr3-ink: #6c7d71;
     --fdr4-bg: #4a2323; --fdr4-ink: #d8a3a3;
     --fdr5-bg: #7d2f2f; --fdr5-ink: #f1d9d9;
+    --st-hit: #2e9e63; --st-hit-ink: #ffffff;
+    --st-miss: #c05252; --st-miss-ink: #ffffff;
+    --st-unl: #d8a44c; --st-unl-ink: #201703;
+    --st-luck: #6ea8e0; --st-luck-ink: #0d1411;
   }
 }
 :root[data-theme="dark"] {
@@ -46,6 +54,10 @@
   --fdr3-bg: #16201a; --fdr3-ink: #6c7d71;
   --fdr4-bg: #4a2323; --fdr4-ink: #d8a3a3;
   --fdr5-bg: #7d2f2f; --fdr5-ink: #f1d9d9;
+  --st-hit: #2e9e63; --st-hit-ink: #ffffff;
+  --st-miss: #c05252; --st-miss-ink: #ffffff;
+  --st-unl: #d8a44c; --st-unl-ink: #201703;
+  --st-luck: #6ea8e0; --st-luck-ink: #0d1411;
 }
 :root[data-theme="light"] {
   --bg: #f7f9f5; --ink: #1a221c; --dim: #5c6a60; --faint: #8a978d;
@@ -57,6 +69,10 @@
   --fdr3-bg: #eef3ee; --fdr3-ink: #5c6a60;
   --fdr4-bg: #ecc4c4; --fdr4-ink: #5d2222;
   --fdr5-bg: #b04a4a; --fdr5-ink: #ffffff;
+  --st-hit: #2e9e63; --st-hit-ink: #ffffff;
+  --st-miss: #c94f4f; --st-miss-ink: #ffffff;
+  --st-unl: #8a5f0a; --st-unl-ink: #ffffff;
+  --st-luck: #2f5e9e; --st-luck-ink: #ffffff;
 }
 
 * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -413,3 +429,407 @@ footer .footer-line + .footer-line { margin-top: 5px; }
   color: var(--faint); font-variant-numeric: tabular-nums;
 }
 .fdr-note { color: var(--faint); font-size: 12px; font-style: italic; margin-top: 8px; }
+
+
+/* --- FPL planner (root page): two-tier commons + personal layer.
+   Ported from docs/superpowers/mockups/2026-08-22-fpl-v2/day0-home.html --- */
+/* ---- sync affordance: inline in the strap, since the theme button owns the
+   top-right corner on every page ---- */
+  .sync-btn {
+    background: none; border: 1px solid var(--line); border-radius: 999px;
+    color: var(--dim); font: inherit; font-size: 10.5px; font-weight: 700;
+    letter-spacing: 0.08em; text-transform: uppercase;
+    padding: 2px 10px; cursor: pointer;
+    display: inline-flex; align-items: center; gap: 6px;
+  }
+  .sync-btn:hover { border-color: var(--accent); color: var(--ink); }
+  .sync-btn .dot {
+    width: 7px; height: 7px; border-radius: 50%;
+    border: 1.5px solid currentColor; flex: 0 0 auto;
+  }
+  html.synced .sync-btn { color: var(--ink); }
+  html.synced .sync-btn .dot { background: var(--accent); border-color: var(--accent); }
+
+  /* ---- masthead ---- */
+  h1.masthead {
+    font-family: Georgia, "Times New Roman", serif;
+    font-size: 30px; font-weight: 700; letter-spacing: 0.22em;
+    text-transform: uppercase; text-align: center;
+  }
+  h1.masthead .mdot { color: var(--faint); }
+  h1.masthead .mfpl { color: var(--accent-ink); }
+  @media (max-width: 480px) {
+    h1.masthead { font-size: 22px; letter-spacing: 0.15em; }
+  }
+  .strap a { color: inherit; }
+  .deadline {
+    margin-top: 14px; text-align: center;
+    font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+    font-size: 12.5px; color: var(--dim); font-variant-numeric: tabular-nums;
+  }
+  .deadline .dl { font-weight: 700; text-transform: uppercase; font-size: 10.5px; letter-spacing: 0.12em; color: var(--faint); margin-right: 6px; }
+  .deadline strong { color: var(--accent-ink); font-weight: 700; }
+  .deadline.urgent {
+    width: fit-content; margin: 14px auto 0;
+    background: var(--score-bg); border: 1px solid var(--accent); border-radius: 8px;
+    padding: 7px 14px; color: var(--ink); font-size: 13px;
+  }
+  .deadline.urgent .dl { color: var(--accent-ink); }
+
+  main { padding-top: 8px; }
+
+  /* ---- the personal tier: hidden until synced ---- */
+  .you-tier { display: none; }
+  html.synced .you-tier { display: block; }
+  @media (prefers-reduced-motion: no-preference) {
+    html.synced .you-tier { animation: settle 240ms ease; }
+    @keyframes settle { from { opacity: 0; } to { opacity: 1; } }
+  }
+
+  /* ---- the call: the digest's article grammar, verbatim ---- */
+  .eyebrow .star-glyph { letter-spacing: 0; }
+  article.digest h2.headline {
+    font-family: Georgia, "Times New Roman", serif;
+    font-size: 29px; line-height: 1.22; font-weight: 700;
+    letter-spacing: -0.01em; margin: 8px 0 6px; text-wrap: balance;
+  }
+  .standfirst { color: var(--dim); font-size: 15.5px; margin-bottom: 16px; }
+  .standfirst b { color: var(--ink); }
+
+  /* the desk = the scoreboard block */
+  .deskrow {
+    display: flex; flex-wrap: wrap; align-items: baseline; gap: 4px 10px;
+    padding: 7px 16px 12px; font-variant-numeric: tabular-nums;
+  }
+  .deskrow .team {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    font-weight: 700; font-size: 14px; margin-right: 4px;
+  }
+  .deskrow .sep { color: var(--faint); }
+  .deskrow .stat { white-space: nowrap; color: var(--dim); }
+  .deskrow .stat b { color: var(--ink); font-weight: 700; }
+
+  .reasoning { font-size: 16px; max-width: 64ch; }
+  .wager {
+    font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+    font-size: 12px; color: var(--dim); margin-top: 12px;
+    font-variant-numeric: tabular-nums;
+  }
+  .wager .wlab {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    font-size: 10px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase;
+    color: var(--faint); margin-right: 5px;
+  }
+
+  /* FYI: two quiet lines with starrable moves */
+  .fyi { list-style: none; margin-top: 18px; display: flex; flex-direction: column; gap: 8px; }
+  .fyi li { display: flex; align-items: baseline; gap: 9px; font-size: 14.5px; flex-wrap: wrap; }
+  .kick {
+    font-size: 10.5px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em;
+    color: var(--dim); border: 1px solid var(--line); border-radius: 4px; padding: 1px 6px;
+    white-space: nowrap;
+  }
+  .kick.daring { color: var(--accent-ink); border-color: var(--accent); }
+  .fyi .move { font-weight: 700; }
+  .fyi .tail { color: var(--dim); }
+
+  /* star toggles */
+  button.star {
+    background: none; border: none; cursor: pointer; font: inherit;
+    color: var(--faint); font-size: 15px; line-height: 1; padding: 2px 4px;
+  }
+  button.star[aria-pressed="true"] { color: var(--accent-ink); }
+
+  /* ---- sections: small-caps header + hairline, verbatim ---- */
+  section > h2 {
+    font-size: 12px; font-weight: 800; text-transform: uppercase;
+    letter-spacing: 0.16em; color: var(--dim); margin-bottom: 12px;
+    display: flex; align-items: center; gap: 12px;
+  }
+  section > h2::after { content: ""; flex: 1; height: 1px; background: var(--line); }
+  section > h2 .h2-right {
+    font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+    font-size: 11px; font-weight: 400; letter-spacing: 0.02em; text-transform: none;
+    color: var(--faint); order: 2;
+  }
+
+  /* briefing list — prose only */
+  .up { color: var(--accent-ink); font-weight: 700; }
+
+  /* ---- shared micro-chips ---- */
+  .tchip {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    font-size: 9px; font-weight: 800; letter-spacing: 0.05em;
+    color: var(--faint); border: 1px solid var(--line); border-radius: 3px;
+    padding: 0 4px; flex: 0 0 auto; line-height: 1.6; text-transform: uppercase;
+  }
+  .dag { color: var(--st-luck); font-weight: 700; font-style: normal; }
+
+  /* ---- signal cards (the week) ---- */
+  .signals { display: flex; flex-direction: column; gap: 8px; }
+  .signal {
+    display: flex; gap: 11px; align-items: flex-start;
+    background: var(--card); border: 1px solid var(--line); border-radius: 10px;
+    padding: 9px 13px;
+  }
+  .sig.ban { background: var(--st-unl); color: var(--st-unl-ink); }
+  .sig.doubt { color: var(--st-miss); border: 1px solid var(--st-miss); padding: 0; }
+  .sig.managers { color: var(--dim); border: 1px solid var(--line); padding: 0; }
+  .signal .stext { font-size: 14px; line-height: 1.5; min-width: 0; }
+  .signal .stext b { font-size: 14.5px; }
+  .signal .tail { color: var(--dim); }
+
+  /* ---- bar boards (template board, captain poll) ---- */
+  .tboard { padding: 0 14px 12px; }
+  .tboard .blabel { padding: 11px 0 0; }
+  .tgroup {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    font-size: 10px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase;
+    color: var(--faint); padding: 9px 0 3px;
+  }
+  .trow { display: flex; align-items: center; gap: 8px; padding: 3px 0; font-variant-numeric: tabular-nums; }
+  .trow .tname {
+    flex: 0 0 88px; font-size: 12.5px;
+    white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+  }
+  .tbar { flex: 1 1 40px; height: 4px; background: var(--line); border-radius: 2px; overflow: hidden; }
+  .tbar i { display: block; height: 100%; background: var(--accent); border-radius: 2px; }
+  .tpct { flex: 0 0 30px; text-align: right; font-size: 11.5px; color: var(--dim); }
+  .tboard.poll { padding-bottom: 11px; }
+  .tboard.poll .trow:first-of-type { margin-top: 5px; }
+
+  /* ---- penalty takers: two-column chip grid ---- */
+  .pengrid { display: grid; grid-template-columns: 1fr 1fr; gap: 0 18px; max-width: 64ch; }
+  .pen {
+    display: flex; align-items: baseline; gap: 9px;
+    padding: 6px 2px; border-top: 1px solid var(--line); font-size: 14.5px;
+  }
+  .pen:nth-child(-n+2) { border-top: none; }
+  .pen.wide { grid-column: 1 / -1; }
+  .pen .popen { font-style: italic; color: var(--dim); font-size: 13.5px; }
+  @media (max-width: 355px) {
+    .pengrid { grid-template-columns: 1fr; }
+    .pen:nth-child(2) { border-top: 1px solid var(--line); }
+  }
+
+  /* ---- fixture runs: colored FDR strips ---- */
+  .fdrwrap { display: grid; grid-template-columns: 1fr 1fr; gap: 2px 18px; padding: 9px 14px 13px; }
+  @media (max-width: 355px) { .fdrwrap { grid-template-columns: 1fr; } }
+  .flabel {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    font-size: 10px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase;
+    color: var(--faint); padding: 3px 0 5px;
+  }
+  .frw { display: flex; align-items: center; gap: 4px; padding: 2px 0; }
+  .fteam {
+    flex: 0 0 30px; font-weight: 700; font-size: 12px;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  }
+  .fx-key { color: var(--faint); font-size: 13px; }
+
+  /* ---- squad boards: pos chip · name · badges · team · price ---- */
+  details.squad {
+    background: var(--card); border: 1px solid var(--line); border-radius: 10px;
+    overflow: hidden;
+  }
+  details.squad summary {
+    cursor: pointer; list-style: none;
+    display: flex; align-items: baseline; gap: 10px;
+    padding: 12px 15px; font-size: 14.5px;
+  }
+  details.squad summary::-webkit-details-marker { display: none; }
+  .chev::before {
+    content: "\25B8"; display: inline-block; color: var(--faint); font-size: 12px;
+  }
+  details[open] .chev::before { transform: rotate(90deg); }
+  @media (prefers-reduced-motion: no-preference) {
+    .chev::before { transition: transform 140ms ease; }
+  }
+  .sum-main { font-weight: 700; white-space: nowrap; }
+  .sum-sub { color: var(--dim); min-width: 0; }
+  .sum-right {
+    margin-left: auto; white-space: nowrap;
+    font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+    font-size: 12px; color: var(--faint); font-variant-numeric: tabular-nums;
+  }
+  .sqb {
+    border-top: 1px solid var(--line); background: var(--score-bg);
+    padding: 7px 14px 9px;
+    font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+    font-size: 12.5px; font-variant-numeric: tabular-nums;
+  }
+  .srow { display: flex; align-items: center; gap: 7px; padding: 3px 0; min-width: 0; }
+  .posc {
+    flex: 0 0 34px; text-align: center;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    font-size: 9px; font-weight: 800; letter-spacing: 0.08em; text-transform: uppercase;
+    color: var(--faint); border: 1px solid var(--line); border-radius: 4px; line-height: 1.7;
+  }
+  .sname { min-width: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .srow .tchip { margin-left: auto; }
+  .sprice { flex: 0 0 32px; text-align: right; color: var(--dim); font-size: 11.5px; }
+  .srow.bench { color: var(--dim); }
+  .srow.bench .posc { border-style: dashed; }
+  .srow.b1 { border-top: 1px solid var(--line); margin-top: 5px; padding-top: 7px; }
+  .bo { flex: 0 0 10px; text-align: right; font-style: normal; color: var(--faint); font-size: 10.5px; }
+  .foot {
+    border-top: 1px solid var(--line); padding: 9px 15px 11px;
+    font-size: 12.5px; color: var(--faint); line-height: 1.55;
+  }
+  .snote { color: var(--dim); font-size: 13.5px; margin-top: 10px; max-width: 64ch; }
+  .digest details.squad { margin: 4px 0 16px; }
+
+  /* ---- chip clock: token · window · expiry chip ---- */
+  .chip { display: flex; gap: 11px; padding: 9px 2px; align-items: baseline; }
+  .chip + .chip { border-top: 1px solid var(--line); }
+  .ctok {
+    flex: 0 0 44px; text-align: center;
+    font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+    font-size: 11px; font-weight: 700; color: var(--ink);
+    border: 1px solid var(--line); border-radius: 5px; padding: 1px 0;
+    white-space: nowrap; align-self: center;
+  }
+  .cnote { color: var(--dim); font-size: 14px; flex: 1; min-width: 0; }
+  .cnote b { color: var(--ink); }
+  .cexp {
+    font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+    font-size: 10.5px; color: var(--faint); white-space: nowrap;
+    border: 1px solid var(--line); border-radius: 4px; padding: 0 6px;
+    align-self: center;
+  }
+
+  /* ---- watchlist: player cards with avatar initials ---- */
+  .avatar.rising { color: var(--accent-ink); border-color: var(--accent); }
+  .ptop { display: flex; align-items: baseline; gap: 9px; flex-wrap: wrap; }
+  .pname { font-weight: 700; font-size: 15px; }
+  .ptag {
+    font-size: 10.5px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em;
+    color: var(--dim); border: 1px solid var(--line); border-radius: 4px; padding: 1px 6px;
+    white-space: nowrap; background: none;
+  }
+  .ptag.hold { color: var(--dim); }
+  .pnote { color: var(--dim); font-size: 14px; margin-top: 2px; line-height: 1.5; }
+
+  /* ---- open wagers: cards with a settle chip ---- */
+  .wagers { display: flex; flex-direction: column; gap: 8px; }
+  .wcard {
+    display: flex; align-items: baseline; gap: 10px; flex-wrap: wrap;
+    background: var(--card); border: 1px solid var(--line); border-radius: 10px;
+    padding: 9px 13px; font-size: 14px;
+  }
+  .wcard .wtext { color: var(--dim); flex: 1 1 20ch; min-width: 0; line-height: 1.5; }
+  .wcard .wtext b { color: var(--ink); }
+  .settle {
+    margin-left: auto; font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+    font-size: 10.5px; color: var(--faint); border: 1px solid var(--line); border-radius: 4px;
+    padding: 0 6px; white-space: nowrap; font-variant-numeric: tabular-nums;
+  }
+
+  /* ---- doctrine: numbered quiet lines ---- */
+  .doc { display: flex; gap: 11px; align-items: baseline; padding: 7px 2px; }
+  .doc + .doc { border-top: 1px solid var(--line); }
+  .dnum {
+    font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+    font-size: 11px; color: var(--faint); flex: 0 0 22px;
+  }
+  .dtext { color: var(--dim); font-size: 14px; }
+  .newtag {
+    font-size: 9.5px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase;
+    color: var(--accent-ink); border: 1px solid var(--accent); border-radius: 4px;
+    padding: 0 5px; margin-left: 4px; white-space: nowrap;
+  }
+
+  /* ---- the race: manager chip cloud + benchmark ghost rows ---- */
+  .mgrcloud { display: flex; flex-wrap: wrap; gap: 6px; padding: 6px 14px 12px; }
+  .mgr {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    font-size: 11px; font-weight: 600; color: var(--dim);
+    border: 1px solid var(--line); border-radius: 999px; padding: 1px 9px;
+    white-space: nowrap;
+  }
+  .mgr.us { color: var(--accent-ink); border-color: var(--accent); font-weight: 700; }
+  .ghosts { border-top: 1px solid var(--line); padding: 8px 14px 11px; }
+  .ghead {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    font-size: 10px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase;
+    color: var(--faint); padding-bottom: 2px;
+  }
+  .grow { display: flex; align-items: baseline; gap: 8px; padding: 2px 0; font-size: 12.5px; font-variant-numeric: tabular-nums; }
+  .grow .gname { color: var(--faint); font-style: italic; }
+  .grow .gpts { margin-left: auto; color: var(--faint); }
+  .race-note {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    font-size: 13px; color: var(--dim); line-height: 1.6;
+    padding: 0 14px 4px; max-width: none;
+  }
+  .race-note b { color: var(--ink); }
+
+  /* ---- the seam: personal above, commons below ---- */
+  .commons-rule {
+    margin: 44px 0 4px; display: flex; align-items: center; gap: 12px;
+    font-size: 12px; font-weight: 800; text-transform: uppercase;
+    letter-spacing: 0.16em; color: var(--dim);
+  }
+  .commons-rule::after { content: ""; flex: 1; height: 1px; background: var(--line); }
+  .commons-rule .cr-sub { font-weight: 400; letter-spacing: 0.08em; color: var(--faint); font-size: 11px; }
+
+  /* ---- stamp + footer ---- */
+  .stamp-wrap { text-align: center; padding-top: 46px; }
+  .stamp {
+    display: inline-block; border: 1px dashed var(--faint); border-radius: 4px;
+    padding: 3px 10px; color: var(--faint);
+    font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+    font-size: 10.5px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase;
+  }
+  footer a { color: inherit; }
+
+/* --- Live gameweek strip (fed by functions/api/live.js) --- */
+.livefx { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 12px; }
+.lfx {
+  display: flex; align-items: baseline; gap: 7px;
+  background: var(--card); border: 1px solid var(--line); border-radius: 8px;
+  padding: 5px 10px; font-size: 12.5px;
+  font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+  font-variant-numeric: tabular-nums;
+}
+.lteam { font-weight: 700; }
+.lteam.a { color: var(--dim); }
+.lscore { font-weight: 700; color: var(--accent-ink); }
+.lclock { color: var(--faint); font-size: 11px; }
+.livesquad .srow { gap: 7px; }
+.lmin { width: 34px; text-align: right; color: var(--faint); font-size: 11px; }
+.lpts {
+  width: 26px; text-align: right; font-weight: 700;
+  font-variant-numeric: tabular-nums;
+}
+.pbonus { color: var(--accent-ink); font-size: 10.5px; font-weight: 700; }
+.refresh {
+  font: inherit; font-size: 12px; font-weight: 700; color: var(--dim);
+  background: none; border: 1px solid var(--line); border-radius: 999px;
+  padding: 2px 11px; cursor: pointer;
+}
+.refresh:hover, .refresh:focus-visible { border-color: var(--accent); color: var(--ink); }
+.ltime { color: var(--faint); font-size: 12px; }
+.dlrel { color: var(--accent-ink); font-weight: 700; }
+.deadline.urgent .dlrel { color: var(--loss); }
+
+/* Race rows: rank, name, points — shared by the static and live tables. */
+.rrank { width: 20px; text-align: right; color: var(--faint); font-size: 11.5px; }
+.gwpts { width: 34px; text-align: right; color: var(--dim); }
+
+/* Ledger verdict stamps. Four, not two: unlucky/lucky are where calibration lives. */
+.stamp-v {
+  margin-left: auto; align-self: flex-start;
+  font-size: 10px; font-weight: 800; letter-spacing: 0.08em; text-transform: uppercase;
+  border-radius: 4px; padding: 1px 7px; white-space: nowrap;
+  border: 1px solid var(--line); color: var(--dim);
+}
+.stamp-v.st-hit { background: var(--st-hit); color: var(--st-hit-ink); border-color: var(--st-hit); }
+.stamp-v.st-miss { background: var(--st-miss); color: var(--st-miss-ink); border-color: var(--st-miss); }
+.stamp-v.st-unl { color: var(--st-unl); border-color: var(--st-unl); }
+.stamp-v.st-luck { color: var(--st-luck); border-color: var(--st-luck); }
+
+/* Signal cards: the so-what line and its source. */
+.saction { color: var(--accent-ink); font-size: 13px; font-weight: 600; margin-top: 4px; }
+.ssrc { color: var(--faint); font-size: 11.5px; margin-top: 3px; }
+.ssrc a { color: inherit; }

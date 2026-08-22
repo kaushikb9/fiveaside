@@ -9,7 +9,12 @@ from datetime import UTC, datetime
 from zoneinfo import ZoneInfo
 
 from touchline.config import TouchlineConfig
-from touchline.sources.fpl import FPLBootstrapResult, FPLElement, FPLFixturesResult
+from touchline.sources.fpl import (
+    FPLBootstrapResult,
+    FPLElement,
+    FPLEntryResult,
+    FPLFixturesResult,
+)
 
 # Compaction: top-N per position by ownership, plus every flagged player
 # anyone might plausibly own. ~150-200 rows, ~30 KB in the prompt.
@@ -18,6 +23,10 @@ POS_NAME = {1: "GK", 2: "DEF", 3: "MID", 4: "FWD"}
 FLAG_MIN_OWNERSHIP = 0.5  # percent
 FLAG_MIN_PRICE = 55  # tenths of £m
 NEXT_DEADLINES = 3
+
+# The template board: how many most-owned names to show per position.
+TEMPLATE_N_BY_POS = {1: 3, 2: 5, 3: 5, 4: 4}
+CAPTAIN_CANDIDATES = 3
 
 
 def _parse_utc(iso: str) -> datetime:
@@ -118,12 +127,162 @@ def _ticker(
     return {"from_gw": from_gw, "gws": horizon, "rows": rows}
 
 
+def _template(elements: list[FPLElement], short_names: dict[int, str]) -> list[dict]:
+    """Most-owned names per position — the crowd's shape, as fact."""
+    groups = []
+    for pos, limit in TEMPLATE_N_BY_POS.items():
+        ranked = sorted(
+            (e for e in elements if e.element_type == pos),
+            key=lambda e: (-_ownership(e), -e.now_cost),
+        )[:limit]
+        groups.append(
+            {
+                "pos": POS_NAME[pos],
+                "rows": [
+                    {
+                        "name": e.web_name,
+                        "team": short_names.get(e.team, str(e.team)),
+                        "ownership": _ownership(e),
+                        "price": e.now_cost / 10,
+                    }
+                    for e in ranked
+                ],
+            }
+        )
+    return groups
+
+
+def _captain_poll(
+    elements: list[FPLElement], short_names: dict[int, str], most_captained: int | None
+) -> dict:
+    """The crowd's armband. FPL publishes the most-captained id but no share
+    percentages — so we carry ownership (a real number) and never invent a split."""
+    by_id = {e.id: e for e in elements}
+    row = lambda e: {  # noqa: E731
+        "name": e.web_name,
+        "team": short_names.get(e.team, str(e.team)),
+        "ownership": _ownership(e),
+    }
+    picked = by_id.get(most_captained) if most_captained else None
+    candidates = sorted(
+        (e for e in elements if e.element_type in (3, 4)),
+        key=lambda e: (-_ownership(e), -e.now_cost),
+    )[:CAPTAIN_CANDIDATES]
+    if picked is not None and all(c.id != picked.id for c in candidates):
+        candidates = [picked, *candidates[: CAPTAIN_CANDIDATES - 1]]
+    return {
+        "most_captained": row(picked) if picked is not None else None,
+        "rows": [row(e) for e in candidates],
+    }
+
+
+def _penalties(elements: list[FPLElement], short_names: dict[int, str]) -> list[dict]:
+    """First-choice penalty takers, one row per club that has one on file."""
+    rows = []
+    for team_id, short in sorted(short_names.items(), key=lambda kv: kv[1]):
+        takers = [
+            e for e in elements if e.team == team_id and e.penalties_order == 1 and e.status != "u"
+        ]
+        if not takers:
+            continue
+        taker = max(takers, key=lambda e: e.now_cost)
+        rows.append({"team": short, "taker": taker.web_name, "price": taker.now_cost / 10})
+    return rows
+
+
+def _desk(
+    entry: FPLEntryResult | None,
+    gameweek_id: int | None,
+    elements: list[FPLElement] | None = None,
+    short_names: dict[int, str] | None = None,
+) -> dict | None:
+    """The owner's team state, straight from the entry endpoint.
+
+    Picks are resolved to names/positions here so the brain never has to join
+    element ids against the player list.
+    """
+    if entry is None or not entry.ok or not entry.entry:
+        return None
+    e = entry.entry
+    picks = entry.picks or {}
+    by_id = {el.id: el for el in elements or []}
+    names = short_names or {}
+    chips_used = {p.get("name") for p in (e.get("chips") or []) if isinstance(p, dict)}
+    desk = {
+        "team_name": e.get("name"),
+        "manager": f"{e.get('player_first_name', '')} {e.get('player_last_name', '')}".strip(),
+        "entered": bool(picks.get("picks")),
+        "overall_rank": e.get("summary_overall_rank"),
+        "total_points": e.get("summary_overall_points"),
+        "gw_points": e.get("summary_event_points"),
+        "bank": (e.get("last_deadline_bank") or 0) / 10,
+        "value": (e.get("last_deadline_value") or 0) / 10,
+        "chips_used": sorted(c for c in chips_used if c),
+    }
+    if picks:
+        entry_history = picks.get("entry_history") or {}
+        desk["free_transfers"] = entry_history.get("event_transfers")
+        desk["gameweek"] = gameweek_id
+        rows = []
+        for p in picks.get("picks") or []:
+            el = by_id.get(p.get("element"))
+            position = p.get("position") or 0
+            row = {
+                "element": p.get("element"),
+                "position": position,
+                "role": "bench" if position > 11 else "start",
+            }
+            if position > 11:
+                row["bench_order"] = position - 11
+            if el is not None:
+                row.update(
+                    {
+                        "name": el.web_name,
+                        "team": names.get(el.team, str(el.team)),
+                        "pos": POS_NAME.get(el.element_type, str(el.element_type)),
+                        "price": el.now_cost / 10,
+                    }
+                )
+                if el.status != "a":
+                    row["status"] = el.status
+            if p.get("is_captain"):
+                row["captain"] = True
+            if p.get("is_vice_captain"):
+                row["vice"] = True
+            rows.append(row)
+        desk["picks"] = rows
+    return desk
+
+
+def _leagues(entry: FPLEntryResult | None, entry_id: int | None) -> list[dict]:
+    """Mini-league standings, trimmed to what the page renders."""
+    if entry is None or not entry.ok:
+        return []
+    out = []
+    for league in entry.leagues:
+        rows = [
+            {
+                "rank": r.get("rank"),
+                "name": r.get("entry_name"),
+                "manager": r.get("player_name"),
+                "entry": r.get("entry"),
+                "total": r.get("total"),
+                "event_total": r.get("event_total"),
+                "is_owner": r.get("entry") == entry_id,
+            }
+            for r in league["results"]
+        ]
+        out.append({"id": league["id"], "name": league["name"], "rows": rows})
+    return out
+
+
 def build_fpl_facts(
     bootstrap: FPLBootstrapResult,
     fixtures: FPLFixturesResult,
     config: TouchlineConfig,
     *,
     now: datetime,
+    entry: FPLEntryResult | None = None,
 ) -> dict:
     """Assemble the JSON-ready FPL facts bundle as of `now`."""
     tz = ZoneInfo(config.timezone)
@@ -159,14 +318,35 @@ def build_fpl_facts(
         ]
         ticker = _ticker(fixtures, short_names, current.id, config.fpl.horizon_gws)
 
+    # The gameweek currently being played — distinct from the one being planned
+    # for. During GW1's matches, `gameweek` is GW2 (next deadline) while
+    # `live_gameweek` is GW1: the live view follows this one.
+    playing = next((e for e in bootstrap.events if e.is_current), None)
+    live_gameweek = {"id": playing.id, "finished": playing.finished} if playing else None
+    most_captained = playing.most_captained if playing else None
+    if most_captained is None and upcoming:
+        most_captained = upcoming[0].most_captained
+
     return {
         "date": today.isoformat(),
         "timezone": config.timezone,
         "season": season,
         "gameweek": gameweek,
+        "live_gameweek": live_gameweek,
         "next_deadlines": next_deadlines,
         "teams": [{"name": t.name, "short_name": t.short_name} for t in bootstrap.teams],
         "ticker": ticker,
+        "template": _template(bootstrap.elements, short_names),
+        "captain_poll": _captain_poll(bootstrap.elements, short_names, most_captained),
+        "penalties": _penalties(bootstrap.elements, short_names),
+        "desk": _desk(
+            entry, playing.id if playing else None, bootstrap.elements, short_names
+        ),
+        "leagues": _leagues(entry, config.fpl.team_id),
         "players": _compact_players(bootstrap.elements, short_names),
-        "errors": {"bootstrap": bootstrap.error, "fixtures": fixtures.error},
+        "errors": {
+            "bootstrap": bootstrap.error,
+            "fixtures": fixtures.error,
+            "entry": entry.error if entry else None,
+        },
     }

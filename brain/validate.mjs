@@ -157,15 +157,33 @@ for (const [i, d] of data.digests.entries()) {
     }
   }
 
-  if (d.rivals !== undefined) {
-    if (!Array.isArray(d.rivals)) fail(`${where}: 'rivals' must be an array when present`);
-    for (const [ri, r] of d.rivals.entries()) {
-      const rwhere = `${where}, rivals[${ri}]`;
-      for (const key of ["club", "line", "note"]) {
-        if (!isNonEmptyStr(r?.[key])) fail(`${rwhere}: '${key}' must be a non-empty string`);
+  // `rivals` is the legacy shape (entries up to 2026-08-22): the club's world
+  // framed against the reader's team. New entries use `top_teams` — the same
+  // card, but written as one unified league view with no "us and them".
+  for (const key of ["rivals", "top_teams"]) {
+    if (d[key] === undefined) continue;
+    if (!Array.isArray(d[key])) fail(`${where}: '${key}' must be an array when present`);
+    for (const [ri, r] of d[key].entries()) {
+      const rwhere = `${where}, ${key}[${ri}]`;
+      for (const field of ["club", "line", "note"]) {
+        if (!isNonEmptyStr(r?.[field])) fail(`${rwhere}: '${field}' must be a non-empty string`);
       }
       if (r.crest !== undefined && r.crest !== null && typeof r.crest !== "string")
         fail(`${rwhere}: 'crest' must be a string or null when present`);
+    }
+  }
+
+  // Titbits from outside the big clubs — the promoted side's flying start, the
+  // 19-year-old nobody had heard of. No `line` chip: these aren't table-watching.
+  if (d.elsewhere !== undefined) {
+    if (!Array.isArray(d.elsewhere)) fail(`${where}: 'elsewhere' must be an array when present`);
+    for (const [ei, e] of d.elsewhere.entries()) {
+      const ewhere = `${where}, elsewhere[${ei}]`;
+      for (const field of ["club", "note"]) {
+        if (!isNonEmptyStr(e?.[field])) fail(`${ewhere}: '${field}' must be a non-empty string`);
+      }
+      if (e.crest !== undefined && e.crest !== null && typeof e.crest !== "string")
+        fail(`${ewhere}: 'crest' must be a string or null when present`);
     }
   }
 }

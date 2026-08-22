@@ -3,32 +3,40 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Touchline</title>
-  <link rel="stylesheet" href="style.css?v=2">
+  <title>Touchline &middot; FPL</title>
+  <meta name="description" content="Touchline's Fantasy Premier League companion — one calm page, no hype.">
+  <link rel="stylesheet" href="style.css?v=3">
   <link rel="icon" href="icon.svg" type="image/svg+xml">
   <script>
-    // Apply the saved theme before first paint to avoid a flash. "auto" = no attribute.
+    // Apply saved theme and sync state before first paint. "auto" = no attribute.
     (function () {
-      var theme = localStorage.getItem("touchline-theme");
-      if (theme === "light" || theme === "dark")
-        document.documentElement.setAttribute("data-theme", theme);
+      try {
+        var theme = localStorage.getItem("touchline-theme");
+        if (theme === "light" || theme === "dark")
+          document.documentElement.setAttribute("data-theme", theme);
+        if (localStorage.getItem("touchline-fpl-sync") === "1")
+          document.documentElement.classList.add("synced");
+      } catch (e) {}
     })();
   </script>
 </head>
 <body>
   <div class="page">
     <button id="theme-toggle" class="theme-btn" type="button" aria-label="Switch theme"></button>
+
     <header>
-      <div class="masthead">Touchline</div>
+      <h1 class="masthead">Touchline <span class="mdot">&middot;</span> <span class="mfpl">FPL</span></h1>
       <div class="pitchline" aria-hidden="true"></div>
       <div class="strap">
-        <span id="club-crest" hidden></span>
-        <span class="club-chip" id="club-label"></span>
-        <span id="strap-dot" hidden>&middot;</span>
-        <span>one page a day &mdash; no scroll, no bait</span>
+        <span>the fantasy companion &mdash; one calm page, no hype</span>
         <span>&middot;</span>
-        <a href="fpl/" style="color:inherit">FPL planner</a>
+        <a href="digest/">digest</a>
+        <span>&middot;</span>
+        <button id="sync" class="sync-btn" type="button" aria-pressed="false" aria-label="Show my team">
+          <span class="dot" aria-hidden="true"></span><span class="sync-label">sync</span>
+        </button>
       </div>
+      <p class="deadline" id="deadline" hidden></p>
     </header>
 
     <main id="main">
@@ -36,11 +44,11 @@
     </main>
 
     <footer>
-      <span class="footer-line">Curated with 💙 by <a href="https://kaushikbhat.com" target="_blank" rel="noopener" style="color:inherit">kb</a> &middot;
-        written each morning, read in under a minute</span>
-      <span class="footer-line"><a href="about/" style="color:inherit">about</a><span id="last-refresh" hidden></span></span>
+      <span class="footer-line">Curated with 💙 by <a href="https://kaushikbhat.com" target="_blank" rel="noopener">kb</a> &middot;
+        one definitive call a week, no hype</span>
+      <span class="footer-line"><a href="about/">about</a><span id="last-refresh" hidden></span></span>
     </footer>
   </div>
-  <script src="app.js"></script>
+  <script src="app.js?v=3"></script>
 </body>
 </html>

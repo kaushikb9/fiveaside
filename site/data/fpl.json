@@ -5,6 +5,10 @@
     "deadline_utc": "2026-08-28T17:30:00Z",
     "deadline_local": "Fri 28 Aug, 23:00"
   },
+  "live_gameweek": {
+    "id": 1,
+    "finished": false
+  },
   "call": {
     "headline": "No move — bank the transfer; Haaland keeps the armband at Selhurst Park",
     "reasoning": "Friday was one game out of ten: thirteen of your fifteen haven't kicked a ball yet, so there is no evidence to act on and nothing to fix — all fifteen are available on the live API and the bank is £0.0m. The free transfer rolls. Haaland captains at Crystal Palace: 69.4% owned, a fixture City win most weeks, and no returner in the squad with a stronger claim. The first real read on this squad — Bruno over Palmer, the Kerkez wager — arrives Monday night at Craven Cottage, and GW1 settles in the log right after; the verdict stays open until then, because settling it off one Arsenal game would be guessing.",
@@ -13,10 +17,17 @@
     "chip": "no chip — the first-half set keeps until GW19 and nothing here needs one",
     "alternatives": [
       {
-        "call": "B.Fernandes (C) at home to Ipswich",
-        "why_not": "at 51.9% owned against the kindest fixture on the slate it's genuinely close, but the week-two evidence for splitting from Haaland's 69.4% armband is exactly zero — revisit when City visit Old Trafford in GW4."
+        "kind": "template-first",
+        "move": "B.Fernandes (C) at home to Ipswich",
+        "note": "at 51.6% owned against the kindest fixture on the slate it is genuinely close — but the evidence for splitting from Haaland's armband is zero. Revisit when City visit Old Trafford in GW4."
+      },
+      {
+        "kind": "upside",
+        "move": "Thiago in for Calvert-Lewin",
+        "note": "22 goals and every Brentford penalty last season; the pivot if a second premium forward is ever wanted."
       }
-    ]
+    ],
+    "template_drift": "−2 vs the bus — Tzolis and Calafiori in, Rogers' Chelsea seat still open"
   },
   "squad": {
     "formation": "3-4-3",
@@ -139,6 +150,168 @@
       }
     ]
   },
+  "desk": {
+    "team_name": "Wabi Sabi Xabi",
+    "manager": "Kaushik Bhat",
+    "entered": true,
+    "overall_rank": 4388570,
+    "total_points": 21,
+    "gw_points": 21,
+    "bank": 0,
+    "value": 100,
+    "chips_used": [],
+    "free_transfers": 0,
+    "gameweek": 1,
+    "picks": [
+      {
+        "element": 109,
+        "position": 1,
+        "role": "start",
+        "name": "Verbruggen",
+        "team": "BHA",
+        "pos": "GK",
+        "price": 4.5
+      },
+      {
+        "element": 358,
+        "position": 2,
+        "role": "start",
+        "name": "Kerkez",
+        "team": "LIV",
+        "pos": "DEF",
+        "price": 5.5
+      },
+      {
+        "element": 8,
+        "position": 3,
+        "role": "start",
+        "name": "Calafiori",
+        "team": "ARS",
+        "pos": "DEF",
+        "price": 5.5
+      },
+      {
+        "element": 423,
+        "position": 4,
+        "role": "start",
+        "name": "Shaw",
+        "team": "MUN",
+        "pos": "DEF",
+        "price": 4.5
+      },
+      {
+        "element": 426,
+        "position": 5,
+        "role": "start",
+        "name": "B.Fernandes",
+        "team": "MUN",
+        "pos": "MID",
+        "price": 12,
+        "vice": true
+      },
+      {
+        "element": 427,
+        "position": 6,
+        "role": "start",
+        "name": "Mbeumo",
+        "team": "MUN",
+        "pos": "MID",
+        "price": 8
+      },
+      {
+        "element": 557,
+        "position": 7,
+        "role": "start",
+        "name": "Tzolis",
+        "team": "ARS",
+        "pos": "MID",
+        "price": 6.5
+      },
+      {
+        "element": 40,
+        "position": 8,
+        "role": "start",
+        "name": "Rogers",
+        "team": "CHE",
+        "pos": "MID",
+        "price": 7.5
+      },
+      {
+        "element": 411,
+        "position": 9,
+        "role": "start",
+        "name": "Haaland",
+        "team": "MCI",
+        "pos": "FWD",
+        "price": 15.5,
+        "captain": true
+      },
+      {
+        "element": 346,
+        "position": 10,
+        "role": "start",
+        "name": "Calvert-Lewin",
+        "team": "LEE",
+        "pos": "FWD",
+        "price": 6
+      },
+      {
+        "element": 165,
+        "position": 11,
+        "role": "start",
+        "name": "João Pedro",
+        "team": "CHE",
+        "pos": "FWD",
+        "price": 7.5
+      },
+      {
+        "element": 497,
+        "position": 12,
+        "role": "bench",
+        "bench_order": 1,
+        "name": "Dubravka",
+        "team": "TOT",
+        "pos": "GK",
+        "price": 4
+      },
+      {
+        "element": 534,
+        "position": 13,
+        "role": "bench",
+        "bench_order": 2,
+        "name": "Hume",
+        "team": "SUN",
+        "pos": "DEF",
+        "price": 4.5
+      },
+      {
+        "element": 212,
+        "position": 14,
+        "role": "bench",
+        "bench_order": 3,
+        "name": "Hughes",
+        "team": "CRY",
+        "pos": "MID",
+        "price": 4.5
+      },
+      {
+        "element": 259,
+        "position": 15,
+        "role": "bench",
+        "bench_order": 4,
+        "name": "Diop",
+        "team": "IPS",
+        "pos": "DEF",
+        "price": 4
+      }
+    ],
+    "entry_id": 7149204,
+    "league": {
+      "name": "FPL 26-27",
+      "rank": 5,
+      "of": 11
+    }
+  },
   "watchlist": [
     {
       "name": "Palmer",
@@ -195,6 +368,191 @@
       "note": "Still no minutes evidence on whether Liverpool's creative load runs through him or Szoboszlai — drops off unless the first two weeks show it."
     }
   ],
+  "wagers": [
+    {
+      "claim": "Palmer outscores B.Fernandes over GW1–6",
+      "settles_gw": 6,
+      "owner": "brain",
+      "standing": "opened at the GW1 deadline"
+    },
+    {
+      "claim": "Owning Calafiori + Tzolis beats owning no Arsenal by GW6",
+      "settles_gw": 6,
+      "owner": "kb",
+      "standing": "KB's override — both hauled on opening night"
+    },
+    {
+      "claim": "Kerkez keeps ≥3 clean sheets by GW8",
+      "settles_gw": 8,
+      "owner": "brain",
+      "standing": "not owned in the end — tracked as a paper bet"
+    },
+    {
+      "claim": "This squad beats The Bus by GW8",
+      "settles_gw": 8,
+      "owner": "brain",
+      "standing": "the season's null-hypothesis test"
+    }
+  ],
+  "doctrine": [
+    {
+      "id": "D1",
+      "text": "Rank insurance is a real cost — price the drift on every call.",
+      "established": "day 0",
+      "grade": "doctrine",
+      "status": "standing"
+    },
+    {
+      "id": "D2",
+      "text": "New-manager minutes are unknowable until three XIs.",
+      "established": "day 0",
+      "grade": "doctrine",
+      "status": "standing"
+    },
+    {
+      "id": "D3",
+      "text": "Champions' template assets are default-own; passing needs a priced case.",
+      "established": "GW1",
+      "grade": "pattern",
+      "status": "new"
+    }
+  ],
+  "race": {
+    "league_name": "FPL 26-27",
+    "league_id": 391164,
+    "state": "live",
+    "rows": [
+      {
+        "rank": 1,
+        "name": "Mad11",
+        "total": 39,
+        "is_owner": false
+      },
+      {
+        "rank": 2,
+        "name": "Gunners.exe",
+        "total": 35,
+        "is_owner": false
+      },
+      {
+        "rank": 3,
+        "name": "Yogesh11",
+        "total": 27,
+        "is_owner": false
+      },
+      {
+        "rank": 4,
+        "name": "IceMan",
+        "total": 24,
+        "is_owner": false
+      },
+      {
+        "rank": 5,
+        "name": "WorldChamps",
+        "total": 21,
+        "is_owner": false
+      },
+      {
+        "rank": 5,
+        "name": "Wabi Sabi Xabi",
+        "total": 21,
+        "is_owner": true
+      },
+      {
+        "rank": 7,
+        "name": "Youri kiddin’ me!",
+        "total": 19,
+        "is_owner": false
+      },
+      {
+        "rank": 7,
+        "name": "Vabby_Blues",
+        "total": 19,
+        "is_owner": false
+      },
+      {
+        "rank": 9,
+        "name": "CFC",
+        "total": 17,
+        "is_owner": false
+      },
+      {
+        "rank": 10,
+        "name": "AbKiBaar?",
+        "total": 14,
+        "is_owner": false
+      },
+      {
+        "rank": 11,
+        "name": "Peaky Malayali FC",
+        "total": 13,
+        "is_owner": false
+      }
+    ],
+    "benchmarks": [
+      {
+        "name": "The Wildcard XI",
+        "total": null
+      },
+      {
+        "name": "The Bus",
+        "total": null
+      }
+    ],
+    "note": "GW1 is still being played — Chelsea and Fulham close it out on Monday night. Benchmark totals start once the gameweek settles."
+  },
+  "log": [
+    {
+      "gw": 1,
+      "date": "2026-08-21",
+      "call": "Day-0 squad: Haaland (C) vs BOU; bets on Palmer, Kerkez, Hume; passed on Bruno Fernandes at £12.0m with Mbeumo/Shaw/Lammens carrying the Man Utd run.",
+      "verdict": "open"
+    },
+    {
+      "gw": 2,
+      "date": "2026-08-22",
+      "call": "No move, transfer banked; Haaland (C) at Crystal Palace, B.Fernandes vice, 3-4-3 unchanged. Flagged Šeško's minutes as the one thing that could reopen the call before Friday.",
+      "verdict": "open"
+    }
+  ],
+  "plan": {
+    "outlook": "Joint-4th of 11 in FPL 26-27 on 15 points, leaders on 26 — and the gap is exactly one Arsenal attacker wide: both 26s are Friday-night Arsenal triples (Raya–Calafiori–White and Calafiori–Tzolis–Ødegaard), your own pair banked 15 of the same goals, and thirteen of your players are still to play. Nothing structural has gone wrong. The squad runs untouched to GW3 barring flags; the first forced thought is GW4, when the United trio's run hits City at Old Trafford and the Haaland captain path (cry, COV, then that derby) needs a real answer.",
+    "items": [
+      {
+        "label": "GW1 retro",
+        "when": "Tue 25 Aug",
+        "note": "the gameweek ends Monday at Craven Cottage; the log settles then — Bruno-over-Palmer and the Kerkez clean-sheet wager get their first honest entries"
+      },
+      {
+        "label": "Wildcard",
+        "when": "GW8-12",
+        "note": "hold through the first international break — that is when the market misprices and the data is real"
+      },
+      {
+        "label": "Leaders' squads",
+        "when": "before GW3",
+        "note": "all eleven rivals' picks are public; the two Arsenal-triple 26s are the drift number to track, not a shopping list"
+      }
+    ]
+  },
+  "new_this_season": [
+    {
+      "title": "Official price predictor now live",
+      "note": "every player's % progress toward a rise or fall, refreshed every 15 minutes, straight from the game."
+    },
+    {
+      "title": "Defensive contribution points stay",
+      "note": "2 pts for a defender hitting 10+ clearances, blocks, interceptions and tackles; 12+ for midfielders and forwards."
+    },
+    {
+      "title": "Bonus system reworked",
+      "note": "the tackled-penalty is gone, centre-back double-dipping is diluted, and keepers earn save-quality BPS."
+    },
+    {
+      "title": "Two full chip sets",
+      "note": "one of each per half — the first set dies at the GW19 deadline on 2 January."
+    }
+  ],
   "signals": [
     {
       "tag": "news",
@@ -231,6 +589,260 @@
       "url": "https://www.reddit.com/r/FantasyPL/comments/1vua96g/ezri_konsa_in_line_to_make_arsenal_debut_at_aston/"
     }
   ],
+  "template": [
+    {
+      "pos": "GK",
+      "rows": [
+        {
+          "name": "Raya",
+          "team": "ARS",
+          "ownership": 37.7,
+          "price": 6
+        },
+        {
+          "name": "Kinsky",
+          "team": "TOT",
+          "ownership": 24.3,
+          "price": 4.5
+        },
+        {
+          "name": "Verbruggen",
+          "team": "BHA",
+          "ownership": 21.8,
+          "price": 4.5
+        }
+      ]
+    },
+    {
+      "pos": "DEF",
+      "rows": [
+        {
+          "name": "Calafiori",
+          "team": "ARS",
+          "ownership": 39.9,
+          "price": 5.5
+        },
+        {
+          "name": "Gabriel",
+          "team": "ARS",
+          "ownership": 29.6,
+          "price": 8
+        },
+        {
+          "name": "Shaw",
+          "team": "MUN",
+          "ownership": 21.4,
+          "price": 4.5
+        },
+        {
+          "name": "O'Reilly",
+          "team": "MCI",
+          "ownership": 21.3,
+          "price": 6.5
+        },
+        {
+          "name": "Virgil",
+          "team": "LIV",
+          "ownership": 19.3,
+          "price": 6.5
+        }
+      ]
+    },
+    {
+      "pos": "MID",
+      "rows": [
+        {
+          "name": "B.Fernandes",
+          "team": "MUN",
+          "ownership": 51.6,
+          "price": 12
+        },
+        {
+          "name": "Szoboszlai",
+          "team": "LIV",
+          "ownership": 41.7,
+          "price": 7
+        },
+        {
+          "name": "Mbeumo",
+          "team": "MUN",
+          "ownership": 38.6,
+          "price": 8
+        },
+        {
+          "name": "Semenyo",
+          "team": "MCI",
+          "ownership": 26.2,
+          "price": 8.5
+        },
+        {
+          "name": "Tzolis",
+          "team": "ARS",
+          "ownership": 25.2,
+          "price": 6.5
+        }
+      ]
+    },
+    {
+      "pos": "FWD",
+      "rows": [
+        {
+          "name": "Haaland",
+          "team": "MCI",
+          "ownership": 69.2,
+          "price": 15.5
+        },
+        {
+          "name": "João Pedro",
+          "team": "CHE",
+          "ownership": 64.2,
+          "price": 7.5
+        },
+        {
+          "name": "Calvert-Lewin",
+          "team": "LEE",
+          "ownership": 31,
+          "price": 6
+        },
+        {
+          "name": "Thiago",
+          "team": "BRE",
+          "ownership": 17.2,
+          "price": 8
+        }
+      ]
+    }
+  ],
+  "captain_poll": {
+    "most_captained": {
+      "name": "Haaland",
+      "team": "MCI",
+      "ownership": 69.2
+    },
+    "rows": [
+      {
+        "name": "Haaland",
+        "team": "MCI",
+        "ownership": 69.2
+      },
+      {
+        "name": "João Pedro",
+        "team": "CHE",
+        "ownership": 64.2
+      },
+      {
+        "name": "B.Fernandes",
+        "team": "MUN",
+        "ownership": 51.6
+      }
+    ],
+    "note": "FPL publishes who the crowd captained but not the split, so these are ownership figures — the honest number, not an invented share."
+  },
+  "penalties": {
+    "rows": [
+      {
+        "team": "ARS",
+        "taker": "Saka",
+        "price": 9.5
+      },
+      {
+        "team": "AVL",
+        "taker": "Buendía",
+        "price": 6
+      },
+      {
+        "team": "BHA",
+        "taker": "Groß",
+        "price": 5.5
+      },
+      {
+        "team": "BOU",
+        "taker": "Kroupi.Jr",
+        "price": 7.5
+      },
+      {
+        "team": "BRE",
+        "taker": "Thiago",
+        "price": 8
+      },
+      {
+        "team": "CHE",
+        "taker": "Palmer",
+        "price": 9.5
+      },
+      {
+        "team": "COV",
+        "taker": "Wright",
+        "price": 5.5
+      },
+      {
+        "team": "CRY",
+        "taker": "Mateta",
+        "price": 6.5
+      },
+      {
+        "team": "EVE",
+        "taker": "Ndiaye",
+        "price": 6
+      },
+      {
+        "team": "FUL",
+        "taker": "Gonzalo",
+        "price": 6
+      },
+      {
+        "team": "HUL",
+        "taker": "McBurnie",
+        "price": 5.5
+      },
+      {
+        "team": "IPS",
+        "taker": "Clarke",
+        "price": 5.5
+      },
+      {
+        "team": "LEE",
+        "taker": "Calvert-Lewin",
+        "price": 6
+      },
+      {
+        "team": "LIV",
+        "taker": "Isak",
+        "price": 9
+      },
+      {
+        "team": "MCI",
+        "taker": "Haaland",
+        "price": 15.5
+      },
+      {
+        "team": "MUN",
+        "taker": "B.Fernandes",
+        "price": 12
+      },
+      {
+        "team": "NEW",
+        "taker": "Woltemade",
+        "price": 6
+      },
+      {
+        "team": "NFO",
+        "taker": "Wood",
+        "price": 6
+      },
+      {
+        "team": "SUN",
+        "taker": "Diarra",
+        "price": 5.5
+      },
+      {
+        "team": "TOT",
+        "taker": "Solanke",
+        "price": 6
+      }
+    ],
+    "note": "First-choice takers on the game's own list. New managers reshuffle quietly — a confirmed take beats last season's order."
+  },
   "ticker": {
     "from_gw": 2,
     "gws": 6,
@@ -1077,39 +1689,269 @@
       }
     ]
   },
-  "plan": {
-    "outlook": "Joint-4th of 11 in FPL 26-27 on 15 points, leaders on 26 — and the gap is exactly one Arsenal attacker wide: both 26s are Friday-night Arsenal triples (Raya–Calafiori–White and Calafiori–Tzolis–Ødegaard), your own pair banked 15 of the same goals, and thirteen of your players are still to play. Nothing structural has gone wrong. The squad runs untouched to GW3 barring flags; the first forced thought is GW4, when the United trio's run hits City at Old Trafford and the Haaland captain path (cry, COV, then that derby) needs a real answer.",
-    "items": [
+  "bus": {
+    "formation": "3-4-3",
+    "note": "Fifteen picked for reliability and left alone — serviced only at international breaks. If weekly management can't beat this, it isn't working.",
+    "value": "£100.0m",
+    "players": [
       {
-        "label": "GW1 retro",
-        "when": "Tue 25 Aug",
-        "note": "the gameweek ends Monday at Craven Cottage; the log settles then — Bruno-over-Palmer and the Kerkez clean-sheet wager get their first honest entries"
+        "name": "Verbruggen",
+        "team": "BHA",
+        "pos": "GK",
+        "price": 4.5,
+        "role": "start"
       },
       {
-        "label": "Wildcard",
-        "when": "GW8-12",
-        "note": "hold through the first international break — that is when the market misprices and the data is real"
+        "name": "Calafiori",
+        "team": "ARS",
+        "pos": "DEF",
+        "price": 5.5,
+        "role": "start"
       },
       {
-        "label": "Leaders' squads",
-        "when": "before GW3",
-        "note": "all eleven rivals' picks are public; the two Arsenal-triple 26s are the drift number to track, not a shopping list"
+        "name": "Guéhi",
+        "team": "MCI",
+        "pos": "DEF",
+        "price": 6,
+        "role": "start"
+      },
+      {
+        "name": "Shaw",
+        "team": "MUN",
+        "pos": "DEF",
+        "price": 4.5,
+        "role": "start"
+      },
+      {
+        "name": "B.Fernandes",
+        "team": "MUN",
+        "pos": "MID",
+        "price": 12,
+        "role": "start",
+        "vice": true
+      },
+      {
+        "name": "Mbeumo",
+        "team": "MUN",
+        "pos": "MID",
+        "price": 8,
+        "role": "start"
+      },
+      {
+        "name": "Szoboszlai",
+        "team": "LIV",
+        "pos": "MID",
+        "price": 7,
+        "role": "start"
+      },
+      {
+        "name": "Tzolis",
+        "team": "ARS",
+        "pos": "MID",
+        "price": 6.5,
+        "role": "start"
+      },
+      {
+        "name": "Haaland",
+        "team": "MCI",
+        "pos": "FWD",
+        "price": 15.5,
+        "role": "start",
+        "captain": true
+      },
+      {
+        "name": "João Pedro",
+        "team": "CHE",
+        "pos": "FWD",
+        "price": 7.5,
+        "role": "start"
+      },
+      {
+        "name": "Calvert-Lewin",
+        "team": "LEE",
+        "pos": "FWD",
+        "price": 6,
+        "role": "start"
+      },
+      {
+        "name": "Dubravka",
+        "team": "TOT",
+        "pos": "GK",
+        "price": 4,
+        "role": "bench",
+        "bench_order": 1
+      },
+      {
+        "name": "Hume",
+        "team": "SUN",
+        "pos": "DEF",
+        "price": 4.5,
+        "role": "bench",
+        "bench_order": 2
+      },
+      {
+        "name": "Hughes",
+        "team": "CRY",
+        "pos": "MID",
+        "price": 4.5,
+        "role": "bench",
+        "bench_order": 3
+      },
+      {
+        "name": "Diop",
+        "team": "IPS",
+        "pos": "DEF",
+        "price": 4,
+        "role": "bench",
+        "bench_order": 4
       }
     ]
   },
-  "log": [
-    {
-      "gw": 1,
-      "date": "2026-08-21",
-      "call": "Day-0 squad: Haaland (C) vs BOU; bets on Palmer, Kerkez, Hume; passed on Bruno Fernandes at £12.0m with Mbeumo/Shaw/Lammens carrying the Man Utd run.",
-      "verdict": "open"
-    },
-    {
-      "gw": 2,
-      "date": "2026-08-22",
-      "call": "No move, transfer banked; Haaland (C) at Crystal Palace, B.Fernandes vice, 3-4-3 unchanged. Flagged Šeško's minutes as the one thing that could reopen the call before Friday.",
-      "verdict": "open"
-    }
-  ],
-  "generated_at": "2026-08-22T12:35:47.270Z"
+  "wildcard": {
+    "formation": "3-4-3",
+    "note": "The best from-scratch fifteen at today's prices, re-picked every deadline. The ceiling — no human holds a free weekly re-pick.",
+    "value": "£98.0m",
+    "players": [
+      {
+        "name": "Verbruggen",
+        "team": "BHA",
+        "pos": "GK",
+        "price": 4.5,
+        "role": "start"
+      },
+      {
+        "name": "Calafiori",
+        "team": "ARS",
+        "pos": "DEF",
+        "price": 5.5,
+        "role": "start"
+      },
+      {
+        "name": "Kerkez",
+        "team": "LIV",
+        "pos": "DEF",
+        "price": 5.5,
+        "role": "start"
+      },
+      {
+        "name": "Shaw",
+        "team": "MUN",
+        "pos": "DEF",
+        "price": 4.5,
+        "role": "start"
+      },
+      {
+        "name": "Semenyo",
+        "team": "MCI",
+        "pos": "MID",
+        "price": 8.5,
+        "role": "start"
+      },
+      {
+        "name": "Mbeumo",
+        "team": "MUN",
+        "pos": "MID",
+        "price": 8,
+        "role": "start"
+      },
+      {
+        "name": "Szoboszlai",
+        "team": "LIV",
+        "pos": "MID",
+        "price": 7,
+        "role": "start"
+      },
+      {
+        "name": "Tzolis",
+        "team": "ARS",
+        "pos": "MID",
+        "price": 6.5,
+        "role": "start"
+      },
+      {
+        "name": "Haaland",
+        "team": "MCI",
+        "pos": "FWD",
+        "price": 15.5,
+        "role": "start",
+        "captain": true
+      },
+      {
+        "name": "João Pedro",
+        "team": "CHE",
+        "pos": "FWD",
+        "price": 7.5,
+        "role": "start",
+        "vice": true
+      },
+      {
+        "name": "Thiago",
+        "team": "BRE",
+        "pos": "FWD",
+        "price": 8,
+        "role": "start"
+      },
+      {
+        "name": "Dubravka",
+        "team": "TOT",
+        "pos": "GK",
+        "price": 4,
+        "role": "bench",
+        "bench_order": 1
+      },
+      {
+        "name": "Hume",
+        "team": "SUN",
+        "pos": "DEF",
+        "price": 4.5,
+        "role": "bench",
+        "bench_order": 2
+      },
+      {
+        "name": "Hughes",
+        "team": "CRY",
+        "pos": "MID",
+        "price": 4.5,
+        "role": "bench",
+        "bench_order": 3
+      },
+      {
+        "name": "Diop",
+        "team": "IPS",
+        "pos": "DEF",
+        "price": 4,
+        "role": "bench",
+        "bench_order": 4
+      }
+    ]
+  },
+  "chips": {
+    "rows": [
+      {
+        "code": "WC1",
+        "name": "Wildcard",
+        "window": "earliest sensible window GW6–8 — post-break, once real data exists",
+        "expires": "GW19"
+      },
+      {
+        "code": "FH1",
+        "name": "Free Hit",
+        "window": "hold for a blank gameweek; none scheduled yet",
+        "expires": "GW19"
+      },
+      {
+        "code": "BB1",
+        "name": "Bench Boost",
+        "window": "wants a clean double gameweek; none scheduled yet",
+        "expires": "GW19"
+      },
+      {
+        "code": "TC1",
+        "name": "Triple Captain",
+        "window": "a premium on a home double, or not at all",
+        "expires": "GW19"
+      }
+    ],
+    "note": "First-half chips die at the GW19 deadline (2 Jan). A good week used beats a perfect week hoarded."
+  }
 }

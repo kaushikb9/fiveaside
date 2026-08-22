@@ -103,7 +103,7 @@ def test_main_fpl_prints_bundle(tmp_path, capsys, monkeypatch):
     # time-independent assertions only: run_fpl uses the real clock
     assert len(bundle["teams"]) == 4
     assert "Haaland" in [p["name"] for p in bundle["players"]]
-    assert set(bundle["errors"]) == {"bootstrap", "fixtures"}
+    assert set(bundle["errors"]) == {"bootstrap", "fixtures", "entry"}
 
 
 def test_main_facts_instantiates_configured_source(tmp_path, capsys, monkeypatch):

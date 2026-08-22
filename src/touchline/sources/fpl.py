@@ -17,6 +17,8 @@ class FPLEvent(BaseModel, frozen=True):
     deadline_time: str  # ISO-8601 UTC, e.g. "2026-08-21T17:30:00Z"
     finished: bool = False
     is_next: bool = False
+    is_current: bool = False
+    most_captained: int | None = None  # FPLElement.id
 
 
 class FPLTeam(BaseModel, frozen=True):
@@ -37,6 +39,7 @@ class FPLElement(BaseModel, frozen=True):
     chance_of_playing_next_round: int | None = None
     form: str = ""
     total_points: int = 0
+    penalties_order: int | None = None  # 1 = first-choice taker
 
 
 class FPLFixture(BaseModel, frozen=True):
@@ -66,6 +69,20 @@ class FPLFixturesResult(BaseModel, frozen=True):
 
     ok: bool
     fixtures: list[FPLFixture]
+    error: str | None = None
+
+
+class FPLEntryResult(BaseModel, frozen=True):
+    """The owner's team: summary, current picks, and mini-league standings.
+
+    Every field degrades independently — a dead league endpoint must not
+    cost us the squad.
+    """
+
+    ok: bool
+    entry: dict[str, Any] | None = None
+    picks: dict[str, Any] | None = None
+    leagues: list[dict[str, Any]] = []
     error: str | None = None
 
 
@@ -124,3 +141,37 @@ class FPLClient:
         if not isinstance(payload, list):
             return FPLFixturesResult(ok=False, fixtures=[], error="unexpected payload: not a list")
         return FPLFixturesResult(ok=True, fixtures=_parse_items(FPLFixture, payload))
+
+    def fetch_entry(
+        self, entry_id: int, *, event: int | None = None, league_ids: list[int] | None = None
+    ) -> FPLEntryResult:
+        """Fetch the owner's team summary, current picks, and any tracked leagues."""
+        entry, error = self._get_json(f"/entry/{entry_id}/")
+        if error is not None:
+            return FPLEntryResult(ok=False, error=error)
+        if not isinstance(entry, dict):
+            return FPLEntryResult(ok=False, error="unexpected payload: not an object")
+
+        picks = None
+        if event is not None:
+            # Picks 404 before a team is entered, or before the first deadline —
+            # that's a normal state, not an error.
+            candidate, picks_error = self._get_json(f"/entry/{entry_id}/event/{event}/picks/")
+            if picks_error is None and isinstance(candidate, dict):
+                picks = candidate
+
+        leagues: list[dict[str, Any]] = []
+        for league_id in league_ids or []:
+            payload, league_error = self._get_json(f"/leagues-classic/{league_id}/standings/")
+            if league_error is not None or not isinstance(payload, dict):
+                continue
+            standings = ((payload.get("standings") or {}).get("results")) or []
+            leagues.append(
+                {
+                    "id": league_id,
+                    "name": (payload.get("league") or {}).get("name") or str(league_id),
+                    "results": standings,
+                }
+            )
+
+        return FPLEntryResult(ok=True, entry=entry, picks=picks, leagues=leagues)
