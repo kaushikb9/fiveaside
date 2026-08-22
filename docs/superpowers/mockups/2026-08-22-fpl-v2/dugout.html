@@ -1,0 +1,547 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="dark">
+<title>The FPL Planner — GW2</title>
+<style>
+  :root{
+    --bg:#0b1017; --panel:#121a26; --panel2:#0e1520; --inset:#0a111a;
+    --line:#1f2c3d; --line2:#2c3d54;
+    --ink:#dce6f2; --soft:#b9c7d8; --mut:#93a5ba; --dim:#64748b; --small:#7c8fa5;
+    --grass:#48d17d; --grassdk:#0a1f13; --amber:#f0b43e; --amberdk:#171004;
+    --red:#ff6a5f; --blue:#63aaff;
+    --pline:rgba(226,240,229,.22);
+    --mono:ui-monospace,"SF Mono",SFMono-Regular,Menlo,Consolas,"Liberation Mono",monospace;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html{-webkit-text-size-adjust:100%}
+  body{
+    background:var(--bg);
+    color:var(--ink);
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
+    font-size:15px;line-height:1.55;
+  }
+  .page{max-width:1060px;margin:0 auto;padding:0 12px 48px}
+  a{color:var(--grass)}
+  :focus-visible{outline:2px solid var(--amber);outline-offset:2px;border-radius:3px}
+
+  /* ---------- chrome ---------- */
+  .chrome{display:flex;align-items:center;gap:10px;padding:12px 2px 10px;border-bottom:1px solid var(--line)}
+  .chrome .word{font-family:var(--mono);font-size:11px;font-weight:700;letter-spacing:.32em;color:var(--grass)}
+  .chrome .sess{margin-left:auto;font-family:var(--mono);font-size:9px;letter-spacing:.14em;color:var(--dim);text-transform:uppercase;white-space:nowrap}
+  .tabs{display:flex;gap:2px;border-bottom:1px solid var(--line);padding:8px 0 0;margin-top:2px}
+  .tab{font-family:var(--mono);font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--dim);
+       padding:7px 13px;border:1px solid transparent;border-bottom:none;border-radius:5px 5px 0 0;position:relative;top:1px;white-space:nowrap}
+  .tab.on{color:var(--grass);background:var(--panel);border-color:var(--line);box-shadow:0 1px 0 var(--panel)}
+  @media(max-width:479px){.tab:nth-child(n+5){display:none}}
+
+  /* ---------- issue plate ---------- */
+  .plate{display:flex;flex-wrap:wrap;align-items:baseline;gap:6px 14px;padding:18px 2px 4px}
+  .plate h1{font-size:21px;font-weight:800;letter-spacing:.05em;text-transform:uppercase}
+  .plate .meta{font-family:var(--mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--mut)}
+  .plate .meta b{color:var(--amber);font-weight:700}
+
+  /* ---------- layout ---------- */
+  main{display:grid;gap:12px;margin-top:12px}
+  @media(min-width:880px){
+    main{grid-template-columns:3fr 2fr;
+      grid-template-areas:
+        "pulse pulse" "desk desk" "cover cover" "call fyi"
+        "note note" "sheet stop" "sheet watch"
+        "debrief believe" "race race" "colo colo";}
+    #s-pulse{grid-area:pulse}#s-desk{grid-area:desk}#s-cover{grid-area:cover}
+    #s-call{grid-area:call}#s-fyi{grid-area:fyi}#s-note{grid-area:note}
+    #s-sheet{grid-area:sheet}#s-stop{grid-area:stop}#s-watch{grid-area:watch}
+    #s-debrief{grid-area:debrief}#s-believe{grid-area:believe}
+    #s-race{grid-area:race}#s-colo{grid-area:colo}
+  }
+
+  /* ---------- panels ---------- */
+  .panel{background:var(--panel);border:1px solid var(--line);border-radius:6px;overflow:hidden;display:flex;flex-direction:column}
+  .ph{display:flex;align-items:center;gap:9px;padding:8px 12px;background:var(--panel2);border-bottom:1px solid var(--line)}
+  .ph .tick{width:8px;height:8px;background:var(--grass);flex:none}
+  .ph .tick.red{background:var(--red)} .ph .tick.amber{background:var(--amber)} .ph .tick.blue{background:var(--blue)}
+  .ph .ix{font-family:var(--mono);font-size:10px;color:var(--dim)}
+  .ph h2{font-family:var(--mono);font-size:11px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--mut)}
+  .ph .pm{margin-left:auto;font-family:var(--mono);font-size:9px;letter-spacing:.1em;text-transform:uppercase;color:var(--dim);text-align:right}
+  .pb{padding:12px}
+  .panel.hot{border-color:#5a2a28}
+  .panel.go{border-color:#2a5a3f}
+
+  /* chips + tags */
+  .tag{font-family:var(--mono);font-size:9px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;
+       padding:2px 7px;border:1px solid var(--line2);border-radius:3px;color:var(--mut);white-space:nowrap;flex:none}
+  .tag.red{color:var(--red);border-color:#5c322f}
+  .tag.amb{color:var(--amber);border-color:#5c4a1f}
+  .tag.grn{color:var(--grass);border-color:#28513a}
+  .tag.blu{color:var(--blue);border-color:#2c4666}
+  .chipnum{font-variant-numeric:tabular-nums}
+
+  /* ---------- 01 pulse ---------- */
+  .pulse-row{display:flex;align-items:center;gap:10px;padding:9px 12px;border-bottom:1px solid var(--line)}
+  .pulse-row:last-child{border-bottom:none}
+  .pulse-row .txt{font-size:14px}
+  .pulse-row.quiet .txt{color:var(--mut)}
+  .meter{height:5px;background:#243349;border-radius:2px;flex:1;max-width:110px;min-width:56px;position:relative;overflow:hidden}
+  .meter i{position:absolute;top:0;bottom:0;left:0;width:92%;background:var(--amber)}
+  .rise{color:var(--amber);font-weight:700}
+  .livedot{width:7px;height:7px;border-radius:50%;background:var(--red);flex:none;animation:blink 1.6s steps(2,start) infinite}
+  @keyframes blink{50%{opacity:.25}}
+
+  /* ---------- 02 desk ---------- */
+  .deadline{display:flex;flex-wrap:wrap;align-items:center;gap:8px 12px;padding:10px 12px;border-bottom:1px solid var(--line)}
+  .deadline .dl{font-family:var(--mono);font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--soft)}
+  .count{font-family:var(--mono);font-size:11px;font-weight:700;letter-spacing:.08em;background:var(--amber);color:var(--amberdk);padding:3px 9px;border-radius:3px;white-space:nowrap}
+  .desk{display:flex;flex-wrap:wrap;align-items:center;gap:6px 8px;padding:10px 12px}
+  .desk .club{font-weight:800;font-size:15px;letter-spacing:.01em;margin-right:4px}
+  .stat{font-family:var(--mono);font-size:10.5px;letter-spacing:.04em;color:var(--soft);background:var(--panel2);
+        border:1px solid var(--line);border-radius:3px;padding:3px 8px;font-variant-numeric:tabular-nums;white-space:nowrap}
+  .stat b{color:var(--ink);font-weight:700}
+  .stat.ft b{color:var(--grass)}
+  .chiptok{font-family:var(--mono);font-size:9.5px;font-weight:700;color:var(--grass);border:1px solid #28513a;border-radius:3px;padding:3px 6px}
+
+  /* ---------- 03 cover ---------- */
+  .cover{padding:22px 16px 20px;border-left:3px solid var(--grass)}
+  .cover h3{font-size:clamp(27px,5.6vw,42px);line-height:1.08;font-weight:800;letter-spacing:-.02em;max-width:21ch}
+  .stand{margin-top:14px;color:var(--soft);font-size:16px;line-height:1.62;max-width:62ch}
+
+  /* ---------- 04 the call ---------- */
+  .moves{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--line);border:1px solid var(--line);border-radius:4px;overflow:hidden}
+  @media(min-width:640px){.moves{grid-template-columns:repeat(4,1fr)}}
+  .mcell{background:var(--panel2);padding:9px 11px}
+  .mcell .lab{font-family:var(--mono);font-size:9px;letter-spacing:.16em;text-transform:uppercase;color:var(--dim);display:block;margin-bottom:3px}
+  .mcell .val{font-weight:700;font-size:14px;display:flex;align-items:center;gap:6px;flex-wrap:wrap}
+  .bC{background:var(--grass);color:var(--grassdk);font-family:var(--mono);font-size:9.5px;font-weight:700;padding:1px 5px;border-radius:3px;flex:none}
+  .bV{border:1px solid var(--grass);color:var(--grass);font-family:var(--mono);font-size:9.5px;font-weight:700;padding:0 5px;border-radius:3px;flex:none}
+  .wager{display:flex;flex-wrap:wrap;align-items:center;gap:8px;margin-top:10px}
+  .wager .q{font-style:italic;color:var(--soft)}
+  .execbar{margin-top:10px;display:flex;flex-wrap:wrap;align-items:center;gap:8px;background:#1b1608;border:1px solid #5c4a1f;border-radius:4px;padding:8px 11px}
+  .execbar .ex{font-family:var(--mono);font-size:10.5px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--amber)}
+  .execbar .sig{margin-left:auto;font-family:var(--mono);font-size:9.5px;letter-spacing:.1em;color:var(--small)}
+
+  /* ---------- 05 fyi ---------- */
+  .fyirow{display:flex;align-items:flex-start;gap:9px;padding:10px 12px;border-bottom:1px solid var(--line)}
+  .fyirow .txt{font-size:14px;color:var(--soft)}
+  .fyirow .txt b{color:var(--ink)}
+  .star{appearance:none;background:var(--panel2);border:1px solid var(--line2);border-radius:4px;color:var(--mut);
+        font-size:14px;line-height:1;width:28px;height:28px;flex:none;cursor:pointer;margin-left:auto;transition:color .15s,border-color .15s}
+  .star.on{color:var(--amber);border-color:#5c4a1f}
+  .micro{padding:8px 12px;font-family:var(--mono);font-size:9.5px;letter-spacing:.06em;color:var(--small)}
+
+  /* ---------- 06 notebook ---------- */
+  .facts{display:grid;gap:8px}
+  @media(min-width:880px){.facts{grid-template-columns:repeat(3,1fr)}}
+  .fact{background:var(--panel2);border:1px solid var(--line);border-radius:4px;padding:10px 11px}
+  .fact .tag{margin-bottom:6px;display:inline-block}
+  .fact p{font-size:13.5px;color:var(--soft)}
+  .aside{margin-top:10px;font-size:12.5px;color:var(--small)}
+  .aside b{font-family:var(--mono);font-size:9px;letter-spacing:.14em;text-transform:uppercase;color:var(--dim);font-weight:700}
+
+  /* ---------- 07 team sheet ---------- */
+  .pitchwrap{flex:1;display:flex;flex-direction:column}
+  .pitch{position:relative;flex:1;min-height:440px;margin:12px;border:1px solid var(--pline);border-radius:4px;
+         background:repeating-linear-gradient(180deg,#14301d 0,#14301d 48px,#173620 48px,#173620 96px);
+         display:flex;flex-direction:column;justify-content:space-between;padding:20px 8px;gap:10px}
+  .plines{position:absolute;inset:0;pointer-events:none}
+  .pl{position:absolute;border:1px solid var(--pline)}
+  .pl.half{left:0;right:0;top:50%;height:0;border-width:1px 0 0}
+  .pl.circle{left:50%;top:50%;width:92px;height:92px;transform:translate(-50%,-50%);border-radius:50%}
+  .pl.boxT{left:50%;top:-1px;transform:translateX(-50%);width:46%;height:12%;border-top:none}
+  .pl.sixT{left:50%;top:-1px;transform:translateX(-50%);width:22%;height:5%;border-top:none}
+  .pl.boxB{left:50%;bottom:-1px;transform:translateX(-50%);width:46%;height:12%;border-bottom:none}
+  .pl.sixB{left:50%;bottom:-1px;transform:translateX(-50%);width:22%;height:5%;border-bottom:none}
+  .pl.spotT{left:50%;top:9%;width:3px;height:3px;border:none;background:var(--pline);border-radius:50%}
+  .pl.spotB{left:50%;bottom:9%;width:3px;height:3px;border:none;background:var(--pline);border-radius:50%}
+  .prow{position:relative;z-index:1;display:flex;justify-content:center;gap:6px;flex-wrap:wrap}
+  .player{background:rgba(9,15,22,.88);border:1px solid var(--line2);border-radius:5px;padding:4px 7px;text-align:center;min-width:62px}
+  .pname{display:block;font-size:clamp(10px,2.7vw,11.5px);font-weight:700;letter-spacing:.01em;white-space:nowrap}
+  .pname .bC,.pname .bV{margin-left:4px;vertical-align:1px}
+  .dag{color:var(--amber);font-weight:700}
+  .fx{display:block;margin-top:2px;font-family:var(--mono);font-size:8.5px;letter-spacing:.08em;color:var(--mut)}
+  .bench{display:flex;align-items:center;gap:8px;flex-wrap:wrap;padding:10px 12px;border-top:1px solid var(--line)}
+  .bench .lab{font-family:var(--mono);font-size:9px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--dim)}
+  .bseat{border:1px dashed var(--line2);border-radius:4px;padding:3px 9px;font-size:12.5px;font-weight:600}
+  .bseat i{font-style:normal;font-family:var(--mono);font-size:10px;color:var(--dim);margin-right:5px}
+  .fnote{padding:9px 12px;border-top:1px solid var(--line);font-size:11.5px;color:var(--mut);line-height:1.7}
+  .pips{display:inline-flex;gap:2px;margin:0 3px;vertical-align:-1px}
+  .pips i{width:7px;height:7px;border:1px solid var(--grass);display:inline-block;border-radius:1px}
+  .pips i.f{background:var(--grass)}
+
+  /* ---------- 08 stop press ---------- */
+  .stoplist{list-style:none}
+  .stoplist li{display:flex;gap:10px;padding:9px 12px;border-bottom:1px solid var(--line);font-size:14px;color:var(--soft)}
+  .stoplist li:last-child{border-bottom:none}
+  .stoplist li::before{content:"●";color:var(--red);flex:none;font-size:11px;line-height:1.9}
+
+  /* ---------- 09 ones to watch ---------- */
+  .wrow{display:grid;grid-template-columns:auto 1fr;gap:2px 10px;padding:9px 12px;border-bottom:1px solid var(--line);align-items:baseline}
+  .wrow:last-child{border-bottom:none}
+  .whead{display:flex;align-items:center;gap:8px;grid-column:1/-1;flex-wrap:wrap}
+  .whead .nm{font-weight:700;font-size:14px}
+  .whead .cl{font-family:var(--mono);font-size:9.5px;letter-spacing:.1em;color:var(--dim)}
+  .trend{font-family:var(--mono);font-size:10px;letter-spacing:.06em;white-space:nowrap}
+  .trend.up{color:var(--grass)} .trend.hold{color:var(--mut)}
+  .wnote{grid-column:1/-1;font-size:12.5px;color:var(--mut)}
+  .wrow .star{width:24px;height:24px;font-size:12px;margin-left:auto}
+  .wrow.mine{background:#161307;border-left:2px solid var(--amber)}
+
+  /* ---------- 10 debrief ---------- */
+  .dentry{padding:10px 12px;border-bottom:1px solid var(--line)}
+  .dentry .sub{font-weight:700}
+  .st{font-family:var(--mono);font-size:9.5px;font-weight:700;letter-spacing:.12em;padding:1px 7px;border:1.5px solid currentColor;border-radius:3px;margin:0 6px;white-space:nowrap}
+  .st.hit{color:var(--grass)} .st.miss{color:var(--red)} .st.unl{color:var(--amber)} .st.lck{color:var(--blue)}
+  .dentry .det{color:var(--mut);font-size:13.5px}
+  .lesson{margin:12px;border:1px solid #28513a;border-radius:4px;background:var(--grassdk);padding:11px 13px}
+  .lesson .row{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:6px}
+  .lesson p{font-weight:700;font-size:14.5px;color:var(--ink)}
+
+  /* ---------- 11 believe ---------- */
+  .doc{display:flex;gap:10px;padding:11px 12px;border-bottom:1px solid var(--line);align-items:flex-start}
+  .doc:last-child{border-bottom:none}
+  .dnum{font-family:var(--mono);font-size:10px;font-weight:700;color:var(--dim);border:1px solid var(--line2);border-radius:3px;padding:2px 6px;flex:none;margin-top:2px}
+  .doc .bd{font-size:13.5px;color:var(--soft)}
+  .doc .tags{display:flex;gap:6px;margin-top:4px;flex-wrap:wrap}
+
+  /* ---------- 12 race ---------- */
+  .racegrid{display:grid;gap:16px;padding:12px}
+  @media(min-width:880px){.racegrid{grid-template-columns:1.1fr .9fr}}
+  .srow{display:grid;grid-template-columns:2.2ch 1fr auto;gap:2px 10px;align-items:baseline;padding:6px 4px;border-bottom:1px solid var(--line);font-variant-numeric:tabular-nums}
+  .srow .pos{font-family:var(--mono);font-size:10.5px;color:var(--dim);text-align:right}
+  .srow .tname{font-size:13.5px;font-weight:600}
+  .srow .pts{font-family:var(--mono);font-size:12.5px;font-weight:700}
+  .srow .bar{grid-column:2/4;height:3px;background:#1c2938;border-radius:2px;overflow:hidden;position:relative}
+  .srow .bar i{position:absolute;inset:0 auto 0 0;background:var(--line2)}
+  .srow.you{background:var(--grassdk);border-left:2px solid var(--grass);padding-left:6px}
+  .srow.you .tname{color:var(--grass)}
+  .srow.you .bar i{background:var(--grass)}
+  details.more summary{cursor:pointer;list-style:none;font-family:var(--mono);font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--dim);padding:8px 4px}
+  details.more summary::-webkit-details-marker{display:none}
+  details.more summary::before{content:"▸ ";color:var(--dim)}
+  details.more[open] summary::before{content:"▾ "}
+  .srow.ghost{opacity:.45;border-bottom-style:dashed}
+  .srow.ghost .tname{font-weight:400;color:var(--dim);letter-spacing:.2em}
+  .shadows{margin-top:12px}
+  .shlab{font-family:var(--mono);font-size:9px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--dim);margin-bottom:4px}
+  .srow.shadow{border-left:2px dashed var(--line2);padding-left:6px}
+  .srow.shadow .tname{color:var(--mut);font-weight:500}
+  .srow.shadow .bar i{background:repeating-linear-gradient(90deg,var(--line2) 0 4px,transparent 4px 8px)}
+  .attrib{font-size:13.5px;color:var(--soft);border-left:3px solid var(--line2);padding-left:10px}
+  .honesty{margin-top:10px;font-size:11px;color:var(--small)}
+  .diary{margin-top:16px}
+  .diary h3{font-family:var(--mono);font-size:10px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--mut);margin-bottom:6px}
+  .diary ul{list-style:none}
+  .diary li{padding:6px 0;border-bottom:1px solid var(--line);font-size:13px;color:var(--soft)}
+  .diary li::before{content:"▸ ";color:var(--grass)}
+  .diary li:last-child{border-bottom:none}
+
+  /* ---------- colophon ---------- */
+  .colo{text-align:center;padding:20px 12px 6px;color:var(--small);font-family:var(--mono);font-size:10.5px;letter-spacing:.08em}
+  .stamp{display:inline-block;margin-top:10px;border:1.5px dashed var(--amber);color:var(--amber);border-radius:4px;
+         padding:4px 12px;font-family:var(--mono);font-size:10px;letter-spacing:.14em}
+
+  @media (prefers-reduced-motion: reduce){
+    *,*::before,*::after{animation:none!important;transition:none!important}
+  }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <!-- window chrome -->
+  <header>
+    <div class="chrome">
+      <svg width="18" height="18" viewBox="0 0 18 18" aria-hidden="true"><rect x="0" y="0" width="18" height="18" rx="3" fill="#48d17d"/><rect x="3.5" y="4" width="11" height="1.6" fill="#0a1f13"/><rect x="3.5" y="8.2" width="11" height="1.6" fill="#0a1f13"/><rect x="3.5" y="12.4" width="7" height="1.6" fill="#0a1f13"/></svg>
+      <span class="word">TOUCHLINE</span>
+      <span class="sess">manager terminal · 2026/27</span>
+    </div>
+    <div class="tabs" aria-hidden="true">
+      <span class="tab on">Matchday</span><span class="tab">Squad</span><span class="tab">Transfers</span><span class="tab">Scouting</span><span class="tab">League</span><span class="tab">Board</span>
+    </div>
+    <div class="plate">
+      <h1>The FPL Planner</h1>
+      <span class="meta">Issue No. 2 · <b>Gameweek 2</b> · 2026/27 season</span>
+    </div>
+  </header>
+
+  <main>
+
+    <!-- 01 · DAILY PULSE -->
+    <section class="panel" id="s-pulse" aria-labelledby="h-pulse">
+      <div class="ph"><span class="livedot" aria-hidden="true"></span><span class="ix">01</span><h2 id="h-pulse">Daily Pulse</h2><span class="pm">since yesterday</span></div>
+      <div class="pulse-row">
+        <span class="tag red">Injury</span>
+        <span class="txt"><b>Doku</b> ruled out ~3 weeks</span>
+      </div>
+      <div class="pulse-row">
+        <span class="tag amb">Price</span>
+        <span class="txt"><b>Thiago</b> 92% toward +0.1 tonight <span class="rise">▲</span></span>
+        <span class="meter" role="img" aria-label="92 percent toward a price rise"><i></i></span>
+      </div>
+      <div class="pulse-row quiet">
+        <span class="tag">Quiet</span>
+        <span class="txt">nothing else moved.</span>
+      </div>
+    </section>
+
+    <!-- 02 · KICK-OFF + YOUR DESK -->
+    <section class="panel" id="s-desk" aria-labelledby="h-desk">
+      <div class="ph"><span class="ix">02</span><h2 id="h-desk">Kick-off · Your Desk</h2></div>
+      <div class="deadline">
+        <span class="dl">Deadline Fri 28 Aug · 23:00 IST</span>
+        <span class="count">in 2d 4h</span>
+      </div>
+      <div class="desk">
+        <span class="club">Wabi Sabi Xabi</span>
+        <span class="stat chipnum">GW1 <b>61 pts</b></span>
+        <span class="stat chipnum">OR <b>1.4M</b></span>
+        <span class="stat chipnum">mini-league <b>3rd</b> of 11</span>
+        <span class="stat chipnum">bank <b>£0.0m</b></span>
+        <span class="stat ft chipnum"><b>1 FT</b></span>
+        <span class="stat">chips</span>
+        <span class="chiptok">WC</span><span class="chiptok">FH</span><span class="chiptok">BB</span><span class="chiptok">TC</span>
+      </div>
+    </section>
+
+    <!-- 03 · THE COVER -->
+    <section class="panel" id="s-cover" aria-labelledby="h-cover">
+      <div class="ph"><span class="ix">03</span><h2 id="h-cover">The Cover</h2><span class="pm">GW2 briefing</span></div>
+      <div class="cover">
+        <h3>Hold everything: the squad did its job.</h3>
+        <p class="stand">Sixty-one points, four clear of the league median, and every bet still open. Bruno&rsquo;s brace at Hull paid for your override inside one afternoon; the Arsenal pair hauled while our Zero-Arsenal line watched from the press box. Nothing this week clears the bar for a move — the squad was built to go three gameweeks untouched, and week two is not the moment to blink. Bank the transfer. Haaland wears it again at Palace.</p>
+      </div>
+    </section>
+
+    <!-- 04 · THE CALL -->
+    <section class="panel go" id="s-call" aria-labelledby="h-call">
+      <div class="ph"><span class="tick" aria-hidden="true"></span><span class="ix">04</span><h2 id="h-call">★ The Call</h2><span class="pm">the one signed recommendation</span></div>
+      <div class="pb">
+        <div class="moves">
+          <div class="mcell"><span class="lab">Moves</span><span class="val">None — bank the FT</span></div>
+          <div class="mcell"><span class="lab">Captain</span><span class="val">Haaland <span class="bC">C</span></span></div>
+          <div class="mcell"><span class="lab">Vice</span><span class="val">B.Fernandes <span class="bV">V</span></span></div>
+          <div class="mcell"><span class="lab">Chip</span><span class="val">None</span></div>
+        </div>
+        <div class="wager">
+          <span class="tag amb">Wager</span>
+          <span class="q">&ldquo;the hold beats any −4 move by GW4.&rdquo;</span>
+          <span class="tag grn chipnum">template drift +1</span>
+        </div>
+        <div class="execbar">
+          <span class="ex">Execute after Friday&rsquo;s pressers</span>
+          <span class="sig">signed · the brain</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- 05 · FYI STRIP -->
+    <section class="panel" id="s-fyi" aria-labelledby="h-fyi">
+      <div class="ph"><span class="ix">05</span><h2 id="h-fyi">FYI</h2><span class="pm">no arguments</span></div>
+      <div class="fyirow">
+        <span class="tag blu">Cautious</span>
+        <span class="txt">DCL → <b>Gyökeres</b> (1 FT) if you must move</span>
+        <button class="star" type="button" aria-pressed="false" aria-label="Star Gyökeres for the watchlist">☆</button>
+      </div>
+      <div class="fyirow">
+        <span class="tag amb">Bold</span>
+        <span class="txt">Rogers → <b>Saka</b> (−4) — closes the Arsenal gap before their run turns.</span>
+        <button class="star" type="button" aria-pressed="false" aria-label="Star Saka for the watchlist">☆</button>
+      </div>
+      <p class="micro">☆ star a name to put it on the watchlist.</p>
+    </section>
+
+    <!-- 06 · THE NOTEBOOK -->
+    <section class="panel" id="s-note" aria-labelledby="h-note">
+      <div class="ph"><span class="ix">06</span><h2 id="h-note">The Notebook</h2><span class="pm">factors that moved this week</span></div>
+      <div class="pb">
+        <div class="facts">
+          <div class="fact"><span class="tag grn">Rotation</span><p>City at Palace with no midweek: clear.</p></div>
+          <div class="fact"><span class="tag amb">Price</span><p>Thiago 92% toward a rise at midnight; only matters if the bold page tempts you.</p></div>
+          <div class="fact"><span class="tag blu">Newmgr</span><p>Carrick has named the same XI twice; Mbeumo&rsquo;s role looks secure.</p></div>
+        </div>
+        <p class="aside"><b>Set aside this week</b> — WC fatigue, pre-season vibes, derby intensity (none in window).</p>
+      </div>
+    </section>
+
+    <!-- 07 · THE TEAM SHEET -->
+    <section class="panel" id="s-sheet" aria-labelledby="h-sheet">
+      <div class="ph"><span class="ix">07</span><h2 id="h-sheet">The Team Sheet</h2><span class="pm">3-4-3 · caps = home</span></div>
+      <div class="pitchwrap">
+        <div class="pitch">
+          <div class="plines" aria-hidden="true">
+            <span class="pl sixT"></span><span class="pl boxT"></span><span class="pl spotT"></span>
+            <span class="pl half"></span><span class="pl circle"></span>
+            <span class="pl sixB"></span><span class="pl boxB"></span><span class="pl spotB"></span>
+          </div>
+          <div class="prow">
+            <div class="player"><span class="pname">Verbruggen</span></div>
+          </div>
+          <div class="prow">
+            <div class="player"><span class="pname">Kerkez<span class="dag">†</span></span></div>
+            <div class="player"><span class="pname">Calafiori</span></div>
+            <div class="player"><span class="pname">Shaw</span></div>
+          </div>
+          <div class="prow">
+            <div class="player"><span class="pname">B.Fernandes<span class="bV">V</span></span><span class="fx">IPS·eve·CHE</span></div>
+            <div class="player"><span class="pname">Mbeumo</span></div>
+            <div class="player"><span class="pname">Tzolis</span></div>
+            <div class="player"><span class="pname">Rogers</span></div>
+          </div>
+          <div class="prow">
+            <div class="player"><span class="pname">Haaland<span class="bC">C</span></span><span class="fx">cry·COV·bre</span></div>
+            <div class="player"><span class="pname">João Pedro</span><span class="fx">BHA·ars·HUL</span></div>
+            <div class="player"><span class="pname">Calvert-Lewin</span></div>
+          </div>
+        </div>
+      </div>
+      <div class="bench">
+        <span class="lab">Bench</span>
+        <span class="bseat"><i>1</i>Dubravka</span>
+        <span class="bseat"><i>2</i>Hume<span class="dag">†</span></span>
+        <span class="bseat"><i>3</i>Hughes</span>
+        <span class="bseat"><i>4</i>Diop</span>
+      </div>
+      <div class="fnote">
+        <span class="dag">†</span> open bets — <b>Kerkez:</b> ≥3 clean sheets by GW8 <span class="pips" role="img" aria-label="1 of 3 banked"><i class="f"></i><i></i><i></i></span> (1 banked) · <b>Hume:</b> the Sunderland run pays through GW3.
+        <br>next-3 strips under starters: <b>CAPS = home</b>.
+      </div>
+    </section>
+
+    <!-- 08 · STOP PRESS -->
+    <section class="panel hot" id="s-stop" aria-labelledby="h-stop">
+      <div class="ph"><span class="tick red" aria-hidden="true"></span><span class="ix">08</span><h2 id="h-stop">Stop Press</h2><span class="pm">urgent</span></div>
+      <ul class="stoplist">
+        <li>Palmer trained fully Thursday — no flag, the knock story dies.</li>
+        <li>Thiago&rsquo;s rise projects for midnight; ignore unless moving anyway.</li>
+        <li>Henderson fit — Palace&rsquo;s keeper crisis over before Haaland arrives.</li>
+      </ul>
+    </section>
+
+    <!-- 09 · ONES TO WATCH -->
+    <section class="panel" id="s-watch" aria-labelledby="h-watch">
+      <div class="ph"><span class="ix">09</span><h2 id="h-watch">Ones to Watch</h2><span class="pm">scouting · 6 names</span></div>
+      <div class="wrow mine">
+        <div class="whead">
+          <span class="nm">Saka</span>
+          <span class="tag amb">your star</span>
+          <button class="star on" type="button" aria-pressed="true" aria-label="Saka is starred on the watchlist">★</button>
+        </div>
+        <p class="wnote">brain must answer next run: adopt or argue.</p>
+      </div>
+      <div class="wrow">
+        <div class="whead"><span class="nm">Thiago</span><span class="cl">BRE</span><span class="trend up">↗ rising</span></div>
+        <p class="wnote">22 goals + pens last season; the pivot if a second premium is ever needed.</p>
+      </div>
+      <div class="wrow">
+        <div class="whead"><span class="nm">Gyökeres</span><span class="cl">ARS</span><span class="trend hold">→ hold</span></div>
+        <p class="wnote">the cheap route into the champions&rsquo; attack.</p>
+      </div>
+      <div class="wrow">
+        <div class="whead"><span class="nm">Estêvão</span><span class="cl">CHE</span><span class="trend up">↗ rising</span></div>
+        <p class="wnote">minutes trending up.</p>
+      </div>
+      <div class="wrow">
+        <div class="whead"><span class="nm">Wirtz</span><span class="cl">LIV</span><span class="trend hold">→ hold</span></div>
+        <p class="wnote">watch where the creative load lands.</p>
+      </div>
+      <div class="wrow">
+        <div class="whead"><span class="nm">Šeško</span><span class="cl">MUN</span><span class="trend hold">→ hold</span></div>
+        <p class="wnote">first start watch.</p>
+      </div>
+    </section>
+
+    <!-- 10 · THE DEBRIEF -->
+    <section class="panel" id="s-debrief" aria-labelledby="h-debrief">
+      <div class="ph"><span class="ix">10</span><h2 id="h-debrief">The Debrief</h2><span class="pm">GW1 revisited</span></div>
+      <div class="dentry"><span class="sub">Haaland&rsquo;s armband</span><span class="st hit">HIT</span><span class="det">+9 vs field.</span></div>
+      <div class="dentry"><span class="sub">The Zero-Arsenal line</span><span class="st miss">MISS</span><span class="det">the champions&rsquo; pair returned 15; your override banked them.</span></div>
+      <div class="dentry"><span class="sub">Kerkez&rsquo;s clean sheet</span><span class="st unl">UNLUCKY</span><span class="det">0.6 xGC, undone by an 89th-minute deflection.</span></div>
+      <div class="dentry"><span class="sub">Verbruggen over Lammens</span><span class="st lck">LUCKY</span><span class="det">both kept clean sheets; the process said Lammens.</span></div>
+      <div class="lesson">
+        <div class="row"><span class="tag grn">This week&rsquo;s lesson</span><span class="tag">pattern · 2nd sighting</span></div>
+        <p>&ldquo;Champions&rsquo; template assets are default-own; passing needs a priced case.&rdquo;</p>
+      </div>
+    </section>
+
+    <!-- 11 · WHAT WE BELIEVE -->
+    <section class="panel" id="s-believe" aria-labelledby="h-believe">
+      <div class="ph"><span class="ix">11</span><h2 id="h-believe">What We Believe</h2><span class="pm">doctrine</span></div>
+      <div class="doc">
+        <span class="dnum">D1</span>
+        <div><p class="bd">Rank insurance is a real cost — price the drift on every call.</p>
+        <div class="tags"><span class="tag">standing · GW0</span></div></div>
+      </div>
+      <div class="doc">
+        <span class="dnum">D2</span>
+        <div><p class="bd">New-manager minutes are unknowable until three XIs.</p>
+        <div class="tags"><span class="tag">standing · GW0</span></div></div>
+      </div>
+      <div class="doc">
+        <span class="dnum">D3</span>
+        <div><p class="bd">Champions&rsquo; template assets are default-own.</p>
+        <div class="tags"><span class="tag amb">NEW</span><span class="tag">pattern · GW1→2</span></div></div>
+      </div>
+    </section>
+
+    <!-- 12 · THE BACK PAGE — THE RACE -->
+    <section class="panel" id="s-race" aria-labelledby="h-race">
+      <div class="ph"><span class="ix">12</span><h2 id="h-race">The Back Page — The Race</h2><span class="pm">mini-league · FPL 26-27</span></div>
+      <div class="racegrid">
+        <div>
+          <div class="srow"><span class="pos">1</span><span class="tname">Gunners.exe</span><span class="pts">68</span><span class="bar"><i style="width:72%"></i></span></div>
+          <div class="srow"><span class="pos">2</span><span class="tname">Mad11</span><span class="pts">66</span><span class="bar"><i style="width:64%"></i></span></div>
+          <div class="srow you"><span class="pos">3</span><span class="tname">★ Wabi Sabi Xabi</span><span class="pts">61</span><span class="bar"><i style="width:44%"></i></span></div>
+          <div class="srow"><span class="pos">4</span><span class="tname">WorldChamps</span><span class="pts">58</span><span class="bar"><i style="width:32%"></i></span></div>
+          <div class="srow"><span class="pos">5</span><span class="tname">Vabby_Blues</span><span class="pts">55</span><span class="bar"><i style="width:20%"></i></span></div>
+          <details class="more">
+            <summary>+6 more · positions 6–11</summary>
+            <div class="srow ghost"><span class="pos">6</span><span class="tname">·····</span><span class="pts">—</span></div>
+            <div class="srow ghost"><span class="pos">7</span><span class="tname">·····</span><span class="pts">—</span></div>
+            <div class="srow ghost"><span class="pos">8</span><span class="tname">·····</span><span class="pts">—</span></div>
+            <div class="srow ghost"><span class="pos">9</span><span class="tname">·····</span><span class="pts">—</span></div>
+            <div class="srow ghost"><span class="pos">10</span><span class="tname">·····</span><span class="pts">—</span></div>
+            <div class="srow ghost"><span class="pos">11</span><span class="tname">·····</span><span class="pts">—</span></div>
+          </details>
+          <div class="shadows">
+            <p class="shlab">Shadows · benchmarks</p>
+            <div class="srow shadow"><span class="pos">◇</span><span class="tname">The Wildcard XI</span><span class="pts">71</span><span class="bar"><i style="width:84%"></i></span></div>
+            <div class="srow shadow"><span class="pos">◇</span><span class="tname">The Bus</span><span class="pts">57</span><span class="bar"><i style="width:28%"></i></span></div>
+          </div>
+        </div>
+        <div>
+          <p class="attrib">Gunners.exe&rsquo;s lead is one player — Saka&rsquo;s nine. The Wildcard XI&rsquo;s 71 is the ceiling talking.</p>
+          <p class="honesty">shadows pay no hits — benchmarks, not rivals; the Bus is serviced monthly.</p>
+          <div class="diary">
+            <h3>The Diary</h3>
+            <ul>
+              <li>Bus service due at the September break</li>
+              <li>wildcard window opens GW6–8 if squad overlap drops below 10</li>
+              <li>price watch: Thiago tonight</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- colophon -->
+    <footer class="colo" id="s-colo">
+      set by the brain · Fri 05:30 IST · one issue a week, no hype
+      <br>
+      <span class="stamp">MOCKUP · dummy points on real fixtures</span>
+    </footer>
+
+  </main>
+</div>
+
+<script>
+  document.querySelectorAll('.star').forEach(function(b){
+    b.addEventListener('click',function(){
+      var on=b.classList.toggle('on');
+      b.setAttribute('aria-pressed',on?'true':'false');
+      b.textContent=on?'★':'☆';
+    });
+  });
+</script>
+</body>
+</html>

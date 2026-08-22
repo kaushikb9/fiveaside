@@ -1,0 +1,800 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The FPL Planner · Issue No. 2</title>
+<style>
+  :root{
+    --bg:#050807;
+    --panel:#0b110d;
+    --panel2:#0e1712;
+    --panel3:#111c15;
+    --ink:#e9f2ec;
+    --mut:#96aa9d;
+    --dim:#5e7065;
+    --line:rgba(233,242,236,.10);
+    --line2:rgba(233,242,236,.05);
+    --acc:#00ff87;
+    --acc-dim:#00c968;
+    --acc-ink:#03130a;
+    --acc-tint:rgba(0,255,135,.08);
+    --red:#ff3b52;
+    --red-tint:rgba(255,59,82,.08);
+    --amber:#ffb224;
+    --blue:#4aa8ff;
+    --disp:"Avenir Next Condensed","Arial Narrow","Helvetica Neue",Arial,sans-serif;
+    --body:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    --mono:ui-monospace,"SF Mono",SFMono-Regular,Menlo,Consolas,"Liberation Mono",monospace;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html{overflow-x:hidden}
+  body{
+    background:var(--bg);
+    color:var(--ink);
+    font-family:var(--body);
+    font-size:16px;
+    line-height:1.55;
+    overflow-x:hidden;
+    -webkit-font-smoothing:antialiased;
+  }
+  ::selection{background:var(--acc);color:var(--acc-ink)}
+  :focus-visible{outline:2px solid var(--acc);outline-offset:2px;border-radius:2px}
+  button{font:inherit;color:inherit;background:none;border:none;cursor:pointer}
+
+  .wrap{max-width:760px;margin:0 auto;padding:0 16px 64px;position:relative}
+
+  /* ---------- floodlights ---------- */
+  .flood{
+    position:absolute;left:-40vw;right:-40vw;top:0;height:460px;pointer-events:none;
+    background:
+      radial-gradient(55% 240px at 22% 0,rgba(0,255,135,.10),transparent 70%),
+      radial-gradient(55% 240px at 78% 0,rgba(0,255,135,.10),transparent 70%),
+      radial-gradient(70% 320px at 50% -60px,rgba(233,242,236,.07),transparent 72%);
+  }
+
+  /* ---------- masthead ---------- */
+  .mast{padding-top:26px;position:relative}
+  .ident{
+    display:flex;align-items:center;gap:9px;
+    font-family:var(--disp);font-weight:700;font-size:13px;letter-spacing:.34em;
+    text-transform:uppercase;color:var(--mut);
+  }
+  .ident .bug{
+    width:22px;height:22px;background:var(--acc);color:var(--acc-ink);
+    display:inline-flex;align-items:center;justify-content:center;
+    font-size:11px;letter-spacing:0;font-weight:800;border-radius:2px;flex:none;
+  }
+  .plate{margin-top:18px;border-left:5px solid var(--acc);padding-left:16px}
+  .plate h1{
+    font-family:var(--disp);font-weight:800;text-transform:uppercase;
+    font-size:clamp(34px,8.5vw,54px);line-height:.95;letter-spacing:.015em;
+  }
+  .plate-sub{
+    margin-top:8px;font-family:var(--mono);font-size:11.5px;letter-spacing:.12em;
+    text-transform:uppercase;color:var(--mut);
+  }
+  .plate-sub b{color:var(--acc);font-weight:600}
+
+  /* ---------- pulse ticker ---------- */
+  .pulse{
+    margin-top:22px;border:1px solid var(--line);border-radius:4px;
+    background:linear-gradient(180deg,var(--panel2),var(--panel));
+    display:flex;align-items:stretch;overflow:hidden;
+  }
+  .pulse-bug{
+    background:var(--acc);color:var(--acc-ink);font-family:var(--disp);font-weight:800;
+    font-size:12.5px;letter-spacing:.14em;text-transform:uppercase;
+    display:flex;align-items:center;gap:7px;padding:10px 12px;flex:none;
+  }
+  .pulse-bug .dot{width:7px;height:7px;border-radius:50%;background:var(--acc-ink);animation:blink 1.6s steps(2,jump-none) infinite}
+  @keyframes blink{50%{opacity:.25}}
+  .pulse-track{overflow:hidden;flex:1;display:flex;align-items:center;
+    -webkit-mask-image:linear-gradient(90deg,transparent,#000 4%,#000 96%,transparent);
+    mask-image:linear-gradient(90deg,transparent,#000 4%,#000 96%,transparent);}
+  .pulse-belt{display:flex;width:max-content;animation:tick 30s linear infinite}
+  @keyframes tick{to{transform:translateX(-50%)}}
+  .pulse-group{display:flex;align-items:center;white-space:nowrap;padding-right:2.5em;
+    font-family:var(--mono);font-size:12.5px;letter-spacing:.04em;color:var(--ink)}
+  .pulse-group .lbl{color:var(--dim);text-transform:uppercase;letter-spacing:.14em;margin-right:1em}
+  .pulse-group .sep{color:var(--acc-dim);margin:0 1em}
+  .pulse-group .up{color:var(--acc);font-weight:700}
+  .pulse-group .quiet{color:var(--mut)}
+
+  /* ---------- lower-third section headers ---------- */
+  .lt{display:flex;align-items:stretch;margin:58px 0 22px;filter:drop-shadow(0 6px 18px rgba(0,0,0,.5))}
+  .lt-no{
+    background:var(--acc);color:var(--acc-ink);font-family:var(--disp);font-weight:800;
+    font-size:14px;letter-spacing:.05em;display:flex;align-items:center;padding:7px 11px;flex:none;
+  }
+  .lt h2{
+    font-family:var(--disp);font-weight:800;font-size:clamp(19px,4.4vw,24px);
+    letter-spacing:.08em;text-transform:uppercase;line-height:1;
+    background:var(--panel3);padding:9px 14px 8px;flex:1;display:flex;align-items:center;min-width:0;
+  }
+  .lt h2 small{font-size:.62em;color:var(--mut);font-weight:600;letter-spacing:.14em;margin-left:12px;white-space:nowrap}
+  .lt-tag{
+    background:var(--panel);border-left:1px solid var(--line);color:var(--mut);
+    font-family:var(--mono);font-size:10px;letter-spacing:.16em;text-transform:uppercase;
+    display:flex;align-items:center;padding:0 12px;flex:none;
+  }
+  .lt.red .lt-no{background:var(--red);color:#fff}
+  .lt.red h2{color:var(--red)}
+
+  /* ---------- kick-off scoreboard ---------- */
+  .board{border:1px solid var(--line);border-radius:4px;overflow:hidden;background:var(--panel)}
+  .board-row{display:flex;align-items:stretch;flex-wrap:wrap;border-bottom:1px solid var(--line)}
+  .board-row:last-child{border-bottom:none}
+  .board-cell{padding:14px 16px;min-width:0}
+  .k-label{font-family:var(--mono);font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:var(--dim);margin-bottom:4px}
+  .k-dead{flex:1 1 220px;border-right:1px solid var(--line)}
+  .k-dead .v{font-family:var(--disp);font-weight:700;font-size:clamp(19px,4.6vw,24px);letter-spacing:.03em;text-transform:uppercase}
+  .k-count{flex:0 0 auto;display:flex;flex-direction:column;justify-content:center;background:var(--panel3)}
+  .k-count .v{font-family:var(--disp);font-weight:800;font-size:clamp(30px,8vw,42px);line-height:1;color:var(--acc);letter-spacing:.02em;font-variant-numeric:tabular-nums;text-shadow:0 0 32px rgba(0,255,135,.35)}
+  .desk-name{display:flex;align-items:center;gap:12px;background:var(--panel2);width:100%}
+  .desk-name .v{font-family:var(--disp);font-weight:800;font-size:clamp(20px,5vw,26px);text-transform:uppercase;letter-spacing:.04em}
+  .desk-name .k-label{margin:0}
+  .stat-grid{display:grid;grid-template-columns:repeat(3,1fr);width:100%}
+  .stat{padding:12px 16px;border-right:1px solid var(--line2);border-top:1px solid var(--line2)}
+  .stat:nth-child(3n){border-right:none}
+  .stat .v{font-family:var(--disp);font-weight:700;font-size:clamp(18px,4.6vw,23px);line-height:1.1;font-variant-numeric:tabular-nums;letter-spacing:.02em}
+  .chips{display:flex;gap:5px;flex-wrap:wrap;padding-top:3px}
+  .chip{font-family:var(--mono);font-size:10.5px;letter-spacing:.08em;border:1px solid var(--acc-dim);color:var(--acc);padding:2px 6px;border-radius:2px}
+  @media(min-width:640px){
+    .stat-grid{grid-template-columns:repeat(6,1fr)}
+    .stat:nth-child(3n){border-right:1px solid var(--line2)}
+    .stat:last-child{border-right:none}
+  }
+
+  /* ---------- cover ---------- */
+  .cover{position:relative;padding:10px 0 4px}
+  .cover h2{
+    font-family:var(--disp);font-weight:800;text-transform:uppercase;
+    font-size:clamp(40px,11vw,76px);line-height:.94;letter-spacing:.005em;max-width:12ch;
+  }
+  .cover h2 .hold{color:var(--acc);text-shadow:0 0 44px rgba(0,255,135,.30)}
+  .standfirst{
+    margin-top:22px;max-width:36em;color:var(--ink);font-size:16.5px;line-height:1.65;
+    border-left:3px solid var(--acc-dim);padding-left:16px;
+  }
+  .standfirst b{color:var(--acc)}
+
+  /* ---------- the call ---------- */
+  .call{
+    border:1px solid var(--line);border-top:4px solid var(--acc);border-radius:4px;
+    background:linear-gradient(180deg,var(--panel2),var(--panel));overflow:hidden;
+    box-shadow:0 20px 60px rgba(0,0,0,.45), 0 -1px 40px rgba(0,255,135,.06) inset;
+  }
+  .call-head{display:flex;align-items:center;gap:10px;padding:13px 16px;border-bottom:1px solid var(--line)}
+  .call-star{color:var(--acc);font-size:18px;line-height:1}
+  .call-head h3{font-family:var(--disp);font-weight:800;font-size:17px;letter-spacing:.14em;text-transform:uppercase}
+  .call-head .sig{margin-left:auto;font-family:var(--mono);font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--dim)}
+  .moves{display:grid;grid-template-columns:1fr 1fr}
+  .move{padding:14px 16px;border-bottom:1px solid var(--line2)}
+  .move:nth-child(odd){border-right:1px solid var(--line2)}
+  .move .k-label{margin-bottom:5px}
+  .move .v{font-family:var(--disp);font-weight:700;font-size:clamp(18px,4.8vw,23px);text-transform:uppercase;letter-spacing:.03em;line-height:1.15}
+  .move .v .cb{display:inline-flex;align-items:center;justify-content:center;background:var(--acc);color:var(--acc-ink);font-size:.62em;width:1.55em;height:1.55em;border-radius:50%;margin-left:8px;vertical-align:.1em;font-weight:800}
+  .move .v .vb{display:inline-flex;align-items:center;justify-content:center;border:1.5px solid var(--mut);color:var(--mut);font-size:.62em;width:1.55em;height:1.55em;border-radius:50%;margin-left:8px;vertical-align:.1em;font-weight:800}
+  .move .v .none{color:var(--mut)}
+  .wager{
+    display:flex;flex-wrap:wrap;align-items:center;gap:10px 16px;
+    background:var(--acc-tint);border-top:1px solid var(--line);padding:12px 16px;
+  }
+  .wager .tag{font-family:var(--mono);font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:var(--acc);flex:none}
+  .wager q{quotes:"“" "”";font-size:15px;font-style:italic;color:var(--ink)}
+  .drift{font-family:var(--mono);font-size:11px;color:var(--mut);letter-spacing:.06em;margin-left:auto;white-space:nowrap}
+  .drift b{color:var(--acc);font-weight:600}
+  .call-exec{
+    display:flex;align-items:center;gap:10px;padding:11px 16px;border-top:1px solid var(--line);
+    font-family:var(--mono);font-size:11.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--mut);
+  }
+  .call-exec::before{content:"";width:8px;height:8px;background:var(--acc);flex:none;
+    clip-path:polygon(0 0,100% 50%,0 100%)}
+
+  /* ---------- FYI strip ---------- */
+  .fyi{border:1px solid var(--line);border-radius:4px;overflow:hidden}
+  .fyi-row{display:flex;align-items:center;gap:12px;padding:12px 14px;background:var(--panel);border-bottom:1px solid var(--line2);flex-wrap:wrap}
+  .fyi-row:last-of-type{border-bottom:none}
+  .fyi-tag{font-family:var(--disp);font-weight:700;font-size:12px;letter-spacing:.16em;text-transform:uppercase;
+    padding:3px 8px;border-radius:2px;flex:none;min-width:76px;text-align:center}
+  .fyi-tag.caut{background:var(--panel3);color:var(--mut);border:1px solid var(--line)}
+  .fyi-tag.bold{background:var(--acc);color:var(--acc-ink)}
+  .fyi-move{font-family:var(--disp);font-weight:700;font-size:17px;letter-spacing:.03em;text-transform:uppercase;white-space:nowrap}
+  .fyi-move .arr{color:var(--acc);margin:0 4px}
+  .fyi-cost{font-family:var(--mono);font-size:11px;color:var(--mut);white-space:nowrap}
+  .fyi-note{color:var(--mut);font-size:13.5px;flex:1 1 100%;padding-left:2px}
+  .fyi-micro{margin-top:8px;font-family:var(--mono);font-size:11px;color:var(--dim);letter-spacing:.05em}
+
+  /* star toggle */
+  .star{color:var(--dim);font-size:19px;line-height:1;padding:4px 6px;border-radius:3px;transition:color .15s, transform .15s}
+  .star .on-i{display:none}
+  .star.on{color:var(--acc);transform:scale(1.12)}
+  .star.on .on-i{display:inline;text-shadow:0 0 18px rgba(0,255,135,.6)}
+  .star.on .off-i{display:none}
+
+  /* ---------- notebook ---------- */
+  .nb{display:grid;gap:10px}
+  @media(min-width:640px){.nb{grid-template-columns:repeat(3,1fr)}}
+  .nb-card{border:1px solid var(--line);border-radius:4px;background:var(--panel);padding:14px 15px}
+  .nb-tag{display:inline-block;font-family:var(--disp);font-weight:700;font-size:12px;letter-spacing:.16em;
+    color:var(--acc);border:1px solid var(--acc-dim);padding:2px 8px;border-radius:2px;margin-bottom:9px;text-transform:uppercase}
+  .nb-card p{font-size:14px;color:var(--ink);line-height:1.55}
+  .nb-aside{margin-top:12px}
+  .nb-aside summary{
+    list-style:none;cursor:pointer;font-family:var(--mono);font-size:11px;letter-spacing:.14em;
+    text-transform:uppercase;color:var(--dim);display:flex;align-items:center;gap:8px;padding:6px 2px;
+  }
+  .nb-aside summary::-webkit-details-marker{display:none}
+  .nb-aside summary::before{content:"+";color:var(--acc);font-weight:700;width:1em}
+  .nb-aside[open] summary::before{content:"–"}
+  .nb-aside p{font-size:13.5px;color:var(--mut);padding:4px 2px 2px 1.6em}
+
+  /* ---------- team sheet ---------- */
+  .pitch{
+    position:relative;border:1px solid var(--line);border-radius:6px;overflow:hidden;
+    background:repeating-linear-gradient(180deg,#0a130d 0 52px,#0c1610 52px 104px);
+    padding:26px 8px 20px;
+  }
+  .pitch::before{ /* halfway line + centre circle */
+    content:"";position:absolute;left:0;right:0;top:50%;height:0;border-top:1.5px solid rgba(233,242,236,.09);
+  }
+  .pitch::after{
+    content:"";position:absolute;left:50%;top:50%;width:110px;height:110px;margin:-55px 0 0 -55px;
+    border:1.5px solid rgba(233,242,236,.09);border-radius:50%;
+  }
+  .pitch-inner{position:relative;z-index:1;display:flex;flex-direction:column-reverse;gap:26px}
+  .line{display:flex;justify-content:space-evenly;align-items:flex-start}
+  .pl{width:clamp(72px,22vw,102px);text-align:center}
+  .pl-name{
+    font-family:var(--disp);font-weight:700;font-size:clamp(10.5px,2.9vw,13px);letter-spacing:.05em;
+    text-transform:uppercase;background:rgba(5,8,7,.88);border:1px solid var(--line);
+    border-top:2px solid var(--acc-dim);padding:6px 3px 5px;border-radius:2px;line-height:1.15;
+    box-shadow:0 6px 16px rgba(0,0,0,.5);
+  }
+  .pl.cap .pl-name{background:var(--acc);color:var(--acc-ink);border-color:var(--acc);font-weight:800;
+    box-shadow:0 6px 24px rgba(0,255,135,.25)}
+  .pl-badge{
+    display:inline-flex;align-items:center;justify-content:center;width:15px;height:15px;border-radius:50%;
+    font-family:var(--disp);font-weight:800;font-size:9.5px;margin-left:4px;vertical-align:1px;
+  }
+  .pl.cap .pl-badge{background:var(--acc-ink);color:var(--acc)}
+  .pl-badge.vice{border:1.5px solid var(--mut);color:var(--mut)}
+  .bet{color:var(--acc);font-weight:700}
+  .pl.cap .bet{color:var(--acc-ink)}
+  .sheet-sub{border:1px solid var(--line);border-top:none;border-radius:0 0 4px 4px;background:var(--panel)}
+  .sheet-sub h3, .sheet-sub h4{
+    font-family:var(--mono);font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:var(--dim);
+    padding:12px 16px 0;font-weight:600;
+  }
+  .bench-row{display:flex;flex-wrap:wrap;gap:8px;padding:10px 16px 14px}
+  .bench-p{display:flex;align-items:center;gap:7px;border:1px solid var(--line);border-radius:2px;
+    background:var(--panel2);padding:5px 10px 5px 6px}
+  .bench-n{font-family:var(--disp);font-weight:800;font-size:12px;background:var(--panel3);color:var(--mut);
+    width:18px;height:18px;display:inline-flex;align-items:center;justify-content:center;border-radius:2px}
+  .bench-name{font-family:var(--disp);font-weight:700;font-size:13px;letter-spacing:.04em;text-transform:uppercase}
+  .foot{padding:0 16px 14px;font-size:12.5px;color:var(--mut);line-height:1.6}
+  .foot .bet{font-weight:700}
+  .next3{border-top:1px solid var(--line2)}
+  .n3-row{display:flex;align-items:center;gap:10px;padding:9px 16px;border-bottom:1px solid var(--line2);flex-wrap:wrap}
+  .n3-row:last-child{border-bottom:none}
+  .n3-name{font-family:var(--disp);font-weight:700;font-size:14.5px;letter-spacing:.04em;text-transform:uppercase;min-width:118px}
+  .fx{display:flex;gap:6px}
+  .fx span{font-family:var(--mono);font-size:11px;letter-spacing:.06em;padding:3px 8px;border-radius:2px}
+  .fx .home{background:var(--acc-tint);border:1px solid var(--acc-dim);color:var(--acc);text-transform:uppercase;font-weight:600}
+  .fx .away{border:1px solid var(--line);color:var(--mut);text-transform:lowercase}
+  .fx-key{margin-left:auto;font-family:var(--mono);font-size:10px;color:var(--dim);letter-spacing:.1em;text-transform:uppercase}
+
+  /* ---------- stop press ---------- */
+  .stop{border:1px solid rgba(255,59,82,.35);border-left:4px solid var(--red);border-radius:4px;
+    background:linear-gradient(180deg,var(--red-tint),transparent 70%),var(--panel)}
+  .stop ul{list-style:none}
+  .stop li{display:flex;gap:12px;padding:13px 16px;border-bottom:1px solid var(--line2);font-size:14.5px;line-height:1.55}
+  .stop li:last-child{border-bottom:none}
+  .stop li::before{content:"●";color:var(--red);flex:none;font-size:11px;line-height:2.1}
+  .stop b{color:var(--ink)}
+
+  /* ---------- ones to watch ---------- */
+  .watch{border:1px solid var(--line);border-radius:4px;overflow:hidden}
+  .w-row{display:flex;align-items:baseline;gap:10px;padding:12px 14px;background:var(--panel);border-bottom:1px solid var(--line2);flex-wrap:wrap}
+  .w-row:last-child{border-bottom:none}
+  .w-row.you{background:var(--acc-tint);border-left:3px solid var(--acc);padding-left:11px}
+  .w-name{font-family:var(--disp);font-weight:800;font-size:17px;letter-spacing:.04em;text-transform:uppercase;white-space:nowrap}
+  .w-club{font-family:var(--mono);font-size:10.5px;letter-spacing:.14em;color:var(--dim)}
+  .w-trend{font-family:var(--mono);font-size:11px;letter-spacing:.08em;white-space:nowrap;padding:2px 8px;border-radius:2px}
+  .w-trend.rise{color:var(--acc);border:1px solid var(--acc-dim)}
+  .w-trend.hold{color:var(--mut);border:1px solid var(--line)}
+  .w-note{flex:1 1 100%;color:var(--mut);font-size:13.5px}
+  .w-you-tag{font-family:var(--disp);font-weight:800;font-size:11px;letter-spacing:.18em;color:var(--acc);text-transform:uppercase;white-space:nowrap}
+
+  /* ---------- debrief ---------- */
+  .debrief p{max-width:38em;font-size:16px;line-height:1.9}
+  .debrief p + p{margin-top:14px}
+  .stamp{
+    display:inline-block;font-family:var(--disp);font-weight:800;text-transform:uppercase;
+    font-size:12px;letter-spacing:.1em;border:2px solid currentColor;padding:1px 8px;border-radius:2px;
+    transform:rotate(-2deg);margin:0 4px;vertical-align:1px;white-space:nowrap;
+  }
+  .stamp.hit{color:var(--acc);box-shadow:0 0 22px rgba(0,255,135,.18)}
+  .stamp.miss{color:var(--red);box-shadow:0 0 22px rgba(255,59,82,.18)}
+  .stamp.unlucky{color:var(--amber)}
+  .stamp.lucky{color:var(--blue)}
+  .lesson{margin-top:24px;border:1px solid var(--line);border-left:4px solid var(--acc);border-radius:4px;
+    background:var(--panel2);padding:16px 18px}
+  .lesson h3{font-family:var(--mono);font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:var(--acc);font-weight:600;margin-bottom:8px}
+  .lesson q{quotes:"“" "”";font-family:var(--disp);font-weight:700;font-size:clamp(18px,4.6vw,22px);line-height:1.3;letter-spacing:.01em}
+
+  /* ---------- believe ---------- */
+  .doct{border:1px solid var(--line);border-radius:4px;overflow:hidden}
+  .d-row{display:flex;gap:14px;align-items:baseline;padding:14px 16px;background:var(--panel);border-bottom:1px solid var(--line2);flex-wrap:wrap}
+  .d-row:last-child{border-bottom:none}
+  .d-id{font-family:var(--disp);font-weight:800;font-size:15px;color:var(--dim);flex:none;width:26px}
+  .d-row.new .d-id{color:var(--acc)}
+  .d-text{flex:1 1 260px;font-size:14.5px}
+  .d-meta{font-family:var(--mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--dim);white-space:nowrap}
+  .d-row.new .d-meta b{color:var(--acc-ink);background:var(--acc);padding:2px 6px;border-radius:2px;font-weight:700;letter-spacing:.1em}
+
+  /* ---------- back page / race ---------- */
+  .race-bug{display:flex;gap:10px;align-items:center;margin-bottom:12px;font-family:var(--mono);
+    font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--dim);flex-wrap:wrap}
+  .race-bug .live{color:var(--acc);border:1px solid var(--acc-dim);padding:2px 8px;border-radius:2px}
+  .table-scroll{overflow-x:auto;border:1px solid var(--line);border-radius:4px}
+  .race{width:100%;min-width:300px;border-collapse:collapse;background:var(--panel)}
+  .race td{padding:10px 12px;border-bottom:1px solid var(--line2);vertical-align:middle}
+  .race .pos{width:34px;text-align:center;font-family:var(--disp);font-weight:800;font-size:14px;color:var(--mut);background:var(--panel2)}
+  .race .team{font-family:var(--disp);font-weight:700;font-size:16.5px;letter-spacing:.03em;text-transform:uppercase}
+  .race .pts{text-align:right;font-family:var(--disp);font-weight:800;font-size:20px;font-variant-numeric:tabular-nums;letter-spacing:.02em;width:64px}
+  .race .you td{background:var(--acc-tint)}
+  .race .you .pos{background:var(--acc);color:var(--acc-ink)}
+  .race .you .team::before{content:"★ ";color:var(--acc)}
+  .race .you .pts{color:var(--acc);text-shadow:0 0 20px rgba(0,255,135,.4)}
+  .race-more summary{
+    list-style:none;cursor:pointer;padding:9px 12px;background:var(--panel2);
+    font-family:var(--mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--dim);
+    display:flex;align-items:center;gap:8px;border-bottom:1px solid var(--line2);
+  }
+  .race-more summary::-webkit-details-marker{display:none}
+  .race-more summary::before{content:"+";color:var(--acc);font-weight:700}
+  .race-more[open] summary::before{content:"–"}
+  .ghost{display:flex;align-items:center;gap:12px;padding:8px 12px;border-bottom:1px solid var(--line2);background:var(--panel)}
+  .ghost .g-pos{font-family:var(--disp);font-weight:800;font-size:13px;color:var(--dim);width:22px;text-align:center}
+  .ghost .g-bar{height:8px;border-radius:2px;background:var(--panel3);flex:1;max-width:180px}
+  .ghost .g-note{margin-left:auto;font-family:var(--mono);font-size:10px;color:var(--dim);letter-spacing:.1em}
+  .shadows{border-top:1px dashed var(--line)}
+  .shadow-row{display:flex;align-items:baseline;gap:12px;padding:10px 12px;border-bottom:1px dashed var(--line2);background:var(--panel)}
+  .shadow-row:last-child{border-bottom:none}
+  .shadow-tag{font-family:var(--mono);font-size:9.5px;letter-spacing:.16em;color:var(--dim);border:1px dashed var(--line);padding:2px 6px;border-radius:2px;text-transform:uppercase;flex:none}
+  .shadow-name{font-family:var(--disp);font-weight:700;font-size:15px;letter-spacing:.03em;text-transform:uppercase;color:var(--mut)}
+  .shadow-pts{margin-left:auto;font-family:var(--disp);font-weight:800;font-size:18px;color:var(--mut);font-variant-numeric:tabular-nums}
+  .attrib{
+    margin-top:14px;display:flex;gap:0;align-items:stretch;overflow:hidden;border-radius:4px;
+    border:1px solid var(--line);
+  }
+  .attrib .a-bug{background:var(--acc);flex:none;width:6px}
+  .attrib p{background:var(--panel2);padding:12px 16px;font-size:14.5px;font-style:italic;color:var(--ink)}
+  .honesty{margin-top:10px;font-family:var(--mono);font-size:10.5px;color:var(--dim);letter-spacing:.05em;line-height:1.7}
+  .diary{margin-top:26px}
+  .diary h3{font-family:var(--disp);font-weight:800;font-size:15px;letter-spacing:.14em;text-transform:uppercase;margin-bottom:10px;color:var(--ink)}
+  .diary h3::before{content:"";display:inline-block;width:10px;height:10px;background:var(--acc);margin-right:9px;
+    clip-path:polygon(0 0,100% 50%,0 100%)}
+  .diary ul{list-style:none;border-left:1px solid var(--line);margin-left:5px}
+  .diary li{padding:6px 0 6px 16px;position:relative;font-size:14px;color:var(--mut)}
+  .diary li::before{content:"";position:absolute;left:-3px;top:14px;width:5px;height:5px;background:var(--acc-dim);border-radius:50%}
+  .diary b{color:var(--ink);font-weight:600}
+
+  /* ---------- colophon ---------- */
+  .colophon{margin-top:70px;border-top:1px solid var(--line);padding-top:22px;text-align:center}
+  .colophon .ident{justify-content:center;margin-bottom:14px}
+  .colo-line{font-family:var(--mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--dim)}
+  .mock-stamp{
+    display:inline-block;margin-top:16px;font-family:var(--disp);font-weight:800;font-size:12px;
+    letter-spacing:.14em;text-transform:uppercase;color:var(--amber);border:2px solid var(--amber);
+    padding:3px 12px;border-radius:2px;transform:rotate(-1.5deg);
+  }
+
+  .prose-mut{color:var(--mut)}
+
+  @media (prefers-reduced-motion: reduce){
+    *{animation:none!important;transition:none!important}
+    .pulse-belt{width:auto}
+    .pulse-group{white-space:normal;flex-wrap:wrap;padding:8px 12px 8px 0}
+    .pulse-group.dup{display:none}
+    .pulse-track{-webkit-mask-image:none;mask-image:none}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="flood" aria-hidden="true"></div>
+
+  <!-- ================= MASTHEAD / ISSUE PLATE ================= -->
+  <header class="mast">
+    <div class="ident"><span class="bug">TL</span>Touchline</div>
+    <div class="plate">
+      <h1>The FPL Planner</h1>
+      <p class="plate-sub">Issue <b>No.&nbsp;2</b> &nbsp;·&nbsp; Gameweek <b>2</b> &nbsp;·&nbsp; 2026/27 season</p>
+    </div>
+  </header>
+
+  <!-- ================= 01 · DAILY PULSE ================= -->
+  <section aria-label="Daily pulse">
+    <div class="pulse">
+      <span class="pulse-bug"><span class="dot" aria-hidden="true"></span>Pulse</span>
+      <div class="pulse-track">
+        <div class="pulse-belt">
+          <div class="pulse-group">
+            <span class="lbl">Since yesterday</span>
+            <span>Doku ruled out ~3 weeks</span><span class="sep">·</span>
+            <span>Thiago 92% toward +0.1 tonight <span class="up">▲</span></span><span class="sep">·</span>
+            <span class="quiet">nothing else moved.</span>
+          </div>
+          <div class="pulse-group dup" aria-hidden="true">
+            <span class="lbl">Since yesterday</span>
+            <span>Doku ruled out ~3 weeks</span><span class="sep">·</span>
+            <span>Thiago 92% toward +0.1 tonight <span class="up">▲</span></span><span class="sep">·</span>
+            <span class="quiet">nothing else moved.</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= 02 · KICK-OFF / YOUR DESK ================= -->
+  <section aria-labelledby="h-kick">
+    <header class="lt">
+      <span class="lt-no" aria-hidden="true">02</span>
+      <h2 id="h-kick">Kick-off <small>Your desk</small></h2>
+      <span class="lt-tag">GW2</span>
+    </header>
+    <div class="board">
+      <div class="board-row">
+        <div class="board-cell k-dead">
+          <div class="k-label">Deadline</div>
+          <div class="v">Fri 28 Aug · 23:00 IST</div>
+        </div>
+        <div class="board-cell k-count">
+          <div class="k-label">In</div>
+          <div class="v">2d&thinsp;4h</div>
+        </div>
+      </div>
+      <div class="board-row">
+        <div class="board-cell desk-name">
+          <span class="k-label">Manager</span>
+          <span class="v">Wabi Sabi Xabi</span>
+        </div>
+      </div>
+      <div class="board-row">
+        <div class="stat-grid">
+          <div class="stat"><div class="k-label">GW1</div><div class="v">61 pts</div></div>
+          <div class="stat"><div class="k-label">Overall rank</div><div class="v">1.4M</div></div>
+          <div class="stat"><div class="k-label">Mini-league</div><div class="v">3rd of 11</div></div>
+          <div class="stat"><div class="k-label">Bank</div><div class="v">£0.0m</div></div>
+          <div class="stat"><div class="k-label">Free transfers</div><div class="v">1 FT</div></div>
+          <div class="stat"><div class="k-label">Chips</div>
+            <div class="chips"><span class="chip">WC</span><span class="chip">FH</span><span class="chip">BB</span><span class="chip">TC</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= 03 · THE COVER ================= -->
+  <section aria-labelledby="h-cover">
+    <header class="lt">
+      <span class="lt-no" aria-hidden="true">03</span>
+      <h2 id="h-cover">The Cover</h2>
+      <span class="lt-tag">Lead</span>
+    </header>
+    <div class="cover">
+      <h2 aria-hidden="true" style="display:none"></h2>
+      <p class="cover-head"><span style="display:block" class="cover-h"><span></span></span></p>
+      <h3 class="cover-h" style="all:unset"><span class="cover"><span style="display:block;font-family:var(--disp);font-weight:800;text-transform:uppercase;font-size:clamp(40px,11vw,76px);line-height:.94"><span class="hold" style="color:var(--acc);text-shadow:0 0 44px rgba(0,255,135,.30)">Hold everything:</span><br>the squad did its job.</span></span></h3>
+      <p class="standfirst">Sixty-one points, four clear of the league median, and every bet still open. Bruno&rsquo;s brace at Hull paid for your override inside one afternoon; the Arsenal pair hauled while our Zero-Arsenal line watched from the press box. Nothing this week clears the bar for a move &mdash; the squad was built to go three gameweeks untouched, and week two is not the moment to blink. <b>Bank the transfer. Haaland wears it again at Palace.</b></p>
+    </div>
+  </section>
+
+  <!-- ================= 04 · THE CALL ================= -->
+  <section aria-labelledby="h-call">
+    <header class="lt">
+      <span class="lt-no" aria-hidden="true">04</span>
+      <h2 id="h-call">The Call</h2>
+      <span class="lt-tag">Signed</span>
+    </header>
+    <div class="call">
+      <div class="call-head">
+        <span class="call-star" aria-hidden="true">★</span>
+        <h3>The one recommendation</h3>
+        <span class="sig">one per issue</span>
+      </div>
+      <div class="moves">
+        <div class="move"><div class="k-label">Moves</div><div class="v"><span class="none">None</span> — bank the FT</div></div>
+        <div class="move"><div class="k-label">Chip</div><div class="v"><span class="none">None</span></div></div>
+        <div class="move"><div class="k-label">Captain</div><div class="v">Haaland<span class="cb" aria-label="captain">C</span></div></div>
+        <div class="move"><div class="k-label">Vice</div><div class="v">B.Fernandes<span class="vb" aria-label="vice-captain">V</span></div></div>
+      </div>
+      <div class="wager">
+        <span class="tag">Wager</span>
+        <q>the hold beats any &minus;4 move by GW4.</q>
+        <span class="drift">Template drift <b>+1</b></span>
+      </div>
+      <div class="call-exec">Execute after Friday&rsquo;s pressers</div>
+    </div>
+  </section>
+
+  <!-- ================= 05 · FYI STRIP ================= -->
+  <section aria-labelledby="h-fyi">
+    <header class="lt">
+      <span class="lt-no" aria-hidden="true">05</span>
+      <h2 id="h-fyi">FYI <small>No arguments</small></h2>
+      <span class="lt-tag">If you must</span>
+    </header>
+    <div class="fyi">
+      <div class="fyi-row">
+        <span class="fyi-tag caut">Cautious</span>
+        <span class="fyi-move">DCL <span class="arr" aria-hidden="true">→</span> Gyökeres</span>
+        <button type="button" class="star" aria-pressed="false" aria-label="Star Gyökeres to the watchlist"><span class="off-i" aria-hidden="true">☆</span><span class="on-i" aria-hidden="true">★</span></button>
+        <span class="fyi-cost">(1 FT)</span>
+        <span class="fyi-note">if you must move.</span>
+      </div>
+      <div class="fyi-row">
+        <span class="fyi-tag bold">Bold</span>
+        <span class="fyi-move">Rogers <span class="arr" aria-hidden="true">→</span> Saka</span>
+        <button type="button" class="star" aria-pressed="false" aria-label="Star Saka to the watchlist"><span class="off-i" aria-hidden="true">☆</span><span class="on-i" aria-hidden="true">★</span></button>
+        <span class="fyi-cost">(−4)</span>
+        <span class="fyi-note">closes the Arsenal gap before their run turns.</span>
+      </div>
+    </div>
+    <p class="fyi-micro">☆ star a name to put it on the watchlist.</p>
+  </section>
+
+  <!-- ================= 06 · THE NOTEBOOK ================= -->
+  <section aria-labelledby="h-nb">
+    <header class="lt">
+      <span class="lt-no" aria-hidden="true">06</span>
+      <h2 id="h-nb">The Notebook <small>What moved</small></h2>
+      <span class="lt-tag">Factors</span>
+    </header>
+    <div class="nb">
+      <div class="nb-card">
+        <span class="nb-tag">Rotation</span>
+        <p>City at Palace with no midweek: <b>clear</b>.</p>
+      </div>
+      <div class="nb-card">
+        <span class="nb-tag">Price</span>
+        <p>Thiago 92% toward a rise at midnight; only matters if the bold page tempts you.</p>
+      </div>
+      <div class="nb-card">
+        <span class="nb-tag">Newmgr</span>
+        <p>Carrick has named the same XI twice; Mbeumo&rsquo;s role looks secure.</p>
+      </div>
+    </div>
+    <details class="nb-aside">
+      <summary>Set aside this week</summary>
+      <p>WC fatigue &nbsp;·&nbsp; pre-season vibes &nbsp;·&nbsp; derby intensity (none in window).</p>
+    </details>
+  </section>
+
+  <!-- ================= 07 · THE TEAM SHEET ================= -->
+  <section aria-labelledby="h-team">
+    <header class="lt">
+      <span class="lt-no" aria-hidden="true">07</span>
+      <h2 id="h-team">The Team Sheet <small>3-4-3</small></h2>
+      <span class="lt-tag">Confirmed</span>
+    </header>
+    <div class="pitch" role="img" aria-label="Starting eleven in a 3-4-3: Verbruggen in goal; Kerkez, Calafiori, Shaw in defence; Bruno Fernandes (vice), Mbeumo, Tzolis, Rogers in midfield; Haaland (captain), João Pedro, Calvert-Lewin up front.">
+      <div class="pitch-inner">
+        <div class="line"><div class="pl"><div class="pl-name">Verbruggen</div></div></div>
+        <div class="line">
+          <div class="pl"><div class="pl-name">Kerkez<span class="bet">†</span></div></div>
+          <div class="pl"><div class="pl-name">Calafiori</div></div>
+          <div class="pl"><div class="pl-name">Shaw</div></div>
+        </div>
+        <div class="line">
+          <div class="pl"><div class="pl-name">B.Fernandes<span class="pl-badge vice">V</span></div></div>
+          <div class="pl"><div class="pl-name">Mbeumo</div></div>
+          <div class="pl"><div class="pl-name">Tzolis</div></div>
+          <div class="pl"><div class="pl-name">Rogers</div></div>
+        </div>
+        <div class="line">
+          <div class="pl cap"><div class="pl-name">Haaland<span class="pl-badge">C</span></div></div>
+          <div class="pl"><div class="pl-name">João Pedro</div></div>
+          <div class="pl"><div class="pl-name">Calvert-Lewin</div></div>
+        </div>
+      </div>
+    </div>
+    <div class="sheet-sub">
+      <h3>Bench</h3>
+      <div class="bench-row">
+        <span class="bench-p"><span class="bench-n">1</span><span class="bench-name">Dubravka</span></span>
+        <span class="bench-p"><span class="bench-n">2</span><span class="bench-name">Hume<span class="bet">†</span></span></span>
+        <span class="bench-p"><span class="bench-n">3</span><span class="bench-name">Hughes</span></span>
+        <span class="bench-p"><span class="bench-n">4</span><span class="bench-name">Diop</span></span>
+      </div>
+      <p class="foot"><span class="bet">†</span> open bets — <b>Kerkez:</b> ≥3 clean sheets by GW8 (1 banked) &nbsp;·&nbsp; <b>Hume:</b> the Sunderland run pays through GW3.</p>
+      <div class="next3">
+        <h4>Next three</h4>
+        <div class="n3-row">
+          <span class="n3-name">Haaland</span>
+          <span class="fx"><span class="away">cry</span><span class="home">COV</span><span class="away">bre</span></span>
+        </div>
+        <div class="n3-row">
+          <span class="n3-name">B.Fernandes</span>
+          <span class="fx"><span class="home">IPS</span><span class="away">eve</span><span class="home">CHE</span></span>
+        </div>
+        <div class="n3-row">
+          <span class="n3-name">João Pedro</span>
+          <span class="fx"><span class="home">BHA</span><span class="away">ars</span><span class="home">HUL</span></span>
+          <span class="fx-key">caps = home</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= 08 · STOP PRESS ================= -->
+  <section aria-labelledby="h-stop">
+    <header class="lt red">
+      <span class="lt-no" aria-hidden="true">08</span>
+      <h2 id="h-stop">Stop Press</h2>
+      <span class="lt-tag">Urgent</span>
+    </header>
+    <div class="stop">
+      <ul>
+        <li><span><b>Palmer trained fully Thursday</b> — no flag, the knock story dies.</span></li>
+        <li><span><b>Thiago&rsquo;s rise projects for midnight;</b> ignore unless moving anyway.</span></li>
+        <li><span><b>Henderson fit</b> — Palace&rsquo;s keeper crisis over before Haaland arrives.</span></li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ================= 09 · ONES TO WATCH ================= -->
+  <section aria-labelledby="h-watch">
+    <header class="lt">
+      <span class="lt-no" aria-hidden="true">09</span>
+      <h2 id="h-watch">Ones to Watch</h2>
+      <span class="lt-tag">Six</span>
+    </header>
+    <div class="watch">
+      <div class="w-row you">
+        <span class="w-name">Saka</span>
+        <button type="button" class="star on" aria-pressed="true" aria-label="Saka is starred on the watchlist"><span class="off-i" aria-hidden="true">☆</span><span class="on-i" aria-hidden="true">★</span></button>
+        <span class="w-you-tag">Your star</span>
+        <span class="w-note">brain must answer next run: adopt or argue.</span>
+      </div>
+      <div class="w-row">
+        <span class="w-name">Thiago</span><span class="w-club">BRE</span>
+        <span class="w-trend rise">↗ rising</span>
+        <span class="w-note">22 goals + pens last season; the pivot if a second premium is ever needed.</span>
+      </div>
+      <div class="w-row">
+        <span class="w-name">Gyökeres</span><span class="w-club">ARS</span>
+        <span class="w-trend hold">→ hold</span>
+        <span class="w-note">the cheap route into the champions&rsquo; attack.</span>
+      </div>
+      <div class="w-row">
+        <span class="w-name">Estêvão</span><span class="w-club">CHE</span>
+        <span class="w-trend rise">↗ rising</span>
+        <span class="w-note">minutes trending up.</span>
+      </div>
+      <div class="w-row">
+        <span class="w-name">Wirtz</span><span class="w-club">LIV</span>
+        <span class="w-trend hold">→ hold</span>
+        <span class="w-note">watch where the creative load lands.</span>
+      </div>
+      <div class="w-row">
+        <span class="w-name">Šeško</span><span class="w-club">MUN</span>
+        <span class="w-trend hold">→ hold</span>
+        <span class="w-note">first start watch.</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= 10 · THE DEBRIEF ================= -->
+  <section class="debrief" aria-labelledby="h-debrief">
+    <header class="lt">
+      <span class="lt-no" aria-hidden="true">10</span>
+      <h2 id="h-debrief">The Debrief <small>GW1 revisited</small></h2>
+      <span class="lt-tag">Replay</span>
+    </header>
+    <p>Haaland&rsquo;s armband <span class="stamp hit">Hit</span> <span class="prose-mut">+9 vs field.</span> The Zero-Arsenal line <span class="stamp miss">Miss</span> <span class="prose-mut">the champions&rsquo; pair returned 15; your override banked them.</span></p>
+    <p>Kerkez&rsquo;s clean sheet <span class="stamp unlucky">Unlucky</span> <span class="prose-mut">0.6 xGC, undone by an 89th-minute deflection.</span> Verbruggen over Lammens <span class="stamp lucky">Lucky</span> <span class="prose-mut">both kept clean sheets; the process said Lammens.</span></p>
+    <div class="lesson">
+      <h3>This week&rsquo;s lesson &nbsp;·&nbsp; pattern &nbsp;·&nbsp; 2nd sighting</h3>
+      <q>Champions&rsquo; template assets are default-own; passing needs a priced case.</q>
+    </div>
+  </section>
+
+  <!-- ================= 11 · WHAT WE BELIEVE ================= -->
+  <section aria-labelledby="h-believe">
+    <header class="lt">
+      <span class="lt-no" aria-hidden="true">11</span>
+      <h2 id="h-believe">What We Believe</h2>
+      <span class="lt-tag">Doctrine</span>
+    </header>
+    <div class="doct">
+      <div class="d-row">
+        <span class="d-id">D1</span>
+        <span class="d-text">Rank insurance is a real cost — price the drift on every call.</span>
+        <span class="d-meta">standing · GW0</span>
+      </div>
+      <div class="d-row">
+        <span class="d-id">D2</span>
+        <span class="d-text">New-manager minutes are unknowable until three XIs.</span>
+        <span class="d-meta">standing · GW0</span>
+      </div>
+      <div class="d-row new">
+        <span class="d-id">D3</span>
+        <span class="d-text">Champions&rsquo; template assets are default-own.</span>
+        <span class="d-meta"><b>NEW</b> · pattern · GW1→2</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= 12 · THE BACK PAGE — THE RACE ================= -->
+  <section aria-labelledby="h-race">
+    <header class="lt">
+      <span class="lt-no" aria-hidden="true">12</span>
+      <h2 id="h-race">The Back Page <small>The race</small></h2>
+      <span class="lt-tag">League</span>
+    </header>
+    <div class="race-bug">
+      <span class="live">Live table</span>
+      <span>FPL 26-27 + shadows</span>
+      <span>dummy totals</span>
+    </div>
+    <div class="table-scroll">
+      <table class="race">
+        <tbody>
+          <tr><td class="pos">1</td><td class="team">Gunners.exe</td><td class="pts">68</td></tr>
+          <tr><td class="pos">2</td><td class="team">Mad11</td><td class="pts">66</td></tr>
+          <tr class="you"><td class="pos">3</td><td class="team">Wabi Sabi Xabi</td><td class="pts">61</td></tr>
+          <tr><td class="pos">4</td><td class="team">WorldChamps</td><td class="pts">58</td></tr>
+          <tr><td class="pos">5</td><td class="team">Vabby_Blues</td><td class="pts">55</td></tr>
+        </tbody>
+      </table>
+      <details class="race-more">
+        <summary>+6 more, collapsed</summary>
+        <div class="ghost"><span class="g-pos">6</span><span class="g-bar"></span><span class="g-note">below the fold</span></div>
+        <div class="ghost"><span class="g-pos">7</span><span class="g-bar" style="max-width:164px"></span><span class="g-note"></span></div>
+        <div class="ghost"><span class="g-pos">8</span><span class="g-bar" style="max-width:150px"></span><span class="g-note"></span></div>
+        <div class="ghost"><span class="g-pos">9</span><span class="g-bar" style="max-width:138px"></span><span class="g-note"></span></div>
+        <div class="ghost"><span class="g-pos">10</span><span class="g-bar" style="max-width:126px"></span><span class="g-note"></span></div>
+        <div class="ghost"><span class="g-pos">11</span><span class="g-bar" style="max-width:112px"></span><span class="g-note"></span></div>
+      </details>
+      <div class="shadows">
+        <div class="shadow-row"><span class="shadow-tag">Shadow</span><span class="shadow-name">The Wildcard XI</span><span class="shadow-pts">71</span></div>
+        <div class="shadow-row"><span class="shadow-tag">Shadow</span><span class="shadow-name">The Bus</span><span class="shadow-pts">57</span></div>
+      </div>
+    </div>
+    <div class="attrib">
+      <span class="a-bug" aria-hidden="true"></span>
+      <p>Gunners.exe&rsquo;s lead is one player — Saka&rsquo;s nine. The Wildcard XI&rsquo;s 71 is the ceiling talking.</p>
+    </div>
+    <p class="honesty">Shadows pay no hits — benchmarks, not rivals; the Bus is serviced monthly.</p>
+    <div class="diary">
+      <h3>The Diary</h3>
+      <ul>
+        <li><b>Bus service</b> due at the September break</li>
+        <li><b>Wildcard window</b> opens GW6–8 if squad overlap drops below 10</li>
+        <li><b>Price watch:</b> Thiago tonight</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ================= COLOPHON ================= -->
+  <footer class="colophon">
+    <div class="ident"><span class="bug">TL</span>Touchline</div>
+    <p class="colo-line">set by the brain &nbsp;·&nbsp; Fri 05:30 IST &nbsp;·&nbsp; one issue a week, no hype</p>
+    <p><span class="mock-stamp">Mockup · dummy points on real fixtures</span></p>
+  </footer>
+</div>
+
+<script>
+  document.querySelectorAll('.star').forEach(function(b){
+    b.addEventListener('click',function(){
+      var on=b.classList.toggle('on');
+      b.setAttribute('aria-pressed',on?'true':'false');
+    });
+  });
+</script>
+</body>
+</html>
