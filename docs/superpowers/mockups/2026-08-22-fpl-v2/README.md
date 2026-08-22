@@ -23,3 +23,15 @@ the sync button (top area) flips states and persists.
 - `two-tier-home.html` — the faithful extension: live-touchline grammar, personal slots in above "THE COMMONS · same for everyone".
 - `two-tier-triage.html` — the quiet page: one big status ("Nothing needs you today"), everything else one-line expandable rows in YOURS / THE COMMONS.
 - `two-tier-desk.html` — the manager's desk: sticky rail of your numbers beside five calm surfaces; dugout's soul at touchline density.
+
+## Round 3 — the two finalists at day 0, with a rich commons
+
+KB narrowed to home + triage and asked for the day-0 snapshot (GW1
+deadline night, team not yet entered) and a much fuller public tier.
+Commons now: new-this-season · opening-night flags · template board ·
+captain poll · penalty takers · fixture runs GW1-3 · bus team ·
+wildcard XI · chip clock. Personal layer: day-0 squad call, open wagers
+(no debrief yet), seeded doctrine, honest pre-season race state.
+
+- `day0-home.html` — the faithful surface at day 0.
+- `day0-triage.html` — the quiet page at day 0 ("Tonight needs you: enter the team.").
