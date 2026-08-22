@@ -26,7 +26,7 @@ FPL_DUE=$([ "$FPL_DATE" = "$(date +%F)" ] || echo yes)
 [ -n "$DIGEST_DUE$FPL_DUE" ] || exit 0
 
 # offline? try again next hour
-curl -sf --max-time 10 https://touchline-chelsea.pages.dev >/dev/null || exit 0
+curl -sf --max-time 10 https://touchline-pl.pages.dev >/dev/null || exit 0
 
 # `|| echo` so a failed run doesn't starve the other product under set -e
 if [ -n "$DIGEST_DUE" ]; then
