@@ -1,6 +1,15 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+  <!-- Five-a-side. The old mark was a pitch; this keeps the green and the
+       halfway line but puts the five players first — a quincunx reads as "5"
+       at favicon size and as a formation at any larger one. The centre circle
+       was dropped because at 16px it merged with the middle player. -->
   <rect width="512" height="512" fill="#1e7d4c"/>
-  <rect x="84" y="84" width="344" height="344" fill="none" stroke="#f2f6f2" stroke-width="22"/>
-  <line x1="84" y1="256" x2="428" y2="256" stroke="#f2f6f2" stroke-width="22"/>
-  <circle cx="256" cy="256" r="72" fill="none" stroke="#f2f6f2" stroke-width="22"/>
+  <line x1="72" y1="256" x2="440" y2="256" stroke="#f2f6f2" stroke-width="14" opacity="0.42"/>
+  <g fill="#f2f6f2">
+    <circle cx="152" cy="146" r="52"/>
+    <circle cx="360" cy="146" r="52"/>
+    <circle cx="256" cy="256" r="52"/>
+    <circle cx="152" cy="366" r="52"/>
+    <circle cx="360" cy="366" r="52"/>
+  </g>
 </svg>

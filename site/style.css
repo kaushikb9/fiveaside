@@ -1030,3 +1030,12 @@ footer .footer-line + .footer-line { margin-top: 5px; }
 [data-player] { cursor: pointer; }
 [data-player]:hover { text-decoration: underline; text-underline-offset: 3px; }
 [data-player]:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; border-radius: 4px; }
+
+/* --- Five-a-Side wordmark and room labels. The brand sits in the masthead;
+   the room you are in is named in the strap beside its siblings. --- */
+.masthead .mdot { color: var(--accent); font-weight: 400; }
+.masthead .mfpl { color: var(--accent-ink); }
+.strap .room {
+  color: var(--accent-ink); font-weight: 700;
+  letter-spacing: 0.1em; text-transform: uppercase; font-size: 11px;
+}
