@@ -1,7 +1,13 @@
-# Agent notes for Touchline
+# Agent notes for Five-a-Side
 
-One page of football a day, produced by a three-part machine with one hard
-boundary: **Python produces facts, the brain produces prose, the site
+> **Starting fresh? Read [`ROADMAP.md`](ROADMAP.md) first** — current state,
+> known debt, and the ordered todo list. Then this file for the rules, then
+> `new-ideas.md` for KB's intent and
+> `docs/superpowers/mockups/2026-08-23-five-a-side-sketches.html` for the
+> agreed design.
+
+Football and FPL for five friends, produced by a three-part machine with one
+hard boundary: **Python produces facts, the brain produces prose, the site
 produces pixels.** Work on one side of a boundary without leaking into
 another.
 
