@@ -176,18 +176,59 @@ Ordered so each step is shippable on its own.
 11. **`auto.sh`** runs both products hourly from 07:00 with independent
     freshness guards. Check `brain/auto.log` after the first run following any
     schema change — a rejected run quarantines to `brain/scratch/` and retries.
-12. **Deferred by decision, do not build unless asked**: KV-backed ☆ stars
-    (localStorage only for now), friend-facing team-ID entry, any auto-refresh
-    or realtime behaviour, accounts/auth.
+12. **KV-backed watchlists**, keyed by `gaffer_id` — now wanted (see §5b), so
+    this is a real todo rather than a deferral. Needs a Pages Function and a KV
+    namespace; the ☆ star writes through it, not to localStorage.
+13. **Captaincy is missing from `gaffers.json`** — picks carry only
+    `start`/`bench`, so no pitch view can show a (C) or (V). Parked by KB, but
+    it is a data bug, not a feature gap.
+14. **Deferred by decision, do not build unless asked**: friend-facing team-ID
+    entry, any auto-refresh or realtime behaviour, accounts/auth.
 
 ---
 
+## 5b. Settled by review, 2026-08-23 — do not re-litigate
+
+From KB's comment export (`docs/superpowers/comments/2026-08-23-rooms-comments.md`),
+all built into the mockup:
+
+- **One platform, three areas**, in this order: **touchline &rarr; the gaffers
+  &rarr; the locker room**. Touchline becomes the front door; `/` is the
+  gaffers today, so this is a move. The rule for what goes where: touchline is
+  what happened, the gaffers is what we did about it, the locker room is what
+  we know.
+- **Theme is settled**: Dugout light, Floodlit dark, one design in two lights,
+  Auto by default. Teamsheet archived.
+- **Dropped entirely**: the wagers panel, and the captain poll. The poll is
+  replaced by *what the crowd missed* — under 10% owned, sorted by points.
+- **The player file** is gated on ownership (never dropping anyone the five
+  own) and opens on **ours**. The threshold itself is the one number still
+  open — see below.
+- **Watchlists stay per-person**, stored in **KV keyed by `gaffer_id`**. This
+  reverses the earlier "localStorage only" deferral: stars must survive across
+  devices and the house list must be shared.
+- **The league table collapses** behind a one-line summary; the gaffer chips
+  carry team name and club colour instead.
+- **Gaffer nicknames get their own visual treatment** in the gaffers room, and
+  deliberately not in touchline, where "Enzo" means Enzo Maresca.
+- **Only five clubs are focus clubs**: Arsenal, Chelsea, Liverpool, Man City,
+  Man United. Spurs and Newcastle come out of `top_clubs` and out of Around the
+  top. Re-entry only if genuinely top four after GW10 — that needs to be a real
+  condition in config, checked weekly, or it silently never happens.
+- **The week is the primary feed.** Around the top and Elsewhere are secondary
+  by design; a story that leads the week does not reappear below.
+- **Captaincy is parked.** The `gaffers.json` gap stays unfixed for now by
+  explicit decision (todo D13 below is deferred, not dropped).
+- **The roast** is "decent, will improvise later" — ship it, iterate on tone.
+
 ## 6. Open questions for KB
 
-- The locker room's default view: everyone (604), or just the players the five
-  own (38)? Recommend the latter, with filters to widen.
-- Per-person ledgers were agreed as a trial. If five ledgers prove to be four
-  too many, collapse to one house ledger — his call, after a few weeks.
+- **The file's ownership cut-off** is the one number still open. The mockup's
+  control shows what each choice costs: 5% leaves 75 players, 2% leaves 125,
+  10% leaves 56, everyone is 604. Squad members are never dropped either way.
+  5% is the default until he says otherwise.
+- **The Spurs/Newcastle re-entry rule** needs its GW and its bar confirmed
+  before it goes into config.
 - The Chelsea digest was split out on 2026-08-23 into its own repo,
   `~/Code/touchline-chelsea` (Pages project `touchline-chelsea`). It runs
   weekly on Mondays, carries no FPL and no league-wide sections, and exists
