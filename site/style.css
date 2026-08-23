@@ -430,25 +430,8 @@ footer .footer-line + .footer-line { margin-top: 5px; }
 }
 .fdr-note { color: var(--faint); font-size: 12px; font-style: italic; margin-top: 8px; }
 
-
 /* --- FPL planner (root page): two-tier commons + personal layer.
    Ported from docs/superpowers/mockups/2026-08-22-fpl-v2/day0-home.html --- */
-/* ---- sync affordance: inline in the strap, since the theme button owns the
-   top-right corner on every page ---- */
-  .sync-btn {
-    background: none; border: 1px solid var(--line); border-radius: 999px;
-    color: var(--dim); font: inherit; font-size: 10.5px; font-weight: 700;
-    letter-spacing: 0.08em; text-transform: uppercase;
-    padding: 2px 10px; cursor: pointer;
-    display: inline-flex; align-items: center; gap: 6px;
-  }
-  .sync-btn:hover { border-color: var(--accent); color: var(--ink); }
-  .sync-btn .dot {
-    width: 7px; height: 7px; border-radius: 50%;
-    border: 1.5px solid currentColor; flex: 0 0 auto;
-  }
-  html.synced .sync-btn { color: var(--ink); }
-  html.synced .sync-btn .dot { background: var(--accent); border-color: var(--accent); }
 
   /* ---- masthead ---- */
   h1.masthead {
@@ -477,14 +460,6 @@ footer .footer-line + .footer-line { margin-top: 5px; }
   .deadline.urgent .dl { color: var(--accent-ink); }
 
   main { padding-top: 8px; }
-
-  /* ---- the personal tier: hidden until synced ---- */
-  .you-tier { display: none; }
-  html.synced .you-tier { display: block; }
-  @media (prefers-reduced-motion: no-preference) {
-    html.synced .you-tier { animation: settle 240ms ease; }
-    @keyframes settle { from { opacity: 0; } to { opacity: 1; } }
-  }
 
   /* ---- the call: the digest's article grammar, verbatim ---- */
   .eyebrow .star-glyph { letter-spacing: 0; }
@@ -1066,3 +1041,56 @@ footer .footer-line + .footer-line { margin-top: 5px; }
 @media (prefers-reduced-motion: no-preference) {
   .mini .mrow { transition: opacity 120ms ease; }
 }
+
+/* --- The gaffers room: five managers, one page. --- */
+.roast {
+  font-family: Georgia, "Times New Roman", serif; font-size: 19px; line-height: 1.4;
+  font-style: italic; color: var(--ink); margin: 4px 0 18px;
+  padding-left: 14px; border-left: 3px solid var(--accent); max-width: 60ch;
+}
+.gbar { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 12px; }
+.gchip {
+  font: inherit; font-size: 12.5px; font-weight: 700; cursor: pointer;
+  background: var(--card); color: var(--dim);
+  border: 1px solid var(--line); border-radius: 999px; padding: 4px 12px;
+  display: inline-flex; align-items: baseline; gap: 6px;
+}
+.gchip i {
+  font-style: normal; font-size: 10.5px; font-weight: 400; color: var(--faint);
+  font-variant-numeric: tabular-nums;
+}
+.gchip:hover { border-color: var(--accent); color: var(--ink); }
+.gchip.on { background: var(--accent); border-color: var(--accent); color: #fff; }
+.gchip.on i { color: rgba(255, 255, 255, 0.75); }
+
+.gwnav { display: flex; align-items: center; gap: 10px; margin-bottom: 14px; }
+.gwbtn {
+  font: inherit; font-size: 13px; cursor: pointer; color: var(--dim);
+  background: none; border: 1px solid var(--line); border-radius: 6px;
+  padding: 1px 9px; line-height: 1.5;
+}
+.gwbtn:hover:not(:disabled) { border-color: var(--accent); color: var(--ink); }
+.gwbtn:disabled { opacity: 0.35; cursor: default; }
+.gwlabel {
+  font-size: 10.5px; font-weight: 700; letter-spacing: 0.14em;
+  text-transform: uppercase; color: var(--faint);
+}
+
+/* The five, then everyone else behind a disclosure. */
+.grow[data-gaffer] { cursor: pointer; }
+.grow[data-gaffer]:hover { background: var(--score-bg); border-radius: 6px; }
+.gteam {
+  color: var(--faint); font-size: 11.5px; margin-left: 8px;
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
+.grow.us .gteam { color: var(--dim); }
+details.rest { border-top: 1px solid var(--line); margin-top: 6px; }
+details.rest summary {
+  cursor: pointer; list-style: none; padding: 8px 14px;
+  font-size: 11.5px; color: var(--faint);
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+}
+details.rest summary::-webkit-details-marker { display: none; }
+details.rest summary::before { content: "▸ "; color: var(--accent); }
+details.rest[open] summary::before { content: "▾ "; }
+details.rest summary:focus-visible { outline: 2px solid var(--accent); outline-offset: -2px; }

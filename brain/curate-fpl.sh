@@ -18,22 +18,7 @@ CONFIG="$(cat touchline.config.json)"
 # tokens a run to copy numbers verbatim, so it goes straight to disk and is
 # stripped from the prompt. The brain's job is the judgment layer on top of it
 # (verdicts), and for that it uses the compact `players` list it already gets.
-printf '%s' "$BUNDLE" | node -e '
-  const fs = require("fs");
-  const bundle = JSON.parse(fs.readFileSync(0, "utf8"));
-  const file = bundle.player_file ?? [];
-  fs.writeFileSync(
-    "site/data/players.json",
-    JSON.stringify(
-      { generated_at: new Date().toISOString(), gameweek: bundle.gameweek?.id ?? null, players: file },
-      null,
-      2
-    ) + "\n"
-  );
-  delete bundle.player_file;
-  fs.writeFileSync("brain/scratch/facts-fpl.json", JSON.stringify(bundle, null, 2));
-  console.error(`player file: ${file.length} records -> site/data/players.json`);
-'
+printf '%s' "$BUNDLE" | node brain/split-facts.mjs > brain/scratch/facts-fpl.json
 FACTS="$(cat brain/scratch/facts-fpl.json)"
 
 claude -p "$(cat brain/fpl-prompt.md)
@@ -50,7 +35,7 @@ $FACTS" \
   --allowedTools "WebSearch,WebFetch,Read,Edit,Write,Bash(node:*),Bash(curl:*)" \
   --permission-mode acceptEdits
 
-if git diff --quiet -- site/data/fpl.json site/data/players.json; then
+if git diff --quiet -- site/data/fpl.json site/data/players.json site/data/gaffers.json; then
   echo "nothing new to publish"
   exit 0
 fi
@@ -72,11 +57,11 @@ node brain/validate-players.mjs site/data/players.json \
 node brain/validate-fpl.mjs site/data/fpl.json \
   || { echo "fpl.json failed validation — NOT committing";
        cp site/data/fpl.json "brain/scratch/rejected-fpl-$TODAY.json";
-       git checkout -- site/data/fpl.json site/data/players.json;
+       git checkout -- site/data/fpl.json site/data/players.json site/data/gaffers.json;
        echo "rejected output saved to brain/scratch/rejected-fpl-$TODAY.json; fpl.json restored so the next hourly run retries";
        exit 1; }
 
-git add site/data/fpl.json site/data/players.json
+git add site/data/fpl.json site/data/players.json site/data/gaffers.json
 git commit -m "fpl: $TODAY"
 git push -q || echo "push failed — run 'git push' manually"
 

@@ -374,9 +374,158 @@ const planHTML = (plan) =>
       )
     : "";
 
+
+// ------------------------------------------------------------- the gaffers
+//
+// Five managers share this page, so nothing here is "mine": you pick a gaffer
+// and everything below re-renders for them. The selection is remembered, and
+// the gameweek can be walked backwards — a settled week is as interesting as
+// a live one once the arguments start.
+
+const GAFFERS = { people: [], league: null, current: null, gw: null, live: null };
+
+function setGaffer(nick) {
+  GAFFERS.current = nick;
+  try {
+    localStorage.setItem("fiveaside-gaffer", nick);
+  } catch {
+    /* ignore */
+  }
+}
+
+function currentGaffer() {
+  return GAFFERS.people.find((p) => p.nick === GAFFERS.current) ?? GAFFERS.people[0] ?? null;
+}
+
+const gafferBarHTML = () =>
+  GAFFERS.people.length
+    ? `<div class="gbar" role="group" aria-label="Whose team to show">${GAFFERS.people
+        .map(
+          (p) =>
+            `<button class="gchip${p.nick === GAFFERS.current ? " on" : ""}" data-gaffer="${esc(p.nick)}" type="button">` +
+            `${esc(p.nick)}<i>${esc(p.total_points ?? 0)}</i></button>`
+        )
+        .join("")}</div>`
+    : "";
+
+// The five as their own table, because the eleven-team league is context and
+// these five are the argument. Everyone else is one tap away.
+function theFiveHTML() {
+  const rows = GAFFERS.league?.rows ?? [];
+  if (!rows.length) return "";
+  const five = rows.filter((r) => r.is_gaffer);
+  const rest = rows.filter((r) => !r.is_gaffer);
+  const line = (r, i) =>
+    `<div class="grow${r.nick === GAFFERS.current ? " us" : ""}"${r.nick ? ` data-gaffer="${esc(r.nick)}"` : ""}>` +
+    `<span class="rrank">${esc(r.rank ?? i + 1)}</span>` +
+    `<span class="gname">${esc(r.nick ?? r.name)}</span>` +
+    (r.nick ? `<span class="gteam">${esc(r.name)}</span>` : "") +
+    `<span class="gwpts">${esc(r.event_total ?? 0)}</span>` +
+    `<span class="gpts">${esc(r.total ?? 0)}</span></div>`;
+  return section(
+    "The five",
+    GAFFERS.league.name,
+    `<div class="board">${five.map(line).join("")}` +
+      (rest.length
+        ? `<details class="rest"><summary>and ${esc(rest.length)} more in the league</summary>` +
+          rest.map(line).join("") +
+          `</details>`
+        : "") +
+      `<p class="race-note">Gameweek points, then the season. Tap a name to see their team.</p></div>`
+  );
+}
+
+// Walking the gameweeks: the live one when there is one, otherwise the last
+// settled. Bounded so the arrows cannot ask for a week that never happened.
+function gwNavHTML(maxGw) {
+  const gw = GAFFERS.gw;
+  if (!gw) return "";
+  return (
+    `<div class="gwnav">` +
+    `<button class="gwbtn" data-gw="${esc(gw - 1)}" type="button" ${gw <= 1 ? "disabled" : ""} aria-label="Previous gameweek">&#9666;</button>` +
+    `<span class="gwlabel">Gameweek ${esc(gw)}</span>` +
+    `<button class="gwbtn" data-gw="${esc(gw + 1)}" type="button" ${gw >= maxGw ? "disabled" : ""} aria-label="Next gameweek">&#9656;</button>` +
+    `</div>`
+  );
+}
+
+function gafferDeskHTML(p) {
+  if (!p) return "";
+  const bits = [];
+  if (Number.isFinite(p.total_points)) bits.push(`<span class="stat">season <b>${esc(p.total_points)}</b></span>`);
+  if (Number.isFinite(p.league_rank)) bits.push(`<span class="stat">the five <b>#${esc(p.league_rank)}</b></span>`);
+  if (Number.isFinite(p.overall_rank))
+    bits.push(`<span class="stat">OR <b>${esc(p.overall_rank.toLocaleString("en-GB"))}</b></span>`);
+  if (Number.isFinite(p.bank)) bits.push(`<span class="stat">bank <b>&pound;${esc(price(p.bank))}m</b></span>`);
+  if (Number.isFinite(p.value)) bits.push(`<span class="stat">value <b>&pound;${esc(price(p.value))}m</b></span>`);
+  const chips = (p.chips_used ?? []).length
+    ? `<span class="stat">chips used <b>${p.chips_used.map(esc).join(", ")}</b></span>`
+    : `<span class="stat">chips <b>all intact</b></span>`;
+  return (
+    `<div class="board"><div class="blabel">${esc(p.nick)}&rsquo;s desk</div><div class="deskrow">` +
+    `<span class="team">${esc(p.team_name)}</span>` +
+    [...bits, chips].join('<span class="sep">&middot;</span>') +
+    `</div></div>`
+  );
+}
+
+// The pitch for whoever is selected, for whichever gameweek. Live data when the
+// proxy answers; the static squad when it does not.
+function gafferPitchHTML(p, live) {
+  if (!p) return "";
+  const useLive = live?.squad?.length;
+  const squad = useLive
+    ? live.squad
+    : (p.picks ?? []).map((x) => ({ ...x, points: null, played: false, minutes: 0 }));
+  if (!squad.length) return "";
+
+  const inPlay = new Set(
+    (live?.fixtures ?? []).filter((f) => f.started && !f.finished).flatMap((f) => [f.home, f.away])
+  );
+  const token = (x) => {
+    const pts = useLive ? x.points * (x.role === "bench" ? 1 : x.multiplier || 1) : null;
+    const state = !useLive ? "" : !x.played ? " yet" : inPlay.has(x.team) ? " on" : " done";
+    const badge = x.captain ? "C" : x.vice ? "V" : "";
+    const bonus = x.provisional_bonus
+      ? `<i class="tb" title="provisional bonus">+${esc(x.provisional_bonus)}</i>`
+      : "";
+    return (
+      `<div class="ptok${state}" data-player="${esc(x.name)}" data-team="${esc(x.team)}" role="button" tabindex="0">` +
+      (pts === null ? "" : `<span class="tpts">${esc(pts)}</span>${bonus}`) +
+      `<span class="tname">${esc(x.name)}</span>` +
+      `<span class="tsub">${esc(x.team)}${badge ? ` <b>${badge}</b>` : ""}` +
+      `${useLive && x.played ? ` &middot; ${esc(x.minutes)}'` : ""}</span></div>`
+    );
+  };
+
+  const starters = squad.filter((x) => x.role !== "bench");
+  const bench = squad.filter((x) => x.role === "bench").sort((a, b) => a.position - b.position);
+  const line = (pos) => {
+    const row = starters.filter((x) => x.pos === pos);
+    return row.length ? `<div class="prow">${row.map(token).join("")}</div>` : "";
+  };
+  const formation = ["DEF", "MID", "FWD"].map((x) => starters.filter((y) => y.pos === x).length);
+  const t = live?.totals ?? {};
+
+  return (
+    `<div class="pitchwrap"><div class="pitchhead">` +
+    `<span class="ph-l">${esc(p.nick)}&rsquo;s team</span>` +
+    `<span class="ph-r">${esc(formation.join("-"))}` +
+    (useLive ? ` &middot; <b>${esc(t.net ?? t.starters ?? 0)}</b> pts${t.hits ? ` after &minus;${esc(t.hits)}` : ""}` : "") +
+    `</span></div>` +
+    `<div class="pitch">${line("GK")}${line("DEF")}${line("MID")}${line("FWD")}</div>` +
+    (bench.length
+      ? `<div class="benchrow"><span class="bl">Bench</span>${bench.map(token).join("")}` +
+        (useLive && Number.isFinite(t.bench) ? `<span class="bpts">${esc(t.bench)} pts</span>` : "") +
+        `</div>`
+      : "") +
+    `</div>`
+  );
+}
+
 // --------------------------------------------------------------- live strip
 
-function liveHTML(live) {
+function liveFixturesHTML(live) {
   if (!live || live.status === "pre") return "";
   const fx = (live.fixtures ?? [])
     .filter((f) => f.started)
@@ -388,81 +537,13 @@ function liveHTML(live) {
         `<span class="lclock">${f.finished ? "FT" : `${esc(f.minutes ?? 0)}'`}</span></div>`
     )
     .join("");
+  if (!fx) return "";
   const upcoming = (live.fixtures ?? []).filter((f) => !f.started).length;
-
-  let squad = "";
-  if (live.squad?.length) {
-    // Teams whose match is actually in progress — a player subbed off at 80' in
-    // a finished game is done, not still out there.
-    const inPlay = new Set(
-      (live.fixtures ?? [])
-        .filter((f) => f.started && !f.finished)
-        .flatMap((f) => [f.home, f.away])
-    );
-
-    // A player token on the pitch: name, live points, and a state that reads at
-    // a glance — yet to play, on the pitch, or done.
-    const token = (p) => {
-      const pts = p.points * (p.role === "bench" ? 1 : p.multiplier || 1);
-      const state = !p.played ? " yet" : inPlay.has(p.team) ? " on" : " done";
-      const badge = p.captain ? "C" : p.vice ? "V" : "";
-      const bonus = p.provisional_bonus
-        ? `<i class="tb" title="provisional bonus">+${esc(p.provisional_bonus)}</i>`
-        : "";
-      return (
-        `<div class="ptok${state}" data-player="${esc(p.name)}" data-team="${esc(p.team)}" role="button" tabindex="0" title="${esc(p.name)} · ${esc(p.team)} · ${p.played ? `${esc(p.minutes)} min` : "yet to play"}">` +
-        `<span class="tpts">${esc(pts)}</span>${bonus}` +
-        `<span class="tname">${esc(p.name)}</span>` +
-        `<span class="tsub">${esc(p.team)}${badge ? ` <b>${badge}</b>` : ""}${p.played ? ` · ${esc(p.minutes)}'` : ""}</span>` +
-        `</div>`
-      );
-    };
-
-    const starters = live.squad.filter((p) => p.role !== "bench");
-    const bench = live.squad
-      .filter((p) => p.role === "bench")
-      .sort((a, b) => a.position - b.position);
-    const line = (pos) => {
-      const row = starters.filter((p) => p.pos === pos);
-      return row.length ? `<div class="prow">${row.map(token).join("")}</div>` : "";
-    };
-    const t = live.totals ?? {};
-    const formation = ["DEF", "MID", "FWD"].map((p) => starters.filter((x) => x.pos === p).length);
-
-    squad =
-      `<div class="pitchwrap"><div class="pitchhead">` +
-      `<span class="ph-l">Your live gameweek</span>` +
-      `<span class="ph-r">${esc(formation.join("-"))} &middot; ` +
-      `<b>${esc(t.net ?? t.starters ?? 0)}</b> pts${t.hits ? ` after &minus;${esc(t.hits)}` : ""}</span></div>` +
-      `<div class="pitch">${line("GK")}${line("DEF")}${line("MID")}${line("FWD")}</div>` +
-      (bench.length
-        ? `<div class="benchrow"><span class="bl">Bench</span>${bench.map(token).join("")}` +
-          `<span class="bpts">${esc(t.bench ?? 0)} pts</span></div>`
-        : "") +
-      `</div>`;
-  }
-
-  let league = "";
-  if (live.league?.rows?.length) {
-    league =
-      `<div class="board"><div class="blabel">${esc(live.league.name)} &middot; live</div>` +
-      live.league.rows
-        .map(
-          (r) =>
-            `<div class="grow${r.is_owner ? " us" : ""}"><span class="rrank">${esc(r.rank)}</span>` +
-            `<span class="gname">${esc(r.name)}</span>` +
-            `<span class="gwpts">${esc(r.event_total ?? 0)}</span>` +
-            `<span class="gpts">${esc(r.total)}</span></div>`
-        )
-        .join("") +
-      `<p class="race-note">Gameweek points, then season total. Updates when you refresh.</p></div>`;
-  }
-
   const label = live.status === "done" ? "Gameweek complete" : "Live now";
   return section(
     label,
     `GW${esc(live.gw)}${upcoming ? ` · ${upcoming} to come` : ""}`,
-    `<div class="livefx">${fx}</div>${squad}${league}` +
+    `<div class="livefx">${fx}</div>` +
       `<p class="snote"><button id="live-refresh" class="refresh" type="button">refresh</button>` +
       `<span class="ltime" id="live-time"></span></p>`
   );
@@ -623,9 +704,24 @@ function showRefreshed(iso) {
 }
 
 function render(data, live) {
-  // The commons, deliberately short. Dropped 2026-08-23: new_this_season,
-  // the template board, penalty takers and the wildcard XI — none earned
-  // their space in this format.
+  const gaffer = currentGaffer();
+  const maxGw = data.live_gameweek?.id ?? data.gameweek?.id ?? 1;
+
+  // The gaffers room: who, then their week, then the arguments.
+  const room =
+    (data.roast ? `<p class="roast">${esc(data.roast.text)}</p>` : "") +
+    gafferBarHTML() +
+    gwNavHTML(maxGw) +
+    liveFixturesHTML(live) +
+    gafferDeskHTML(gaffer) +
+    gafferPitchHTML(gaffer, live) +
+    theFiveHTML() +
+    watchlistHTML(data.watchlist) +
+    wagersHTML(data.wagers) +
+    debriefHTML(data.log) +
+    doctrineHTML(data.doctrine) +
+    planHTML(data.plan);
+
   const commons =
     signalsHTML(data.signals) +
     captainHTML(data.captain_poll) +
@@ -633,26 +729,13 @@ function render(data, live) {
     section("The bus team", "the set-and-forget benchmark", squadDetails(data.bus, "serviced monthly", "rides in the race")) +
     chipsHTML(data.chips);
 
-  const personal =
-    callHTML(data) +
-    watchlistHTML(data.watchlist) +
-    wagersHTML(data.wagers) +
-    debriefHTML(data.log) +
-    doctrineHTML(data.doctrine) +
-    raceHTML(data.race) +
-    planHTML(data.plan);
-
-  const hasPersonal = personal.trim() !== "";
   $("#main").innerHTML =
-    liveHTML(live) +
-    (hasPersonal
-      ? `<div class="you-tier">${personal}` +
-        `<h2 class="commons-rule">The commons <span class="cr-sub">&middot; same for everyone</span></h2></div>`
-      : "") +
+    `<div class="room">${room}</div>` +
+    `<h2 class="commons-rule">The commons <span class="cr-sub">&middot; same for everyone</span></h2>` +
     commons;
 
   wireStars();
-  wireLiveRefresh(data);
+  wireGaffers(data);
   if (live?.updated) {
     const t = $("#live-time");
     if (t)
@@ -661,6 +744,47 @@ function render(data, live) {
         minute: "2-digit",
       })}`;
   }
+}
+
+// Selecting a gaffer or a gameweek re-fetches only the live slice; the static
+// squad is already on the page, so the swap never blanks it.
+function wireGaffers(data) {
+  document.querySelectorAll("[data-gaffer]").forEach((el) => {
+    el.addEventListener("click", async () => {
+      const nick = el.getAttribute("data-gaffer");
+      if (!nick || nick === GAFFERS.current) return;
+      setGaffer(nick);
+      render(data, GAFFERS.live);
+      const live = await fetchLive(data);
+      if (live) {
+        GAFFERS.live = live;
+        render(data, live);
+      }
+    });
+  });
+  document.querySelectorAll(".gwbtn[data-gw]").forEach((el) => {
+    el.addEventListener("click", async () => {
+      const gw = Number(el.getAttribute("data-gw"));
+      if (!Number.isInteger(gw) || gw < 1) return;
+      GAFFERS.gw = gw;
+      render(data, null);
+      const live = await fetchLive(data);
+      GAFFERS.live = live;
+      render(data, live);
+    });
+  });
+  const btn = $("#live-refresh");
+  btn?.addEventListener("click", async () => {
+    if (liveBusy) return;
+    liveBusy = true;
+    btn.textContent = "refreshing…";
+    const live = await fetchLive(data);
+    liveBusy = false;
+    if (live) {
+      GAFFERS.live = live;
+      render(data, live);
+    } else btn.textContent = "refresh failed";
+  });
 }
 
 // Stars are a note-to-self for now: the brain reads what KB actually did from
@@ -693,28 +817,16 @@ function wireStars() {
 }
 
 let liveBusy = false;
-function wireLiveRefresh(data) {
-  const btn = $("#live-refresh");
-  if (!btn) return;
-  btn.addEventListener("click", async () => {
-    if (liveBusy) return;
-    liveBusy = true;
-    btn.textContent = "refreshing…";
-    const live = await fetchLive(data);
-    liveBusy = false;
-    if (live) render(data, live);
-    else btn.textContent = "refresh failed";
-  });
-}
 
 // The live view needs a Pages Function because the FPL API sends no CORS
 // headers. Absent or failing, the page is simply the static one.
 async function fetchLive(data) {
-  const gw = data.live_gameweek?.id;
+  const gw = GAFFERS.gw ?? data.live_gameweek?.id;
   if (!gw) return null;
   const params = new URLSearchParams({ gw: String(gw) });
-  if (data.desk?.entry_id) params.set("entry", String(data.desk.entry_id));
-  if (data.race?.league_id) params.set("league", String(data.race.league_id));
+  const gaffer = currentGaffer();
+  if (gaffer?.entry) params.set("entry", String(gaffer.entry));
+  if (GAFFERS.league?.id) params.set("league", String(GAFFERS.league.id));
   try {
     const res = await fetch(`/api/live?${params}`);
     if (!res.ok) return null;
@@ -722,30 +834,6 @@ async function fetchLive(data) {
   } catch {
     return null;
   }
-}
-
-function setupSync() {
-  const btn = $("#sync");
-  if (!btn) return;
-  const label = btn.querySelector(".sync-label");
-  const apply = (on) => {
-    document.documentElement.classList.toggle("synced", on);
-    btn.setAttribute("aria-pressed", on ? "true" : "false");
-    if (label) label.textContent = on ? "synced" : "sync";
-    try {
-      localStorage.setItem("touchline-fpl-sync", on ? "1" : "0");
-    } catch {
-      /* ignore */
-    }
-  };
-  let on = false;
-  try {
-    on = localStorage.getItem("touchline-fpl-sync") === "1";
-  } catch {
-    /* ignore */
-  }
-  apply(on);
-  btn.addEventListener("click", () => apply(!document.documentElement.classList.contains("synced")));
 }
 
 // Theme toggle: auto (follow OS) -> light -> dark -> auto.
@@ -777,18 +865,35 @@ async function load() {
   const data = await loadJSON("data/fpl.json");
   // The player file is optional: if it is missing or stale the page still
   // renders, names simply stop opening cards.
-  const file = await loadJSON("data/players.json").catch(() => null);
+  const [file, gaffers] = await Promise.all([
+    loadJSON("data/players.json").catch(() => null),
+    loadJSON("data/gaffers.json").catch(() => null),
+  ]);
   indexPlayerFile(file?.players, data.verdicts);
   wirePlayerCards();
+
+  GAFFERS.people = gaffers?.people ?? [];
+  GAFFERS.league = gaffers?.league ?? null;
+  GAFFERS.gw = data.live_gameweek?.id ?? data.gameweek?.id ?? null;
+  let saved = null;
+  try {
+    saved = localStorage.getItem("fiveaside-gaffer");
+  } catch {
+    /* ignore */
+  }
+  GAFFERS.current =
+    GAFFERS.people.find((p) => p.nick === saved)?.nick ?? GAFFERS.people[0]?.nick ?? null;
   showDeadline(data);
   showRefreshed(data.generated_at);
   render(data, null);
   const live = await fetchLive(data);
-  if (live) render(data, live);
+  if (live) {
+    GAFFERS.live = live;
+    render(data, live);
+  }
 }
 
 setupThemeToggle();
-setupSync();
 
 load().catch((err) => {
   $("#main").innerHTML = `<p class="empty">Could not load the planner: ${esc(err.message)}</p>`;

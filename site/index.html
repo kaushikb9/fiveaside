@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Five-a-Side &middot; the gaffers</title>
   <meta name="description" content="Five-a-Side — football and FPL for five friends. One calm page, no hype.">
-  <link rel="stylesheet" href="style.css?v=6">
+  <link rel="stylesheet" href="style.css?v=8">
   <link rel="icon" href="icon.svg" type="image/svg+xml">
   <script>
     // Apply saved theme and sync state before first paint. "auto" = no attribute.
@@ -14,8 +14,6 @@
         var theme = localStorage.getItem("touchline-theme");
         if (theme === "light" || theme === "dark")
           document.documentElement.setAttribute("data-theme", theme);
-        if (localStorage.getItem("touchline-fpl-sync") === "1")
-          document.documentElement.classList.add("synced");
       } catch (e) {}
     })();
   </script>
@@ -31,10 +29,6 @@
         <span class="room">the gaffers</span>
         <span>&middot;</span>
         <a href="digest/">touchline</a>
-        <span>&middot;</span>
-        <button id="sync" class="sync-btn" type="button" aria-pressed="false" aria-label="Show my team">
-          <span class="dot" aria-hidden="true"></span><span class="sync-label">sync</span>
-        </button>
       </div>
       <p class="deadline" id="deadline" hidden></p>
     </header>
@@ -55,6 +49,6 @@
     <div id="pc-body"></div>
   </dialog>
 
-  <script src="app.js?v=6"></script>
+  <script src="app.js?v=8"></script>
 </body>
 </html>

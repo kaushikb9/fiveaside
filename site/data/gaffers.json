@@ -1,0 +1,905 @@
+{
+  "generated_at": "2026-08-23T15:35:31.046Z",
+  "gameweek": 2,
+  "live_gameweek": {
+    "id": 1,
+    "finished": false
+  },
+  "people": [
+    {
+      "nick": "Xabi",
+      "team_name": "Wabi Sabi Xabi",
+      "entry": 7149204,
+      "entered": true,
+      "total_points": 31,
+      "gw_points": 31,
+      "overall_rank": 4244507,
+      "bank": 0,
+      "value": 100,
+      "free_transfers": 0,
+      "chips_used": [],
+      "league_rank": 6,
+      "picks": [
+        {
+          "element": 109,
+          "position": 1,
+          "role": "start",
+          "name": "Verbruggen",
+          "team": "BHA",
+          "pos": "GK",
+          "price": 4.5
+        },
+        {
+          "element": 358,
+          "position": 2,
+          "role": "start",
+          "name": "Kerkez",
+          "team": "LIV",
+          "pos": "DEF",
+          "price": 5.5
+        },
+        {
+          "element": 8,
+          "position": 3,
+          "role": "start",
+          "name": "Calafiori",
+          "team": "ARS",
+          "pos": "DEF",
+          "price": 5.5
+        },
+        {
+          "element": 423,
+          "position": 4,
+          "role": "start",
+          "name": "Shaw",
+          "team": "MUN",
+          "pos": "DEF",
+          "price": 4.5
+        },
+        {
+          "element": 426,
+          "position": 5,
+          "role": "start",
+          "name": "B.Fernandes",
+          "team": "MUN",
+          "pos": "MID",
+          "price": 12,
+          "vice": true
+        },
+        {
+          "element": 427,
+          "position": 6,
+          "role": "start",
+          "name": "Mbeumo",
+          "team": "MUN",
+          "pos": "MID",
+          "price": 8
+        },
+        {
+          "element": 557,
+          "position": 7,
+          "role": "start",
+          "name": "Tzolis",
+          "team": "ARS",
+          "pos": "MID",
+          "price": 6.5
+        },
+        {
+          "element": 40,
+          "position": 8,
+          "role": "start",
+          "name": "Rogers",
+          "team": "CHE",
+          "pos": "MID",
+          "price": 7.5
+        },
+        {
+          "element": 411,
+          "position": 9,
+          "role": "start",
+          "name": "Haaland",
+          "team": "MCI",
+          "pos": "FWD",
+          "price": 15.5,
+          "captain": true
+        },
+        {
+          "element": 346,
+          "position": 10,
+          "role": "start",
+          "name": "Calvert-Lewin",
+          "team": "LEE",
+          "pos": "FWD",
+          "price": 6
+        },
+        {
+          "element": 165,
+          "position": 11,
+          "role": "start",
+          "name": "João Pedro",
+          "team": "CHE",
+          "pos": "FWD",
+          "price": 7.5
+        },
+        {
+          "element": 497,
+          "position": 12,
+          "role": "bench",
+          "bench_order": 1,
+          "name": "Dubravka",
+          "team": "TOT",
+          "pos": "GK",
+          "price": 4
+        },
+        {
+          "element": 534,
+          "position": 13,
+          "role": "bench",
+          "bench_order": 2,
+          "name": "Hume",
+          "team": "SUN",
+          "pos": "DEF",
+          "price": 4.5
+        },
+        {
+          "element": 212,
+          "position": 14,
+          "role": "bench",
+          "bench_order": 3,
+          "name": "Hughes",
+          "team": "CRY",
+          "pos": "MID",
+          "price": 4.5
+        },
+        {
+          "element": 259,
+          "position": 15,
+          "role": "bench",
+          "bench_order": 4,
+          "name": "Diop",
+          "team": "IPS",
+          "pos": "DEF",
+          "price": 4
+        }
+      ]
+    },
+    {
+      "nick": "Sir Alex",
+      "team_name": "Youri kiddin’ me!",
+      "entry": 58500,
+      "entered": true,
+      "total_points": 30,
+      "gw_points": 30,
+      "overall_rank": 4599271,
+      "bank": 0,
+      "value": 100,
+      "free_transfers": 0,
+      "chips_used": [],
+      "league_rank": 8,
+      "picks": [
+        {
+          "element": 412,
+          "position": 1,
+          "role": "start",
+          "name": "Lammens",
+          "team": "MUN",
+          "pos": "GK",
+          "price": 5
+        },
+        {
+          "element": 8,
+          "position": 2,
+          "role": "start",
+          "name": "Calafiori",
+          "team": "ARS",
+          "pos": "DEF",
+          "price": 5.5
+        },
+        {
+          "element": 532,
+          "position": 3,
+          "role": "start",
+          "name": "Ballard",
+          "team": "SUN",
+          "pos": "DEF",
+          "price": 5
+        },
+        {
+          "element": 87,
+          "position": 4,
+          "role": "start",
+          "name": "Ajer",
+          "team": "BRE",
+          "pos": "DEF",
+          "price": 4.5
+        },
+        {
+          "element": 427,
+          "position": 5,
+          "role": "start",
+          "name": "Mbeumo",
+          "team": "MUN",
+          "pos": "MID",
+          "price": 8
+        },
+        {
+          "element": 368,
+          "position": 6,
+          "role": "start",
+          "name": "Szoboszlai",
+          "team": "LIV",
+          "pos": "MID",
+          "price": 7
+        },
+        {
+          "element": 94,
+          "position": 7,
+          "role": "start",
+          "name": "Schade",
+          "team": "BRE",
+          "pos": "MID",
+          "price": 6
+        },
+        {
+          "element": 426,
+          "position": 8,
+          "role": "start",
+          "name": "B.Fernandes",
+          "team": "MUN",
+          "pos": "MID",
+          "price": 12,
+          "captain": true
+        },
+        {
+          "element": 165,
+          "position": 9,
+          "role": "start",
+          "name": "João Pedro",
+          "team": "CHE",
+          "pos": "FWD",
+          "price": 7.5
+        },
+        {
+          "element": 411,
+          "position": 10,
+          "role": "start",
+          "name": "Haaland",
+          "team": "MCI",
+          "pos": "FWD",
+          "price": 15.5,
+          "vice": true
+        },
+        {
+          "element": 346,
+          "position": 11,
+          "role": "start",
+          "name": "Calvert-Lewin",
+          "team": "LEE",
+          "pos": "FWD",
+          "price": 6
+        },
+        {
+          "element": 57,
+          "position": 12,
+          "role": "bench",
+          "bench_order": 1,
+          "name": "Petrović",
+          "team": "BOU",
+          "pos": "GK",
+          "price": 4.5
+        },
+        {
+          "element": 124,
+          "position": 13,
+          "role": "bench",
+          "bench_order": 2,
+          "name": "Groß",
+          "team": "BHA",
+          "pos": "MID",
+          "price": 5.5
+        },
+        {
+          "element": 175,
+          "position": 14,
+          "role": "bench",
+          "bench_order": 3,
+          "name": "van Ewijk",
+          "team": "COV",
+          "pos": "DEF",
+          "price": 4
+        },
+        {
+          "element": 173,
+          "position": 15,
+          "role": "bench",
+          "bench_order": 4,
+          "name": "Thomas",
+          "team": "COV",
+          "pos": "DEF",
+          "price": 4
+        }
+      ]
+    },
+    {
+      "nick": "Ronaldo",
+      "team_name": "Yogesh11",
+      "entry": 522356,
+      "entered": true,
+      "total_points": 32,
+      "gw_points": 32,
+      "overall_rank": 4268796,
+      "bank": 0,
+      "value": 100,
+      "free_transfers": 0,
+      "chips_used": [],
+      "league_rank": 6,
+      "picks": [
+        {
+          "element": 496,
+          "position": 1,
+          "role": "start",
+          "name": "Kinsky",
+          "team": "TOT",
+          "pos": "GK",
+          "price": 4.5
+        },
+        {
+          "element": 423,
+          "position": 2,
+          "role": "start",
+          "name": "Shaw",
+          "team": "MUN",
+          "pos": "DEF",
+          "price": 4.5
+        },
+        {
+          "element": 8,
+          "position": 3,
+          "role": "start",
+          "name": "Calafiori",
+          "team": "ARS",
+          "pos": "DEF",
+          "price": 5.5
+        },
+        {
+          "element": 534,
+          "position": 4,
+          "role": "start",
+          "name": "Hume",
+          "team": "SUN",
+          "pos": "DEF",
+          "price": 4.5
+        },
+        {
+          "element": 40,
+          "position": 5,
+          "role": "start",
+          "name": "Rogers",
+          "team": "CHE",
+          "pos": "MID",
+          "price": 7.5
+        },
+        {
+          "element": 426,
+          "position": 6,
+          "role": "start",
+          "name": "B.Fernandes",
+          "team": "MUN",
+          "pos": "MID",
+          "price": 12,
+          "captain": true
+        },
+        {
+          "element": 368,
+          "position": 7,
+          "role": "start",
+          "name": "Szoboszlai",
+          "team": "LIV",
+          "pos": "MID",
+          "price": 7
+        },
+        {
+          "element": 542,
+          "position": 8,
+          "role": "start",
+          "name": "E.Le Fée",
+          "team": "SUN",
+          "pos": "MID",
+          "price": 6
+        },
+        {
+          "element": 237,
+          "position": 9,
+          "role": "start",
+          "name": "Ndiaye",
+          "team": "EVE",
+          "pos": "MID",
+          "price": 6
+        },
+        {
+          "element": 411,
+          "position": 10,
+          "role": "start",
+          "name": "Haaland",
+          "team": "MCI",
+          "pos": "FWD",
+          "price": 15.5,
+          "vice": true
+        },
+        {
+          "element": 165,
+          "position": 11,
+          "role": "start",
+          "name": "João Pedro",
+          "team": "CHE",
+          "pos": "FWD",
+          "price": 7.5
+        },
+        {
+          "element": 497,
+          "position": 12,
+          "role": "bench",
+          "bench_order": 1,
+          "name": "Dubravka",
+          "team": "TOT",
+          "pos": "GK",
+          "price": 4
+        },
+        {
+          "element": 346,
+          "position": 13,
+          "role": "bench",
+          "bench_order": 2,
+          "name": "Calvert-Lewin",
+          "team": "LEE",
+          "pos": "FWD",
+          "price": 6
+        },
+        {
+          "element": 391,
+          "position": 14,
+          "role": "bench",
+          "bench_order": 3,
+          "name": "Gvardiol",
+          "team": "MCI",
+          "pos": "DEF",
+          "price": 5.5
+        },
+        {
+          "element": 259,
+          "position": 15,
+          "role": "bench",
+          "bench_order": 4,
+          "name": "Diop",
+          "team": "IPS",
+          "pos": "DEF",
+          "price": 4
+        }
+      ]
+    },
+    {
+      "nick": "Enzo",
+      "team_name": "WorldChamps",
+      "entry": 6485401,
+      "entered": true,
+      "total_points": 33,
+      "gw_points": 33,
+      "overall_rank": 3909133,
+      "bank": 0,
+      "value": 100,
+      "free_transfers": 0,
+      "chips_used": [],
+      "league_rank": 5,
+      "picks": [
+        {
+          "element": 109,
+          "position": 1,
+          "role": "start",
+          "name": "Verbruggen",
+          "team": "BHA",
+          "pos": "GK",
+          "price": 4.5
+        },
+        {
+          "element": 11,
+          "position": 2,
+          "role": "start",
+          "name": "Mosquera",
+          "team": "ARS",
+          "pos": "DEF",
+          "price": 5.5
+        },
+        {
+          "element": 152,
+          "position": 3,
+          "role": "start",
+          "name": "Palestra",
+          "team": "CHE",
+          "pos": "DEF",
+          "price": 5.5
+        },
+        {
+          "element": 418,
+          "position": 4,
+          "role": "start",
+          "name": "Maguire",
+          "team": "MUN",
+          "pos": "DEF",
+          "price": 5
+        },
+        {
+          "element": 392,
+          "position": 5,
+          "role": "start",
+          "name": "Aït-Nouri",
+          "team": "MCI",
+          "pos": "DEF",
+          "price": 5.5
+        },
+        {
+          "element": 427,
+          "position": 6,
+          "role": "start",
+          "name": "Mbeumo",
+          "team": "MUN",
+          "pos": "MID",
+          "price": 8
+        },
+        {
+          "element": 397,
+          "position": 7,
+          "role": "start",
+          "name": "Semenyo",
+          "team": "MCI",
+          "pos": "MID",
+          "price": 8.5
+        },
+        {
+          "element": 557,
+          "position": 8,
+          "role": "start",
+          "name": "Tzolis",
+          "team": "ARS",
+          "pos": "MID",
+          "price": 6.5
+        },
+        {
+          "element": 411,
+          "position": 9,
+          "role": "start",
+          "name": "Haaland",
+          "team": "MCI",
+          "pos": "FWD",
+          "price": 15.5,
+          "captain": true
+        },
+        {
+          "element": 165,
+          "position": 10,
+          "role": "start",
+          "name": "João Pedro",
+          "team": "CHE",
+          "pos": "FWD",
+          "price": 7.5,
+          "vice": true
+        },
+        {
+          "element": 26,
+          "position": 11,
+          "role": "start",
+          "name": "Havertz",
+          "team": "ARS",
+          "pos": "FWD",
+          "price": 7.5
+        },
+        {
+          "element": 496,
+          "position": 12,
+          "role": "bench",
+          "bench_order": 1,
+          "name": "Kinsky",
+          "team": "TOT",
+          "pos": "GK",
+          "price": 4.5
+        },
+        {
+          "element": 124,
+          "position": 13,
+          "role": "bench",
+          "bench_order": 2,
+          "name": "Groß",
+          "team": "BHA",
+          "pos": "MID",
+          "price": 5.5
+        },
+        {
+          "element": 260,
+          "position": 14,
+          "role": "bench",
+          "bench_order": 3,
+          "name": "Wilson",
+          "team": "LEE",
+          "pos": "MID",
+          "price": 6.5
+        },
+        {
+          "element": 306,
+          "position": 15,
+          "role": "bench",
+          "bench_order": 4,
+          "name": "Greaves",
+          "team": "IPS",
+          "pos": "DEF",
+          "price": 4
+        }
+      ]
+    },
+    {
+      "nick": "Arsene",
+      "team_name": "IceMan",
+      "entry": 4135179,
+      "entered": true,
+      "total_points": 38,
+      "gw_points": 38,
+      "overall_rank": 2340918,
+      "bank": 0.5,
+      "value": 100,
+      "free_transfers": 0,
+      "chips_used": [],
+      "league_rank": 3,
+      "picks": [
+        {
+          "element": 109,
+          "position": 1,
+          "role": "start",
+          "name": "Verbruggen",
+          "team": "BHA",
+          "pos": "GK",
+          "price": 4.5
+        },
+        {
+          "element": 32,
+          "position": 2,
+          "role": "start",
+          "name": "Cash",
+          "team": "AVL",
+          "pos": "DEF",
+          "price": 4.5
+        },
+        {
+          "element": 8,
+          "position": 3,
+          "role": "start",
+          "name": "Calafiori",
+          "team": "ARS",
+          "pos": "DEF",
+          "price": 5.5
+        },
+        {
+          "element": 418,
+          "position": 4,
+          "role": "start",
+          "name": "Maguire",
+          "team": "MUN",
+          "pos": "DEF",
+          "price": 5
+        },
+        {
+          "element": 368,
+          "position": 5,
+          "role": "start",
+          "name": "Szoboszlai",
+          "team": "LIV",
+          "pos": "MID",
+          "price": 7
+        },
+        {
+          "element": 40,
+          "position": 6,
+          "role": "start",
+          "name": "Rogers",
+          "team": "CHE",
+          "pos": "MID",
+          "price": 7.5
+        },
+        {
+          "element": 426,
+          "position": 7,
+          "role": "start",
+          "name": "B.Fernandes",
+          "team": "MUN",
+          "pos": "MID",
+          "price": 12,
+          "vice": true
+        },
+        {
+          "element": 237,
+          "position": 8,
+          "role": "start",
+          "name": "Ndiaye",
+          "team": "EVE",
+          "pos": "MID",
+          "price": 6
+        },
+        {
+          "element": 165,
+          "position": 9,
+          "role": "start",
+          "name": "João Pedro",
+          "team": "CHE",
+          "pos": "FWD",
+          "price": 7.5
+        },
+        {
+          "element": 346,
+          "position": 10,
+          "role": "start",
+          "name": "Calvert-Lewin",
+          "team": "LEE",
+          "pos": "FWD",
+          "price": 6
+        },
+        {
+          "element": 411,
+          "position": 11,
+          "role": "start",
+          "name": "Haaland",
+          "team": "MCI",
+          "pos": "FWD",
+          "price": 15.5,
+          "captain": true
+        },
+        {
+          "element": 496,
+          "position": 12,
+          "role": "bench",
+          "bench_order": 1,
+          "name": "Kinsky",
+          "team": "TOT",
+          "pos": "GK",
+          "price": 4.5
+        },
+        {
+          "element": 259,
+          "position": 13,
+          "role": "bench",
+          "bench_order": 2,
+          "name": "Diop",
+          "team": "IPS",
+          "pos": "DEF",
+          "price": 4
+        },
+        {
+          "element": 31,
+          "position": 14,
+          "role": "bench",
+          "bench_order": 3,
+          "name": "Konsa",
+          "team": "ARS",
+          "pos": "DEF",
+          "price": 4.5
+        },
+        {
+          "element": 124,
+          "position": 15,
+          "role": "bench",
+          "bench_order": 4,
+          "name": "Groß",
+          "team": "BHA",
+          "pos": "MID",
+          "price": 5.5
+        }
+      ]
+    }
+  ],
+  "league": {
+    "id": 391164,
+    "name": "FPL 26-27",
+    "rows": [
+      {
+        "rank": 1,
+        "name": "Gunners.exe",
+        "entry": 3265819,
+        "total": 47,
+        "event_total": 47,
+        "is_owner": false,
+        "is_gaffer": false
+      },
+      {
+        "rank": 2,
+        "name": "Mad11",
+        "entry": 5286779,
+        "total": 39,
+        "event_total": 39,
+        "is_owner": false,
+        "is_gaffer": false
+      },
+      {
+        "rank": 3,
+        "name": "IceMan",
+        "entry": 4135179,
+        "total": 37,
+        "event_total": 37,
+        "is_owner": false,
+        "nick": "Arsene",
+        "is_gaffer": true
+      },
+      {
+        "rank": 4,
+        "name": "Vabby_Blues",
+        "entry": 5255110,
+        "total": 36,
+        "event_total": 36,
+        "is_owner": false,
+        "is_gaffer": false
+      },
+      {
+        "rank": 5,
+        "name": "WorldChamps",
+        "entry": 6485401,
+        "total": 33,
+        "event_total": 33,
+        "is_owner": false,
+        "nick": "Enzo",
+        "is_gaffer": true
+      },
+      {
+        "rank": 6,
+        "name": "Yogesh11",
+        "entry": 522356,
+        "total": 31,
+        "event_total": 31,
+        "is_owner": false,
+        "nick": "Ronaldo",
+        "is_gaffer": true
+      },
+      {
+        "rank": 6,
+        "name": "Wabi Sabi Xabi",
+        "entry": 7149204,
+        "total": 31,
+        "event_total": 31,
+        "is_owner": true,
+        "nick": "Xabi",
+        "is_gaffer": true
+      },
+      {
+        "rank": 8,
+        "name": "Youri kiddin’ me!",
+        "entry": 58500,
+        "total": 30,
+        "event_total": 30,
+        "is_owner": false,
+        "nick": "Sir Alex",
+        "is_gaffer": true
+      },
+      {
+        "rank": 9,
+        "name": "AbKiBaar?",
+        "entry": 3044473,
+        "total": 28,
+        "event_total": 28,
+        "is_owner": false,
+        "is_gaffer": false
+      },
+      {
+        "rank": 10,
+        "name": "Peaky Malayali FC",
+        "entry": 1654923,
+        "total": 26,
+        "event_total": 26,
+        "is_owner": false,
+        "is_gaffer": false
+      },
+      {
+        "rank": 11,
+        "name": "CFC",
+        "entry": 4550750,
+        "total": 21,
+        "event_total": 21,
+        "is_owner": false,
+        "is_gaffer": false
+      }
+    ]
+  }
+}
