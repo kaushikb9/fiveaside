@@ -578,3 +578,14 @@ details.fold .foldbody { padding: 0 18px 16px; }
    requests all afternoon. */
 .btn-live { font-weight: 700; }
 .btn-live[disabled] { opacity: 0.5; cursor: default; }
+
+/* On a phone the wrap and pitch padding leave ~330px, and four players at
+   78px plus gaps come to exactly that — so a 4-man midfield wrapped to
+   3 + 1 and stopped reading as a formation. Trim the tile so four fit. */
+@media (max-width: 430px) {
+  .pp { width: 70px; }
+  .prow { gap: 4px; }
+  .benchrow { gap: 4px; }
+  .kit { width: 40px; height: 40px; }
+  .pp .nb, .pp .vb { font-size: 9.5px; }
+}
