@@ -5,7 +5,7 @@ from pathlib import Path
 import httpx
 
 from touchline.config import ClubConfig, TouchlineConfig
-from touchline.core.fpl import _compact_players, build_fpl_facts
+from touchline.core.fpl import _compact_players, _player_file, build_fpl_facts
 from touchline.sources.fpl import FPLClient
 
 FIXTURES = Path(__file__).parent / "fixtures" / "fpl"
@@ -345,3 +345,32 @@ def test_real_names_never_reach_the_bundle():
     assert row["nick"] == "Xabi"
     assert "manager" not in row
     assert [s["nick"] for s in bundle["squads"]] == ["Xabi"]
+
+
+def test_player_file_floor_never_drops_a_player_we_own():
+    """An ownership floor keeps the file honest, but a squad member always has
+    a record — otherwise tapping your own shirt opens nothing."""
+    client = _client_with(_fixture_handler)
+    boot = client.fetch_bootstrap()
+    short_names = {t.id: t.short_name for t in boot.teams}
+
+    # FringeFit sits at 0.0% ownership: below any sane floor.
+    unfiltered = _player_file(boot.elements, short_names, None, {})
+    assert all(r["name"] != "FringeFit" for r in unfiltered)
+
+    # ...until one of us picks him, at which point he must appear.
+    owned = _player_file(boot.elements, short_names, None, {33: ["Enzo"]})
+    fringe = next(r for r in owned if r["name"] == "FringeFit")
+    assert fringe["owned_by"] == ["Enzo"]
+
+
+def test_player_file_keeps_flagged_players_below_the_floor():
+    client = _client_with(_fixture_handler)
+    boot = client.fetch_bootstrap()
+    short_names = {t.id: t.short_name for t in boot.teams}
+    records = _player_file(boot.elements, short_names, None, {})
+    names = [r["name"] for r in records]
+    # InjuredStar is 15% owned and doubtful -> in on both counts
+    assert "InjuredStar" in names
+    # FringeInjured is injured but 0.1% owned -> nobody needs that file
+    assert "FringeInjured" not in names

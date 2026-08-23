@@ -28,6 +28,13 @@ NEXT_DEADLINES = 3
 TEMPLATE_N_BY_POS = {1: 3, 2: 5, 3: 5, 4: 4}
 CAPTAIN_CANDIDATES = 3
 
+# The player file's admission rules. A flat top-N per position let in ~90 names
+# nobody would ever consider; an ownership floor is the honest filter. But the
+# floor can never lose a player one of us actually owns — several of our own
+# picks sit under it, and a squad member with no record is a hole in the page.
+FILE_MIN_OWNERSHIP = 5.0  # percent
+FILE_FLAG_MIN_OWNERSHIP = 2.0  # a fitness flag matters lower down
+
 
 def _parse_utc(iso: str) -> datetime:
     dt = datetime.fromisoformat(iso.replace("Z", "+00:00"))
@@ -199,9 +206,12 @@ def _player_file(
     """The player file — one record per player that matters, evidence only.
 
     The brain adds the verdict, the direction and the trigger on top of these;
-    this function never guesses at them. A record earns its place by being
-    owned by one of us, plausibly ownable (top-N by ownership per position), or
-    flagged — nobody needs a file on the 19th-choice keeper at a promoted club.
+    this function never guesses at them.
+
+    Three ways in, in priority order: someone in the group owns him (always,
+    at any ownership — a squad player without a record is a hole in the page);
+    the wider game owns him (>= FILE_MIN_OWNERSHIP); or he is flagged and
+    owned widely enough for that to matter.
     """
     fixtures_by_team = {}
     if ticker:
@@ -209,15 +219,13 @@ def _player_file(
             fixtures_by_team[row["team"]] = row.get("fixtures", [])[:3]
 
     keep: dict[int, FPLElement] = {}
-    for pos, limit in TOP_N_BY_POS.items():
-        ranked = sorted(
-            (e for e in elements if e.element_type == pos),
-            key=lambda e: (-_ownership(e), -e.now_cost),
-        )
-        for e in ranked[:limit]:
-            keep[e.id] = e
     for e in elements:
-        if e.id in owned or (e.status != "a" and _ownership(e) >= FLAG_MIN_OWNERSHIP):
+        own = _ownership(e)
+        if (
+            e.id in owned
+            or own >= FILE_MIN_OWNERSHIP
+            or (e.status != "a" and own >= FILE_FLAG_MIN_OWNERSHIP)
+        ):
             keep[e.id] = e
 
     records = []
