@@ -17,8 +17,11 @@ export GIT_SSH_COMMAND="ssh -oBatchMode=yes -oConnectTimeout=15"
 timeout 90 git pull --rebase --autostash -q \
   || { echo "[auto] $(date '+%F %T') — git pull failed/timed out, skipping"; exit 0; }
 
-# already curated today? (source of truth: the data itself, not a stamp file)
-# Two independent products, two freshness checks — neither suppresses the other.
+# Already curated today? Source of truth is the data itself, not a stamp file.
+# Two independent brains, two freshness checks — neither suppresses the other:
+#   curate.sh    -> digests.json  (touchline, the league room)
+#   curate-fpl.sh -> fpl.json     (the gaffers' judgment layer)
+# players.json and gaffers.json are mechanical and are rewritten by both.
 LATEST=$(node -e "const d=require('./site/data/digests.json').digests;console.log(d.map(x=>x.date).sort().pop())")
 FPL_DATE=$(node -e "try{console.log(String(require('./site/data/fpl.json').generated_at||'').slice(0,10))}catch{console.log('')}")
 DIGEST_DUE=$([ "$LATEST" = "$(date +%F)" ] || echo yes)

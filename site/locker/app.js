@@ -75,7 +75,7 @@
         "<td>" + fdrStrip(p.next3) + "</td></tr>";
     }).join("");
 
-    return '<div class="panel"><h3>The file</h3>' +
+    return '<div class="panel" id="the-file"><h3>The file</h3>' +
       '<p class="note">Every player we hold evidence on. Verdict first, then the name, then one ' +
       "line of why. The verdict is judgment; everything else on the row is measured.</p>" +
       '<div class="filters">' +
@@ -127,6 +127,28 @@
       '<div class="rows">' + rest.map(one).join("") + "</div></div>";
   }
 
+  /* ---------------- team news ----------------
+     Judgment, and marked as such: the brain writes these from sources it
+     actually fetched, and each carries where it came from so a claim can be
+     checked rather than trusted. */
+  function signalsHTML() {
+    if (!F || !F.signals || !F.signals.length) return "";
+    return '<div class="panel"><h3>Team news</h3>' +
+      '<p class="note">Written by the editor from fetched sources, not measured &mdash; ' +
+      "each one says where it came from.</p><div class=\"rows\">" +
+      F.signals.map((s) =>
+        '<div class="row"><div class="row-main"><div class="row-name">' +
+        '<span class="wtag">' + esc(s.tag) + "</span>" +
+        (s.player ? FA.linkPlayers(s.player) + " &middot; " : "") + esc(s.team) + "</div>" +
+        '<div class="row-sub">' + FA.linkPlayers(s.text) +
+        (s.action ? ' <strong>' + esc(s.action) + "</strong>" : "") +
+        (s.source ? '<br><span class="faint">' + esc(s.source) +
+          (s.url ? ' &middot; <a href="' + esc(s.url) + '" target="_blank" rel="noopener">source</a>' : "") +
+          "</span>" : "") +
+        "</div></div></div>").join("") +
+      "</div></div>";
+  }
+
   /* ---------------- fixture runs ---------------- */
   function runsHTML() {
     if (!F || !F.ticker || !F.ticker.rows) return "";
@@ -152,7 +174,7 @@
     $("#main").innerHTML =
       '<section class="section"><div class="section-head"><h2>the locker room</h2>' +
       '<span class="mute" style="font-size:13px">what we know &mdash; every player, evidence first</span></div>' +
-      fileHTML() + injuryHTML() + runsHTML() + "</section>";
+      fileHTML() + injuryHTML() + signalsHTML() + runsHTML() + "</section>";
     wire();
   }
 

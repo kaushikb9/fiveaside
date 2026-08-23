@@ -181,7 +181,10 @@ Rules:
   keys (`latest_result`, `fixtures`, `table`, `form`), `read`, `top_teams`, `elsewhere`,
   `team_watch`, `rumours`, and the optional nested fields noted above
   (crest fields, `source`, `image`).
-- `table` (REQUIRED): the league table, from the bundle's PL `table`. Copy
+- `table` (REQUIRED): the league table, from the bundle's PL `table`. The
+  site marks the focus clubs itself, using the focus-club rule described
+  under `top_teams` below, so do not agonise over `focus` flags — write them
+  if you like, they are ignored. Copy
   `pos`, `team`, `crest`, `played`, `points` verbatim — never recompute or
   reorder. Include the **top six plus every club in `top_clubs`** that sits
   outside it, in league order, so the table is about the division while still
@@ -239,6 +242,15 @@ Rules:
 - `read`: optional; include only when something genuinely clears the bar.
   Same `source`/`image` treatment as `wider`. Evergreen writing is welcome —
   a great older piece beats a mediocre new one.
+- **Which clubs count as focus clubs is a RULE, not the config list.**
+  Three are permanent because that is who the readers support: Chelsea,
+  Manchester United, Arsenal. Until **GW10** the other two are seeded from
+  OWNER CONFIG `top_clubs` (Liverpool, Manchester City), because an early
+  table is noise — on the opening weekend the top six is simply that
+  weekend's winners. **From GW10 onwards the rest of the set is the real top
+  six of the league table**, recomputed every week from the bundle's own
+  `table`. A club that climbs into it is covered; one that drops out is not.
+  Work out the current set before writing `top_teams`, and cover exactly it.
 - `top_teams` (replaces the old `rivals` key, which is legacy-only now — never
   write it again): one entry for EVERY club in OWNER CONFIG `top_clubs`, the
   list is owner-curated, don't trim or extend it. Copy `crest` from the config

@@ -1,3 +1,10 @@
 name = "fiveaside"
 pages_build_output_dir = "site"
 compatibility_date = "2026-07-01"
+
+# The watchlist star. Per-gaffer keys, so a star set on a phone is there on
+# the laptop and the house list is the same for everyone — which localStorage
+# cannot do. /api/stars degrades to this browser when the binding is absent.
+[[kv_namespaces]]
+binding = "STARS"
+id = "371bb71f0a1245f697375846236bd58b"
