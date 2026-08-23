@@ -164,6 +164,35 @@ tr.focus td:nth-child(2){font-weight:700}
   font-family:var(--f-num);font-size:9px;font-weight:700;background:var(--line);color:var(--mute)}
 .own.mine{background:var(--accent);color:var(--on-accent)}
 
+/* --- gaffer names ---------------------------------------------------
+   "Enzo the gaffer" and "Enzo the player" are different people and the page
+   has both. Nicknames get their own treatment wherever they appear in
+   gaffer-room prose, so the reader never has to work out which one is meant.
+   Deliberately NOT applied in touchline: Enzo Maresca is the manager. */
+.gname{font-weight:700;color:var(--accent);background:var(--raise);
+  padding:0 5px;border-radius:5px;white-space:nowrap;
+  box-shadow:inset 0 0 0 1px var(--line)}
+/* In a heading the chip's padding orphans the possessive ("Xabi 's week"),
+   so there the marking is colour and weight only. */
+h3 .gname,summary .gname,td .gname{background:none;box-shadow:none;padding:0}
+
+.clubdot{display:inline-block;width:9px;height:9px;border-radius:50%;margin-right:6px;
+  vertical-align:0;flex:0 0 auto}
+.gchip .gtop{display:flex;align-items:center}
+.gchip .gteam{font-size:10.5px;color:var(--faint);font-family:var(--f-head);font-weight:600;
+  overflow:hidden;text-overflow:ellipsis;max-width:130px;white-space:nowrap}
+.gchip[aria-pressed="true"] .gteam{color:inherit;opacity:.85}
+
+details.fold{border:1px solid var(--line);border-radius:var(--r);background:var(--card);
+  padding:0;margin:0 0 14px;box-shadow:var(--shadow)}
+details.fold > summary{cursor:pointer;padding:14px 18px;font-family:var(--f-head);font-weight:700;
+  font-size:14px;list-style:none;display:flex;gap:10px;align-items:center}
+details.fold > summary::-webkit-details-marker{display:none}
+details.fold > summary::after{content:"show";margin-left:auto;font-size:11px;font-weight:600;
+  color:var(--faint);text-transform:uppercase;letter-spacing:.08em}
+details.fold[open] > summary::after{content:"hide"}
+details.fold .foldbody{padding:0 18px 16px}
+
 /* --- the seam: any player name opens the locker card --- */
 .plink{color:inherit;text-decoration:none;border-bottom:1.5px dotted var(--accent);cursor:pointer;font-weight:inherit}
 .plink:hover{color:var(--accent)}
@@ -307,6 +336,14 @@ const fdrStrip = (fx) => `<span class="fdr">${fx.map(f =>
   `<i data-f="${f.fdr}" title="GW${f.gw} ${f.h?"vs":"at"} ${esc(f.opp)} · FDR ${f.fdr}">${esc(f.opp)}</i>`).join("")}</span>`;
 const ownerDots = (by) => by.length ? `<span class="owners">${by.map(n =>
   `<span class="own ${n===who?"mine":""}" title="${esc(n)}">${esc(initial(n))}</span>`).join("")}</span>` : "";
+const CLUB_COLOR = { "Chelsea":"#034694", "Man Utd":"#DA291C", "Arsenal":"#EF0107" };
+
+/* Wrap the five nicknames wherever they appear in GAFFER-room prose. Guarded
+   against "Enzo Maresca" and friends: a nickname followed by a capitalised
+   word is a real person, not one of us. */
+const NICK_RE = new RegExp(`\\b(${["Sir Alex","Xabi","Ronaldo","Enzo","Arsene"].join("|")})\\b(?! [A-Z])`, "g");
+const gname = (t) => esc(t).replace(NICK_RE, '<span class="gname">$1</span>');
+
 const vdChip = (v) => v ? `<span class="vd vd-${v.w}">${esc(v.w)}</span>${
   v.m && v.m!=="held" ? `<span class="mv ${v.m}">${v.m==="up"?"▲":v.m==="down"?"▼":"新"}</span>` : ""}` : "";
 
@@ -371,16 +408,25 @@ function linkPlayers(text){
   return out;
 }
 
+/* KB: "focus only on the 5 that matter to the group". Spurs and Newcastle
+   stop being highlighted here; they still appear in the table as league
+   members, and their news still lands in Around the top / Elsewhere. */
+const THE_FIVE_CLUBS = ["Arsenal", "Chelsea", "Liverpool", "Manchester City", "Manchester United"];
+const isOurs = (club) => THE_FIVE_CLUBS.includes(club);
+
 function leagueTable(){
   const t = DATA.digest.table;
   if (!t?.rows?.length) return "";
   return `<div class="panel" data-c="tl-table" data-label="Touchline - league table">
     <h3>${esc(t.competition)}</h3>
+    <p class="note">Only the five clubs the group actually follows are marked
+    &mdash; Arsenal, Chelsea, Liverpool, City, United. Everyone else is here as
+    a league member, not as someone to watch.</p>
     ${t.note ? `<p class="note">${esc(t.note)}</p>` : ""}
     <div class="scroll"><table><thead><tr>
       <th class="n">#</th><th>Club</th><th>Form</th><th class="n">P</th><th class="n">Pts</th>
     </tr></thead><tbody>
-    ${t.rows.map(r => `<tr class="${r.focus ? "focus" : ""}">
+    ${t.rows.map(r => `<tr class="${isOurs(r.team) ? "focus" : ""}">
       <td class="n">${r.pos}</td>
       <td>${crest(r.crest, r.team)}${esc(r.team)}</td>
       <td class="faint num">${esc(r.form || "")}</td>
@@ -394,8 +440,9 @@ function theWeek(){
   const w = DATA.digest.week ?? [];
   return `<div class="panel" data-c="tl-week" data-label="Touchline - the week">
     <h3>This week</h3>
-    <p class="note">The league's last seven days as one feed. Tagged PL or FPL, attributed to a
-    club, and filterable &mdash; the one control narrows the feed and dims the table together.</p>
+    <p class="note"><strong>This is where the real news goes.</strong> Around the top and
+    Elsewhere are deliberately secondary &mdash; the less critical things worth knowing, not a
+    second telling of what is already here. If a story leads the week it does not reappear below.</p>
     <ul class="feed">${w.map(i => `<li>
       <span class="wtag ${i.tag === "FPL" ? "fpl" : ""}">${esc(i.tag || "PL")}</span>
       <strong>${esc(i.kicker)}</strong> ${linkPlayers(i.text)}
@@ -405,7 +452,11 @@ function theWeek(){
 }
 
 function aroundTheTop(){
-  const t = DATA.digest.top_teams ?? [], e = DATA.digest.elsewhere ?? [];
+  // Spurs and Newcastle are out by KB's call — re-entry only if they are
+  // genuinely top four after GW10, which is a rule the config should hold.
+  const t = (DATA.digest.top_teams ?? []).filter(r => isOurs(r.club));
+  const dropped = (DATA.digest.top_teams ?? []).filter(r => !isOurs(r.club)).map(r => r.club);
+  const e = DATA.digest.elsewhere ?? [];
   const one = (r) => `<div class="row">
     <div class="row-main"><div class="row-name">${crest(r.crest, r.club)}${esc(r.club)}</div>
     <div class="row-sub">${linkPlayers(r.note)}</div></div>
@@ -413,9 +464,11 @@ function aroundTheTop(){
   return `<div class="grid2">
     <div class="panel" data-c="tl-top" data-label="Touchline - around the top">
       <h3>Around the top</h3>
-      <p class="note">One line each for the clubs the five follow, written as a league view:
-      no us, no them.</p>
+      <p class="note">One line each for the five clubs the group follows, written as a league
+      view: no us, no them. Secondary to the week above.</p>
       <div class="rows">${t.map(one).join("")}</div>
+      ${dropped.length ? `<p class="note" style="margin:12px 0 0">Dropped by rule:
+        ${dropped.map(esc).join(", ")} &mdash; back in only if actually top four after GW10.</p>` : ""}
     </div>
     <div class="panel" data-c="tl-else" data-label="Touchline - elsewhere">
       <h3>Elsewhere</h3>
@@ -447,14 +500,21 @@ function teamWatch(){
 function gafferBar(){
   return `<div class="gbar" id="gbar">${DATA.people.map(p => `
     <button class="gchip" data-nick="${esc(p.nick)}" aria-pressed="${p.nick===who}">
-      <b>${esc(p.nick)}</b><span>${p.total} pts · ${p.lg==null?"—":"#"+p.lg}</span>
+      <span class="gtop"><span class="clubdot" style="background:${CLUB_COLOR[p.club]||"var(--faint)"}"></span><b>${esc(p.nick)}</b></span>
+      <span class="gteam">${esc(p.team)}</span>
+      <span>${p.total} pts · ${p.lg==null?"—":"#"+p.lg}</span>
     </button>`).join("")}</div>`;
 }
 
 function theFive(){
   const rows = DATA.league.rows;
-  return `<div class="panel" data-c="five" data-label="The five — standings">
-    <h3>The five</h3>
+  const top = rows[0], me = rows.find(r => r.nick === who);
+  // Collapsed by default (KB): the chips above already carry the standings,
+  // so the full table is a lookup rather than a headline.
+  return `<details class="fold" data-c="five" data-label="The five — standings">
+    <summary>The league — ${esc(top.name)} lead on ${top.total}${
+      me ? `, ${esc(who)} ${me.rank === 1 ? "top" : me.rank + "th"} on ${me.total}` : ""}</summary>
+    <div class="foldbody">
     <p class="note">Live positions in <strong>${esc(DATA.league.name)}</strong>, eleven managers.
     Three fixtures are still to play, so these totals move again tonight.</p>
     <div class="scroll"><table><thead><tr>
@@ -465,24 +525,25 @@ function theFive(){
       return `<tr class="${r.nick===who?"me":""}">
         <td class="n">${r.rank}</td>
         <td>${esc(r.name)}${r.is?"":' <span class="pill">guest</span>'}</td>
-        <td>${r.nick?`<strong>${esc(r.nick)}</strong>`:'<span class="faint">—</span>'}</td>
+        <td>${r.nick?gname(r.nick):'<span class="faint">—</span>'}</td>
         <td class="n">${r.gw}</td><td class="n"><strong>${r.total}</strong></td>
         <td class="n faint">${r.rank===1?"—":"−"+(lead-r.total)}</td></tr>`;
     }).join("")}
     </tbody></table></div>
-  </div>`;
+    </div>
+  </details>`;
 }
 
 function weeklyRead(){
   const w = WEEK[who], p = DATA.people.find(x=>x.nick===who);
   return `<div class="panel" data-c="week" data-label="Your week — worked / didn't / next">
-    <h3>${esc(who)}'s week</h3>
+    <h3>${gname(who)}'s week</h3>
     <p class="note">Replaces “the call”. Written per person after the gameweek settles —
     the block the schema does not have yet. ${esc(p.team)} · ${p.total} pts · ${p.ft} free transfer${p.ft===1?"":"s"} · £${p.bank.toFixed(1)}m banked.</p>
     <div class="week3">
-      <div class="wk good"><h4>What worked</h4><p>${esc(w.good)}</p></div>
-      <div class="wk bad"><h4>What didn't</h4><p>${esc(w.bad)}</p></div>
-      <div class="wk next"><h4>What's next</h4><p>${esc(w.next)}</p></div>
+      <div class="wk good"><h4>What worked</h4><p>${gname(w.good)}</p></div>
+      <div class="wk bad"><h4>What didn't</h4><p>${gname(w.bad)}</p></div>
+      <div class="wk next"><h4>What's next</h4><p>${gname(w.next)}</p></div>
     </div>
   </div>`;
 }
@@ -501,7 +562,7 @@ function squadPanel(){
     </div>`;
   };
   return `<div class="panel" data-c="squad" data-label="Squad — XI and bench">
-    <h3>${esc(who)}'s XI</h3>
+    <h3>${gname(who)}'s XI</h3>
     <p class="note">Owner dots show how many of the five hold each player — the differential map, and the roast's raw material.</p>
     <div class="rows">${p.xi.map(line).join("")}</div>
     <h3 style="margin-top:18px">Bench</h3>
@@ -521,9 +582,11 @@ function watchPanel(){
     <div class="row-side">${esc(w.team)} ${esc(w.pos)}<br>£${w.price.toFixed(1)}m<br>${esc(w.ownership)}</div>
   </div>`;
   return `<div class="panel" data-c="watch" data-label="Watchlist — per person">
-    <h3>${esc(who)}'s watchlist</h3>
+    <h3>${gname(who)}'s watchlist</h3>
     <p class="note">Today this list is shared by all five and rendered under whoever is selected — which
-    misleads. Split per person: yours here, the rest of the house below.</p>
+    misleads. Split per person: yours here, the rest of the house below.
+    <strong>Stored in KV keyed by <code>gaffer_id</code></strong>, not in this browser — a star
+    set on a phone is there on the laptop, and the house list is the same for everyone.</p>
     <div class="rows">${items.map(one).join("") || '<div class="row"><div class="row-main faint">Nothing starred yet.</div></div>'}</div>
     <h3 style="margin-top:20px">On the house list</h3>
     <p class="note">Watched by the room, not by you.</p>
@@ -531,40 +594,33 @@ function watchPanel(){
   </div>`;
 }
 
-function wagersPanel(){
-  return `<div class="panel" data-c="wagers" data-label="Wagers — falsifiable claims">
-    <h3>The wagers</h3>
-    <p class="note">Claims with a settle date. Ownership is real: <code>brain</code> or <code>kb</code> today —
-    should become one of the five nicknames.</p>
-    <div class="rows">${DATA.wagers.map(w => `<div class="row">
-      <div class="row-main">
-        <div class="row-name">${esc(w.claim)}</div>
-        <div class="row-sub">${esc(w.standing||"")}</div>
-      </div>
-      <div class="row-side"><span class="pill">${esc(w.owner)}</span><br>settles GW${w.settles_gw}</div>
-    </div>`).join("")}</div>
-  </div>`;
-}
-
 function roastPanel(){
   return `<div class="panel" data-c="roast" data-label="The roast">
     <h3>The roast</h3>
     <p class="note">Post-gameweek only, never daily. Always about a decision, with the fact attached.
-    Never the same person twice running. Roasts the machine too.</p>
-    <div class="roast"><p>${esc(ROAST.text)}</p><div class="by">${esc(ROAST.by)}</div></div>
+    Never the same person twice running. Roasts the machine too. Gaffer names are marked
+    throughout, so <span class="gname">Enzo</span> the gaffer never reads as Enzo the manager.</p>
+    <div class="roast"><p>${gname(ROAST.text)}</p><div class="by">${esc(ROAST.by)}</div></div>
   </div>`;
 }
 
 function aidsPanel(){
-  const poll = DATA.poll, chips = DATA.chips;
+  const chips = DATA.chips;
+  // KB dropped the captain poll: knowing 69% captained Haaland changes nothing.
+  // What the crowd MISSED is actionable, so this is computed from the file —
+  // under 10% owned, sorted by what they actually returned.
+  const d = DATA.differentials;
   return `<div class="grid2">
-    <div class="panel" data-c="poll" data-label="Captain poll">
-      <h3>Who the crowd captained</h3>
-      <p class="note">${esc(poll.note)}</p>
-      <div class="rows">${poll.rows.map(r => `<div class="row">
-        <div class="row-main"><div class="row-name">${esc(r.name)}</div>
-        <div class="row-sub">${esc(r.team)}</div></div>
-        <div class="row-side">${r.ownership}%</div></div>`).join("")}</div>
+    <div class="panel" data-c="diffs" data-label="Differentials that stood out">
+      <h3>What the crowd missed</h3>
+      <p class="note">Under 10% owned, sorted by points returned. Not one of these sits in any
+      of the five squads — which is rather the point of showing them.</p>
+      <div class="rows">${d.map(r => `<div class="row">
+        <div class="row-main"><div class="row-name"><a class="plink" data-player="${esc(r.name)}">${esc(r.name)}</a>
+          ${r.by.length ? ownerDots(r.by) : ""}</div>
+        <div class="row-sub">${esc(r.pos)} · ${esc(r.team)} · £${r.price.toFixed(1)}m</div></div>
+        <div class="row-side"><strong style="color:var(--ok);font-size:14px">${r.pts}</strong> pts<br>${r.own}% owned</div>
+      </div>`).join("")}</div>
     </div>
     <div class="panel" data-c="chips" data-label="Chip clock">
       <h3>Chip clock</h3>
@@ -578,7 +634,7 @@ function aidsPanel(){
 }
 
 /* ---------------- locker room ---------------- */
-let fileFilter = "ours", fileQuery = "";
+let fileFilter = "ours", fileQuery = "", fileMin = 5;
 
 function injuryRoom(){
   const flagged = DATA.pool.filter(p => p.status !== "a" && p.news)
@@ -595,8 +651,9 @@ function injuryRoom(){
   </div>`;
   return `<div class="panel" data-c="injury" data-label="Injury room">
     <h3>Injury room</h3>
-    <p class="note">115 players are flagged right now. The ones the five actually own come first —
-    everything else is noise until it is cheap enough to matter.</p>
+    <p class="note">Reference, not a decision — it sits below the file because it is for keeping an
+    eye on returns, not for picking anyone. 115 players are flagged right now; the ones the five
+    actually own come first, everything else is noise until it is cheap enough to matter.</p>
     <h4 style="font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--faint);margin:6px 0 4px">Ours (${ours.length})</h4>
     <div class="rows">${ours.map(one).join("") || '<div class="row"><div class="row-main faint">Nobody we own is flagged.</div></div>'}</div>
     <h4 style="font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--faint);margin:18px 0 4px">Everyone else, most-owned first</h4>
@@ -616,7 +673,10 @@ function theFile(){
   };
   const chips = [["ours","ours"],["nailed","nailed"],["solid","solid"],["watch","watch"],
     ["sack","sack"],["flagged","flagged"],["all","everyone (604)"]];
-  let list = DATA.pool.filter(F[fileFilter]);
+  // KB: 604 is too many. Gate on ownership, but never drop a player one of
+  // the five owns — Aït-Nouri is 0.9% owned and in Enzo's XI.
+  const inFile = (p) => p.own >= fileMin || p.by.length;
+  let list = DATA.pool.filter(inFile).filter(F[fileFilter]);
   if (fileQuery) {
     const q = fileQuery.toLowerCase();
     list = list.filter(p => p.name.toLowerCase().includes(q) || p.team.toLowerCase().includes(q));
@@ -629,6 +689,12 @@ function theFile(){
     <div class="filters">
       ${chips.map(([k,l]) => `<button class="fc" data-f="${k}" aria-pressed="${k===fileFilter}">${esc(l)}</button>`).join("")}
       <input class="search" id="fq" placeholder="search name or club…" value="${esc(fileQuery)}">
+    </div>
+    <div class="filters" style="margin-bottom:16px">
+      <span style="color:var(--faint);font-family:var(--f-head);font-size:11px;
+        text-transform:uppercase;letter-spacing:.09em">Owned by at least</span>
+      ${DATA.thresholds.map(x => `<button class="fc" data-min="${x.t}" aria-pressed="${x.t===fileMin}">${
+        x.t === 0 ? "everyone" : x.t + "%"}<span class="faint"> · ${x.n}</span></button>`).join("")}
     </div>
     <div class="scroll"><table><thead><tr>
       <th>Verdict</th><th>Player</th><th class="n">£</th><th class="n">Own</th><th class="n">Pts</th><th>Next three</th>
@@ -648,7 +714,9 @@ function theFile(){
       <span><span class="sw" style="background:var(--fdr3)"></span>3</span>
       <span><span class="sw" style="background:var(--fdr4)"></span>4</span>
       <span><span class="sw" style="background:var(--fdr5)"></span>5 brutal</span>
-      <span class="faint">· showing ${list.length} of ${DATA.pool.length} loaded (604 in the real file)</span>
+      <span class="faint">· ${list.length} shown ·
+        ${DATA.thresholds.find(x => x.t === fileMin)?.n ?? "?"} in the file at this threshold, of 604 ·
+        all 38 the five own are always in, whatever their ownership</span>
     </div>
   </div>`;
 }
@@ -670,14 +738,13 @@ function fixtureRuns(){
 
 function questions(){
   const qs = [
-    ["Does the three-way split hold?","<strong>Touchline</strong> is what happened, <strong>the gaffers</strong> is what we did about it, <strong>the locker room</strong> is what we know. Anything that doesn't fit one of those three is probably duplication. If a section feels like it is in the wrong room, say which."],
-    ["Which area is the front door?","Today <code>/</code> is the gaffers and touchline sits at <code>/digest/</code>. Now that they are one platform, the landing could just as well be touchline &mdash; it is the part that is true for everyone and needs no context. My instinct is to keep the gaffers first, because the personal hook is why anyone opens it daily."],
-    ["Theme: settled?","Dugout is light, Floodlit is dark, and the toggle picks Auto by default. Teamsheet is archived in git rather than deleted. Flip between all three states above and check the dark one on your phone at night &mdash; that is where it either works or doesn't."],
-    ["The file's default view","It opens on <strong>ours</strong> (38 players). The alternative is everyone &mdash; 604 rows and a search box. A wall of 604 is the worse first impression."],
-    ["Per-person watchlists &mdash; real, or overkill?","Splitting the watchlist five ways is honest but five times the editorial. The fallback is one house list with a star per person."],
-    ["Does the roast land?","Post-gameweek, decision-based, fact attached, machine included. This one is generated from real ownership diffs."],
-    ["Captaincy is missing from the data","<code>gaffers.json</code> picks only carry start/bench, so nobody's captain is recorded and no pitch view can show a (C). A real bug, upstream of all this design."],
+    ["Settled &mdash; nothing to answer","Three-way split holds. Front door order is <strong>touchline &rarr; the gaffers &rarr; the locker room</strong>. Theme is done. The file opens on <strong>ours</strong>. Watchlists stay per-person, in KV against <code>gaffer_id</code>. Wagers and the captain poll are gone. Captaincy is parked. All of that is built into this page now."],
+    ["The one number I still need: the file's cut-off","You said <em>more than x% ownership, not sure what that number is</em>. The control above the file is live &mdash; each option shows what it actually leaves you with. <strong>5% gives 75 players</strong>, which is the smallest set that still feels like a database rather than a shortlist; 2% gives 125, 10% gives 56. Everyone in the five squads is in regardless, so the only thing this number changes is how much of the rest of the league you can browse. Pick one and it becomes the default."],
+    ["Spurs and Newcastle: is the re-entry rule right?","They are out of Around the top and unmarked in the table. I have written the rule as <em>back in only if actually top four after GW10</em>. That needs to live in config as a real condition, checked each week &mdash; otherwise it quietly never happens. Confirm the GW and the bar."],
+    ["Does the gaffer-name treatment work?","Every nickname in the gaffers room is marked, and deliberately <em>not</em> in touchline &mdash; where <span class='gname'>Enzo</span> genuinely means Enzo Maresca. Check the roast and the weekly read: is the marking helpful, or does it get busy when three names appear in one sentence?"],
+    ["What the crowd missed &mdash; is this the right replacement?","The captain poll is gone. This is what is under 10% owned and actually returned, computed from the file. Every player in it is one none of you own, which makes it a list of things you got wrong. That may be the useful version or the annoying one."],
   ];
+
 
   return `<div class="panel" data-c="questions" data-label="Open questions">
     <h3>What I need from you</h3>
@@ -718,7 +785,6 @@ function render(){
       ${weeklyRead()}
       ${squadPanel()}
       ${watchPanel()}
-      ${wagersPanel()}
       ${roastPanel()}
       ${aidsPanel()}
     </section>
@@ -726,8 +792,8 @@ function render(){
     <section class="section" id="locker">
       <div class="section-head"><h2>the locker room</h2><span class="tag hot">not built</span>
         <span class="mute" style="font-size:13px">what we know &mdash; every player, evidence first</span></div>
-      ${injuryRoom()}
       ${theFile()}
+      ${injuryRoom()}
       ${fixtureRuns()}
     </section>
 
@@ -744,7 +810,12 @@ function wire(){
     b.onclick = () => { if(!document.body.classList.contains("commenting")){ who = b.dataset.nick; render();
 markRoom(); } });
   document.querySelectorAll(".fc").forEach(b =>
-    b.onclick = () => { if(!document.body.classList.contains("commenting")){ fileFilter = b.dataset.f; render(); } });
+    b.onclick = () => {
+      if (document.body.classList.contains("commenting")) return;
+      if (b.dataset.min !== undefined) fileMin = Number(b.dataset.min);
+      else fileFilter = b.dataset.f;
+      render();
+    });
   const fq = document.getElementById("fq");
   if (fq) fq.oninput = (e) => {
     fileQuery = e.target.value;

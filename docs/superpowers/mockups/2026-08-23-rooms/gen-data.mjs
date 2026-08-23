@@ -2,6 +2,7 @@
 import { readFileSync, writeFileSync } from "node:fs";
 
 const P = JSON.parse(readFileSync("site/data/players.json", "utf8"));
+const CFG = JSON.parse(readFileSync("touchline.config.json", "utf8"));
 const G = JSON.parse(readFileSync("site/data/gaffers.json", "utf8"));
 const F = JSON.parse(readFileSync("site/data/fpl.json", "utf8"));
 
@@ -36,8 +37,10 @@ for (const p of [...owned, ...flagged, ...popular]) {
   });
 }
 
+const CLUB_OF = Object.fromEntries((CFG.fpl?.people ?? []).map((p) => [p.nick, p.club]));
 const people = G.people.map((g) => ({
   nick: g.nick,
+  club: CLUB_OF[g.nick] ?? null,
   team: g.team_name,
   total: g.total_points,
   gw: g.gw_points,
@@ -56,8 +59,27 @@ const people = G.people.map((g) => ({
 const D = JSON.parse(readFileSync("site/data/digests.json", "utf8")).digests;
 const latest = [...D].sort((x, y) => y.date.localeCompare(x.date))[0];
 
+// "Differentials that stood out" — KB dropped the captain poll for this.
+// Low-owned players who actually returned; computed, never asserted.
+const differentials = [...P.players]
+  .filter((p) => p.ownership < 10 && p.points > 0)
+  .sort((a, b) => b.points - a.points || a.ownership - b.ownership)
+  .slice(0, 8)
+  .map((p) => ({
+    name: p.name, team: p.team, pos: p.pos, price: p.price,
+    own: p.ownership, pts: p.points, by: p.owned_by ?? [],
+  }));
+
+// Threshold options for the player file, with the real counts behind each.
+const thresholds = [0, 1, 2, 3, 5, 10].map((t) => ({
+  t,
+  n: P.players.filter((p) => p.ownership >= t || p.owned_by?.length).length,
+}));
+
 const data = {
   digest: latest,
+  differentials,
+  thresholds,
   digestCount: D.length,
   gw: G.gameweek,
   live: G.live_gameweek,
@@ -67,10 +89,10 @@ const data = {
   pool,
   signals: F.signals,
   watchlist: F.watchlist,
-  wagers: F.wagers,
   doctrine: F.doctrine,
   chips: F.chips,
-  poll: F.captain_poll,
+  // wagers and captain_poll are gone from the design (KB, 2026-08-23) — they
+  // are not shipped in the mockup data either, so nothing dead travels with it.
   ticker: F.ticker,
   plan: F.plan,
   log: F.log,
