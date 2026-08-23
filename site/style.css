@@ -1,1096 +1,574 @@
-/* Touchline reader stylesheet.
-   Ported from the approved mockup at
-   docs/superpowers/mockups/2026-07-25-site-mockup.html
-   Additions beyond the mockup are marked below (empty state, thumb fallback tiles). */
+/* Five-a-Side — one stylesheet, three rooms.
+   =========================================================================
+   The design is one identity in two lights, signed off 2026-08-23:
+   "Dugout" in daylight and "Floodlit" at night. They share every dimension,
+   weight and radius; only the palette swaps. That is why there is one token
+   block and not two themes.
+
+   Three states, not two. An explicit choice stamps data-theme on <html>; the
+   default "auto" stamps nothing and leaves prefers-color-scheme to decide.
+   Every colour is defined on bare :root first and only REDEFINED in the dark
+   blocks — a colour whose sole definition sits inside a media query never
+   applies in the un-stamped state, which is the classic unreadable-page bug.
+   ========================================================================= */
+
 :root {
-  --bg: #f7f9f5;
-  --ink: #1a221c;
-  --dim: #5c6a60;
-  --faint: #8a978d;
-  --line: #d8e0d8;
+  --f-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  --f-mono: ui-monospace, "SF Mono", SFMono-Regular, Menlo, Consolas, monospace;
+  --f-head: var(--f-sans);
+  --f-body: var(--f-sans);
+  --f-num: var(--f-mono);
+  --r: 12px;
+  --rs: 7px;
+
+  /* Dugout — the marker board, daylight */
+  --bg: #efeee7;
   --card: #ffffff;
-  --accent: #1e7d4c;
-  --accent-ink: #14603a;
-  --club: #034694;
-  --club-bg: #e7eef8;
-  --score-bg: #eef3ee;
-  --win: #2e9e63;
-  --loss: #c94f4f;
-  --draw: #78857c;
-  --fdr1-bg: #256e43; --fdr1-ink: #ffffff;
-  --fdr2-bg: #b9dcc3; --fdr2-ink: #1a3b26;
-  --fdr3-bg: #dde5dd; --fdr3-ink: #46524a;
-  --fdr4-bg: #ecc4c4; --fdr4-ink: #5d2222;
-  --fdr5-bg: #b04a4a; --fdr5-ink: #ffffff;
-  --st-hit: #2e9e63; --st-hit-ink: #ffffff;
-  --st-miss: #c94f4f; --st-miss-ink: #ffffff;
-  --st-unl: #8a5f0a; --st-unl-ink: #ffffff;
-  --st-luck: #2f5e9e; --st-luck-ink: #ffffff;
+  --raise: #f7f6f1;
+  --ink: #191e20;
+  --mute: #5f6a6e;
+  --faint: #8a9295;
+  --line: #dee0d8;
+  --hair: #eaebe4;
+  --accent: #1657c4;
+  --on-accent: #ffffff;
+  --hot: #d0402f;
+  --ok: #137a4e;
+  --warn: #c9860f;
+  --shadow: 0 1px 2px rgba(20, 25, 20, 0.05);
+  --fdr1: #bce3cc;
+  --fdr2: #d8ecd3;
+  --fdr3: #e8e8e0;
+  --fdr4: #fbd9c6;
+  --fdr5: #f6b6a6;
+  --fdr-ink: #1b2124;
+  --grass: #1a7a49;
+  --stripe: #177043;
+  --chalk: rgba(255, 255, 255, 0.22);
 }
+
+/* Floodlit — the same board under sodium lamps */
 @media (prefers-color-scheme: dark) {
-  :root {
-    --bg: #0d1411; --ink: #e8ede8; --dim: #9db0a3; --faint: #6c7d71;
-    --line: #24312a; --card: #121b16; --accent: #4cc487; --accent-ink: #4cc487;
-    --club: #6ea8e0; --club-bg: #14202e; --score-bg: #16201a;
-    --win: #2e9e63; --loss: #c05252; --draw: #5d6a61;
-    --fdr1-bg: #1f5c3c; --fdr1-ink: #d9efe2;
-    --fdr2-bg: #1c3a29; --fdr2-ink: #9fceb0;
-    --fdr3-bg: #202c25; --fdr3-ink: #8fa295;
-    --fdr4-bg: #4a2323; --fdr4-ink: #d8a3a3;
-    --fdr5-bg: #7d2f2f; --fdr5-ink: #f1d9d9;
-    --st-hit: #2e9e63; --st-hit-ink: #ffffff;
-    --st-miss: #c05252; --st-miss-ink: #ffffff;
-    --st-unl: #d8a44c; --st-unl-ink: #201703;
-    --st-luck: #6ea8e0; --st-luck-ink: #0d1411;
+  :root:not([data-theme="light"]) {
+    --bg: #0c1017;
+    --card: #141b25;
+    --raise: #1c2534;
+    --ink: #e7eef7;
+    --mute: #8496ab;
+    --faint: #63758b;
+    --line: #26313f;
+    --hair: #1e2836;
+    --accent: #f2a93b;
+    --on-accent: #0c1017;
+    --hot: #e9564c;
+    --ok: #42bfa6;
+    --warn: #f2a93b;
+    --shadow: 0 1px 0 rgba(255, 255, 255, 0.03) inset;
+    --fdr1: #1e5e4e;
+    --fdr2: #2a4a46;
+    --fdr3: #2c3444;
+    --fdr4: #4e3a31;
+    --fdr5: #6e332c;
+    --fdr-ink: #e7eef7;
+    --grass: #125437;
+    --stripe: #0f4a30;
+    --chalk: rgba(255, 255, 255, 0.16);
   }
 }
 :root[data-theme="dark"] {
-  --bg: #0d1411; --ink: #e8ede8; --dim: #9db0a3; --faint: #6c7d71;
-  --line: #24312a; --card: #121b16; --accent: #4cc487; --accent-ink: #4cc487;
-  --club: #6ea8e0; --club-bg: #14202e; --score-bg: #16201a;
-  --win: #2e9e63; --loss: #c05252; --draw: #5d6a61;
-  --fdr1-bg: #1f5c3c; --fdr1-ink: #d9efe2;
-  --fdr2-bg: #1c3a29; --fdr2-ink: #9fceb0;
-  --fdr3-bg: #202c25; --fdr3-ink: #8fa295;
-  --fdr4-bg: #4a2323; --fdr4-ink: #d8a3a3;
-  --fdr5-bg: #7d2f2f; --fdr5-ink: #f1d9d9;
-  --st-hit: #2e9e63; --st-hit-ink: #ffffff;
-  --st-miss: #c05252; --st-miss-ink: #ffffff;
-  --st-unl: #d8a44c; --st-unl-ink: #201703;
-  --st-luck: #6ea8e0; --st-luck-ink: #0d1411;
-}
-:root[data-theme="light"] {
-  --bg: #f7f9f5; --ink: #1a221c; --dim: #5c6a60; --faint: #8a978d;
-  --line: #d8e0d8; --card: #ffffff; --accent: #1e7d4c; --accent-ink: #14603a;
-  --club: #034694; --club-bg: #e7eef8; --score-bg: #eef3ee;
-  --win: #2e9e63; --loss: #c94f4f; --draw: #78857c;
-  --fdr1-bg: #256e43; --fdr1-ink: #ffffff;
-  --fdr2-bg: #b9dcc3; --fdr2-ink: #1a3b26;
-  --fdr3-bg: #dde5dd; --fdr3-ink: #46524a;
-  --fdr4-bg: #ecc4c4; --fdr4-ink: #5d2222;
-  --fdr5-bg: #b04a4a; --fdr5-ink: #ffffff;
-  --st-hit: #2e9e63; --st-hit-ink: #ffffff;
-  --st-miss: #c94f4f; --st-miss-ink: #ffffff;
-  --st-unl: #8a5f0a; --st-unl-ink: #ffffff;
-  --st-luck: #2f5e9e; --st-luck-ink: #ffffff;
+  --bg: #0c1017;
+  --card: #141b25;
+  --raise: #1c2534;
+  --ink: #e7eef7;
+  --mute: #8496ab;
+  --faint: #63758b;
+  --line: #26313f;
+  --hair: #1e2836;
+  --accent: #f2a93b;
+  --on-accent: #0c1017;
+  --hot: #e9564c;
+  --ok: #42bfa6;
+  --warn: #f2a93b;
+  --shadow: 0 1px 0 rgba(255, 255, 255, 0.03) inset;
+  --fdr1: #1e5e4e;
+  --fdr2: #2a4a46;
+  --fdr3: #2c3444;
+  --fdr4: #4e3a31;
+  --fdr5: #6e332c;
+  --fdr-ink: #e7eef7;
+  --grass: #125437;
+  --stripe: #0f4a30;
+  --chalk: rgba(255, 255, 255, 0.16);
 }
 
-* { box-sizing: border-box; margin: 0; padding: 0; }
+* { box-sizing: border-box; }
+
 body {
-  background: var(--bg); color: var(--ink);
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-  line-height: 1.65;
-}
-.page { max-width: 660px; margin: 0 auto; padding: 0 20px 72px; position: relative; }
-
-.theme-btn {
-  position: absolute; top: 14px; right: 16px;
-  background: none; border: 1px solid var(--line); border-radius: 999px;
-  color: var(--dim); font: inherit; font-size: 11px; font-weight: 700;
-  letter-spacing: 0.08em; text-transform: uppercase;
-  padding: 4px 11px; cursor: pointer;
-}
-.theme-btn:hover, .theme-btn:focus-visible { border-color: var(--accent); color: var(--ink); outline: none; }
-
-header { padding: 44px 0 0; }
-.masthead {
-  font-family: Georgia, "Times New Roman", serif;
-  font-size: 30px; font-weight: 700; letter-spacing: 0.22em;
-  text-transform: uppercase; text-align: center;
-}
-.pitchline { position: relative; height: 26px; margin: 10px 0 6px; }
-.pitchline::before {
-  content: ""; position: absolute; left: 0; right: 0; top: 50%;
-  height: 2px; background: var(--accent); opacity: 0.85;
-}
-.pitchline::after {
-  content: ""; position: absolute; left: 50%; top: 50%;
-  width: 22px; height: 22px; transform: translate(-50%, -50%);
-  border: 2px solid var(--accent); border-radius: 50%;
+  margin: 0;
   background: var(--bg);
-}
-.strap {
-  display: flex; justify-content: center; gap: 10px; align-items: center;
-  font-size: 12.5px; color: var(--dim); letter-spacing: 0.04em; flex-wrap: wrap;
-}
-.strap .crest { width: 18px; height: 18px; }
-.club-chip { color: var(--club); font-weight: 700; }
-
-.crest { width: 22px; height: 22px; object-fit: contain; flex: 0 0 auto; }
-.crest.sm { width: 18px; height: 18px; }
-.crest.ph {
-  display: inline-flex; align-items: center; justify-content: center;
-  border-radius: 50%; background: var(--club-bg); color: var(--dim);
-  font-size: 8px; font-weight: 800; letter-spacing: 0.02em;
-  font-family: -apple-system, sans-serif;
+  color: var(--ink);
+  font-family: var(--f-body);
+  font-size: 16px;
+  line-height: 1.55;
+  -webkit-text-size-adjust: 100%;
 }
 
-article.digest { padding: 34px 0 8px; }
+.wrap { max-width: 1060px; margin: 0 auto; padding: 0 20px 80px; }
+h1, h2, h3, h4 {
+  font-family: var(--f-head); font-weight: 700; letter-spacing: -0.01em;
+  text-wrap: balance; margin: 0;
+}
+a { color: var(--accent); }
+.mute { color: var(--mute); }
+.faint { color: var(--faint); }
+.num { font-family: var(--f-num); font-variant-numeric: tabular-nums; }
+button:focus-visible, a:focus-visible, input:focus-visible, summary:focus-visible {
+  outline: 2px solid var(--accent); outline-offset: 2px;
+}
+
+/* ---------- masthead + room nav ---------------------------------------
+   The nav is what makes three pages one product, so it is identical on
+   every room and always says what each room is for. */
+.mast { padding: 26px 0 0; }
+.mast-top {
+  display: flex; flex-wrap: wrap; gap: 14px;
+  align-items: center; justify-content: space-between;
+}
+.brand {
+  font-family: var(--f-head); font-size: clamp(22px, 3.4vw, 30px);
+  font-weight: 800; letter-spacing: -0.025em; line-height: 1.05;
+  color: inherit; text-decoration: none; display: inline-flex; align-items: center; gap: 9px;
+}
+.brand img { width: 26px; height: 26px; border-radius: 6px; }
+.brand em { font-style: normal; color: var(--accent); }
+
+.themectl {
+  display: flex; gap: 3px; padding: 3px;
+  border: 1px solid var(--line); border-radius: 99px; background: var(--card);
+}
+.themectl button {
+  font-family: var(--f-head); font-size: 11.5px; font-weight: 600;
+  padding: 5px 11px; border: 0; border-radius: 99px;
+  background: transparent; color: var(--mute); cursor: pointer; line-height: 1.3;
+}
+.themectl button[aria-pressed="true"] { background: var(--accent); color: var(--on-accent); }
+
+.rooms {
+  display: flex; gap: 2px; flex-wrap: wrap;
+  margin: 20px 0 0; border-bottom: 1px solid var(--line);
+}
+.rooms a {
+  font-family: var(--f-head); font-size: 13.5px; font-weight: 700;
+  letter-spacing: -0.01em; text-decoration: none; padding: 9px 14px;
+  color: var(--mute); border-bottom: 2px solid transparent; margin-bottom: -1px;
+}
+.rooms a[aria-current="page"] { color: var(--ink); border-bottom-color: var(--accent); }
+.rooms a:hover { color: var(--ink); }
+.rooms .rn {
+  display: block; font-size: 9.5px; font-weight: 600; letter-spacing: 0.08em;
+  text-transform: uppercase; color: var(--faint); margin-top: 1px;
+}
+@media (max-width: 620px) { .rooms .rn { display: none; } .rooms a { padding: 10px 11px; } }
+
+/* ---------- section + panel ---------- */
+.section { margin: 30px 0 0; }
+.section-head {
+  display: flex; align-items: baseline; gap: 11px; flex-wrap: wrap;
+  padding-bottom: 9px; border-bottom: 2px solid var(--ink); margin-bottom: 16px;
+}
+.section-head h2 { font-size: clamp(18px, 2.6vw, 23px); font-weight: 800; letter-spacing: -0.02em; }
 .eyebrow {
-  font-size: 12px; font-weight: 700; text-transform: uppercase;
-  letter-spacing: 0.16em; color: var(--accent-ink);
+  font-family: var(--f-head); font-size: 10px; font-weight: 700;
+  letter-spacing: 0.14em; text-transform: uppercase; color: var(--faint);
 }
-.digest h1 {
-  font-family: Georgia, "Times New Roman", serif;
-  font-size: 32px; line-height: 1.2; font-weight: 700;
-  letter-spacing: -0.01em; margin: 8px 0 6px; text-wrap: balance;
+.tag {
+  font-family: var(--f-head); font-size: 10px; font-weight: 700; letter-spacing: 0.1em;
+  text-transform: uppercase; padding: 3px 7px; border-radius: var(--rs);
+  background: var(--accent); color: var(--on-accent); line-height: 1.4;
 }
-.digest .standfirst { color: var(--dim); font-size: 15.5px; margin-bottom: 22px; }
+.tag.ghost { background: transparent; color: var(--mute); border: 1px solid var(--line); }
+.tag.hot { background: var(--hot); color: #fff; }
 
-/* Scoreboard blocks */
-.board {
-  background: var(--score-bg); border: 1px solid var(--line); border-radius: 10px;
-  font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
-  font-size: 13.5px; margin: 0 0 14px; overflow-x: auto;
+.panel {
+  background: var(--card); border: 1px solid var(--line); border-radius: var(--r);
+  box-shadow: var(--shadow); padding: 17px 19px; margin: 0 0 14px; position: relative;
 }
-.blabel {
-  font-size: 10.5px; font-weight: 700; text-transform: uppercase;
-  letter-spacing: 0.14em; color: var(--faint);
-  padding: 11px 16px 0;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+.panel > h3 { font-size: 15px; font-weight: 800; letter-spacing: -0.015em; margin-bottom: 4px; }
+.panel .note { font-size: 13.5px; color: var(--mute); margin: 2px 0 13px; max-width: 70ch; }
+.grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+@media (max-width: 760px) { .grid2 { grid-template-columns: 1fr; } }
+
+.callout {
+  border-left: 3px solid var(--accent); padding: 2px 0 2px 13px;
+  margin: 13px 0; color: var(--mute); font-size: 14px;
 }
-.board .brow {
-  display: flex; justify-content: space-between; align-items: center; gap: 16px;
-  padding: 11px 16px; white-space: nowrap;
+.empty { color: var(--faint); font-size: 15px; padding: 30px 0; text-align: center; }
+
+/* ---------- tables ---------- */
+table { width: 100%; border-collapse: collapse; font-size: 14px; }
+.scroll { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+th {
+  font-family: var(--f-head); font-size: 10px; text-transform: uppercase;
+  letter-spacing: 0.09em; color: var(--faint); text-align: left; font-weight: 700;
+  padding: 0 8px 7px; border-bottom: 1px solid var(--line); white-space: nowrap;
 }
-.board .brow + .brow { border-top: 1px solid var(--line); }
-.board .who { display: flex; align-items: center; gap: 8px; }
-.board .score { font-weight: 700; font-variant-numeric: tabular-nums; }
-.board .win-row .score { color: var(--accent-ink); }
-.board .meta { color: var(--faint); font-size: 12px; }
-.ha {
-  font-size: 10px; font-weight: 700; color: var(--dim);
-  border: 1px solid var(--line); border-radius: 4px; padding: 0 5px;
-  font-family: -apple-system, sans-serif;
+td { padding: 9px 8px; border-bottom: 1px solid var(--hair); vertical-align: middle; }
+tr:last-child td { border-bottom: 0; }
+td.n, th.n { text-align: right; font-family: var(--f-num); font-variant-numeric: tabular-nums; }
+tr.me td { background: var(--raise); }
+tr.me td:first-child { box-shadow: inset 3px 0 0 var(--accent); }
+tr.focus td:nth-child(2) { font-weight: 700; }
+tr.dim td { opacity: 0.38; }
+.crest { width: 17px; height: 17px; object-fit: contain; vertical-align: -4px; margin-right: 6px; }
+.pill {
+  display: inline-block; font-family: var(--f-head); font-size: 10px; font-weight: 700;
+  letter-spacing: 0.06em; text-transform: uppercase; padding: 2px 6px;
+  border-radius: var(--rs); border: 1px solid var(--line); color: var(--mute);
 }
 
-.split { display: flex; flex-wrap: wrap; }
-.split > div { flex: 1 1 260px; padding-bottom: 12px; }
-.split > div + div { border-left: 1px solid var(--line); }
-@media (max-width: 580px) {
-  .split > div + div { border-left: none; border-top: 1px solid var(--line); }
+/* ---------- verdicts ---------- */
+.vd {
+  display: inline-block; font-family: var(--f-head); font-size: 10px; font-weight: 700;
+  letter-spacing: 0.1em; text-transform: uppercase; padding: 3px 7px;
+  border-radius: var(--rs); line-height: 1.3; white-space: nowrap;
 }
-.form-row { display: flex; gap: 16px; overflow-x: auto; padding: 10px 16px 0; }
-.fi { display: flex; flex-direction: column; align-items: center; gap: 6px; }
-.fi .pill {
-  font-size: 12px; font-weight: 700; padding: 2px 9px; border-radius: 6px;
-  color: #fff; font-variant-numeric: tabular-nums;
-}
-.fi .pill.w { background: var(--win); }
-.fi .pill.l { background: var(--loss); }
-.fi .pill.d { background: var(--draw); }
-.fi.latest .pill { box-shadow: 0 3px 0 var(--accent); }
-.fi .comp { font-size: 10px; color: var(--faint); }
+.vd-nailed { background: var(--ok); color: var(--on-accent); }
+.vd-solid { background: var(--accent); color: var(--on-accent); }
+.vd-watch { background: var(--warn); color: var(--on-accent); }
+.vd-sack { background: var(--hot); color: #fff; }
+.mv { font-family: var(--f-num); font-size: 11px; color: var(--faint); margin-left: 5px; }
+.mv.up { color: var(--ok); }
+.mv.down { color: var(--hot); }
 
-.mini { padding: 4px 8px 0; }
-.mini .mrow {
-  display: flex; align-items: center; gap: 8px;
-  padding: 5px 8px; border-radius: 6px; font-variant-numeric: tabular-nums;
+/* ---------- fixture difficulty ---------- */
+.fdr { display: flex; gap: 3px; }
+.fdr i {
+  display: flex; align-items: center; justify-content: center; font-style: normal;
+  font-family: var(--f-num); font-size: 10px; font-weight: 600;
+  min-width: 32px; height: 22px; border-radius: var(--rs); color: var(--fdr-ink);
 }
-.mini .pos { width: 18px; text-align: right; color: var(--faint); font-size: 12px; }
-.mini .tname { flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; }
-.mini .num { width: 30px; text-align: right; color: var(--dim); font-size: 12.5px; }
-.mini .mrow.us { background: var(--club-bg); font-weight: 700; }
-.mini .mrow.us .tname { color: var(--club); }
-.mini .mhead { color: var(--faint); font-size: 10.5px; }
+.fdr i[data-f="1"] { background: var(--fdr1); }
+.fdr i[data-f="2"] { background: var(--fdr2); }
+.fdr i[data-f="3"] { background: var(--fdr3); }
+.fdr i[data-f="4"] { background: var(--fdr4); }
+.fdr i[data-f="5"] { background: var(--fdr5); }
+.fdr-key {
+  display: flex; gap: 10px; align-items: center; font-size: 11px;
+  color: var(--faint); margin-top: 10px; flex-wrap: wrap;
+}
+.fdr-key .sw {
+  display: inline-block; width: 14px; height: 11px; border-radius: 2px;
+  margin-right: 4px; vertical-align: -1px;
+}
 
-/* Sections & readable prose */
-section { margin: 32px 0; }
-section h2 {
-  font-size: 12px; font-weight: 800; text-transform: uppercase;
-  letter-spacing: 0.16em; color: var(--dim); margin-bottom: 12px;
-  display: flex; align-items: center; gap: 12px;
-}
-section h2::after { content: ""; flex: 1; height: 1px; background: var(--line); }
-section p { font-size: 16px; max-width: 64ch; }
-section p + p { margin-top: 10px; }
-.digest p a, .digest .tail a { color: var(--accent-ink); text-underline-offset: 3px; }
-
-/* The Athletic-style briefing list: bold kicker + one sentence per item */
-ul.brief { list-style: none; display: flex; flex-direction: column; gap: 13px; max-width: 64ch; }
-ul.brief li { position: relative; padding-left: 20px; font-size: 16px; }
-ul.brief li::before {
-  content: ""; position: absolute; left: 2px; top: 0.62em;
-  width: 8px; height: 2px; background: var(--accent); border-radius: 1px;
-}
-ul.brief strong { font-weight: 750; }
-ul.brief .tail { color: var(--dim); }
-
-.matchrow {
-  display: flex; align-items: center; gap: 10px; margin-top: 14px;
-  background: var(--card); border: 1px solid var(--line); border-radius: 10px;
-  padding: 12px 15px; font-size: 14.5px;
-}
-.matchrow .meta { color: var(--faint); font-size: 12.5px; margin-left: auto; white-space: nowrap; }
-
-/* Team watch: player pulse rows */
-.players { display: flex; flex-direction: column; gap: 10px; }
-.player {
-  display: flex; gap: 13px; align-items: flex-start;
-  background: var(--card); border: 1px solid var(--line); border-radius: 10px;
-  padding: 12px 15px;
-}
-.avatar {
-  width: 38px; height: 38px; border-radius: 50%; flex: 0 0 auto;
-  display: flex; align-items: center; justify-content: center;
-  background: var(--club-bg); color: var(--club);
-  font-weight: 800; font-size: 13px; letter-spacing: 0.02em;
-}
-.avatar.talent { background: var(--score-bg); color: var(--accent-ink); }
-.player .ptop { display: flex; align-items: baseline; gap: 9px; flex-wrap: wrap; }
-.player .pname { font-weight: 700; font-size: 15px; }
-.player .ptag {
-  font-size: 10.5px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em;
-  color: var(--dim); border: 1px solid var(--line); border-radius: 4px; padding: 1px 6px;
-}
-.player .ptag.talent { color: var(--accent-ink); border-color: var(--accent); }
-.player .pnote { color: var(--dim); font-size: 14px; margin-top: 3px; line-height: 1.5; }
-
-.linklist { display: flex; flex-direction: column; gap: 10px; }
-a.pick {
-  display: flex; gap: 14px; align-items: flex-start; text-decoration: none; color: inherit;
-  background: var(--card); border: 1px solid var(--line); border-radius: 10px;
-  padding: 13px 16px;
-}
-a.pick:hover, a.pick:focus-visible { border-color: var(--accent); outline: none; }
-.thumb { width: 54px; height: 54px; border-radius: 8px; flex: 0 0 auto; object-fit: cover; }
-a.pick .t { display: block; font-weight: 700; font-size: 15px; line-height: 1.4; }
-a.pick .hook { display: block; color: var(--dim); font-size: 14px; margin-top: 4px; line-height: 1.5; }
-a.pick .src { color: var(--faint); font-size: 12px; margin-top: 7px; letter-spacing: 0.03em; display: block; }
-
-.rivals { display: flex; flex-direction: column; gap: 10px; }
-.rival {
+/* ---------- generic rows ---------- */
+.rows { display: flex; flex-direction: column; }
+.row {
   display: flex; gap: 12px; align-items: flex-start;
-  background: var(--card); border: 1px solid var(--line); border-radius: 10px;
-  padding: 12px 15px;
+  padding: 11px 0; border-bottom: 1px solid var(--hair);
 }
-.rival .crest { width: 26px; height: 26px; margin-top: 2px; }
-.rival .rtop { display: flex; align-items: baseline; gap: 10px; flex-wrap: wrap; }
-.rival .rname { font-weight: 700; font-size: 15px; }
-.rival .rmeta {
-  font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
-  font-size: 11.5px; color: var(--faint); font-variant-numeric: tabular-nums;
-}
-.rival .rnote { color: var(--dim); font-size: 14px; margin-top: 3px; line-height: 1.5; }
+.row:last-child { border-bottom: 0; }
+.row-main { flex: 1; min-width: 0; }
+.row-name { font-family: var(--f-head); font-weight: 700; font-size: 14.5px; }
+.row-sub { font-size: 13px; color: var(--mute); margin-top: 3px; }
+.row-side { text-align: right; white-space: nowrap; font-family: var(--f-num); font-size: 12px; color: var(--faint); }
 
-/* Rumour mill: league-wide gossip, graded by heat */
-.rumours { display: flex; flex-direction: column; gap: 10px; }
-.rumour {
-  background: var(--card); border: 1px solid var(--line); border-radius: 10px;
-  padding: 12px 15px;
+.owners { display: inline-flex; gap: 3px; margin-left: 6px; vertical-align: 1px; }
+.own {
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 17px; height: 17px; border-radius: 50%; font-family: var(--f-num);
+  font-size: 9px; font-weight: 700; background: var(--line); color: var(--mute);
 }
-.rumour .mtop { display: flex; align-items: baseline; gap: 10px; flex-wrap: wrap; }
-.rumour .mplayer { font-weight: 700; font-size: 15px; }
-.rumour .route {
-  font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
-  font-size: 11.5px; color: var(--faint); font-variant-numeric: tabular-nums;
-}
-.rumour .route .dest { color: var(--dim); font-weight: 700; }
-.heat {
-  margin-left: auto; font-size: 10.5px; font-weight: 700;
-  text-transform: uppercase; letter-spacing: 0.06em;
-  border-radius: 4px; padding: 1px 7px; white-space: nowrap;
-}
-.heat.done { background: var(--win); color: #fff; }
-.heat.close { color: var(--accent-ink); border: 1px solid var(--accent); }
-.heat.talks { color: var(--dim); border: 1px solid var(--line); }
-.heat.smoke { color: var(--faint); border: 1px dashed var(--line); }
-.rumour .mnote { color: var(--dim); font-size: 14px; margin-top: 3px; line-height: 1.5; }
+.own.mine { background: var(--accent); color: var(--on-accent); }
 
-.archive-rule {
-  margin: 44px 0 12px; display: flex; align-items: center; gap: 12px;
-  font-size: 12px; font-weight: 800; text-transform: uppercase;
-  letter-spacing: 0.16em; color: var(--dim);
+/* ---------- the seam: any player name opens their locker card ---------- */
+.plink {
+  color: inherit; text-decoration: none; border-bottom: 1.5px dotted var(--accent);
+  cursor: pointer; font-weight: inherit;
 }
-.archive-rule::after { content: ""; flex: 1; height: 1px; background: var(--line); }
-details.arch { border-bottom: 1px solid var(--line); }
-details.arch summary {
-  cursor: pointer; padding: 14px 2px; list-style: none;
-  display: flex; gap: 14px; align-items: baseline;
-}
-details.arch summary::-webkit-details-marker { display: none; }
-details.arch summary:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
-details.arch .adate {
-  font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
-  font-size: 12px; color: var(--faint); white-space: nowrap;
-  font-variant-numeric: tabular-nums;
-}
-details.arch .ahead {
-  font-family: Georgia, "Times New Roman", serif;
-  font-size: 16px; color: var(--dim);
-}
-details.arch[open] .ahead { color: var(--ink); }
-details.arch .abody { padding: 0 2px 18px; color: var(--dim); font-size: 15px; max-width: 64ch; }
+.plink:hover { color: var(--accent); }
 
-footer {
-  text-align: center; color: var(--faint); font-size: 12.5px;
-  padding-top: 56px; letter-spacing: 0.04em;
-}
-footer .footer-line { display: block; }
-footer .footer-line + .footer-line { margin-top: 5px; }
-@media (prefers-reduced-motion: no-preference) {
-  a.pick { transition: border-color 120ms ease; }
-}
-
-/* --- Additions beyond the mockup: not shown in the static preview --- */
-
-/* Loading / empty / error states in #main before data resolves. */
-.empty { color: var(--faint); font-style: italic; padding: 24px 0; }
-.empty code {
-  font-style: normal;
-  font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
-}
-
-/* Fallback tile for wider/read links with no `image`: source-colored square
-   with the first letter of the title (mockup's inline SVGs were previews of this). */
-.thumb.ph {
-  display: flex; align-items: center; justify-content: center;
-  color: #fff; font-family: Georgia, "Times New Roman", serif;
-  font-weight: 700; font-size: 20px;
-}
-
-/* --- FPL planner (site/fpl/) — squad boards, watchlist states, signals,
-   FDR ticker, ledger. Reuses .board/.players/.rumours structure above. --- */
-
-/* Squad boards: bet-note lines under a row, C/V/bet badges, bench order */
-.board .bnote {
-  padding: 0 16px 10px 40px; color: var(--dim); font-size: 12.5px;
-  white-space: normal; line-height: 1.5;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-}
-.bnote + .brow { border-top: 1px solid var(--line); }
-.cap {
-  font-size: 10px; font-weight: 800; border-radius: 4px; padding: 0 5px;
-  background: var(--accent); color: #fff;
-  font-family: -apple-system, sans-serif;
-}
-.cap.v { background: none; color: var(--accent-ink); border: 1px solid var(--accent); }
-.bet {
-  font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em;
-  color: var(--club); border: 1px solid var(--club); border-radius: 4px; padding: 0 5px;
-  font-family: -apple-system, sans-serif;
-}
-.bord { width: 14px; text-align: right; color: var(--faint); font-size: 11px; }
-.board.bench .brow { color: var(--dim); }
-
-/* Watchlist status tags (base .ptag look) */
-.ptag.rising { color: var(--accent-ink); border-color: var(--accent); }
-.ptag.cooling { color: var(--loss); border-color: var(--loss); }
-
-/* Signal tag pills + the so-what line (cards reuse .rumour) */
-.sig {
-  margin-left: auto; font-size: 10.5px; font-weight: 700;
-  text-transform: uppercase; letter-spacing: 0.06em;
-  border-radius: 4px; padding: 1px 7px; white-space: nowrap;
-}
-.sig.injury { background: var(--loss); color: #fff; }
-.sig.rotation { color: var(--dim); border: 1px solid var(--line); }
-.sig.price { color: var(--accent-ink); border: 1px solid var(--accent); }
-.sig.news { color: var(--faint); border: 1px dashed var(--line); }
-.maction { color: var(--accent-ink); font-size: 13px; font-weight: 600; margin-top: 5px; }
-.rumour .mnote + .mnote { margin-top: 6px; }
-.rumour .route a { color: inherit; text-underline-offset: 2px; }
-
-/* Ledger verdict pills */
-.vpill {
-  margin-left: auto; font-size: 10.5px; font-weight: 700;
-  text-transform: uppercase; letter-spacing: 0.06em;
-  border-radius: 4px; padding: 1px 7px; color: #fff; white-space: nowrap;
-}
-.vpill.hit { background: var(--win); }
-.vpill.miss { background: var(--loss); }
-.vpill.open { background: none; color: var(--dim); border: 1px solid var(--line); }
-
-/* Fixture-difficulty ticker grid */
-.fdr {
-  background: var(--card); border: 1px solid var(--line); border-radius: 10px;
-  padding: 10px; overflow-x: auto;
-  font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace; font-size: 11px;
-}
-.frow { display: flex; gap: 4px; align-items: stretch; padding: 2px 0; min-width: 480px; }
-.frow.fhead .fc { color: var(--faint); font-size: 10px; background: none; }
-.ft {
-  width: 38px; flex: 0 0 auto; display: flex; align-items: center;
-  font-weight: 700; color: var(--dim);
-}
-.fslot { flex: 1 1 0; min-width: 46px; display: flex; flex-direction: column; gap: 2px; }
-.fc {
-  border-radius: 5px; display: flex; align-items: center; justify-content: center;
-  padding: 3px 0; font-variant-numeric: tabular-nums; letter-spacing: 0.03em;
-}
-.fc.blank { color: var(--faint); }
-.fc.fdr1 { background: var(--fdr1-bg); color: var(--fdr1-ink); }
-.fc.fdr2 { background: var(--fdr2-bg); color: var(--fdr2-ink); }
-.fc.fdr3 { background: var(--fdr3-bg); color: var(--fdr3-ink); }
-.fc.fdr4 { background: var(--fdr4-bg); color: var(--fdr4-ink); }
-.fc.fdr5 { background: var(--fdr5-bg); color: var(--fdr5-ink); }
-.favg {
-  width: 34px; flex: 0 0 auto; display: flex; align-items: center; justify-content: flex-end;
-  color: var(--faint); font-variant-numeric: tabular-nums;
-}
-.fdr-note { color: var(--faint); font-size: 12px; font-style: italic; margin-top: 8px; }
-
-/* --- FPL planner (root page): two-tier commons + personal layer.
-   Ported from docs/superpowers/mockups/2026-08-22-fpl-v2/day0-home.html --- */
-
-  /* ---- masthead ---- */
-  h1.masthead {
-    font-family: Georgia, "Times New Roman", serif;
-    font-size: 30px; font-weight: 700; letter-spacing: 0.22em;
-    text-transform: uppercase; text-align: center;
-  }
-  h1.masthead .mdot { color: var(--faint); }
-  h1.masthead .mfpl { color: var(--accent-ink); }
-  @media (max-width: 480px) {
-    h1.masthead { font-size: 22px; letter-spacing: 0.15em; }
-  }
-  .strap a { color: inherit; }
-  .deadline {
-    margin-top: 14px; text-align: center;
-    font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
-    font-size: 12.5px; color: var(--dim); font-variant-numeric: tabular-nums;
-  }
-  .deadline .dl { font-weight: 700; text-transform: uppercase; font-size: 10.5px; letter-spacing: 0.12em; color: var(--faint); margin-right: 6px; }
-  .deadline strong { color: var(--accent-ink); font-weight: 700; }
-  .deadline.urgent {
-    width: fit-content; margin: 14px auto 0;
-    background: var(--score-bg); border: 1px solid var(--accent); border-radius: 8px;
-    padding: 7px 14px; color: var(--ink); font-size: 13px;
-  }
-  .deadline.urgent .dl { color: var(--accent-ink); }
-
-  main { padding-top: 8px; }
-
-  /* ---- the call: the digest's article grammar, verbatim ---- */
-  .eyebrow .star-glyph { letter-spacing: 0; }
-  article.digest h2.headline {
-    font-family: Georgia, "Times New Roman", serif;
-    font-size: 29px; line-height: 1.22; font-weight: 700;
-    letter-spacing: -0.01em; margin: 8px 0 6px; text-wrap: balance;
-  }
-  .standfirst { color: var(--dim); font-size: 15.5px; margin-bottom: 16px; }
-  .standfirst b { color: var(--ink); }
-
-  /* the desk = the scoreboard block */
-  .deskrow {
-    display: flex; flex-wrap: wrap; align-items: baseline; gap: 4px 10px;
-    padding: 7px 16px 12px; font-variant-numeric: tabular-nums;
-  }
-  .deskrow .team {
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-    font-weight: 700; font-size: 14px; margin-right: 4px;
-  }
-  .deskrow .sep { color: var(--faint); }
-  .deskrow .stat { white-space: nowrap; color: var(--dim); }
-  .deskrow .stat b { color: var(--ink); font-weight: 700; }
-
-  .reasoning { font-size: 16px; max-width: 64ch; }
-  .wager {
-    font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
-    font-size: 12px; color: var(--dim); margin-top: 12px;
-    font-variant-numeric: tabular-nums;
-  }
-  .wager .wlab {
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-    font-size: 10px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase;
-    color: var(--faint); margin-right: 5px;
-  }
-
-  /* FYI: two quiet lines with starrable moves */
-  .fyi { list-style: none; margin-top: 18px; display: flex; flex-direction: column; gap: 8px; }
-  .fyi li { display: flex; align-items: baseline; gap: 9px; font-size: 14.5px; flex-wrap: wrap; }
-  .kick {
-    font-size: 10.5px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em;
-    color: var(--dim); border: 1px solid var(--line); border-radius: 4px; padding: 1px 6px;
-    white-space: nowrap;
-  }
-  .kick.daring { color: var(--accent-ink); border-color: var(--accent); }
-  .fyi .move { font-weight: 700; }
-  .fyi .tail { color: var(--dim); }
-
-  /* star toggles */
-  button.star {
-    background: none; border: none; cursor: pointer; font: inherit;
-    color: var(--faint); font-size: 15px; line-height: 1; padding: 2px 4px;
-  }
-  button.star[aria-pressed="true"] { color: var(--accent-ink); }
-
-  /* ---- sections: small-caps header + hairline, verbatim ---- */
-  section > h2 {
-    font-size: 12px; font-weight: 800; text-transform: uppercase;
-    letter-spacing: 0.16em; color: var(--dim); margin-bottom: 12px;
-    display: flex; align-items: center; gap: 12px;
-  }
-  section > h2::after { content: ""; flex: 1; height: 1px; background: var(--line); }
-  section > h2 .h2-right {
-    font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
-    font-size: 11px; font-weight: 400; letter-spacing: 0.02em; text-transform: none;
-    color: var(--faint); order: 2;
-  }
-
-  /* briefing list — prose only */
-  .up { color: var(--accent-ink); font-weight: 700; }
-
-  /* ---- shared micro-chips ---- */
-  .tchip {
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-    font-size: 9px; font-weight: 800; letter-spacing: 0.05em;
-    color: var(--faint); border: 1px solid var(--line); border-radius: 3px;
-    padding: 0 4px; flex: 0 0 auto; line-height: 1.6; text-transform: uppercase;
-  }
-  .dag { color: var(--st-luck); font-weight: 700; font-style: normal; }
-
-  /* ---- signal cards (the week) ---- */
-  .signals { display: flex; flex-direction: column; gap: 8px; }
-  .signal {
-    display: flex; gap: 11px; align-items: flex-start;
-    background: var(--card); border: 1px solid var(--line); border-radius: 10px;
-    padding: 9px 13px;
-  }
-  .sig.ban { background: var(--st-unl); color: var(--st-unl-ink); }
-  .sig.doubt { color: var(--st-miss); border: 1px solid var(--st-miss); padding: 0; }
-  .sig.managers { color: var(--dim); border: 1px solid var(--line); padding: 0; }
-  .signal .stext { font-size: 14px; line-height: 1.5; min-width: 0; }
-  .signal .stext b { font-size: 14.5px; }
-  .signal .tail { color: var(--dim); }
-
-  /* ---- bar boards (template board, captain poll) ---- */
-  .tboard { padding: 0 14px 12px; }
-  .tboard .blabel { padding: 11px 0 0; }
-  .tgroup {
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-    font-size: 10px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase;
-    color: var(--faint); padding: 9px 0 3px;
-  }
-  .trow { display: flex; align-items: center; gap: 8px; padding: 3px 0; font-variant-numeric: tabular-nums; }
-  .trow .tname {
-    flex: 0 0 88px; font-size: 12.5px;
-    white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
-  }
-  .tbar { flex: 1 1 40px; height: 4px; background: var(--line); border-radius: 2px; overflow: hidden; }
-  .tbar i { display: block; height: 100%; background: var(--accent); border-radius: 2px; }
-  .tpct { flex: 0 0 30px; text-align: right; font-size: 11.5px; color: var(--dim); }
-  .tboard.poll { padding-bottom: 11px; }
-  .tboard.poll .trow:first-of-type { margin-top: 5px; }
-
-  /* ---- penalty takers: two-column chip grid ---- */
-  .pengrid { display: grid; grid-template-columns: 1fr 1fr; gap: 0 18px; max-width: 64ch; }
-  .pen {
-    display: flex; align-items: baseline; gap: 9px;
-    padding: 6px 2px; border-top: 1px solid var(--line); font-size: 14.5px;
-  }
-  .pen:nth-child(-n+2) { border-top: none; }
-  .pen.wide { grid-column: 1 / -1; }
-  .pen .popen { font-style: italic; color: var(--dim); font-size: 13.5px; }
-  @media (max-width: 355px) {
-    .pengrid { grid-template-columns: 1fr; }
-    .pen:nth-child(2) { border-top: 1px solid var(--line); }
-  }
-
-  /* ---- fixture runs: colored FDR strips ---- */
-  .fdrwrap { display: grid; grid-template-columns: 1fr 1fr; gap: 2px 18px; padding: 9px 14px 13px; }
-  @media (max-width: 355px) { .fdrwrap { grid-template-columns: 1fr; } }
-  .flabel {
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-    font-size: 10px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase;
-    color: var(--faint); padding: 3px 0 5px;
-  }
-  .fx-key { color: var(--faint); font-size: 13px; }
-
-  /* ---- squad boards: pos chip · name · badges · team · price ---- */
-  details.squad {
-    background: var(--card); border: 1px solid var(--line); border-radius: 10px;
-    overflow: hidden;
-  }
-  details.squad summary {
-    cursor: pointer; list-style: none;
-    display: flex; align-items: baseline; gap: 10px;
-    padding: 12px 15px; font-size: 14.5px;
-  }
-  details.squad summary::-webkit-details-marker { display: none; }
-  .chev::before {
-    content: "\25B8"; display: inline-block; color: var(--faint); font-size: 12px;
-  }
-  details[open] .chev::before { transform: rotate(90deg); }
-  @media (prefers-reduced-motion: no-preference) {
-    .chev::before { transition: transform 140ms ease; }
-  }
-  .sum-main { font-weight: 700; white-space: nowrap; }
-  .sum-sub { color: var(--dim); min-width: 0; }
-  .sum-right {
-    margin-left: auto; white-space: nowrap;
-    font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
-    font-size: 12px; color: var(--faint); font-variant-numeric: tabular-nums;
-  }
-  .sqb {
-    border-top: 1px solid var(--line); background: var(--score-bg);
-    padding: 7px 14px 9px;
-    font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
-    font-size: 12.5px; font-variant-numeric: tabular-nums;
-  }
-  .srow { display: flex; align-items: center; gap: 7px; padding: 3px 0; min-width: 0; }
-  .posc {
-    flex: 0 0 34px; text-align: center;
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-    font-size: 9px; font-weight: 800; letter-spacing: 0.08em; text-transform: uppercase;
-    color: var(--faint); border: 1px solid var(--line); border-radius: 4px; line-height: 1.7;
-  }
-  .sname { min-width: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-  .srow .tchip { margin-left: auto; }
-  .sprice { flex: 0 0 32px; text-align: right; color: var(--dim); font-size: 11.5px; }
-  .srow.bench { color: var(--dim); }
-  .srow.bench .posc { border-style: dashed; }
-  .srow.b1 { border-top: 1px solid var(--line); margin-top: 5px; padding-top: 7px; }
-  .bo { flex: 0 0 10px; text-align: right; font-style: normal; color: var(--faint); font-size: 10.5px; }
-  .foot {
-    border-top: 1px solid var(--line); padding: 9px 15px 11px;
-    font-size: 12.5px; color: var(--faint); line-height: 1.55;
-  }
-  .snote { color: var(--dim); font-size: 13.5px; margin-top: 10px; max-width: 64ch; }
-  .digest details.squad { margin: 4px 0 16px; }
-
-  /* ---- chip clock: token · window · expiry chip ---- */
-  .chip { display: flex; gap: 11px; padding: 9px 2px; align-items: baseline; }
-  .chip + .chip { border-top: 1px solid var(--line); }
-  .ctok {
-    flex: 0 0 44px; text-align: center;
-    font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
-    font-size: 11px; font-weight: 700; color: var(--ink);
-    border: 1px solid var(--line); border-radius: 5px; padding: 1px 0;
-    white-space: nowrap; align-self: center;
-  }
-  .cnote { color: var(--dim); font-size: 14px; flex: 1; min-width: 0; }
-  .cnote b { color: var(--ink); }
-  .cexp {
-    font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
-    font-size: 10.5px; color: var(--faint); white-space: nowrap;
-    border: 1px solid var(--line); border-radius: 4px; padding: 0 6px;
-    align-self: center;
-  }
-
-  /* ---- watchlist: player cards with avatar initials ---- */
-  .avatar.rising { color: var(--accent-ink); border-color: var(--accent); }
-  .ptop { display: flex; align-items: baseline; gap: 9px; flex-wrap: wrap; }
-  .pname { font-weight: 700; font-size: 15px; }
-  .ptag {
-    font-size: 10.5px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em;
-    color: var(--dim); border: 1px solid var(--line); border-radius: 4px; padding: 1px 6px;
-    white-space: nowrap; background: none;
-  }
-  .ptag.hold { color: var(--dim); }
-  .pnote { color: var(--dim); font-size: 14px; margin-top: 2px; line-height: 1.5; }
-
-  /* ---- open wagers: cards with a settle chip ---- */
-  .wagers { display: flex; flex-direction: column; gap: 8px; }
-  .wcard {
-    display: flex; align-items: baseline; gap: 10px; flex-wrap: wrap;
-    background: var(--card); border: 1px solid var(--line); border-radius: 10px;
-    padding: 9px 13px; font-size: 14px;
-  }
-  .wcard .wtext { color: var(--dim); flex: 1 1 20ch; min-width: 0; line-height: 1.5; }
-  .wcard .wtext b { color: var(--ink); }
-  .settle {
-    margin-left: auto; font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
-    font-size: 10.5px; color: var(--faint); border: 1px solid var(--line); border-radius: 4px;
-    padding: 0 6px; white-space: nowrap; font-variant-numeric: tabular-nums;
-  }
-
-  /* ---- doctrine: numbered quiet lines ---- */
-  .doc { display: flex; gap: 11px; align-items: baseline; padding: 7px 2px; }
-  .doc + .doc { border-top: 1px solid var(--line); }
-  .dnum {
-    font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
-    font-size: 11px; color: var(--faint); flex: 0 0 22px;
-  }
-  .dtext { color: var(--dim); font-size: 14px; }
-  .newtag {
-    font-size: 9.5px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase;
-    color: var(--accent-ink); border: 1px solid var(--accent); border-radius: 4px;
-    padding: 0 5px; margin-left: 4px; white-space: nowrap;
-  }
-
-  /* ---- the race: manager chip cloud + benchmark ghost rows ---- */
-  .mgrcloud { display: flex; flex-wrap: wrap; gap: 6px; padding: 6px 14px 12px; }
-  .mgr {
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-    font-size: 11px; font-weight: 600; color: var(--dim);
-    border: 1px solid var(--line); border-radius: 999px; padding: 1px 9px;
-    white-space: nowrap;
-  }
-  .mgr.us { color: var(--accent-ink); border-color: var(--accent); font-weight: 700; }
-  .ghosts { border-top: 1px solid var(--line); padding: 8px 14px 11px; }
-  .ghead {
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-    font-size: 10px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase;
-    color: var(--faint); padding-bottom: 2px;
-  }
-  .grow {
-    display: flex; align-items: baseline; gap: 8px; padding: 3px 14px;
-    font-size: 12.5px; font-variant-numeric: tabular-nums;
-  }
-  .grow .gname { flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-  .grow .gpts { color: var(--dim); width: 34px; text-align: right; }
-  /* the owner keeps the club-blue highlight the digest table uses for "us" */
-  .grow.us { background: var(--club-bg); border-radius: 6px; font-weight: 700; }
-  .grow.us .gname { color: var(--club); }
-  .grow.us .gpts, .grow.us .gwpts, .grow.us .rrank { color: var(--ink); }
-  /* benchmark rows read as the shadows they are */
-  .grow.ghost .gname { color: var(--faint); font-style: italic; }
-  .grow.ghost .gpts { color: var(--faint); }
-  .race-note {
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-    font-size: 13px; color: var(--dim); line-height: 1.6;
-    padding: 0 14px 4px; max-width: none;
-  }
-  .race-note b { color: var(--ink); }
-
-  /* ---- the seam: personal above, commons below ---- */
-  .commons-rule {
-    margin: 44px 0 4px; display: flex; align-items: center; gap: 12px;
-    font-size: 12px; font-weight: 800; text-transform: uppercase;
-    letter-spacing: 0.16em; color: var(--dim);
-  }
-  .commons-rule::after { content: ""; flex: 1; height: 1px; background: var(--line); }
-  .commons-rule .cr-sub { font-weight: 400; letter-spacing: 0.08em; color: var(--faint); font-size: 11px; }
-
-  /* ---- stamp + footer ---- */
-  .stamp-wrap { text-align: center; padding-top: 46px; }
-  .stamp {
-    display: inline-block; border: 1px dashed var(--faint); border-radius: 4px;
-    padding: 3px 10px; color: var(--faint);
-    font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
-    font-size: 10.5px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase;
-  }
-  footer a { color: inherit; }
-
-/* --- Live gameweek strip (fed by functions/api/live.js) --- */
-.livefx { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 12px; }
-.lfx {
-  display: flex; align-items: baseline; gap: 7px;
-  background: var(--card); border: 1px solid var(--line); border-radius: 8px;
-  padding: 5px 10px; font-size: 12.5px;
-  font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
-  font-variant-numeric: tabular-nums;
-}
-.lteam { font-weight: 700; }
-.lteam.a { color: var(--dim); }
-.lscore { font-weight: 700; color: var(--accent-ink); }
-.lclock { color: var(--faint); font-size: 11px; }
-.livesquad .srow { gap: 7px; }
-.lmin { width: 34px; text-align: right; color: var(--faint); font-size: 11px; }
-.lpts {
-  width: 26px; text-align: right; font-weight: 700;
-  font-variant-numeric: tabular-nums;
-}
-.pbonus { color: var(--accent-ink); font-size: 10.5px; font-weight: 700; }
-.refresh {
-  font: inherit; font-size: 12px; font-weight: 700; color: var(--dim);
-  background: none; border: 1px solid var(--line); border-radius: 999px;
-  padding: 2px 11px; cursor: pointer;
-}
-.refresh:hover, .refresh:focus-visible { border-color: var(--accent); color: var(--ink); }
-.ltime { color: var(--faint); font-size: 12px; }
-.dlrel { color: var(--accent-ink); font-weight: 700; }
-.deadline.urgent .dlrel { color: var(--loss); }
-
-/* Race rows: rank, name, points — shared by the static and live tables. */
-.rrank { width: 20px; text-align: right; color: var(--faint); font-size: 11.5px; }
-.gwpts { width: 34px; text-align: right; color: var(--dim); }
-
-/* Ledger verdict stamps. Four, not two: unlucky/lucky are where calibration lives. */
-.stamp-v {
-  margin-left: auto; align-self: flex-start;
-  font-size: 10px; font-weight: 800; letter-spacing: 0.08em; text-transform: uppercase;
-  border-radius: 4px; padding: 1px 7px; white-space: nowrap;
-  border: 1px solid var(--line); color: var(--dim);
-}
-.stamp-v.st-hit { background: var(--st-hit); color: var(--st-hit-ink); border-color: var(--st-hit); }
-.stamp-v.st-miss { background: var(--st-miss); color: var(--st-miss-ink); border-color: var(--st-miss); }
-.stamp-v.st-unl { color: var(--st-unl); border-color: var(--st-unl); }
-.stamp-v.st-luck { color: var(--st-luck); border-color: var(--st-luck); }
-
-/* Signal cards: the so-what line and its source. */
-.saction { color: var(--accent-ink); font-size: 13px; font-weight: 600; margin-top: 4px; }
-.ssrc { color: var(--faint); font-size: 11.5px; margin-top: 3px; }
-.ssrc a { color: inherit; }
-
-/* --- Fixture runs: a real heat scale. Every cell is filled, including the
-   neutral middle — partial colouring reads as arbitrary highlighting. --- */
-.frw {
-  display: flex; align-items: center; gap: 4px; padding: 3px 0;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-}
-.fteam {
-  flex: 0 0 34px; font-weight: 700; font-size: 11.5px; color: var(--ink);
-  letter-spacing: 0.02em;
-}
-.frw .fc {
-  flex: 1 1 0; min-width: 0; display: flex; align-items: baseline;
-  justify-content: center; gap: 3px;
-  font-size: 11px; font-weight: 600; letter-spacing: 0.01em;
-  border-radius: 5px; padding: 3px 0; background: none;
-}
-.frw .fc i { font-style: normal; font-size: 8.5px; font-weight: 700; opacity: 0.65; }
-.fc.d1 { background: var(--fdr1-bg); color: var(--fdr1-ink); }
-.fc.d2 { background: var(--fdr2-bg); color: var(--fdr2-ink); }
-.fc.d3 { background: var(--fdr3-bg); color: var(--fdr3-ink); }
-.fc.d4 { background: var(--fdr4-bg); color: var(--fdr4-ink); }
-.fc.d5 { background: var(--fdr5-bg); color: var(--fdr5-ink); }
-.favg {
-  flex: 0 0 26px; text-align: right; color: var(--dim);
-  font-size: 11.5px; font-variant-numeric: tabular-nums; font-weight: 700;
-}
-.fkey { display: inline-flex; align-items: center; gap: 3px; margin-left: 8px; }
-.fkey span { font-size: 9px; font-weight: 400; letter-spacing: 0.04em; color: var(--faint); }
-.fkey i { width: 11px; height: 7px; border-radius: 2px; display: inline-block; }
-.fkey i.d1 { background: var(--fdr1-bg); }
-.fkey i.d2 { background: var(--fdr2-bg); }
-.fkey i.d3 { background: var(--fdr3-bg); }
-.fkey i.d4 { background: var(--fdr4-bg); }
-.fkey i.d5 { background: var(--fdr5-bg); }
-
-/* --- The live gameweek, as a pitch. --- */
-.pitchwrap { margin-bottom: 14px; }
-.pitchhead {
-  display: flex; justify-content: space-between; align-items: baseline;
-  gap: 12px; flex-wrap: wrap; margin-bottom: 7px;
-}
-.pitchhead .ph-l {
-  font-size: 10.5px; font-weight: 700; text-transform: uppercase;
-  letter-spacing: 0.14em; color: var(--faint);
-}
-.pitchhead .ph-r {
-  font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
-  font-size: 12px; color: var(--dim); font-variant-numeric: tabular-nums;
-}
-.pitchhead .ph-r b { color: var(--ink); font-size: 14px; }
-.pitch {
-  position: relative; background: var(--score-bg);
-  border: 1px solid var(--line); border-radius: 10px;
-  padding: 16px 8px; display: flex; flex-direction: column; gap: 14px;
-  overflow: hidden;
-}
-/* halfway line + centre circle, drawn not decorated */
-.pitch::before {
-  content: ""; position: absolute; left: 0; right: 0; top: 50%;
-  height: 1px; background: var(--line);
-}
-.pitch::after {
-  content: ""; position: absolute; left: 50%; top: 50%;
-  width: 74px; height: 74px; transform: translate(-50%, -50%);
-  border: 1px solid var(--line); border-radius: 50%;
-}
-.prow { position: relative; z-index: 1; display: flex; justify-content: space-evenly; gap: 5px; }
-.ptok {
-  flex: 0 1 auto; min-width: 0; max-width: 25%;
-  display: flex; flex-direction: column; align-items: center; gap: 1px;
-  background: var(--card); border: 1px solid var(--line); border-radius: 8px;
-  padding: 5px 7px 4px; text-align: center; position: relative;
-}
-.ptok .tpts {
-  font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
-  font-size: 15px; font-weight: 700; line-height: 1.15;
-  font-variant-numeric: tabular-nums;
-}
-.ptok .tname {
-  font-size: 11.5px; font-weight: 600; max-width: 100%;
-  overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
-}
-.ptok .tsub { font-size: 9.5px; color: var(--faint); white-space: nowrap; }
-.ptok .tsub b { color: var(--accent-ink); }
-.ptok .tb {
-  position: absolute; top: -6px; right: -5px;
-  background: var(--accent); color: #fff; font-style: normal;
-  font-size: 9px; font-weight: 800; border-radius: 999px; padding: 0 4px;
-}
-/* state: yet to play is quiet, on the pitch is live, finished is settled */
-.ptok.yet { opacity: 0.55; }
-.ptok.yet .tpts { color: var(--faint); }
-.ptok.on { border-color: var(--accent); }
-.ptok.on .tpts { color: var(--accent-ink); }
-.benchrow {
-  display: flex; align-items: center; gap: 6px; flex-wrap: wrap;
-  margin-top: 8px; padding: 8px 10px;
-  border: 1px dashed var(--line); border-radius: 10px;
-}
-.benchrow .bl {
-  font-size: 10px; font-weight: 700; text-transform: uppercase;
-  letter-spacing: 0.12em; color: var(--faint); margin-right: 2px;
-}
-.benchrow .ptok { padding: 3px 6px 2px; }
-.benchrow .ptok .tpts { font-size: 12.5px; }
-.benchrow .bpts {
-  margin-left: auto; font-family: ui-monospace, Menlo, monospace;
-  font-size: 11px; color: var(--faint); font-variant-numeric: tabular-nums;
-}
-@media (max-width: 460px) {
-  .pitch { padding: 12px 4px; gap: 10px; }
-  .ptok { padding: 4px 4px 3px; }
-  .ptok .tname { font-size: 10.5px; }
-  .ptok .tpts { font-size: 13px; }
-  .ptok .tsub { font-size: 8.5px; }
-}
-
-/* --- The player card. Every player name on the page opens the same record:
-   evidence from players.json, verdict from the brain. --- */
-#player-card {
-  border: 1px solid var(--line); border-radius: 12px; background: var(--card);
-  color: var(--ink); padding: 0; max-width: 460px; width: calc(100% - 32px);
-  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.18);
-}
-#player-card::backdrop { background: rgba(10, 16, 12, 0.42); }
-#pc-body { padding: 20px 22px 22px; }
-#pc-close {
-  position: absolute; top: 8px; right: 10px;
-  background: none; border: none; color: var(--faint);
-  font-size: 24px; line-height: 1; cursor: pointer; padding: 4px 8px;
-}
-#pc-close:hover, #pc-close:focus-visible { color: var(--ink); outline: none; }
-
-.pc-head { display: flex; align-items: baseline; gap: 8px; flex-wrap: wrap; padding-right: 26px; }
-.pc-name { font-family: Georgia, "Times New Roman", serif; font-size: 22px; font-weight: 700; }
-.pc-meta {
-  width: 100%; color: var(--dim); font-size: 12.5px; margin-top: 2px;
-  font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
-  font-variant-numeric: tabular-nums;
-}
-.pc-flag {
-  margin-top: 12px; padding: 8px 11px; border-radius: 8px;
-  background: var(--score-bg); border-left: 3px solid var(--loss);
-  font-size: 13.5px; color: var(--dim);
-}
-
-/* The verdict leads — before a single statistic. */
-.pc-verdict { margin-top: 14px; }
-.vword {
-  font-size: 12px; font-weight: 800; letter-spacing: 0.1em; text-transform: uppercase;
-  border-radius: 5px; padding: 3px 9px; display: inline-block;
-}
-.v-nailed { background: var(--win); color: #fff; }
-.v-solid { color: var(--accent-ink); border: 1px solid var(--accent); }
-.v-watch { color: var(--st-unl); border: 1px solid var(--st-unl); }
-.v-sack { background: var(--loss); color: #fff; }
-.vmove { font-style: normal; font-size: 10px; }
-.vwas { color: var(--faint); font-size: 11.5px; margin-left: 8px; }
-.pc-why { font-size: 15.5px; line-height: 1.55; margin-top: 9px; }
-.pc-trigger {
-  margin-top: 9px; font-size: 13.5px; color: var(--dim); line-height: 1.5;
-  padding-left: 11px; border-left: 2px solid var(--line);
-}
-.pc-noverdict { margin-top: 13px; color: var(--faint); font-style: italic; font-size: 14px; }
-
-.pc-stats {
-  display: flex; gap: 18px; flex-wrap: wrap; margin-top: 16px; padding-top: 13px;
-  border-top: 1px solid var(--line); font-size: 14px;
-  font-variant-numeric: tabular-nums;
-}
-.pc-stats .tl, .pc-owned .tl, .pc-trigger .tl {
-  display: block; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-  font-size: 9.5px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase;
-  color: var(--faint); margin-bottom: 3px;
-}
-.pc-trigger .tl { display: inline-block; margin-right: 6px; margin-bottom: 0; }
-.pc-fix { flex: 1 1 100%; }
-.pc-strip { display: inline-flex; gap: 4px; vertical-align: middle; }
-.pc-strip .fc { min-width: 52px; padding: 3px 7px; }
-.pc-avg { color: var(--faint); font-size: 12px; margin-left: 8px; }
-.pc-owned {
-  margin-top: 14px; padding-top: 12px; border-top: 1px solid var(--line);
-  display: flex; align-items: baseline; gap: 6px; flex-wrap: wrap;
-}
-.pc-owned .tl { width: 100%; }
-.ghosttext { color: var(--faint); font-size: 13px; font-style: italic; }
-
-/* Names are interactive wherever they appear. */
-[data-player] { cursor: pointer; }
-[data-player]:hover { text-decoration: underline; text-underline-offset: 3px; }
-[data-player]:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; border-radius: 4px; }
-
-/* --- Five-a-Side wordmark and room labels. The brand sits in the masthead;
-   the room you are in is named in the strap beside its siblings. --- */
-.masthead .mdot { color: var(--accent); font-weight: 400; }
-.masthead .mfpl { color: var(--accent-ink); }
-.strap .room {
-  color: var(--accent-ink); font-weight: 700;
-  letter-spacing: 0.1em; text-transform: uppercase; font-size: 11px;
-}
-
-/* --- The league page: a filterable week and a division table. --- */
-.wfilter { display: flex; gap: 6px; flex-wrap: wrap; margin: -2px 0 14px; }
-.wchip {
-  font: inherit; font-size: 11px; font-weight: 700; letter-spacing: 0.06em;
-  text-transform: uppercase; color: var(--dim); cursor: pointer;
-  background: none; border: 1px solid var(--line); border-radius: 999px; padding: 2px 10px;
-}
-.wchip:hover { border-color: var(--accent); color: var(--ink); }
-.wchip.on { background: var(--accent); border-color: var(--accent); color: #fff; }
-.wchip.club { text-transform: none; letter-spacing: 0.02em; }
+/* ---------- touchline: the week feed ---------- */
+.feed { list-style: none; margin: 0; padding: 0; }
+.feed li { padding: 11px 0; border-bottom: 1px solid var(--hair); font-size: 14.5px; line-height: 1.5; }
+.feed li:last-child { border-bottom: 0; }
+.feed li[hidden] { display: none; }
 .wtag {
-  display: inline-block; font-size: 9.5px; font-weight: 800; letter-spacing: 0.08em;
-  border-radius: 3px; padding: 0 5px; margin-right: 7px; vertical-align: 1.5px;
+  display: inline-block; font-family: var(--f-head); font-size: 9.5px; font-weight: 700;
+  letter-spacing: 0.08em; padding: 2px 6px; border-radius: var(--rs);
+  margin-right: 8px; vertical-align: 2px;
+  background: var(--raise); color: var(--mute); border: 1px solid var(--line);
 }
-.wtag.pl { background: var(--score-bg); color: var(--dim); border: 1px solid var(--line); }
-.wtag.fpl { background: var(--accent); color: #fff; }
-.mini .tform {
-  font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
-  font-size: 10.5px; color: var(--faint); letter-spacing: 0.06em; margin-left: auto;
-  padding-right: 8px;
+.wtag.fpl { background: var(--accent); color: var(--on-accent); border-color: var(--accent); }
+.clubchip { display: inline-block; font-size: 11px; color: var(--faint); margin-left: 6px; }
+
+/* ---------- filters ---------- */
+.filters { display: flex; gap: 6px; flex-wrap: wrap; align-items: center; margin-bottom: 13px; }
+.fc {
+  font-family: var(--f-head); font-size: 11.5px; font-weight: 600; padding: 6px 11px;
+  border: 1px solid var(--line); border-radius: var(--rs);
+  background: transparent; color: var(--mute); cursor: pointer;
 }
-.mini .mrow.dim { opacity: 0.35; }
-.tnote { color: var(--faint); font-size: 13px; font-style: italic; margin-top: -4px; }
-@media (prefers-reduced-motion: no-preference) {
-  .mini .mrow { transition: opacity 120ms ease; }
+.fc[aria-pressed="true"] { background: var(--ink); border-color: var(--ink); color: var(--bg); }
+.filters .flabel {
+  color: var(--faint); font-family: var(--f-head); font-size: 11px;
+  text-transform: uppercase; letter-spacing: 0.09em;
+}
+.search {
+  flex: 1; min-width: 150px; padding: 7px 11px; border: 1px solid var(--line);
+  border-radius: var(--rs); background: var(--bg); color: var(--ink);
+  font-family: var(--f-body); font-size: 13.5px;
 }
 
-/* --- The gaffers room: five managers, one page. --- */
-.roast {
-  font-family: Georgia, "Times New Roman", serif; font-size: 19px; line-height: 1.4;
-  font-style: italic; color: var(--ink); margin: 4px 0 18px;
-  padding-left: 14px; border-left: 3px solid var(--accent); max-width: 60ch;
+/* ---------- link cards (the wider game, one good read) ---------- */
+.cards { display: grid; grid-template-columns: repeat(auto-fill, minmax(230px, 1fr)); gap: 12px; }
+.lcard {
+  display: flex; flex-direction: column; text-decoration: none; color: inherit;
+  border: 1px solid var(--line); border-radius: var(--r); overflow: hidden; background: var(--card);
 }
-.gbar { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 12px; }
+.lcard:hover { border-color: var(--accent); }
+.lthumb { height: 108px; background-size: cover; background-position: center; position: relative; }
+.lthumb .letter {
+  position: absolute; inset: 0; display: flex; align-items: center; justify-content: center;
+  font-family: var(--f-head); font-size: 34px; font-weight: 800; color: rgba(255, 255, 255, 0.9);
+}
+.lbody { padding: 11px 13px; }
+.lbody .lt { font-family: var(--f-head); font-weight: 700; font-size: 14px; line-height: 1.35; }
+.lbody .lh { font-size: 12.5px; color: var(--mute); margin-top: 5px; line-height: 1.45; }
+.lbody .ls {
+  font-size: 10px; text-transform: uppercase; letter-spacing: 0.09em;
+  color: var(--faint); margin-top: 7px; font-family: var(--f-head); font-weight: 600;
+}
+
+/* ---------- rumours ---------- */
+.heat {
+  display: inline-block; font-family: var(--f-head); font-size: 9.5px; font-weight: 700;
+  letter-spacing: 0.08em; text-transform: uppercase; padding: 2px 7px; border-radius: var(--rs);
+}
+.heat.done { background: var(--ok); color: var(--on-accent); }
+.heat.close { background: var(--warn); color: var(--on-accent); }
+.heat.talks { background: var(--raise); color: var(--mute); border: 1px solid var(--line); }
+.heat.smoke { background: transparent; color: var(--faint); border: 1px dashed var(--line); }
+
+/* ---------- gaffers: headline ---------- */
+.ghead {
+  border: 1px solid var(--line); border-left: 4px solid var(--accent); border-radius: var(--r);
+  background: var(--card); box-shadow: var(--shadow); padding: 16px 18px; margin: 0 0 14px;
+}
+.ghead .gk {
+  font-family: var(--f-head); font-size: 10px; font-weight: 700; letter-spacing: 0.13em;
+  text-transform: uppercase; color: var(--accent); margin-bottom: 6px;
+}
+.ghead p {
+  margin: 0; font-size: 17px; line-height: 1.5; font-family: var(--f-head);
+  font-weight: 700; letter-spacing: -0.015em; max-width: 60ch;
+}
+.ghead .gsub {
+  margin-top: 7px; font-family: var(--f-body); font-weight: 400;
+  font-size: 13.5px; color: var(--mute);
+}
+
+/* Gaffer nicknames get their own mark: "Enzo" the gaffer and Enzo the
+   manager are different people and both appear on this site. */
+.gname {
+  font-weight: 700; color: var(--accent); background: var(--raise);
+  padding: 0 5px; border-radius: 5px; white-space: nowrap;
+  box-shadow: inset 0 0 0 1px var(--line);
+}
+h3 .gname, summary .gname, td .gname, .ghead p .gname {
+  background: none; box-shadow: none; padding: 0;
+}
+
+/* ---------- gaffers: chips ---------- */
+.gbar { display: flex; gap: 7px; flex-wrap: wrap; margin-bottom: 14px; }
 .gchip {
-  font: inherit; font-size: 12.5px; font-weight: 700; cursor: pointer;
-  background: var(--card); color: var(--dim);
-  border: 1px solid var(--line); border-radius: 999px; padding: 4px 12px;
-  display: inline-flex; align-items: baseline; gap: 6px;
+  display: flex; flex-direction: column; gap: 2px; align-items: flex-start;
+  padding: 8px 13px; border: 1px solid var(--line); border-radius: var(--rs);
+  background: var(--card); cursor: pointer; min-width: 104px; text-align: left;
+  color: var(--ink); font-family: var(--f-head);
 }
-.gchip i {
-  font-style: normal; font-size: 10.5px; font-weight: 400; color: var(--faint);
-  font-variant-numeric: tabular-nums;
+.gchip b { font-size: 13.5px; font-weight: 700; }
+.gchip .gteam {
+  font-size: 10.5px; color: var(--faint); font-family: var(--f-head); font-weight: 600;
+  overflow: hidden; text-overflow: ellipsis; max-width: 130px; white-space: nowrap;
 }
-.gchip:hover { border-color: var(--accent); color: var(--ink); }
-.gchip.on { background: var(--accent); border-color: var(--accent); color: #fff; }
-.gchip.on i { color: rgba(255, 255, 255, 0.75); }
+.gchip .gpts { font-size: 11px; color: var(--faint); font-family: var(--f-num); }
+.gchip .gtop { display: flex; align-items: center; }
+.gchip[aria-pressed="true"] { background: var(--accent); border-color: var(--accent); color: var(--on-accent); }
+.gchip[aria-pressed="true"] .gteam, .gchip[aria-pressed="true"] .gpts { color: inherit; opacity: 0.85; }
+.clubdot { display: inline-block; width: 9px; height: 9px; border-radius: 50%; margin-right: 6px; flex: 0 0 auto; }
 
-.gwnav { display: flex; align-items: center; gap: 10px; margin-bottom: 14px; }
-.gwbtn {
-  font: inherit; font-size: 13px; cursor: pointer; color: var(--dim);
-  background: none; border: 1px solid var(--line); border-radius: 6px;
-  padding: 1px 9px; line-height: 1.5;
+/* ---------- the pitch --------------------------------------------------
+   Modelled on the official FPL and FotMob lineups. Kits are drawn as inline
+   SVG rather than fetched: no external images, works offline, and tints per
+   club from one shape. */
+.pitchwrap { border-radius: var(--r); overflow: hidden; border: 1px solid var(--line); }
+.pitch {
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.06), transparent 40%),
+    repeating-linear-gradient(180deg, var(--grass) 0 52px, var(--stripe) 52px 104px);
+  padding: 34px 10px 18px; display: flex; flex-direction: column; gap: 20px; position: relative;
 }
-.gwbtn:hover:not(:disabled) { border-color: var(--accent); color: var(--ink); }
-.gwbtn:disabled { opacity: 0.35; cursor: default; }
-.gwlabel {
-  font-size: 10.5px; font-weight: 700; letter-spacing: 0.14em;
-  text-transform: uppercase; color: var(--faint);
+.pitch .chalk { position: absolute; inset: 0; pointer-events: none; }
+.pitch .chalk i { position: absolute; border: 1.5px solid var(--chalk); display: block; }
+.pitch .chalk .half { left: 8px; right: 8px; top: 50%; height: 0; border-width: 0 0 1.5px 0; }
+.pitch .chalk .circle {
+  left: 50%; top: 50%; width: 88px; height: 88px;
+  transform: translate(-50%, -50%); border-radius: 50%;
+}
+.pitch .chalk .box { left: 50%; top: -1px; width: 206px; height: 104px; transform: translateX(-50%); border-top: 0; }
+.pitch .chalk .box6 { left: 50%; top: -1px; width: 104px; height: 44px; transform: translateX(-50%); border-top: 0; }
+
+.prow { display: flex; justify-content: center; gap: 6px; flex-wrap: wrap; position: relative; z-index: 1; }
+.pp { width: 78px; position: relative; }
+.kit { display: block; width: 46px; height: 46px; margin: 0 auto 3px; }
+.pp .nb {
+  background: #22262b; color: #fff; font-family: var(--f-head); font-size: 10.5px;
+  font-weight: 700; text-align: center; padding: 3px 4px; border-radius: 4px 4px 0 0;
+  overflow: hidden; text-overflow: ellipsis; white-space: nowrap; line-height: 1.35;
+  text-decoration: none; display: block; cursor: pointer;
+}
+.pp .vb {
+  background: #f1f3f5; color: #22262b; font-family: var(--f-num); font-size: 10.5px;
+  font-weight: 700; text-align: center; padding: 3px 4px; border-radius: 0 0 4px 4px; line-height: 1.35;
+}
+.pp .vb.f1 { background: var(--fdr1); color: var(--fdr-ink); }
+.pp .vb.f2 { background: var(--fdr2); color: var(--fdr-ink); }
+.pp .vb.f3 { background: var(--fdr3); color: var(--fdr-ink); }
+.pp .vb.f4 { background: var(--fdr4); color: var(--fdr-ink); }
+.pp .vb.f5 { background: var(--fdr5); color: var(--fdr-ink); }
+.pp .arm {
+  position: absolute; top: -3px; right: 8px; width: 19px; height: 19px; border-radius: 50%;
+  background: #fff; color: #12151a; font-family: var(--f-head); font-size: 10.5px; font-weight: 800;
+  display: flex; align-items: center; justify-content: center;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.4); z-index: 2;
+}
+.pp .arm.v { background: #22262b; color: #fff; }
+.pp .dot {
+  position: absolute; top: -2px; left: 9px; width: 9px; height: 9px; border-radius: 50%;
+  background: #ff5b4d; border: 1.5px solid #fff; z-index: 2;
+}
+.benchlabel {
+  font-family: var(--f-head); font-size: 10px; font-weight: 700; letter-spacing: 0.1em;
+  text-transform: uppercase; color: var(--faint); text-align: center;
+  padding: 10px 0 0; background: var(--raise);
+}
+.benchrow {
+  background: var(--raise); padding: 10px 10px 12px;
+  display: flex; justify-content: center; gap: 6px; flex-wrap: wrap;
+}
+.benchrow .pp .nb { background: var(--ink); color: var(--bg); }
+.benchrow .pp .vb { background: var(--card); color: var(--mute); box-shadow: inset 0 0 0 1px var(--line); }
+
+.gwnav { display: flex; align-items: center; gap: 8px; margin-bottom: 12px; flex-wrap: wrap; }
+.gwnav button {
+  font-family: var(--f-head); font-size: 13px; font-weight: 700; width: 32px; height: 32px;
+  border: 1px solid var(--line); border-radius: var(--rs);
+  background: var(--card); color: var(--ink); cursor: pointer;
+}
+.gwnav button[disabled] { opacity: 0.35; cursor: default; }
+.gwnav .gwlabel { font-family: var(--f-head); font-weight: 800; font-size: 15px; letter-spacing: -0.01em; }
+.gwnav .gwstate {
+  font-family: var(--f-head); font-size: 10px; font-weight: 700; letter-spacing: 0.09em;
+  text-transform: uppercase; padding: 3px 8px; border-radius: var(--rs);
+  background: var(--raise); color: var(--mute);
+}
+.gwnav .gwstate.live { background: var(--hot); color: #fff; }
+.gwnav .gwtotal { margin-left: auto; font-family: var(--f-num); font-size: 13px; color: var(--mute); }
+.chipflag {
+  display: inline-block; font-family: var(--f-head); font-size: 10px; font-weight: 700;
+  letter-spacing: 0.08em; text-transform: uppercase; padding: 3px 8px;
+  border-radius: var(--rs); background: var(--warn); color: var(--on-accent);
 }
 
-/* The five, then everyone else behind a disclosure. */
-.grow[data-gaffer] { cursor: pointer; }
-.grow[data-gaffer]:hover { background: var(--score-bg); border-radius: 6px; }
-.gteam {
-  color: var(--faint); font-size: 11.5px; margin-left: 8px;
-  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+/* ---------- the weekly read ---------- */
+.week3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
+@media (max-width: 760px) { .week3 { grid-template-columns: 1fr; } }
+.wk {
+  border-left: 4px solid var(--line); border-radius: 0 var(--rs) var(--rs) 0;
+  padding: 12px 14px; background: var(--raise);
 }
-.grow.us .gteam { color: var(--dim); }
-details.rest { border-top: 1px solid var(--line); margin-top: 6px; }
-details.rest summary {
-  cursor: pointer; list-style: none; padding: 8px 14px;
-  font-size: 11.5px; color: var(--faint);
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+.wk h4 {
+  font-size: 10.5px; text-transform: uppercase; letter-spacing: 0.11em;
+  margin-bottom: 7px; font-weight: 700;
 }
-details.rest summary::-webkit-details-marker { display: none; }
-details.rest summary::before { content: "▸ "; color: var(--accent); }
-details.rest[open] summary::before { content: "▾ "; }
-details.rest summary:focus-visible { outline: 2px solid var(--accent); outline-offset: -2px; }
+.wk.good { border-left-color: var(--ok); } .wk.good h4 { color: var(--ok); }
+.wk.bad { border-left-color: var(--hot); } .wk.bad h4 { color: var(--hot); }
+.wk.next { border-left-color: var(--accent); } .wk.next h4 { color: var(--accent); }
+.wk p { margin: 0; font-size: 14px; line-height: 1.5; }
+
+/* ---------- the roast ---------- */
+.roast {
+  border: 1px dashed var(--hot); border-radius: var(--r);
+  padding: 18px 20px; background: var(--raise);
+}
+.roast p { margin: 0; font-size: 16px; line-height: 1.6; max-width: 66ch; }
+.roast .by {
+  margin-top: 11px; font-family: var(--f-head); font-size: 10.5px;
+  letter-spacing: 0.1em; text-transform: uppercase; color: var(--faint);
+}
+
+/* ---------- collapsible ---------- */
+details.fold {
+  border: 1px solid var(--line); border-radius: var(--r); background: var(--card);
+  padding: 0; margin: 0 0 14px; box-shadow: var(--shadow);
+}
+details.fold > summary {
+  cursor: pointer; padding: 14px 18px; font-family: var(--f-head); font-weight: 700;
+  font-size: 14px; list-style: none; display: flex; gap: 10px; align-items: center;
+}
+details.fold > summary::-webkit-details-marker { display: none; }
+details.fold > summary::after {
+  content: "show"; margin-left: auto; font-size: 11px; font-weight: 600;
+  color: var(--faint); text-transform: uppercase; letter-spacing: 0.08em;
+}
+details.fold[open] > summary::after { content: "hide"; }
+details.fold .foldbody { padding: 0 18px 16px; }
+
+/* ---------- the locker-room card ---------- */
+.backdrop {
+  position: fixed; inset: 0; background: rgba(8, 10, 14, 0.55);
+  display: flex; align-items: center; justify-content: center; padding: 20px; z-index: 80;
+}
+.backdrop[hidden] { display: none; }
+.pcard {
+  background: var(--card); border: 1px solid var(--line); border-radius: var(--r);
+  box-shadow: 0 18px 50px rgba(0, 0, 0, 0.3); max-width: 520px; width: 100%;
+  max-height: 86vh; overflow-y: auto; padding: 20px 22px; position: relative;
+}
+.pcard h3 { font-size: 19px; font-weight: 800; letter-spacing: -0.02em; }
+.pcard .meta { font-size: 13px; color: var(--mute); margin: 4px 0 14px; }
+.pcard .stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin-bottom: 14px; }
+.pcard .stat { background: var(--raise); border-radius: var(--rs); padding: 9px 10px; }
+.pcard .stat b { display: block; font-family: var(--f-num); font-size: 16px; font-variant-numeric: tabular-nums; }
+.pcard .stat span { font-size: 10px; text-transform: uppercase; letter-spacing: 0.08em; color: var(--faint); }
+.pcard .why { font-size: 14px; line-height: 1.55; margin: 0 0 8px; }
+.pcard .trig { font-size: 13px; color: var(--mute); border-left: 3px solid var(--warn); padding-left: 11px; margin: 0; }
+.pcard .close {
+  position: absolute; top: 12px; right: 12px; border: 1px solid var(--line);
+  background: var(--card); color: var(--mute); border-radius: var(--rs);
+  cursor: pointer; font-size: 13px; padding: 4px 9px; line-height: 1.3;
+}
+.pcard .sect {
+  font-size: 10px; text-transform: uppercase; letter-spacing: 0.1em;
+  color: var(--faint); font-weight: 700; margin: 16px 0 7px;
+}
+
+/* ---------- star (watchlist) ---------- */
+.star {
+  border: 0; background: transparent; cursor: pointer; font-size: 15px;
+  color: var(--faint); padding: 2px 4px; line-height: 1;
+}
+.star[aria-pressed="true"] { color: var(--warn); }
+.star[disabled] { opacity: 0.4; cursor: default; }
+
+/* ---------- footer ---------- */
+.foot {
+  margin-top: 34px; padding-top: 16px; border-top: 1px solid var(--line);
+  font-size: 12.5px; color: var(--faint); display: flex; gap: 10px; flex-wrap: wrap;
+}
+.foot a { color: inherit; }
+
+@media (prefers-reduced-motion: no-preference) {
+  .lcard, .gchip, .fc { transition: border-color 0.12s, background 0.12s; }
+}

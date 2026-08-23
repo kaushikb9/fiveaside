@@ -1,900 +1,245 @@
-// Touchline FPL — renders site/data/fpl.json into #main, plus a live strip
-// during a gameweek in play. No framework, no build step, no CDNs.
-//
-// Two tiers share the page: THE COMMONS (public — useful to any FPL manager)
-// and the personal layer, revealed by the sync toggle. Sync is a declutter
-// gate, not secrecy: an FPL team's picks are public via the API anyway.
-const $ = (sel) => document.querySelector(sel);
+/* touchline — what happened.
+   =========================================================================
+   The league room. Identical for all five: no squads, no verdicts, no
+   personal state. If something here depends on who is reading it, it belongs
+   in the gaffers room instead.
 
-const esc = (s) =>
-  String(s ?? "").replace(/[&<>"']/g, (c) =>
-    ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" })[c]);
+   Reads site/data/digests.json (append-only, one entry per date). The player
+   file and verdicts are loaded only to power the card seam — a player name
+   anywhere here opens their locker-room card.
+   ========================================================================= */
+(function () {
+  "use strict";
+  const { esc, $, loadJSON, fdrStrip, linkPlayers } = FA;
 
-const price = (n) => (Number.isFinite(n) ? `${Number(n).toFixed(1)}` : "");
-const pct = (n) => (Number.isFinite(n) ? `${n}` : "");
+  const fmtLong = (iso) => {
+    const d = new Date(iso + "T00:00:00");
+    if (isNaN(d.getTime())) return iso;
+    return d.toLocaleDateString("en-GB", {
+      weekday: "long", day: "numeric", month: "long", year: "numeric",
+    });
+  };
+  const fmtShort = (iso) => {
+    const d = new Date(iso + "T00:00:00");
+    return isNaN(d.getTime()) ? iso : d.toLocaleDateString("en-GB", { day: "numeric", month: "short" });
+  };
 
-const initials = (name) =>
-  String(name ?? "")
-    .split(/\s+/)
-    .filter(Boolean)
-    .slice(0, 2)
-    .map((w) => w[0].toUpperCase())
-    .join("") || "?";
+  const crest = (u, name) =>
+    u ? '<img class="crest" src="' + esc(u) + '" alt="" loading="lazy">' : "";
 
-const POS_ORDER = { GK: 0, DEF: 1, MID: 2, FWD: 3 };
-
-// ---------------------------------------------------------------- fragments
-
-// A squad row: position chip, name, badges, club chip, price.
-function squadRow(p, opts = {}) {
-  const badges =
-    (p.captain ? '<span class="cap">C</span>' : "") +
-    (p.vice ? '<span class="cap v">V</span>' : "") +
-    (p.bet ? '<span class="bet">bet</span><span class="dag">&dagger;</span>' : "");
-  const order = p.role === "bench" ? `<i class="bo">${esc(p.bench_order ?? "")}</i>` : "";
-  const cls = `srow${p.role === "bench" ? " bench" : ""}${opts.first ? " b1" : ""}`;
-  const right = opts.right ?? `<span class="sprice">${esc(price(p.price))}</span>`;
-  return (
-    `<div class="${cls}"><span class="posc">${esc(p.pos)}</span>${order}` +
-    `<span class="sname" data-player="${esc(p.name)}" data-team="${esc(p.team ?? "")}" role="button" tabindex="0">${esc(p.name)}</span>${badges}` +
-    `<span class="tchip">${esc(p.team ?? "")}</span>${right}</div>`
-  );
-}
-
-function squadBoard(players, opts = {}) {
-  const starters = players
-    .filter((p) => p.role !== "bench")
-    .sort((a, b) => (POS_ORDER[a.pos] ?? 9) - (POS_ORDER[b.pos] ?? 9) || b.price - a.price);
-  const bench = players
-    .filter((p) => p.role === "bench")
-    .sort((a, b) => (a.bench_order ?? 9) - (b.bench_order ?? 9));
-  return (
-    `<div class="sqb">` +
-    starters.map((p) => squadRow(p, opts)).join("") +
-    bench.map((p, i) => squadRow(p, { ...opts, first: i === 0 })).join("") +
-    `</div>`
-  );
-}
-
-// A collapsed squad behind a summary line — used for both shadow teams.
-function squadDetails(squad, summarySub, right) {
-  if (!squad?.players?.length) return "";
-  return (
-    `<details class="squad"><summary><span class="chev" aria-hidden="true"></span>` +
-    `<span class="sum-main">${esc(squad.formation ?? "")}</span>` +
-    `<span class="sum-sub">${esc(summarySub)}</span>` +
-    `<span class="sum-right">${esc(right ?? squad.value ?? "")}</span></summary>` +
-    squadBoard(squad.players) +
-    `</details>` +
-    (squad.note ? `<p class="snote">${esc(squad.note)}</p>` : "")
-  );
-}
-
-const section = (title, right, body) =>
-  body
-    ? `<section><h2>${esc(title)}${right ? `<span class="h2-right">${esc(right)}</span>` : ""}</h2>${body}</section>`
-    : "";
-
-// ------------------------------------------------------------------ commons
-
-function signalsHTML(rows) {
-  if (!rows?.length) return "";
-  const cards = rows
-    .map((s) => {
-      const who = s.player || s.team || "";
-      const src = s.url
-        ? `<a href="${esc(s.url)}" target="_blank" rel="noopener">${esc(s.source)}</a>`
-        : esc(s.source);
-      return (
-        `<div class="signal"><span class="sig ${esc(s.tag)}">${esc(s.tag)}</span>` +
-        `<div class="stext"><b>${esc(who)}</b> <span class="tail">&mdash; ${esc(s.text)}</span>` +
-        (s.action ? `<div class="saction">&rarr; ${esc(s.action)}</div>` : "") +
-        `<div class="ssrc">${src}</div></div></div>`
-      );
-    })
-    .join("");
-  return section("The week", "team news", `<div class="signals">${cards}</div>`);
-}
-
-function captainHTML(poll) {
-  if (!poll?.rows?.length) return "";
-  const max = Math.max(1, ...poll.rows.map((r) => r.ownership || 0));
-  const rows = poll.rows
-    .map(
-      (r) =>
-        `<div class="trow"><span class="tname">${esc(r.name)}</span>` +
-        `<span class="tchip">${esc(r.team)}</span>` +
-        `<span class="tbar"><i style="width:${Math.round(((r.ownership || 0) / max) * 100)}%"></i></span>` +
-        `<span class="tpct">${esc(pct(r.ownership))}%</span></div>`
-    )
-    .join("");
-  const head = poll.most_captained
-    ? `<div class="blabel">Most captained &middot; ${esc(poll.most_captained.name)}</div>`
-    : `<div class="blabel">The armband</div>`;
-  return section(
-    "The captain poll",
-    "",
-    `<div class="board tboard poll">${head}${rows}</div>` +
-      (poll.note ? `<p class="snote">${esc(poll.note)}</p>` : "")
-  );
-}
-
-function fixtureRunsHTML(ticker, gws = 3) {
-  if (!ticker?.rows?.length) return "";
-  const scored = ticker.rows
-    .map((r) => {
-      const fx = r.fixtures.filter((f) => f.gw < ticker.from_gw + gws);
-      const avg = fx.length ? fx.reduce((a, f) => a + f.fdr, 0) / fx.length : 0;
-      return { team: r.team, fx, avg };
-    })
-    .filter((r) => r.fx.length)
-    .sort((a, b) => a.avg - b.avg);
-
-  // Every cell is filled, including the neutral middle — a partially-coloured
-  // strip reads as arbitrary highlighting rather than a scale.
-  const strip = (r) =>
-    `<div class="frw"><span class="fteam">${esc(r.team)}</span>` +
-    r.fx
-      .map(
-        (f) =>
-          `<span class="fc d${esc(f.fdr)}" title="${esc(r.team)} ${f.home ? "at home to" : "away at"} ${esc(f.opp)} — difficulty ${esc(f.fdr)}/5, GW${esc(f.gw)}">` +
-          `${esc(f.opp)}<i>${f.home ? "H" : "A"}</i></span>`
-      )
-      .join("") +
-    `<span class="favg">${r.avg.toFixed(1)}</span></div>`;
-
-  const kindest = scored.slice(0, 6).map(strip).join("");
-  const hardest = scored.slice(-4).reverse().map(strip).join("");
-  const to = ticker.from_gw + gws - 1;
-  const key =
-    `<div class="fkey"><span>easier</span>` +
-    [1, 2, 3, 4, 5].map((d) => `<i class="d${d}"></i>`).join("") +
-    `<span>harder</span></div>`;
-  return section(
-    "Fixture runs",
-    `GW${ticker.from_gw}–${to}`,
-    `<div class="board"><div class="fdrwrap">` +
-      `<div><div class="flabel">Kindest run${key}</div>${kindest}</div>` +
-      `<div><div class="flabel">Hardest run</div>${hardest}</div>` +
-      `</div></div>` +
-      `<p class="snote">Opponent, then <b>H</b>ome or <b>A</b>way; the number is the run's average difficulty. ` +
-      `These are the game's own ratings, set before a ball was kicked &mdash; treat them as a starting point, not a verdict.</p>`
-  );
-}
-
-const chipsHTML = (chips) =>
-  chips?.rows?.length
-    ? section(
-        "The chip clock",
-        "",
-        chips.rows
-          .map(
-            (r) =>
-              `<div class="chip"><span class="ctok">${esc(r.code)}</span>` +
-              `<span class="cnote">${esc(r.window)}</span>` +
-              `<span class="cexp">${esc(r.expires)}</span></div>`
-          )
-          .join("") + (chips.note ? `<p class="snote">${esc(chips.note)}</p>` : "")
-      )
-    : "";
-
-// ----------------------------------------------------------------- personal
-
-function deskHTML(desk, gw) {
-  if (!desk) return "";
-  const bits = [];
-  if (desk.entered === false) bits.push("<span class='stat'>team <b>not entered yet</b></span>");
-  if (Number.isFinite(desk.gw_points))
-    bits.push(`<span class="stat">GW${esc(gw ?? "")} <b>${esc(desk.gw_points)} pts</b></span>`);
-  if (Number.isFinite(desk.total_points))
-    bits.push(`<span class="stat">season <b>${esc(desk.total_points)}</b></span>`);
-  if (Number.isFinite(desk.overall_rank))
-    bits.push(`<span class="stat">OR <b>${esc(desk.overall_rank.toLocaleString("en-GB"))}</b></span>`);
-  if (desk.league?.name)
-    bits.push(
-      `<span class="stat">${esc(desk.league.name)} <b>${esc(desk.league.rank ?? "?")}${desk.league.of ? ` of ${esc(desk.league.of)}` : ""}</b></span>`
-    );
-  if (Number.isFinite(desk.bank)) bits.push(`<span class="stat">bank <b>&pound;${esc(price(desk.bank))}m</b></span>`);
-  return (
-    `<div class="board"><div class="blabel">Your desk</div><div class="deskrow">` +
-    `<span class="team">${esc(desk.team_name)}</span>` +
-    bits.join('<span class="sep">&middot;</span>') +
-    `</div></div>`
-  );
-}
-
-function callHTML(data) {
-  const c = data.call;
-  if (!c) return "";
-  const moves = c.moves?.length
-    ? c.moves
-        .map(
-          (m) =>
-            `<div class="brow"><span class="who">${esc(m.out)} &rarr; <strong>${esc(m.in)}</strong>` +
-            `<span class="ha">${esc(m.cost)}</span></span></div><div class="bnote">${esc(m.note)}</div>`
-        )
-        .join("")
-    : "";
-  const fyi = c.alternatives?.length
-    ? `<ul class="fyi">${c.alternatives
-        .map(
-          (a, i) =>
-            `<li><span class="kick${i ? " daring" : ""}">${esc(a.kind)}</span>` +
-            `<span class="move">${esc(a.move)}</span>` +
-            `<span class="tail">${esc(a.note)}</span>` +
-            `<button class="star" type="button" aria-pressed="false" aria-label="Star this for the brain">&#9734;</button></li>`
-        )
-        .join("")}</ul>`
-    : "";
-  const squad = data.squad?.players?.length
-    ? `<details class="squad" open><summary><span class="chev" aria-hidden="true"></span>` +
-      `<span class="sum-main">${esc(data.squad.formation)}</span>` +
-      `<span class="sum-sub">the recommended squad</span>` +
-      `<span class="sum-right">bank ${esc(data.squad.bank ?? "")}</span></summary>` +
-      squadBoard(data.squad.players) +
-      (data.squad.players.some((p) => p.note)
-        ? `<div class="foot"><span class="dag">&dagger;</span> the bets &mdash; ${data.squad.players
-            .filter((p) => p.note)
-            .map((p) => `${esc(p.name)}: ${esc(p.note)}`)
-            .join(" &middot; ")}</div>`
-        : "") +
-      `</details>`
-    : "";
-  return (
-    `<article class="digest">` +
-    deskHTML(data.desk, data.live_gameweek?.id ?? data.gameweek?.id) +
-    `<p class="eyebrow"><span class="star-glyph">&#9733;</span> The call${data.gameweek ? ` &middot; Gameweek ${esc(data.gameweek.id)}` : ""}</p>` +
-    `<h2 class="headline">${esc(c.headline)}</h2>` +
-    (moves ? `<div class="board">${moves}</div>` : "") +
-    squad +
-    `<p class="reasoning">${esc(c.reasoning)}</p>` +
-    (c.chip ? `<p class="wager"><span class="wlab">Chip</span>${esc(c.chip)}</p>` : "") +
-    (c.template_drift
-      ? `<p class="wager"><span class="wlab">Template drift</span>${esc(c.template_drift)}</p>`
-      : "") +
-    fyi +
-    `</article>`
-  );
-}
-
-const watchlistHTML = (rows) =>
-  rows?.length
-    ? section(
-        "The watchlist",
-        "",
-        `<div class="players">${rows
-          .map(
-            (w) =>
-              `<div class="player"><span class="avatar${w.status === "rising" ? " rising" : ""}">${esc(initials(w.name))}</span>` +
-              `<div><div class="ptop"><span class="pname" data-player="${esc(w.name)}" data-team="${esc(w.team ?? "")}" role="button" tabindex="0">${esc(w.name)}</span>` +
-              `<span class="tchip">${esc(w.team)}</span>` +
-              `<span class="ptag ${esc(w.status)}">${esc(w.status)}</span>` +
-              (w.ownership ? `<span class="ptag">${esc(w.ownership)}</span>` : "") +
-              `</div><p class="pnote">${esc(w.note)}</p></div></div>`
-          )
-          .join("")}</div>`
-      )
-    : "";
-
-const wagersHTML = (rows) =>
-  rows?.length
-    ? section(
-        "Open wagers",
-        "written at decision time",
-        `<div class="wagers">${rows
-          .map(
-            (w) =>
-              `<div class="wcard"><span class="wtext">${esc(w.claim)}` +
-              (w.standing ? ` <span class="tail">&mdash; ${esc(w.standing)}</span>` : "") +
-              `</span><span class="settle">settles GW${esc(w.settles_gw)}</span></div>`
-          )
-          .join("")}</div>`
-      )
-    : "";
-
-// The ledger: four verdicts, because two teach outcome-worship.
-const VERDICT = { hit: "st-hit", miss: "st-miss", unlucky: "st-unl", lucky: "st-luck", open: "" };
-
-const debriefHTML = (log) =>
-  log?.length
-    ? section(
-        "The ledger",
-        `${log.length} entries`,
-        `<div class="wagers">${[...log]
-          .sort((a, b) => b.gw - a.gw)
-          .map(
-            (l) =>
-              `<div class="wcard"><span class="wtext"><b>GW${esc(l.gw)}</b> ${esc(l.call)}` +
-              (l.outcome ? ` <span class="tail">&mdash; ${esc(l.outcome)}</span>` : "") +
-              (l.lesson ? `<div class="maction">lesson: ${esc(l.lesson)}</div>` : "") +
-              `</span><span class="stamp-v ${esc(VERDICT[l.verdict] ?? "")}">${esc(l.verdict)}</span></div>`
-          )
-          .join("")}</div>`
-      )
-    : "";
-
-const doctrineHTML = (rows) =>
-  rows?.length
-    ? section(
-        "What we believe",
-        "",
-        rows
-          .map(
-            (d) =>
-              `<div class="doc"><span class="dnum">${esc(d.id)}</span>` +
-              `<span class="dtext">${esc(d.text)}` +
-              (d.status === "new" ? `<span class="newtag">new</span>` : "") +
-              `<span class="newtag est">est. ${esc(d.established)}</span></span></div>`
-          )
-          .join("")
-      )
-    : "";
-
-function raceHTML(race) {
-  if (!race) return "";
-  const rows = (race.rows ?? [])
-    .map(
-      (r) =>
-        `<div class="grow${r.is_owner ? " us" : ""}"><span class="rrank">${esc(r.rank ?? "")}</span>` +
-        `<span class="gname">${esc(r.name)}</span>` +
-        `<span class="gpts">${esc(r.total ?? "—")}</span></div>`
-    )
-    .join("");
-  const bench = (race.benchmarks ?? [])
-    .map(
-      (b) =>
-        `<div class="grow ghost"><span class="rrank"></span><span class="gname">${esc(b.name)}</span>` +
-        `<span class="gpts">${esc(b.total ?? "—")}</span></div>`
-    )
-    .join("");
-  return section(
-    "The race",
-    race.league_name,
-    `<div class="board">${rows}` +
-      (bench ? `<div class="ghosts"><div class="ghead">Benchmarks &mdash; ride along</div>${bench}</div>` : "") +
-      `</div>` +
-      (race.note ? `<p class="snote">${esc(race.note)}</p>` : "")
-  );
-}
-
-const planHTML = (plan) =>
-  plan?.outlook
-    ? section(
-        "The plan",
-        "",
-        `<p class="reasoning">${esc(plan.outlook)}</p>` +
-          (plan.items?.length
-            ? `<ul class="brief" style="margin-top:12px">${plan.items
-                .map(
-                  (i) =>
-                    `<li><strong>${esc(i.label)}.</strong> <span class="tail">${esc(i.when)} &mdash; ${esc(i.note)}</span></li>`
-                )
-                .join("")}</ul>`
-            : "")
-      )
-    : "";
-
-
-// ------------------------------------------------------------- the gaffers
-//
-// Five managers share this page, so nothing here is "mine": you pick a gaffer
-// and everything below re-renders for them. The selection is remembered, and
-// the gameweek can be walked backwards — a settled week is as interesting as
-// a live one once the arguments start.
-
-const GAFFERS = { people: [], league: null, current: null, gw: null, live: null };
-
-function setGaffer(nick) {
-  GAFFERS.current = nick;
-  try {
-    localStorage.setItem("fiveaside-gaffer", nick);
-  } catch {
-    /* ignore */
+  /* ---------- the league table ----------
+     Focus is a rule, not a stored flag: three clubs are permanent, two are
+     seeded until GW10, and after that the top six is earned. The `focus`
+     field the brain writes is deliberately ignored so the rule is the single
+     source of truth. */
+  function tableHTML(d, gw) {
+    const t = d.table;
+    if (!t || !t.rows || !t.rows.length) return "";
+    const focus = FA.focusClubs(gw, t.rows);
+    const rows = t.rows.map((r) =>
+      '<tr class="' + (focus.indexOf(r.team) !== -1 ? "focus" : "") + '" data-club="' + esc(r.team) + '">' +
+      '<td class="n">' + esc(r.pos) + "</td>" +
+      "<td>" + crest(r.crest, r.team) + esc(r.team) + "</td>" +
+      '<td class="faint num">' + esc(r.form || "") + "</td>" +
+      '<td class="n">' + esc(r.played) + "</td>" +
+      '<td class="n"><strong>' + esc(r.points) + "</strong></td></tr>").join("");
+    return '<div class="panel"><h3>' + esc(t.competition) + "</h3>" +
+      '<p class="note">Bold clubs are the ones this page follows: ' +
+      esc(FA.ALLEGIANCE.join(", ")) + " are permanent, and until GW" + FA.FOCUS_FROM_GW +
+      " the other two are seeded because an early table is noise. From GW" + FA.FOCUS_FROM_GW +
+      " it becomes the real top " + FA.FOCUS_TOP + ", recomputed every week.</p>" +
+      (t.note ? '<p class="note">' + esc(t.note) + "</p>" : "") +
+      '<div class="scroll"><table><thead><tr><th class="n">#</th><th>Club</th><th>Form</th>' +
+      '<th class="n">P</th><th class="n">Pts</th></tr></thead><tbody>' + rows +
+      "</tbody></table></div></div>";
   }
-}
 
-function currentGaffer() {
-  return GAFFERS.people.find((p) => p.nick === GAFFERS.current) ?? GAFFERS.people[0] ?? null;
-}
-
-const gafferBarHTML = () =>
-  GAFFERS.people.length
-    ? `<div class="gbar" role="group" aria-label="Whose team to show">${GAFFERS.people
-        .map(
-          (p) =>
-            `<button class="gchip${p.nick === GAFFERS.current ? " on" : ""}" data-gaffer="${esc(p.nick)}" type="button">` +
-            `${esc(p.nick)}<i>${esc(p.total_points ?? 0)}</i></button>`
-        )
-        .join("")}</div>`
-    : "";
-
-// The five as their own table, because the eleven-team league is context and
-// these five are the argument. Everyone else is one tap away.
-function theFiveHTML() {
-  const rows = GAFFERS.league?.rows ?? [];
-  if (!rows.length) return "";
-  const five = rows.filter((r) => r.is_gaffer);
-  const rest = rows.filter((r) => !r.is_gaffer);
-  const line = (r, i) =>
-    `<div class="grow${r.nick === GAFFERS.current ? " us" : ""}"${r.nick ? ` data-gaffer="${esc(r.nick)}"` : ""}>` +
-    `<span class="rrank">${esc(r.rank ?? i + 1)}</span>` +
-    `<span class="gname">${esc(r.nick ?? r.name)}</span>` +
-    (r.nick ? `<span class="gteam">${esc(r.name)}</span>` : "") +
-    `<span class="gwpts">${esc(r.event_total ?? 0)}</span>` +
-    `<span class="gpts">${esc(r.total ?? 0)}</span></div>`;
-  return section(
-    "The five",
-    GAFFERS.league.name,
-    `<div class="board">${five.map(line).join("")}` +
-      (rest.length
-        ? `<details class="rest"><summary>and ${esc(rest.length)} more in the league</summary>` +
-          rest.map(line).join("") +
-          `</details>`
-        : "") +
-      `<p class="race-note">Gameweek points, then the season. Tap a name to see their team.</p></div>`
-  );
-}
-
-// Walking the gameweeks: the live one when there is one, otherwise the last
-// settled. Bounded so the arrows cannot ask for a week that never happened.
-function gwNavHTML(maxGw) {
-  const gw = GAFFERS.gw;
-  if (!gw) return "";
-  return (
-    `<div class="gwnav">` +
-    `<button class="gwbtn" data-gw="${esc(gw - 1)}" type="button" ${gw <= 1 ? "disabled" : ""} aria-label="Previous gameweek">&#9666;</button>` +
-    `<span class="gwlabel">Gameweek ${esc(gw)}</span>` +
-    `<button class="gwbtn" data-gw="${esc(gw + 1)}" type="button" ${gw >= maxGw ? "disabled" : ""} aria-label="Next gameweek">&#9656;</button>` +
-    `</div>`
-  );
-}
-
-function gafferDeskHTML(p) {
-  if (!p) return "";
-  const bits = [];
-  if (Number.isFinite(p.total_points)) bits.push(`<span class="stat">season <b>${esc(p.total_points)}</b></span>`);
-  if (Number.isFinite(p.league_rank)) bits.push(`<span class="stat">the five <b>#${esc(p.league_rank)}</b></span>`);
-  if (Number.isFinite(p.overall_rank))
-    bits.push(`<span class="stat">OR <b>${esc(p.overall_rank.toLocaleString("en-GB"))}</b></span>`);
-  if (Number.isFinite(p.bank)) bits.push(`<span class="stat">bank <b>&pound;${esc(price(p.bank))}m</b></span>`);
-  if (Number.isFinite(p.value)) bits.push(`<span class="stat">value <b>&pound;${esc(price(p.value))}m</b></span>`);
-  const chips = (p.chips_used ?? []).length
-    ? `<span class="stat">chips used <b>${p.chips_used.map(esc).join(", ")}</b></span>`
-    : `<span class="stat">chips <b>all intact</b></span>`;
-  return (
-    `<div class="board"><div class="blabel">${esc(p.nick)}&rsquo;s desk</div><div class="deskrow">` +
-    `<span class="team">${esc(p.team_name)}</span>` +
-    [...bits, chips].join('<span class="sep">&middot;</span>') +
-    `</div></div>`
-  );
-}
-
-// The pitch for whoever is selected, for whichever gameweek. Live data when the
-// proxy answers; the static squad when it does not.
-function gafferPitchHTML(p, live) {
-  if (!p) return "";
-  const useLive = live?.squad?.length;
-  const squad = useLive
-    ? live.squad
-    : (p.picks ?? []).map((x) => ({ ...x, points: null, played: false, minutes: 0 }));
-  if (!squad.length) return "";
-
-  const inPlay = new Set(
-    (live?.fixtures ?? []).filter((f) => f.started && !f.finished).flatMap((f) => [f.home, f.away])
-  );
-  const token = (x) => {
-    const pts = useLive ? x.points * (x.role === "bench" ? 1 : x.multiplier || 1) : null;
-    const state = !useLive ? "" : !x.played ? " yet" : inPlay.has(x.team) ? " on" : " done";
-    const badge = x.captain ? "C" : x.vice ? "V" : "";
-    const bonus = x.provisional_bonus
-      ? `<i class="tb" title="provisional bonus">+${esc(x.provisional_bonus)}</i>`
+  /* ---------- the week: the primary feed ----------
+     Around the top and Elsewhere are secondary by design. A story that leads
+     here does not reappear below. */
+  function weekHTML(d) {
+    if (!d.week || !d.week.length) return "";
+    const clubs = [];
+    d.week.forEach((w) => { if (w.club && clubs.indexOf(w.club) === -1) clubs.push(w.club); });
+    const bar = (d.week.some((w) => w.tag) || clubs.length)
+      ? '<div class="filters" role="group" aria-label="Filter the week">' +
+        '<button class="fc" data-filter="all" aria-pressed="true">All</button>' +
+        '<button class="fc" data-filter="PL" aria-pressed="false">League</button>' +
+        '<button class="fc" data-filter="FPL" aria-pressed="false">FPL</button>' +
+        clubs.map((c) =>
+          '<button class="fc" data-filter="club:' + esc(c) + '" aria-pressed="false">' + esc(c) + "</button>").join("") +
+        "</div>"
       : "";
-    return (
-      `<div class="ptok${state}" data-player="${esc(x.name)}" data-team="${esc(x.team)}" role="button" tabindex="0">` +
-      (pts === null ? "" : `<span class="tpts">${esc(pts)}</span>${bonus}`) +
-      `<span class="tname">${esc(x.name)}</span>` +
-      `<span class="tsub">${esc(x.team)}${badge ? ` <b>${badge}</b>` : ""}` +
-      `${useLive && x.played ? ` &middot; ${esc(x.minutes)}'` : ""}</span></div>`
-    );
-  };
-
-  const starters = squad.filter((x) => x.role !== "bench");
-  const bench = squad.filter((x) => x.role === "bench").sort((a, b) => a.position - b.position);
-  const line = (pos) => {
-    const row = starters.filter((x) => x.pos === pos);
-    return row.length ? `<div class="prow">${row.map(token).join("")}</div>` : "";
-  };
-  const formation = ["DEF", "MID", "FWD"].map((x) => starters.filter((y) => y.pos === x).length);
-  const t = live?.totals ?? {};
-
-  return (
-    `<div class="pitchwrap"><div class="pitchhead">` +
-    `<span class="ph-l">${esc(p.nick)}&rsquo;s team</span>` +
-    `<span class="ph-r">${esc(formation.join("-"))}` +
-    (useLive ? ` &middot; <b>${esc(t.net ?? t.starters ?? 0)}</b> pts${t.hits ? ` after &minus;${esc(t.hits)}` : ""}` : "") +
-    `</span></div>` +
-    `<div class="pitch">${line("GK")}${line("DEF")}${line("MID")}${line("FWD")}</div>` +
-    (bench.length
-      ? `<div class="benchrow"><span class="bl">Bench</span>${bench.map(token).join("")}` +
-        (useLive && Number.isFinite(t.bench) ? `<span class="bpts">${esc(t.bench)} pts</span>` : "") +
-        `</div>`
-      : "") +
-    `</div>`
-  );
-}
-
-// --------------------------------------------------------------- live strip
-
-function liveFixturesHTML(live) {
-  if (!live || live.status === "pre") return "";
-  const fx = (live.fixtures ?? [])
-    .filter((f) => f.started)
-    .map(
-      (f) =>
-        `<div class="lfx"><span class="lteam">${esc(f.home)}</span>` +
-        `<span class="lscore">${esc(f.home_score ?? 0)}&ndash;${esc(f.away_score ?? 0)}</span>` +
-        `<span class="lteam a">${esc(f.away)}</span>` +
-        `<span class="lclock">${f.finished ? "FT" : `${esc(f.minutes ?? 0)}'`}</span></div>`
-    )
-    .join("");
-  if (!fx) return "";
-  const upcoming = (live.fixtures ?? []).filter((f) => !f.started).length;
-  const label = live.status === "done" ? "Gameweek complete" : "Live now";
-  return section(
-    label,
-    `GW${esc(live.gw)}${upcoming ? ` · ${upcoming} to come` : ""}`,
-    `<div class="livefx">${fx}</div>` +
-      `<p class="snote"><button id="live-refresh" class="refresh" type="button">refresh</button>` +
-      `<span class="ltime" id="live-time"></span></p>`
-  );
-}
-
-// ------------------------------------------------------------------- render
-
-// ---------------------------------------------------------- the player card
-//
-// The player file is the spine: every name on the page opens the same record,
-// so the pitch, the watchlist and the squad boards are all views of one thing.
-// Evidence comes from players.json (mechanical); the verdict, direction and
-// trigger come from fpl.json (the brain's judgment).
-
-const FILE = { byId: new Map(), byName: new Map(), verdicts: new Map() };
-
-const VERDICT_LABEL = { nailed: "Nailed", solid: "Solid", watch: "Watch", sack: "Sack" };
-const MOVED_MARK = { up: "▲", down: "▼", new: "", held: "" };
-
-function indexPlayerFile(players, verdicts) {
-  FILE.byId.clear();
-  FILE.byName.clear();
-  FILE.verdicts.clear();
-  for (const p of players ?? []) {
-    FILE.byId.set(p.id, p);
-    // Names are how the rest of the page refers to players, and web_name is
-    // unique in practice apart from the odd shared surname — team disambiguates.
-    FILE.byName.set(`${p.name}|${p.team}`, p);
-    if (!FILE.byName.has(p.name)) FILE.byName.set(p.name, p);
+    const items = d.week.map((w) =>
+      '<li data-tag="' + esc(w.tag || "PL") + '" data-club="' + esc(w.club || "") + '">' +
+      '<span class="wtag ' + (w.tag === "FPL" ? "fpl" : "") + '">' + esc(w.tag || "PL") + "</span>" +
+      "<strong>" + esc(w.kicker) + "</strong> " + linkPlayers(w.text) +
+      (w.club ? '<span class="clubchip">' + esc(w.club) + "</span>" : "") + "</li>").join("");
+    return '<div class="panel"><h3>This week</h3>' +
+      '<p class="note">The league’s last seven days as one feed. One control narrows it and ' +
+      "dims the table with it.</p>" + bar + '<ul class="feed">' + items + "</ul></div>";
   }
-  for (const v of verdicts ?? []) FILE.verdicts.set(v.id, v);
-}
 
-const lookupPlayer = (name, team) =>
-  FILE.byName.get(`${name}|${team}`) ?? FILE.byName.get(name) ?? null;
+  function teamWatchHTML(d) {
+    if (!d.team_watch || !d.team_watch.length) return "";
+    return '<div class="panel"><h3>Team watch</h3>' +
+      '<p class="note">Players worth knowing about. Every name opens their file.</p><div class="rows">' +
+      d.team_watch.map((p) =>
+        '<div class="row"><div class="row-main"><div class="row-name">' +
+        linkPlayers(p.name) + ' <span class="pill">' + esc(p.tag) + "</span></div>" +
+        '<div class="row-sub">' + esc(p.note) + "</div></div></div>").join("") +
+      "</div></div>";
+  }
 
-function playerCardHTML(p) {
-  const v = FILE.verdicts.get(p.id);
-  const fixtures = (p.next3 ?? [])
-    .map(
-      (f) =>
-        `<span class="fc d${esc(f.fdr)}" title="${f.home ? "at home to" : "away at"} ${esc(f.opp)}, GW${esc(f.gw)}">` +
-        `${esc(f.opp)}<i>${f.home ? "H" : "A"}</i></span>`
-    )
-    .join("");
+  function aroundHTML(d, gw) {
+    const focus = FA.focusClubs(gw, (d.table && d.table.rows) || []);
+    const all = d.top_teams || d.rivals || [];
+    const shown = all.filter((r) => focus.indexOf(r.club) !== -1);
+    const dropped = all.filter((r) => focus.indexOf(r.club) === -1).map((r) => r.club);
+    const one = (r) =>
+      '<div class="row"><div class="row-main"><div class="row-name">' +
+      crest(r.crest, r.club) + esc(r.club) + "</div>" +
+      '<div class="row-sub">' + linkPlayers(r.note) + "</div></div>" +
+      (r.line ? '<div class="row-side">' + esc(r.line) + "</div>" : "") + "</div>";
 
-  const verdictBlock = v
-    ? `<div class="pc-verdict"><span class="vword v-${esc(v.verdict)}">${esc(VERDICT_LABEL[v.verdict] ?? v.verdict)}` +
-      `${MOVED_MARK[v.moved] ? ` <i class="vmove ${esc(v.moved)}">${MOVED_MARK[v.moved]}</i>` : ""}</span>` +
-      (v.was ? `<span class="vwas">was ${esc(VERDICT_LABEL[v.was] ?? v.was)}</span>` : "") +
-      `<p class="pc-why">${esc(v.why)}</p>` +
-      (v.trigger
-        ? `<p class="pc-trigger"><span class="tl">What changes it</span>${esc(v.trigger)}</p>`
-        : "") +
-      `</div>`
-    : `<p class="pc-noverdict">No verdict written — the evidence below is all we have on him.</p>`;
+    const left = shown.length
+      ? '<div class="panel"><h3>Around the top</h3>' +
+        '<p class="note">One line each for the clubs this page follows, written as a league ' +
+        "view: no us, no them. Secondary to the week above.</p>" +
+        '<div class="rows">' + shown.map(one).join("") + "</div>" +
+        (dropped.length
+          ? '<p class="note" style="margin:12px 0 0">Not covered this week: ' +
+            dropped.map(esc).join(", ") + " &mdash; they return automatically once they are in the top " +
+            FA.FOCUS_TOP + " from GW" + FA.FOCUS_FROM_GW + ".</p>"
+          : "") + "</div>"
+      : "";
 
-  const flag = p.status
-    ? `<div class="pc-flag">${esc(p.news || "Flagged — not fully available")}` +
-      (p.chance !== undefined ? ` <b>${esc(p.chance)}%</b>` : "") +
-      `</div>`
-    : "";
+    const rest = (d.elsewhere || []).map(one).join("");
+    const right = rest
+      ? '<div class="panel"><h3>Elsewhere</h3>' +
+        '<p class="note">The league is more than six clubs.</p><div class="rows">' + rest + "</div></div>"
+      : "";
+    if (!left && !right) return "";
+    return '<div class="grid2">' + left + right + "</div>";
+  }
 
-  const owned = (p.owned_by ?? []).length
-    ? `<div class="pc-owned"><span class="tl">Owned by</span>${p.owned_by.map((n) => `<span class="tchip">${esc(n)}</span>`).join("")}</div>`
-    : `<div class="pc-owned"><span class="tl">Owned by</span><span class="ghosttext">nobody in the group</span></div>`;
+  const HEAT = { done: "done", "here we go": "done", close: "close", talks: "talks", smoke: "smoke" };
+  function rumoursHTML(d) {
+    if (!d.rumours || !d.rumours.length) return "";
+    return '<div class="panel"><h3>Rumour mill</h3><div class="rows">' +
+      d.rumours.map((r) =>
+        '<div class="row"><div class="row-main"><div class="row-name">' + linkPlayers(r.player) + "</div>" +
+        '<div class="row-sub">' + esc(r.from) + " &rarr; " + esc(r.to) +
+        (r.fee ? " &middot; " + esc(r.fee) : "") + " &middot; " + esc(r.note) + "</div></div>" +
+        '<div class="row-side"><span class="heat ' + (HEAT[r.heat] || "smoke") + '">' +
+        esc(r.heat) + "</span></div></div>").join("") +
+      "</div></div>";
+  }
 
-  return (
-    `<div class="pc-head"><span class="pc-name">${esc(p.name)}</span>` +
-    `<span class="tchip">${esc(p.team)}</span><span class="posc">${esc(p.pos)}</span>` +
-    `<span class="pc-meta">&pound;${esc(price(p.price))}m &middot; ${esc(p.ownership)}% owned` +
-    `${p.penalties ? " &middot; on penalties" : ""}</span></div>` +
-    flag +
-    verdictBlock +
-    `<div class="pc-stats">` +
-    `<div><span class="tl">Season</span>${esc(p.points ?? 0)} pts</div>` +
-    `<div><span class="tl">Form</span>${esc(p.form ?? "—")}</div>` +
-    (fixtures
-      ? `<div class="pc-fix"><span class="tl">Next three</span><span class="pc-strip">${fixtures}</span>` +
-        (p.next3_avg ? `<span class="pc-avg">${esc(p.next3_avg)}</span>` : "") +
-        `</div>`
-      : "") +
-    `</div>` +
-    owned
-  );
-}
+  /* Deterministic colour for a link with no image, so the grid never has a
+     hole in it and never fetches something that might not exist. */
+  const THUMB = ["#ff5722", "#052962", "#1e7d4c", "#7b3fa0", "#b8860b", "#345995"];
+  function hash(s) {
+    let h = 0;
+    for (let i = 0; i < s.length; i++) h = (h * 31 + s.charCodeAt(i)) >>> 0;
+    return h;
+  }
+  function linkCard(item) {
+    const thumb = item.image
+      ? '<div class="lthumb" style="background-image:url(' + esc(item.image) + ')"></div>'
+      : '<div class="lthumb" style="background:' + THUMB[hash(item.title) % THUMB.length] +
+        '"><span class="letter">' + esc((item.source || item.title).charAt(0)) + "</span></div>";
+    return '<a class="lcard" href="' + esc(item.url) + '" target="_blank" rel="noopener">' + thumb +
+      '<div class="lbody"><div class="lt">' + esc(item.title) + "</div>" +
+      '<div class="lh">' + esc(item.hook) + "</div>" +
+      (item.source ? '<div class="ls">' + esc(item.source) + "</div>" : "") + "</div></a>";
+  }
 
-function openPlayerCard(name, team) {
-  const p = lookupPlayer(name, team);
-  const dlg = $("#player-card");
-  if (!dlg) return;
-  $("#pc-body").innerHTML = p
-    ? playerCardHTML(p)
-    : `<p class="pc-noverdict">No record for ${esc(name)} yet.</p>`;
-  if (typeof dlg.showModal === "function") dlg.showModal();
-  else dlg.setAttribute("open", "");
-}
+  function linksHTML(d) {
+    const items = [];
+    if (d.read) items.push(d.read);
+    (d.wider || []).forEach((w) => items.push(w));
+    if (!items.length) return "";
+    return '<div class="panel"><h3>Worth the click</h3>' +
+      '<p class="note">One good read, and the rest of the week’s writing.</p>' +
+      '<div class="cards">' + items.map(linkCard).join("") + "</div></div>";
+  }
 
-// One listener for the whole page: any element carrying data-player opens the
-// card. Cheaper than binding hundreds of names, and it survives re-renders.
-function wirePlayerCards() {
-  if (wirePlayerCards.done) return;
-  wirePlayerCards.done = true;
-  document.addEventListener("click", (e) => {
-    const el = e.target.closest?.("[data-player]");
-    if (!el) return;
-    e.preventDefault();
-    openPlayerCard(el.getAttribute("data-player"), el.getAttribute("data-team") || "");
-  });
-  const dlg = $("#player-card");
-  dlg?.addEventListener("click", (e) => {
-    if (e.target === dlg) dlg.close();
-  });
-  $("#pc-close")?.addEventListener("click", () => dlg?.close());
-}
+  function entryHTML(d, gw) {
+    return '<div class="eyebrow">' + esc(fmtLong(d.date)) + "</div>" +
+      "<h2 style=\"font-size:clamp(21px,3.4vw,30px);margin:6px 0 18px\">" + esc(d.headline) + "</h2>" +
+      tableHTML(d, gw) + weekHTML(d) + teamWatchHTML(d) + aroundHTML(d, gw) +
+      rumoursHTML(d) + linksHTML(d);
+  }
 
-async function loadJSON(path) {
-  const res = await fetch(path);
-  if (!res.ok) throw new Error(`${path}: HTTP ${res.status}`);
-  return res.json();
-}
+  /* One control, two effects: it narrows the feed and dims the table, so the
+     page reads as one thing rather than a page with a widget on it. */
+  function wireFilter(scope) {
+    const bar = scope.querySelector(".filters");
+    if (!bar) return;
+    bar.addEventListener("click", (e) => {
+      const btn = e.target.closest("button[data-filter]");
+      if (!btn) return;
+      bar.querySelectorAll(".fc").forEach((b) => b.setAttribute("aria-pressed", String(b === btn)));
+      const f = btn.dataset.filter;
+      scope.querySelectorAll("ul.feed > li").forEach((li) => {
+        const show = f === "all" ||
+          (f.indexOf("club:") === 0 ? li.dataset.club === f.slice(5) : li.dataset.tag === f);
+        li.hidden = !show;
+      });
+      scope.querySelectorAll("tbody tr[data-club]").forEach((tr) => {
+        tr.classList.toggle("dim", f.indexOf("club:") === 0 && tr.dataset.club !== f.slice(5));
+      });
+    });
+  }
 
-function showDeadline(data) {
-  const el = $("#deadline");
-  if (!el || !data.gameweek) return;
-  const g = data.gameweek;
-  el.innerHTML =
-    `<span class="dl">GW${esc(g.id)} deadline</span>${esc(g.deadline_local)}` +
-    (g.deadline_utc ? ` <span class="dlrel" id="dlrel"></span>` : "");
-  el.hidden = false;
-  const rel = $("#dlrel");
-  if (!rel || !g.deadline_utc) return;
-  const tick = () => {
-    const ms = new Date(g.deadline_utc).getTime() - Date.now();
-    if (!Number.isFinite(ms)) return;
-    if (ms <= 0) {
-      rel.textContent = "· deadline passed";
+  async function main() {
+    const main = $("#main");
+    let data, players = { players: [] }, fpl = { verdicts: [] };
+    try {
+      data = await loadJSON("data/digests.json");
+    } catch (e) {
+      FA.fail(main, "The league page could not load. " + e.message);
       return;
     }
-    const h = Math.floor(ms / 3600000);
-    const d = Math.floor(h / 24);
-    rel.textContent = d >= 1 ? `· in ${d}d ${h % 24}h` : `· in ${h}h ${Math.floor((ms % 3600000) / 60000)}m`;
-    el.classList.toggle("urgent", h < 6);
-  };
-  tick();
-  setInterval(tick, 60000);
-}
+    // The card seam is a bonus, not a dependency: if the player file is
+    // missing the page still renders, names simply stay plain text.
+    try { players = await loadJSON("data/players.json"); } catch (e) { /* ignore */ }
+    try { fpl = await loadJSON("data/fpl.json"); } catch (e) { /* ignore */ }
+    FA.initPlayerCards(players.players, fpl.verdicts, FA.ME);
 
-function showRefreshed(iso) {
-  const el = $("#last-refresh");
-  if (!el || !iso) return;
-  const d = new Date(iso);
-  if (Number.isNaN(d.getTime())) return;
-  const day = d.toLocaleDateString("en-GB", { day: "numeric", month: "short" });
-  const time = d.toLocaleTimeString("en-GB", { hour: "2-digit", minute: "2-digit" });
-  el.textContent = ` · refreshed ${day}, ${time}`;
-  el.hidden = false;
-}
-
-function render(data, live) {
-  const gaffer = currentGaffer();
-  const maxGw = data.live_gameweek?.id ?? data.gameweek?.id ?? 1;
-
-  // The gaffers room: who, then their week, then the arguments.
-  const room =
-    (data.roast ? `<p class="roast">${esc(data.roast.text)}</p>` : "") +
-    gafferBarHTML() +
-    gwNavHTML(maxGw) +
-    liveFixturesHTML(live) +
-    gafferDeskHTML(gaffer) +
-    gafferPitchHTML(gaffer, live) +
-    theFiveHTML() +
-    watchlistHTML(data.watchlist) +
-    wagersHTML(data.wagers) +
-    debriefHTML(data.log) +
-    doctrineHTML(data.doctrine) +
-    planHTML(data.plan);
-
-  const commons =
-    signalsHTML(data.signals) +
-    captainHTML(data.captain_poll) +
-    fixtureRunsHTML(data.ticker) +
-    section("The bus team", "the set-and-forget benchmark", squadDetails(data.bus, "serviced monthly", "rides in the race")) +
-    chipsHTML(data.chips);
-
-  $("#main").innerHTML =
-    `<div class="room">${room}</div>` +
-    `<h2 class="commons-rule">The commons <span class="cr-sub">&middot; same for everyone</span></h2>` +
-    commons;
-
-  wireStars();
-  wireGaffers(data);
-  if (live?.updated) {
-    const t = $("#live-time");
-    if (t)
-      t.textContent = ` · as of ${new Date(live.updated).toLocaleTimeString("en-GB", {
-        hour: "2-digit",
-        minute: "2-digit",
-      })}`;
-  }
-}
-
-// Selecting a gaffer or a gameweek re-fetches only the live slice; the static
-// squad is already on the page, so the swap never blanks it.
-function wireGaffers(data) {
-  document.querySelectorAll("[data-gaffer]").forEach((el) => {
-    el.addEventListener("click", async () => {
-      const nick = el.getAttribute("data-gaffer");
-      if (!nick || nick === GAFFERS.current) return;
-      setGaffer(nick);
-      render(data, GAFFERS.live);
-      const live = await fetchLive(data);
-      if (live) {
-        GAFFERS.live = live;
-        render(data, live);
-      }
-    });
-  });
-  document.querySelectorAll(".gwbtn[data-gw]").forEach((el) => {
-    el.addEventListener("click", async () => {
-      const gw = Number(el.getAttribute("data-gw"));
-      if (!Number.isInteger(gw) || gw < 1) return;
-      GAFFERS.gw = gw;
-      render(data, null);
-      const live = await fetchLive(data);
-      GAFFERS.live = live;
-      render(data, live);
-    });
-  });
-  const btn = $("#live-refresh");
-  btn?.addEventListener("click", async () => {
-    if (liveBusy) return;
-    liveBusy = true;
-    btn.textContent = "refreshing…";
-    const live = await fetchLive(data);
-    liveBusy = false;
-    if (live) {
-      GAFFERS.live = live;
-      render(data, live);
-    } else btn.textContent = "refresh failed";
-  });
-}
-
-// Stars are a note-to-self for now: the brain reads what KB actually did from
-// the API, not from this browser's localStorage.
-function wireStars() {
-  const KEY = "touchline-fpl-stars";
-  let saved = {};
-  try {
-    saved = JSON.parse(localStorage.getItem(KEY) || "{}");
-  } catch {
-    /* ignore */
-  }
-  document.querySelectorAll("button.star").forEach((b, i) => {
-    const id = b.closest("li")?.querySelector(".move")?.textContent?.trim() || `star-${i}`;
-    const on = Boolean(saved[id]);
-    b.setAttribute("aria-pressed", on ? "true" : "false");
-    b.innerHTML = on ? "&#9733;" : "&#9734;";
-    b.addEventListener("click", () => {
-      const next = b.getAttribute("aria-pressed") !== "true";
-      b.setAttribute("aria-pressed", next ? "true" : "false");
-      b.innerHTML = next ? "&#9733;" : "&#9734;";
-      saved[id] = next;
-      try {
-        localStorage.setItem(KEY, JSON.stringify(saved));
-      } catch {
-        /* ignore */
-      }
-    });
-  });
-}
-
-let liveBusy = false;
-
-// The live view needs a Pages Function because the FPL API sends no CORS
-// headers. Absent or failing, the page is simply the static one.
-async function fetchLive(data) {
-  const gw = GAFFERS.gw ?? data.live_gameweek?.id;
-  if (!gw) return null;
-  const params = new URLSearchParams({ gw: String(gw) });
-  const gaffer = currentGaffer();
-  if (gaffer?.entry) params.set("entry", String(gaffer.entry));
-  if (GAFFERS.league?.id) params.set("league", String(GAFFERS.league.id));
-  try {
-    const res = await fetch(`/api/live?${params}`);
-    if (!res.ok) return null;
-    return await res.json();
-  } catch {
-    return null;
-  }
-}
-
-// Theme toggle: auto (follow OS) -> light -> dark -> auto.
-function setupThemeToggle() {
-  const button = $("#theme-toggle");
-  if (!button) return;
-  const MODES = ["auto", "light", "dark"];
-  const label = { auto: "◐ auto", light: "○ light", dark: "● dark" };
-  const apply = (mode) => {
-    if (mode === "auto") {
-      document.documentElement.removeAttribute("data-theme");
-      localStorage.removeItem("touchline-theme");
-    } else {
-      document.documentElement.setAttribute("data-theme", mode);
-      localStorage.setItem("touchline-theme", mode);
+    const entries = (data.digests || []).slice().sort((a, b) => b.date.localeCompare(a.date));
+    if (!entries.length) {
+      FA.fail(main, "No entries yet — run ./brain/curate.sh.");
+      return;
     }
-    button.textContent = label[mode];
-  };
-  let mode = localStorage.getItem("touchline-theme");
-  if (!MODES.includes(mode)) mode = "auto";
-  apply(mode);
-  button.addEventListener("click", () => {
-    mode = MODES[(MODES.indexOf(mode) + 1) % MODES.length];
-    apply(mode);
-  });
-}
+    const gw = (players && players.gameweek) || null;
+    const latest = entries[0];
+    const past = entries.slice(1);
 
-async function load() {
-  const data = await loadJSON("data/fpl.json");
-  // The player file is optional: if it is missing or stale the page still
-  // renders, names simply stop opening cards.
-  const [file, gaffers] = await Promise.all([
-    loadJSON("data/players.json").catch(() => null),
-    loadJSON("data/gaffers.json").catch(() => null),
-  ]);
-  indexPlayerFile(file?.players, data.verdicts);
-  wirePlayerCards();
+    main.innerHTML =
+      '<section class="section"><div class="section-head"><h2>touchline</h2>' +
+      '<span class="mute" style="font-size:13px">what happened &mdash; the same for all five</span></div>' +
+      entryHTML(latest, gw) + "</section>" +
+      (past.length
+        ? '<section class="section"><div class="section-head"><h2>Earlier</h2>' +
+          '<span class="tag ghost">' + past.length + " entries</span></div>" +
+          past.map((d) =>
+            '<details class="fold"><summary>' + esc(fmtShort(d.date)) + " &middot; " +
+            esc(d.headline) + '</summary><div class="foldbody">' + entryHTML(d, gw) +
+            "</div></details>").join("") + "</section>"
+        : "");
 
-  GAFFERS.people = gaffers?.people ?? [];
-  GAFFERS.league = gaffers?.league ?? null;
-  GAFFERS.gw = data.live_gameweek?.id ?? data.gameweek?.id ?? null;
-  let saved = null;
-  try {
-    saved = localStorage.getItem("fiveaside-gaffer");
-  } catch {
-    /* ignore */
+    wireFilter(main);
+    // Archived entries carry their own filter bar; wire each one on open.
+    main.querySelectorAll("details.fold").forEach((el) => {
+      el.addEventListener("toggle", function once() {
+        if (el.open) { wireFilter(el); el.removeEventListener("toggle", once); }
+      });
+    });
+    FA.stamp(data.generated_at || (latest.date + "T08:00:00"));
   }
-  GAFFERS.current =
-    GAFFERS.people.find((p) => p.nick === saved)?.nick ?? GAFFERS.people[0]?.nick ?? null;
-  showDeadline(data);
-  showRefreshed(data.generated_at);
-  render(data, null);
-  const live = await fetchLive(data);
-  if (live) {
-    GAFFERS.live = live;
-    render(data, live);
-  }
-}
 
-setupThemeToggle();
-
-load().catch((err) => {
-  $("#main").innerHTML = `<p class="empty">Could not load the planner: ${esc(err.message)}</p>`;
-});
+  FA.initTheme();
+  main();
+})();
