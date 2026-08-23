@@ -257,6 +257,56 @@ body.commenting [data-c]:hover{outline:2px dashed var(--accent);outline-offset:3
 .foot{margin-top:36px;padding-top:18px;border-top:1px solid var(--line);font-size:13px;color:var(--faint)}
 button:focus-visible,a:focus-visible,input:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
 
+/* --- the pitch -------------------------------------------------------
+   A squad is a shape, not a list &#8212; you read a 3-4-3 in one glance and never
+   from eleven rows. The pitch keeps its own green in both themes because a
+   pitch is green; only its depth changes. */
+.pitchwrap{border-radius:var(--r);overflow:hidden;border:1px solid var(--line)}
+.pitch{
+  --grass:#1c7a4a; --line-w:rgba(255,255,255,.30);
+  background:
+    radial-gradient(ellipse at 50% 0%, rgba(255,255,255,.07), transparent 60%),
+    repeating-linear-gradient(180deg, var(--grass) 0 44px, #1a7145 44px 88px);
+  padding:18px 12px 14px;display:flex;flex-direction:column;gap:14px;position:relative}
+:root[data-theme="dark"] .pitch{--grass:#1454345c;background:
+  radial-gradient(ellipse at 50% 0%, rgba(255,255,255,.05), transparent 60%),
+  repeating-linear-gradient(180deg, #12503a 0 44px, #104631 44px 88px)}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .pitch{background:
+  radial-gradient(ellipse at 50% 0%, rgba(255,255,255,.05), transparent 60%),
+  repeating-linear-gradient(180deg, #12503a 0 44px, #104631 44px 88px)}}
+.pitch::before{content:"";position:absolute;left:12px;right:12px;top:50%;height:1px;
+  background:var(--line-w)}
+.pitch::after{content:"";position:absolute;left:50%;top:50%;width:76px;height:76px;
+  transform:translate(-50%,-50%);border:1px solid var(--line-w);border-radius:50%}
+.prow{display:flex;justify-content:center;gap:8px;flex-wrap:wrap;position:relative;z-index:1}
+.pp{width:96px;text-align:center;color:#fff}
+.pp .shirt{display:flex;align-items:center;justify-content:center;height:34px;border-radius:8px;
+  background:rgba(255,255,255,.14);border:1px solid rgba(255,255,255,.28);
+  font-family:var(--f-num);font-size:14px;font-weight:700;backdrop-filter:blur(2px)}
+.pp .shirt.blank{opacity:.55;font-weight:600;font-size:11px}
+.pp .pn{display:block;font-family:var(--f-head);font-size:11.5px;font-weight:700;margin-top:4px;
+  overflow:hidden;text-overflow:ellipsis;white-space:nowrap;color:#fff;text-decoration:none;
+  border-bottom:1px dotted rgba(255,255,255,.5);cursor:pointer}
+.pp .px{display:block;font-size:10px;opacity:.85;margin-top:2px;font-family:var(--f-num)}
+.pp .fx{display:inline-block;margin-top:3px;font-family:var(--f-num);font-size:9.5px;font-weight:700;
+  padding:1px 5px;border-radius:5px;color:var(--fdr-ink)}
+.pp .flag{display:inline-block;width:6px;height:6px;border-radius:50%;background:#ff6b5e;
+  margin-left:3px;vertical-align:1px}
+.benchrow{background:var(--raise);padding:12px;display:flex;justify-content:center;gap:8px;flex-wrap:wrap}
+.benchrow .pp{color:var(--ink)}
+.benchrow .pp .shirt{background:var(--card);border-color:var(--line);color:var(--ink)}
+.benchrow .pp .pn{color:var(--ink);border-bottom-color:var(--line)}
+
+.gwnav{display:flex;align-items:center;gap:8px;margin-bottom:12px;flex-wrap:wrap}
+.gwnav button{font-family:var(--f-head);font-size:13px;font-weight:700;width:32px;height:32px;
+  border:1px solid var(--line);border-radius:var(--rs);background:var(--card);color:var(--ink);cursor:pointer}
+.gwnav button[disabled]{opacity:.35;cursor:default}
+.gwnav .gwlabel{font-family:var(--f-head);font-weight:800;font-size:15px;letter-spacing:-.01em}
+.gwnav .gwstate{font-family:var(--f-head);font-size:10px;font-weight:700;letter-spacing:.09em;
+  text-transform:uppercase;padding:3px 8px;border-radius:var(--rs);background:var(--raise);color:var(--mute)}
+.gwnav .gwstate.live{background:var(--hot);color:#fff}
+.gwnav .gwtotal{margin-left:auto;font-family:var(--f-num);font-size:13px;color:var(--mute)}
+
 /* --- the locker-room card: the join between the three areas --- */
 .backdrop{position:fixed;inset:0;background:rgba(8,10,14,.55);display:flex;align-items:center;
   justify-content:center;padding:20px;z-index:80}
@@ -579,25 +629,77 @@ function weeklyRead(){
   </div>`;
 }
 
+/* Gameweek navigation: KB wants to look back at a settled week and forward
+   at the shape of the fixtures. Past = what was scored, future = who each
+   player faces and how hard. The squad shown is the current one \u2014 historic
+   picks are not in gaffers.json, which is a real gap and noted as such. */
+let gwView = null;               // null -> the live gameweek
+const GW_MIN = 1, GW_MAX = 4;    // next3 carries GW2-4; GW1 is settled
+const curGW = () => gwView ?? DATA.gw;
+
+const fixtureFor = (rec, gw) => (rec?.next3 ?? []).find(f => f.gw === gw) ?? null;
+
+function pitchPlayer(pk, gw, bench){
+  const rec = DATA.pool.find(q => q.id === pk.id);
+  const fx = fixtureFor(rec, gw);
+  const past = gw < DATA.gw;
+  const body = past
+    ? `<div class="shirt">${rec ? rec.pts : "-"}</div>`
+    : fx
+      ? `<div class="shirt blank">${fx.h ? "vs" : "at"} ${esc(fx.opp)}</div>`
+      : `<div class="shirt blank">no fixture</div>`;
+  return `<div class="pp">
+    ${body}
+    <a class="pn" data-player="${esc(pk.n)}">${esc(pk.n)}${
+      rec && rec.status !== "a" ? '<span class="flag" title="flagged"></span>' : ""}</a>
+    <span class="px">${esc(pk.pos)} &middot; &pound;${pk.pr.toFixed(1)}m</span>
+    ${!past && fx ? `<span class="fx" style="background:var(--fdr${fx.fdr})">${
+      fx.h ? "H" : "A"} &middot; ${fx.fdr}</span>` : ""}
+  </div>`;
+}
+
 function squadPanel(){
-  const p = DATA.people.find(x=>x.nick===who);
-  const line = (pl) => {
-    const rec = DATA.pool.find(q=>q.id===pl.id);
-    return `<div class="row">
-      <div class="row-main">
-        <div class="row-name"><a class="plink" data-player="${esc(pl.n)}">${esc(pl.n)}</a> ${rec?ownerDots(rec.by):""}</div>
-        <div class="row-sub">${esc(pl.pos)} \u00b7 ${esc(pl.t)} \u00b7 \u00a3${pl.pr.toFixed(1)}m${
-          rec&&rec.status!=="a"?` \u00b7 <span style="color:var(--hot)">${esc(rec.news.split(" - ")[0])}</span>`:""}</div>
-      </div>
-      <div class="row-side">${rec?`${rec.pts} pts${rec.next3.length?"<br>"+fdrStrip(rec.next3.slice(0,3)):""}`:""}</div>
-    </div>`;
-  };
-  return `<div class="panel" data-c="squad" data-label="Squad \u2014 XI and bench">
-    <h3>${gname(who)}'s XI</h3>
-    <p class="note">Owner dots show how many of the five hold each player \u2014 the differential map, and the roast's raw material.</p>
-    <div class="rows">${p.xi.map(line).join("")}</div>
-    <h3 style="margin-top:18px">Bench</h3>
-    <div class="rows">${p.bench.map(line).join("")}</div>
+  const p = DATA.people.find(x => x.nick === who);
+  const gw = curGW();
+  const past = gw < DATA.gw, live = gw === DATA.gw;
+
+  // The shape comes from the XI itself, never hardcoded.
+  const rows = ["GK", "DEF", "MID", "FWD"].map(pos => p.xi.filter(x => x.pos === pos));
+  const shape = rows.slice(1).map(r => r.length).join("-");
+
+  const total = past
+    ? p.xi.reduce((n, x) => n + (DATA.pool.find(q => q.id === x.id)?.pts ?? 0), 0)
+    : null;
+  const avgFdr = (() => {
+    const fs = p.xi.map(x => fixtureFor(DATA.pool.find(q => q.id === x.id), gw)).filter(Boolean);
+    return fs.length ? (fs.reduce((n, f) => n + f.fdr, 0) / fs.length).toFixed(2) : null;
+  })();
+
+  return `<div class="panel" data-c="pitch" data-label="The pitch - XI, bench and gameweek">
+    <h3>${gname(who)}'s ${esc(shape)}</h3>
+    <p class="note">The shape, not a list. Step back to a settled week to see what it scored, or
+    forward to see who everyone plays and how hard it looks.</p>
+    <div class="gwnav">
+      <button data-gw="${gw - 1}" ${gw <= GW_MIN ? "disabled" : ""} aria-label="Previous gameweek">&larr;</button>
+      <span class="gwlabel">Gameweek ${gw}</span>
+      <button data-gw="${gw + 1}" ${gw >= GW_MAX ? "disabled" : ""} aria-label="Next gameweek">&rarr;</button>
+      <span class="gwstate ${live ? "live" : ""}">${past ? "settled" : live ? "live" : "fixtures"}</span>
+      <span class="gwtotal">${
+        total !== null ? `<strong>${total}</strong> raw ${total === 1 ? "pt" : "pts"} from the XI${
+          p.total ? ` &middot; FPL says ${p.total}` : ""}`
+        : avgFdr !== null ? `average difficulty <strong>${avgFdr}</strong>`
+        : ""}</span>
+    </div>
+    <div class="pitchwrap">
+      <div class="pitch">${rows.map(r =>
+        `<div class="prow">${r.map(x => pitchPlayer(x, gw, false)).join("")}</div>`).join("")}</div>
+      <div class="benchrow">${p.bench.map(x => pitchPlayer(x, gw, true)).join("")}</div>
+    </div>
+    <p class="note" style="margin:12px 0 0">Two honest caveats. The squad shown is the
+    <em>current</em> one &mdash; <code>gaffers.json</code> keeps only this week's picks, so a
+    real back-step needs per-gameweek picks stored. And the raw total is short of the FPL one
+    because the captain's double cannot be applied: captaincy is not in the data either. Both
+    are the same fix.</p>
   </div>`;
 }
 
@@ -851,6 +953,12 @@ markRoom(); } });
       }
       else if (b.dataset.min !== undefined) fileMin = Number(b.dataset.min);
       else if (b.dataset.f !== undefined) fileFilter = b.dataset.f;
+      render();
+    });
+  document.querySelectorAll(".gwnav button[data-gw]").forEach(b =>
+    b.onclick = () => {
+      if (document.body.classList.contains("commenting") || b.disabled) return;
+      gwView = Number(b.dataset.gw);
       render();
     });
   const fq = document.getElementById("fq");

@@ -179,9 +179,13 @@ Ordered so each step is shippable on its own.
 12. **KV-backed watchlists**, keyed by `gaffer_id` — now wanted (see §5b), so
     this is a real todo rather than a deferral. Needs a Pages Function and a KV
     namespace; the ☆ star writes through it, not to localStorage.
-13. **Captaincy is missing from `gaffers.json`** — picks carry only
-    `start`/`bench`, so no pitch view can show a (C) or (V). Parked by KB, but
-    it is a data bug, not a feature gap.
+13. **`gaffers.json` stores only the current gameweek's picks, and no
+    captaincy.** These are one fix, and the pitch makes both visible: stepping
+    back to GW1 shows *this* week's squad against last week's points, and the
+    raw XI total is short of the real one because the captain's double cannot
+    be applied (30 vs 31 for Xabi at GW1). Store picks per gameweek with
+    `is_captain`/`is_vice`, from `entry/{id}/event/{gw}/picks/` which already
+    returns both. Needed before the pitch's back-step is honest.
 14. **Deferred by decision, do not build unless asked**: friend-facing team-ID
     entry, any auto-refresh or realtime behaviour, accounts/auth.
 
@@ -222,8 +226,15 @@ all built into the mockup:
   becomes seed-only — `core/facts.py` has to compute the rest from the table.
 - **The week is the primary feed.** Around the top and Elsewhere are secondary
   by design; a story that leads the week does not reappear below.
-- **Captaincy is parked.** The `gaffers.json` gap stays unfixed for now by
-  explicit decision (todo D13 below is deferred, not dropped).
+- **The XI is a pitch, not a list**, with gameweek navigation: step back to a
+  settled week to see what it scored, forward to see who everyone plays and how
+  hard (average FDR across the XI). The formation is derived from the picks.
+- **Captaincy is parked** as a display feature, but see the note below: it and
+  per-gameweek picks are now the same blocking gap.
+- **This is a rebuild, not a migration.** KB: "we are building from scratch
+  anyway, old rules from touchline don't matter." Do not preserve the old
+  config shape, the old schema keys, or the old renderer for compatibility.
+  **Name refactors happen last**, once the old apps are deprecated.
 - **The roast** is "decent, will improvise later" — ship it, iterate on tone.
 
 ## 6. Open questions for KB
