@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-23T05:18:49.708Z",
+  "generated_at": "2026-08-23T11:41:36.397Z",
   "digests": [
     {
       "date": "2026-07-25",
@@ -5446,197 +5446,192 @@
     },
     {
       "date": "2026-08-23",
-      "club": {
-        "latest_result": {
-          "home": "Chelsea",
-          "away": "Real Sociedad",
-          "score": "3–1",
-          "date": "Sat 15 Aug",
-          "competition": "FR",
-          "result": "W",
-          "home_crest": "https://a.espncdn.com/i/teamlogos/soccer/500/363.png",
-          "away_crest": "https://a.espncdn.com/i/teamlogos/soccer/500/89.png"
-        },
-        "fixtures": [
-          {
-            "opponent": "Fulham",
-            "home": false,
-            "kickoff_local": "Tue 25 Aug 00:30",
-            "competition": "PL",
-            "opponent_crest": "https://a.espncdn.com/i/teamlogos/soccer/500/370.png"
-          },
-          {
-            "opponent": "Brighton & Hove Albion",
-            "home": true,
-            "kickoff_local": "Sun 30 Aug 18:30",
-            "competition": "PL",
-            "opponent_crest": "https://a.espncdn.com/i/teamlogos/soccer/500/331.png"
-          },
-          {
-            "opponent": "Arsenal",
-            "home": false,
-            "kickoff_local": "Sun 06 Sep 21:00",
-            "competition": "PL",
-            "opponent_crest": "https://a.espncdn.com/i/teamlogos/soccer/500/359.png"
-          },
-          {
-            "opponent": "Hull City",
-            "home": true,
-            "kickoff_local": "Sat 12 Sep 19:30",
-            "competition": "PL",
-            "opponent_crest": "https://a.espncdn.com/i/teamlogos/soccer/500/306.png"
-          },
-          {
-            "opponent": "Brentford",
-            "home": false,
-            "kickoff_local": "Sat 19 Sep 00:30",
-            "competition": "PL",
-            "opponent_crest": "https://a.espncdn.com/i/teamlogos/soccer/500/337.png"
-          }
-        ],
-        "table": {
-          "competition": "English Premier League",
-          "rows": [
-            {
-              "pos": 1,
-              "team": "Arsenal",
-              "crest": "https://a.espncdn.com/i/teamlogos/soccer/500/359.png",
-              "played": 1,
-              "points": 3
-            },
-            {
-              "pos": 2,
-              "team": "Brentford",
-              "crest": "https://a.espncdn.com/i/teamlogos/soccer/500/337.png",
-              "played": 1,
-              "points": 3
-            },
-            {
-              "pos": 3,
-              "team": "Everton",
-              "crest": "https://a.espncdn.com/i/teamlogos/soccer/500/368.png",
-              "played": 1,
-              "points": 3
-            },
-            {
-              "pos": 4,
-              "team": "Hull City",
-              "crest": "https://a.espncdn.com/i/teamlogos/soccer/500/306.png",
-              "played": 1,
-              "points": 3
-            },
-            {
-              "pos": 10,
-              "team": "Chelsea",
-              "crest": "https://a.espncdn.com/i/teamlogos/soccer/500/363.png",
-              "played": 0,
-              "points": 0
-            }
-          ],
-          "club_position": 10
-        },
-        "form": [
-          {
-            "result": "L",
-            "score": "1–2",
-            "opponent": "Sunderland",
-            "opponent_crest": "https://a.espncdn.com/i/teamlogos/soccer/500/366.png",
-            "competition": "PL"
-          },
-          {
-            "result": "L",
-            "score": "0–1",
-            "opponent": "Juventus",
-            "opponent_crest": "https://a.espncdn.com/i/teamlogos/soccer/500/111.png",
-            "competition": "FR"
-          },
-          {
-            "result": "W",
-            "score": "3–0",
-            "opponent": "AC Milan",
-            "opponent_crest": "https://a.espncdn.com/i/teamlogos/soccer/500/103.png",
-            "competition": "FR"
-          },
-          {
-            "result": "D",
-            "score": "3–3",
-            "opponent": "Johor Darul Ta'zim",
-            "opponent_crest": "https://a.espncdn.com/i/teamlogos/soccer/500/17689.png",
-            "competition": "FR"
-          },
-          {
-            "result": "W",
-            "score": "3–1",
-            "opponent": "Real Sociedad",
-            "opponent_crest": "https://a.espncdn.com/i/teamlogos/soccer/500/89.png",
-            "competition": "FR"
-          }
-        ]
-      },
-      "headline": "Hull humble United, Spurs fall apart, and Chelsea wait one more night",
+      "headline": "Six games, six winners — and United and Spurs already in the bottom three",
       "week": [
         {
-          "kicker": "Badiashile goes, officially.",
-          "text": "Napoli confirmed it on Saturday — a €3m loan fee, a €20m option to buy, and Chelsea covering his wages. Injuries and competition held him to 16 appearances last season; he leaves to play."
+          "tag": "PL",
+          "club": "Manchester United",
+          "kicker": "Hull did it first.",
+          "text": "Two first-half goals from their centre-backs gave Hull City a 2–0 win over Manchester United on their return to the top flight — a first ever Premier League win over them, and a first league win over them since 1974. Rooney's verdict was that United created nothing; Shearer's was that they did not look fit."
         },
         {
-          "kicker": "Nine centre-backs, target five.",
-          "text": "Kieran Gill reports that is the stated plan for Alonso's squad by the time the window shuts. Badiashile is one departure; three more have to follow."
+          "tag": "PL",
+          "club": "Tottenham Hotspur",
+          "kicker": "Same old Spurs, new receipts.",
+          "text": "Brentford beat them 3–0 without ever needing a second gear, and Sandro Tonali's £100m debut drew ironic cheers. Roberto De Zerbi's rebuild will be close to £400m by the time it is finished; the losing mentality it was bought to cure lasted 90 minutes into the season."
         },
         {
-          "kicker": "Roma asked, Chelsea said no.",
-          "text": "Ben Jacobs reports the loan approach for Jamie Gittens has been turned down — he is viewed as part of Alonso's plans and is expected to stay the summer. Two days ago the request was being described as official."
+          "tag": "PL",
+          "club": "Manchester City",
+          "kicker": "Rodri is a Barcelona player.",
+          "text": "Seven seasons, four titles, a Ballon d'Or and the goal that won a Champions League final — gone to Barcelona for around £65m with a year left on his deal. Enzo Maresca's answer: \"We try to find the new Rodri,\" followed by a list of every City great the club replaced before."
         },
         {
-          "kicker": "Enzo's deadline came and went.",
-          "text": "Chelsea set Friday as the cut-off on their £120m-plus valuation, per Kinsella, and nothing arrived. Alonso says the midfielder has shown a \"really good attitude\" since returning."
+          "tag": "PL",
+          "club": "Leeds United",
+          "kicker": "Stach bends one in late.",
+          "text": "A direct free-kick two minutes from time won it at the City Ground for Leeds and soured Oliver Glasner's first game as Nottingham Forest's fifth head coach in under twelve months. Daniel Farke, who watched Anton Stach score three of them last season, now trusts him \"with everything\"."
+        },
+        {
+          "tag": "PL",
+          "club": "Chelsea",
+          "kicker": "Forty players down to twenty-five.",
+          "text": "Benoît Badiashile joined Napoli on loan with a £23.1m option to buy, and João Pedro signed an extension to 2034 — the two halves of a squad being cut to size in a season without European football. Nizaar Kinsella lists Tosin, Mamadou Sarr, Marc Guiu and Caleb Wiley as still to be placed."
+        },
+        {
+          "tag": "FPL",
+          "club": "Chelsea",
+          "kicker": "Chelsea owners wait a day.",
+          "text": "Their opener is the last game of the round — Fulham away, Monday 20:00 BST, 00:30 Tuesday at home — so a chunk of the most-backed attacking assets in the game sit on zero all weekend. The Luton cup tie on Thursday sits between that and Brighton, which is a rotation problem for later in the week."
+        },
+        {
+          "tag": "FPL",
+          "club": "Aston Villa",
+          "kicker": "Watkins has asked to go.",
+          "text": "The England striker has told Aston Villa he wants the Al-Hilal move, and a £45m bid has already been rejected, per The Athletic. Anyone who built a squad around him is now managing a transfer window as well as a team."
         }
       ],
       "team_watch": [
         {
+          "name": "Semi Ajayi",
+          "tag": "CB · Hull City",
+          "note": "Released by West Brom just over a year ago; scored the opening goal of Hull's first Premier League match in nine years, then told the BBC \"I don't think we've shut everyone up yet\"."
+        },
+        {
+          "name": "Archie Gray",
+          "tag": "CM · 20",
+          "note": "Captained Tottenham at Brentford at 20 years and 163 days, the youngest to lead the club in a competitive game — beating Steve Perryman's record by nearly a hundred days, per Alasdair Gold."
+        },
+        {
           "name": "Cole Palmer",
-          "tag": "AM · 24",
-          "note": "Alonso called him \"world class\" on Saturday and backed him to rediscover last season's form, per Kieran Gill."
-        },
-        {
-          "name": "Robert Sánchez",
-          "tag": "GK · 28",
-          "note": "Alonso declined to confirm him as the starting keeper at Fulham — the one selection question he would not answer."
-        },
-        {
-          "name": "Liam Delap",
-          "tag": "ST · 23",
-          "note": "Made available for sale a year into his Chelsea career; the BBC's Kinsella asks where he goes and whether he bounces back."
+          "tag": "AM · Chelsea",
+          "note": "Xabi Alonso called him \"world class\" and backed him to return to form this season, in the same Mail interview where he declined to confirm Robert Sánchez as his starting goalkeeper."
         }
       ],
-      "today": "One more night. Chelsea open at Craven Cottage on Monday, 00:30 IST — Tuesday morning if you are watching from here — against a Fulham side that has made these evenings awkward before. Before that, a full Sunday: Brighton–Villa and City–Bournemouth at 18:30, Newcastle–Liverpool at nine. Two days of this season have already produced a Hull win over Manchester United and a Spurs collapse, so whatever happens at Fulham, read it carefully.",
+      "table": {
+        "competition": "Premier League",
+        "rows": [
+          {
+            "pos": 1,
+            "team": "Arsenal",
+            "crest": "https://a.espncdn.com/i/teamlogos/soccer/500/359.png",
+            "played": 1,
+            "points": 3,
+            "focus": true
+          },
+          {
+            "pos": 2,
+            "team": "Brentford",
+            "crest": "https://a.espncdn.com/i/teamlogos/soccer/500/337.png",
+            "played": 1,
+            "points": 3
+          },
+          {
+            "pos": 3,
+            "team": "Everton",
+            "crest": "https://a.espncdn.com/i/teamlogos/soccer/500/368.png",
+            "played": 1,
+            "points": 3
+          },
+          {
+            "pos": 4,
+            "team": "Hull City",
+            "crest": "https://a.espncdn.com/i/teamlogos/soccer/500/306.png",
+            "played": 1,
+            "points": 3
+          },
+          {
+            "pos": 5,
+            "team": "Ipswich Town",
+            "crest": "https://a.espncdn.com/i/teamlogos/soccer/500/373.png",
+            "played": 1,
+            "points": 3
+          },
+          {
+            "pos": 6,
+            "team": "Leeds United",
+            "crest": "https://a.espncdn.com/i/teamlogos/soccer/500/357.png",
+            "played": 1,
+            "points": 3
+          },
+          {
+            "pos": 10,
+            "team": "Chelsea",
+            "crest": "https://a.espncdn.com/i/teamlogos/soccer/500/363.png",
+            "played": 0,
+            "points": 0,
+            "focus": true
+          },
+          {
+            "pos": 12,
+            "team": "Liverpool",
+            "crest": "https://a.espncdn.com/i/teamlogos/soccer/500/364.png",
+            "played": 0,
+            "points": 0,
+            "focus": true
+          },
+          {
+            "pos": 13,
+            "team": "Manchester City",
+            "crest": "https://a.espncdn.com/i/teamlogos/soccer/500/382.png",
+            "played": 0,
+            "points": 0,
+            "focus": true
+          },
+          {
+            "pos": 14,
+            "team": "Newcastle United",
+            "crest": "https://a.espncdn.com/i/teamlogos/soccer/500/361.png",
+            "played": 0,
+            "points": 0,
+            "focus": true
+          },
+          {
+            "pos": 18,
+            "team": "Manchester United",
+            "crest": "https://a.espncdn.com/i/teamlogos/soccer/500/360.png",
+            "played": 1,
+            "points": 0,
+            "focus": true
+          },
+          {
+            "pos": 20,
+            "team": "Tottenham Hotspur",
+            "crest": "https://a.espncdn.com/i/teamlogos/soccer/500/367.png",
+            "played": 1,
+            "points": 0,
+            "focus": true
+          }
+        ],
+        "note": "Every one of the first six games produced a winner, so the top six is simply matchday one's winners' list — Hull City, back after nine years away, are fourth. Chelsea, Liverpool, City and Newcastle have not kicked a ball yet, which is the only thing keeping this from being a real table."
+      },
       "wider": [
         {
-          "title": "Jean-Philippe Mateta: Crystal Palace striker says final year of deal is invalid",
-          "url": "https://www.bbc.co.uk/sport/football/articles/cdx7x90dxywo",
-          "hook": "A striker publicly arguing that the last ten months of his own contract do not legally exist. However this resolves, it is a fight nobody in the league has picked in quite this way before.",
-          "source": "BBC Sport",
-          "image": "https://ichef.bbci.co.uk/ace/branded_sport/1200/cpsprodpb/8479/live/19fea790-9e14-11f1-95e0-53a570c83624.jpg"
+          "title": "Infantino angers Concacaf nations by hijacking meeting in Caribbean",
+          "url": "https://www.theguardian.com/football/2026/aug/22/gianni-infantino-fifa-football-politics-world-cup-election",
+          "hook": "Asked in writing to stay away, the Fifa president turned up anyway and announced long-delayed development money to a room full of voters he needs. The detail — a letter, an under-14 tournament pushed off its own stage — is what makes it land.",
+          "source": "The Guardian Football",
+          "image": "https://i.guim.co.uk/img/media/cffabf5751d502ec5967b532359f40fc92decb63/182_0_2809_2248/master/2809.jpg?width=1200&height=630&quality=85&auto=format&fit=crop&precrop=40:21,offset-x50,offset-y0&overlay-align=bottom%2Cleft&overlay-width=100p&overlay-base64=L2ltZy9zdGF0aWMvb3ZlcmxheXMvdGctZGVmYXVsdC5wbmc&enable=upscale&s=cba66f61f83fe0e9e751741a0793314e"
         },
         {
           "title": "Ex-West Brom midfielder Quevin Castro dies, 25, after collapsing during match in Portugal",
           "url": "https://www.bbc.co.uk/sport/football/articles/c8dnd416pzyo",
-          "hook": "He was 25 and collapsed during a friendly. Worth a minute of the day that the rest of the opening weekend will not give it.",
+          "hook": "He collapsed in the first half of a pre-season friendly in Lisbon and died on Saturday morning, aged 25. West Brom will applaud in the 25th minute against Burnley today.",
           "source": "BBC Sport",
           "image": "https://ichef.bbci.co.uk/ace/branded_sport/1200/cpsprodpb/a597/live/92492c30-9e4f-11f1-8871-ff7211da55c9.jpg"
         },
         {
-          "title": "Aston Villa upheaval is a risk but Emery can release v2.0 and reap rewards",
-          "url": "https://www.theguardian.com/football/2026/aug/23/aston-villa-upheaval-unai-emery-exodus-key-players-youthful-arrivals",
-          "hook": "Villa sold the spine and bought youth, and Jonathan Wilson makes the case that Emery has done this deliberately. Read it before they kick off at Brighton tonight.",
+          "title": "Lincoln spirits soar despite defeat on second-tier return 65 years in the making",
+          "url": "https://www.theguardian.com/football/2026/aug/23/lincoln-spirits-soar-despite-defeat-on-second-tier-return-65-years-in-the-making",
+          "hook": "Yuri Gagarin had just come back from space the last time Sincil Bank staged second-tier football. Lincoln lost, 10,545 went home smiling anyway, and the piece explains exactly why.",
           "source": "The Guardian Football",
-          "image": "https://i.guim.co.uk/img/media/de055917085217749a0ebceacb679e993b19c049/496_0_6094_4876/master/6094.jpg?width=1200&height=630&quality=85&auto=format&fit=crop&precrop=40:21,offset-x50,offset-y0&overlay-align=bottom%2Cleft&overlay-width=100p&overlay-base64=L2ltZy9zdGF0aWMvb3ZlcmxheXMvdGctb3BpbmlvbnMucG5n&enable=upscale&s=da8a183b43772924ce148d3e81d9e372"
+          "image": "https://i.guim.co.uk/img/media/195718cb9224195e58f14b00bb435eb654cec3d9/302_0_2634_2108/master/2634.jpg?width=1200&height=630&quality=85&auto=format&fit=crop&precrop=40:21,offset-x50,offset-y0&overlay-align=bottom%2Cleft&overlay-width=100p&overlay-base64=L2ltZy9zdGF0aWMvb3ZlcmxheXMvdGctZGVmYXVsdC5wbmc&enable=upscale&s=9baebc690655022cfc662b6e9ea5b0e6"
         }
       ],
       "read": {
         "title": "José Mourinho marks Real Madrid return with late drama and touch of humility",
         "url": "https://www.theguardian.com/football/2026/aug/23/jose-mourinho-real-madrid-romance-espanyol-la-liga",
-        "hook": "Sid Lowe on the strangest reunion in the game: Mourinho back in the Bernabéu dugout, and unexpectedly quiet about it.",
+        "hook": "4,380 days later he is back in the Real Madrid dugout, and the winner came in the 90th minute from a 21-year-old nobody had heard of six months ago — who lives at the training ground and has breakfast with his manager every morning.",
         "source": "The Guardian Football",
         "image": "https://i.guim.co.uk/img/media/7400e7eb89a87096ecaa31d294364a98d1091c2c/127_0_3542_2834/master/3542.jpg?width=1200&height=630&quality=85&auto=format&fit=crop&precrop=40:21,offset-x50,offset-y0&overlay-align=bottom%2Cleft&overlay-width=100p&overlay-base64=L2ltZy9zdGF0aWMvb3ZlcmxheXMvdGctZGVmYXVsdC5wbmc&enable=upscale&s=c6359698e143460e90f7594f406b1579"
       },
@@ -5645,99 +5640,93 @@
           "club": "Arsenal",
           "crest": "https://a.espncdn.com/i/teamlogos/soccer/500/359.png",
           "line": "#1 · 3 pts · PL",
-          "note": "Julián Álvarez is the pursuit now — The Times' Gary Jacob reports fresh talks with Atlético and a willingness to go beyond £100m, and the BBC's Sunday gossip has the striker open to it."
+          "note": "The title defence opened with a 3–0 over Coventry, and the week's most-read line on the fan sub was Bukayo Saka's: he was \"never going to retire without winning the Premier League with Arsenal\", and now he doesn't have to."
         },
         {
           "club": "Manchester City",
           "crest": "https://a.espncdn.com/i/teamlogos/soccer/500/382.png",
-          "line": "plays today · PL",
-          "note": "Enzo Maresca, in his first season after Guardiola, has lost Rodri to Barcelona for £65m and shrugged: \"We try to find the new Rodri, it is what it is.\" Bournemouth visit tonight."
+          "line": "plays tonight · PL",
+          "note": "Savinho's £75m move to Tottenham, plus £10m in add-ons, is a record sale for the club and, the BBC argues, a milestone for the City Football Group model — the selling is still going on as Bournemouth arrive tonight."
         },
         {
           "club": "Manchester United",
           "crest": "https://a.espncdn.com/i/teamlogos/soccer/500/360.png",
-          "line": "18th · 0 pts · PL",
-          "note": "Opta logged it as the first opening-day defeat to a newly promoted side in the club's history; the consolation was Marcus Rashford playing again after 618 days out."
+          "line": "#18 · 0 pts · PL",
+          "note": "Carlos Baleba's £70m move from Brighton was completed this week on a five-year deal, which Ornstein reads as a more disciplined transfer approach than the ones that preceded it."
         },
         {
           "club": "Liverpool",
           "crest": "https://a.espncdn.com/i/teamlogos/soccer/500/364.png",
-          "line": "plays today · PL",
-          "note": "Ornstein reports the £60m bid for Yankuba Minteh was rejected, Brighton want £70m, and Liverpool are willing to walk away — with St James' Park to visit tonight."
+          "line": "plays tonight · PL",
+          "note": "The first matchday of the Mohamed Salah era's end — he is in the Turkish Super Lig with Trabzonspor — and Andoni Iraola is still shopping: a £60m bid for Yankuba Minteh was rejected, Brighton want £70m, and Ornstein says Liverpool could pivot elsewhere."
         },
         {
           "club": "Tottenham Hotspur",
           "crest": "https://a.espncdn.com/i/teamlogos/soccer/500/367.png",
-          "line": "20th · 0 pts · PL",
-          "note": "Roberto De Zerbi said his own side are \"not a team\" after the 3–0 at Brentford, in which Archie Gray, at 20, became the youngest player to captain the club in a competitive game."
+          "line": "#20 · 0 pts · PL",
+          "note": "Mohammed Kudus was back with the squad and De Zerbi says he is almost ready to return, per Alasdair Gold — which is the closest thing to good news Hotspur Way produced this weekend."
         },
         {
           "club": "Newcastle United",
           "crest": "https://a.espncdn.com/i/teamlogos/soccer/500/361.png",
-          "line": "plays today · PL",
-          "note": "Alexander Isak returns to St James' Park tonight in a Liverpool shirt, and the reception is its own event; Newcastle are meanwhile deep in talks for City's Nico González."
+          "line": "plays tonight · PL",
+          "note": "Manchester City have told Nico González he can leave and Newcastle's talks are progressing, per The Mag; the midfield question gets a live test at 21:00 tonight when Liverpool visit St James' Park."
         }
       ],
       "elsewhere": [
         {
-          "club": "Hull City",
-          "crest": "https://a.espncdn.com/i/teamlogos/soccer/500/306.png",
-          "note": "Relegation favourites before a ball was kicked, and now the first Hull side to beat Manchester United in the Premier League — with the home end cheering the announcement that trains to Manchester were cancelled."
+          "club": "Crystal Palace",
+          "crest": "https://a.espncdn.com/i/teamlogos/soccer/500/384.png",
+          "note": "Jean-Philippe Mateta's attempt to have the final year of his contract declared invalid failed at an independent Premier League tribunal and then at Fifa, which ruled it had no jurisdiction — Palace say the deal is binding, and he played at Everton on Saturday anyway."
         },
         {
-          "club": "Brentford",
-          "crest": "https://a.espncdn.com/i/teamlogos/soccer/500/337.png",
-          "note": "Michael Kayode capped a 3–0 that leaves them second on goal difference, and comfortably the least surprised team in the top four."
-        },
-        {
-          "club": "Leeds United",
-          "crest": "https://a.espncdn.com/i/teamlogos/soccer/500/357.png",
-          "note": "Anton Stach's late winner silenced a full City Ground on Glasner's first day at Forest; the BBC's read is that Farke's side arrive intending to thrive rather than survive."
+          "club": "Ipswich Town",
+          "crest": "https://a.espncdn.com/i/teamlogos/soccer/500/373.png",
+          "note": "More than £150m spent this summer to avoid repeating their last promotion, and the two most expensive pieces of it — Emersonn at £24m, then Julio Enciso at £26m a month later — combined for the opening goal against Sunderland."
         }
       ],
       "rumours": [
+        {
+          "player": "Nicolas Jackson",
+          "from": "Chelsea",
+          "to": "Aston Villa",
+          "heat": "talks",
+          "note": "Villa's interest is known, per Nizaar Kinsella, but it waits on what happens with their own striker."
+        },
         {
           "player": "Dario Essugo",
           "from": "Chelsea",
           "to": "Hull City",
           "heat": "talks",
-          "note": "Hull are exploring a season-long loan and Chelsea are prepared to sanction it, per Ben Jacobs; Strasbourg remain the alternative."
+          "note": "Hull are exploring a loan and Chelsea are prepared to sanction one, per Ben Jacobs; Strasbourg remain an option for the 21-year-old."
         },
         {
-          "player": "Cody Gakpo",
-          "from": "Liverpool",
-          "to": "Tottenham",
+          "player": "Jamie Bynoe-Gittens",
+          "from": "Chelsea",
+          "to": "Roma",
           "heat": "smoke",
-          "note": "Romano insists the move is still on; Ornstein counters that Liverpool will happily keep him unless Barcola arrives from PSG."
+          "note": "Roma's loan bid has been turned down, per talkSPORT — a week after their first formal approach for him."
         },
         {
-          "player": "Leon Goretzka",
-          "from": "free agent",
-          "to": "Aston Villa",
+          "player": "Omar Marmoush",
+          "from": "Manchester City",
+          "to": "Tottenham Hotspur",
           "heat": "talks",
-          "note": "A verbal agreement after a direct call with Emery, per Moretto and Romano, with a medical pencilled in for this week."
+          "note": "Romano has Spurs confident of finishing it by the start of next week, though reporting from the Spurs side says City want to see their own squad through tonight's game first."
         },
         {
-          "player": "Christopher Nkunku",
-          "from": "AC Milan",
-          "to": "RB Leipzig",
-          "heat": "talks",
-          "note": "Newcastle are in direct contact with Milan, but Romano has Leipzig as favourites — the player wants a return to Germany."
-        },
-        {
-          "player": "Kenan Yildiz",
-          "from": "Juventus",
+          "player": "Julián Álvarez",
+          "from": "Atlético Madrid",
           "to": "Arsenal",
-          "fee": "~€100m",
-          "heat": "smoke",
-          "note": "Juventus have reportedly settled on a number at which they would sell. Nothing beyond that yet."
+          "heat": "talks",
+          "note": "He is open to Arsenal with his Atlético relationship turning sour, per the Standard, and Arteta and Berta have kept in contact all summer — but Ornstein still sees a stumbling block, and Barcelona remain his preference."
         },
         {
-          "player": "Alejandro Balde",
-          "from": "Barcelona",
-          "to": "Manchester United",
-          "heat": "smoke",
-          "note": "ESPN report United are looking at the left-back, with Baleba's £70m arrival barely signed off."
+          "player": "Joe Willock",
+          "from": "Newcastle United",
+          "to": "Besiktas",
+          "heat": "talks",
+          "note": "Besiktas have submitted a bid, having made the 27-year-old their top target, per Romano."
         }
       ]
     }
