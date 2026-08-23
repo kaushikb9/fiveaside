@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Touchline &middot; FPL</title>
   <meta name="description" content="Touchline's Fantasy Premier League companion — one calm page, no hype.">
-  <link rel="stylesheet" href="style.css?v=3">
+  <link rel="stylesheet" href="style.css?v=4">
   <link rel="icon" href="icon.svg" type="image/svg+xml">
   <script>
     // Apply saved theme and sync state before first paint. "auto" = no attribute.
@@ -49,6 +49,12 @@
       <span class="footer-line"><a href="about/">about</a><span id="last-refresh" hidden></span></span>
     </footer>
   </div>
-  <script src="app.js?v=3"></script>
+
+  <dialog id="player-card" aria-label="Player record">
+    <button id="pc-close" type="button" aria-label="Close">&times;</button>
+    <div id="pc-body"></div>
+  </dialog>
+
+  <script src="app.js?v=4"></script>
 </body>
 </html>

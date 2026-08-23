@@ -1608,5 +1608,91 @@
     ],
     "note": "First-half chips die at the GW19 deadline (2 Jan). A good week used beats a perfect week hoarded."
   },
-  "generated_at": "2026-08-23T05:25:42.414Z"
+  "generated_at": "2026-08-23T05:25:42.414Z",
+  "verdicts": [
+    {
+      "id": 411,
+      "name": "Haaland",
+      "verdict": "nailed",
+      "moved": "held",
+      "why": "Plays every minute, takes the penalties, and City have the softest run of the top six.",
+      "trigger": "Only a serious injury moves this — nothing else will."
+    },
+    {
+      "id": 426,
+      "name": "B.Fernandes",
+      "verdict": "nailed",
+      "moved": "held",
+      "why": "Twelve million pounds of certainty: every minute, every set piece, every penalty.",
+      "trigger": "Two blanks with United losing and the price starts to look like the problem."
+    },
+    {
+      "id": 154,
+      "name": "Palmer",
+      "verdict": "watch",
+      "moved": "down",
+      "why": "Alonso has used him wide twice now, and wide Palmer is a different asset to the one people paid for.",
+      "trigger": "Two starts as a ten, or a penalty converted, and he goes back to nailed.",
+      "was": "nailed"
+    },
+    {
+      "id": 439,
+      "name": "Šeško",
+      "verdict": "sack",
+      "moved": "down",
+      "why": "Zero pre-season minutes became 23 at Hull. The start has not come and the case has not survived it.",
+      "trigger": "A start plus a goal and he re-enters as watch — but not before.",
+      "was": "watch"
+    },
+    {
+      "id": 358,
+      "name": "Kerkez",
+      "verdict": "solid",
+      "moved": "held",
+      "why": "Undisputed at left-back with Robertson gone, on a Liverpool defence that will keep clean sheets.",
+      "trigger": "Any sign of a rotation with Frimpong drops him to watch."
+    },
+    {
+      "id": 8,
+      "name": "Calafiori",
+      "verdict": "nailed",
+      "moved": "up",
+      "why": "Started every game, gets forward, and Arsenal have kept two of three.",
+      "trigger": "A recurrence of the knee trouble that has followed him around.",
+      "was": "solid"
+    },
+    {
+      "id": 557,
+      "name": "Tzolis",
+      "verdict": "solid",
+      "moved": "new",
+      "why": "Seven shot involvements already and Arteta called his form phenomenal — the price will not stay this low.",
+      "trigger": "Rice and Saka fully fit again could squeeze the minutes."
+    },
+    {
+      "id": 106,
+      "name": "Thiago",
+      "verdict": "watch",
+      "moved": "down",
+      "why": "Twenty-two goals last season, but two blanks and Brentford's run turns hard from here.",
+      "trigger": "A goal against Sunderland and the fixtures stop mattering.",
+      "was": "solid"
+    },
+    {
+      "id": 40,
+      "name": "Rogers",
+      "verdict": "watch",
+      "moved": "held",
+      "why": "Alonso says the late World Cup returnees need time, and the minutes have not settled.",
+      "trigger": "A full ninety in a Chelsea win and he is solid again."
+    },
+    {
+      "id": 346,
+      "name": "Calvert-Lewin",
+      "verdict": "solid",
+      "moved": "held",
+      "why": "Leeds play through him and he has started everything — modest ceiling, dependable floor.",
+      "trigger": "Losing penalties or a striker signing in the window."
+    }
+  ]
 }

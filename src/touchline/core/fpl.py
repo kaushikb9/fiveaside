@@ -28,11 +28,10 @@ NEXT_DEADLINES = 3
 TEMPLATE_N_BY_POS = {1: 3, 2: 5, 3: 5, 4: 4}
 CAPTAIN_CANDIDATES = 3
 
-# The player file's admission rules. A flat top-N per position let in ~90 names
-# nobody would ever consider; an ownership floor is the honest filter. But the
-# floor can never lose a player one of us actually owns — several of our own
-# picks sit under it, and a squad member with no record is a hole in the page.
-FILE_MIN_OWNERSHIP = 2.0  # percent
+# The player file is the spine every surface filters, so it holds everyone:
+# a record exists for every player in the game. Cheap to build, and it means
+# no lookup can ever miss. Trim here first if the bundle gets unwieldy.
+FILE_MIN_OWNERSHIP = 0.0  # percent — everyone
 
 
 def _parse_utc(iso: str) -> datetime:
@@ -207,9 +206,10 @@ def _player_file(
     The brain adds the verdict, the direction and the trigger on top of these;
     this function never guesses at them.
 
-    Two ways in: someone in the group owns him (always, at any ownership — a
-    squad player without a record is a hole in the page), or the wider game
-    owns him (>= FILE_MIN_OWNERSHIP).
+    Every player in the game gets a record. The file is the spine that the
+    pitch, the watchlists and the injury room all filter, so a missing record
+    is a dead end in the UI; completeness is worth more than compactness here.
+    `FILE_MIN_OWNERSHIP` is the dial to turn if that stops being true.
     """
     fixtures_by_team = {}
     if ticker:

@@ -388,6 +388,32 @@ if (data.chips !== undefined) {
     fail("chips.note must be a non-empty string when present");
 }
 
+// The judgment layer over the player file. The file itself (site/data/players.json)
+// is mechanical and validated separately; this is the brain's opinion on the
+// handful of players that warrant one — four words, a direction, and a trigger
+// written before the fact so it can be settled later.
+if (data.verdicts !== undefined) {
+  if (!Array.isArray(data.verdicts)) fail("'verdicts' must be an array when present");
+  const words = ["nailed", "solid", "watch", "sack"];
+  const moves = ["up", "down", "new", "held"];
+  const seen = new Set();
+  for (const [i, v] of data.verdicts.entries()) {
+    const vwhere = `verdicts[${i}] (${v?.name ?? "?"})`;
+    if (!isNumber(v?.id)) fail(`${vwhere}: 'id' must be the player's element id`);
+    if (seen.has(v.id)) fail(`${vwhere}: duplicate verdict for the same player`);
+    seen.add(v.id);
+    if (!isNonEmptyStr(v.name)) fail(`${vwhere}: 'name' must be a non-empty string`);
+    if (!words.includes(v.verdict))
+      fail(`${vwhere}: 'verdict' must be one of ${words.join(", ")}`);
+    if (!moves.includes(v.moved)) fail(`${vwhere}: 'moved' must be one of ${moves.join(", ")}`);
+    if (!isNonEmptyStr(v.why)) fail(`${vwhere}: 'why' must be a non-empty sentence`);
+    // The trigger is what makes a verdict settleable rather than an opinion.
+    if (!isNonEmptyStr(v.trigger)) fail(`${vwhere}: 'trigger' must say what would change our mind`);
+    if (v.was !== undefined && !words.includes(v.was))
+      fail(`${vwhere}: 'was' must be a previous verdict word when present`);
+  }
+}
+
 if (data.ticker !== undefined) {
   const t = data.ticker;
   if (!isPlainObject(t)) fail("'ticker' must be an object");
@@ -448,6 +474,7 @@ const sections = [
   "signals",
   "template",
   "captain_poll",
+  "verdicts",
   "penalties",
   "ticker",
   "bus",

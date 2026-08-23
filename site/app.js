@@ -36,7 +36,7 @@ function squadRow(p, opts = {}) {
   const right = opts.right ?? `<span class="sprice">${esc(price(p.price))}</span>`;
   return (
     `<div class="${cls}"><span class="posc">${esc(p.pos)}</span>${order}` +
-    `<span class="sname">${esc(p.name)}</span>${badges}` +
+    `<span class="sname" data-player="${esc(p.name)}" data-team="${esc(p.team ?? "")}" role="button" tabindex="0">${esc(p.name)}</span>${badges}` +
     `<span class="tchip">${esc(p.team ?? "")}</span>${right}</div>`
   );
 }
@@ -266,7 +266,7 @@ const watchlistHTML = (rows) =>
           .map(
             (w) =>
               `<div class="player"><span class="avatar${w.status === "rising" ? " rising" : ""}">${esc(initials(w.name))}</span>` +
-              `<div><div class="ptop"><span class="pname">${esc(w.name)}</span>` +
+              `<div><div class="ptop"><span class="pname" data-player="${esc(w.name)}" data-team="${esc(w.team ?? "")}" role="button" tabindex="0">${esc(w.name)}</span>` +
               `<span class="tchip">${esc(w.team)}</span>` +
               `<span class="ptag ${esc(w.status)}">${esc(w.status)}</span>` +
               (w.ownership ? `<span class="ptag">${esc(w.ownership)}</span>` : "") +
@@ -410,7 +410,7 @@ function liveHTML(live) {
         ? `<i class="tb" title="provisional bonus">+${esc(p.provisional_bonus)}</i>`
         : "";
       return (
-        `<div class="ptok${state}" title="${esc(p.name)} · ${esc(p.team)} · ${p.played ? `${esc(p.minutes)} min` : "yet to play"}">` +
+        `<div class="ptok${state}" data-player="${esc(p.name)}" data-team="${esc(p.team)}" role="button" tabindex="0" title="${esc(p.name)} · ${esc(p.team)} · ${p.played ? `${esc(p.minutes)} min` : "yet to play"}">` +
         `<span class="tpts">${esc(pts)}</span>${bonus}` +
         `<span class="tname">${esc(p.name)}</span>` +
         `<span class="tsub">${esc(p.team)}${badge ? ` <b>${badge}</b>` : ""}${p.played ? ` · ${esc(p.minutes)}'` : ""}</span>` +
@@ -469,6 +469,115 @@ function liveHTML(live) {
 }
 
 // ------------------------------------------------------------------- render
+
+// ---------------------------------------------------------- the player card
+//
+// The player file is the spine: every name on the page opens the same record,
+// so the pitch, the watchlist and the squad boards are all views of one thing.
+// Evidence comes from players.json (mechanical); the verdict, direction and
+// trigger come from fpl.json (the brain's judgment).
+
+const FILE = { byId: new Map(), byName: new Map(), verdicts: new Map() };
+
+const VERDICT_LABEL = { nailed: "Nailed", solid: "Solid", watch: "Watch", sack: "Sack" };
+const MOVED_MARK = { up: "▲", down: "▼", new: "", held: "" };
+
+function indexPlayerFile(players, verdicts) {
+  FILE.byId.clear();
+  FILE.byName.clear();
+  FILE.verdicts.clear();
+  for (const p of players ?? []) {
+    FILE.byId.set(p.id, p);
+    // Names are how the rest of the page refers to players, and web_name is
+    // unique in practice apart from the odd shared surname — team disambiguates.
+    FILE.byName.set(`${p.name}|${p.team}`, p);
+    if (!FILE.byName.has(p.name)) FILE.byName.set(p.name, p);
+  }
+  for (const v of verdicts ?? []) FILE.verdicts.set(v.id, v);
+}
+
+const lookupPlayer = (name, team) =>
+  FILE.byName.get(`${name}|${team}`) ?? FILE.byName.get(name) ?? null;
+
+function playerCardHTML(p) {
+  const v = FILE.verdicts.get(p.id);
+  const fixtures = (p.next3 ?? [])
+    .map(
+      (f) =>
+        `<span class="fc d${esc(f.fdr)}" title="${f.home ? "at home to" : "away at"} ${esc(f.opp)}, GW${esc(f.gw)}">` +
+        `${esc(f.opp)}<i>${f.home ? "H" : "A"}</i></span>`
+    )
+    .join("");
+
+  const verdictBlock = v
+    ? `<div class="pc-verdict"><span class="vword v-${esc(v.verdict)}">${esc(VERDICT_LABEL[v.verdict] ?? v.verdict)}` +
+      `${MOVED_MARK[v.moved] ? ` <i class="vmove ${esc(v.moved)}">${MOVED_MARK[v.moved]}</i>` : ""}</span>` +
+      (v.was ? `<span class="vwas">was ${esc(VERDICT_LABEL[v.was] ?? v.was)}</span>` : "") +
+      `<p class="pc-why">${esc(v.why)}</p>` +
+      (v.trigger
+        ? `<p class="pc-trigger"><span class="tl">What changes it</span>${esc(v.trigger)}</p>`
+        : "") +
+      `</div>`
+    : `<p class="pc-noverdict">No verdict written — the evidence below is all we have on him.</p>`;
+
+  const flag = p.status
+    ? `<div class="pc-flag">${esc(p.news || "Flagged — not fully available")}` +
+      (p.chance !== undefined ? ` <b>${esc(p.chance)}%</b>` : "") +
+      `</div>`
+    : "";
+
+  const owned = (p.owned_by ?? []).length
+    ? `<div class="pc-owned"><span class="tl">Owned by</span>${p.owned_by.map((n) => `<span class="tchip">${esc(n)}</span>`).join("")}</div>`
+    : `<div class="pc-owned"><span class="tl">Owned by</span><span class="ghosttext">nobody in the group</span></div>`;
+
+  return (
+    `<div class="pc-head"><span class="pc-name">${esc(p.name)}</span>` +
+    `<span class="tchip">${esc(p.team)}</span><span class="posc">${esc(p.pos)}</span>` +
+    `<span class="pc-meta">&pound;${esc(price(p.price))}m &middot; ${esc(p.ownership)}% owned` +
+    `${p.penalties ? " &middot; on penalties" : ""}</span></div>` +
+    flag +
+    verdictBlock +
+    `<div class="pc-stats">` +
+    `<div><span class="tl">Season</span>${esc(p.points ?? 0)} pts</div>` +
+    `<div><span class="tl">Form</span>${esc(p.form ?? "—")}</div>` +
+    (fixtures
+      ? `<div class="pc-fix"><span class="tl">Next three</span><span class="pc-strip">${fixtures}</span>` +
+        (p.next3_avg ? `<span class="pc-avg">${esc(p.next3_avg)}</span>` : "") +
+        `</div>`
+      : "") +
+    `</div>` +
+    owned
+  );
+}
+
+function openPlayerCard(name, team) {
+  const p = lookupPlayer(name, team);
+  const dlg = $("#player-card");
+  if (!dlg) return;
+  $("#pc-body").innerHTML = p
+    ? playerCardHTML(p)
+    : `<p class="pc-noverdict">No record for ${esc(name)} yet.</p>`;
+  if (typeof dlg.showModal === "function") dlg.showModal();
+  else dlg.setAttribute("open", "");
+}
+
+// One listener for the whole page: any element carrying data-player opens the
+// card. Cheaper than binding hundreds of names, and it survives re-renders.
+function wirePlayerCards() {
+  if (wirePlayerCards.done) return;
+  wirePlayerCards.done = true;
+  document.addEventListener("click", (e) => {
+    const el = e.target.closest?.("[data-player]");
+    if (!el) return;
+    e.preventDefault();
+    openPlayerCard(el.getAttribute("data-player"), el.getAttribute("data-team") || "");
+  });
+  const dlg = $("#player-card");
+  dlg?.addEventListener("click", (e) => {
+    if (e.target === dlg) dlg.close();
+  });
+  $("#pc-close")?.addEventListener("click", () => dlg?.close());
+}
 
 async function loadJSON(path) {
   const res = await fetch(path);
@@ -666,6 +775,11 @@ function setupThemeToggle() {
 
 async function load() {
   const data = await loadJSON("data/fpl.json");
+  // The player file is optional: if it is missing or stale the page still
+  // renders, names simply stop opening cards.
+  const file = await loadJSON("data/players.json").catch(() => null);
+  indexPlayerFile(file?.players, data.verdicts);
+  wirePlayerCards();
   showDeadline(data);
   showRefreshed(data.generated_at);
   render(data, null);

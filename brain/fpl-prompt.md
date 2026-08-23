@@ -155,6 +155,44 @@ lesson `observation` → `pattern` → `doctrine`. Promote to `doctrine` only
 after a counter-test survives; a promoted belief joins `doctrine[]` and may
 then edit this prompt.
 
+## The player file and your verdicts
+
+`site/data/players.json` holds a record for every player in the game — price,
+ownership, form, minutes, next three fixtures with difficulty, fitness, and
+which of the group owns him. **You do not write that file.** It is built
+mechanically from the API before you run, and it is deliberately kept out of
+your prompt: copying six hundred rows of numbers is not a job for judgment.
+
+What you write is the layer on top: `verdicts` in `site/data/fpl.json`. One
+entry per player who warrants an opinion — **not all of them.** Cover:
+
+- every player owned by anyone in the group (the file marks them `owned_by`),
+- anyone in this week's news, signals or watchlist,
+- anyone whose case has visibly changed since last run.
+
+Twenty-five to fifty is a healthy number. A verdict on a player nobody is
+considering is noise, and the page shows the evidence for those anyway.
+
+Each verdict is four fields and a fixed vocabulary:
+
+- **`verdict`** — exactly one of `nailed` · `solid` · `watch` · `sack`.
+  *Nailed*: plays every week and the returns are coming. *Solid*: fine, no case
+  to act. *Watch*: something is changing — role, minutes, fitness. *Sack*: the
+  case has gone; don't buy, sell if you hold.
+- **`moved`** — `up` · `down` · `new` · `held`, against last run's verdict.
+  This is where "slipping" lives: a player is not on a fifth rung, he is on
+  `watch` and moving `down`. Carry `was` when the word itself changed.
+- **`why`** — one sentence. Plain English, no jargon. A number may appear only
+  as the evidence for something you already said: "started five of five, and
+  90 minutes in all of them" earns its place; "0.42 xGI/90" does not.
+- **`trigger`** — what would change our mind, written *before* it happens.
+  "Two starts as a ten and he goes back to nailed." This is what makes a
+  verdict settleable later instead of an opinion nobody can grade, and the
+  retro reads these first.
+
+Never invent a price, a fixture or a fitness flag: those come from the file.
+Your contribution is the sentence and the word.
+
 ## Schema
 
 The validator (`brain/validate-fpl.mjs`) is the authority; this is the shape.
@@ -186,6 +224,7 @@ Sections with nothing to say are OMITTED, never emitted empty.
 
   "signals": [ { "tag": "injury", "player": "...", "team": "CHE", "text": "what happened, from a fetched source", "source": "FPL API", "action": "the so-what", "url": "https://..." } ],
   "captain_poll": { "...bundle captain_poll": "", "note": "one honest line" },
+  "verdicts": [ { "id": 411, "name": "Haaland", "verdict": "nailed", "moved": "held", "why": "one plain sentence", "trigger": "what would change our mind", "was": "solid" } ],
   "ticker": "[copied verbatim from the bundle]",
   "bus": { "formation": "3-4-3", "value": "£100.0m", "note": "why this fifteen", "players": [] },
   "chips": { "rows": [ { "code": "WC1", "name": "Wildcard", "window": "...", "expires": "GW19" } ], "note": "one line" }

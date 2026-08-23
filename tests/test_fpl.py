@@ -347,31 +347,30 @@ def test_real_names_never_reach_the_bundle():
     assert [s["nick"] for s in bundle["squads"]] == ["Xabi"]
 
 
-def test_player_file_floor_never_drops_a_player_we_own():
-    """An ownership floor keeps the file honest, but a squad member always has
-    a record — otherwise tapping your own shirt opens nothing."""
+def test_player_file_holds_everyone_and_tags_who_owns_them():
+    """The file is the spine every surface filters, so it holds every player —
+    a missing record is a dead end in the UI."""
     client = _client_with(_fixture_handler)
     boot = client.fetch_bootstrap()
     short_names = {t.id: t.short_name for t in boot.teams}
 
-    # FringeFit sits at 0.0% ownership: below any sane floor.
-    unfiltered = _player_file(boot.elements, short_names, None, {})
-    assert all(r["name"] != "FringeFit" for r in unfiltered)
+    records = _player_file(boot.elements, short_names, None, {})
+    assert len(records) == len(boot.elements)
+    # even the 0.0%-owned fringe player has a record
+    assert any(r["name"] == "FringeFit" for r in records)
 
-    # ...until one of us picks him, at which point he must appear.
     owned = _player_file(boot.elements, short_names, None, {33: ["Enzo"]})
     fringe = next(r for r in owned if r["name"] == "FringeFit")
     assert fringe["owned_by"] == ["Enzo"]
 
 
-def test_player_file_floor_excludes_the_long_tail():
+def test_player_file_is_evidence_only():
     client = _client_with(_fixture_handler)
     boot = client.fetch_bootstrap()
     short_names = {t.id: t.short_name for t in boot.teams}
     records = _player_file(boot.elements, short_names, None, {})
-    names = [r["name"] for r in records]
-    # InjuredStar is 15% owned -> comfortably over the floor
-    assert "InjuredStar" in names
-    # FringeInjured is injured, but at 0.1% owned nobody needs that file
-    assert "FringeInjured" not in names
-    assert all(r["ownership"] >= 2.0 or r["owned_by"] for r in records)
+    star = next(r for r in records if r["name"] == "InjuredStar")
+    assert star["status"] == "d" and star["chance"] == 75
+    # the judgment layer lives in fpl.json, keyed by the same id
+    assert all(not {"verdict", "moved", "trigger", "why"} & set(r) for r in records)
+    assert all(isinstance(r["id"], int) for r in records)
