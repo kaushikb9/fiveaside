@@ -89,10 +89,10 @@ cd site && python3 -m http.server  # local preview
 
 ## Deployment
 
-Cloudflare Pages project `touchline-pl`, live at https://touchline-pl.pages.dev
-(no custom domain). Renamed from `touchline-chelsea` on 2026-08-22 when the
-site stopped being Chelsea-only; the old project is left untouched, not
-redeployed. Deploys are
+Cloudflare Pages project `fiveaside`, live at https://fiveaside.pages.dev (no
+custom domain). The name follows the product: five friends, one football page.
+Earlier projects `touchline-chelsea` and `touchline-pl` still exist and are
+deliberately left untouched rather than redeployed. Deploys are
 non-interactive
 (`CI=1`) — just `./deploy.sh`. The digest runs
 itself: `brain/auto.sh` fires hourly via launchd (`com.kb.touchline.plist`,
