@@ -22,10 +22,25 @@ class FeedConfig(BaseModel, frozen=True):
     url: str
 
 
+class PersonConfig(BaseModel, frozen=True):
+    """One of the managers in the group.
+
+    Nickname only, by explicit decision — the FPL API hands back real names in
+    `player_name`, and they are dropped at the facts layer so nothing
+    downstream can leak what it was never given.
+    """
+
+    nick: str
+    entry: int
+    club: str | None = None
+    owner: bool = False
+
+
 class FPLConfig(BaseModel, frozen=True):
     team_id: int | None = None  # the owner's FPL entry id, once the season starts
     league_ids: list[int] = []  # mini-leagues to track
     horizon_gws: int = 6  # fixture-ticker lookahead
+    people: list[PersonConfig] = []  # the group, by nickname
 
 
 class TouchlineConfig(BaseModel, frozen=True):

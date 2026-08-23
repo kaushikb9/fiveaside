@@ -18,5 +18,47 @@
 
 - ok for now. see if you can come up with better / funnier names
 
+## Sketch · Touchline (home)
+
+> HOME · DESKTOP TOUCHLINE THE GAFFERS LOCKER ROOM LOCKER ROOM MASTHEAD + THIS-WEEK STRAP TOUCHLINE — the week in the Premier League FILTER (DRIVES EVERYTHING BELOW) AllPL onlyFPL only | CHEARSLIVMCIMUN…
+
+- only one locker room - mockup shows 2
+
+## Sketch · The Gaffers
+
+> Question buried in your dump: are wagers, ledger and doctrine per person or house-wide? I'd make doctrine house-wide (it's what the machine has learned about football), and wagers + ledger per person …
+
+- yes go as per your suggestion
+
+## Sketch · the Locker Room
+
+> On Ben Dinnery. Worth building in properly — he's the one source whose read regularly beats the game's own flag. But his site and X are both awkward to fetch reliably, so I'd treat him as a named chec…
+
+- fallback to secondary sources if not available
+
+## The roast, and how it stays funny
+
+> Worth settling before anything ships: this puts four named friends, their teams, and jokes at their expense on a public URL. Their FPL data is already public via the API, so it's not a data question —…
+
+- no actual names anywhere. already settled
+
+## The five words, funnier
+
+> BEST → → → WORST A · Team sheet recommended NAILED TRUSTED ON NOTICE SLIPPING BINNED B · Plain what's there now ESSENTIAL SOLID WATCH COOLING AVOID C · Chat funniest, ages fastest CAN'T DROP FINE, FIN…
+
+- NAILED, SOLID, WATCH, SLIPPING, SACK -- can it be only 4 instead?
+
+## Nicknames, and the thing they force
+
+> NICKNAME TEAM CLUB ENTRY kb Wabi Sabi Xabi Chelsea 7149204 Andy Youri kiddin' me! United 58500 cr7 Yogesh11 United 522356 Ice ? IceMan Arsenal 4135179 Champ ? WorldChamps Chelsea 6485401
+
+- Xabi, Sir Alex, Ronaldo, Enzo, Arsene in that order
+
+## Where we've landed
+
+> What I'd actually do first. Build the player file for the ~150 players that matter, wire the existing pitch and watchlist to read from it, and leave the site otherwise alone. That's a self-contained s…
+
+- do it
+
 ---
 Claude: address every comment above — clarify, correct, or expand — and republish the revised sketches to the SAME artifact URL.

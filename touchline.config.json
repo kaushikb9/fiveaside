@@ -7,20 +7,88 @@
     "crest": "https://a.espncdn.com/i/teamlogos/soccer/500/363.png",
     "thesportsdb_id": "133610"
   },
-  "competitions": ["PL", "CL", "FRIENDLIES"],
+  "competitions": [
+    "PL",
+    "CL",
+    "FRIENDLIES"
+  ],
   "top_clubs": [
-    { "name": "Arsenal", "subreddit": "Gunners", "crest": "https://a.espncdn.com/i/teamlogos/soccer/500/359.png" },
-    { "name": "Manchester City", "subreddit": "MCFC", "crest": "https://a.espncdn.com/i/teamlogos/soccer/500/382.png" },
-    { "name": "Manchester United", "subreddit": "reddevils", "crest": "https://a.espncdn.com/i/teamlogos/soccer/500/360.png" },
-    { "name": "Liverpool", "subreddit": "LiverpoolFC", "crest": "https://a.espncdn.com/i/teamlogos/soccer/500/364.png" },
-    { "name": "Tottenham Hotspur", "subreddit": "coys", "crest": "https://a.espncdn.com/i/teamlogos/soccer/500/367.png" },
-    { "name": "Newcastle United", "subreddit": "NUFC", "crest": "https://a.espncdn.com/i/teamlogos/soccer/500/361.png" }
+    {
+      "name": "Arsenal",
+      "subreddit": "Gunners",
+      "crest": "https://a.espncdn.com/i/teamlogos/soccer/500/359.png"
+    },
+    {
+      "name": "Manchester City",
+      "subreddit": "MCFC",
+      "crest": "https://a.espncdn.com/i/teamlogos/soccer/500/382.png"
+    },
+    {
+      "name": "Manchester United",
+      "subreddit": "reddevils",
+      "crest": "https://a.espncdn.com/i/teamlogos/soccer/500/360.png"
+    },
+    {
+      "name": "Liverpool",
+      "subreddit": "LiverpoolFC",
+      "crest": "https://a.espncdn.com/i/teamlogos/soccer/500/364.png"
+    },
+    {
+      "name": "Tottenham Hotspur",
+      "subreddit": "coys",
+      "crest": "https://a.espncdn.com/i/teamlogos/soccer/500/367.png"
+    },
+    {
+      "name": "Newcastle United",
+      "subreddit": "NUFC",
+      "crest": "https://a.espncdn.com/i/teamlogos/soccer/500/361.png"
+    }
   ],
   "timezone": "Asia/Kolkata",
-  "fpl": { "team_id": 7149204, "league_ids": [391164], "horizon_gws": 6 },
+  "fpl": {
+    "team_id": 7149204,
+    "league_ids": [
+      391164
+    ],
+    "horizon_gws": 6,
+    "people": [
+      {
+        "nick": "Xabi",
+        "entry": 7149204,
+        "club": "Chelsea",
+        "owner": true
+      },
+      {
+        "nick": "Sir Alex",
+        "entry": 58500,
+        "club": "Man Utd"
+      },
+      {
+        "nick": "Ronaldo",
+        "entry": 522356,
+        "club": "Man Utd"
+      },
+      {
+        "nick": "Enzo",
+        "entry": 6485401,
+        "club": "Chelsea"
+      },
+      {
+        "nick": "Arsene",
+        "entry": 4135179,
+        "club": "Arsenal"
+      }
+    ]
+  },
   "feeds": [
-    { "label": "The Guardian Football", "url": "https://www.theguardian.com/football/rss" },
-    { "label": "BBC Football", "url": "https://feeds.bbci.co.uk/sport/football/rss.xml" }
+    {
+      "label": "The Guardian Football",
+      "url": "https://www.theguardian.com/football/rss"
+    },
+    {
+      "label": "BBC Football",
+      "url": "https://feeds.bbci.co.uk/sport/football/rss.xml"
+    }
   ],
   "voice": "calm, sharp, no hype; written for a fan who missed the day, not a stranger"
 }

@@ -44,16 +44,24 @@ def run_fpl(client, config: TouchlineConfig, *, now: datetime | None = None) -> 
     bootstrap = client.fetch_bootstrap()
     fixtures = client.fetch_fixtures()
 
+    playing = next((e for e in bootstrap.events if e.is_current), None)
+    event = playing.id if playing else None
+
     entry = None
     if config.fpl.team_id:
-        playing = next((e for e in bootstrap.events if e.is_current), None)
         entry = client.fetch_entry(
-            config.fpl.team_id,
-            event=playing.id if playing else None,
-            league_ids=config.fpl.league_ids,
+            config.fpl.team_id, event=event, league_ids=config.fpl.league_ids
         )
 
-    bundle = build_fpl_facts(bootstrap, fixtures, config, now=now, entry=entry)
+    # Every manager in the group, keyed by nickname — never by real name.
+    people = {
+        person.nick: client.fetch_entry(person.entry, event=event)
+        for person in config.fpl.people
+    }
+
+    bundle = build_fpl_facts(
+        bootstrap, fixtures, config, now=now, entry=entry, people=people or None
+    )
     return json.dumps(bundle, indent=2, ensure_ascii=False)
 
 

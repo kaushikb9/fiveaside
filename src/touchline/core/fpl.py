@@ -190,6 +190,66 @@ def _penalties(elements: list[FPLElement], short_names: dict[int, str]) -> list[
     return rows
 
 
+def _player_file(
+    elements: list[FPLElement],
+    short_names: dict[int, str],
+    ticker: dict | None,
+    owned: dict[int, list[str]],
+) -> list[dict]:
+    """The player file — one record per player that matters, evidence only.
+
+    The brain adds the verdict, the direction and the trigger on top of these;
+    this function never guesses at them. A record earns its place by being
+    owned by one of us, plausibly ownable (top-N by ownership per position), or
+    flagged — nobody needs a file on the 19th-choice keeper at a promoted club.
+    """
+    fixtures_by_team = {}
+    if ticker:
+        for row in ticker.get("rows", []):
+            fixtures_by_team[row["team"]] = row.get("fixtures", [])[:3]
+
+    keep: dict[int, FPLElement] = {}
+    for pos, limit in TOP_N_BY_POS.items():
+        ranked = sorted(
+            (e for e in elements if e.element_type == pos),
+            key=lambda e: (-_ownership(e), -e.now_cost),
+        )
+        for e in ranked[:limit]:
+            keep[e.id] = e
+    for e in elements:
+        if e.id in owned or (e.status != "a" and _ownership(e) >= FLAG_MIN_OWNERSHIP):
+            keep[e.id] = e
+
+    records = []
+    for e in sorted(keep.values(), key=lambda e: (-_ownership(e), e.web_name)):
+        team = short_names.get(e.team, str(e.team))
+        next3 = fixtures_by_team.get(team, [])
+        record = {
+            "id": e.id,
+            "name": e.web_name,
+            "team": team,
+            "pos": POS_NAME.get(e.element_type, str(e.element_type)),
+            "price": e.now_cost / 10,
+            "ownership": _ownership(e),
+            "points": e.total_points,
+            "form": e.form,
+            "next3": next3,
+            "owned_by": owned.get(e.id, []),
+        }
+        if next3:
+            record["next3_avg"] = round(sum(f["fdr"] for f in next3) / len(next3), 2)
+        if e.penalties_order == 1:
+            record["penalties"] = True
+        if e.status != "a":
+            record["status"] = e.status
+        if e.news:
+            record["news"] = e.news
+        if e.chance_of_playing_next_round is not None:
+            record["chance"] = e.chance_of_playing_next_round
+        records.append(record)
+    return records
+
+
 def _desk(
     entry: FPLEntryResult | None,
     gameweek_id: int | None,
@@ -210,7 +270,8 @@ def _desk(
     chips_used = {p.get("name") for p in (e.get("chips") or []) if isinstance(p, dict)}
     desk = {
         "team_name": e.get("name"),
-        "manager": f"{e.get('player_first_name', '')} {e.get('player_last_name', '')}".strip(),
+        # No `manager` key by design: the entry payload carries a real name and
+        # it stops here. People are identified by nickname, from config.
         "entered": bool(picks.get("picks")),
         "overall_rank": e.get("summary_overall_rank"),
         "total_points": e.get("summary_overall_points"),
@@ -254,21 +315,29 @@ def _desk(
     return desk
 
 
-def _leagues(entry: FPLEntryResult | None, entry_id: int | None) -> list[dict]:
-    """Mini-league standings, trimmed to what the page renders."""
+def _leagues(
+    entry: FPLEntryResult | None, entry_id: int | None, nicks: dict[int, str] | None = None
+) -> list[dict]:
+    """Mini-league standings, trimmed to what the page renders.
+
+    The API returns every manager's real name in `player_name`. It is dropped
+    here and never travels further — members of the group are identified by
+    nickname, everyone else by their team name alone.
+    """
     if entry is None or not entry.ok:
         return []
+    nicks = nicks or {}
     out = []
     for league in entry.leagues:
         rows = [
             {
                 "rank": r.get("rank"),
                 "name": r.get("entry_name"),
-                "manager": r.get("player_name"),
                 "entry": r.get("entry"),
                 "total": r.get("total"),
                 "event_total": r.get("event_total"),
                 "is_owner": r.get("entry") == entry_id,
+                **({"nick": nicks[r["entry"]]} if r.get("entry") in nicks else {}),
             }
             for r in league["results"]
         ]
@@ -283,6 +352,7 @@ def build_fpl_facts(
     *,
     now: datetime,
     entry: FPLEntryResult | None = None,
+    people: dict[str, FPLEntryResult] | None = None,
 ) -> dict:
     """Assemble the JSON-ready FPL facts bundle as of `now`."""
     tz = ZoneInfo(config.timezone)
@@ -327,6 +397,22 @@ def build_fpl_facts(
     if most_captained is None and upcoming:
         most_captained = upcoming[0].most_captained
 
+    nicks = {p.entry: p.nick for p in config.fpl.people}
+
+    # Who among the group owns whom — free to compute, and the seed of every
+    # comparison (and every roast) the page will ever make.
+    owned: dict[int, list[str]] = {}
+    squads: list[dict] = []
+    for person, result in (people or {}).items():
+        desk = _desk(result, playing.id if playing else None, bootstrap.elements, short_names)
+        if desk is None:
+            continue
+        desk["nick"] = person
+        squads.append(desk)
+        for pick in desk.get("picks") or []:
+            if pick.get("element"):
+                owned.setdefault(pick["element"], []).append(person)
+
     return {
         "date": today.isoformat(),
         "timezone": config.timezone,
@@ -336,13 +422,11 @@ def build_fpl_facts(
         "next_deadlines": next_deadlines,
         "teams": [{"name": t.name, "short_name": t.short_name} for t in bootstrap.teams],
         "ticker": ticker,
-        "template": _template(bootstrap.elements, short_names),
         "captain_poll": _captain_poll(bootstrap.elements, short_names, most_captained),
-        "penalties": _penalties(bootstrap.elements, short_names),
-        "desk": _desk(
-            entry, playing.id if playing else None, bootstrap.elements, short_names
-        ),
-        "leagues": _leagues(entry, config.fpl.team_id),
+        "desk": _desk(entry, playing.id if playing else None, bootstrap.elements, short_names),
+        "squads": squads,
+        "leagues": _leagues(entry, config.fpl.team_id, nicks),
+        "player_file": _player_file(bootstrap.elements, short_names, ticker, owned),
         "players": _compact_players(bootstrap.elements, short_names),
         "errors": {
             "bootstrap": bootstrap.error,

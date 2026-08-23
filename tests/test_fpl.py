@@ -101,22 +101,26 @@ def test_ticker_rows_sorted_by_easiest_run():
     ]
 
 
-def test_template_board_groups_most_owned_by_position():
-    groups = _bundle()["template"]
-    assert [g["pos"] for g in groups] == ["GK", "DEF", "MID", "FWD"]
-    gk = next(g for g in groups if g["pos"] == "GK")
-    # ordered by ownership desc; the fixture has 2 keepers
-    assert [r["name"] for r in gk["rows"]] == ["Raya", "Sánchez"]
-    assert gk["rows"][0] == {"name": "Raya", "team": "ARS", "ownership": 36.4, "price": 6.0}
+def test_player_file_carries_evidence_not_verdicts():
+    records = _bundle()["player_file"]
+    assert records, "the player file should not be empty"
+    raya = next(r for r in records if r["name"] == "Raya")
+    assert raya["team"] == "ARS" and raya["pos"] == "GK" and raya["price"] == 6.0
+    assert raya["ownership"] == 36.4
+    # evidence only — verdict, direction and trigger belong to the brain
+    assert not {"verdict", "moved", "trigger"} & set(raya)
+    # most-owned first, so the file opens on the players that matter
+    assert records[0]["ownership"] >= records[-1]["ownership"]
 
 
-def test_penalty_takers_only_first_choice():
-    rows = _bundle()["penalties"]
-    # Gabriel is second choice (order 2) -> excluded; one row per club with a taker
-    assert rows == [
-        {"team": "CHE", "taker": "Palmer", "price": 9.5},
-        {"team": "LIV", "taker": "Haaland", "price": 15.5},
-    ]
+def test_player_file_marks_penalty_takers_and_flags():
+    records = _bundle()["player_file"]
+    palmer = next(r for r in records if r["name"] == "Palmer")
+    assert palmer["penalties"] is True
+    raya = next(r for r in records if r["name"] == "Raya")
+    assert "penalties" not in raya  # not a taker -> key absent, never False
+    star = next(r for r in records if r["name"] == "InjuredStar")
+    assert star["status"] == "d" and star["chance"] == 75
 
 
 def test_captain_poll_carries_most_captained_without_inventing_shares():
@@ -212,7 +216,7 @@ def test_entry_and_league_parse_into_desk_and_rows():
 
     desk = bundle["desk"]
     assert desk["team_name"] == "Wabi Sabi Xabi"
-    assert desk["manager"] == "Kaushik Bhat"
+    assert "manager" not in desk  # real names are dropped at the facts layer
     assert desk["entered"] is True
     assert desk["value"] == 100.0 and desk["bank"] == 0.0
     assert desk["chips_used"] == ["wildcard"]
@@ -236,7 +240,7 @@ def test_entry_degrades_without_costing_the_bundle():
     )
     assert bundle["desk"] is None
     assert bundle["errors"]["entry"]
-    assert bundle["template"]  # the rest of the bundle survives
+    assert bundle["player_file"]  # the rest of the bundle survives
 
 
 def test_compaction_keeps_flagged_drops_fringe():
@@ -256,3 +260,88 @@ def test_compaction_keeps_flagged_drops_fringe():
     haaland = next(r for r in rows if r["name"] == "Haaland")
     assert haaland["price"] == 15.5
     assert haaland["team"] == "LIV"
+
+
+def test_real_names_never_reach_the_bundle():
+    """The API hands back real names; the facts layer must delete them.
+
+    This is the guarantee behind "nicknames only" — the brain cannot leak what
+    it was never given, so the check belongs here rather than in the prompt.
+    """
+
+    def handler(request: httpx.Request) -> httpx.Response:
+        path = request.url.path
+        if "bootstrap-static" in path:
+            return httpx.Response(200, json=json.loads((FIXTURES / "bootstrap.json").read_text()))
+        if "leagues-classic" in path:
+            return httpx.Response(
+                200,
+                json={
+                    "league": {"name": "FPL 26-27"},
+                    "standings": {
+                        "results": [
+                            {
+                                "rank": 1,
+                                "entry_name": "Wabi Sabi Xabi",
+                                "player_name": "Reallife Name",
+                                "entry": 7149204,
+                                "total": 61,
+                                "event_total": 61,
+                            },
+                            {
+                                "rank": 2,
+                                "entry_name": "Stranger FC",
+                                "player_name": "Someone Else",
+                                "entry": 999,
+                                "total": 40,
+                                "event_total": 40,
+                            },
+                        ]
+                    },
+                },
+            )
+        if "picks" in path:
+            return httpx.Response(
+                200, json={"entry_history": {}, "picks": [{"element": 40, "position": 1}]}
+            )
+        if "/entry/" in path:
+            return httpx.Response(
+                200,
+                json={
+                    "name": "Wabi Sabi Xabi",
+                    "player_first_name": "Reallife",
+                    "player_last_name": "Name",
+                    "summary_overall_points": 61,
+                },
+            )
+        return httpx.Response(200, json=json.loads((FIXTURES / "fixtures.json").read_text()))
+
+    config = TouchlineConfig(
+        club=ClubConfig(name="Chelsea", code="CHE"),
+        competitions=["PL"],
+        timezone="Asia/Kolkata",
+        fpl={
+            "team_id": 7149204,
+            "league_ids": [391164],
+            "people": [{"nick": "Xabi", "entry": 7149204, "club": "Chelsea", "owner": True}],
+        },
+    )
+    client = _client_with(handler)
+    entry = client.fetch_entry(7149204, event=1, league_ids=[391164])
+    bundle = build_fpl_facts(
+        client.fetch_bootstrap(),
+        client.fetch_fixtures(),
+        config,
+        now=NOW,
+        entry=entry,
+        people={"Xabi": entry},
+    )
+
+    blob = json.dumps(bundle)
+    assert "Reallife" not in blob and "Someone Else" not in blob
+    # team names survive — they are the public identity; nicknames tag the group
+    assert "Wabi Sabi Xabi" in blob and "Stranger FC" in blob
+    row = next(r for r in bundle["leagues"][0]["rows"] if r["entry"] == 7149204)
+    assert row["nick"] == "Xabi"
+    assert "manager" not in row
+    assert [s["nick"] for s in bundle["squads"]] == ["Xabi"]
