@@ -188,5 +188,8 @@ Ordered so each step is shippable on its own.
   own (38)? Recommend the latter, with filters to widen.
 - Per-person ledgers were agreed as a trial. If five ledgers prove to be four
   too many, collapse to one house ledger — his call, after a few weeks.
-- The old `touchline-chelsea` Pages project still exists, untouched by request.
-  `touchline-pl` was deleted 2026-08-23.
+- The Chelsea digest was split out on 2026-08-23 into its own repo,
+  `~/Code/touchline-chelsea` (Pages project `touchline-chelsea`). It runs
+  weekly on Mondays, carries no FPL and no league-wide sections, and exists
+  only as a fallback — **retire it once the three rooms here are finished**.
+  `touchline-pl` was deleted the same day.
