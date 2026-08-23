@@ -130,7 +130,14 @@ one product: any player name in the first two opens their locker-room card.
 5. **The Bus** — the set-and-forget reliability benchmark from the original
    dossier — is not built and not in the schema. It was never asked for again
    after the mockup rounds; say if it should come back.
-6. **Reddit** is login-walled; `brain/sources.md` has the fallbacks.
+6. **Reddit is gone, not merely awkward.** As of 2026-08-24 every subreddit
+   RSS feed returns login HTML, so the fan-voice layer the digest was partly
+   built on no longer exists. Today's page is Guardian/BBC/Standard/named
+   correspondents only, and reads fine — but "what fans are arguing about"
+   is currently unsourced. Finding a replacement is a real editorial task,
+   not a plumbing one. `brain/sources.md` §2 has the candidates.
+7. **FFScout** article bodies are JS- and membership-gated, so FPL colour
+   comes from match facts rather than price/ownership commentary.
 
 ## 5. Todos, end to end
 

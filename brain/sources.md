@@ -3,15 +3,22 @@
 1. **Facts bundle** (provided in the task message — output of
    `uv run touchline facts`): ground truth for scores, fixtures, tables,
    form. Served by the source selected in `touchline.config.json` (`source`: ESPN by default; api-football or football-data.org selectable).
-2. **r/soccer, top of the last day** —
-   https://www.reddit.com/r/soccer/top/.rss?t=day — the community-voted
-   pulse of the game. (Reddit's public .json endpoints 403; RSS works.)
-3. **Club subreddit** — https://www.reddit.com/r/<club.subreddit>/top/.rss?t=day
-   with `club.subreddit` from OWNER CONFIG — the fan mood.
-4. **Editorial feeds** — every entry in OWNER CONFIG `feeds` (label + URL).
-5. **Rival subreddits** — https://www.reddit.com/r/<rivals[].subreddit>/top/.rss?t=day
-   for each entry in OWNER CONFIG `rivals` — each rival club's own top
-   story of the day, feeding the `rivals` notes.
+2. **Reddit is DEAD to this pipeline as of 2026-08-24.** Every subreddit RSS
+   feed — r/soccer and all five club subs — now returns Reddit's "Welcome to
+   Reddit" login HTML rather than entries. The `.json` endpoints have 403'd
+   for a while; RSS has now gone the same way. Do not spend a run's budget
+   retrying them, and do not describe fan mood you have not actually read.
+   The fan-voice layer is simply absent until a replacement is found.
+   Candidates not yet tried: a club forum with an open feed, BlueSky search,
+   or the comment sections of the outlets below.
+3. **Editorial feeds** — every entry in OWNER CONFIG `feeds` (label + URL).
+   Guardian and BBC both work; these carry most of the load now.
+4. **Club coverage that still works without a login** — the Standard,
+   ReadChelsea, and the Google News reporter feeds in §6. Prefer a named
+   correspondent over an aggregator when a claim matters.
+5. **FFScout** — article bodies are JS- and membership-gated, so treat it as
+   a headline source only. FPL items should be built from match facts and the
+   player file rather than from anything scraped off it.
 6. **Transfer reporters** (transfer windows; mandatory for `rumours` and any
    transfer story in `week`). Their tweets are the primary wire, but Twitter
    and every nitter mirror are bot-walled from this pipeline — so read them
