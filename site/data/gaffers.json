@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-23T19:19:47.830Z",
+  "generated_at": "2026-08-23T20:07:31.631Z",
   "gameweek": 2,
   "live_gameweek": {
     "id": 1,
@@ -13,7 +13,7 @@
       "entered": true,
       "total_points": 31,
       "gw_points": 31,
-      "overall_rank": 5994574,
+      "overall_rank": 6006172,
       "bank": 0,
       "value": 100,
       "free_transfers": 0,
@@ -242,7 +242,7 @@
       "entered": true,
       "total_points": 38,
       "gw_points": 38,
-      "overall_rank": 3598160,
+      "overall_rank": 3617062,
       "bank": 0,
       "value": 100,
       "free_transfers": 0,
@@ -471,7 +471,7 @@
       "entered": true,
       "total_points": 39,
       "gw_points": 39,
-      "overall_rank": 3281017,
+      "overall_rank": 3300391,
       "bank": 0,
       "value": 100,
       "free_transfers": 0,
@@ -700,7 +700,7 @@
       "entered": true,
       "total_points": 33,
       "gw_points": 33,
-      "overall_rank": 5324528,
+      "overall_rank": 5338268,
       "bank": 0,
       "value": 100,
       "free_transfers": 0,
@@ -929,7 +929,7 @@
       "entered": true,
       "total_points": 45,
       "gw_points": 45,
-      "overall_rank": 1693840,
+      "overall_rank": 1711481,
       "bank": 0.5,
       "value": 100,
       "free_transfers": 0,
@@ -1225,15 +1225,6 @@
       },
       {
         "rank": 8,
-        "name": "CFC",
-        "entry": 4550750,
-        "total": 31,
-        "event_total": 31,
-        "is_owner": false,
-        "is_gaffer": false
-      },
-      {
-        "rank": 8,
         "name": "Wabi Sabi Xabi",
         "entry": 7149204,
         "total": 31,
@@ -1241,6 +1232,15 @@
         "is_owner": true,
         "nick": "Xabi",
         "is_gaffer": true
+      },
+      {
+        "rank": 8,
+        "name": "CFC",
+        "entry": 4550750,
+        "total": 31,
+        "event_total": 31,
+        "is_owner": false,
+        "is_gaffer": false
       },
       {
         "rank": 10,

@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-23T19:19:47.830Z",
+  "generated_at": "2026-08-23T20:07:31.631Z",
   "gameweek": 2,
   "players": [
     {
@@ -123,7 +123,7 @@
       "team": "LIV",
       "pos": "MID",
       "price": 7,
-      "ownership": 41.8,
+      "ownership": 41.9,
       "points": 8,
       "form": "8.0",
       "next3": [
@@ -544,7 +544,7 @@
       "team": "MUN",
       "pos": "DEF",
       "price": 4.5,
-      "ownership": 21,
+      "ownership": 20.9,
       "points": 1,
       "form": "1.0",
       "next3": [
@@ -1149,6 +1149,40 @@
       "next3_avg": 3
     },
     {
+      "id": 391,
+      "name": "Gvardiol",
+      "team": "MCI",
+      "pos": "DEF",
+      "price": 5.5,
+      "ownership": 11.5,
+      "points": 9,
+      "form": "9.0",
+      "next3": [
+        {
+          "gw": 2,
+          "opp": "CRY",
+          "home": false,
+          "fdr": 3
+        },
+        {
+          "gw": 3,
+          "opp": "COV",
+          "home": true,
+          "fdr": 2
+        },
+        {
+          "gw": 4,
+          "opp": "MUN",
+          "home": false,
+          "fdr": 4
+        }
+      ],
+      "owned_by": [
+        "Ronaldo"
+      ],
+      "next3_avg": 3
+    },
+    {
       "id": 480,
       "name": "Gibbs-White",
       "team": "NFO",
@@ -1179,40 +1213,6 @@
       ],
       "owned_by": [],
       "next3_avg": 3.67
-    },
-    {
-      "id": 391,
-      "name": "Gvardiol",
-      "team": "MCI",
-      "pos": "DEF",
-      "price": 5.5,
-      "ownership": 11.4,
-      "points": 9,
-      "form": "9.0",
-      "next3": [
-        {
-          "gw": 2,
-          "opp": "CRY",
-          "home": false,
-          "fdr": 3
-        },
-        {
-          "gw": 3,
-          "opp": "COV",
-          "home": true,
-          "fdr": 2
-        },
-        {
-          "gw": 4,
-          "opp": "MUN",
-          "home": false,
-          "fdr": 4
-        }
-      ],
-      "owned_by": [
-        "Ronaldo"
-      ],
-      "next3_avg": 3
     },
     {
       "id": 154,
@@ -1253,7 +1253,7 @@
       "team": "TOT",
       "pos": "DEF",
       "price": 5,
-      "ownership": 10.6,
+      "ownership": 10.5,
       "points": 1,
       "form": "1.0",
       "next3": [
@@ -2137,7 +2137,7 @@
       "team": "SUN",
       "pos": "DEF",
       "price": 5,
-      "ownership": 5.6,
+      "ownership": 5.5,
       "points": 0,
       "form": "0.0",
       "next3": [
@@ -2920,8 +2920,8 @@
       "pos": "MID",
       "price": 7,
       "ownership": 3.7,
-      "points": 10,
-      "form": "10.0",
+      "points": 12,
+      "form": "12.0",
       "next3": [
         {
           "gw": 2,
@@ -3076,38 +3076,6 @@
       "next3_avg": 2.67
     },
     {
-      "id": 357,
-      "name": "Frimpong",
-      "team": "LIV",
-      "pos": "DEF",
-      "price": 5.5,
-      "ownership": 3.6,
-      "points": 0,
-      "form": "0.0",
-      "next3": [
-        {
-          "gw": 2,
-          "opp": "NFO",
-          "home": true,
-          "fdr": 3
-        },
-        {
-          "gw": 3,
-          "opp": "IPS",
-          "home": false,
-          "fdr": 2
-        },
-        {
-          "gw": 4,
-          "opp": "FUL",
-          "home": true,
-          "fdr": 2
-        }
-      ],
-      "owned_by": [],
-      "next3_avg": 2.33
-    },
-    {
       "id": 329,
       "name": "Rodon",
       "team": "LEE",
@@ -3172,6 +3140,38 @@
         "Sir Alex"
       ],
       "next3_avg": 2.67
+    },
+    {
+      "id": 357,
+      "name": "Frimpong",
+      "team": "LIV",
+      "pos": "DEF",
+      "price": 5.5,
+      "ownership": 3.5,
+      "points": 0,
+      "form": "0.0",
+      "next3": [
+        {
+          "gw": 2,
+          "opp": "NFO",
+          "home": true,
+          "fdr": 3
+        },
+        {
+          "gw": 3,
+          "opp": "IPS",
+          "home": false,
+          "fdr": 2
+        },
+        {
+          "gw": 4,
+          "opp": "FUL",
+          "home": true,
+          "fdr": 2
+        }
+      ],
+      "owned_by": [],
+      "next3_avg": 2.33
     },
     {
       "id": 304,
@@ -3762,14 +3762,14 @@
       "chance": 0
     },
     {
-      "id": 504,
-      "name": "Vuskovic",
+      "id": 115,
+      "name": "De Cuyper",
       "team": "BHA",
       "pos": "DEF",
-      "price": 5,
+      "price": 4.5,
       "ownership": 2.5,
-      "points": 6,
-      "form": "6.0",
+      "points": 17,
+      "form": "17.0",
       "next3": [
         {
           "gw": 2,
@@ -3794,14 +3794,14 @@
       "next3_avg": 2.67
     },
     {
-      "id": 115,
-      "name": "De Cuyper",
+      "id": 504,
+      "name": "Vuskovic",
       "team": "BHA",
       "pos": "DEF",
-      "price": 4.5,
-      "ownership": 2.4,
-      "points": 17,
-      "form": "17.0",
+      "price": 5,
+      "ownership": 2.5,
+      "points": 6,
+      "form": "6.0",
       "next3": [
         {
           "gw": 2,
@@ -3960,7 +3960,7 @@
       "team": "IPS",
       "pos": "FWD",
       "price": 4.5,
-      "ownership": 2.2,
+      "ownership": 2.3,
       "points": 1,
       "form": "1.0",
       "next3": [
@@ -5871,38 +5871,6 @@
       "next3_avg": 2.67
     },
     {
-      "id": 441,
-      "name": "Obi",
-      "team": "MUN",
-      "pos": "FWD",
-      "price": 4.5,
-      "ownership": 1.2,
-      "points": 0,
-      "form": "0.0",
-      "next3": [
-        {
-          "gw": 2,
-          "opp": "IPS",
-          "home": true,
-          "fdr": 2
-        },
-        {
-          "gw": 3,
-          "opp": "EVE",
-          "home": false,
-          "fdr": 3
-        },
-        {
-          "gw": 4,
-          "opp": "MCI",
-          "home": true,
-          "fdr": 4
-        }
-      ],
-      "owned_by": [],
-      "next3_avg": 3
-    },
-    {
       "id": 110,
       "name": "Rushworth",
       "team": "COV",
@@ -6093,6 +6061,38 @@
       ],
       "owned_by": [],
       "next3_avg": 3.67
+    },
+    {
+      "id": 441,
+      "name": "Obi",
+      "team": "MUN",
+      "pos": "FWD",
+      "price": 4.5,
+      "ownership": 1.1,
+      "points": 0,
+      "form": "0.0",
+      "next3": [
+        {
+          "gw": 2,
+          "opp": "IPS",
+          "home": true,
+          "fdr": 2
+        },
+        {
+          "gw": 3,
+          "opp": "EVE",
+          "home": false,
+          "fdr": 3
+        },
+        {
+          "gw": 4,
+          "opp": "MCI",
+          "home": true,
+          "fdr": 4
+        }
+      ],
+      "owned_by": [],
+      "next3_avg": 3
     },
     {
       "id": 592,
@@ -6618,8 +6618,8 @@
       "pos": "MID",
       "price": 6,
       "ownership": 0.9,
-      "points": 10,
-      "form": "10.0",
+      "points": 9,
+      "form": "9.0",
       "next3": [
         {
           "gw": 2,
@@ -9903,41 +9903,6 @@
       "chance": 0
     },
     {
-      "id": 540,
-      "name": "Masuaku",
-      "team": "SUN",
-      "pos": "DEF",
-      "price": 4,
-      "ownership": 0.3,
-      "points": 0,
-      "form": "0.0",
-      "next3": [
-        {
-          "gw": 2,
-          "opp": "FUL",
-          "home": true,
-          "fdr": 2
-        },
-        {
-          "gw": 3,
-          "opp": "BRE",
-          "home": false,
-          "fdr": 3
-        },
-        {
-          "gw": 4,
-          "opp": "ARS",
-          "home": true,
-          "fdr": 4
-        }
-      ],
-      "owned_by": [],
-      "next3_avg": 3,
-      "status": "u",
-      "news": "Has joined Konyaspor permanently",
-      "chance": 0
-    },
-    {
       "id": 378,
       "name": "McConnell",
       "team": "LIV",
@@ -11754,6 +11719,41 @@
       ],
       "owned_by": [],
       "next3_avg": 3.67
+    },
+    {
+      "id": 540,
+      "name": "Masuaku",
+      "team": "SUN",
+      "pos": "DEF",
+      "price": 4,
+      "ownership": 0.2,
+      "points": 0,
+      "form": "0.0",
+      "next3": [
+        {
+          "gw": 2,
+          "opp": "FUL",
+          "home": true,
+          "fdr": 2
+        },
+        {
+          "gw": 3,
+          "opp": "BRE",
+          "home": false,
+          "fdr": 3
+        },
+        {
+          "gw": 4,
+          "opp": "ARS",
+          "home": true,
+          "fdr": 4
+        }
+      ],
+      "owned_by": [],
+      "next3_avg": 3,
+      "status": "u",
+      "news": "Has joined Konyaspor permanently",
+      "chance": 0
     },
     {
       "id": 252,

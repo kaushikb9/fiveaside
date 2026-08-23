@@ -425,6 +425,12 @@ def build_fpl_facts(
         if desk is None:
             continue
         desk["nick"] = person
+        # The club each gaffer actually supports, from config. The site tints
+        # their chip with it, which is the only thing distinguishing five
+        # otherwise identical buttons at a glance.
+        club = next((x.club for x in config.fpl.people if x.nick == person), None)
+        if club:
+            desk["club"] = club
         squads.append(desk)
         for pick in desk.get("picks") or []:
             if pick.get("element"):

@@ -79,117 +79,62 @@ so the retro can settle it).
 
 ## 3. What works today
 
-- **touchline** (`/digest/`) is a genuine league page: top-level table (top six
-  plus every followed club, focus-marked), a 5–8 item week feed tagged PL/FPL
-  and attributed to clubs, one filter that narrows the feed *and* the table,
-  `top_teams` for the six, `elsewhere` for everyone else, team watch, rumours.
-  The brain produced a good one on 2026-08-23.
-- **the gaffers** (`/`): gaffer selector (five chips, remembered), gameweek
-  arrows, live fixtures, per-person desk and pitch, "the five" table with the
-  other six behind a disclosure.
-- **Live gameweek data** works: real scores with a clock, per-player live points,
-  provisional bonus derived from live BPS, live mini-league.
-- **The player card** opens from any player name on the gaffers page.
-- **Brand**: Five-a-Side wordmark, five-player quincunx icon, room names in nav.
-- 100 pytest, ruff clean, three validators green.
+**All three rooms are built and live.** `touchline` at `/`, `the gaffers` at
+`/gaffers/`, `the locker room` at `/locker/` — one shell, one nav, one theme
+(Dugout light / Floodlit dark, Auto by default), and the seam that makes them
+one product: any player name in the first two opens their locker-room card.
 
----
+- **touchline** — the league table with focus clubs marked by rule, the week
+  feed with one control that narrows it and dims the table together, team
+  watch, around the top, elsewhere, rumours, and the links worth a click.
+  Every earlier entry is in the archive behind a fold.
+- **the gaffers** — a headline computed from the five squads alone, the
+  long-game guard, five gaffer chips, the league table collapsed, the weekly
+  read, **the pitch** (club kits, captain armband, gameweek navigation
+  backwards to settled weeks and forwards to fixtures), per-person
+  watchlists with KV-backed stars, the roast, what the crowd missed, and the
+  chip clock.
+- **the locker room** — the file (gated at >2% ownership, never dropping
+  anyone the five own, with verdict-led rows and a live threshold control),
+  the injury room, team news, and the fixture runs.
+- **`/api/stars`** is bound to a real KV namespace and verified end to end.
+- **`brain/test/smoke.sh <url>`** runs 48 checks over the whole product —
+  every room, both themes, every control, the card seam, and phone width.
+  Green against production.
 
 ## 4. Known debt — read before building
 
-1. **`fpl.json` is still single-person.** `watchlist`, `wagers`, `log`, `plan`
-   are one shared set rendered under whichever gaffer is selected, which is
-   misleading: they are all KB's. This is the single biggest correctness gap.
-2. **Four-seams drift** (the repo's #1 recurring bug class, per AGENTS.md):
-   - `race` and `season` in fpl.json are **dead data** — the renderer replaced
-     `race` with the five-table from `gaffers.json`, but the prompt still
-     instructs writing it and the validator still checks it.
-   - `callHTML` and `raceHTML` in `site/app.js` are **orphaned functions**
-     (`deskHTML` is transitively dead through `callHTML`).
-   - The prompt still tells the brain to write `call`, `squad`, `desk` and
-     `race`. `call` was explicitly dropped in the design; `desk`/`squad` are
-     now superseded by `gaffers.json`.
-3. **"The commons" divider is a leftover.** It was the public/personal seam of
-   the sync gate, which was removed when the page became the group's. Everything
-   on the page is common now, so the label is meaningless and should go — along
-   with re-homing what sits under it (see todo 2).
-4. **No validator for `gaffers.json`**, and no real-name backstop on it (the one
-   in `validate-players.mjs` should be mirrored).
-5. **Real names**: deleted at the facts layer in `core/fpl.py`, with a test
-   (`test_real_names_never_reach_the_bundle`). Team names survive by design —
-   "Yogesh11" contains a first name and that is KB's accepted call. Never
-   reintroduce `player_name`, `manager`, or first/last name fields.
-6. **Reddit** is unreliable from this pipeline (r/reddevils failed five retries
-   on 2026-08-23). Fallbacks: FFScout via curl, Google News RSS, BBC/Guardian.
-
----
+1. **`gaffers.json` stores only the current gameweek's picks.** The pitch's
+   back-step therefore pairs *this* week's squad with *that* week's points,
+   and says so on the page. Fix: store picks per gameweek from
+   `entry/{id}/event/{gw}/picks/`, which already returns everything needed.
+   Captaincy and the multiplier now survive, so this is the last piece.
+2. **The brain invents things it was never given.** It wrote the owner's real
+   name into `fpl.json` from repository context, and it was live until
+   2026-08-23. `validate-fpl.mjs` has a banned-key backstop now. Treat any
+   fact in `fpl.json` as unverified unless a validator or a test checks it.
+3. **Only 10 verdicts exist against 609 players.** The prompt asks for 25–50.
+   Confirm the next run actually delivers, and that each carries a real
+   trigger rather than "if he plays badly".
+4. **The machine sleeps mid-run.** `pmset` has `sleep 1` on AC, so an
+   unattended brain run dies unless wrapped in `caffeinate -dimsu`. `-i`
+   alone is not enough. `auto.sh` should wrap its own runs.
+5. **The Bus** — the set-and-forget reliability benchmark from the original
+   dossier — is not built and not in the schema. It was never asked for again
+   after the mockup rounds; say if it should come back.
+6. **Reddit** is login-walled; `brain/sources.md` has the fallbacks.
 
 ## 5. Todos, end to end
 
-Ordered so each step is shippable on its own.
-
-### A. Finish the rooms
-
-1. **Build the locker room** (`/locker/`). A shell was started and deliberately
-   removed rather than left broken — start clean.
-   - Reads `players.json` + `fpl.json.verdicts`; reuse the player-card markup
-     and CSS that already exist in `site/app.js` (`playerCardHTML`).
-   - Sections: **injury room** (players with `status`/`news`, ours first),
-     **the file** (filter chips: ours / nailed / solid / watch / sack / flagged,
-     plus a search box — 604 rows needs a default view, suggest "ours"), and
-     **fixture runs** moved here from the gaffers page.
-   - Rows are verdict-led: word, then name, then one line of why.
-2. **Kill "the commons"** on `/`. Move `signals` (team news) and `fixtureRuns`
-   into the locker room; keep `captain_poll`, `bus` and `chips` on the gaffers
-   page as decision aids. Delete the `commons-rule` divider and its CSS.
-3. **Add the locker room to the nav** in all four page shells.
-
-### B. Make it genuinely five-handed
-
-4. **Per-person editorial in `fpl.json`.** Restructure to
-   `people: [{ nick, watchlist[], wagers[], week: {worked, didnt, next} }]`
-   with `doctrine` staying house-wide (agreed in the sketches; per-person
-   ledger is an explicit trial that can collapse back to one).
-   Update in one branch: schema → `validate-fpl.mjs` → `fpl-prompt.md` →
-   `site/app.js`. This is the four-seams rule; do not do them separately.
-5. **"What worked / what didn't / what's next"** — the three-block weekly read
-   that replaces `call`. Per person, written post-gameweek.
-6. **Delete `call`, `squad`, `desk`, `race`** from prompt, validator and
-   renderer once (4) and (5) land, and remove the orphaned functions.
-
-### C. The fun
-
-7. **The roast.** The render slot already exists (`data.roast.text`). Rules are
-   agreed and written in the sketches: post-gameweek only (never daily), only
-   ever about a decision with the fact attached, never the same person twice
-   running, and it must roast the machine too. Needs a settled gameweek to have
-   material — GW1 settles after Chelsea–Fulham on Mon 24 Aug.
-8. **Player-file ownership diffs** as roast fuel — the card already shows who
-   owns whom; "four of five own Haaland, Sir Alex does not" writes itself.
-
-### D. Hygiene
-
-9. **Validator for `gaffers.json`** + real-name backstop.
-10. **Verdict coverage**: only 10 verdicts exist against 604 players. The prompt
-    asks for 25–50 covering everyone owned plus anyone in the news. Confirm the
-    next brain run actually does it.
-11. **`auto.sh`** runs both products hourly from 07:00 with independent
-    freshness guards. Check `brain/auto.log` after the first run following any
-    schema change — a rejected run quarantines to `brain/scratch/` and retries.
-12. **KV-backed watchlists**, keyed by `gaffer_id` — now wanted (see §5b), so
-    this is a real todo rather than a deferral. Needs a Pages Function and a KV
-    namespace; the ☆ star writes through it, not to localStorage.
-13. **`gaffers.json` stores only the current gameweek's picks, and no
-    captaincy.** These are one fix, and the pitch makes both visible: stepping
-    back to GW1 shows *this* week's squad against last week's points, and the
-    raw XI total is short of the real one because the captain's double cannot
-    be applied (30 vs 31 for Xabi at GW1). Store picks per gameweek with
-    `is_captain`/`is_vice`, from `entry/{id}/event/{gw}/picks/` which already
-    returns both. Needed before the pitch's back-step is honest.
-14. **Deferred by decision, do not build unless asked**: friend-facing team-ID
-    entry, any auto-refresh or realtime behaviour, accounts/auth.
-
----
+1. **Per-gameweek picks** (debt 1) — unblocks an honest back-step, chip
+   history, and any retro that compares what was picked with what scored.
+2. **Verdict coverage** (debt 3) — the locker room is only as good as this.
+3. **`auto.sh` wraps runs in `caffeinate`** (debt 4).
+4. **The roast needs a settled gameweek.** GW1 finishes after the last match;
+   the rule is post-gameweek only, so the first real one lands then.
+5. **Retire `touchline-chelsea`** once these rooms have run for a week.
+6. **Deferred by decision**: friend-facing team-ID entry, any auto-refresh or
+   realtime behaviour, accounts/auth.
 
 ## 5b. Settled by review, 2026-08-23 — do not re-litigate
 

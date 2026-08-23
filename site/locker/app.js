@@ -23,7 +23,9 @@
   let filter = "ours";
   let query = "";
 
-  const inFile = (p) => p.ownership > minOwn || (p.owned_by && p.owned_by.length);
+  // A threshold of 0 means EVERYONE, including the 130-odd players nobody owns
+  // at all. Using `> 0` there quietly excluded them and made "anyone" a lie.
+  const inFile = (p) => minOwn === 0 || p.ownership > minOwn || (p.owned_by && p.owned_by.length);
 
   const FILTERS = {
     ours: (p) => p.owned_by && p.owned_by.length,
@@ -41,7 +43,9 @@
   const THRESHOLDS = [0, 1, 2, 3, 5, 10];
 
   const countAt = (t) =>
-    P.players.filter((p) => p.ownership > t || (p.owned_by && p.owned_by.length)).length;
+    t === 0
+      ? P.players.length
+      : P.players.filter((p) => p.ownership > t || (p.owned_by && p.owned_by.length)).length;
 
   /* ---------------- the file ---------------- */
   function fileHTML() {

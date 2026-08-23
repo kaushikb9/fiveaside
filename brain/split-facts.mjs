@@ -38,6 +38,7 @@ const gaffers = {
     const row = (league?.rows ?? []).find((r) => r.nick === s.nick) ?? null;
     return {
       nick: s.nick,
+      club: s.club ?? null,
       team_name: s.team_name,
       entry: row?.entry ?? null,
       entered: s.entered ?? false,
