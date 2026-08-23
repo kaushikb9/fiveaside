@@ -185,8 +185,9 @@
     return '<div class="panel"><h3>Live gameweek ' + live.gw + "</h3>" +
       '<p class="note">' + done + " of " + live.fixtures.length + " matches finished" +
       (inPlay.length ? ", " + inPlay.length + " in play" : "") +
-      (live.totals ? " &middot; <strong>" + live.totals.net + "</strong> net for " + esc(who) : "") +
       ". Points on the pitch below are live, including provisional bonus.</p>" +
+      '<p class="note" style="margin-top:-6px">The total in the pitch header is the one to read: ' +
+      "the proxy&rsquo;s own net counts starters only and does not know a bench was boosted.</p>" +
       (inPlay.length ? '<div class="rows">' + inPlay.map(fx).join("") + "</div>" : "") +
       '<button class="btn-live fc" data-live style="margin-top:10px">' +
       (liveBusy ? "refreshing…" : "Refresh") + "</button></div>";
