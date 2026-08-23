@@ -1,0 +1,750 @@
+<title>Five-a-Side Rooms</title>
+<style>
+/* ============================================================
+   THREE TREATMENTS. Each commits to one visual world on purpose,
+   so each paints its own ground explicitly rather than inheriting
+   the host's theme. Switch with [data-look] on <html>.
+   ============================================================ */
+:root{
+  --sp:1rem; --r:4px;
+  --f-mono:ui-monospace,"SF Mono",SFMono-Regular,Menlo,Consolas,monospace;
+  --f-sans:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+  --f-serif:ui-serif,Georgia,"Iowan Old Style",Palatino,serif;
+}
+
+/* ---------- 1. TEAMSHEET : the printed matchday document ---------- */
+:root[data-look="teamsheet"]{
+  --bg:#EAE9E3; --card:#F8F7F3; --raise:#F1F0EA;
+  --ink:#171A1D; --mute:#6C7176; --faint:#8E9296;
+  --line:#CBC9C1; --hair:#DBD9D2;
+  --accent:#2E4E7E; --hot:#A5352B; --ok:#2C6A4A; --warn:#9A6410;
+  --f-head:var(--f-mono); --f-body:var(--f-serif); --f-num:var(--f-mono);
+  --head-tr:.14em; --head-tf:uppercase; --head-w:600;
+  --r:2px; --card-b:1px solid var(--line); --card-sh:none;
+  --fdr1:#BFD8C4; --fdr2:#D5E2CF; --fdr3:#E2DFD4; --fdr4:#E8CDBF; --fdr5:#DCAFA4;
+  --fdr-ink:#2A2E28;
+}
+/* ---------- 2. FLOODLIT : a night match under sodium lamps ---------- */
+:root[data-look="floodlit"]{
+  --bg:#0C1017; --card:#141B25; --raise:#1C2534;
+  --ink:#E7EEF7; --mute:#8496AB; --faint:#63758B;
+  --line:#26313F; --hair:#1E2836;
+  --accent:#F2A93B; --hot:#E9564C; --ok:#42BFA6; --warn:#F2A93B;
+  --f-head:var(--f-sans); --f-body:var(--f-sans); --f-num:var(--f-mono);
+  --head-tr:.02em; --head-tf:none; --head-w:700;
+  --r:10px; --card-b:1px solid var(--line); --card-sh:0 1px 0 rgba(255,255,255,.03) inset;
+  --fdr1:#1E5E4E; --fdr2:#2A4A46; --fdr3:#2C3444; --fdr4:#4E3A31; --fdr5:#6E332C;
+  --fdr-ink:#E7EEF7;
+}
+/* ---------- 3. DUGOUT : the manager's marker board ---------- */
+:root[data-look="dugout"]{
+  --bg:#EFEEE7; --card:#FFFFFF; --raise:#F7F6F1;
+  --ink:#191E20; --mute:#5F6A6E; --faint:#8A9295;
+  --line:#DEE0D8; --hair:#EAEBE4;
+  --accent:#1657C4; --hot:#D0402F; --ok:#137A4E; --warn:#C9860F;
+  --f-head:var(--f-sans); --f-body:var(--f-sans); --f-num:var(--f-sans);
+  --head-tr:-.02em; --head-tf:none; --head-w:800;
+  --r:14px; --card-b:2px solid var(--line); --card-sh:0 2px 0 var(--line);
+  --fdr1:#BCE3CC; --fdr2:#D8ECD3; --fdr3:#EDEDE6; --fdr4:#FBD9C6; --fdr5:#F6B6A6;
+  --fdr-ink:#1B2124;
+}
+
+*{box-sizing:border-box}
+body{
+  margin:0; background:var(--bg); color:var(--ink);
+  font-family:var(--f-body); font-size:16px; line-height:1.55;
+  -webkit-text-size-adjust:100%;
+}
+.wrap{max-width:1080px;margin:0 auto;padding:0 20px 96px}
+h1,h2,h3,h4{font-family:var(--f-head);font-weight:var(--head-w);letter-spacing:var(--head-tr);text-wrap:balance;margin:0}
+a{color:var(--accent)}
+.num{font-family:var(--f-num);font-variant-numeric:tabular-nums}
+.mute{color:var(--mute)}
+.faint{color:var(--faint)}
+
+/* --- masthead --- */
+.mast{padding:34px 0 18px;border-bottom:1px solid var(--line);margin-bottom:26px}
+.mast-top{display:flex;flex-wrap:wrap;gap:16px;align-items:flex-start;justify-content:space-between}
+.brand{font-family:var(--f-head);font-size:clamp(26px,4.4vw,40px);font-weight:var(--head-w);
+  letter-spacing:var(--head-tr);text-transform:var(--head-tf);line-height:1.05}
+:root[data-look="teamsheet"] .brand{letter-spacing:.22em}
+.brand em{font-style:normal;color:var(--accent)}
+.kicker{font-family:var(--f-head);font-size:11px;text-transform:uppercase;letter-spacing:.16em;
+  color:var(--faint);font-weight:var(--head-w);margin-bottom:8px}
+.sub{max-width:62ch;margin:12px 0 0;color:var(--mute);font-size:15px}
+
+/* --- theme switcher --- */
+.looks{display:flex;gap:6px;flex-wrap:wrap}
+.look{font-family:var(--f-head);font-size:12px;font-weight:600;letter-spacing:.04em;
+  padding:8px 13px;border-radius:var(--r);border:var(--card-b);background:var(--card);
+  color:var(--mute);cursor:pointer;line-height:1}
+.look[aria-pressed="true"]{background:var(--accent);border-color:var(--accent);color:var(--bg)}
+:root[data-look="floodlit"] .look[aria-pressed="true"]{color:#0C1017}
+.look:focus-visible,button:focus-visible,input:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+
+/* --- room nav --- */
+.rooms{display:flex;gap:8px;flex-wrap:wrap;margin:20px 0 0}
+.rooms a{font-family:var(--f-head);font-size:12px;text-transform:uppercase;letter-spacing:.1em;
+  text-decoration:none;padding:7px 12px;border:1px solid var(--line);border-radius:var(--r);color:var(--mute)}
+.rooms a:hover{color:var(--ink);border-color:var(--accent)}
+
+/* --- section + panel --- */
+.section{margin:44px 0 0}
+.section-head{display:flex;align-items:baseline;gap:12px;flex-wrap:wrap;
+  padding-bottom:10px;border-bottom:2px solid var(--ink);margin-bottom:20px}
+.section-head h2{font-size:clamp(20px,3vw,26px);text-transform:var(--head-tf)}
+.tag{font-family:var(--f-head);font-size:10px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;
+  padding:3px 7px;border-radius:var(--r);background:var(--accent);color:var(--bg);line-height:1.4}
+:root[data-look="floodlit"] .tag{color:#0C1017}
+.tag.ghost{background:transparent;color:var(--mute);border:1px solid var(--line)}
+.tag.hot{background:var(--hot);color:#fff}
+
+.panel{background:var(--card);border:var(--card-b);border-radius:var(--r);box-shadow:var(--card-sh);
+  padding:18px 20px;margin:0 0 16px;position:relative}
+.panel > h3{font-size:15px;text-transform:var(--head-tf);letter-spacing:var(--head-tr);margin-bottom:4px}
+:root[data-look="teamsheet"] .panel > h3{letter-spacing:.14em}
+.panel .note{font-size:13.5px;color:var(--mute);margin:2px 0 14px;max-width:70ch}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+@media(max-width:760px){.grid2{grid-template-columns:1fr}}
+
+/* --- gaffer bar --- */
+.gbar{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:18px}
+.gchip{display:flex;flex-direction:column;gap:2px;align-items:flex-start;
+  padding:9px 14px;border:var(--card-b);border-radius:var(--r);background:var(--card);
+  cursor:pointer;min-width:104px;text-align:left;color:var(--ink);font-family:var(--f-head)}
+.gchip b{font-size:13.5px;font-weight:var(--head-w);letter-spacing:var(--head-tr)}
+.gchip span{font-size:11px;color:var(--faint);font-family:var(--f-num)}
+.gchip[aria-pressed="true"]{background:var(--accent);border-color:var(--accent);color:var(--bg)}
+:root[data-look="floodlit"] .gchip[aria-pressed="true"]{color:#0C1017}
+.gchip[aria-pressed="true"] span{color:inherit;opacity:.8}
+
+/* --- tables --- */
+table{width:100%;border-collapse:collapse;font-size:14px}
+.scroll{overflow-x:auto;-webkit-overflow-scrolling:touch}
+th{font-family:var(--f-head);font-size:10px;text-transform:uppercase;letter-spacing:.1em;
+  color:var(--faint);text-align:left;font-weight:700;padding:0 8px 7px;border-bottom:1px solid var(--line);white-space:nowrap}
+td{padding:9px 8px;border-bottom:1px solid var(--hair);vertical-align:middle}
+tr:last-child td{border-bottom:0}
+td.n,th.n{text-align:right;font-family:var(--f-num);font-variant-numeric:tabular-nums}
+tr.me td{background:var(--raise)}
+tr.me td:first-child{box-shadow:inset 3px 0 0 var(--accent)}
+.pill{display:inline-block;font-family:var(--f-head);font-size:10px;font-weight:700;letter-spacing:.08em;
+  text-transform:uppercase;padding:2px 6px;border-radius:var(--r);border:1px solid var(--line);color:var(--mute)}
+
+/* --- verdict stamps --- */
+.vd{display:inline-block;font-family:var(--f-head);font-size:10px;font-weight:700;letter-spacing:.12em;
+  text-transform:uppercase;padding:3px 7px;border-radius:var(--r);line-height:1.3;white-space:nowrap}
+.vd-nailed{background:var(--ok);color:var(--bg)}
+.vd-solid{background:var(--accent);color:var(--bg)}
+.vd-watch{background:var(--warn);color:var(--bg)}
+.vd-sack{background:var(--hot);color:#fff}
+:root[data-look="floodlit"] .vd-nailed,:root[data-look="floodlit"] .vd-solid,:root[data-look="floodlit"] .vd-watch{color:#0C1017}
+/* teamsheet renders verdicts as rubber stamps, not chips */
+:root[data-look="teamsheet"] .vd{background:transparent;border:1.5px solid currentColor;padding:2px 6px}
+:root[data-look="teamsheet"] .vd-nailed{color:var(--ok)}
+:root[data-look="teamsheet"] .vd-solid{color:var(--accent)}
+:root[data-look="teamsheet"] .vd-watch{color:var(--warn)}
+:root[data-look="teamsheet"] .vd-sack{color:var(--hot)}
+.mv{font-family:var(--f-num);font-size:11px;color:var(--faint);margin-left:5px}
+.mv.up{color:var(--ok)} .mv.down{color:var(--hot)}
+
+/* --- FDR strip --- */
+.fdr{display:flex;gap:3px}
+.fdr i{display:flex;align-items:center;justify-content:center;font-style:normal;
+  font-family:var(--f-num);font-size:10px;font-weight:600;min-width:32px;height:22px;
+  border-radius:var(--r);color:var(--fdr-ink)}
+.fdr i[data-f="1"]{background:var(--fdr1)} .fdr i[data-f="2"]{background:var(--fdr2)}
+.fdr i[data-f="3"]{background:var(--fdr3)} .fdr i[data-f="4"]{background:var(--fdr4)}
+.fdr i[data-f="5"]{background:var(--fdr5)}
+.fdr-key{display:flex;gap:10px;align-items:center;font-size:11px;color:var(--faint);margin-top:10px;flex-wrap:wrap}
+.fdr-key .sw{display:inline-block;width:14px;height:11px;border-radius:2px;margin-right:4px;vertical-align:-1px}
+
+/* --- three-block weekly read --- */
+.week3{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+@media(max-width:760px){.week3{grid-template-columns:1fr}}
+.wk{border:1px solid var(--line);border-radius:var(--r);padding:14px;background:var(--raise)}
+.wk h4{font-size:11px;text-transform:uppercase;letter-spacing:.12em;margin-bottom:8px;font-weight:700}
+.wk.good h4{color:var(--ok)} .wk.bad h4{color:var(--hot)} .wk.next h4{color:var(--accent)}
+.wk p{margin:0;font-size:14px;line-height:1.5}
+:root[data-look="dugout"] .wk{border:0;border-left:5px solid var(--line);border-radius:0 var(--r) var(--r) 0}
+:root[data-look="dugout"] .wk.good{border-left-color:var(--ok)}
+:root[data-look="dugout"] .wk.bad{border-left-color:var(--hot)}
+:root[data-look="dugout"] .wk.next{border-left-color:var(--accent)}
+
+/* --- list rows --- */
+.rows{display:flex;flex-direction:column}
+.row{display:flex;gap:12px;align-items:flex-start;padding:12px 0;border-bottom:1px solid var(--hair)}
+.row:last-child{border-bottom:0}
+.row-main{flex:1;min-width:0}
+.row-name{font-family:var(--f-head);font-weight:var(--head-w);font-size:14.5px;letter-spacing:0}
+.row-sub{font-size:13px;color:var(--mute);margin-top:3px}
+.row-side{text-align:right;white-space:nowrap;font-family:var(--f-num);font-size:12px;color:var(--faint)}
+.owners{display:inline-flex;gap:3px;margin-left:6px;vertical-align:1px}
+.own{display:inline-flex;align-items:center;justify-content:center;width:17px;height:17px;border-radius:50%;
+  font-family:var(--f-num);font-size:9px;font-weight:700;background:var(--line);color:var(--mute)}
+.own.mine{background:var(--accent);color:var(--bg)}
+:root[data-look="floodlit"] .own.mine{color:#0C1017}
+
+/* --- filter chips --- */
+.filters{display:flex;gap:6px;flex-wrap:wrap;align-items:center;margin-bottom:14px}
+.fc{font-family:var(--f-head);font-size:11.5px;font-weight:600;letter-spacing:.04em;padding:6px 11px;
+  border:1px solid var(--line);border-radius:var(--r);background:transparent;color:var(--mute);cursor:pointer}
+.fc[aria-pressed="true"]{background:var(--ink);border-color:var(--ink);color:var(--bg)}
+.search{flex:1;min-width:140px;padding:7px 11px;border:1px solid var(--line);border-radius:var(--r);
+  background:var(--bg);color:var(--ink);font-family:var(--f-body);font-size:13.5px}
+
+/* --- roast --- */
+.roast{border:var(--card-b);border-radius:var(--r);padding:20px 22px;background:var(--raise);position:relative}
+:root[data-look="teamsheet"] .roast{border-left:4px solid var(--hot)}
+:root[data-look="floodlit"] .roast{background:linear-gradient(180deg,#1C2534,#141B25);border-color:var(--accent)}
+:root[data-look="dugout"] .roast{background:var(--card);border:2px dashed var(--hot)}
+.roast p{margin:0;font-size:16.5px;line-height:1.6;max-width:66ch}
+.roast .by{margin-top:12px;font-family:var(--f-head);font-size:11px;letter-spacing:.1em;
+  text-transform:uppercase;color:var(--faint)}
+
+/* --- callout / decisions --- */
+.callout{border-left:3px solid var(--accent);padding:2px 0 2px 14px;margin:14px 0;color:var(--mute);font-size:14px}
+.was{text-decoration:line-through;color:var(--faint)}
+
+/* --- comment layer --- */
+.cbar{position:sticky;top:0;z-index:40;display:flex;gap:8px;align-items:center;flex-wrap:wrap;
+  padding:10px 0;background:var(--bg);border-bottom:1px solid var(--line);margin-bottom:0}
+.btn{font-family:var(--f-head);font-size:12px;font-weight:600;letter-spacing:.04em;padding:8px 13px;
+  border:var(--card-b);border-radius:var(--r);background:var(--card);color:var(--ink);cursor:pointer;line-height:1}
+.btn.primary{background:var(--accent);border-color:var(--accent);color:var(--bg)}
+:root[data-look="floodlit"] .btn.primary{color:#0C1017}
+.btn[disabled]{opacity:.45;cursor:default}
+.cstat{font-family:var(--f-num);font-size:12px;color:var(--faint);margin-left:auto}
+body.commenting [data-c]{cursor:pointer}
+body.commenting [data-c]:hover{outline:2px dashed var(--accent);outline-offset:3px}
+[data-c].has-note{outline:2px solid var(--accent);outline-offset:3px}
+.cflag{position:absolute;top:-9px;right:10px;font-family:var(--f-head);font-size:10px;font-weight:700;
+  letter-spacing:.08em;text-transform:uppercase;background:var(--accent);color:var(--bg);
+  padding:2px 7px;border-radius:var(--r)}
+:root[data-look="floodlit"] .cflag{color:#0C1017}
+.editor{margin-top:12px;border-top:1px dashed var(--line);padding-top:12px}
+.editor textarea{width:100%;min-height:76px;padding:10px;border:1px solid var(--line);border-radius:var(--r);
+  background:var(--bg);color:var(--ink);font-family:var(--f-body);font-size:14px;resize:vertical}
+.editor-actions{display:flex;gap:8px;margin-top:8px}
+.saved-note{margin-top:10px;padding:10px 12px;background:var(--raise);border-left:3px solid var(--accent);
+  font-size:14px;border-radius:0 var(--r) var(--r) 0}
+.saved-note .lbl{font-family:var(--f-head);font-size:10px;letter-spacing:.1em;text-transform:uppercase;
+  color:var(--faint);display:block;margin-bottom:3px}
+
+.qs{counter-reset:q}
+.q{padding:14px 0;border-bottom:1px solid var(--hair)}
+.q:last-child{border-bottom:0}
+.q h4{font-size:14.5px;margin-bottom:5px}
+.q p{margin:0;font-size:14px;color:var(--mute)}
+.foot{margin-top:40px;padding-top:18px;border-top:1px solid var(--line);font-size:13px;color:var(--faint)}
+@media (prefers-reduced-motion:no-preference){.panel{transition:outline-color .12s}}
+</style>
+
+<div class="wrap">
+
+<header class="mast">
+  <div class="mast-top">
+    <div>
+      <div class="kicker">Mockup · not built yet</div>
+      <div class="brand">Five<em>·</em>a<em>·</em>Side <span style="opacity:.4">rooms</span></div>
+    </div>
+    <div class="looks" id="looks"></div>
+  </div>
+  <p class="sub">Every number, name, squad, fixture and injury note below is <strong>real data</strong>
+  pulled from <code>players.json</code>, <code>gaffers.json</code> and <code>fpl.json</code> as they stand
+  right now — GW<span id="gwn"></span>, mid-gameweek. Only the per-person editorial prose is written for the
+  mockup, because that section does not exist in the schema yet. Pick a treatment, then comment on anything.</p>
+  <nav class="rooms">
+    <a href="#gaffers">the gaffers →</a>
+    <a href="#locker">the locker room →</a>
+    <a href="#questions">open questions →</a>
+  </nav>
+</header>
+
+<div class="cbar">
+  <button class="btn" id="ctoggle" aria-pressed="false">✎ comment mode</button>
+  <button class="btn primary" id="cexport" disabled>Export for Claude</button>
+  <button class="btn" id="cclear">clear</button>
+  <span class="cstat" id="cstat">no comments yet</span>
+</div>
+
+<main id="app"></main>
+
+<footer class="foot">
+  Five-a-Side · mockup generated from live data · <span id="stamp"></span><br>
+  Comments are stored in this browser only. Export writes a markdown file to hand back to Claude.
+</footer>
+</div>
+
+<script>
+const DATA = __DATA__;
+
+/* ---------------- helpers ---------------- */
+const esc = (s) => String(s ?? "").replace(/[&<>"']/g, (c) =>
+  ({ "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;" }[c]));
+const NICKS = DATA.people.map(p => p.nick);
+const ME = "Xabi";
+let who = ME;
+
+const initial = (n) => n === "Sir Alex" ? "SA" : n[0];
+const fdrStrip = (fx) => `<span class="fdr">${fx.map(f =>
+  `<i data-f="${f.fdr}" title="GW${f.gw} ${f.h?"vs":"at"} ${esc(f.opp)} · FDR ${f.fdr}">${esc(f.opp)}</i>`).join("")}</span>`;
+const ownerDots = (by) => by.length ? `<span class="owners">${by.map(n =>
+  `<span class="own ${n===who?"mine":""}" title="${esc(n)}">${esc(initial(n))}</span>`).join("")}</span>` : "";
+const vdChip = (v) => v ? `<span class="vd vd-${v.w}">${esc(v.w)}</span>${
+  v.m && v.m!=="held" ? `<span class="mv ${v.m}">${v.m==="up"?"▲":v.m==="down"?"▼":"新"}</span>` : ""}` : "";
+
+/* per-person editorial: the block the schema does not have yet.
+   Grounded in the real squads — differentials and overlaps are computed. */
+const WEEK = {
+  "Xabi": {
+    good:"Calafiori and Tzolis returned 15 between them — the Arsenal pair you were talked into after day zero's zero-Arsenal call. Doctrine D1 is being paid back in real points.",
+    bad:"Nothing has gone wrong yet, and that is the problem: Chelsea have not kicked a ball. João Pedro and Rogers are still zeroes on a scoreboard everyone else has finished filling in.",
+    next:"Monday at Fulham settles a third of your squad in one night. Bank the free transfer until Tuesday — moving before you know what João Pedro did is paying to guess.",
+    watch:["Palmer","Dewsbury-Hall"]
+  },
+  "Sir Alex": {
+    good:"Seven players nobody else in this league owns. When one of them goes, you go alone, and that is the only way anyone catches Gunners.exe from eighth.",
+    bad:"Seven players nobody else owns. You are last of the five on 30 and the differentials have not fired — Ballard, Ajer, van Ewijk and Thomas have returned a combined afternoon of nothing.",
+    next:"You do not need another punt, you need one of the ones you already made to land. Hold everything, take the free transfer into GW3, and let Schade have a home fixture.",
+    watch:["Woltemade","Cherki"]
+  },
+  "Ronaldo": {
+    good:"Gvardiol and E.Le Fée are yours alone and neither has cost you anything — a cheap way to be different without being reckless.",
+    bad:"Kinsky in goal behind a Spurs defence with Van de Ven and Pedro Porro both flagged until 29 August. The cleanest sheet in your squad is the one you cannot rely on.",
+    next:"The goalkeeper is the move, not the midfield. Verbruggen at 4.5 is what three of the other four already worked out.",
+    watch:["Dewsbury-Hall"]
+  },
+  "Enzo": {
+    good:"You are the only one of the five without B.Fernandes, without Calafiori and without Calvert-Lewin, and you are still fifth of eleven on 33. Semenyo and Havertz are carrying a genuinely contrarian squad.",
+    bad:"Calafiori returned 15 points to four of your five rivals in a single Friday night. Being right about Bruno does not pay for being absent from Arsenal's best week.",
+    next:"Aït-Nouri and Palestra both play Saturday. If one blanks again, the free transfer goes to an Arsenal defender — the drift is now 15 points wide and widening.",
+    watch:["Cherki","Šeško"]
+  },
+  "Arsene": {
+    good:"Thirty-eight points and third in the league — the best of the five, built on the most boring squad of the five. Two differentials, both cheap defenders, neither load-bearing.",
+    bad:"Nothing. Which is worth saying out loud once, because it will not last, and the leader is still nine points up the road.",
+    next:"Do nothing. You have no free transfer, a 0.5 bank, and the only reason to move is boredom. Boredom is not a reason.",
+    watch:["Woltemade"]
+  }
+};
+
+const ROAST = {
+  text:`Enzo passed on B.Fernandes, passed on Calafiori and passed on Calvert-Lewin — the only man of the five to dodge all three — then watched Calafiori hand fifteen points to everyone he was trying to be different from. Meanwhile Arsene, whose squad contains exactly two players anyone would call a decision, leads the room by five. The machine would like it noted that it is in no position to lecture: on day zero it looked at the reigning champions and recommended owning none of them.`,
+  by:"settles GW1 · the machine roasts itself too"
+};
+
+/* ---------------- sections ---------------- */
+function gafferBar(){
+  return `<div class="gbar" id="gbar">${DATA.people.map(p => `
+    <button class="gchip" data-nick="${esc(p.nick)}" aria-pressed="${p.nick===who}">
+      <b>${esc(p.nick)}</b><span>${p.total} pts · ${p.lg==null?"—":"#"+p.lg}</span>
+    </button>`).join("")}</div>`;
+}
+
+function theFive(){
+  const rows = DATA.league.rows;
+  return `<div class="panel" data-c="five" data-label="The five — standings">
+    <h3>The five</h3>
+    <p class="note">Live positions in <strong>${esc(DATA.league.name)}</strong>, eleven managers.
+    Three fixtures are still to play, so these totals move again tonight.</p>
+    <div class="scroll"><table><thead><tr>
+      <th class="n">#</th><th>Team</th><th>Gaffer</th><th class="n">GW</th><th class="n">Total</th><th class="n">Behind</th>
+    </tr></thead><tbody>
+    ${rows.map(r => {
+      const lead = rows[0].total;
+      return `<tr class="${r.nick===who?"me":""}">
+        <td class="n">${r.rank}</td>
+        <td>${esc(r.name)}${r.is?"":' <span class="pill">guest</span>'}</td>
+        <td>${r.nick?`<strong>${esc(r.nick)}</strong>`:'<span class="faint">—</span>'}</td>
+        <td class="n">${r.gw}</td><td class="n"><strong>${r.total}</strong></td>
+        <td class="n faint">${r.rank===1?"—":"−"+(lead-r.total)}</td></tr>`;
+    }).join("")}
+    </tbody></table></div>
+  </div>`;
+}
+
+function weeklyRead(){
+  const w = WEEK[who], p = DATA.people.find(x=>x.nick===who);
+  return `<div class="panel" data-c="week" data-label="Your week — worked / didn't / next">
+    <h3>${esc(who)}'s week</h3>
+    <p class="note">Replaces “the call”. Written per person after the gameweek settles —
+    the block the schema does not have yet. ${esc(p.team)} · ${p.total} pts · ${p.ft} free transfer${p.ft===1?"":"s"} · £${p.bank.toFixed(1)}m banked.</p>
+    <div class="week3">
+      <div class="wk good"><h4>What worked</h4><p>${esc(w.good)}</p></div>
+      <div class="wk bad"><h4>What didn't</h4><p>${esc(w.bad)}</p></div>
+      <div class="wk next"><h4>What's next</h4><p>${esc(w.next)}</p></div>
+    </div>
+  </div>`;
+}
+
+function squadPanel(){
+  const p = DATA.people.find(x=>x.nick===who);
+  const line = (pl) => {
+    const rec = DATA.pool.find(q=>q.id===pl.id);
+    return `<div class="row">
+      <div class="row-main">
+        <div class="row-name">${esc(pl.n)} ${rec?ownerDots(rec.by):""}</div>
+        <div class="row-sub">${esc(pl.pos)} · ${esc(pl.t)} · £${pl.pr.toFixed(1)}m${
+          rec&&rec.status!=="a"?` · <span style="color:var(--hot)">${esc(rec.news.split(" - ")[0])}</span>`:""}</div>
+      </div>
+      <div class="row-side">${rec?`${rec.pts} pts${rec.next3.length?"<br>"+fdrStrip(rec.next3.slice(0,3)):""}`:""}</div>
+    </div>`;
+  };
+  return `<div class="panel" data-c="squad" data-label="Squad — XI and bench">
+    <h3>${esc(who)}'s XI</h3>
+    <p class="note">Owner dots show how many of the five hold each player — the differential map, and the roast's raw material.</p>
+    <div class="rows">${p.xi.map(line).join("")}</div>
+    <h3 style="margin-top:18px">Bench</h3>
+    <div class="rows">${p.bench.map(line).join("")}</div>
+  </div>`;
+}
+
+function watchPanel(){
+  const mine = WEEK[who].watch;
+  const items = DATA.watchlist.filter(w => mine.includes(w.name));
+  const others = DATA.watchlist.filter(w => !mine.includes(w.name));
+  const one = (w,own) => `<div class="row">
+    <div class="row-main">
+      <div class="row-name">${esc(w.name)} <span class="pill">${esc(w.status)}</span></div>
+      <div class="row-sub">${esc(w.note)}</div>
+    </div>
+    <div class="row-side">${esc(w.team)} ${esc(w.pos)}<br>£${w.price.toFixed(1)}m<br>${esc(w.ownership)}</div>
+  </div>`;
+  return `<div class="panel" data-c="watch" data-label="Watchlist — per person">
+    <h3>${esc(who)}'s watchlist</h3>
+    <p class="note">Today this list is shared by all five and rendered under whoever is selected — which
+    misleads. Split per person: yours here, the rest of the house below.</p>
+    <div class="rows">${items.map(one).join("") || '<div class="row"><div class="row-main faint">Nothing starred yet.</div></div>'}</div>
+    <h3 style="margin-top:20px">On the house list</h3>
+    <p class="note">Watched by the room, not by you.</p>
+    <div class="rows">${others.map(one).join("")}</div>
+  </div>`;
+}
+
+function wagersPanel(){
+  return `<div class="panel" data-c="wagers" data-label="Wagers — falsifiable claims">
+    <h3>The wagers</h3>
+    <p class="note">Claims with a settle date. Ownership is real: <code>brain</code> or <code>kb</code> today —
+    should become one of the five nicknames.</p>
+    <div class="rows">${DATA.wagers.map(w => `<div class="row">
+      <div class="row-main">
+        <div class="row-name">${esc(w.claim)}</div>
+        <div class="row-sub">${esc(w.standing||"")}</div>
+      </div>
+      <div class="row-side"><span class="pill">${esc(w.owner)}</span><br>settles GW${w.settles_gw}</div>
+    </div>`).join("")}</div>
+  </div>`;
+}
+
+function roastPanel(){
+  return `<div class="panel" data-c="roast" data-label="The roast">
+    <h3>The roast</h3>
+    <p class="note">Post-gameweek only, never daily. Always about a decision, with the fact attached.
+    Never the same person twice running. Roasts the machine too.</p>
+    <div class="roast"><p>${esc(ROAST.text)}</p><div class="by">${esc(ROAST.by)}</div></div>
+  </div>`;
+}
+
+function aidsPanel(){
+  const poll = DATA.poll, chips = DATA.chips;
+  return `<div class="grid2">
+    <div class="panel" data-c="poll" data-label="Captain poll">
+      <h3>Who the crowd captained</h3>
+      <p class="note">${esc(poll.note)}</p>
+      <div class="rows">${poll.rows.map(r => `<div class="row">
+        <div class="row-main"><div class="row-name">${esc(r.name)}</div>
+        <div class="row-sub">${esc(r.team)}</div></div>
+        <div class="row-side">${r.ownership}%</div></div>`).join("")}</div>
+    </div>
+    <div class="panel" data-c="chips" data-label="Chip clock">
+      <h3>Chip clock</h3>
+      <p class="note">${esc(chips.note||"")}</p>
+      <div class="rows">${chips.rows.map(c => `<div class="row">
+        <div class="row-main"><div class="row-name">${esc(c.name)}</div>
+        <div class="row-sub">${esc(c.window)}</div></div>
+        <div class="row-side"><span class="pill">${esc(c.expires)}</span></div></div>`).join("")}</div>
+    </div>
+  </div>`;
+}
+
+/* ---------------- locker room ---------------- */
+let fileFilter = "ours", fileQuery = "";
+
+function injuryRoom(){
+  const flagged = DATA.pool.filter(p => p.status !== "a" && p.news)
+    .sort((a,b) => (b.by.length - a.by.length) || (b.own - a.own));
+  const ours = flagged.filter(p => p.by.length);
+  const rest = flagged.filter(p => !p.by.length).slice(0, 10);
+  const one = (p) => `<div class="row">
+    <div class="row-main">
+      <div class="row-name">${esc(p.name)} ${ownerDots(p.by)}</div>
+      <div class="row-sub">${esc(p.news)}</div>
+    </div>
+    <div class="row-side"><span class="pill" style="color:var(--hot);border-color:var(--hot)">${
+      p.status==="i"?"out":p.status==="d"?"doubt":p.status==="u"?"gone":esc(p.status)}</span><br>${esc(p.team)} · ${p.own}%</div>
+  </div>`;
+  return `<div class="panel" data-c="injury" data-label="Injury room">
+    <h3>Injury room</h3>
+    <p class="note">115 players are flagged right now. The ones the five actually own come first —
+    everything else is noise until it is cheap enough to matter.</p>
+    <h4 style="font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--faint);margin:6px 0 4px">Ours (${ours.length})</h4>
+    <div class="rows">${ours.map(one).join("") || '<div class="row"><div class="row-main faint">Nobody we own is flagged.</div></div>'}</div>
+    <h4 style="font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--faint);margin:18px 0 4px">Everyone else, most-owned first</h4>
+    <div class="rows">${rest.map(one).join("")}</div>
+  </div>`;
+}
+
+function theFile(){
+  const F = {
+    ours:  p => p.by.length,
+    nailed:p => p.v && p.v.w === "nailed",
+    solid: p => p.v && p.v.w === "solid",
+    watch: p => p.v && p.v.w === "watch",
+    sack:  p => p.v && p.v.w === "sack",
+    flagged:p => p.status !== "a",
+    all:   () => true,
+  };
+  const chips = [["ours","ours"],["nailed","nailed"],["solid","solid"],["watch","watch"],
+    ["sack","sack"],["flagged","flagged"],["all","everyone (604)"]];
+  let list = DATA.pool.filter(F[fileFilter]);
+  if (fileQuery) {
+    const q = fileQuery.toLowerCase();
+    list = list.filter(p => p.name.toLowerCase().includes(q) || p.team.toLowerCase().includes(q));
+  }
+  list = list.sort((a,b) => (b.by.length - a.by.length) || (b.own - a.own)).slice(0, 40);
+  return `<div class="panel" data-c="file" data-label="The file — player browser">
+    <h3>The file</h3>
+    <p class="note">Every player we hold evidence on. Verdict first, then the name, then one line of why —
+    the reading order the verdict vocabulary was designed for.</p>
+    <div class="filters">
+      ${chips.map(([k,l]) => `<button class="fc" data-f="${k}" aria-pressed="${k===fileFilter}">${esc(l)}</button>`).join("")}
+      <input class="search" id="fq" placeholder="search name or club…" value="${esc(fileQuery)}">
+    </div>
+    <div class="scroll"><table><thead><tr>
+      <th>Verdict</th><th>Player</th><th class="n">£</th><th class="n">Own</th><th class="n">Pts</th><th>Next three</th>
+    </tr></thead><tbody>
+    ${list.map(p => `<tr class="${p.by.includes(who)?"me":""}">
+      <td>${p.v ? vdChip(p.v) : '<span class="faint">—</span>'}</td>
+      <td><strong>${esc(p.name)}</strong>${ownerDots(p.by)}
+        ${p.pens?'<span class="pill" title="on penalties">P</span>':""}
+        ${p.status!=="a"?`<span class="pill" style="color:var(--hot);border-color:var(--hot)">!</span>`:""}
+        <div class="row-sub">${p.v ? esc(p.v.why) : `${esc(p.pos)} · ${esc(p.team)} · no verdict written yet`}</div></td>
+      <td class="n">${p.price.toFixed(1)}</td><td class="n">${p.own}%</td><td class="n">${p.pts}</td>
+      <td>${fdrStrip(p.next3)}</td></tr>`).join("")}
+    </tbody></table></div>
+    <div class="fdr-key">
+      <span><span class="sw" style="background:var(--fdr1)"></span>1 kind</span>
+      <span><span class="sw" style="background:var(--fdr2)"></span>2</span>
+      <span><span class="sw" style="background:var(--fdr3)"></span>3</span>
+      <span><span class="sw" style="background:var(--fdr4)"></span>4</span>
+      <span><span class="sw" style="background:var(--fdr5)"></span>5 brutal</span>
+      <span class="faint">· showing ${list.length} of ${DATA.pool.length} loaded (604 in the real file)</span>
+    </div>
+  </div>`;
+}
+
+function fixtureRuns(){
+  const rows = [...DATA.ticker.rows].sort((a,b) => a.avg - b.avg);
+  const kind = rows.slice(0,6), hard = rows.slice(-6).reverse();
+  const block = (title, sub, list) => `<div class="panel" data-c="runs-${title.toLowerCase().split(" ")[0]}" data-label="Fixture runs — ${title}">
+    <h3>${esc(title)}</h3><p class="note">${esc(sub)}</p>
+    <div class="scroll"><table><thead><tr><th>Club</th><th class="n">Avg</th><th>GW${DATA.ticker.from_gw}–${DATA.ticker.from_gw+DATA.ticker.gws-1}</th></tr></thead><tbody>
+    ${list.map(r => `<tr><td><strong>${esc(r.team)}</strong></td><td class="n">${r.avg.toFixed(2)}</td>
+      <td>${fdrStrip(r.fixtures)}</td></tr>`).join("")}
+    </tbody></table></div></div>`;
+  return `<div class="grid2">
+    ${block("Kindest runs","Six gameweeks out, lowest average difficulty first.",kind)}
+    ${block("Hardest runs","Where not to buy, however good the last two weeks looked.",hard)}
+  </div>`;
+}
+
+function questions(){
+  const qs = [
+    ["Which treatment?","Teamsheet, Floodlit or Dugout — or one element from each. Nothing else gets built until this is settled."],
+    ["The file's default view","It opens on <strong>ours</strong> (38 players). The alternative is everyone — 604 rows and a search box. I think a wall of 604 is the worse first impression."],
+    ["Per-person watchlists — real, or overkill?","Splitting the watchlist five ways is honest but five times the editorial. The fallback is one house list with a star per person."],
+    ["Does the roast land?","The rules are yours: post-gameweek, decision-based, fact attached, machine included. This one is generated from real ownership diffs."],
+    ["Fixture runs — locker or gaffers?","I have moved them into the locker room on the grounds that they are reference, not a decision. Say if they belong back on the front page."],
+    ["Captaincy is missing from the data","<code>gaffers.json</code> picks only carry start/bench, so nobody's captain is recorded — the pitch cannot show a (C). That is a real bug to fix before any of this ships."],
+  ];
+  return `<div class="panel" data-c="questions" data-label="Open questions">
+    <h3>What I need from you</h3>
+    <div class="qs">${qs.map(([h,p]) => `<div class="q"><h4>${h}</h4><p>${p}</p></div>`).join("")}</div>
+  </div>`;
+}
+
+/* ---------------- render ---------------- */
+function render(){
+  document.getElementById("app").innerHTML = `
+    <section class="section" id="gaffers">
+      <div class="section-head"><h2>the gaffers</h2><span class="tag">revised</span>
+        <span class="mute" style="font-size:13px">what the front page becomes</span></div>
+      <div class="callout">Gone from this page: <span class="was">the commons</span> divider (it was the other
+      half of a sync gate that no longer exists), <span class="was">the call</span> (replaced by the three-block
+      week), <span class="was">the race</span> (superseded by the five table), and
+      <span class="was">team news + fixture runs</span> (moved to the locker room).</div>
+      ${gafferBar()}
+      ${theFive()}
+      ${weeklyRead()}
+      ${squadPanel()}
+      ${watchPanel()}
+      ${wagersPanel()}
+      ${roastPanel()}
+      ${aidsPanel()}
+    </section>
+
+    <section class="section" id="locker">
+      <div class="section-head"><h2>the locker room</h2><span class="tag hot">new room</span>
+        <span class="mute" style="font-size:13px">everything we know about every player</span></div>
+      ${injuryRoom()}
+      ${theFile()}
+      ${fixtureRuns()}
+    </section>
+
+    <section class="section" id="questions">
+      <div class="section-head"><h2>open questions</h2><span class="tag ghost">answer in comments</span></div>
+      ${questions()}
+    </section>`;
+  paintNotes();
+  wire();
+}
+
+function wire(){
+  document.querySelectorAll("#gbar .gchip").forEach(b =>
+    b.onclick = () => { if(!document.body.classList.contains("commenting")){ who = b.dataset.nick; render(); } });
+  document.querySelectorAll(".fc").forEach(b =>
+    b.onclick = () => { if(!document.body.classList.contains("commenting")){ fileFilter = b.dataset.f; render(); } });
+  const fq = document.getElementById("fq");
+  if (fq) fq.oninput = (e) => {
+    fileQuery = e.target.value;
+    const pos = e.target.selectionStart;
+    render();
+    const n = document.getElementById("fq"); n.focus(); n.setSelectionRange(pos,pos);
+  };
+}
+
+/* ---------------- comment layer ---------------- */
+const KEY = "fiveaside-rooms-notes-v1";
+const load = () => { try { return JSON.parse(localStorage.getItem(KEY)) || {}; } catch { return {}; } };
+const save = (n) => localStorage.setItem(KEY, JSON.stringify(n));
+let notes = load();
+
+function paintNotes(){
+  document.querySelectorAll("[data-c]").forEach(el => {
+    const id = el.dataset.c, n = notes[id];
+    el.querySelectorAll(".cflag,.saved-note").forEach(x => x.remove());
+    el.classList.toggle("has-note", !!n);
+    if (n) {
+      el.insertAdjacentHTML("beforeend",
+        `<div class="saved-note"><span class="lbl">your note</span>${esc(n.text)}</div>`);
+      el.insertAdjacentHTML("afterbegin", `<span class="cflag">noted</span>`);
+    }
+  });
+  const c = Object.keys(notes).length;
+  document.getElementById("cstat").textContent = c ? `${c} comment${c>1?"s":""} saved` : "no comments yet";
+  document.getElementById("cexport").disabled = !c;
+}
+
+function openEditor(el){
+  document.querySelectorAll(".editor").forEach(e => e.remove());
+  const id = el.dataset.c;
+  const ed = document.createElement("div");
+  ed.className = "editor";
+  ed.innerHTML = `<textarea placeholder="What's wrong with this block, or what do you want instead?">${
+    esc(notes[id]?.text || "")}</textarea>
+    <div class="editor-actions"><button class="btn primary" data-a="save">save</button>
+    <button class="btn" data-a="cancel">cancel</button>
+    <button class="btn" data-a="del">delete</button></div>`;
+  el.appendChild(ed);
+  const ta = ed.querySelector("textarea"); ta.focus();
+  ed.onclick = (e) => {
+    const a = e.target.dataset.a; if (!a) return;
+    e.stopPropagation();
+    if (a === "save") {
+      const t = ta.value.trim();
+      if (t) notes[id] = { text:t, label:el.dataset.label || id, quote:quoteOf(el) };
+      else delete notes[id];
+      save(notes);
+    }
+    if (a === "del") { delete notes[id]; save(notes); }
+    ed.remove(); paintNotes();
+  };
+}
+
+function quoteOf(el){
+  const clone = el.cloneNode(true);
+  clone.querySelectorAll(".editor,.saved-note,.cflag").forEach(x => x.remove());
+  return clone.textContent.replace(/\s+/g," ").trim().slice(0,260);
+}
+
+document.getElementById("ctoggle").onclick = (e) => {
+  const on = document.body.classList.toggle("commenting");
+  e.currentTarget.setAttribute("aria-pressed", String(on));
+  e.currentTarget.textContent = on ? "✎ comment mode — on" : "✎ comment mode";
+  if (!on) document.querySelectorAll(".editor").forEach(x => x.remove());
+};
+
+document.addEventListener("click", (e) => {
+  if (!document.body.classList.contains("commenting")) return;
+  if (e.target.closest(".editor") || e.target.closest(".cbar")) return;
+  const el = e.target.closest("[data-c]");
+  if (el) { e.preventDefault(); openEditor(el); }
+});
+
+document.getElementById("cclear").onclick = () => {
+  if (!Object.keys(notes).length) return;
+  if (confirm("Delete every comment on this page?")) { notes = {}; save(notes); render(); }
+};
+
+document.getElementById("cexport").onclick = async () => {
+  const look = document.documentElement.dataset.look;
+  const lines = [
+    `# Five-a-Side rooms — comments`,
+    ``,
+    `Treatment reviewed: **${look}**`,
+    `Mockup: the gaffers (revised) + the locker room (new)`,
+    `Data: real, GW${DATA.gw}, generated ${DATA.generated}`,
+    ``,
+    `---`,
+    ``,
+  ];
+  for (const [id, n] of Object.entries(notes)) {
+    lines.push(`## ${n.label}`, ``, `> ${n.quote}`, ``, n.text, ``, `---`, ``);
+  }
+  const md = lines.join("\n");
+  const downloads = await window.claude?.use?.("downloads");
+  if (!downloads) { alert("Downloads aren't available in this view — copy the text instead:\n\n" + md); return; }
+  try {
+    await downloads.save({ filename: `five-a-side-rooms-comments.md`, data: md });
+  } catch (err) {
+    if (err?.code === "declined") return;
+    alert("Couldn't save the file (" + (err?.code || "error") + "). Here it is to copy:\n\n" + md);
+  }
+};
+
+/* ---------------- theme switcher ---------------- */
+const LOOKS = [["teamsheet","Teamsheet"],["floodlit","Floodlit"],["dugout","Dugout"]];
+const LKEY = "fiveaside-rooms-look";
+function setLook(k){
+  document.documentElement.dataset.look = k;
+  try { localStorage.setItem(LKEY, k); } catch {}
+  document.querySelectorAll("#looks .look").forEach(b =>
+    b.setAttribute("aria-pressed", String(b.dataset.k === k)));
+}
+document.getElementById("looks").innerHTML = LOOKS.map(([k,l]) =>
+  `<button class="look" data-k="${k}">${l}</button>`).join("");
+/* Re-render on switch: Chromium can keep a stale resolved colour on an
+   existing subtree when every token behind it changes at once, so the table
+   inherits the previous treatment's ink. Rebuilding the subtree forces the
+   custom properties to resolve again. */
+document.querySelectorAll("#looks .look").forEach(b =>
+  b.onclick = () => { setLook(b.dataset.k); render(); });
+let saved = "teamsheet";
+try { saved = localStorage.getItem(LKEY) || "teamsheet"; } catch {}
+setLook(saved);
+
+document.getElementById("gwn").textContent = DATA.gw;
+document.getElementById("stamp").textContent = DATA.generated;
+render();
+</script>
