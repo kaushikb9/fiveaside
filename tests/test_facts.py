@@ -112,8 +112,9 @@ def test_club_upcoming_limited_to_next_five():
     assert facts["club_upcoming"][0]["kickoff_local"].startswith("Tue 01 Sep")
 
 
-def test_non_club_rows_capped_at_ten():
-    # 15 non-club matches today + 1 club match today: club row always kept.
+def test_non_club_rows_capped():
+    # 15 non-club matches today + 1 club match today. The cap is a prompt-size
+    # guard, not an editorial filter — a league page wants the whole slate.
     fixtures = [
         _fixture(f"n{i}", datetime(2026, 8, 16, 10 + (i % 8), i * 3 % 60, tzinfo=UTC), SPURS, VILLA)
         for i in range(15)
@@ -121,7 +122,7 @@ def test_non_club_rows_capped_at_ten():
     fixtures.append(_fixture("club1", datetime(2026, 8, 16, 18, 0, tzinfo=UTC), CHELSEA, ARSENAL))
     facts = _bundle(fixtures=fixtures)
     today = facts["competitions"][0]["today_matches"]
-    assert len(today) == 11  # 10 non-club + the club match
+    assert len(today) == 16  # all 15 plus the club match, under the 20 cap
     assert any(m["club_involved"] for m in today)
 
 

@@ -11,6 +11,17 @@ contract and the cross-app product/interaction invariants.
 
 ## Map
 
+**The product is Five-a-Side**: football and FPL for five friends, in two
+rooms — `the gaffers` (FPL, at `/`) and `touchline` (the league page, at
+`/digest/`). A third room, `locker room` (the browsable player file), is
+designed but not built.
+
+The digest stopped being a Chelsea page on 2026-08-23. It covers the division:
+a top-level league `table`, a tagged and filterable `week` feed (PL / FPL),
+`top_teams` for the clubs the five follow and `elsewhere` for everyone else.
+The old single-club keys (`club`, `today`) are LEGACY — 22 entries still carry
+them and still render, but the prompt must never write them again.
+
 - `src/touchline/` — facts CLI (`uv run touchline facts`). Pure core
   (`core/facts.py` — no I/O, injected `now`), source clients behind
   protocols (`sources/espn.py` default, `api_football.py`,
@@ -91,8 +102,8 @@ cd site && python3 -m http.server  # local preview
 
 Cloudflare Pages project `fiveaside`, live at https://fiveaside.pages.dev (no
 custom domain). The name follows the product: five friends, one football page.
-Earlier projects `touchline-chelsea` and `touchline-pl` still exist and are
-deliberately left untouched rather than redeployed. Deploys are
+`touchline-pl` was deleted on 2026-08-23; `touchline-chelsea` still exists and
+is deliberately left untouched rather than redeployed. Deploys are
 non-interactive
 (`CI=1`) — just `./deploy.sh`. The digest runs
 itself: `brain/auto.sh` fires hourly via launchd (`com.kb.touchline.plist`,

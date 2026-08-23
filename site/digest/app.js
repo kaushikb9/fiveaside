@@ -86,6 +86,27 @@ function formHTML(form) {
   return `<div><div class="blabel">Form &middot; last five</div><div class="form-row">${items}</div></div>`;
 }
 
+
+// The league table, top-level: this is a division page now, not one club's.
+// Focus clubs are marked so the eye finds them without the table being about them.
+function leagueTableHTML(table) {
+  if (!table?.rows?.length) return "";
+  const rows = table.rows
+    .map(
+      (r) => `
+      <div class="mrow${r.focus ? " us" : ""}">
+        <span class="pos">${esc(r.pos)}</span>${crestHTML(r.crest, r.team, "sm")}<span class="tname">${esc(r.team)}</span>${
+          r.form ? `<span class="tform">${esc(r.form)}</span>` : ""
+        }<span class="num">${esc(r.played)}</span><span class="num">${esc(r.points)}</span>
+      </div>`
+    )
+    .join("");
+  return `<section><h2>${esc(table.competition)}</h2><div class="board"><div class="mini">
+      <div class="mrow mhead"><span class="pos">#</span><span class="tname"></span><span class="num">P</span><span class="num">Pts</span></div>
+      ${rows}
+    </div></div>${table.note ? `<p class="tnote">${esc(table.note)}</p>` : ""}</section>`;
+}
+
 function tableHTML(table) {
   if (!table) return "";
   const rows = table.rows
@@ -144,13 +165,55 @@ function readHTML(read) {
 
 const weekHTML = (items) =>
   items?.length
-    ? `<section><h2>This week</h2><ul class="brief">${items
+    ? `<section><h2>This week</h2>${filterBarHTML(items)}<ul class="brief">${items
         .map(
           (w) =>
-            `<li><strong>${esc(w.kicker)}</strong> <span class="tail">${esc(w.text)}</span></li>`
+            `<li data-tag="${esc(w.tag ?? "PL")}" data-club="${esc(w.club ?? "")}">` +
+            (w.tag ? `<span class="wtag ${esc(w.tag.toLowerCase())}">${esc(w.tag)}</span>` : "") +
+            `<strong>${esc(w.kicker)}</strong> <span class="tail">${esc(w.text)}</span></li>`
         )
         .join("")}</ul></section>`
     : "";
+
+// One control, two effects: it narrows the feed and the table together, so the
+// page reads as one thing rather than a page with a widget on it.
+function filterBarHTML(items) {
+  const clubs = [...new Set(items.map((w) => w.club).filter(Boolean))];
+  if (!items.some((w) => w.tag) && !clubs.length) return "";
+  return (
+    `<div class="wfilter" role="group" aria-label="Filter the week">` +
+    `<button class="wchip on" data-filter="all" type="button">All</button>` +
+    `<button class="wchip" data-filter="PL" type="button">League</button>` +
+    `<button class="wchip" data-filter="FPL" type="button">FPL</button>` +
+    clubs
+      .map((c) => `<button class="wchip club" data-filter="club:${esc(c)}" type="button">${esc(c)}</button>`)
+      .join("") +
+    `</div>`
+  );
+}
+
+function wireFilter() {
+  const bar = document.querySelector(".wfilter");
+  if (!bar) return;
+  bar.addEventListener("click", (e) => {
+    const btn = e.target.closest("button[data-filter]");
+    if (!btn) return;
+    bar.querySelectorAll(".wchip").forEach((b) => b.classList.toggle("on", b === btn));
+    const f = btn.getAttribute("data-filter");
+    document.querySelectorAll("ul.brief > li[data-tag]").forEach((li) => {
+      const club = li.getAttribute("data-club");
+      const tag = li.getAttribute("data-tag");
+      const show =
+        f === "all" || (f.startsWith("club:") ? club === f.slice(5) : tag === f);
+      li.hidden = !show;
+    });
+    // the table follows the same control
+    document.querySelectorAll(".mini .mrow:not(.mhead)").forEach((row) => {
+      const team = row.querySelector(".tname")?.textContent ?? "";
+      row.classList.toggle("dim", f.startsWith("club:") && team !== f.slice(5));
+    });
+  });
+}
 
 const teamWatchInitials = (name) =>
   String(name ?? "")
@@ -236,11 +299,12 @@ function digestContent(d) {
   return `
     <div class="eyebrow">${esc(fmtLong(d.date))}</div>
     <h1>${esc(d.headline)}</h1>
+    ${leagueTableHTML(d.table)}
     ${latestResultHTML(club.latest_result)}
     ${fixturesHTML(club.fixtures)}
     ${splitHTML(club)}
     ${weekHTML(d.week)}
-    <section><h2>Today</h2><p>${esc(d.today)}</p></section>
+    ${d.today ? `<section><h2>Today</h2><p>${esc(d.today)}</p></section>` : ""}
     ${teamWatchHTML(d.team_watch)}
     ${readHTML(d.read)}
     ${rivalsHTML(d.top_teams, "Around the top") || rivalsHTML(d.rivals)}
@@ -255,20 +319,10 @@ async function loadJSON(path) {
   return res.json();
 }
 
-async function applyConfig() {
-  let config = null;
-  try {
-    config = await loadJSON("../data/config.json");
-  } catch {
-    /* config.json is optional — generated at deploy time */
-  }
-  if (!config?.club?.name) return;
-  $("#club-label").textContent = config.club.name;
-  const crestEl = $("#club-crest");
-  crestEl.innerHTML = crestHTML(config.club.crest, config.club.code || config.club.name, "sm");
-  crestEl.hidden = false;
-  $("#strap-dot").hidden = false;
-}
+// The masthead used to carry the owner's club chip. It doesn't any more: this
+// is the league room, and putting one crest above a division table would say
+// the page belongs to that club.
+async function applyConfig() {}
 
 // Footer stamp for `generated_at` (written by curate.sh), shown in the
 // reader's local time. Falls back to the newest digest's date when absent.
@@ -320,6 +374,7 @@ async function load() {
         .join("");
   }
   main.innerHTML = html;
+  wireFilter();
 }
 
 // Theme toggle: auto (follow OS) -> light -> dark -> auto. Persisted in localStorage;

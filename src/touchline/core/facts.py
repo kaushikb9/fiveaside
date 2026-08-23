@@ -8,7 +8,10 @@ from touchline.core.models import Fixture, MatchStatus, Result, Standing, Team
 from touchline.sources.base import SourceResult, StandingsResult
 
 UPCOMING_LIMIT = 5
-NON_CLUB_ROW_CAP = 10
+# The page covers the league, not one club, so every fixture is fair game.
+# The cap only exists to stop a 380-match season landing in one prompt.
+NON_CLUB_ROW_CAP = 20
+FORM_CLUBS_LIMIT = 5
 FORM_LIMIT = 5
 
 
@@ -113,6 +116,92 @@ def _competition_name(code: str, matches: SourceResult) -> str:
     return code
 
 
+def _focus_clubs(
+    comp_data: list[tuple[str, SourceResult, StandingsResult]],
+    config: TouchlineConfig,
+    tz: ZoneInfo,
+    today,
+) -> list[dict]:
+    """Per-club shape for the clubs the page always covers.
+
+    The digest used to be one club's page with rivals attached; it is now a
+    league page, so every focus club gets the same treatment the owner's club
+    used to get exclusively — position, form, and what is next.
+    """
+    names = [c.name for c in config.top_clubs if c.name]
+    if config.club.name not in names:
+        names = [config.club.name, *names]
+
+    standings_by_name: dict[str, Standing] = {}
+    results: list[Result] = []
+    fixtures: list[Fixture] = []
+    for _code, matches, standings in comp_data:
+        results.extend(matches.results)
+        fixtures.extend(matches.fixtures)
+        for s in standings.standings:
+            standings_by_name.setdefault(s.team.name.lower(), s)
+
+    out = []
+    for name in names:
+        key = name.lower()
+        row = standings_by_name.get(key)
+        played = [
+            r
+            for r in results
+            if r.home.name.lower() == key or r.away.name.lower() == key
+        ]
+        played.sort(key=lambda r: r.kickoff, reverse=True)
+        form = []
+        for r in played[:FORM_CLUBS_LIMIT]:
+            at_home = r.home.name.lower() == key
+            us = r.home_score if at_home else r.away_score
+            them = r.away_score if at_home else r.home_score
+            form.append(
+                {
+                    "result": "W" if us > them else "L" if us < them else "D",
+                    "score": f"{us}–{them}",
+                    "opponent": (r.away if at_home else r.home).name,
+                    "at_home": at_home,
+                    "competition": r.competition.code,
+                }
+            )
+        upcoming = sorted(
+            (
+                f
+                for f in fixtures
+                if (f.home.name.lower() == key or f.away.name.lower() == key)
+                and f.status == MatchStatus.SCHEDULED
+                and _local(f.kickoff, tz).date() >= today
+            ),
+            key=lambda f: f.kickoff,
+        )
+        nxt = None
+        if upcoming:
+            f = upcoming[0]
+            at_home = f.home.name.lower() == key
+            nxt = {
+                "opponent": (f.away if at_home else f.home).name,
+                "at_home": at_home,
+                "kickoff_local": _local(f.kickoff, tz).strftime("%a %d %b %H:%M"),
+                "competition": f.competition.code,
+            }
+        out.append(
+            {
+                "name": name,
+                "crest": next(
+                    (c.crest for c in config.top_clubs if c.name == name),
+                    config.club.crest if name == config.club.name else None,
+                ),
+                "position": row.position if row else None,
+                "points": row.points if row else None,
+                "played": row.played if row else None,
+                "form": form,
+                "next": nxt,
+            }
+        )
+    return out
+
+
 def build_facts(
     comp_data: list[tuple[str, SourceResult, StandingsResult]],
     config: TouchlineConfig,
@@ -189,4 +278,5 @@ def build_facts(
         "competitions": competitions,
         "club_form": _club_form(all_results, club, tz),
         "club_upcoming": club_upcoming,
+        "focus": _focus_clubs(comp_data, config, tz, today),
     }

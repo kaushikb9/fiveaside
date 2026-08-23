@@ -43,10 +43,20 @@ class FPLConfig(BaseModel, frozen=True):
     people: list[PersonConfig] = []  # the group, by nickname
 
 
+class TopClubConfig(BaseModel, frozen=True):
+    """A club the page always covers. Not "rivals" — the digest is a league
+    page now, so these are simply the clubs whose week is always worth a line."""
+
+    name: str
+    subreddit: str | None = None
+    crest: str | None = None
+
+
 class TouchlineConfig(BaseModel, frozen=True):
     club: ClubConfig
     competitions: list[str] = Field(min_length=1)
     timezone: str = "UTC"
+    top_clubs: list[TopClubConfig] = []
     feeds: list[FeedConfig] = []
     voice: str = ""
     source: Literal["espn", "api-football", "football-data", "espn+thesportsdb"] = "espn"

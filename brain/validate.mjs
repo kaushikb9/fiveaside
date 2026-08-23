@@ -46,10 +46,12 @@ for (const [i, d] of data.digests.entries()) {
   if (seen.has(d.date)) fail(`${where}: duplicate date`);
   seen.add(d.date);
 
-  for (const key of ["headline", "today"]) {
-    if (typeof d[key] !== "string" || !d[key].trim())
-      fail(`${where}: '${key}' must be a non-empty string`);
-  }
+  if (typeof d.headline !== "string" || !d.headline.trim())
+    fail(`${where}: 'headline' must be a non-empty string`);
+  // `today` was the owner's-next-match section, dropped when the page became a
+  // league page. Legacy entries keep it; new ones must not write it.
+  if (d.today !== undefined && !isNonEmptyStr(d.today))
+    fail(`${where}: 'today' must be a non-empty string when present (legacy key)`);
   if (d.yesterday !== undefined)
     fail(`${where}: 'yesterday' is no longer valid — the schema uses the 'week' array now`);
   if (!Array.isArray(d.week) || d.week.length === 0)
@@ -57,6 +59,11 @@ for (const [i, d] of data.digests.entries()) {
   for (const item of d.week) {
     if (!isNonEmptyStr(item?.kicker) || !isNonEmptyStr(item?.text))
       fail(`${where}: every 'week' item needs non-empty kicker and text`);
+    // The feed is filterable, so items say which world they belong to.
+    if (item.tag !== undefined && !["PL", "FPL"].includes(item.tag))
+      fail(`${where}: week item 'tag' must be "PL" or "FPL" when present`);
+    if (item.club !== undefined && !isNonEmptyStr(item.club))
+      fail(`${where}: week item 'club' must be a non-empty string when present`);
   }
   if (d.team_watch !== undefined) {
     if (!Array.isArray(d.team_watch)) fail(`${where}: 'team_watch' must be an array`);
@@ -69,12 +76,14 @@ for (const [i, d] of data.digests.entries()) {
     }
   }
 
-  if (!isPlainObject(d.club)) fail(`${where}: 'club' must be an object`);
+  // `club` is legacy too: the owner-club block from the single-club era.
+  if (d.club !== undefined && !isPlainObject(d.club))
+    fail(`${where}: 'club' must be an object when present (legacy key)`);
 
-  if (d.club.results !== undefined)
+  if (d.club?.results !== undefined)
     fail(`${where}: club.results is no longer valid — the schema uses club.latest_result now`);
 
-  if (d.club.latest_result !== undefined) {
+  if (d.club?.latest_result !== undefined) {
     const lr = d.club.latest_result;
     if (!isPlainObject(lr)) fail(`${where}: club.latest_result must be an object`);
     for (const key of ["home", "away", "score", "competition"]) {
@@ -91,7 +100,7 @@ for (const [i, d] of data.digests.entries()) {
       fail(`${where}: club.latest_result.date must be a non-empty string when present`);
   }
 
-  if (d.club.fixtures !== undefined) {
+  if (d.club?.fixtures !== undefined) {
     if (!Array.isArray(d.club.fixtures)) fail(`${where}: club.fixtures must be an array when present`);
     for (const [fi, f] of d.club.fixtures.entries()) {
       const fwhere = `${where}, club.fixtures[${fi}]`;
@@ -104,8 +113,8 @@ for (const [i, d] of data.digests.entries()) {
     }
   }
 
-  if (d.club.table !== undefined) {
-    const t = d.club.table;
+  if (d.club?.table !== undefined) {
+    const t = d.club["table"];
     if (!isPlainObject(t)) fail(`${where}: club.table must be an object`);
     if (!isNonEmptyStr(t.competition)) fail(`${where}: club.table.competition must be a non-empty string`);
     if (!Array.isArray(t.rows)) fail(`${where}: club.table.rows must be an array`);
@@ -121,7 +130,7 @@ for (const [i, d] of data.digests.entries()) {
     if (!isNumber(t.club_position)) fail(`${where}: club.table.club_position must be a number`);
   }
 
-  if (d.club.form !== undefined) {
+  if (d.club?.form !== undefined) {
     if (!Array.isArray(d.club.form)) fail(`${where}: club.form must be an array when present`);
     for (const [fi, f] of d.club.form.entries()) {
       const fwhere = `${where}, club.form[${fi}]`;
@@ -133,6 +142,32 @@ for (const [i, d] of data.digests.entries()) {
       if (f.opponent_crest !== undefined && f.opponent_crest !== null && typeof f.opponent_crest !== "string")
         fail(`${fwhere}: 'opponent_crest' must be a string or null when present`);
     }
+  }
+
+// The league table, top-level now: the page is about the division, not about
+  // where one club sits in it.
+  if (d.table !== undefined) {
+    const t = d.table;
+    if (!isPlainObject(t)) fail(`${where}: 'table' must be an object`);
+    if (!isNonEmptyStr(t.competition))
+      fail(`${where}: table.competition must be a non-empty string`);
+    if (!Array.isArray(t.rows) || !t.rows.length)
+      fail(`${where}: table.rows must be a non-empty array`);
+    for (const [ri, row] of t.rows.entries()) {
+      const rwhere = `${where}, table.rows[${ri}] (${row?.team ?? "?"})`;
+      for (const key of ["pos", "played", "points"]) {
+        if (!isNumber(row?.[key])) fail(`${rwhere}: '${key}' must be a number`);
+      }
+      if (!isNonEmptyStr(row?.team)) fail(`${rwhere}: 'team' must be a non-empty string`);
+      if (row.crest !== undefined && row.crest !== null && typeof row.crest !== "string")
+        fail(`${rwhere}: 'crest' must be a string or null when present`);
+      if (row.form !== undefined && !isNonEmptyStr(row.form))
+        fail(`${rwhere}: 'form' must be a non-empty string like "WWDLW" when present`);
+      if (row.focus !== undefined && typeof row.focus !== "boolean")
+        fail(`${rwhere}: 'focus' must be a boolean when present`);
+    }
+    if (t.note !== undefined && !isNonEmptyStr(t.note))
+      fail(`${where}: table.note must be a non-empty string when present`);
   }
 
   if (!Array.isArray(d.wider)) fail(`${where}: 'wider' must be an array`);
