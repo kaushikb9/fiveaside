@@ -19,7 +19,7 @@
   --draw: #78857c;
   --fdr1-bg: #256e43; --fdr1-ink: #ffffff;
   --fdr2-bg: #b9dcc3; --fdr2-ink: #1a3b26;
-  --fdr3-bg: #eef3ee; --fdr3-ink: #5c6a60;
+  --fdr3-bg: #dde5dd; --fdr3-ink: #46524a;
   --fdr4-bg: #ecc4c4; --fdr4-ink: #5d2222;
   --fdr5-bg: #b04a4a; --fdr5-ink: #ffffff;
   --st-hit: #2e9e63; --st-hit-ink: #ffffff;
@@ -35,7 +35,7 @@
     --win: #2e9e63; --loss: #c05252; --draw: #5d6a61;
     --fdr1-bg: #1f5c3c; --fdr1-ink: #d9efe2;
     --fdr2-bg: #1c3a29; --fdr2-ink: #9fceb0;
-    --fdr3-bg: #16201a; --fdr3-ink: #6c7d71;
+    --fdr3-bg: #202c25; --fdr3-ink: #8fa295;
     --fdr4-bg: #4a2323; --fdr4-ink: #d8a3a3;
     --fdr5-bg: #7d2f2f; --fdr5-ink: #f1d9d9;
     --st-hit: #2e9e63; --st-hit-ink: #ffffff;
@@ -51,7 +51,7 @@
   --win: #2e9e63; --loss: #c05252; --draw: #5d6a61;
   --fdr1-bg: #1f5c3c; --fdr1-ink: #d9efe2;
   --fdr2-bg: #1c3a29; --fdr2-ink: #9fceb0;
-  --fdr3-bg: #16201a; --fdr3-ink: #6c7d71;
+  --fdr3-bg: #202c25; --fdr3-ink: #8fa295;
   --fdr4-bg: #4a2323; --fdr4-ink: #d8a3a3;
   --fdr5-bg: #7d2f2f; --fdr5-ink: #f1d9d9;
   --st-hit: #2e9e63; --st-hit-ink: #ffffff;
@@ -66,7 +66,7 @@
   --win: #2e9e63; --loss: #c94f4f; --draw: #78857c;
   --fdr1-bg: #256e43; --fdr1-ink: #ffffff;
   --fdr2-bg: #b9dcc3; --fdr2-ink: #1a3b26;
-  --fdr3-bg: #eef3ee; --fdr3-ink: #5c6a60;
+  --fdr3-bg: #dde5dd; --fdr3-ink: #46524a;
   --fdr4-bg: #ecc4c4; --fdr4-ink: #5d2222;
   --fdr5-bg: #b04a4a; --fdr5-ink: #ffffff;
   --st-hit: #2e9e63; --st-hit-ink: #ffffff;
@@ -620,11 +620,6 @@ footer .footer-line + .footer-line { margin-top: 5px; }
     font-size: 10px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase;
     color: var(--faint); padding: 3px 0 5px;
   }
-  .frw { display: flex; align-items: center; gap: 4px; padding: 2px 0; }
-  .fteam {
-    flex: 0 0 30px; font-weight: 700; font-size: 12px;
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-  }
   .fx-key { color: var(--faint); font-size: 13px; }
 
   /* ---- squad boards: pos chip · name · badges · team · price ---- */
@@ -843,3 +838,120 @@ footer .footer-line + .footer-line { margin-top: 5px; }
 .saction { color: var(--accent-ink); font-size: 13px; font-weight: 600; margin-top: 4px; }
 .ssrc { color: var(--faint); font-size: 11.5px; margin-top: 3px; }
 .ssrc a { color: inherit; }
+
+/* --- Fixture runs: a real heat scale. Every cell is filled, including the
+   neutral middle — partial colouring reads as arbitrary highlighting. --- */
+.frw {
+  display: flex; align-items: center; gap: 4px; padding: 3px 0;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+}
+.fteam {
+  flex: 0 0 34px; font-weight: 700; font-size: 11.5px; color: var(--ink);
+  letter-spacing: 0.02em;
+}
+.frw .fc {
+  flex: 1 1 0; min-width: 0; display: flex; align-items: baseline;
+  justify-content: center; gap: 3px;
+  font-size: 11px; font-weight: 600; letter-spacing: 0.01em;
+  border-radius: 5px; padding: 3px 0; background: none;
+}
+.frw .fc i { font-style: normal; font-size: 8.5px; font-weight: 700; opacity: 0.65; }
+.fc.d1 { background: var(--fdr1-bg); color: var(--fdr1-ink); }
+.fc.d2 { background: var(--fdr2-bg); color: var(--fdr2-ink); }
+.fc.d3 { background: var(--fdr3-bg); color: var(--fdr3-ink); }
+.fc.d4 { background: var(--fdr4-bg); color: var(--fdr4-ink); }
+.fc.d5 { background: var(--fdr5-bg); color: var(--fdr5-ink); }
+.favg {
+  flex: 0 0 26px; text-align: right; color: var(--dim);
+  font-size: 11.5px; font-variant-numeric: tabular-nums; font-weight: 700;
+}
+.fkey { display: inline-flex; align-items: center; gap: 3px; margin-left: 8px; }
+.fkey span { font-size: 9px; font-weight: 400; letter-spacing: 0.04em; color: var(--faint); }
+.fkey i { width: 11px; height: 7px; border-radius: 2px; display: inline-block; }
+.fkey i.d1 { background: var(--fdr1-bg); }
+.fkey i.d2 { background: var(--fdr2-bg); }
+.fkey i.d3 { background: var(--fdr3-bg); }
+.fkey i.d4 { background: var(--fdr4-bg); }
+.fkey i.d5 { background: var(--fdr5-bg); }
+
+/* --- The live gameweek, as a pitch. --- */
+.pitchwrap { margin-bottom: 14px; }
+.pitchhead {
+  display: flex; justify-content: space-between; align-items: baseline;
+  gap: 12px; flex-wrap: wrap; margin-bottom: 7px;
+}
+.pitchhead .ph-l {
+  font-size: 10.5px; font-weight: 700; text-transform: uppercase;
+  letter-spacing: 0.14em; color: var(--faint);
+}
+.pitchhead .ph-r {
+  font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+  font-size: 12px; color: var(--dim); font-variant-numeric: tabular-nums;
+}
+.pitchhead .ph-r b { color: var(--ink); font-size: 14px; }
+.pitch {
+  position: relative; background: var(--score-bg);
+  border: 1px solid var(--line); border-radius: 10px;
+  padding: 16px 8px; display: flex; flex-direction: column; gap: 14px;
+  overflow: hidden;
+}
+/* halfway line + centre circle, drawn not decorated */
+.pitch::before {
+  content: ""; position: absolute; left: 0; right: 0; top: 50%;
+  height: 1px; background: var(--line);
+}
+.pitch::after {
+  content: ""; position: absolute; left: 50%; top: 50%;
+  width: 74px; height: 74px; transform: translate(-50%, -50%);
+  border: 1px solid var(--line); border-radius: 50%;
+}
+.prow { position: relative; z-index: 1; display: flex; justify-content: space-evenly; gap: 5px; }
+.ptok {
+  flex: 0 1 auto; min-width: 0; max-width: 25%;
+  display: flex; flex-direction: column; align-items: center; gap: 1px;
+  background: var(--card); border: 1px solid var(--line); border-radius: 8px;
+  padding: 5px 7px 4px; text-align: center; position: relative;
+}
+.ptok .tpts {
+  font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+  font-size: 15px; font-weight: 700; line-height: 1.15;
+  font-variant-numeric: tabular-nums;
+}
+.ptok .tname {
+  font-size: 11.5px; font-weight: 600; max-width: 100%;
+  overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+}
+.ptok .tsub { font-size: 9.5px; color: var(--faint); white-space: nowrap; }
+.ptok .tsub b { color: var(--accent-ink); }
+.ptok .tb {
+  position: absolute; top: -6px; right: -5px;
+  background: var(--accent); color: #fff; font-style: normal;
+  font-size: 9px; font-weight: 800; border-radius: 999px; padding: 0 4px;
+}
+/* state: yet to play is quiet, on the pitch is live, finished is settled */
+.ptok.yet { opacity: 0.55; }
+.ptok.yet .tpts { color: var(--faint); }
+.ptok.on { border-color: var(--accent); }
+.ptok.on .tpts { color: var(--accent-ink); }
+.benchrow {
+  display: flex; align-items: center; gap: 6px; flex-wrap: wrap;
+  margin-top: 8px; padding: 8px 10px;
+  border: 1px dashed var(--line); border-radius: 10px;
+}
+.benchrow .bl {
+  font-size: 10px; font-weight: 700; text-transform: uppercase;
+  letter-spacing: 0.12em; color: var(--faint); margin-right: 2px;
+}
+.benchrow .ptok { padding: 3px 6px 2px; }
+.benchrow .ptok .tpts { font-size: 12.5px; }
+.benchrow .bpts {
+  margin-left: auto; font-family: ui-monospace, Menlo, monospace;
+  font-size: 11px; color: var(--faint); font-variant-numeric: tabular-nums;
+}
+@media (max-width: 460px) {
+  .pitch { padding: 12px 4px; gap: 10px; }
+  .ptok { padding: 4px 4px 3px; }
+  .ptok .tname { font-size: 10.5px; }
+  .ptok .tpts { font-size: 13px; }
+  .ptok .tsub { font-size: 8.5px; }
+}

@@ -69,8 +69,8 @@ Edit `site/data/fpl.json`. It is a **living document**, not an archive
 
 - Replace every current-state section wholesale each run: `season`,
   `gameweek`, `live_gameweek`, `call`, `squad`, `desk`, `watchlist`,
-  `wagers`, `race`, `signals`, `new_this_season`, `template`,
-  `captain_poll`, `penalties`, `ticker`, `wildcard`, `chips`, `plan`.
+  `wagers`, `race`, `signals`,
+  `captain_poll`, `ticker`, `chips`, `plan`.
   `bus` is the exception — carry it forward untouched between international
   breaks. `doctrine` is append-and-amend: never silently drop a belief.
 - `log` is append-and-settle: append this gameweek's entry with
@@ -100,15 +100,17 @@ The page has a PUBLIC tier (the commons — useful to any FPL manager, no sync
 needed) and a PERSONAL tier behind the sync toggle. Both live in this one file.
 
 **The commons is mostly FACT, copied verbatim from the facts bundle — never
-authored, never editorialised:** `template` (bundle `template`),
-`captain_poll` (bundle `captain_poll`, plus your one-line `note`),
-`penalties.rows` (bundle `penalties`, plus your `note`), and `ticker`
-(bundle `ticker`). Copy these across wholesale each run. The page slices
-kindest/hardest runs out of the ticker itself — you do not curate fixtures.
+authored, never editorialised:** `captain_poll` (bundle `captain_poll`, plus
+your one-line `note`) and `ticker` (bundle `ticker`). Copy these across
+wholesale each run. The page slices kindest/hardest runs out of the ticker
+itself — you do not curate fixtures.
 
-You DO author, in the commons: `new_this_season` (3–5 rule/feature notes,
-stable most of the season), `signals` (≤6 triaged team-news items, each with
-a so-what `action`), `bus`, `wildcard`, and `chips`.
+**Dropped 2026-08-23 — do NOT write these keys again:** `new_this_season`,
+`template`, `penalties`, `wildcard`. They did not earn their space. The
+bundle still carries the underlying facts; the page simply does not use them.
+
+You DO author, in the commons: `signals` (≤6 triaged team-news items, each
+with a so-what `action`), `bus`, and `chips`.
 
 **`bus` — the set-and-forget benchmark.** Fifteen picked purely for
 reliability: nailed minutes, durable scorers, fixture-proof premiums, built so
@@ -118,13 +120,8 @@ international breaks (roughly monthly) — otherwise carry it forward unchanged.
 It answers the product's null hypothesis: does weekly management beat doing
 nothing?
 
-**`wildcard` — the ceiling.** The best legal from-scratch fifteen at today's
-prices, re-picked every run. It doubles as the standing wildcard suggestion and
-as a source of punt candidates. When the owner's squad and this one share fewer
-than ~10 players AND the gap is widening, say so plainly in `plan` — that is
-the evidence that opens a real wildcard conversation.
 
-Both must be legal squads: exactly 15, 2 GK / 5 DEF / 5 MID / 3 FWD, 11
+`bus` must be a legal squad: exactly 15, 2 GK / 5 DEF / 5 MID / 3 FWD, 11
 starters + bench_order 1–4, one captain and one vice among the starters, max 3
 per club, total price ≤ £100.0m. The validator enforces every one of those.
 
@@ -144,8 +141,8 @@ punts only at big-game, surprise-result moments, and when you punt, say the word
 overrides — his disagreements are tracked as positions, not arguments.
 
 **`race`**: copy the mini-league standings from the bundle's `leagues[0]`
-into `rows` (keep `is_owner`), and carry `benchmarks` for the bus and
-wildcard totals once gameweeks have settled (null before that — never a zero).
+into `rows` (keep `is_owner`), and carry `benchmarks` for the bus total once
+gameweeks have settled (null before that — never a zero).
 `state` is pre before the season's first settled GW, live during one,
 settled after.
 
@@ -187,14 +184,10 @@ Sections with nothing to say are OMITTED, never emitted empty.
   "log": [ { "gw": 1, "date": "2026-08-21", "call": "what we predicted, compactly", "verdict": "open", "outcome": "...", "lesson": "...", "grade": "pattern" } ],
   "plan": { "outlook": "medium-term prose", "items": [ { "label": "Wildcard", "when": "GW6–8", "note": "why then" } ] },
 
-  "new_this_season": [ { "title": "...", "note": "..." } ],
   "signals": [ { "tag": "injury", "player": "...", "team": "CHE", "text": "what happened, from a fetched source", "source": "FPL API", "action": "the so-what", "url": "https://..." } ],
-  "template": "[copied verbatim from the bundle]",
   "captain_poll": { "...bundle captain_poll": "", "note": "one honest line" },
-  "penalties": { "rows": "[bundle penalties]", "note": "one honest line" },
   "ticker": "[copied verbatim from the bundle]",
   "bus": { "formation": "3-4-3", "value": "£100.0m", "note": "why this fifteen", "players": [] },
-  "wildcard": { "formation": "3-4-3", "value": "£98.0m", "note": "why this fifteen", "players": [] },
   "chips": { "rows": [ { "code": "WC1", "name": "Wildcard", "window": "...", "expires": "GW19" } ], "note": "one line" }
 }
 ```

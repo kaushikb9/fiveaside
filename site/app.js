@@ -77,20 +77,6 @@ const section = (title, right, body) =>
 
 // ------------------------------------------------------------------ commons
 
-const newThisSeasonHTML = (rows) =>
-  rows?.length
-    ? section(
-        "New this season",
-        "",
-        `<ul class="brief">${rows
-          .map(
-            (r) =>
-              `<li><strong>${esc(r.title)}</strong> <span class="tail">&mdash; ${esc(r.note)}</span></li>`
-          )
-          .join("")}</ul>`
-      )
-    : "";
-
 function signalsHTML(rows) {
   if (!rows?.length) return "";
   const cards = rows
@@ -108,35 +94,6 @@ function signalsHTML(rows) {
     })
     .join("");
   return section("The week", "team news", `<div class="signals">${cards}</div>`);
-}
-
-function templateHTML(groups) {
-  if (!groups?.length) return "";
-  const max = Math.max(
-    1,
-    ...groups.flatMap((g) => g.rows.map((r) => r.ownership || 0))
-  );
-  const body = groups
-    .map(
-      (g) =>
-        `<div class="tgroup">${esc(g.pos)}</div>` +
-        g.rows
-          .map(
-            (r) =>
-              `<div class="trow"><span class="tname">${esc(r.name)}</span>` +
-              `<span class="tchip">${esc(r.team)}</span>` +
-              `<span class="tbar"><i style="width:${Math.round(((r.ownership || 0) / max) * 100)}%"></i></span>` +
-              `<span class="tpct">${esc(pct(r.ownership))}%</span></div>`
-          )
-          .join("")
-    )
-    .join("");
-  return section(
-    "The template board",
-    "ownership %",
-    `<div class="board tboard"><div class="blabel">Most-owned, by position</div>${body}</div>` +
-      `<p class="snote">Ownership is a risk fact, not an argument &mdash; but pass on a 30%+ asset only with a priced case.</p>`
-  );
 }
 
 function captainHTML(poll) {
@@ -162,25 +119,6 @@ function captainHTML(poll) {
   );
 }
 
-function penaltiesHTML(pens) {
-  if (!pens?.rows?.length) return "";
-  const rows = pens.rows
-    .map(
-      (r) =>
-        `<div class="pen"><span class="tchip">${esc(r.team)}</span><b>${esc(r.taker)}</b>` +
-        (r.note ? `<span class="popen">${esc(r.note)}</span>` : "") +
-        `</div>`
-    )
-    .join("");
-  return section(
-    "Penalty takers",
-    "first choice",
-    `<div class="pengrid">${rows}</div>` +
-      (pens.note ? `<p class="snote">${esc(pens.note)}</p>` : "")
-  );
-}
-
-// Kindest and hardest runs, sliced from the ticker — no 20x6 wall of cells.
 function fixtureRunsHTML(ticker, gws = 3) {
   if (!ticker?.rows?.length) return "";
   const scored = ticker.rows
@@ -192,28 +130,35 @@ function fixtureRunsHTML(ticker, gws = 3) {
     .filter((r) => r.fx.length)
     .sort((a, b) => a.avg - b.avg);
 
+  // Every cell is filled, including the neutral middle — a partially-coloured
+  // strip reads as arbitrary highlighting rather than a scale.
   const strip = (r) =>
     `<div class="frw"><span class="fteam">${esc(r.team)}</span>` +
     r.fx
       .map(
         (f) =>
-          `<span class="fc fdr${esc(f.fdr)}" title="${esc(r.team)} ${f.home ? "vs" : "at"} ${esc(f.opp)}, GW${esc(f.gw)}">` +
-          `${esc(f.home ? f.opp.toUpperCase() : f.opp.toLowerCase())}</span>`
+          `<span class="fc d${esc(f.fdr)}" title="${esc(r.team)} ${f.home ? "at home to" : "away at"} ${esc(f.opp)} — difficulty ${esc(f.fdr)}/5, GW${esc(f.gw)}">` +
+          `${esc(f.opp)}<i>${f.home ? "H" : "A"}</i></span>`
       )
       .join("") +
-    `<span class="favg">${r.avg.toFixed(2)}</span></div>`;
+    `<span class="favg">${r.avg.toFixed(1)}</span></div>`;
 
   const kindest = scored.slice(0, 6).map(strip).join("");
   const hardest = scored.slice(-4).reverse().map(strip).join("");
   const to = ticker.from_gw + gws - 1;
+  const key =
+    `<div class="fkey"><span>easier</span>` +
+    [1, 2, 3, 4, 5].map((d) => `<i class="d${d}"></i>`).join("") +
+    `<span>harder</span></div>`;
   return section(
     "Fixture runs",
-    `GW${ticker.from_gw}–${to} · avg FDR`,
+    `GW${ticker.from_gw}–${to}`,
     `<div class="board"><div class="fdrwrap">` +
-      `<div><div class="flabel">Kindest</div>${kindest}</div>` +
-      `<div><div class="flabel">Hardest</div>${hardest}</div>` +
+      `<div><div class="flabel">Kindest run${key}</div>${kindest}</div>` +
+      `<div><div class="flabel">Hardest run</div>${hardest}</div>` +
       `</div></div>` +
-      `<p class="snote"><span class="fx-key">caps = home.</span> Official difficulty is pre-season guesswork &mdash; our own model takes over once the season has data.</p>`
+      `<p class="snote">Opponent, then <b>H</b>ome or <b>A</b>way; the number is the run's average difficulty. ` +
+      `These are the game's own ratings, set before a ball was kicked &mdash; treat them as a starting point, not a verdict.</p>`
   );
 }
 
@@ -447,32 +392,54 @@ function liveHTML(live) {
 
   let squad = "";
   if (live.squad?.length) {
-    const rows = live.squad
-      .slice()
-      .sort((a, b) => a.position - b.position)
-      .map((p) => {
-        const badge =
-          (p.captain ? '<span class="cap">C</span>' : "") +
-          (p.vice ? '<span class="cap v">V</span>' : "");
-        const bonus = p.provisional_bonus
-          ? `<span class="pbonus" title="provisional bonus">+${esc(p.provisional_bonus)}</span>`
-          : "";
-        const pts = p.points * (p.role === "bench" ? 1 : p.multiplier || 1);
-        return (
-          `<div class="srow${p.role === "bench" ? " bench" : ""}">` +
-          `<span class="posc">${esc(p.pos)}</span>` +
-          `<span class="sname">${esc(p.name)}</span>${badge}` +
-          `<span class="tchip">${esc(p.team)}</span>` +
-          `<span class="lmin">${p.played ? `${esc(p.minutes)}'` : "&mdash;"}</span>` +
-          `${bonus}<span class="lpts">${esc(pts)}</span></div>`
-        );
-      })
-      .join("");
+    // Teams whose match is actually in progress — a player subbed off at 80' in
+    // a finished game is done, not still out there.
+    const inPlay = new Set(
+      (live.fixtures ?? [])
+        .filter((f) => f.started && !f.finished)
+        .flatMap((f) => [f.home, f.away])
+    );
+
+    // A player token on the pitch: name, live points, and a state that reads at
+    // a glance — yet to play, on the pitch, or done.
+    const token = (p) => {
+      const pts = p.points * (p.role === "bench" ? 1 : p.multiplier || 1);
+      const state = !p.played ? " yet" : inPlay.has(p.team) ? " on" : " done";
+      const badge = p.captain ? "C" : p.vice ? "V" : "";
+      const bonus = p.provisional_bonus
+        ? `<i class="tb" title="provisional bonus">+${esc(p.provisional_bonus)}</i>`
+        : "";
+      return (
+        `<div class="ptok${state}" title="${esc(p.name)} · ${esc(p.team)} · ${p.played ? `${esc(p.minutes)} min` : "yet to play"}">` +
+        `<span class="tpts">${esc(pts)}</span>${bonus}` +
+        `<span class="tname">${esc(p.name)}</span>` +
+        `<span class="tsub">${esc(p.team)}${badge ? ` <b>${badge}</b>` : ""}${p.played ? ` · ${esc(p.minutes)}'` : ""}</span>` +
+        `</div>`
+      );
+    };
+
+    const starters = live.squad.filter((p) => p.role !== "bench");
+    const bench = live.squad
+      .filter((p) => p.role === "bench")
+      .sort((a, b) => a.position - b.position);
+    const line = (pos) => {
+      const row = starters.filter((p) => p.pos === pos);
+      return row.length ? `<div class="prow">${row.map(token).join("")}</div>` : "";
+    };
     const t = live.totals ?? {};
+    const formation = ["DEF", "MID", "FWD"].map((p) => starters.filter((x) => x.pos === p).length);
+
     squad =
-      `<div class="board livesquad"><div class="blabel">Your live gameweek &middot; ` +
-      `${esc(t.net ?? t.starters ?? 0)} pts${t.hits ? ` (after &minus;${esc(t.hits)})` : ""}` +
-      `${Number.isFinite(t.bench) ? ` &middot; ${esc(t.bench)} on the bench` : ""}</div>${rows}</div>`;
+      `<div class="pitchwrap"><div class="pitchhead">` +
+      `<span class="ph-l">Your live gameweek</span>` +
+      `<span class="ph-r">${esc(formation.join("-"))} &middot; ` +
+      `<b>${esc(t.net ?? t.starters ?? 0)}</b> pts${t.hits ? ` after &minus;${esc(t.hits)}` : ""}</span></div>` +
+      `<div class="pitch">${line("GK")}${line("DEF")}${line("MID")}${line("FWD")}</div>` +
+      (bench.length
+        ? `<div class="benchrow"><span class="bl">Bench</span>${bench.map(token).join("")}` +
+          `<span class="bpts">${esc(t.bench ?? 0)} pts</span></div>`
+        : "") +
+      `</div>`;
   }
 
   let league = "";
@@ -547,15 +514,14 @@ function showRefreshed(iso) {
 }
 
 function render(data, live) {
+  // The commons, deliberately short. Dropped 2026-08-23: new_this_season,
+  // the template board, penalty takers and the wildcard XI — none earned
+  // their space in this format.
   const commons =
-    newThisSeasonHTML(data.new_this_season) +
     signalsHTML(data.signals) +
-    templateHTML(data.template) +
     captainHTML(data.captain_poll) +
-    penaltiesHTML(data.penalties) +
     fixtureRunsHTML(data.ticker) +
     section("The bus team", "the set-and-forget benchmark", squadDetails(data.bus, "serviced monthly", "rides in the race")) +
-    section("The wildcard XI", "re-picked weekly", squadDetails(data.wildcard, "best from scratch today")) +
     chipsHTML(data.chips);
 
   const personal =
