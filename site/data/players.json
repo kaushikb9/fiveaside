@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-23T20:18:37.040Z",
+  "generated_at": "2026-08-23T20:27:18.428Z",
   "gameweek": 2,
   "players": [
     {
@@ -197,7 +197,7 @@
       "team": "MUN",
       "pos": "MID",
       "price": 8,
-      "ownership": 38,
+      "ownership": 37.9,
       "points": 2,
       "form": "2.0",
       "next3": [
@@ -2458,6 +2458,38 @@
       "next3_avg": 3
     },
     {
+      "id": 565,
+      "name": "M.Sangaré",
+      "team": "BRE",
+      "pos": "MID",
+      "price": 5.5,
+      "ownership": 4.3,
+      "points": 14,
+      "form": "14.0",
+      "next3": [
+        {
+          "gw": 2,
+          "opp": "LEE",
+          "home": false,
+          "fdr": 3
+        },
+        {
+          "gw": 3,
+          "opp": "SUN",
+          "home": true,
+          "fdr": 2
+        },
+        {
+          "gw": 4,
+          "opp": "BOU",
+          "home": false,
+          "fdr": 3
+        }
+      ],
+      "owned_by": [],
+      "next3_avg": 2.67
+    },
+    {
       "id": 529,
       "name": "Roefs",
       "team": "SUN",
@@ -2520,38 +2552,6 @@
       ],
       "owned_by": [],
       "next3_avg": 3.67
-    },
-    {
-      "id": 565,
-      "name": "M.Sangaré",
-      "team": "BRE",
-      "pos": "MID",
-      "price": 5.5,
-      "ownership": 4.2,
-      "points": 14,
-      "form": "14.0",
-      "next3": [
-        {
-          "gw": 2,
-          "opp": "LEE",
-          "home": false,
-          "fdr": 3
-        },
-        {
-          "gw": 3,
-          "opp": "SUN",
-          "home": true,
-          "fdr": 2
-        },
-        {
-          "gw": 4,
-          "opp": "BOU",
-          "home": false,
-          "fdr": 3
-        }
-      ],
-      "owned_by": [],
-      "next3_avg": 2.67
     },
     {
       "id": 208,

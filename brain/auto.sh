@@ -23,13 +23,35 @@ timeout 90 git pull --rebase --autostash -q \
 #   curate-fpl.sh -> fpl.json     (the gaffers' judgment layer)
 # players.json and gaffers.json are mechanical and are rewritten by both.
 LATEST=$(node -e "const d=require('./site/data/digests.json').digests;console.log(d.map(x=>x.date).sort().pop())")
-FPL_DATE=$(node -e "try{console.log(String(require('./site/data/fpl.json').generated_at||'').slice(0,10))}catch{console.log('')}")
+# generated_at is stamped in UTC; `date +%F` below is LOCAL. In IST those
+# disagree for the first five and a half hours of every day, so convert
+# rather than slicing the ISO string and calling it a date.
+FPL_DATE=$(node -e "try{const t=require('./site/data/fpl.json').generated_at;console.log(t?new Date(t).toLocaleDateString('en-CA'):'')}catch{console.log('')}")
 DIGEST_DUE=$([ "$LATEST" = "$(date +%F)" ] || echo yes)
 FPL_DUE=$([ "$FPL_DATE" = "$(date +%F)" ] || echo yes)
 [ -n "$DIGEST_DUE$FPL_DUE" ] || exit 0
 
 # offline? try again next hour
 curl -sf --max-time 10 https://fiveaside.pages.dev >/dev/null || exit 0
+
+# The MECHANICAL refresh is cheap and has no LLM in it: prices, points,
+# squads, captaincy and chips, straight from the API to disk. Run it every
+# hour regardless of whether either brain is due, so the pitch and the file
+# are never a day stale just because the editorial was already written today.
+# Deploy only if something actually changed.
+if uv run touchline fpl 2>/dev/null | node brain/split-facts.mjs >/dev/null 2>&1; then
+  if node brain/validate-players.mjs >/dev/null 2>&1 \
+     && ! git diff --quiet -- site/data/players.json site/data/gaffers.json; then
+    echo "[auto] $(date '+%F %T') — mechanical data moved, publishing"
+    git add site/data/players.json site/data/gaffers.json
+    git commit -qm "data: $(date '+%F %H:%M') mechanical refresh" || true
+    git push -q 2>/dev/null || echo "[auto] push failed"
+    ./deploy.sh >/dev/null 2>&1 || echo "[auto] deploy failed"
+  fi
+else
+  echo "[auto] $(date '+%F %T') — facts refresh failed, skipping"
+  git checkout -- site/data/players.json site/data/gaffers.json 2>/dev/null || true
+fi
 
 # `|| echo` so a failed run doesn't starve the other product under set -e
 # `caffeinate -dimsu` for the lifetime of each run: this machine has
