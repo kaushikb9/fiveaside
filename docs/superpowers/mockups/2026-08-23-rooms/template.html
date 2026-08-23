@@ -257,45 +257,63 @@ body.commenting [data-c]:hover{outline:2px dashed var(--accent);outline-offset:3
 .foot{margin-top:36px;padding-top:18px;border-top:1px solid var(--line);font-size:13px;color:var(--faint)}
 button:focus-visible,a:focus-visible,input:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
 
+/* --- the gaffers headline -------------------------------------------
+   The room opens with one fact about THESE FIVE, never about the league.
+   Touchline already covers the league; this is the thing you would text
+   the group chat about. */
+.ghead{border:1px solid var(--line);border-left:4px solid var(--accent);border-radius:var(--r);
+  background:var(--card);box-shadow:var(--shadow);padding:16px 18px;margin:0 0 16px}
+.ghead .gk{font-family:var(--f-head);font-size:10px;font-weight:700;letter-spacing:.13em;
+  text-transform:uppercase;color:var(--accent);margin-bottom:6px}
+.ghead p{margin:0;font-size:17px;line-height:1.5;font-family:var(--f-head);font-weight:700;
+  letter-spacing:-.015em;max-width:60ch}
+.ghead .gsub{margin-top:7px;font-family:var(--f-body);font-weight:400;font-size:13.5px;color:var(--mute)}
+
 /* --- the pitch -------------------------------------------------------
-   A squad is a shape, not a list — you read a 3-4-3 in one glance and never
-   from eleven rows. The pitch keeps its own green in both themes because a
-   pitch is green; only its depth changes. */
+   Modelled on the official FPL pitch and FotMob's lineup view: a club kit,
+   a dark name bar, and a value bar under it. The kit is drawn, not fetched —
+   an SVG jersey tinted per club, so there are no external images and it
+   works offline and in both themes. */
 .pitchwrap{border-radius:var(--r);overflow:hidden;border:1px solid var(--line)}
 .pitch{
-  --grass:#1c7a4a; --line-w:rgba(255,255,255,.30);
+  --grass:#1a7a49; --stripe:#177043; --chalk:rgba(255,255,255,.22);
   background:
-    radial-gradient(ellipse at 50% 0%, rgba(255,255,255,.07), transparent 60%),
-    repeating-linear-gradient(180deg, var(--grass) 0 44px, #1a7145 44px 88px);
-  padding:18px 12px 14px;display:flex;flex-direction:column;gap:14px;position:relative}
-:root[data-theme="dark"] .pitch{--grass:#1454345c;background:
-  radial-gradient(ellipse at 50% 0%, rgba(255,255,255,.05), transparent 60%),
-  repeating-linear-gradient(180deg, #12503a 0 44px, #104631 44px 88px)}
-@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .pitch{background:
-  radial-gradient(ellipse at 50% 0%, rgba(255,255,255,.05), transparent 60%),
-  repeating-linear-gradient(180deg, #12503a 0 44px, #104631 44px 88px)}}
-.pitch::before{content:"";position:absolute;left:12px;right:12px;top:50%;height:1px;
-  background:var(--line-w)}
-.pitch::after{content:"";position:absolute;left:50%;top:50%;width:76px;height:76px;
-  transform:translate(-50%,-50%);border:1px solid var(--line-w);border-radius:50%}
-.prow{display:flex;justify-content:center;gap:8px;flex-wrap:wrap;position:relative;z-index:1}
-.pp{width:96px;text-align:center;color:#fff}
-.pp .shirt{display:flex;align-items:center;justify-content:center;height:34px;border-radius:8px;
-  background:rgba(255,255,255,.14);border:1px solid rgba(255,255,255,.28);
-  font-family:var(--f-num);font-size:14px;font-weight:700;backdrop-filter:blur(2px)}
-.pp .shirt.blank{opacity:.55;font-weight:600;font-size:11px}
-.pp .pn{display:block;font-family:var(--f-head);font-size:11.5px;font-weight:700;margin-top:4px;
-  overflow:hidden;text-overflow:ellipsis;white-space:nowrap;color:#fff;text-decoration:none;
-  border-bottom:1px dotted rgba(255,255,255,.5);cursor:pointer}
-.pp .px{display:block;font-size:10px;opacity:.85;margin-top:2px;font-family:var(--f-num)}
-.pp .fx{display:inline-block;margin-top:3px;font-family:var(--f-num);font-size:9.5px;font-weight:700;
-  padding:1px 5px;border-radius:5px;color:var(--fdr-ink)}
-.pp .flag{display:inline-block;width:6px;height:6px;border-radius:50%;background:#ff6b5e;
-  margin-left:3px;vertical-align:1px}
-.benchrow{background:var(--raise);padding:12px;display:flex;justify-content:center;gap:8px;flex-wrap:wrap}
-.benchrow .pp{color:var(--ink)}
-.benchrow .pp .shirt{background:var(--card);border-color:var(--line);color:var(--ink)}
-.benchrow .pp .pn{color:var(--ink);border-bottom-color:var(--line)}
+    linear-gradient(180deg, rgba(255,255,255,.06), transparent 40%),
+    repeating-linear-gradient(180deg, var(--grass) 0 52px, var(--stripe) 52px 104px);
+  padding:34px 10px 18px;display:flex;flex-direction:column;gap:20px;position:relative}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .pitch{
+  --grass:#125437; --stripe:#0f4a30; --chalk:rgba(255,255,255,.16)}}
+:root[data-theme="dark"] .pitch{--grass:#125437; --stripe:#0f4a30; --chalk:rgba(255,255,255,.16)}
+/* chalk: halfway line, centre circle, penalty box */
+.pitch .chalk{position:absolute;inset:0;pointer-events:none}
+.pitch .chalk i{position:absolute;border:1.5px solid var(--chalk);display:block}
+.pitch .chalk .half{left:8px;right:8px;top:50%;height:0;border-width:0 0 1.5px 0}
+.pitch .chalk .circle{left:50%;top:50%;width:88px;height:88px;transform:translate(-50%,-50%);border-radius:50%}
+.pitch .chalk .box{left:50%;top:-1px;width:206px;height:104px;transform:translateX(-50%);border-top:0}
+.pitch .chalk .box6{left:50%;top:-1px;width:104px;height:44px;transform:translateX(-50%);border-top:0}
+
+.prow{display:flex;justify-content:center;gap:6px;flex-wrap:wrap;position:relative;z-index:1}
+.pp{width:78px;position:relative}
+.kit{display:block;width:46px;height:46px;margin:0 auto 3px}
+.pp .nb{background:#22262b;color:#fff;font-family:var(--f-head);font-size:10.5px;font-weight:700;
+  text-align:center;padding:3px 4px;border-radius:4px 4px 0 0;overflow:hidden;text-overflow:ellipsis;
+  white-space:nowrap;line-height:1.35;text-decoration:none;display:block;cursor:pointer}
+.pp .vb{background:#f1f3f5;color:#22262b;font-family:var(--f-num);font-size:10.5px;font-weight:700;
+  text-align:center;padding:3px 4px;border-radius:0 0 4px 4px;line-height:1.35}
+.pp .vb.f1{background:var(--fdr1);color:var(--fdr-ink)} .pp .vb.f2{background:var(--fdr2);color:var(--fdr-ink)}
+.pp .vb.f3{background:var(--fdr3);color:var(--fdr-ink)} .pp .vb.f4{background:var(--fdr4);color:var(--fdr-ink)}
+.pp .vb.f5{background:var(--fdr5);color:var(--fdr-ink)}
+.pp .arm{position:absolute;top:-3px;right:8px;width:19px;height:19px;border-radius:50%;
+  background:#fff;color:#12151a;font-family:var(--f-head);font-size:10.5px;font-weight:800;
+  display:flex;align-items:center;justify-content:center;box-shadow:0 1px 3px rgba(0,0,0,.4);z-index:2}
+.pp .arm.v{background:#22262b;color:#fff}
+.pp .dot{position:absolute;top:-2px;left:9px;width:9px;height:9px;border-radius:50%;
+  background:#ff5b4d;border:1.5px solid #fff;z-index:2}
+.benchrow{background:var(--raise);padding:12px 10px;display:flex;justify-content:center;gap:6px;flex-wrap:wrap}
+.benchlabel{font-family:var(--f-head);font-size:10px;font-weight:700;letter-spacing:.1em;
+  text-transform:uppercase;color:var(--faint);text-align:center;padding:10px 0 0;background:var(--raise)}
+.benchrow .pp .nb{background:var(--ink);color:var(--bg)}
+.benchrow .pp .vb{background:var(--card);color:var(--mute);box-shadow:inset 0 0 0 1px var(--line)}
 
 .gwnav{display:flex;align-items:center;gap:8px;margin-bottom:12px;flex-wrap:wrap}
 .gwnav button{font-family:var(--f-head);font-size:13px;font-weight:700;width:32px;height:32px;
@@ -306,6 +324,8 @@ button:focus-visible,a:focus-visible,input:focus-visible{outline:2px solid var(-
   text-transform:uppercase;padding:3px 8px;border-radius:var(--rs);background:var(--raise);color:var(--mute)}
 .gwnav .gwstate.live{background:var(--hot);color:#fff}
 .gwnav .gwtotal{margin-left:auto;font-family:var(--f-num);font-size:13px;color:var(--mute)}
+.chipflag{display:inline-block;font-family:var(--f-head);font-size:10px;font-weight:700;letter-spacing:.08em;
+  text-transform:uppercase;padding:3px 8px;border-radius:var(--rs);background:var(--warn);color:var(--on-accent)}
 
 /* --- the locker-room card: the join between the three areas --- */
 .backdrop{position:fixed;inset:0;background:rgba(8,10,14,.55);display:flex;align-items:center;
@@ -577,6 +597,71 @@ function teamWatch(){
   </div>`;
 }
 
+/* ---------------- the gaffers headline ----------------
+   Candidates are computed from the five squads and ranked; the best one
+   leads. Every one of them is a fact with a number attached, so this never
+   degrades into "an exciting week of football". If nothing clears the bar,
+   the block does not render at all. */
+function gafferHeadline(){
+  const P = DATA.people;
+  const cand = [];
+
+  // 1. A chip is the rarest thing that happens, and it changes the table.
+  const CHIP = { bboost:"Bench Boost", "3xc":"Triple Captain", freehit:"Free Hit", wildcard:"Wildcard" };
+  for (const p of P.filter(x => x.active_chip)) {
+    const lead = [...P].sort((a, b) => b.total - a.total)[0];
+    cand.push({ score: 100, kicker: "Chip played",
+      text: `${p.nick} played the ${CHIP[p.active_chip] || p.active_chip} in the opening week — ${p.total} points, ${
+        lead.nick === p.nick ? "top of the five" : `${p.total - lead.total} behind ${lead.nick}`}, and ${
+        p.bench_points === 0 ? "nothing left on the bench" : `${p.bench_points} off the bench`}.`,
+      sub: "Four of the five still have theirs. First-half chips expire at GW19." });
+  }
+
+  // 2. A captaincy split is the cleanest head-to-head the group has.
+  const caps = {};
+  for (const p of P) {
+    const c = p.xi.find(x => x.captain);
+    if (c) (caps[c.n] ||= []).push(p.nick);
+  }
+  const split = Object.entries(caps).sort((a, b) => b[1].length - a[1].length);
+  if (split.length > 1) {
+    const [top, rest] = [split[0], split.slice(1)];
+    const topPts = DATA.pool.find(q => q.name === top[0])?.pts ?? 0;
+    const restBest = rest.map(([n, who]) => ({ n, who, pts: DATA.pool.find(q => q.name === n)?.pts ?? 0 }))
+                         .sort((a, b) => b.pts - a.pts)[0];
+    cand.push({ score: 70 + Math.abs(topPts - restBest.pts) * 3, kicker: "Captaincy split",
+      text: `${top[1].length} of the five captained ${top[0]} for ${topPts * 2}; ${
+        restBest.who.join(" and ")} went ${restBest.n} for ${restBest.pts * 2}.`,
+      sub: `A ${Math.abs(topPts - restBest.pts) * 2}-point swing on one decision.` });
+  }
+
+  // 3. Points left on the bench are the cheapest regret in the game.
+  const worst = [...P].filter(p => !p.active_chip).sort((a, b) => (b.bench_points ?? 0) - (a.bench_points ?? 0))[0];
+  if (worst && worst.bench_points >= 5) {
+    cand.push({ score: 40 + worst.bench_points, kicker: "Left on the bench",
+      text: `${worst.nick} left ${worst.bench_points} points on the bench.`,
+      sub: `Enough to have moved them past ${
+        P.filter(p => p.total > worst.total && p.total <= worst.total + worst.bench_points)
+         .map(p => p.nick).join(" and ") || "nobody, as it turns out"}.` });
+  }
+
+  // 4. Fallback: the gap at the top, which is always true and always dull.
+  const [first, second] = [...P].sort((a, b) => b.total - a.total);
+  if (first && second) {
+    cand.push({ score: 10, kicker: "The five",
+      text: `${first.nick} leads the five on ${first.total}, ${first.total - second.total} clear of ${second.nick}.`,
+      sub: "" });
+  }
+
+  const best = cand.sort((a, b) => b.score - a.score)[0];
+  if (!best) return "";
+  return `<div class="ghead" data-c="ghead" data-label="Gaffers headline">
+    <div class="gk">${esc(best.kicker)}</div>
+    <p>${gname(best.text)}</p>
+    ${best.sub ? `<div class="gsub">${gname(best.sub)}</div>` : ""}
+  </div>`;
+}
+
 /* ---------------- sections ---------------- */
 function gafferBar(){
   return `<div class="gbar" id="gbar">${DATA.people.map(p => `
@@ -629,51 +714,118 @@ function weeklyRead(){
   </div>`;
 }
 
-/* Gameweek navigation: KB wants to look back at a settled week and forward
-   at the shape of the fixtures. Past = what was scored, future = who each
-   player faces and how hard. The squad shown is the current one — historic
-   picks are not in gaffers.json, which is a real gap and noted as such. */
-let gwView = null;               // null -> the live gameweek
-const GW_MIN = 1, GW_MAX = 4;    // next3 carries GW2-4; GW1 is settled
-const curGW = () => gwView ?? DATA.gw;
+/* Club kits, drawn not fetched -----------------------------------------
+   [body, sleeve, detail]. A detail of "stripe" or "sash" is painted over
+   the body, which is enough to tell Newcastle from Sunderland at 46px.
+   No external images: the CSP forbids them and the page must work offline. */
+const KITS = {
+  ARS:["#EF0107","#FFFFFF","plain"],   AVL:["#670E36","#95BFE5","plain"],
+  BHA:["#0057B8","#FFFFFF","stripe"],  BOU:["#DA291C","#000000","stripe"],
+  BRE:["#E30613","#FFFFFF","stripe"],  CHE:["#034694","#034694","plain"],
+  COV:["#78D0F3","#FFFFFF","plain"],   CRY:["#1B458F","#C4122E","stripe"],
+  EVE:["#003399","#FFFFFF","plain"],   FUL:["#FFFFFF","#000000","plain"],
+  HUL:["#F5A12D","#000000","stripe"],  IPS:["#3A64A3","#FFFFFF","plain"],
+  LEE:["#FFFFFF","#1D428A","plain"],   LIV:["#C8102E","#C8102E","plain"],
+  MCI:["#6CABDD","#FFFFFF","plain"],   MUN:["#DA291C","#000000","plain"],
+  NEW:["#241F20","#FFFFFF","stripe"],  NFO:["#DD0000","#FFFFFF","plain"],
+  SUN:["#EB172B","#FFFFFF","stripe"],  TOT:["#FFFFFF","#132257","plain"],
+};
+const GK_KIT = ["#2FBF71","#116B3C","plain"];
+
+function kitSVG(team, isGK){
+  const [body, sleeve, detail] = (isGK ? GK_KIT : KITS[team]) || ["#8A9295","#5F6A6E","plain"];
+  const stripes = detail === "stripe"
+    ? [28, 34].map(x => `<rect x="${x}" y="10" width="4" height="36" fill="${sleeve}" opacity=".92"/>`).join("")
+    : "";
+  // Sleeves are drawn first so the body overlaps them: one garment, not three
+  // shapes with gaps between them.
+  return `<svg class="kit" viewBox="0 0 64 56" role="img" aria-label="${esc(team)} kit">
+    <g stroke="rgba(0,0,0,.38)" stroke-width="1.3" stroke-linejoin="round">
+      <path d="M21 5 L9 13 l6 12 8-5 Z" fill="${sleeve}"/>
+      <path d="M43 5 L55 13 l-6 12 -8-5 Z" fill="${sleeve}"/>
+      <path d="M21 5 L26 2 h12 l5 3 v18 l-6-3 v27 a2 2 0 0 1-2 2 H29 a2 2 0 0 1-2-2 V20 l-6 3 Z"
+        fill="${body}"/>
+    </g>
+    ${stripes}
+    <path d="M26 2 h12 l-6 8 Z" fill="rgba(0,0,0,.30)"/>
+  </svg>`;
+}
+
+/* Gameweek navigation: step back to a settled week to see what it scored,
+   forward to see who each player faces and how hard. `live_gameweek` is the
+   one being PLAYED; `gameweek` is the one being planned for — they differ
+   mid-week and the labels have to respect that. */
+let gwView = null;
+const LIVE_GW = DATA.live?.id ?? DATA.gw;
+const GW_MIN = 1, GW_MAX = 4;
+const curGW = () => gwView ?? LIVE_GW;
 
 const fixtureFor = (rec, gw) => (rec?.next3 ?? []).find(f => f.gw === gw) ?? null;
 
-function pitchPlayer(pk, gw, bench){
+function pitchPlayer(pk, gw){
   const rec = DATA.pool.find(q => q.id === pk.id);
   const fx = fixtureFor(rec, gw);
-  const past = gw < DATA.gw;
-  const body = past
-    ? `<div class="shirt">${rec ? rec.pts : "-"}</div>`
-    : fx
-      ? `<div class="shirt blank">${fx.h ? "vs" : "at"} ${esc(fx.opp)}</div>`
-      : `<div class="shirt blank">no fixture</div>`;
+  const settled = gw < LIVE_GW, live = gw === LIVE_GW;
+  // multiplier 0 means benched, 2 a captain, 3 a triple captain, and 1 a
+  // bench slot that Bench Boost switched on. A benched player still shows
+  // what he actually scored — it is the regret that makes the bench readable.
+  const mult = pk.multiplier ?? 1;
+  const raw = rec ? rec.pts : 0;
+  const shown = raw * (mult > 1 ? mult : 1);
+
+  // Value bar: points when the week is played, the fixture when it is not.
+  let bar = "", cls = "";
+  if (settled || live) {
+    bar = `${shown}${mult > 1 ? ` &times;${mult}` : ""}`;
+  } else if (fx) {
+    bar = `${fx.h ? "" : "@"}${esc(fx.opp)}`;
+    cls = " f" + fx.fdr;
+  } else {
+    bar = "—";
+  }
+
   return `<div class="pp">
-    ${body}
-    <a class="pn" data-player="${esc(pk.n)}">${esc(pk.n)}${
-      rec && rec.status !== "a" ? '<span class="flag" title="flagged"></span>' : ""}</a>
-    <span class="px">${esc(pk.pos)} &middot; &pound;${pk.pr.toFixed(1)}m</span>
-    ${!past && fx ? `<span class="fx" style="background:var(--fdr${fx.fdr})">${
-      fx.h ? "H" : "A"} &middot; ${fx.fdr}</span>` : ""}
+    ${pk.captain ? '<span class="arm" title="Captain">C</span>' : ""}
+    ${pk.vice && !pk.captain ? '<span class="arm v" title="Vice-captain">V</span>' : ""}
+    ${rec && rec.status !== "a" ? '<span class="dot" title="Flagged"></span>' : ""}
+    ${kitSVG(pk.t, pk.pos === "GK")}
+    <a class="nb" data-player="${esc(pk.n)}">${esc(pk.n)}</a>
+    <div class="vb${cls}">${bar}</div>
   </div>`;
 }
 
 function squadPanel(){
   const p = DATA.people.find(x => x.nick === who);
   const gw = curGW();
-  const past = gw < DATA.gw, live = gw === DATA.gw;
+  const settled = gw < LIVE_GW, live = gw === LIVE_GW;
 
-  // The shape comes from the XI itself, never hardcoded.
   const rows = ["GK", "DEF", "MID", "FWD"].map(pos => p.xi.filter(x => x.pos === pos));
   const shape = rows.slice(1).map(r => r.length).join("-");
 
-  const total = past
-    ? p.xi.reduce((n, x) => n + (DATA.pool.find(q => q.id === x.id)?.pts ?? 0), 0)
+  // Score the XI the way FPL does: points times the multiplier, so the
+  // captain's double is in the number rather than a footnote about it.
+  const scored = (list) => list.reduce((n, x) => {
+    const rec = DATA.pool.find(q => q.id === x.id);
+    const m = x.multiplier ?? 1;
+    return n + (rec ? rec.pts * (m > 1 ? m : 1) : 0);
+  }, 0);
+  const total = (settled || live) ? scored(p.xi) : null;
+  // Two different questions, and the right source differs. Normally the bench
+  // is REGRET, and `points_on_bench` is the API's own answer. Under Bench Boost
+  // the bench SCORED, and `points_on_bench` is 0 because nothing was left on
+  // it — so there the contribution has to be summed from the players.
+  const boosted = p.active_chip === "bboost";
+  const benchPts = (settled || live)
+    ? (boosted ? scored(p.bench) : (p.bench_points ?? 0))
     : null;
+
   const avgFdr = (() => {
     const fs = p.xi.map(x => fixtureFor(DATA.pool.find(q => q.id === x.id), gw)).filter(Boolean);
     return fs.length ? (fs.reduce((n, f) => n + f.fdr, 0) / fs.length).toFixed(2) : null;
   })();
+
+  const CHIP = { bboost:"Bench Boost", "3xc":"Triple Captain", freehit:"Free Hit", wildcard:"Wildcard" };
+  const chip = p.active_chip ? (CHIP[p.active_chip] || p.active_chip) : null;
 
   return `<div class="panel" data-c="pitch" data-label="The pitch - XI, bench and gameweek">
     <h3>${gname(who)}'s ${esc(shape)}</h3>
@@ -683,23 +835,27 @@ function squadPanel(){
       <button data-gw="${gw - 1}" ${gw <= GW_MIN ? "disabled" : ""} aria-label="Previous gameweek">&larr;</button>
       <span class="gwlabel">Gameweek ${gw}</span>
       <button data-gw="${gw + 1}" ${gw >= GW_MAX ? "disabled" : ""} aria-label="Next gameweek">&rarr;</button>
-      <span class="gwstate ${live ? "live" : ""}">${past ? "settled" : live ? "live" : "fixtures"}</span>
+      <span class="gwstate ${live ? "live" : ""}">${settled ? "settled" : live ? "in play" : "fixtures"}</span>
+      ${chip && (settled || live) ? `<span class="chipflag">${esc(chip)} played</span>` : ""}
       <span class="gwtotal">${
-        total !== null ? `<strong>${total}</strong> raw ${total === 1 ? "pt" : "pts"} from the XI${
-          p.total ? ` &middot; FPL says ${p.total}` : ""}`
-        : avgFdr !== null ? `average difficulty <strong>${avgFdr}</strong>`
-        : ""}</span>
+        total !== null
+          ? `<strong>${total}</strong> pts on the pitch${
+              boosted ? ` + <strong>${benchPts}</strong> from the bench = <strong>${total + benchPts}</strong>` :
+              benchPts ? ` &middot; <strong>${benchPts}</strong> left on the bench` : ""}${
+              p.total ? ` &middot; FPL says ${p.total}` : ""}`
+          : avgFdr !== null ? `average difficulty <strong>${avgFdr}</strong>` : ""}</span>
     </div>
     <div class="pitchwrap">
-      <div class="pitch">${rows.map(r =>
-        `<div class="prow">${r.map(x => pitchPlayer(x, gw, false)).join("")}</div>`).join("")}</div>
-      <div class="benchrow">${p.bench.map(x => pitchPlayer(x, gw, true)).join("")}</div>
+      <div class="pitch">
+        <div class="chalk"><i class="box"></i><i class="box6"></i><i class="half"></i><i class="circle"></i></div>
+        ${rows.map(r => `<div class="prow">${r.map(x => pitchPlayer(x, gw)).join("")}</div>`).join("")}
+      </div>
+      <div class="benchlabel">Bench${p.active_chip === "bboost" && (settled || live) ? " — boosted, all four counted" : ""}</div>
+      <div class="benchrow">${p.bench.map(x => pitchPlayer(x, gw)).join("")}</div>
     </div>
-    <p class="note" style="margin:12px 0 0">Two honest caveats. The squad shown is the
-    <em>current</em> one &mdash; <code>gaffers.json</code> keeps only this week's picks, so a
-    real back-step needs per-gameweek picks stored. And the raw total is short of the FPL one
-    because the captain's double cannot be applied: captaincy is not in the data either. Both
-    are the same fix.</p>
+    <p class="note" style="margin:12px 0 0">The squad shown is the <em>current</em> one:
+    <code>gaffers.json</code> keeps only this week's picks, so stepping back pairs this week's
+    team with that week's points. Storing picks per gameweek is the fix.</p>
   </div>`;
 }
 
@@ -915,6 +1071,7 @@ function render(){
       half of a sync gate that no longer exists), <span class="was">the call</span> (replaced by the three-block
       week), <span class="was">the race</span> (superseded by the five table), and
       <span class="was">team news + fixture runs</span> (moved to the locker room).</div>
+      ${gafferHeadline()}
       ${gafferBar()}
       ${theFive()}
       ${weeklyRead()}

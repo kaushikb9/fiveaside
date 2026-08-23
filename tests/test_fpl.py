@@ -4,7 +4,7 @@ from pathlib import Path
 
 import httpx
 
-from touchline.config import ClubConfig, TouchlineConfig
+from touchline.config import ClubConfig, FPLConfig, TouchlineConfig
 from touchline.core.fpl import _compact_players, _player_file, build_fpl_facts
 from touchline.sources.fpl import FPLClient
 
@@ -374,3 +374,67 @@ def test_player_file_is_evidence_only():
     # the judgment layer lives in fpl.json, keyed by the same id
     assert all(not {"verdict", "moved", "trigger", "why"} & set(r) for r in records)
     assert all(isinstance(r["id"], int) for r in records)
+
+
+def test_picks_carry_captaincy_multiplier_and_chip():
+    """The multiplier is the chip's fingerprint and has to survive to the site.
+
+    Bench slots come back with multiplier 0, a captain with 2, a triple
+    captain with 3, and a bench-boosted bench with 1. Losing any of that makes
+    a squad unscoreable: the pitch cannot show a (C) and the total cannot
+    double the right player.
+    """
+
+    def handler(request: httpx.Request) -> httpx.Response:
+        path = request.url.path
+        if "bootstrap-static" in path:
+            return httpx.Response(200, json=json.loads((FIXTURES / "bootstrap.json").read_text()))
+        if "picks" in path:
+            return httpx.Response(
+                200,
+                json={
+                    "active_chip": "bboost",
+                    "entry_history": {
+                        "event_transfers": 1,
+                        "points_on_bench": 7,
+                        "event_transfers_cost": 4,
+                    },
+                    "picks": [
+                        {"element": 40, "position": 1, "is_captain": True, "multiplier": 2},
+                        {"element": 41, "position": 2, "is_vice_captain": True, "multiplier": 1},
+                        {"element": 42, "position": 12, "multiplier": 0},
+                    ],
+                },
+            )
+        if "/entry/" in path:
+            return httpx.Response(
+                200,
+                json={
+                    "name": "Wabi Sabi Xabi",
+                    "summary_overall_points": 61,
+                    "summary_event_points": 61,
+                    "last_deadline_bank": 0,
+                    "last_deadline_value": 1000,
+                },
+            )
+        return httpx.Response(200, json=json.loads((FIXTURES / "fixtures.json").read_text()))
+
+    config = TouchlineConfig(
+        club=ClubConfig(name="Chelsea", code="CHE"),
+        competitions=["PL"],
+        fpl=FPLConfig(team_id=7149204),
+    )
+    client = _client_with(handler)
+    entry = client.fetch_entry(7149204, event=1)
+    desk = build_fpl_facts(
+        client.fetch_bootstrap(), client.fetch_fixtures(), config, now=NOW, entry=entry
+    )["desk"]
+
+    captain, vice, benched = desk["picks"]
+    assert captain["captain"] is True and captain["multiplier"] == 2
+    assert vice["vice"] is True and "multiplier" not in vice  # 1 is the default, not noise
+    assert benched["role"] == "bench" and benched["multiplier"] == 0
+
+    assert desk["active_chip"] == "bboost"
+    assert desk["bench_points"] == 7
+    assert desk["transfers_cost"] == 4

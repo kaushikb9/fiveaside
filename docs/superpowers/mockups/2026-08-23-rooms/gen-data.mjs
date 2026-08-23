@@ -37,6 +37,10 @@ for (const p of [...owned, ...flagged, ...popular]) {
   });
 }
 
+const pick = (p) => ({
+  id: p.element, n: p.name, t: p.team, pos: p.pos, pr: p.price,
+  captain: !!p.captain, vice: !!p.vice, multiplier: p.multiplier ?? 1,
+});
 const CLUB_OF = Object.fromEntries((CFG.fpl?.people ?? []).map((p) => [p.nick, p.club]));
 const people = G.people.map((g) => ({
   nick: g.nick,
@@ -49,8 +53,10 @@ const people = G.people.map((g) => ({
   bank: g.bank,
   value: g.value,
   ft: g.free_transfers,
-  xi: g.picks.filter((p) => p.role !== "bench").map((p) => ({ id: p.element, n: p.name, t: p.team, pos: p.pos, pr: p.price })),
-  bench: g.picks.filter((p) => p.role === "bench").map((p) => ({ id: p.element, n: p.name, t: p.team, pos: p.pos, pr: p.price })),
+  active_chip: g.active_chip ?? null,
+  bench_points: g.bench_points ?? null,
+  xi: g.picks.filter((p) => p.role !== "bench").map(pick),
+  bench: g.picks.filter((p) => p.role === "bench").map(pick),
   only: g.picks.filter((p) => byId[p.element]?.owned_by?.length === 1).map((p) => p.name),
 }));
 

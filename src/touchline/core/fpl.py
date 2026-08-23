@@ -286,6 +286,14 @@ def _desk(
         entry_history = picks.get("entry_history") or {}
         desk["free_transfers"] = entry_history.get("event_transfers")
         desk["gameweek"] = gameweek_id
+        # `active_chip` is null on a normal week. When it isn't, it changes how
+        # the same set of picks scores, so it travels with them.
+        if picks.get("active_chip"):
+            desk["active_chip"] = picks["active_chip"]
+        if entry_history.get("points_on_bench") is not None:
+            desk["bench_points"] = entry_history["points_on_bench"]
+        if entry_history.get("event_transfers_cost"):
+            desk["transfers_cost"] = entry_history["event_transfers_cost"]
         rows = []
         for p in picks.get("picks") or []:
             el = by_id.get(p.get("element"))
@@ -312,6 +320,13 @@ def _desk(
                 row["captain"] = True
             if p.get("is_vice_captain"):
                 row["vice"] = True
+            # The multiplier is the chip's fingerprint: 2 for a normal captain,
+            # 3 under Triple Captain, and 1 on a bench slot that Bench Boost has
+            # switched on. Carrying it means the page never has to infer which
+            # chip was played in order to score a squad.
+            multiplier = p.get("multiplier")
+            if isinstance(multiplier, int) and multiplier != 1:
+                row["multiplier"] = multiplier
             rows.append(row)
         desk["picks"] = rows
     return desk

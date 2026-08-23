@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-23T15:35:31.046Z",
+  "generated_at": "2026-08-23T17:48:27.320Z",
   "gameweek": 2,
   "live_gameweek": {
     "id": 1,
@@ -13,113 +13,169 @@
       "entered": true,
       "total_points": 31,
       "gw_points": 31,
-      "overall_rank": 4244507,
+      "overall_rank": 5994613,
       "bank": 0,
       "value": 100,
       "free_transfers": 0,
       "chips_used": [],
-      "league_rank": 6,
+      "league_rank": 8,
+      "active_chip": null,
+      "bench_points": 4,
+      "transfers_cost": 0,
       "picks": [
         {
           "element": 109,
           "position": 1,
           "role": "start",
+          "bench_order": null,
           "name": "Verbruggen",
           "team": "BHA",
           "pos": "GK",
-          "price": 4.5
+          "price": 4.5,
+          "status": null,
+          "captain": false,
+          "vice": false,
+          "multiplier": 1
         },
         {
           "element": 358,
           "position": 2,
           "role": "start",
+          "bench_order": null,
           "name": "Kerkez",
           "team": "LIV",
           "pos": "DEF",
-          "price": 5.5
+          "price": 5.5,
+          "status": null,
+          "captain": false,
+          "vice": false,
+          "multiplier": 1
         },
         {
           "element": 8,
           "position": 3,
           "role": "start",
+          "bench_order": null,
           "name": "Calafiori",
           "team": "ARS",
           "pos": "DEF",
-          "price": 5.5
+          "price": 5.5,
+          "status": null,
+          "captain": false,
+          "vice": false,
+          "multiplier": 1
         },
         {
           "element": 423,
           "position": 4,
           "role": "start",
+          "bench_order": null,
           "name": "Shaw",
           "team": "MUN",
           "pos": "DEF",
-          "price": 4.5
+          "price": 4.5,
+          "status": null,
+          "captain": false,
+          "vice": false,
+          "multiplier": 1
         },
         {
           "element": 426,
           "position": 5,
           "role": "start",
+          "bench_order": null,
           "name": "B.Fernandes",
           "team": "MUN",
           "pos": "MID",
           "price": 12,
-          "vice": true
+          "status": null,
+          "captain": false,
+          "vice": true,
+          "multiplier": 1
         },
         {
           "element": 427,
           "position": 6,
           "role": "start",
+          "bench_order": null,
           "name": "Mbeumo",
           "team": "MUN",
           "pos": "MID",
-          "price": 8
+          "price": 8,
+          "status": null,
+          "captain": false,
+          "vice": false,
+          "multiplier": 1
         },
         {
           "element": 557,
           "position": 7,
           "role": "start",
+          "bench_order": null,
           "name": "Tzolis",
           "team": "ARS",
           "pos": "MID",
-          "price": 6.5
+          "price": 6.5,
+          "status": null,
+          "captain": false,
+          "vice": false,
+          "multiplier": 1
         },
         {
           "element": 40,
           "position": 8,
           "role": "start",
+          "bench_order": null,
           "name": "Rogers",
           "team": "CHE",
           "pos": "MID",
-          "price": 7.5
+          "price": 7.5,
+          "status": null,
+          "captain": false,
+          "vice": false,
+          "multiplier": 1
         },
         {
           "element": 411,
           "position": 9,
           "role": "start",
+          "bench_order": null,
           "name": "Haaland",
           "team": "MCI",
           "pos": "FWD",
           "price": 15.5,
-          "captain": true
+          "status": null,
+          "captain": true,
+          "vice": false,
+          "multiplier": 2
         },
         {
           "element": 346,
           "position": 10,
           "role": "start",
+          "bench_order": null,
           "name": "Calvert-Lewin",
           "team": "LEE",
           "pos": "FWD",
-          "price": 6
+          "price": 6,
+          "status": null,
+          "captain": false,
+          "vice": false,
+          "multiplier": 1
         },
         {
           "element": 165,
           "position": 11,
           "role": "start",
+          "bench_order": null,
           "name": "João Pedro",
           "team": "CHE",
           "pos": "FWD",
-          "price": 7.5
+          "price": 7.5,
+          "status": null,
+          "captain": false,
+          "vice": false,
+          "multiplier": 1
         },
         {
           "element": 497,
@@ -129,7 +185,11 @@
           "name": "Dubravka",
           "team": "TOT",
           "pos": "GK",
-          "price": 4
+          "price": 4,
+          "status": null,
+          "captain": false,
+          "vice": false,
+          "multiplier": 0
         },
         {
           "element": 534,
@@ -139,7 +199,11 @@
           "name": "Hume",
           "team": "SUN",
           "pos": "DEF",
-          "price": 4.5
+          "price": 4.5,
+          "status": null,
+          "captain": false,
+          "vice": false,
+          "multiplier": 0
         },
         {
           "element": 212,
@@ -149,7 +213,11 @@
           "name": "Hughes",
           "team": "CRY",
           "pos": "MID",
-          "price": 4.5
+          "price": 4.5,
+          "status": null,
+          "captain": false,
+          "vice": false,
+          "multiplier": 0
         },
         {
           "element": 259,
@@ -159,7 +227,11 @@
           "name": "Diop",
           "team": "IPS",
           "pos": "DEF",
-          "price": 4
+          "price": 4,
+          "status": null,
+          "captain": false,
+          "vice": false,
+          "multiplier": 0
         }
       ]
     },
@@ -168,115 +240,171 @@
       "team_name": "Youri kiddin’ me!",
       "entry": 58500,
       "entered": true,
-      "total_points": 30,
-      "gw_points": 30,
-      "overall_rank": 4599271,
+      "total_points": 38,
+      "gw_points": 38,
+      "overall_rank": 3598177,
       "bank": 0,
       "value": 100,
       "free_transfers": 0,
       "chips_used": [],
-      "league_rank": 8,
+      "league_rank": 6,
+      "active_chip": null,
+      "bench_points": 4,
+      "transfers_cost": 0,
       "picks": [
         {
           "element": 412,
           "position": 1,
           "role": "start",
+          "bench_order": null,
           "name": "Lammens",
           "team": "MUN",
           "pos": "GK",
-          "price": 5
+          "price": 5,
+          "status": null,
+          "captain": false,
+          "vice": false,
+          "multiplier": 1
         },
         {
           "element": 8,
           "position": 2,
           "role": "start",
+          "bench_order": null,
           "name": "Calafiori",
           "team": "ARS",
           "pos": "DEF",
-          "price": 5.5
+          "price": 5.5,
+          "status": null,
+          "captain": false,
+          "vice": false,
+          "multiplier": 1
         },
         {
           "element": 532,
           "position": 3,
           "role": "start",
+          "bench_order": null,
           "name": "Ballard",
           "team": "SUN",
           "pos": "DEF",
-          "price": 5
+          "price": 5,
+          "status": null,
+          "captain": false,
+          "vice": false,
+          "multiplier": 1
         },
         {
           "element": 87,
           "position": 4,
           "role": "start",
+          "bench_order": null,
           "name": "Ajer",
           "team": "BRE",
           "pos": "DEF",
-          "price": 4.5
+          "price": 4.5,
+          "status": null,
+          "captain": false,
+          "vice": false,
+          "multiplier": 1
         },
         {
           "element": 427,
           "position": 5,
           "role": "start",
+          "bench_order": null,
           "name": "Mbeumo",
           "team": "MUN",
           "pos": "MID",
-          "price": 8
+          "price": 8,
+          "status": null,
+          "captain": false,
+          "vice": false,
+          "multiplier": 1
         },
         {
           "element": 368,
           "position": 6,
           "role": "start",
+          "bench_order": null,
           "name": "Szoboszlai",
           "team": "LIV",
           "pos": "MID",
-          "price": 7
+          "price": 7,
+          "status": null,
+          "captain": false,
+          "vice": false,
+          "multiplier": 1
         },
         {
           "element": 94,
           "position": 7,
           "role": "start",
+          "bench_order": null,
           "name": "Schade",
           "team": "BRE",
           "pos": "MID",
-          "price": 6
+          "price": 6,
+          "status": null,
+          "captain": false,
+          "vice": false,
+          "multiplier": 1
         },
         {
           "element": 426,
           "position": 8,
           "role": "start",
+          "bench_order": null,
           "name": "B.Fernandes",
           "team": "MUN",
           "pos": "MID",
           "price": 12,
-          "captain": true
+          "status": null,
+          "captain": true,
+          "vice": false,
+          "multiplier": 2
         },
         {
           "element": 165,
           "position": 9,
           "role": "start",
+          "bench_order": null,
           "name": "João Pedro",
           "team": "CHE",
           "pos": "FWD",
-          "price": 7.5
+          "price": 7.5,
+          "status": null,
+          "captain": false,
+          "vice": false,
+          "multiplier": 1
         },
         {
           "element": 411,
           "position": 10,
           "role": "start",
+          "bench_order": null,
           "name": "Haaland",
           "team": "MCI",
           "pos": "FWD",
           "price": 15.5,
-          "vice": true
+          "status": null,
+          "captain": false,
+          "vice": true,
+          "multiplier": 1
         },
         {
           "element": 346,
           "position": 11,
           "role": "start",
+          "bench_order": null,
           "name": "Calvert-Lewin",
           "team": "LEE",
           "pos": "FWD",
-          "price": 6
+          "price": 6,
+          "status": null,
+          "captain": false,
+          "vice": false,
+          "multiplier": 1
         },
         {
           "element": 57,
@@ -286,7 +414,11 @@
           "name": "Petrović",
           "team": "BOU",
           "pos": "GK",
-          "price": 4.5
+          "price": 4.5,
+          "status": null,
+          "captain": false,
+          "vice": false,
+          "multiplier": 0
         },
         {
           "element": 124,
@@ -296,7 +428,11 @@
           "name": "Groß",
           "team": "BHA",
           "pos": "MID",
-          "price": 5.5
+          "price": 5.5,
+          "status": null,
+          "captain": false,
+          "vice": false,
+          "multiplier": 0
         },
         {
           "element": 175,
@@ -306,7 +442,11 @@
           "name": "van Ewijk",
           "team": "COV",
           "pos": "DEF",
-          "price": 4
+          "price": 4,
+          "status": null,
+          "captain": false,
+          "vice": false,
+          "multiplier": 0
         },
         {
           "element": 173,
@@ -316,7 +456,11 @@
           "name": "Thomas",
           "team": "COV",
           "pos": "DEF",
-          "price": 4
+          "price": 4,
+          "status": null,
+          "captain": false,
+          "vice": false,
+          "multiplier": 0
         }
       ]
     },
@@ -325,115 +469,171 @@
       "team_name": "Yogesh11",
       "entry": 522356,
       "entered": true,
-      "total_points": 32,
-      "gw_points": 32,
-      "overall_rank": 4268796,
+      "total_points": 39,
+      "gw_points": 39,
+      "overall_rank": 3281030,
       "bank": 0,
       "value": 100,
       "free_transfers": 0,
       "chips_used": [],
-      "league_rank": 6,
+      "league_rank": 4,
+      "active_chip": null,
+      "bench_points": 3,
+      "transfers_cost": 0,
       "picks": [
         {
           "element": 496,
           "position": 1,
           "role": "start",
+          "bench_order": null,
           "name": "Kinsky",
           "team": "TOT",
           "pos": "GK",
-          "price": 4.5
+          "price": 4.5,
+          "status": null,
+          "captain": false,
+          "vice": false,
+          "multiplier": 1
         },
         {
           "element": 423,
           "position": 2,
           "role": "start",
+          "bench_order": null,
           "name": "Shaw",
           "team": "MUN",
           "pos": "DEF",
-          "price": 4.5
+          "price": 4.5,
+          "status": null,
+          "captain": false,
+          "vice": false,
+          "multiplier": 1
         },
         {
           "element": 8,
           "position": 3,
           "role": "start",
+          "bench_order": null,
           "name": "Calafiori",
           "team": "ARS",
           "pos": "DEF",
-          "price": 5.5
+          "price": 5.5,
+          "status": null,
+          "captain": false,
+          "vice": false,
+          "multiplier": 1
         },
         {
           "element": 534,
           "position": 4,
           "role": "start",
+          "bench_order": null,
           "name": "Hume",
           "team": "SUN",
           "pos": "DEF",
-          "price": 4.5
+          "price": 4.5,
+          "status": null,
+          "captain": false,
+          "vice": false,
+          "multiplier": 1
         },
         {
           "element": 40,
           "position": 5,
           "role": "start",
+          "bench_order": null,
           "name": "Rogers",
           "team": "CHE",
           "pos": "MID",
-          "price": 7.5
+          "price": 7.5,
+          "status": null,
+          "captain": false,
+          "vice": false,
+          "multiplier": 1
         },
         {
           "element": 426,
           "position": 6,
           "role": "start",
+          "bench_order": null,
           "name": "B.Fernandes",
           "team": "MUN",
           "pos": "MID",
           "price": 12,
-          "captain": true
+          "status": null,
+          "captain": true,
+          "vice": false,
+          "multiplier": 2
         },
         {
           "element": 368,
           "position": 7,
           "role": "start",
+          "bench_order": null,
           "name": "Szoboszlai",
           "team": "LIV",
           "pos": "MID",
-          "price": 7
+          "price": 7,
+          "status": null,
+          "captain": false,
+          "vice": false,
+          "multiplier": 1
         },
         {
           "element": 542,
           "position": 8,
           "role": "start",
+          "bench_order": null,
           "name": "E.Le Fée",
           "team": "SUN",
           "pos": "MID",
-          "price": 6
+          "price": 6,
+          "status": null,
+          "captain": false,
+          "vice": false,
+          "multiplier": 1
         },
         {
           "element": 237,
           "position": 9,
           "role": "start",
+          "bench_order": null,
           "name": "Ndiaye",
           "team": "EVE",
           "pos": "MID",
-          "price": 6
+          "price": 6,
+          "status": null,
+          "captain": false,
+          "vice": false,
+          "multiplier": 1
         },
         {
           "element": 411,
           "position": 10,
           "role": "start",
+          "bench_order": null,
           "name": "Haaland",
           "team": "MCI",
           "pos": "FWD",
           "price": 15.5,
-          "vice": true
+          "status": null,
+          "captain": false,
+          "vice": true,
+          "multiplier": 1
         },
         {
           "element": 165,
           "position": 11,
           "role": "start",
+          "bench_order": null,
           "name": "João Pedro",
           "team": "CHE",
           "pos": "FWD",
-          "price": 7.5
+          "price": 7.5,
+          "status": null,
+          "captain": false,
+          "vice": false,
+          "multiplier": 1
         },
         {
           "element": 497,
@@ -443,7 +643,11 @@
           "name": "Dubravka",
           "team": "TOT",
           "pos": "GK",
-          "price": 4
+          "price": 4,
+          "status": null,
+          "captain": false,
+          "vice": false,
+          "multiplier": 0
         },
         {
           "element": 346,
@@ -453,7 +657,11 @@
           "name": "Calvert-Lewin",
           "team": "LEE",
           "pos": "FWD",
-          "price": 6
+          "price": 6,
+          "status": null,
+          "captain": false,
+          "vice": false,
+          "multiplier": 0
         },
         {
           "element": 391,
@@ -463,7 +671,11 @@
           "name": "Gvardiol",
           "team": "MCI",
           "pos": "DEF",
-          "price": 5.5
+          "price": 5.5,
+          "status": null,
+          "captain": false,
+          "vice": false,
+          "multiplier": 0
         },
         {
           "element": 259,
@@ -473,7 +685,11 @@
           "name": "Diop",
           "team": "IPS",
           "pos": "DEF",
-          "price": 4
+          "price": 4,
+          "status": null,
+          "captain": false,
+          "vice": false,
+          "multiplier": 0
         }
       ]
     },
@@ -484,113 +700,169 @@
       "entered": true,
       "total_points": 33,
       "gw_points": 33,
-      "overall_rank": 3909133,
+      "overall_rank": 5324558,
       "bank": 0,
       "value": 100,
       "free_transfers": 0,
       "chips_used": [],
-      "league_rank": 5,
+      "league_rank": 7,
+      "active_chip": null,
+      "bench_points": 7,
+      "transfers_cost": 0,
       "picks": [
         {
           "element": 109,
           "position": 1,
           "role": "start",
+          "bench_order": null,
           "name": "Verbruggen",
           "team": "BHA",
           "pos": "GK",
-          "price": 4.5
+          "price": 4.5,
+          "status": null,
+          "captain": false,
+          "vice": false,
+          "multiplier": 1
         },
         {
           "element": 11,
           "position": 2,
           "role": "start",
+          "bench_order": null,
           "name": "Mosquera",
           "team": "ARS",
           "pos": "DEF",
-          "price": 5.5
+          "price": 5.5,
+          "status": null,
+          "captain": false,
+          "vice": false,
+          "multiplier": 1
         },
         {
           "element": 152,
           "position": 3,
           "role": "start",
+          "bench_order": null,
           "name": "Palestra",
           "team": "CHE",
           "pos": "DEF",
-          "price": 5.5
+          "price": 5.5,
+          "status": null,
+          "captain": false,
+          "vice": false,
+          "multiplier": 1
         },
         {
           "element": 418,
           "position": 4,
           "role": "start",
+          "bench_order": null,
           "name": "Maguire",
           "team": "MUN",
           "pos": "DEF",
-          "price": 5
+          "price": 5,
+          "status": null,
+          "captain": false,
+          "vice": false,
+          "multiplier": 1
         },
         {
           "element": 392,
           "position": 5,
           "role": "start",
+          "bench_order": null,
           "name": "Aït-Nouri",
           "team": "MCI",
           "pos": "DEF",
-          "price": 5.5
+          "price": 5.5,
+          "status": null,
+          "captain": false,
+          "vice": false,
+          "multiplier": 1
         },
         {
           "element": 427,
           "position": 6,
           "role": "start",
+          "bench_order": null,
           "name": "Mbeumo",
           "team": "MUN",
           "pos": "MID",
-          "price": 8
+          "price": 8,
+          "status": null,
+          "captain": false,
+          "vice": false,
+          "multiplier": 1
         },
         {
           "element": 397,
           "position": 7,
           "role": "start",
+          "bench_order": null,
           "name": "Semenyo",
           "team": "MCI",
           "pos": "MID",
-          "price": 8.5
+          "price": 8.5,
+          "status": null,
+          "captain": false,
+          "vice": false,
+          "multiplier": 1
         },
         {
           "element": 557,
           "position": 8,
           "role": "start",
+          "bench_order": null,
           "name": "Tzolis",
           "team": "ARS",
           "pos": "MID",
-          "price": 6.5
+          "price": 6.5,
+          "status": null,
+          "captain": false,
+          "vice": false,
+          "multiplier": 1
         },
         {
           "element": 411,
           "position": 9,
           "role": "start",
+          "bench_order": null,
           "name": "Haaland",
           "team": "MCI",
           "pos": "FWD",
           "price": 15.5,
-          "captain": true
+          "status": null,
+          "captain": true,
+          "vice": false,
+          "multiplier": 2
         },
         {
           "element": 165,
           "position": 10,
           "role": "start",
+          "bench_order": null,
           "name": "João Pedro",
           "team": "CHE",
           "pos": "FWD",
           "price": 7.5,
-          "vice": true
+          "status": null,
+          "captain": false,
+          "vice": true,
+          "multiplier": 1
         },
         {
           "element": 26,
           "position": 11,
           "role": "start",
+          "bench_order": null,
           "name": "Havertz",
           "team": "ARS",
           "pos": "FWD",
-          "price": 7.5
+          "price": 7.5,
+          "status": null,
+          "captain": false,
+          "vice": false,
+          "multiplier": 1
         },
         {
           "element": 496,
@@ -600,7 +872,11 @@
           "name": "Kinsky",
           "team": "TOT",
           "pos": "GK",
-          "price": 4.5
+          "price": 4.5,
+          "status": null,
+          "captain": false,
+          "vice": false,
+          "multiplier": 0
         },
         {
           "element": 124,
@@ -610,7 +886,11 @@
           "name": "Groß",
           "team": "BHA",
           "pos": "MID",
-          "price": 5.5
+          "price": 5.5,
+          "status": null,
+          "captain": false,
+          "vice": false,
+          "multiplier": 0
         },
         {
           "element": 260,
@@ -620,7 +900,11 @@
           "name": "Wilson",
           "team": "LEE",
           "pos": "MID",
-          "price": 6.5
+          "price": 6.5,
+          "status": null,
+          "captain": false,
+          "vice": false,
+          "multiplier": 0
         },
         {
           "element": 306,
@@ -630,7 +914,11 @@
           "name": "Greaves",
           "team": "IPS",
           "pos": "DEF",
-          "price": 4
+          "price": 4,
+          "status": null,
+          "captain": false,
+          "vice": false,
+          "multiplier": 0
         }
       ]
     },
@@ -639,115 +927,171 @@
       "team_name": "IceMan",
       "entry": 4135179,
       "entered": true,
-      "total_points": 38,
-      "gw_points": 38,
-      "overall_rank": 2340918,
+      "total_points": 45,
+      "gw_points": 45,
+      "overall_rank": 1693848,
       "bank": 0.5,
       "value": 100,
       "free_transfers": 0,
       "chips_used": [],
-      "league_rank": 3,
+      "league_rank": 2,
+      "active_chip": "bboost",
+      "bench_points": 0,
+      "transfers_cost": 0,
       "picks": [
         {
           "element": 109,
           "position": 1,
           "role": "start",
+          "bench_order": null,
           "name": "Verbruggen",
           "team": "BHA",
           "pos": "GK",
-          "price": 4.5
+          "price": 4.5,
+          "status": null,
+          "captain": false,
+          "vice": false,
+          "multiplier": 1
         },
         {
           "element": 32,
           "position": 2,
           "role": "start",
+          "bench_order": null,
           "name": "Cash",
           "team": "AVL",
           "pos": "DEF",
-          "price": 4.5
+          "price": 4.5,
+          "status": null,
+          "captain": false,
+          "vice": false,
+          "multiplier": 1
         },
         {
           "element": 8,
           "position": 3,
           "role": "start",
+          "bench_order": null,
           "name": "Calafiori",
           "team": "ARS",
           "pos": "DEF",
-          "price": 5.5
+          "price": 5.5,
+          "status": null,
+          "captain": false,
+          "vice": false,
+          "multiplier": 1
         },
         {
           "element": 418,
           "position": 4,
           "role": "start",
+          "bench_order": null,
           "name": "Maguire",
           "team": "MUN",
           "pos": "DEF",
-          "price": 5
+          "price": 5,
+          "status": null,
+          "captain": false,
+          "vice": false,
+          "multiplier": 1
         },
         {
           "element": 368,
           "position": 5,
           "role": "start",
+          "bench_order": null,
           "name": "Szoboszlai",
           "team": "LIV",
           "pos": "MID",
-          "price": 7
+          "price": 7,
+          "status": null,
+          "captain": false,
+          "vice": false,
+          "multiplier": 1
         },
         {
           "element": 40,
           "position": 6,
           "role": "start",
+          "bench_order": null,
           "name": "Rogers",
           "team": "CHE",
           "pos": "MID",
-          "price": 7.5
+          "price": 7.5,
+          "status": null,
+          "captain": false,
+          "vice": false,
+          "multiplier": 1
         },
         {
           "element": 426,
           "position": 7,
           "role": "start",
+          "bench_order": null,
           "name": "B.Fernandes",
           "team": "MUN",
           "pos": "MID",
           "price": 12,
-          "vice": true
+          "status": null,
+          "captain": false,
+          "vice": true,
+          "multiplier": 1
         },
         {
           "element": 237,
           "position": 8,
           "role": "start",
+          "bench_order": null,
           "name": "Ndiaye",
           "team": "EVE",
           "pos": "MID",
-          "price": 6
+          "price": 6,
+          "status": null,
+          "captain": false,
+          "vice": false,
+          "multiplier": 1
         },
         {
           "element": 165,
           "position": 9,
           "role": "start",
+          "bench_order": null,
           "name": "João Pedro",
           "team": "CHE",
           "pos": "FWD",
-          "price": 7.5
+          "price": 7.5,
+          "status": null,
+          "captain": false,
+          "vice": false,
+          "multiplier": 1
         },
         {
           "element": 346,
           "position": 10,
           "role": "start",
+          "bench_order": null,
           "name": "Calvert-Lewin",
           "team": "LEE",
           "pos": "FWD",
-          "price": 6
+          "price": 6,
+          "status": null,
+          "captain": false,
+          "vice": false,
+          "multiplier": 1
         },
         {
           "element": 411,
           "position": 11,
           "role": "start",
+          "bench_order": null,
           "name": "Haaland",
           "team": "MCI",
           "pos": "FWD",
           "price": 15.5,
-          "captain": true
+          "status": null,
+          "captain": true,
+          "vice": false,
+          "multiplier": 2
         },
         {
           "element": 496,
@@ -757,7 +1101,11 @@
           "name": "Kinsky",
           "team": "TOT",
           "pos": "GK",
-          "price": 4.5
+          "price": 4.5,
+          "status": null,
+          "captain": false,
+          "vice": false,
+          "multiplier": 1
         },
         {
           "element": 259,
@@ -767,7 +1115,11 @@
           "name": "Diop",
           "team": "IPS",
           "pos": "DEF",
-          "price": 4
+          "price": 4,
+          "status": null,
+          "captain": false,
+          "vice": false,
+          "multiplier": 1
         },
         {
           "element": 31,
@@ -777,7 +1129,11 @@
           "name": "Konsa",
           "team": "ARS",
           "pos": "DEF",
-          "price": 4.5
+          "price": 4.5,
+          "status": null,
+          "captain": false,
+          "vice": false,
+          "multiplier": 1
         },
         {
           "element": 124,
@@ -787,7 +1143,11 @@
           "name": "Groß",
           "team": "BHA",
           "pos": "MID",
-          "price": 5.5
+          "price": 5.5,
+          "status": null,
+          "captain": false,
+          "vice": false,
+          "multiplier": 1
         }
       ]
     }
@@ -800,13 +1160,42 @@
         "rank": 1,
         "name": "Gunners.exe",
         "entry": 3265819,
-        "total": 47,
-        "event_total": 47,
+        "total": 57,
+        "event_total": 57,
         "is_owner": false,
         "is_gaffer": false
       },
       {
         "rank": 2,
+        "name": "IceMan",
+        "entry": 4135179,
+        "total": 45,
+        "event_total": 45,
+        "is_owner": false,
+        "nick": "Arsene",
+        "is_gaffer": true
+      },
+      {
+        "rank": 3,
+        "name": "Vabby_Blues",
+        "entry": 5255110,
+        "total": 44,
+        "event_total": 44,
+        "is_owner": false,
+        "is_gaffer": false
+      },
+      {
+        "rank": 4,
+        "name": "Yogesh11",
+        "entry": 522356,
+        "total": 39,
+        "event_total": 39,
+        "is_owner": false,
+        "nick": "Ronaldo",
+        "is_gaffer": true
+      },
+      {
+        "rank": 4,
         "name": "Mad11",
         "entry": 5286779,
         "total": 39,
@@ -815,26 +1204,17 @@
         "is_gaffer": false
       },
       {
-        "rank": 3,
-        "name": "IceMan",
-        "entry": 4135179,
-        "total": 37,
-        "event_total": 37,
+        "rank": 6,
+        "name": "Youri kiddin’ me!",
+        "entry": 58500,
+        "total": 38,
+        "event_total": 38,
         "is_owner": false,
-        "nick": "Arsene",
+        "nick": "Sir Alex",
         "is_gaffer": true
       },
       {
-        "rank": 4,
-        "name": "Vabby_Blues",
-        "entry": 5255110,
-        "total": 36,
-        "event_total": 36,
-        "is_owner": false,
-        "is_gaffer": false
-      },
-      {
-        "rank": 5,
+        "rank": 7,
         "name": "WorldChamps",
         "entry": 6485401,
         "total": 33,
@@ -844,17 +1224,16 @@
         "is_gaffer": true
       },
       {
-        "rank": 6,
-        "name": "Yogesh11",
-        "entry": 522356,
+        "rank": 8,
+        "name": "CFC",
+        "entry": 4550750,
         "total": 31,
         "event_total": 31,
         "is_owner": false,
-        "nick": "Ronaldo",
-        "is_gaffer": true
+        "is_gaffer": false
       },
       {
-        "rank": 6,
+        "rank": 8,
         "name": "Wabi Sabi Xabi",
         "entry": 7149204,
         "total": 31,
@@ -864,19 +1243,9 @@
         "is_gaffer": true
       },
       {
-        "rank": 8,
-        "name": "Youri kiddin’ me!",
-        "entry": 58500,
-        "total": 30,
-        "event_total": 30,
-        "is_owner": false,
-        "nick": "Sir Alex",
-        "is_gaffer": true
-      },
-      {
-        "rank": 9,
-        "name": "AbKiBaar?",
-        "entry": 3044473,
+        "rank": 10,
+        "name": "Peaky Malayali FC",
+        "entry": 1654923,
         "total": 28,
         "event_total": 28,
         "is_owner": false,
@@ -884,19 +1253,10 @@
       },
       {
         "rank": 10,
-        "name": "Peaky Malayali FC",
-        "entry": 1654923,
-        "total": 26,
-        "event_total": 26,
-        "is_owner": false,
-        "is_gaffer": false
-      },
-      {
-        "rank": 11,
-        "name": "CFC",
-        "entry": 4550750,
-        "total": 21,
-        "event_total": 21,
+        "name": "AbKiBaar?",
+        "entry": 3044473,
+        "total": 28,
+        "event_total": 28,
         "is_owner": false,
         "is_gaffer": false
       }

@@ -49,7 +49,26 @@ const gaffers = {
       free_transfers: s.free_transfers ?? null,
       chips_used: s.chips_used ?? [],
       league_rank: row?.rank ?? null,
-      picks: s.picks ?? [],
+      active_chip: s.active_chip ?? null,
+      bench_points: s.bench_points ?? null,
+      transfers_cost: s.transfers_cost ?? 0,
+      // Captaincy and the multiplier were being dropped here, which quietly
+      // made every squad unscoreable: a pitch cannot show a (C) and a total
+      // cannot double the right player. They are facts; they pass through.
+      picks: (s.picks ?? []).map((p) => ({
+        element: p.element,
+        position: p.position,
+        role: p.role,
+        bench_order: p.bench_order ?? null,
+        name: p.name,
+        team: p.team,
+        pos: p.pos,
+        price: p.price,
+        status: p.status ?? null,
+        captain: !!p.captain,
+        vice: !!p.vice,
+        multiplier: p.multiplier ?? 1,
+      })),
     };
   }),
   league: league
