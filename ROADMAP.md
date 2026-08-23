@@ -97,7 +97,15 @@ one product: any player name in the first two opens their locker-room card.
 - **the locker room** — the file (gated at >2% ownership, never dropping
   anyone the five own, with verdict-led rows and a live threshold control),
   the injury room, team news, and the fixture runs.
+- **Live gameweek scores.** `/api/live` proxies the official API (which sends
+  no CORS headers) and the gaffers room has a fetch-on-demand control:
+  matches in play with the clock, and the pitch overridden with live points
+  including provisional bonus. Never polls; degrades to the snapshot and says
+  so.
 - **`/api/stars`** is bound to a real KV namespace and verified end to end.
+- **Editorial is written.** The gaffers brain produced five weekly reads, 36
+  verdicts (weighted to `watch`, correctly for GW1), and two new doctrines —
+  and declined to write a roast because GW1 is unfinished, which is the rule.
 - **`brain/test/smoke.sh <url>`** runs 48 checks over the whole product —
   every room, both themes, every control, the card seam, and phone width.
   Green against production.
