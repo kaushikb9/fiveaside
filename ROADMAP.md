@@ -201,9 +201,9 @@ all built into the mockup:
   Auto by default. Teamsheet archived.
 - **Dropped entirely**: the wagers panel, and the captain poll. The poll is
   replaced by *what the crowd missed* — under 10% owned, sorted by points.
-- **The player file** is gated on ownership (never dropping anyone the five
-  own) and opens on **ours**. The threshold itself is the one number still
-  open — see below.
+- **The player file** is gated at **>2% ownership** (125 players), never
+  dropping anyone the five own, and opens on **ours**. KB: "we can recalibrate
+  later if needed" — the number is a config knob, not a decision to redo.
 - **Watchlists stay per-person**, stored in **KV keyed by `gaffer_id`**. This
   reverses the earlier "localStorage only" deferral: stars must survive across
   devices and the house list must be shared.
@@ -211,10 +211,15 @@ all built into the mockup:
   carry team name and club colour instead.
 - **Gaffer nicknames get their own visual treatment** in the gaffers room, and
   deliberately not in touchline, where "Enzo" means Enzo Maresca.
-- **Only five clubs are focus clubs**: Arsenal, Chelsea, Liverpool, Man City,
-  Man United. Spurs and Newcastle come out of `top_clubs` and out of Around the
-  top. Re-entry only if genuinely top four after GW10 — that needs to be a real
-  condition in config, checked weekly, or it silently never happens.
+- **Focus clubs are a rule, not a list** (KB: "don't be static"). Three are
+  permanent by allegiance — Chelsea, Manchester United, Arsenal, because that
+  is who the five support. Until **GW10** the other two are seeded (Liverpool,
+  Manchester City) because an early table is noise. **From GW10 the rest is the
+  real top six, recomputed weekly**, so Spurs and Newcastle return by climbing
+  rather than by decree. `FOCUS_FROM_GW = 10` and `FOCUS_TOP = 6` are the
+  knobs; 7 is a legitimate setting for the second.
+  This replaces the static `top_clubs` list in `touchline.config.json`, which
+  becomes seed-only — `core/facts.py` has to compute the rest from the table.
 - **The week is the primary feed.** Around the top and Elsewhere are secondary
   by design; a story that leads the week does not reappear below.
 - **Captaincy is parked.** The `gaffers.json` gap stays unfixed for now by
@@ -227,8 +232,8 @@ all built into the mockup:
   control shows what each choice costs: 5% leaves 75 players, 2% leaves 125,
   10% leaves 56, everyone is 604. Squad members are never dropped either way.
   5% is the default until he says otherwise.
-- **The Spurs/Newcastle re-entry rule** needs its GW and its bar confirmed
-  before it goes into config.
+- Nothing outstanding from the review rounds. The next decisions are
+  build-order ones.
 - The Chelsea digest was split out on 2026-08-23 into its own repo,
   `~/Code/touchline-chelsea` (Pages project `touchline-chelsea`). It runs
   weekly on Mondays, carries no FPL and no league-wide sections, and exists

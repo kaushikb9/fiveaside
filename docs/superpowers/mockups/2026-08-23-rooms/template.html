@@ -408,20 +408,49 @@ function linkPlayers(text){
   return out;
 }
 
-/* KB: "focus only on the 5 that matter to the group". Spurs and Newcastle
-   stop being highlighted here; they still appear in the table as league
-   members, and their news still lands in Around the top / Elsewhere. */
-const THE_FIVE_CLUBS = ["Arsenal", "Chelsea", "Liverpool", "Manchester City", "Manchester United"];
-const isOurs = (club) => THE_FIVE_CLUBS.includes(club);
+/* Focus clubs are a RULE, not a list — KB: "don't be static, after GW10 we
+   have a pattern of who is going to make top 6 or not".
+     · Allegiance clubs are permanent: three of the five actually support them,
+       so they are covered whether they are first or eighteenth.
+     · Before GW10 the table means nothing (Brentford were second at GW1), so
+       the two remaining big clubs are named.
+     · From GW10 the rest is earned: the top six of the real table, recomputed
+       every week. Spurs and Newcastle get back in by climbing, not by asking. */
+const ALLEGIANCE = ["Chelsea", "Manchester United", "Arsenal"];
+const SEED_CLUBS = ["Liverpool", "Manchester City"];
+const FOCUS_FROM_GW = 10;
+const FOCUS_TOP = 6;
+
+function focusClubs(gw = DATA.gw){
+  const rows = DATA.digest.table?.rows ?? [];
+  if (gw < FOCUS_FROM_GW) return [...ALLEGIANCE, ...SEED_CLUBS];
+  const top = [...rows].sort((a, b) => a.pos - b.pos).slice(0, FOCUS_TOP).map(r => r.team);
+  return [...new Set([...ALLEGIANCE, ...top])];
+}
+let FOCUS = focusClubs();
+const isOurs = (club) => FOCUS.includes(club);
+
+/* Let KB see the rule fire rather than take it on trust: at GW2 the live
+   answer is the seeded list, so the panel also shows what today's table
+   would produce once the rule takes over. */
+let focusPreview = false;
 
 function leagueTable(){
   const t = DATA.digest.table;
   if (!t?.rows?.length) return "";
   return `<div class="panel" data-c="tl-table" data-label="Touchline - league table">
     <h3>${esc(t.competition)}</h3>
-    <p class="note">Only the five clubs the group actually follows are marked
-    &mdash; Arsenal, Chelsea, Liverpool, City, United. Everyone else is here as
-    a league member, not as someone to watch.</p>
+    <p class="note">Marked clubs are the ones the page follows, and that set is a
+    <strong>rule</strong>: ${esc(ALLEGIANCE.join(", "))} are permanent because three of the
+    five support them; until GW${FOCUS_FROM_GW} the other two are seeded
+    (${esc(SEED_CLUBS.join(", "))}) because a GW1 table is noise; from GW${FOCUS_FROM_GW}
+    the rest is the real top ${FOCUS_TOP}, recomputed weekly.
+    <button class="fc" data-focus-preview style="margin-left:6px">${
+      focusPreview ? "showing: from GW" + FOCUS_FROM_GW : "showing: now (GW" + DATA.gw + ")"}</button></p>
+    <p class="note" style="margin-top:-8px">Following now:
+      <strong>${esc(FOCUS.join(", "))}</strong>${
+      focusPreview ? "" : ` &mdash; on today's table the rule would instead give
+      <em>${esc(focusClubs(FOCUS_FROM_GW).join(", "))}</em>, which is exactly why it waits.`}</p>
     ${t.note ? `<p class="note">${esc(t.note)}</p>` : ""}
     <div class="scroll"><table><thead><tr>
       <th class="n">#</th><th>Club</th><th>Form</th><th class="n">P</th><th class="n">Pts</th>
@@ -452,8 +481,8 @@ function theWeek(){
 }
 
 function aroundTheTop(){
-  // Spurs and Newcastle are out by KB's call — re-entry only if they are
-  // genuinely top four after GW10, which is a rule the config should hold.
+  // Spurs and Newcastle are not banned, they are unqualified: from GW10 the
+  // set is the real top six, so they return by climbing.
   const t = (DATA.digest.top_teams ?? []).filter(r => isOurs(r.club));
   const dropped = (DATA.digest.top_teams ?? []).filter(r => !isOurs(r.club)).map(r => r.club);
   const e = DATA.digest.elsewhere ?? [];
@@ -467,8 +496,10 @@ function aroundTheTop(){
       <p class="note">One line each for the five clubs the group follows, written as a league
       view: no us, no them. Secondary to the week above.</p>
       <div class="rows">${t.map(one).join("")}</div>
-      ${dropped.length ? `<p class="note" style="margin:12px 0 0">Dropped by rule:
-        ${dropped.map(esc).join(", ")} &mdash; back in only if actually top four after GW10.</p>` : ""}
+      ${dropped.length ? `<p class="note" style="margin:12px 0 0">Not covered this week:
+        ${dropped.map(esc).join(", ")} &mdash; they return automatically if they are in the top
+        ${FOCUS_TOP} once the rule takes over at GW${FOCUS_FROM_GW}. Their news still lands in
+        Elsewhere meanwhile.</p>` : ""}
     </div>
     <div class="panel" data-c="tl-else" data-label="Touchline - elsewhere">
       <h3>Elsewhere</h3>
@@ -634,7 +665,9 @@ function aidsPanel(){
 }
 
 /* ---------------- locker room ---------------- */
-let fileFilter = "ours", fileQuery = "", fileMin = 5;
+// 2% is KB's call, recalibratable: 125 players is a browsable database
+// without the sub-2% tail of third-choice keepers and squad filler.
+let fileFilter = "ours", fileQuery = "", fileMin = 2;
 
 function injuryRoom(){
   const flagged = DATA.pool.filter(p => p.status !== "a" && p.news)
@@ -812,8 +845,12 @@ markRoom(); } });
   document.querySelectorAll(".fc").forEach(b =>
     b.onclick = () => {
       if (document.body.classList.contains("commenting")) return;
-      if (b.dataset.min !== undefined) fileMin = Number(b.dataset.min);
-      else fileFilter = b.dataset.f;
+      if (b.dataset.focusPreview !== undefined) {
+        focusPreview = !focusPreview;
+        FOCUS = focusClubs(focusPreview ? FOCUS_FROM_GW : DATA.gw);
+      }
+      else if (b.dataset.min !== undefined) fileMin = Number(b.dataset.min);
+      else if (b.dataset.f !== undefined) fileFilter = b.dataset.f;
       render();
     });
   const fq = document.getElementById("fq");
