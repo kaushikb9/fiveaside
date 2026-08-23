@@ -29,7 +29,6 @@ LATEST=$(node -e "const d=require('./site/data/digests.json').digests;console.lo
 FPL_DATE=$(node -e "try{const t=require('./site/data/fpl.json').generated_at;console.log(t?new Date(t).toLocaleDateString('en-CA'):'')}catch{console.log('')}")
 DIGEST_DUE=$([ "$LATEST" = "$(date +%F)" ] || echo yes)
 FPL_DUE=$([ "$FPL_DATE" = "$(date +%F)" ] || echo yes)
-[ -n "$DIGEST_DUE$FPL_DUE" ] || exit 0
 
 # offline? try again next hour
 curl -sf --max-time 10 https://fiveaside.pages.dev >/dev/null || exit 0
@@ -52,6 +51,11 @@ else
   echo "[auto] $(date '+%F %T') — facts refresh failed, skipping"
   git checkout -- site/data/players.json site/data/gaffers.json 2>/dev/null || true
 fi
+
+
+# Nothing editorial left to do today — the hourly refresh above has already
+# run, which is the point of it being above this line.
+[ -n "$DIGEST_DUE$FPL_DUE" ] || { echo "[auto] $(date '+%F %T') — both brains already ran today"; exit 0; }
 
 # `|| echo` so a failed run doesn't starve the other product under set -e
 # `caffeinate -dimsu` for the lifetime of each run: this machine has
