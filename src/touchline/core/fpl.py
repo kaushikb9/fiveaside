@@ -32,8 +32,7 @@ CAPTAIN_CANDIDATES = 3
 # nobody would ever consider; an ownership floor is the honest filter. But the
 # floor can never lose a player one of us actually owns — several of our own
 # picks sit under it, and a squad member with no record is a hole in the page.
-FILE_MIN_OWNERSHIP = 5.0  # percent
-FILE_FLAG_MIN_OWNERSHIP = 2.0  # a fitness flag matters lower down
+FILE_MIN_OWNERSHIP = 2.0  # percent
 
 
 def _parse_utc(iso: str) -> datetime:
@@ -208,10 +207,9 @@ def _player_file(
     The brain adds the verdict, the direction and the trigger on top of these;
     this function never guesses at them.
 
-    Three ways in, in priority order: someone in the group owns him (always,
-    at any ownership — a squad player without a record is a hole in the page);
-    the wider game owns him (>= FILE_MIN_OWNERSHIP); or he is flagged and
-    owned widely enough for that to matter.
+    Two ways in: someone in the group owns him (always, at any ownership — a
+    squad player without a record is a hole in the page), or the wider game
+    owns him (>= FILE_MIN_OWNERSHIP).
     """
     fixtures_by_team = {}
     if ticker:
@@ -221,11 +219,7 @@ def _player_file(
     keep: dict[int, FPLElement] = {}
     for e in elements:
         own = _ownership(e)
-        if (
-            e.id in owned
-            or own >= FILE_MIN_OWNERSHIP
-            or (e.status != "a" and own >= FILE_FLAG_MIN_OWNERSHIP)
-        ):
+        if e.id in owned or own >= FILE_MIN_OWNERSHIP:
             keep[e.id] = e
 
     records = []

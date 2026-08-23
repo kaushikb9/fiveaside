@@ -364,13 +364,14 @@ def test_player_file_floor_never_drops_a_player_we_own():
     assert fringe["owned_by"] == ["Enzo"]
 
 
-def test_player_file_keeps_flagged_players_below_the_floor():
+def test_player_file_floor_excludes_the_long_tail():
     client = _client_with(_fixture_handler)
     boot = client.fetch_bootstrap()
     short_names = {t.id: t.short_name for t in boot.teams}
     records = _player_file(boot.elements, short_names, None, {})
     names = [r["name"] for r in records]
-    # InjuredStar is 15% owned and doubtful -> in on both counts
+    # InjuredStar is 15% owned -> comfortably over the floor
     assert "InjuredStar" in names
-    # FringeInjured is injured but 0.1% owned -> nobody needs that file
+    # FringeInjured is injured, but at 0.1% owned nobody needs that file
     assert "FringeInjured" not in names
+    assert all(r["ownership"] >= 2.0 or r["owned_by"] for r in records)
