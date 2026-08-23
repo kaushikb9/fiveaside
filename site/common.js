@@ -161,6 +161,14 @@
 
   /* Wrap known player names in prose so they open the card. Long names first,
      and nothing under five characters — "Sarr" would match inside other words. */
+  // Lookbehind is ES2018 and Safari only got it in 16.4. A SyntaxError here
+  // would be thrown while RENDERING, taking the whole page down on an older
+  // phone rather than degrading, so it is feature-detected once and a
+  // capturing-group form is used where it is missing.
+  const HAS_LOOKBEHIND = (function () {
+    try { new RegExp("(?<!x)y"); return true; } catch (e) { return false; }
+  })();
+
   FA.linkPlayers = function (text) {
     if (!CARD_INDEX) return esc(text);
     let out = esc(text);
@@ -168,8 +176,17 @@
     for (const n of names) {
       if (n.length < 5) continue;
       const safe = esc(n).replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
-      const re = new RegExp("(?<![\\w>])(" + safe + ")(?![\\w<])");
-      if (re.test(out)) out = out.replace(re, '<a class="plink" data-player="$1">$1</a>');
+      if (HAS_LOOKBEHIND) {
+        const re = new RegExp("(?<![\\w>])(" + safe + ")(?![\\w<])");
+        if (re.test(out)) out = out.replace(re, '<a class="plink" data-player="$1">$1</a>');
+      } else {
+        // Capture the preceding character instead of asserting it, then put
+        // it back. Same guard: not mid-word, and not inside a tag.
+        const re = new RegExp("(^|[^\\w>])(" + safe + ")(?![\\w<])");
+        if (re.test(out)) {
+          out = out.replace(re, '$1<a class="plink" data-player="' + esc(n) + '">$2</a>');
+        }
+      }
     }
     return out;
   };

@@ -32,12 +32,19 @@ FPL_DUE=$([ "$FPL_DATE" = "$(date +%F)" ] || echo yes)
 curl -sf --max-time 10 https://fiveaside.pages.dev >/dev/null || exit 0
 
 # `|| echo` so a failed run doesn't starve the other product under set -e
+# `caffeinate -dimsu` for the lifetime of each run: this machine has
+# `pmset sleep 1` on AC, and a brain run that outlives one minute of idle gets
+# killed mid-response ("your computer went to sleep"). -i alone is not enough,
+# it only blocks IDLE sleep. Nothing persists after the command exits.
+NOSLEEP="caffeinate -dimsu"
+command -v caffeinate >/dev/null || NOSLEEP=""
+
 if [ -n "$DIGEST_DUE" ]; then
   echo "[auto] $(date '+%F %T') — digest due, running"
-  ./brain/curate.sh || echo "[auto] $(date '+%F %T') — digest run failed"
+  $NOSLEEP ./brain/curate.sh || echo "[auto] $(date '+%F %T') — digest run failed"
 fi
 if [ -n "$FPL_DUE" ]; then
   echo "[auto] $(date '+%F %T') — fpl due, running"
-  ./brain/curate-fpl.sh || echo "[auto] $(date '+%F %T') — fpl run failed"
+  $NOSLEEP ./brain/curate-fpl.sh || echo "[auto] $(date '+%F %T') — fpl run failed"
 fi
 echo "[auto] $(date '+%F %T') — done"

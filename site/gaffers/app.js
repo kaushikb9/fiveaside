@@ -180,7 +180,11 @@
       ? (fixtures.reduce((n, f) => n + f.fdr, 0) / fixtures.length).toFixed(2) : null;
 
     const chip = p.active_chip ? (CHIP_NAME[p.active_chip] || p.active_chip) : null;
-    const GW_MAX = LIVE_GW() + 2;
+    // Walk forward as far as the fixture data actually reaches, rather than
+    // guessing an offset — next3 starts from the gameweek being planned for,
+    // so a fixed LIVE_GW+2 stopped one week short of what was on disk.
+    const GW_MAX = pool().reduce((m, pl) =>
+      (pl.next3 || []).reduce((n, f) => Math.max(n, f.gw), m), LIVE_GW());
 
     return '<div class="panel"><h3>' + gname(who) + "’s " + esc(shape) + "</h3>" +
       '<p class="note">The shape, not a list. Step back to a settled week to see what it scored, ' +
