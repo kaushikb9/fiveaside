@@ -572,3 +572,9 @@ details.fold .foldbody { padding: 0 18px 16px; }
 @media (prefers-reduced-motion: no-preference) {
   .lcard, .gchip, .fc { transition: border-color 0.12s, background 0.12s; }
 }
+
+/* The live-scores control. Deliberately a button and not a poll: this is
+   five friends checking a page, not a scoreboard that needs to burn
+   requests all afternoon. */
+.btn-live { font-weight: 700; }
+.btn-live[disabled] { opacity: 0.5; cursor: default; }

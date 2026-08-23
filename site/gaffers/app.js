@@ -14,6 +14,9 @@
   let G = null, P = null, F = null;
   let who = FA.ME;
   let gwView = null;
+  // Live gameweek state, fetched on demand from /api/live. Keyed by element
+  // so the pitch can prefer it over the snapshot in gaffers.json.
+  let live = null, liveFor = null, liveBusy = false;
 
   const byId = {};
   const pool = () => P.players;
@@ -125,6 +128,70 @@
         (p.league_rank == null ? "&mdash;" : "#" + p.league_rank) + "</span></button>").join("") + "</div>";
   }
 
+  /* ---------------- live gameweek ----------------
+     gaffers.json is a snapshot taken when the facts last ran; during a
+     gameweek it goes stale within minutes. /api/live proxies the official
+     API (which sends no CORS headers) and returns per-player points with
+     provisional bonus. Fetched only when asked for — no polling. */
+  async function refreshLive() {
+    const p = G.people.find((x) => x.nick === who);
+    if (!p || !p.entry) return;
+    liveBusy = true; render();
+    try {
+      const r = await fetch("/api/live?gw=" + LIVE_GW() + "&entry=" + p.entry, { cache: "no-store" });
+      if (!r.ok) throw new Error("HTTP " + r.status);
+      const d = await r.json();
+      const byEl = {};
+      (d.squad || []).forEach((x) => { if (x.element) byEl[x.element] = x; });
+      // Match on name when the proxy does not echo the element id back.
+      const byName = {};
+      (d.squad || []).forEach((x) => { byName[x.name] = x; });
+      live = { gw: d.gw, status: d.status, updated: d.updated, fixtures: d.fixtures || [],
+               totals: d.totals || null, byEl: byEl, byName: byName };
+      liveFor = who;
+    } catch (e) {
+      live = { error: e.message };
+      liveFor = who;
+    }
+    liveBusy = false;
+    render();
+  }
+
+  const livePlayer = (pk) =>
+    (live && !live.error && liveFor === who)
+      ? (live.byEl[pk.element] || live.byName[pk.name] || null)
+      : null;
+
+  function liveHTML() {
+    if (!live) {
+      return '<div class="panel"><h3>Live gameweek</h3>' +
+        '<p class="note">Squad points below are a snapshot from the last data run. ' +
+        "Pull the live scores when a gameweek is in play.</p>" +
+        '<button class="btn-live fc" data-live>' +
+        (liveBusy ? "fetching…" : "Fetch live scores") + "</button></div>";
+    }
+    if (live.error) {
+      return '<div class="panel"><h3>Live gameweek</h3>' +
+        '<p class="note">Live scores unavailable (' + esc(live.error) + '). The snapshot below still stands.</p>' +
+        '<button class="btn-live fc" data-live>try again</button></div>';
+    }
+    const inPlay = live.fixtures.filter((f) => f.started && !f.finished);
+    const done = live.fixtures.filter((f) => f.finished).length;
+    const fx = (f) =>
+      '<div class="row"><div class="row-main"><div class="row-name">' +
+      esc(f.home) + " " + f.home_score + "&ndash;" + f.away_score + " " + esc(f.away) + "</div>" +
+      '<div class="row-sub">' + (f.finished ? "full time" : f.started ? f.minutes + "&prime;" : "not started") +
+      "</div></div></div>";
+    return '<div class="panel"><h3>Live gameweek ' + live.gw + "</h3>" +
+      '<p class="note">' + done + " of " + live.fixtures.length + " matches finished" +
+      (inPlay.length ? ", " + inPlay.length + " in play" : "") +
+      (live.totals ? " &middot; <strong>" + live.totals.net + "</strong> net for " + esc(who) : "") +
+      ". Points on the pitch below are live, including provisional bonus.</p>" +
+      (inPlay.length ? '<div class="rows">' + inPlay.map(fx).join("") + "</div>" : "") +
+      '<button class="btn-live fc" data-live style="margin-top:10px">' +
+      (liveBusy ? "refreshing…" : "Refresh") + "</button></div>";
+  }
+
   /* ---------------- the pitch ---------------- */
   const LIVE_GW = () => (G.live_gameweek ? G.live_gameweek.id : G.gameweek);
   const curGW = () => (gwView == null ? LIVE_GW() : gwView);
@@ -137,8 +204,10 @@
     // multiplier: 0 benched, 2 captain, 3 triple captain, 1 a bench slot that
     // Bench Boost switched on. A benched player still shows what he scored —
     // the regret is the point.
+    const lv = livePlayer(pk);
     const mult = pk.multiplier == null ? 1 : pk.multiplier;
-    const raw = r ? r.points : 0;
+    // Live points already include provisional bonus; fall back to the snapshot.
+    const raw = lv ? lv.points : (r ? r.points : 0);
     let bar = "&mdash;", cls = "";
     if (settled || live) {
       bar = raw * (mult > 1 ? mult : 1) + (mult > 1 ? " &times;" + mult : "");
@@ -164,9 +233,11 @@
     const shape = rows.slice(1).map((r) => r.length).join("-");
 
     const scored = (list) => list.reduce((n, x) => {
+      const lv = livePlayer(x);
       const r = rec(x.element);
+      const pts = lv ? lv.points : (r ? r.points : 0);
       const m = x.multiplier == null ? 1 : x.multiplier;
-      return n + (r ? r.points * (m > 1 ? m : 1) : 0);
+      return n + pts * (m > 1 ? m : 1);
     }, 0);
     const total = (settled || live) ? scored(xi) : null;
     // Two different questions. Normally the bench is REGRET and the API's
@@ -342,7 +413,7 @@
     $("#main").innerHTML =
       '<section class="section"><div class="section-head"><h2>the gaffers</h2>' +
       '<span class="mute" style="font-size:13px">what we did about it</span></div>' +
-      headlineHTML() + longGameHTML() + barHTML() + fiveHTML() + weekHTML() +
+      headlineHTML() + longGameHTML() + barHTML() + liveHTML() + fiveHTML() + weekHTML() +
       pitchHTML() + watchHTML() + roastHTML() +
       '<div class="grid2">' + diffsHTML() + chipsHTML() + "</div></section>";
     wire();
@@ -350,8 +421,9 @@
 
   function wire() {
     document.querySelectorAll("#gbar .gchip").forEach((b) => {
-      b.onclick = () => { who = b.dataset.nick; gwView = null; render(); };
+      b.onclick = () => { who = b.dataset.nick; gwView = null; live = null; liveFor = null; render(); };
     });
+    document.querySelectorAll("[data-live]").forEach((b) => { b.onclick = refreshLive; });
     document.querySelectorAll(".gwnav button[data-gw]").forEach((b) => {
       b.onclick = () => { if (!b.disabled) { gwView = Number(b.dataset.gw); render(); } };
     });

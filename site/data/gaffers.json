@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-23T20:07:31.631Z",
+  "generated_at": "2026-08-23T20:18:37.040Z",
   "gameweek": 2,
   "live_gameweek": {
     "id": 1,
@@ -8,12 +8,13 @@
   "people": [
     {
       "nick": "Xabi",
+      "club": "Chelsea",
       "team_name": "Wabi Sabi Xabi",
       "entry": 7149204,
       "entered": true,
       "total_points": 31,
       "gw_points": 31,
-      "overall_rank": 6006172,
+      "overall_rank": 6006173,
       "bank": 0,
       "value": 100,
       "free_transfers": 0,
@@ -237,12 +238,13 @@
     },
     {
       "nick": "Sir Alex",
+      "club": "Man Utd",
       "team_name": "Youri kiddin’ me!",
       "entry": 58500,
       "entered": true,
       "total_points": 38,
       "gw_points": 38,
-      "overall_rank": 3617062,
+      "overall_rank": 3617064,
       "bank": 0,
       "value": 100,
       "free_transfers": 0,
@@ -466,6 +468,7 @@
     },
     {
       "nick": "Ronaldo",
+      "club": "Man Utd",
       "team_name": "Yogesh11",
       "entry": 522356,
       "entered": true,
@@ -695,12 +698,13 @@
     },
     {
       "nick": "Enzo",
+      "club": "Chelsea",
       "team_name": "WorldChamps",
       "entry": 6485401,
       "entered": true,
       "total_points": 33,
       "gw_points": 33,
-      "overall_rank": 5338268,
+      "overall_rank": 5338269,
       "bank": 0,
       "value": 100,
       "free_transfers": 0,
@@ -924,6 +928,7 @@
     },
     {
       "nick": "Arsene",
+      "club": "Arsenal",
       "team_name": "IceMan",
       "entry": 4135179,
       "entered": true,
@@ -1186,6 +1191,15 @@
       },
       {
         "rank": 4,
+        "name": "Mad11",
+        "entry": 5286779,
+        "total": 39,
+        "event_total": 39,
+        "is_owner": false,
+        "is_gaffer": false
+      },
+      {
+        "rank": 4,
         "name": "Yogesh11",
         "entry": 522356,
         "total": 39,
@@ -1193,15 +1207,6 @@
         "is_owner": false,
         "nick": "Ronaldo",
         "is_gaffer": true
-      },
-      {
-        "rank": 4,
-        "name": "Mad11",
-        "entry": 5286779,
-        "total": 39,
-        "event_total": 39,
-        "is_owner": false,
-        "is_gaffer": false
       },
       {
         "rank": 6,
