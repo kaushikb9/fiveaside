@@ -1,251 +1,243 @@
 <title>Five-a-Side Rooms</title>
 <style>
 /* ============================================================
-   ONE THEME, TWO STATES.
-   Dugout (light) and Floodlit (dark) turned out to be the same
-   design under different lights, so they are paired: identical
-   structure, two palettes, following the viewer's setting.
-   Teamsheet is archived in git history (tpl.v1-three-looks.html).
-
-   Three states, per the artifact contract: bare :root is light,
-   prefers-color-scheme handles the un-stamped default, and an
-   explicit [data-theme] wins in both directions.
+   THREE TREATMENTS. Each commits to one visual world on purpose,
+   so each paints its own ground explicitly rather than inheriting
+   the host's theme. Switch with [data-look] on <html>.
    ============================================================ */
 :root{
-  --f-sans:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+  --sp:1rem; --r:4px;
   --f-mono:ui-monospace,"SF Mono",SFMono-Regular,Menlo,Consolas,monospace;
-  --f-head:var(--f-sans); --f-body:var(--f-sans); --f-num:var(--f-mono);
-  --r:12px; --rs:7px;
+  --f-sans:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+  --f-serif:ui-serif,Georgia,"Iowan Old Style",Palatino,serif;
+}
 
-  /* ---- DUGOUT: the marker board, daylight ---- */
-  --bg:#EFEEE7; --card:#FFFFFF; --raise:#F7F6F1;
-  --ink:#191E20; --mute:#5F6A6E; --faint:#8A9295;
-  --line:#DEE0D8; --hair:#EAEBE4;
-  --accent:#1657C4; --on-accent:#FFFFFF;
-  --hot:#D0402F; --ok:#137A4E; --warn:#C9860F;
-  --shadow:0 1px 2px rgba(20,25,20,.05);
-  --fdr1:#BCE3CC; --fdr2:#D8ECD3; --fdr3:#E8E8E0; --fdr4:#FBD9C6; --fdr5:#F6B6A6;
-  --fdr-ink:#1B2124;
+/* ---------- 1. TEAMSHEET : the printed matchday document ---------- */
+:root[data-look="teamsheet"]{
+  --bg:#EAE9E3; --card:#F8F7F3; --raise:#F1F0EA;
+  --ink:#171A1D; --mute:#6C7176; --faint:#8E9296;
+  --line:#CBC9C1; --hair:#DBD9D2;
+  --accent:#2E4E7E; --hot:#A5352B; --ok:#2C6A4A; --warn:#9A6410;
+  --f-head:var(--f-mono); --f-body:var(--f-serif); --f-num:var(--f-mono);
+  --head-tr:.14em; --head-tf:uppercase; --head-w:600;
+  --r:2px; --card-b:1px solid var(--line); --card-sh:none;
+  --fdr1:#BFD8C4; --fdr2:#D5E2CF; --fdr3:#E2DFD4; --fdr4:#E8CDBF; --fdr5:#DCAFA4;
+  --fdr-ink:#2A2E28;
 }
-/* ---- FLOODLIT: the same board under sodium lamps ---- */
-@media (prefers-color-scheme: dark){
-  :root:not([data-theme="light"]){
-    --bg:#0C1017; --card:#141B25; --raise:#1C2534;
-    --ink:#E7EEF7; --mute:#8496AB; --faint:#63758B;
-    --line:#26313F; --hair:#1E2836;
-    --accent:#F2A93B; --on-accent:#0C1017;
-    --hot:#E9564C; --ok:#42BFA6; --warn:#F2A93B;
-    --shadow:0 1px 0 rgba(255,255,255,.03) inset;
-    --fdr1:#1E5E4E; --fdr2:#2A4A46; --fdr3:#2C3444; --fdr4:#4E3A31; --fdr5:#6E332C;
-    --fdr-ink:#E7EEF7;
-  }
-}
-:root[data-theme="dark"]{
+/* ---------- 2. FLOODLIT : a night match under sodium lamps ---------- */
+:root[data-look="floodlit"]{
   --bg:#0C1017; --card:#141B25; --raise:#1C2534;
   --ink:#E7EEF7; --mute:#8496AB; --faint:#63758B;
   --line:#26313F; --hair:#1E2836;
-  --accent:#F2A93B; --on-accent:#0C1017;
-  --hot:#E9564C; --ok:#42BFA6; --warn:#F2A93B;
-  --shadow:0 1px 0 rgba(255,255,255,.03) inset;
+  --accent:#F2A93B; --hot:#E9564C; --ok:#42BFA6; --warn:#F2A93B;
+  --f-head:var(--f-sans); --f-body:var(--f-sans); --f-num:var(--f-mono);
+  --head-tr:.02em; --head-tf:none; --head-w:700;
+  --r:10px; --card-b:1px solid var(--line); --card-sh:0 1px 0 rgba(255,255,255,.03) inset;
   --fdr1:#1E5E4E; --fdr2:#2A4A46; --fdr3:#2C3444; --fdr4:#4E3A31; --fdr5:#6E332C;
   --fdr-ink:#E7EEF7;
 }
+/* ---------- 3. DUGOUT : the manager's marker board ---------- */
+:root[data-look="dugout"]{
+  --bg:#EFEEE7; --card:#FFFFFF; --raise:#F7F6F1;
+  --ink:#191E20; --mute:#5F6A6E; --faint:#8A9295;
+  --line:#DEE0D8; --hair:#EAEBE4;
+  --accent:#1657C4; --hot:#D0402F; --ok:#137A4E; --warn:#C9860F;
+  --f-head:var(--f-sans); --f-body:var(--f-sans); --f-num:var(--f-sans);
+  --head-tr:-.02em; --head-tf:none; --head-w:800;
+  --r:14px; --card-b:2px solid var(--line); --card-sh:0 2px 0 var(--line);
+  --fdr1:#BCE3CC; --fdr2:#D8ECD3; --fdr3:#EDEDE6; --fdr4:#FBD9C6; --fdr5:#F6B6A6;
+  --fdr-ink:#1B2124;
+}
 
 *{box-sizing:border-box}
-body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--f-body);
-  font-size:16px;line-height:1.55;-webkit-text-size-adjust:100%}
+body{
+  margin:0; background:var(--bg); color:var(--ink);
+  font-family:var(--f-body); font-size:16px; line-height:1.55;
+  -webkit-text-size-adjust:100%;
+}
 .wrap{max-width:1080px;margin:0 auto;padding:0 20px 96px}
-h1,h2,h3,h4{font-family:var(--f-head);font-weight:700;letter-spacing:-.01em;text-wrap:balance;margin:0}
+h1,h2,h3,h4{font-family:var(--f-head);font-weight:var(--head-w);letter-spacing:var(--head-tr);text-wrap:balance;margin:0}
 a{color:var(--accent)}
-.mute{color:var(--mute)} .faint{color:var(--faint)}
 .num{font-family:var(--f-num);font-variant-numeric:tabular-nums}
+.mute{color:var(--mute)}
+.faint{color:var(--faint)}
 
-/* --- masthead + room nav: the thing that makes it one platform --- */
-.mast{padding:30px 0 0}
-.mast-top{display:flex;flex-wrap:wrap;gap:16px;align-items:center;justify-content:space-between}
-.brand{font-family:var(--f-head);font-size:clamp(23px,3.6vw,32px);font-weight:800;letter-spacing:-.025em;line-height:1.05}
+/* --- masthead --- */
+.mast{padding:34px 0 18px;border-bottom:1px solid var(--line);margin-bottom:26px}
+.mast-top{display:flex;flex-wrap:wrap;gap:16px;align-items:flex-start;justify-content:space-between}
+.brand{font-family:var(--f-head);font-size:clamp(26px,4.4vw,40px);font-weight:var(--head-w);
+  letter-spacing:var(--head-tr);text-transform:var(--head-tf);line-height:1.05}
+:root[data-look="teamsheet"] .brand{letter-spacing:.22em}
 .brand em{font-style:normal;color:var(--accent)}
-.kicker{font-family:var(--f-head);font-size:10.5px;text-transform:uppercase;letter-spacing:.16em;
-  color:var(--faint);font-weight:700;margin-bottom:7px}
-.sub{max-width:64ch;margin:14px 0 0;color:var(--mute);font-size:15px}
-.rooms{display:flex;gap:4px;flex-wrap:wrap;margin:22px 0 0;border-bottom:1px solid var(--line)}
-.rooms a{font-family:var(--f-head);font-size:13.5px;font-weight:700;letter-spacing:-.01em;
-  text-decoration:none;padding:10px 15px;color:var(--mute);border-bottom:2px solid transparent;margin-bottom:-1px}
-.rooms a[aria-current="true"]{color:var(--ink);border-bottom-color:var(--accent)}
-.rooms a:hover{color:var(--ink)}
-.rooms .rn{display:block;font-size:10px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--faint);margin-top:2px}
+.kicker{font-family:var(--f-head);font-size:11px;text-transform:uppercase;letter-spacing:.16em;
+  color:var(--faint);font-weight:var(--head-w);margin-bottom:8px}
+.sub{max-width:62ch;margin:12px 0 0;color:var(--mute);font-size:15px}
 
-.themectl{display:flex;gap:3px;padding:3px;border:1px solid var(--line);border-radius:99px;background:var(--card)}
-.themectl button{font-family:var(--f-head);font-size:11.5px;font-weight:600;padding:5px 11px;border:0;
-  border-radius:99px;background:transparent;color:var(--mute);cursor:pointer;line-height:1.3}
-.themectl button[aria-pressed="true"]{background:var(--accent);color:var(--on-accent)}
+/* --- theme switcher --- */
+.looks{display:flex;gap:6px;flex-wrap:wrap}
+.look{font-family:var(--f-head);font-size:12px;font-weight:600;letter-spacing:.04em;
+  padding:8px 13px;border-radius:var(--r);border:var(--card-b);background:var(--card);
+  color:var(--mute);cursor:pointer;line-height:1}
+.look[aria-pressed="true"]{background:var(--accent);border-color:var(--accent);color:var(--bg)}
+:root[data-look="floodlit"] .look[aria-pressed="true"]{color:#0C1017}
+.look:focus-visible,button:focus-visible,input:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+
+/* --- room nav --- */
+.rooms{display:flex;gap:8px;flex-wrap:wrap;margin:20px 0 0}
+.rooms a{font-family:var(--f-head);font-size:12px;text-transform:uppercase;letter-spacing:.1em;
+  text-decoration:none;padding:7px 12px;border:1px solid var(--line);border-radius:var(--r);color:var(--mute)}
+.rooms a:hover{color:var(--ink);border-color:var(--accent)}
 
 /* --- section + panel --- */
-.section{margin:34px 0 0;scroll-margin-top:12px}
+.section{margin:44px 0 0}
 .section-head{display:flex;align-items:baseline;gap:12px;flex-wrap:wrap;
-  padding-bottom:10px;border-bottom:2px solid var(--ink);margin-bottom:18px}
-.section-head h2{font-size:clamp(19px,2.8vw,25px);font-weight:800;letter-spacing:-.02em}
-.tag{font-family:var(--f-head);font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;
-  padding:3px 7px;border-radius:var(--rs);background:var(--accent);color:var(--on-accent);line-height:1.4}
+  padding-bottom:10px;border-bottom:2px solid var(--ink);margin-bottom:20px}
+.section-head h2{font-size:clamp(20px,3vw,26px);text-transform:var(--head-tf)}
+.tag{font-family:var(--f-head);font-size:10px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;
+  padding:3px 7px;border-radius:var(--r);background:var(--accent);color:var(--bg);line-height:1.4}
+:root[data-look="floodlit"] .tag{color:#0C1017}
 .tag.ghost{background:transparent;color:var(--mute);border:1px solid var(--line)}
 .tag.hot{background:var(--hot);color:#fff}
-.panel{background:var(--card);border:1px solid var(--line);border-radius:var(--r);box-shadow:var(--shadow);
-  padding:18px 20px;margin:0 0 14px;position:relative}
-.panel > h3{font-size:15px;font-weight:800;letter-spacing:-.015em;margin-bottom:4px}
+
+.panel{background:var(--card);border:var(--card-b);border-radius:var(--r);box-shadow:var(--card-sh);
+  padding:18px 20px;margin:0 0 16px;position:relative}
+.panel > h3{font-size:15px;text-transform:var(--head-tf);letter-spacing:var(--head-tr);margin-bottom:4px}
+:root[data-look="teamsheet"] .panel > h3{letter-spacing:.14em}
 .panel .note{font-size:13.5px;color:var(--mute);margin:2px 0 14px;max-width:70ch}
-.grid2{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:16px}
 @media(max-width:760px){.grid2{grid-template-columns:1fr}}
 
 /* --- gaffer bar --- */
-.gbar{display:flex;gap:7px;flex-wrap:wrap;margin-bottom:16px}
-.gchip{display:flex;flex-direction:column;gap:2px;align-items:flex-start;padding:8px 13px;
-  border:1px solid var(--line);border-radius:var(--rs);background:var(--card);cursor:pointer;
-  min-width:100px;text-align:left;color:var(--ink);font-family:var(--f-head)}
-.gchip b{font-size:13.5px;font-weight:700}
+.gbar{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:18px}
+.gchip{display:flex;flex-direction:column;gap:2px;align-items:flex-start;
+  padding:9px 14px;border:var(--card-b);border-radius:var(--r);background:var(--card);
+  cursor:pointer;min-width:104px;text-align:left;color:var(--ink);font-family:var(--f-head)}
+.gchip b{font-size:13.5px;font-weight:var(--head-w);letter-spacing:var(--head-tr)}
 .gchip span{font-size:11px;color:var(--faint);font-family:var(--f-num)}
-.gchip[aria-pressed="true"]{background:var(--accent);border-color:var(--accent);color:var(--on-accent)}
-.gchip[aria-pressed="true"] span{color:inherit;opacity:.85}
+.gchip[aria-pressed="true"]{background:var(--accent);border-color:var(--accent);color:var(--bg)}
+:root[data-look="floodlit"] .gchip[aria-pressed="true"]{color:#0C1017}
+.gchip[aria-pressed="true"] span{color:inherit;opacity:.8}
 
 /* --- tables --- */
 table{width:100%;border-collapse:collapse;font-size:14px}
 .scroll{overflow-x:auto;-webkit-overflow-scrolling:touch}
-th{font-family:var(--f-head);font-size:10px;text-transform:uppercase;letter-spacing:.09em;color:var(--faint);
-  text-align:left;font-weight:700;padding:0 8px 7px;border-bottom:1px solid var(--line);white-space:nowrap}
+th{font-family:var(--f-head);font-size:10px;text-transform:uppercase;letter-spacing:.1em;
+  color:var(--faint);text-align:left;font-weight:700;padding:0 8px 7px;border-bottom:1px solid var(--line);white-space:nowrap}
 td{padding:9px 8px;border-bottom:1px solid var(--hair);vertical-align:middle}
 tr:last-child td{border-bottom:0}
 td.n,th.n{text-align:right;font-family:var(--f-num);font-variant-numeric:tabular-nums}
 tr.me td{background:var(--raise)}
 tr.me td:first-child{box-shadow:inset 3px 0 0 var(--accent)}
-tr.focus td:nth-child(2){font-weight:700}
-.pill{display:inline-block;font-family:var(--f-head);font-size:10px;font-weight:700;letter-spacing:.06em;
-  text-transform:uppercase;padding:2px 6px;border-radius:var(--rs);border:1px solid var(--line);color:var(--mute)}
-.crest{width:17px;height:17px;object-fit:contain;vertical-align:-4px;margin-right:6px}
+.pill{display:inline-block;font-family:var(--f-head);font-size:10px;font-weight:700;letter-spacing:.08em;
+  text-transform:uppercase;padding:2px 6px;border-radius:var(--r);border:1px solid var(--line);color:var(--mute)}
 
-/* --- verdicts --- */
-.vd{display:inline-block;font-family:var(--f-head);font-size:10px;font-weight:700;letter-spacing:.1em;
-  text-transform:uppercase;padding:3px 7px;border-radius:var(--rs);line-height:1.3;white-space:nowrap}
-.vd-nailed{background:var(--ok);color:var(--on-accent)}
-.vd-solid{background:var(--accent);color:var(--on-accent)}
-.vd-watch{background:var(--warn);color:var(--on-accent)}
+/* --- verdict stamps --- */
+.vd{display:inline-block;font-family:var(--f-head);font-size:10px;font-weight:700;letter-spacing:.12em;
+  text-transform:uppercase;padding:3px 7px;border-radius:var(--r);line-height:1.3;white-space:nowrap}
+.vd-nailed{background:var(--ok);color:var(--bg)}
+.vd-solid{background:var(--accent);color:var(--bg)}
+.vd-watch{background:var(--warn);color:var(--bg)}
 .vd-sack{background:var(--hot);color:#fff}
+:root[data-look="floodlit"] .vd-nailed,:root[data-look="floodlit"] .vd-solid,:root[data-look="floodlit"] .vd-watch{color:#0C1017}
+/* teamsheet renders verdicts as rubber stamps, not chips */
+:root[data-look="teamsheet"] .vd{background:transparent;border:1.5px solid currentColor;padding:2px 6px}
+:root[data-look="teamsheet"] .vd-nailed{color:var(--ok)}
+:root[data-look="teamsheet"] .vd-solid{color:var(--accent)}
+:root[data-look="teamsheet"] .vd-watch{color:var(--warn)}
+:root[data-look="teamsheet"] .vd-sack{color:var(--hot)}
 .mv{font-family:var(--f-num);font-size:11px;color:var(--faint);margin-left:5px}
 .mv.up{color:var(--ok)} .mv.down{color:var(--hot)}
 
-/* --- FDR --- */
+/* --- FDR strip --- */
 .fdr{display:flex;gap:3px}
-.fdr i{display:flex;align-items:center;justify-content:center;font-style:normal;font-family:var(--f-num);
-  font-size:10px;font-weight:600;min-width:32px;height:22px;border-radius:var(--rs);color:var(--fdr-ink)}
+.fdr i{display:flex;align-items:center;justify-content:center;font-style:normal;
+  font-family:var(--f-num);font-size:10px;font-weight:600;min-width:32px;height:22px;
+  border-radius:var(--r);color:var(--fdr-ink)}
 .fdr i[data-f="1"]{background:var(--fdr1)} .fdr i[data-f="2"]{background:var(--fdr2)}
 .fdr i[data-f="3"]{background:var(--fdr3)} .fdr i[data-f="4"]{background:var(--fdr4)}
 .fdr i[data-f="5"]{background:var(--fdr5)}
 .fdr-key{display:flex;gap:10px;align-items:center;font-size:11px;color:var(--faint);margin-top:10px;flex-wrap:wrap}
 .fdr-key .sw{display:inline-block;width:14px;height:11px;border-radius:2px;margin-right:4px;vertical-align:-1px}
 
-/* --- weekly read --- */
-.week3{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+/* --- three-block weekly read --- */
+.week3{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
 @media(max-width:760px){.week3{grid-template-columns:1fr}}
-.wk{border-left:4px solid var(--line);border-radius:0 var(--rs) var(--rs) 0;padding:12px 14px;background:var(--raise)}
-.wk h4{font-size:10.5px;text-transform:uppercase;letter-spacing:.11em;margin-bottom:7px;font-weight:700}
-.wk.good{border-left-color:var(--ok)} .wk.good h4{color:var(--ok)}
-.wk.bad{border-left-color:var(--hot)} .wk.bad h4{color:var(--hot)}
-.wk.next{border-left-color:var(--accent)} .wk.next h4{color:var(--accent)}
+.wk{border:1px solid var(--line);border-radius:var(--r);padding:14px;background:var(--raise)}
+.wk h4{font-size:11px;text-transform:uppercase;letter-spacing:.12em;margin-bottom:8px;font-weight:700}
+.wk.good h4{color:var(--ok)} .wk.bad h4{color:var(--hot)} .wk.next h4{color:var(--accent)}
 .wk p{margin:0;font-size:14px;line-height:1.5}
+:root[data-look="dugout"] .wk{border:0;border-left:5px solid var(--line);border-radius:0 var(--r) var(--r) 0}
+:root[data-look="dugout"] .wk.good{border-left-color:var(--ok)}
+:root[data-look="dugout"] .wk.bad{border-left-color:var(--hot)}
+:root[data-look="dugout"] .wk.next{border-left-color:var(--accent)}
 
-/* --- rows --- */
+/* --- list rows --- */
 .rows{display:flex;flex-direction:column}
-.row{display:flex;gap:12px;align-items:flex-start;padding:11px 0;border-bottom:1px solid var(--hair)}
+.row{display:flex;gap:12px;align-items:flex-start;padding:12px 0;border-bottom:1px solid var(--hair)}
 .row:last-child{border-bottom:0}
 .row-main{flex:1;min-width:0}
-.row-name{font-family:var(--f-head);font-weight:700;font-size:14.5px}
+.row-name{font-family:var(--f-head);font-weight:var(--head-w);font-size:14.5px;letter-spacing:0}
 .row-sub{font-size:13px;color:var(--mute);margin-top:3px}
 .row-side{text-align:right;white-space:nowrap;font-family:var(--f-num);font-size:12px;color:var(--faint)}
 .owners{display:inline-flex;gap:3px;margin-left:6px;vertical-align:1px}
 .own{display:inline-flex;align-items:center;justify-content:center;width:17px;height:17px;border-radius:50%;
   font-family:var(--f-num);font-size:9px;font-weight:700;background:var(--line);color:var(--mute)}
-.own.mine{background:var(--accent);color:var(--on-accent)}
+.own.mine{background:var(--accent);color:var(--bg)}
+:root[data-look="floodlit"] .own.mine{color:#0C1017}
 
-/* --- the seam: any player name opens the locker card --- */
-.plink{color:inherit;text-decoration:none;border-bottom:1.5px dotted var(--accent);cursor:pointer;font-weight:inherit}
-.plink:hover{color:var(--accent)}
-.seam{display:flex;gap:10px;align-items:flex-start;border:1px dashed var(--accent);border-radius:var(--r);
-  padding:12px 14px;margin:0 0 14px;background:var(--raise);font-size:13.5px;color:var(--mute)}
-.seam b{color:var(--ink)}
-
-/* --- filters --- */
+/* --- filter chips --- */
 .filters{display:flex;gap:6px;flex-wrap:wrap;align-items:center;margin-bottom:14px}
-.fc{font-family:var(--f-head);font-size:11.5px;font-weight:600;padding:6px 11px;border:1px solid var(--line);
-  border-radius:var(--rs);background:transparent;color:var(--mute);cursor:pointer}
+.fc{font-family:var(--f-head);font-size:11.5px;font-weight:600;letter-spacing:.04em;padding:6px 11px;
+  border:1px solid var(--line);border-radius:var(--r);background:transparent;color:var(--mute);cursor:pointer}
 .fc[aria-pressed="true"]{background:var(--ink);border-color:var(--ink);color:var(--bg)}
-.search{flex:1;min-width:140px;padding:7px 11px;border:1px solid var(--line);border-radius:var(--rs);
+.search{flex:1;min-width:140px;padding:7px 11px;border:1px solid var(--line);border-radius:var(--r);
   background:var(--bg);color:var(--ink);font-family:var(--f-body);font-size:13.5px}
 
-/* --- week feed (touchline) --- */
-.feed{list-style:none;margin:0;padding:0}
-.feed li{padding:11px 0;border-bottom:1px solid var(--hair);font-size:14.5px;line-height:1.5}
-.feed li:last-child{border-bottom:0}
-.wtag{display:inline-block;font-family:var(--f-head);font-size:9.5px;font-weight:700;letter-spacing:.08em;
-  padding:2px 6px;border-radius:var(--rs);margin-right:8px;vertical-align:2px;
-  background:var(--raise);color:var(--mute);border:1px solid var(--line)}
-.wtag.fpl{background:var(--accent);color:var(--on-accent);border-color:var(--accent)}
-.clubchip{display:inline-block;font-size:11px;color:var(--faint);margin-left:6px}
-
 /* --- roast --- */
-.roast{border:1px dashed var(--hot);border-radius:var(--r);padding:18px 20px;background:var(--raise)}
-.roast p{margin:0;font-size:16px;line-height:1.6;max-width:66ch}
-.roast .by{margin-top:11px;font-family:var(--f-head);font-size:10.5px;letter-spacing:.1em;
+.roast{border:var(--card-b);border-radius:var(--r);padding:20px 22px;background:var(--raise);position:relative}
+:root[data-look="teamsheet"] .roast{border-left:4px solid var(--hot)}
+:root[data-look="floodlit"] .roast{background:linear-gradient(180deg,#1C2534,#141B25);border-color:var(--accent)}
+:root[data-look="dugout"] .roast{background:var(--card);border:2px dashed var(--hot)}
+.roast p{margin:0;font-size:16.5px;line-height:1.6;max-width:66ch}
+.roast .by{margin-top:12px;font-family:var(--f-head);font-size:11px;letter-spacing:.1em;
   text-transform:uppercase;color:var(--faint)}
 
+/* --- callout / decisions --- */
 .callout{border-left:3px solid var(--accent);padding:2px 0 2px 14px;margin:14px 0;color:var(--mute);font-size:14px}
 .was{text-decoration:line-through;color:var(--faint)}
 
 /* --- comment layer --- */
 .cbar{position:sticky;top:0;z-index:40;display:flex;gap:8px;align-items:center;flex-wrap:wrap;
-  padding:10px 0;background:var(--bg);border-bottom:1px solid var(--line)}
-.btn{font-family:var(--f-head);font-size:12px;font-weight:600;padding:8px 13px;border:1px solid var(--line);
-  border-radius:var(--rs);background:var(--card);color:var(--ink);cursor:pointer;line-height:1}
-.btn.primary{background:var(--accent);border-color:var(--accent);color:var(--on-accent)}
+  padding:10px 0;background:var(--bg);border-bottom:1px solid var(--line);margin-bottom:0}
+.btn{font-family:var(--f-head);font-size:12px;font-weight:600;letter-spacing:.04em;padding:8px 13px;
+  border:var(--card-b);border-radius:var(--r);background:var(--card);color:var(--ink);cursor:pointer;line-height:1}
+.btn.primary{background:var(--accent);border-color:var(--accent);color:var(--bg)}
+:root[data-look="floodlit"] .btn.primary{color:#0C1017}
 .btn[disabled]{opacity:.45;cursor:default}
 .cstat{font-family:var(--f-num);font-size:12px;color:var(--faint);margin-left:auto}
 body.commenting [data-c]{cursor:pointer}
 body.commenting [data-c]:hover{outline:2px dashed var(--accent);outline-offset:3px}
 [data-c].has-note{outline:2px solid var(--accent);outline-offset:3px}
 .cflag{position:absolute;top:-9px;right:10px;font-family:var(--f-head);font-size:10px;font-weight:700;
-  letter-spacing:.08em;text-transform:uppercase;background:var(--accent);color:var(--on-accent);
-  padding:2px 7px;border-radius:var(--rs)}
+  letter-spacing:.08em;text-transform:uppercase;background:var(--accent);color:var(--bg);
+  padding:2px 7px;border-radius:var(--r)}
+:root[data-look="floodlit"] .cflag{color:#0C1017}
 .editor{margin-top:12px;border-top:1px dashed var(--line);padding-top:12px}
-.editor textarea{width:100%;min-height:76px;padding:10px;border:1px solid var(--line);border-radius:var(--rs);
+.editor textarea{width:100%;min-height:76px;padding:10px;border:1px solid var(--line);border-radius:var(--r);
   background:var(--bg);color:var(--ink);font-family:var(--f-body);font-size:14px;resize:vertical}
 .editor-actions{display:flex;gap:8px;margin-top:8px}
 .saved-note{margin-top:10px;padding:10px 12px;background:var(--raise);border-left:3px solid var(--accent);
-  font-size:14px;border-radius:0 var(--rs) var(--rs) 0}
+  font-size:14px;border-radius:0 var(--r) var(--r) 0}
 .saved-note .lbl{font-family:var(--f-head);font-size:10px;letter-spacing:.1em;text-transform:uppercase;
   color:var(--faint);display:block;margin-bottom:3px}
 
-.q{padding:13px 0;border-bottom:1px solid var(--hair)}
+.qs{counter-reset:q}
+.q{padding:14px 0;border-bottom:1px solid var(--hair)}
 .q:last-child{border-bottom:0}
 .q h4{font-size:14.5px;margin-bottom:5px}
 .q p{margin:0;font-size:14px;color:var(--mute)}
-.foot{margin-top:36px;padding-top:18px;border-top:1px solid var(--line);font-size:13px;color:var(--faint)}
-button:focus-visible,a:focus-visible,input:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
-
-/* --- the locker-room card: the join between the three areas --- */
-.backdrop{position:fixed;inset:0;background:rgba(8,10,14,.55);display:flex;align-items:center;
-  justify-content:center;padding:20px;z-index:80}
-.backdrop[hidden]{display:none}
-.card{background:var(--card);border:1px solid var(--line);border-radius:var(--r);box-shadow:0 18px 50px rgba(0,0,0,.3);
-  max-width:520px;width:100%;max-height:86vh;overflow-y:auto;padding:20px 22px;position:relative}
-.card h3{font-size:19px;font-weight:800;letter-spacing:-.02em}
-.card .meta{font-size:13px;color:var(--mute);margin:4px 0 14px}
-.card .stats{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:14px}
-.card .stat{background:var(--raise);border-radius:var(--rs);padding:9px 10px}
-.card .stat b{display:block;font-family:var(--f-num);font-size:16px;font-variant-numeric:tabular-nums}
-.card .stat span{font-size:10px;text-transform:uppercase;letter-spacing:.08em;color:var(--faint)}
-.card .why{font-size:14px;line-height:1.55;margin:0 0 8px}
-.card .trig{font-size:13px;color:var(--mute);border-left:3px solid var(--warn);padding-left:11px;margin:0}
-.card .close{position:absolute;top:12px;right:12px;border:1px solid var(--line);background:var(--card);
-  color:var(--mute);border-radius:var(--rs);cursor:pointer;font-size:13px;padding:4px 9px;line-height:1.3}
-.card .sect{font-size:10px;text-transform:uppercase;letter-spacing:.1em;color:var(--faint);
-  font-weight:700;margin:16px 0 7px}
+.foot{margin-top:40px;padding-top:18px;border-top:1px solid var(--line);font-size:13px;color:var(--faint)}
+@media (prefers-reduced-motion:no-preference){.panel{transition:outline-color .12s}}
 </style>
 
 <div class="wrap">
@@ -253,23 +245,19 @@ button:focus-visible,a:focus-visible,input:focus-visible{outline:2px solid var(-
 <header class="mast">
   <div class="mast-top">
     <div>
-      <div class="kicker">Mockup &#183; one platform, three areas</div>
-      <div class="brand">Five<em>&#183;</em>a<em>&#183;</em>Side</div>
+      <div class="kicker">Mockup · not built yet</div>
+      <div class="brand">Five<em>·</em>a<em>·</em>Side <span style="opacity:.4">rooms</span></div>
     </div>
-    <div class="themectl" id="themectl">
-      <button data-t="auto">Auto</button><button data-t="light">Light</button><button data-t="dark">Dark</button>
-    </div>
+    <div class="looks" id="looks"></div>
   </div>
-  <p class="sub">Every number, name, squad, fixture, injury note and league row below is
-  <strong>real data</strong> from <code>digests.json</code>, <code>players.json</code>,
-  <code>gaffers.json</code> and <code>fpl.json</code> as they stand right now. Only the
-  per-person weekly read and the roast are written for the mockup, because those blocks
-  have no schema yet.</p>
-  <nav class="rooms" id="rooms">
-    <a href="#touchline">touchline<span class="rn">what happened</span></a>
-    <a href="#gaffers">the gaffers<span class="rn">what we did about it</span></a>
-    <a href="#locker">the locker room<span class="rn">what we know</span></a>
-    <a href="#questions">questions<span class="rn">answer in comments</span></a>
+  <p class="sub">Every number, name, squad, fixture and injury note below is <strong>real data</strong>
+  pulled from <code>players.json</code>, <code>gaffers.json</code> and <code>fpl.json</code> as they stand
+  right now — GW<span id="gwn"></span>, mid-gameweek. Only the per-person editorial prose is written for the
+  mockup, because that section does not exist in the schema yet. Pick a treatment, then comment on anything.</p>
+  <nav class="rooms">
+    <a href="#gaffers">the gaffers →</a>
+    <a href="#locker">the locker room →</a>
+    <a href="#questions">open questions →</a>
   </nav>
 </header>
 
@@ -281,10 +269,6 @@ button:focus-visible,a:focus-visible,input:focus-visible{outline:2px solid var(-
 </div>
 
 <main id="app"></main>
-
-<div class="backdrop" id="backdrop" hidden>
-  <div class="card" id="card" role="dialog" aria-modal="true" aria-label="Player file"></div>
-</div>
 
 <footer class="foot">
   Five-a-Side · mockup generated from live data · <span id="stamp"></span><br>
@@ -350,99 +334,6 @@ const ROAST = {
   by:"settles GW1 · the machine roasts itself too"
 };
 
-
-/* ---------------- touchline: the league room ---------------- */
-/* Everything here is identical for all five. No personal state, no squad,
-   no verdicts — that is the whole basis of the split between the rooms. */
-const crest = (u, n) => u ? `<img class="crest" src="${esc(u)}" alt="" loading="lazy">` : "";
-
-// The seam: a player we hold a file on becomes a link into the locker room.
-const FILE_NAMES = DATA.pool
-  .map(p => p.name)
-  .sort((a, b) => b.length - a.length);
-function linkPlayers(text){
-  let out = esc(text);
-  for (const n of FILE_NAMES) {
-    if (n.length < 5) continue;                       // "Sarr" would match inside words
-    const safe = esc(n).replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
-    const re = new RegExp(`(?<![\\w>])(${safe})(?![\\w<])`);
-    if (re.test(out)) out = out.replace(re, `<a class="plink" data-player="$1">$1</a>`);
-  }
-  return out;
-}
-
-function leagueTable(){
-  const t = DATA.digest.table;
-  if (!t?.rows?.length) return "";
-  return `<div class="panel" data-c="tl-table" data-label="Touchline - league table">
-    <h3>${esc(t.competition)}</h3>
-    ${t.note ? `<p class="note">${esc(t.note)}</p>` : ""}
-    <div class="scroll"><table><thead><tr>
-      <th class="n">#</th><th>Club</th><th>Form</th><th class="n">P</th><th class="n">Pts</th>
-    </tr></thead><tbody>
-    ${t.rows.map(r => `<tr class="${r.focus ? "focus" : ""}">
-      <td class="n">${r.pos}</td>
-      <td>${crest(r.crest, r.team)}${esc(r.team)}</td>
-      <td class="faint num">${esc(r.form || "")}</td>
-      <td class="n">${r.played}</td><td class="n"><strong>${r.points}</strong></td>
-    </tr>`).join("")}
-    </tbody></table></div>
-  </div>`;
-}
-
-function theWeek(){
-  const w = DATA.digest.week ?? [];
-  return `<div class="panel" data-c="tl-week" data-label="Touchline - the week">
-    <h3>This week</h3>
-    <p class="note">The league's last seven days as one feed. Tagged PL or FPL, attributed to a
-    club, and filterable &mdash; the one control narrows the feed and dims the table together.</p>
-    <ul class="feed">${w.map(i => `<li>
-      <span class="wtag ${i.tag === "FPL" ? "fpl" : ""}">${esc(i.tag || "PL")}</span>
-      <strong>${esc(i.kicker)}</strong> ${linkPlayers(i.text)}
-      ${i.club ? `<span class="clubchip">${esc(i.club)}</span>` : ""}
-    </li>`).join("")}</ul>
-  </div>`;
-}
-
-function aroundTheTop(){
-  const t = DATA.digest.top_teams ?? [], e = DATA.digest.elsewhere ?? [];
-  const one = (r) => `<div class="row">
-    <div class="row-main"><div class="row-name">${crest(r.crest, r.club)}${esc(r.club)}</div>
-    <div class="row-sub">${linkPlayers(r.note)}</div></div>
-    ${r.line ? `<div class="row-side">${esc(r.line)}</div>` : ""}</div>`;
-  return `<div class="grid2">
-    <div class="panel" data-c="tl-top" data-label="Touchline - around the top">
-      <h3>Around the top</h3>
-      <p class="note">One line each for the clubs the five follow, written as a league view:
-      no us, no them.</p>
-      <div class="rows">${t.map(one).join("")}</div>
-    </div>
-    <div class="panel" data-c="tl-else" data-label="Touchline - elsewhere">
-      <h3>Elsewhere</h3>
-      <p class="note">The league is more than six clubs. Titbits worth repeating.</p>
-      <div class="rows">${e.map(one).join("")}</div>
-      <h3 style="margin-top:18px">Rumour mill</h3>
-      <div class="rows">${(DATA.digest.rumours ?? []).slice(0,4).map(r => `<div class="row">
-        <div class="row-main"><div class="row-name">${linkPlayers(r.player)}</div>
-        <div class="row-sub">${esc(r.from)} &rarr; ${esc(r.to)}${r.fee ? " &middot; " + esc(r.fee) : ""}</div></div>
-        <div class="row-side"><span class="pill">${esc(r.heat)}</span></div></div>`).join("")}</div>
-    </div>
-  </div>`;
-}
-
-function teamWatch(){
-  const p = DATA.digest.team_watch ?? [];
-  if (!p.length) return "";
-  return `<div class="panel" data-c="tl-watch" data-label="Touchline - team watch">
-    <h3>Team watch</h3>
-    <p class="note">Players worth knowing about. Every name here opens its locker-room card
-    &mdash; this is the join that makes three areas one platform.</p>
-    <div class="rows">${p.map(x => `<div class="row">
-      <div class="row-main"><div class="row-name">${linkPlayers(x.name)} <span class="pill">${esc(x.tag)}</span></div>
-      <div class="row-sub">${esc(x.note)}</div></div></div>`).join("")}</div>
-  </div>`;
-}
-
 /* ---------------- sections ---------------- */
 function gafferBar(){
   return `<div class="gbar" id="gbar">${DATA.people.map(p => `
@@ -493,7 +384,7 @@ function squadPanel(){
     const rec = DATA.pool.find(q=>q.id===pl.id);
     return `<div class="row">
       <div class="row-main">
-        <div class="row-name"><a class="plink" data-player="${esc(pl.n)}">${esc(pl.n)}</a> ${rec?ownerDots(rec.by):""}</div>
+        <div class="row-name">${esc(pl.n)} ${rec?ownerDots(rec.by):""}</div>
         <div class="row-sub">${esc(pl.pos)} · ${esc(pl.t)} · £${pl.pr.toFixed(1)}m${
           rec&&rec.status!=="a"?` · <span style="color:var(--hot)">${esc(rec.news.split(" - ")[0])}</span>`:""}</div>
       </div>
@@ -587,7 +478,7 @@ function injuryRoom(){
   const rest = flagged.filter(p => !p.by.length).slice(0, 10);
   const one = (p) => `<div class="row">
     <div class="row-main">
-      <div class="row-name"><a class="plink" data-player="${esc(p.name)}">${esc(p.name)}</a> ${ownerDots(p.by)}</div>
+      <div class="row-name">${esc(p.name)} ${ownerDots(p.by)}</div>
       <div class="row-sub">${esc(p.news)}</div>
     </div>
     <div class="row-side"><span class="pill" style="color:var(--hot);border-color:var(--hot)">${
@@ -635,7 +526,7 @@ function theFile(){
     </tr></thead><tbody>
     ${list.map(p => `<tr class="${p.by.includes(who)?"me":""}">
       <td>${p.v ? vdChip(p.v) : '<span class="faint">—</span>'}</td>
-      <td><strong><a class="plink" data-player="${esc(p.name)}">${esc(p.name)}</a></strong>${ownerDots(p.by)}
+      <td><strong>${esc(p.name)}</strong>${ownerDots(p.by)}
         ${p.pens?'<span class="pill" title="on penalties">P</span>':""}
         ${p.status!=="a"?`<span class="pill" style="color:var(--hot);border-color:var(--hot)">!</span>`:""}
         <div class="row-sub">${p.v ? esc(p.v.why) : `${esc(p.pos)} · ${esc(p.team)} · no verdict written yet`}</div></td>
@@ -670,15 +561,13 @@ function fixtureRuns(){
 
 function questions(){
   const qs = [
-    ["Does the three-way split hold?","<strong>Touchline</strong> is what happened, <strong>the gaffers</strong> is what we did about it, <strong>the locker room</strong> is what we know. Anything that doesn't fit one of those three is probably duplication. If a section feels like it is in the wrong room, say which."],
-    ["Which area is the front door?","Today <code>/</code> is the gaffers and touchline sits at <code>/digest/</code>. Now that they are one platform, the landing could just as well be touchline &mdash; it is the part that is true for everyone and needs no context. My instinct is to keep the gaffers first, because the personal hook is why anyone opens it daily."],
-    ["Theme: settled?","Dugout is light, Floodlit is dark, and the toggle picks Auto by default. Teamsheet is archived in git rather than deleted. Flip between all three states above and check the dark one on your phone at night &mdash; that is where it either works or doesn't."],
-    ["The file's default view","It opens on <strong>ours</strong> (38 players). The alternative is everyone &mdash; 604 rows and a search box. A wall of 604 is the worse first impression."],
-    ["Per-person watchlists &mdash; real, or overkill?","Splitting the watchlist five ways is honest but five times the editorial. The fallback is one house list with a star per person."],
-    ["Does the roast land?","Post-gameweek, decision-based, fact attached, machine included. This one is generated from real ownership diffs."],
-    ["Captaincy is missing from the data","<code>gaffers.json</code> picks only carry start/bench, so nobody's captain is recorded and no pitch view can show a (C). A real bug, upstream of all this design."],
+    ["Which treatment?","Teamsheet, Floodlit or Dugout — or one element from each. Nothing else gets built until this is settled."],
+    ["The file's default view","It opens on <strong>ours</strong> (38 players). The alternative is everyone — 604 rows and a search box. I think a wall of 604 is the worse first impression."],
+    ["Per-person watchlists — real, or overkill?","Splitting the watchlist five ways is honest but five times the editorial. The fallback is one house list with a star per person."],
+    ["Does the roast land?","The rules are yours: post-gameweek, decision-based, fact attached, machine included. This one is generated from real ownership diffs."],
+    ["Fixture runs — locker or gaffers?","I have moved them into the locker room on the grounds that they are reference, not a decision. Say if they belong back on the front page."],
+    ["Captaincy is missing from the data","<code>gaffers.json</code> picks only carry start/bench, so nobody's captain is recorded — the pitch cannot show a (C). That is a real bug to fix before any of this ships."],
   ];
-
   return `<div class="panel" data-c="questions" data-label="Open questions">
     <h3>What I need from you</h3>
     <div class="qs">${qs.map(([h,p]) => `<div class="q"><h4>${h}</h4><p>${p}</p></div>`).join("")}</div>
@@ -688,27 +577,9 @@ function questions(){
 /* ---------------- render ---------------- */
 function render(){
   document.getElementById("app").innerHTML = `
-    <section class="section" id="touchline">
-      <div class="section-head"><h2>touchline</h2><span class="tag ghost">exists today</span>
-        <span class="mute" style="font-size:13px">what happened &mdash; the same for all five</span></div>
-      <div class="seam" data-c="seam" data-label="The seam between the areas">
-        <div><b>One platform, three areas.</b> Touchline is what happened, the gaffers is what we
-        did about it, the locker room is what we know. The join is that any
-        <a class="plink">player name</a> in either of the first two opens its locker-room card,
-        so you never leave to look something up. Today these are two sites with different
-        furniture; this is them under one shell, one nav and one theme.</div>
-      </div>
-      <div class="callout">${esc(DATA.digest.headline)}
-        <span class="faint">&mdash; ${esc(DATA.digest.date)}, newest of ${DATA.digestCount} entries</span></div>
-      ${leagueTable()}
-      ${theWeek()}
-      ${teamWatch()}
-      ${aroundTheTop()}
-    </section>
-
     <section class="section" id="gaffers">
       <div class="section-head"><h2>the gaffers</h2><span class="tag">revised</span>
-        <span class="mute" style="font-size:13px">what we did about it &mdash; five squads, five weeks</span></div>
+        <span class="mute" style="font-size:13px">what the front page becomes</span></div>
       <div class="callout">Gone from this page: <span class="was">the commons</span> divider (it was the other
       half of a sync gate that no longer exists), <span class="was">the call</span> (replaced by the three-block
       week), <span class="was">the race</span> (superseded by the five table), and
@@ -724,8 +595,8 @@ function render(){
     </section>
 
     <section class="section" id="locker">
-      <div class="section-head"><h2>the locker room</h2><span class="tag hot">not built</span>
-        <span class="mute" style="font-size:13px">what we know &mdash; every player, evidence first</span></div>
+      <div class="section-head"><h2>the locker room</h2><span class="tag hot">new room</span>
+        <span class="mute" style="font-size:13px">everything we know about every player</span></div>
       ${injuryRoom()}
       ${theFile()}
       ${fixtureRuns()}
@@ -741,8 +612,7 @@ function render(){
 
 function wire(){
   document.querySelectorAll("#gbar .gchip").forEach(b =>
-    b.onclick = () => { if(!document.body.classList.contains("commenting")){ who = b.dataset.nick; render();
-markRoom(); } });
+    b.onclick = () => { if(!document.body.classList.contains("commenting")){ who = b.dataset.nick; render(); } });
   document.querySelectorAll(".fc").forEach(b =>
     b.onclick = () => { if(!document.body.classList.contains("commenting")){ fileFilter = b.dataset.f; render(); } });
   const fq = document.getElementById("fq");
@@ -753,53 +623,6 @@ markRoom(); } });
     const n = document.getElementById("fq"); n.focus(); n.setSelectionRange(pos,pos);
   };
 }
-
-/* ---------------- the locker-room card ----------------
-   Opened from any player name in touchline or the gaffers. This is the
-   join: you look a player up without leaving the room you were reading. */
-const BY_NAME = Object.fromEntries(DATA.pool.map(p => [p.name, p]));
-
-function playerCardHTML(p){
-  const owners = p.by.length
-    ? p.by.map(n => `<span class="own ${n === who ? "mine" : ""}">${esc(initial(n))}</span>`).join("")
-    : `<span class="faint" style="font-size:13px">nobody in the five</span>`;
-  return `<button class="close" data-close>close</button>
-    <h3>${esc(p.name)} ${p.v ? vdChip(p.v) : ""}</h3>
-    <div class="meta">${esc(p.pos)} &middot; ${esc(p.team)} &middot; &pound;${p.price.toFixed(1)}m
-      ${p.pens ? '&middot; <span class="pill">penalties</span>' : ""}</div>
-    ${p.status !== "a" && p.news ? `<p class="trig" style="border-left-color:var(--hot);margin-bottom:14px">${esc(p.news)}</p>` : ""}
-    <div class="stats">
-      <div class="stat"><b>${p.pts}</b><span>points</span></div>
-      <div class="stat"><b>${p.own}%</b><span>owned</span></div>
-      <div class="stat"><b>${esc(p.form)}</b><span>form</span></div>
-      <div class="stat"><b>${p.avg ?? "&mdash;"}</b><span>next 3 fdr</span></div>
-    </div>
-    <div class="sect">Next three</div>
-    ${fdrStrip(p.next3)}
-    <div class="sect">Owned in the five</div>
-    <div class="owners" style="margin:0">${owners}</div>
-    ${p.v ? `<div class="sect">Our verdict</div>
-      <p class="why">${esc(p.v.why)}</p>
-      <p class="trig"><strong>What changes it:</strong> ${esc(p.v.trig)}</p>` :
-      `<div class="sect">Our verdict</div>
-      <p class="why faint">No verdict written yet &mdash; evidence only.</p>`}`;
-}
-
-function openCard(name){
-  const p = BY_NAME[name];
-  if (!p) return;
-  document.getElementById("card").innerHTML = playerCardHTML(p);
-  document.getElementById("backdrop").hidden = false;
-}
-function closeCard(){ document.getElementById("backdrop").hidden = true; }
-
-document.addEventListener("click", (e) => {
-  if (document.body.classList.contains("commenting")) return;
-  const link = e.target.closest("[data-player]");
-  if (link) { e.preventDefault(); openCard(link.dataset.player); return; }
-  if (e.target.closest("[data-close]") || e.target.id === "backdrop") closeCard();
-});
-document.addEventListener("keydown", (e) => { if (e.key === "Escape") closeCard(); });
 
 /* ---------------- comment layer ---------------- */
 const KEY = "fiveaside-rooms-notes-v1";
@@ -875,12 +698,12 @@ document.getElementById("cclear").onclick = () => {
 };
 
 document.getElementById("cexport").onclick = async () => {
-  const look = document.documentElement.dataset.theme || "auto";
+  const look = document.documentElement.dataset.look;
   const lines = [
     `# Five-a-Side rooms — comments`,
     ``,
-    `Theme: **${look}**`,
-    `Mockup: touchline + the gaffers + the locker room, one shell`,
+    `Treatment reviewed: **${look}**`,
+    `Mockup: the gaffers (revised) + the locker room (new)`,
     `Data: real, GW${DATA.gw}, generated ${DATA.generated}`,
     ``,
     `---`,
@@ -900,42 +723,28 @@ document.getElementById("cexport").onclick = async () => {
   }
 };
 
-/* ---------------- theme: auto / light / dark ---------------- */
-/* Dugout and Floodlit are one design in two lights, so this sets a
-   preference rather than picking a skin. "auto" removes the attribute
-   and lets prefers-color-scheme decide. */
-const TKEY = "fiveaside-rooms-theme";
-function setTheme(t){
-  if (t === "auto") delete document.documentElement.dataset.theme;
-  else document.documentElement.dataset.theme = t;
-  try { localStorage.setItem(TKEY, t); } catch {}
-  document.querySelectorAll("#themectl button").forEach(b =>
-    b.setAttribute("aria-pressed", String(b.dataset.t === t)));
+/* ---------------- theme switcher ---------------- */
+const LOOKS = [["teamsheet","Teamsheet"],["floodlit","Floodlit"],["dugout","Dugout"]];
+const LKEY = "fiveaside-rooms-look";
+function setLook(k){
+  document.documentElement.dataset.look = k;
+  try { localStorage.setItem(LKEY, k); } catch {}
+  document.querySelectorAll("#looks .look").forEach(b =>
+    b.setAttribute("aria-pressed", String(b.dataset.k === k)));
 }
-/* Re-render on switch. Chromium can keep a stale resolved colour on an
-   existing subtree when every token behind it changes at once — the tables
-   inherit the previous theme's ink. Rebuilding the subtree forces the custom
-   properties to resolve again. The real site's theme toggle has the same
-   exposure and needs the same treatment. */
-document.querySelectorAll("#themectl button").forEach(b =>
-  b.onclick = () => { setTheme(b.dataset.t); render(); markRoom(); });
-let savedTheme = "auto";
-try { savedTheme = localStorage.getItem(TKEY) || "auto"; } catch {}
-setTheme(savedTheme);
+document.getElementById("looks").innerHTML = LOOKS.map(([k,l]) =>
+  `<button class="look" data-k="${k}">${l}</button>`).join("");
+/* Re-render on switch: Chromium can keep a stale resolved colour on an
+   existing subtree when every token behind it changes at once, so the table
+   inherits the previous treatment's ink. Rebuilding the subtree forces the
+   custom properties to resolve again. */
+document.querySelectorAll("#looks .look").forEach(b =>
+  b.onclick = () => { setLook(b.dataset.k); render(); });
+let saved = "teamsheet";
+try { saved = localStorage.getItem(LKEY) || "teamsheet"; } catch {}
+setLook(saved);
 
-/* room nav follows the scroll */
-const ROOMS = ["touchline","gaffers","locker","questions"];
-function markRoom(){
-  let cur = ROOMS[0];
-  for (const id of ROOMS) {
-    const el = document.getElementById(id);
-    if (el && el.getBoundingClientRect().top <= 90) cur = id;
-  }
-  document.querySelectorAll("#rooms a").forEach(a =>
-    a.setAttribute("aria-current", String(a.getAttribute("href") === "#" + cur)));
-}
-addEventListener("scroll", markRoom, { passive: true });
-
+document.getElementById("gwn").textContent = DATA.gw;
 document.getElementById("stamp").textContent = DATA.generated;
 render();
 </script>

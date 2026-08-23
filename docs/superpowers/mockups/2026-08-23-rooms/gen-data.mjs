@@ -51,7 +51,14 @@ const people = G.people.map((g) => ({
   only: g.picks.filter((p) => byId[p.element]?.owned_by?.length === 1).map((p) => p.name),
 }));
 
+// The league room's newest entry — Touchline is the third area and has to be
+// in the mockup for the platform to be judgeable as one thing.
+const D = JSON.parse(readFileSync("site/data/digests.json", "utf8")).digests;
+const latest = [...D].sort((x, y) => y.date.localeCompare(x.date))[0];
+
 const data = {
+  digest: latest,
+  digestCount: D.length,
   gw: G.gameweek,
   live: G.live_gameweek,
   generated: F.generated_at,
