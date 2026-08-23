@@ -1,0 +1,673 @@
+<title>Five-a-Side Sketches</title>
+<style>
+  :root {
+    --paper: #eef1f3;
+    --card: #f7f9fa;
+    --ink: #1c2226;
+    --graphite: #5b6771;
+    --faint: #8c979f;
+    --rule: #c9d2d8;
+    --pencil: #b0453c;
+    --pencil-bg: #f6e7e5;
+    --mark: #8a6d1f;
+    --mark-bg: #f5eeda;
+    --wire: #b6c0c7;
+    --mono: ui-monospace, "SF Mono", SFMono-Regular, Menlo, Consolas, monospace;
+    --serif: Georgia, "Iowan Old Style", "Times New Roman", serif;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --paper: #14181b; --card: #1a1f23; --ink: #e4e9ec; --graphite: #9aa6ae;
+      --faint: #6d7a83; --rule: #2c343a; --pencil: #e08b82; --pencil-bg: #2a1d1c;
+      --mark: #d6b45c; --mark-bg: #29230f; --wire: #3c464d;
+    }
+  }
+  :root[data-theme="dark"] {
+    --paper: #14181b; --card: #1a1f23; --ink: #e4e9ec; --graphite: #9aa6ae;
+    --faint: #6d7a83; --rule: #2c343a; --pencil: #e08b82; --pencil-bg: #2a1d1c;
+    --mark: #d6b45c; --mark-bg: #29230f; --wire: #3c464d;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    background: var(--paper); color: var(--ink);
+    font-family: var(--serif); font-size: 16.5px; line-height: 1.62;
+  }
+  .page { max-width: 780px; margin: 0 auto; padding: 0 20px 100px; }
+
+  header.doc { padding: 52px 0 8px; border-bottom: 1px solid var(--rule); }
+  .kicker {
+    font-family: var(--mono); font-size: 11px; letter-spacing: .18em;
+    text-transform: uppercase; color: var(--pencil);
+  }
+  h1 {
+    font-size: 40px; line-height: 1.1; font-weight: 700; letter-spacing: -.02em;
+    margin: 10px 0 12px; text-wrap: balance;
+  }
+  .standfirst { color: var(--graphite); font-size: 17.5px; max-width: 60ch; margin-bottom: 22px; }
+
+  h2 {
+    font-size: 25px; line-height: 1.2; margin: 0 0 12px; letter-spacing: -.01em;
+    text-wrap: balance;
+  }
+  h3 {
+    font-family: var(--mono); font-size: 11.5px; letter-spacing: .16em;
+    text-transform: uppercase; color: var(--graphite); margin: 28px 0 10px;
+    display: flex; align-items: center; gap: 12px;
+  }
+  h3::after { content: ""; flex: 1; height: 1px; background: var(--rule); }
+  section.part { margin: 46px 0; }
+  .num {
+    font-family: var(--mono); font-size: 11px; letter-spacing: .16em;
+    color: var(--pencil); text-transform: uppercase; margin-bottom: 6px;
+  }
+  p { max-width: 66ch; }
+  p + p { margin-top: 11px; }
+  a { color: var(--pencil); text-underline-offset: 3px; }
+  strong { font-weight: 700; }
+  em { font-style: italic; }
+
+  ul.pts { list-style: none; display: flex; flex-direction: column; gap: 11px; max-width: 66ch; margin: 12px 0; }
+  ul.pts li { position: relative; padding-left: 19px; }
+  ul.pts li::before {
+    content: ""; position: absolute; left: 1px; top: .68em;
+    width: 9px; height: 1.5px; background: var(--pencil);
+  }
+  ul.pts .t { color: var(--graphite); }
+
+  /* pencil annotation */
+  .note {
+    background: var(--pencil-bg); border-left: 3px solid var(--pencil);
+    padding: 11px 15px; margin: 16px 0; border-radius: 0 6px 6px 0;
+    font-size: 15px; color: var(--ink); max-width: 66ch;
+  }
+  .note b { color: var(--pencil); }
+  .flag {
+    background: var(--mark-bg); border-left: 3px solid var(--mark);
+    padding: 11px 15px; margin: 16px 0; border-radius: 0 6px 6px 0;
+    font-size: 15px; max-width: 66ch;
+  }
+  .flag b { color: var(--mark); }
+
+  /* ---- wireframes ---- */
+  .wire {
+    border: 1.5px dashed var(--wire); border-radius: 8px; background: var(--card);
+    padding: 14px; margin: 14px 0; font-family: var(--mono); font-size: 12px;
+    color: var(--graphite); overflow-x: auto;
+  }
+  .wire .cap {
+    font-size: 10px; letter-spacing: .14em; text-transform: uppercase;
+    color: var(--faint); margin-bottom: 10px; display: block;
+  }
+  .box {
+    border: 1px solid var(--wire); border-radius: 5px; padding: 8px 10px;
+    margin-bottom: 7px; background: var(--paper);
+  }
+  .box:last-child { margin-bottom: 0; }
+  .box .bl {
+    font-size: 9.5px; letter-spacing: .12em; text-transform: uppercase;
+    color: var(--faint); display: block; margin-bottom: 4px;
+  }
+  .box.solid { border-style: solid; border-color: var(--graphite); }
+  .box.new { border-color: var(--pencil); border-style: solid; }
+  .box.new .bl { color: var(--pencil); }
+  .row { display: flex; gap: 7px; flex-wrap: wrap; }
+  .row > .box { flex: 1 1 0; min-width: 118px; margin-bottom: 7px; }
+  .chip {
+    display: inline-block; border: 1px solid var(--wire); border-radius: 999px;
+    padding: 1px 9px; font-size: 10.5px; margin: 2px 3px 2px 0; color: var(--graphite);
+  }
+  .chip.on { border-color: var(--pencil); color: var(--pencil); font-weight: 700; }
+  .tabs { display: flex; gap: 4px; flex-wrap: wrap; margin-bottom: 10px; }
+  .tab {
+    border: 1px solid var(--wire); border-bottom-color: transparent;
+    border-radius: 6px 6px 0 0; padding: 5px 12px; font-size: 11px;
+    letter-spacing: .06em; text-transform: uppercase; color: var(--faint);
+  }
+  .tab.on { color: var(--ink); border-color: var(--graphite); background: var(--paper); font-weight: 700; }
+  .ghost { color: var(--faint); }
+  .anno {
+    font-size: 11px; color: var(--pencil); font-style: italic;
+    padding-left: 4px; display: block; margin-top: 6px;
+  }
+  .anno::before { content: "↑ "; }
+
+  /* flow diagram */
+  .flow { display: flex; flex-direction: column; gap: 8px; align-items: center; margin: 18px 0; }
+  .flow .lvl { display: flex; gap: 8px; flex-wrap: wrap; justify-content: center; width: 100%; }
+  .flow .node {
+    border: 1px solid var(--wire); border-radius: 6px; padding: 7px 11px;
+    font-family: var(--mono); font-size: 11px; background: var(--card); text-align: center;
+    flex: 0 1 auto;
+  }
+  .flow .node.spine {
+    border: 2px solid var(--pencil); color: var(--ink); font-weight: 700;
+    background: var(--pencil-bg); padding: 11px 18px; font-size: 12.5px;
+  }
+  .flow .arrows { color: var(--wire); font-family: var(--mono); font-size: 13px; letter-spacing: .5em; }
+
+  table { border-collapse: collapse; width: 100%; font-size: 14px; margin: 14px 0; }
+  .tw { overflow-x: auto; border: 1px solid var(--rule); border-radius: 8px; background: var(--card); }
+  th, td { text-align: left; padding: 9px 13px; border-top: 1px solid var(--rule); vertical-align: top; }
+  thead th {
+    border-top: none; font-family: var(--mono); font-size: 10px;
+    letter-spacing: .12em; text-transform: uppercase; color: var(--faint); font-weight: 400;
+  }
+  td.mono { font-family: var(--mono); font-size: 12px; color: var(--graphite); white-space: nowrap; }
+
+  .q {
+    border: 1px solid var(--rule); border-left: 3px solid var(--graphite);
+    border-radius: 0 8px 8px 0; padding: 13px 16px; margin: 12px 0; background: var(--card);
+  }
+  .q .qq { font-weight: 700; font-size: 16px; }
+  .q .qa { color: var(--graphite); font-size: 15px; margin-top: 5px; }
+  .q .qa b { color: var(--pencil); }
+
+  footer.doc { margin-top: 60px; padding-top: 18px; border-top: 1px solid var(--rule);
+    font-family: var(--mono); font-size: 11px; color: var(--faint); letter-spacing: .08em; }
+
+  /* comment layer */
+  #c-pill {
+    position: fixed; right: 16px; bottom: 16px; z-index: 60;
+    background: var(--card); color: var(--pencil); border: 1px solid var(--pencil);
+    border-radius: 999px; padding: 9px 16px; font: inherit; font-family: var(--mono);
+    font-size: 12.5px; font-weight: 700; cursor: pointer; box-shadow: 0 2px 10px rgba(0,0,0,.1);
+  }
+  #c-pill.on { background: var(--pencil); color: var(--paper); }
+  #c-pill:focus-visible { outline: 2px solid var(--pencil); outline-offset: 2px; }
+  body.commenting [data-c]:hover, body.commenting [data-c]:focus {
+    outline: 2px dashed var(--pencil); outline-offset: 4px; cursor: pointer; border-radius: 4px;
+  }
+  [data-c].c-has { background: var(--pencil-bg); box-shadow: inset 3px 0 0 var(--pencil); border-radius: 4px; }
+  #c-composer {
+    position: fixed; left: 0; right: 0; bottom: 0; z-index: 70; background: var(--card);
+    border-top: 2px solid var(--pencil); padding: 14px 18px calc(14px + env(safe-area-inset-bottom));
+    display: none;
+  }
+  #c-composer.open { display: block; }
+  #c-composer .cq { font-size: 12.5px; color: var(--graphite); font-style: italic; max-height: 62px; overflow: hidden; margin-bottom: 8px; }
+  #c-composer textarea {
+    width: 100%; min-height: 62px; font: inherit; font-size: 14px; color: var(--ink);
+    background: var(--paper); border: 1px solid var(--rule); border-radius: 8px; padding: 9px 11px; resize: vertical;
+  }
+  #c-composer .row2 { display: flex; gap: 8px; margin-top: 8px; align-items: center; flex-wrap: wrap; }
+  #c-composer button, #c-export {
+    font: inherit; font-family: var(--mono); font-size: 12px; font-weight: 700; border-radius: 8px;
+    padding: 7px 14px; cursor: pointer; border: 1px solid var(--rule); background: var(--paper); color: var(--ink);
+  }
+  #c-composer button.primary { background: var(--pencil); border-color: var(--pencil); color: #fff; }
+  #c-composer .prior { font-size: 13px; color: var(--graphite); width: 100%; }
+  #c-composer .prior .pc { display: flex; gap: 8px; align-items: baseline; margin-top: 4px; }
+  #c-composer .prior .pc button { padding: 1px 8px; font-size: 11px; }
+  #c-count { font-family: var(--mono); font-size: 11px; color: var(--graphite); margin-left: auto; }
+  @media (prefers-reduced-motion: no-preference) { #c-pill { transition: background 120ms ease; } }
+</style>
+
+<div class="page">
+<header class="doc">
+  <div class="kicker">Touchline · working sketches · 23 Aug 2026</div>
+  <h1>Five-a-Side</h1>
+  <p class="standfirst">Turning a personal FPL planner into something five friends actually open. My read on the brain dump, the one structural idea I think everything should hang off, and rough wireframes for each surface — sketches, not builds.</p>
+</header>
+
+<div class="note" data-c="howto">
+  <b>Annotate this.</b> Tap <b>✎ Comment</b> bottom-right, then any block. Notes live in this browser; <b>Export for Claude</b> hands you a markdown file to drop back into a session. Nothing here is built — it's all disposable until you say otherwise.
+</div>
+
+<section class="part" id="read">
+  <div class="num">01</div>
+  <h2>What changed, in one line</h2>
+  <p data-c="shift">It stops being <em>my planner that friends can look at</em> and becomes <strong>a five-handed product with a shared spine</strong>. That's not a redesign — it's a different application with the same data plumbing, and the pieces we've built (facts CLI, validator, brain, live proxy) all survive. What has to change is the shape of the data, because five people cannot each get a bespoke page written from scratch every day.</p>
+  <p data-c="shift2">The good news: your brain dump already contains the solution, at the bottom, described as a nice-to-have. The player DB isn't a fifth tab. It's the thing the other four are made of.</p>
+</section>
+
+<section class="part" id="spine">
+  <div class="num">02</div>
+  <h2>The structural idea: the player file is the spine</h2>
+  <p data-c="spine-1">Right now every section writes its own prose about players. The watchlist says something about Thiago, a signal says something about Thiago, the call mentions Thiago. Three writes, three chances to contradict ourselves, and it multiplies by five people.</p>
+  <p data-c="spine-2">Invert it. There is <strong>one record per player</strong> carrying both the standard numbers and — the part nobody else does — <strong>our verdict in plain English</strong>. Every surface becomes a filtered view of those records. Write once, render five ways.</p>
+
+  <div class="flow" data-c="flow" aria-label="Data flow: everything derives from the player file">
+    <div class="lvl">
+      <div class="node">FPL API<br><span class="ghost">prices · minutes · flags</span></div>
+      <div class="node">Ben Dinnery<br><span class="ghost">injury truth</span></div>
+      <div class="node">News + discourse</div>
+      <div class="node">5 × squads</div>
+    </div>
+    <div class="arrows">↓ ↓ ↓ ↓</div>
+    <div class="lvl">
+      <div class="node spine">THE PLAYER FILE — one record each, numbers + our verdict + what would change our mind</div>
+    </div>
+    <div class="arrows">↓ ↓ ↓ ↓ ↓</div>
+    <div class="lvl">
+      <div class="node">Pitch<br><span class="ghost">tap a shirt</span></div>
+      <div class="node">Watchlists<br><span class="ghost">×5, filtered</span></div>
+      <div class="node">Injury room<br><span class="ghost">status ≠ fit</span></div>
+      <div class="node">The Scout<br><span class="ghost">the whole file</span></div>
+      <div class="node">Roast + insights<br><span class="ghost">cites verdicts</span></div>
+    </div>
+  </div>
+
+  <h3>What a record holds</h3>
+  <div class="tw" data-c="record">
+    <table>
+      <thead><tr><th>Layer</th><th>Contents</th><th>Where it comes from</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Identity</strong></td><td>name, club, position, price, ownership</td><td class="mono">API, free</td></tr>
+        <tr><td><strong>Evidence</strong></td><td>minutes trend, starts, returns in last 5, next 3 fixtures + difficulty, penalties, set pieces, fitness flag</td><td class="mono">API + Dinnery</td></tr>
+        <tr><td><strong>Our verdict</strong></td><td>one of five words, plus one sentence of why</td><td class="mono">the brain</td></tr>
+        <tr><td><strong>The trigger</strong></td><td>"re-rate if he starts two straight" — what would change our mind, written before it happens</td><td class="mono">the brain</td></tr>
+        <tr><td><strong>History</strong></td><td>when the verdict last changed, and what it was before</td><td class="mono">derived</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="note" data-c="verdicts">
+    <b>The five words, and nothing else.</b> <b>Essential</b> · <b>Solid</b> · <b>Watch</b> · <b>Cooling</b> · <b>Avoid</b>. A fixed vocabulary is what makes it a database instead of an opinion column — you can sort by it, filter by it, and notice when it changes. The one sentence carries the nuance; the word carries the sort.
+  </div>
+  <p data-c="numbers-take">On your "useless numbers" complaint — I'd go further than dropping xG. The rule I'd write into the prompt: <strong>a number may only appear if it's the evidence for a sentence we already wrote.</strong> Never a stat table for its own sake. "Started every game since the derby, 90 minutes in all five" earns its place; "0.42 xGI/90" does not, unless it's the reason for the verdict.</p>
+  <div class="flag" data-c="trigger-flag">
+    <b>Why the trigger line matters more than it looks.</b> It's the same falsifiability trick as the wagers, one level down. A verdict with a written trigger can be settled later — "we said watch him if he starts twice; he did; we were late." That's how the ledger gets fed automatically instead of by hand.
+  </div>
+</section>
+
+<section class="part" id="ia">
+  <div class="num">03</div>
+  <h2>Four rooms, and what each is for</h2>
+  <p data-c="ia-intro">Your dump implies four tabs. I'd hold each to a one-line job, because four tabs is exactly how a calm product becomes an app nobody finishes.</p>
+  <div class="tw" data-c="ia-table">
+    <table>
+      <thead><tr><th>Tab</th><th>Its one job</th><th>Refresh</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Touchline</strong><br><span class="ghost">home</span></td><td>What happened in the league since you last looked</td><td class="mono">daily</td></tr>
+        <tr><td><strong>The Gaffers</strong><br><span class="ghost">the FPL room</span></td><td>How the five of us are doing, and what each of us should do next</td><td class="mono">live + post-GW</td></tr>
+        <tr><td><strong>Locker Room</strong></td><td>Who's fit and who plays whom — the two facts that decide most transfers</td><td class="mono">daily</td></tr>
+        <tr><td><strong>The Scout</strong><br><span class="ghost">player file</span></td><td>Everything we think about every player, in one sortable place</td><td class="mono">continuous</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p data-c="naming">On the name you asked for: <strong>The Gaffers</strong>. It's the five of you, it's football-native, and it works as banter ("the gaffers have spoken"). Runners-up: <em>Selection Room</em>, <em>The Committee</em>, <em>Five-a-Side</em>. <strong>The Scout</strong> for the player DB, because it says what it does — and it makes "the scout reckons" a usable phrase in the roast.</p>
+  <div class="flag" data-c="tab-risk">
+    <b>The risk I'd flag now.</b> Four tabs × five people is a lot of surface for a group of five. My instinct: <b>Locker Room folds into The Scout</b> (injuries <em>are</em> player facts; fixture runs can sit on the home dashboard). Three rooms, each unmissably full. I've sketched it as four because that's what you wrote — but say the word.
+  </div>
+</section>
+
+<section class="part" id="home">
+  <div class="num">04</div>
+  <h2>Sketch · Touchline (home)</h2>
+  <p data-c="home-intro">News, unified across the top clubs, with FPL-tagged items mixed in rather than separated. The filter drives <em>both</em> the dashboard and the stories, which is what makes it feel like one page rather than a page with a widget on it.</p>
+
+  <div class="wire" data-c="wire-home">
+    <span class="cap">home · desktop</span>
+    <div class="tabs"><span class="tab on">Touchline</span><span class="tab">The Gaffers</span><span class="tab">Locker Room</span><span class="tab">The Scout</span></div>
+    <div class="box solid">
+      <span class="bl">masthead + this-week strap</span>
+      TOUCHLINE — the week in the Premier League
+    </div>
+    <div class="box new">
+      <span class="bl">filter (drives everything below)</span>
+      <span class="chip on">All</span><span class="chip">PL only</span><span class="chip">FPL only</span>
+      <span style="margin-left:10px" class="ghost">|</span>
+      <span class="chip">CHE</span><span class="chip">ARS</span><span class="chip">LIV</span><span class="chip">MCI</span><span class="chip">MUN</span>
+      <span class="anno">one control, two effects: table + stories both narrow</span>
+    </div>
+    <div class="row">
+      <div class="box"><span class="bl">mini table</span>top 5 clubs only<br>P · W · D · L · Pts · form</div>
+      <div class="box"><span class="bl">this week's shape</span>results just gone<br>+ next fixtures</div>
+    </div>
+    <div class="box solid">
+      <span class="bl">the week — mixed feed, tagged</span>
+      <span class="chip">PL</span> Chelsea's clear-out finally moves …<br>
+      <span class="chip">FPL</span> Doku out three weeks — City's left opens …<br>
+      <span class="chip">PL</span> <span class="ghost">Sunderland's start is the story nobody …</span>
+      <span class="anno">non-top clubs get in when the story is genuinely front-page</span>
+    </div>
+    <div class="row">
+      <div class="box"><span class="bl">around the top</span>the five big clubs,<br>one honest line each</div>
+      <div class="box"><span class="bl">around the grounds</span>titbits from<br>everyone else</div>
+    </div>
+    <div class="box"><span class="bl">team watch</span>players worth following — links into The Scout</div>
+    <div class="box"><span class="bl">rumour mill</span>kept as-is</div>
+    <div class="box"><span class="bl ghost">at the very bottom, or gone</span><span class="ghost">wider read · one good read</span></div>
+  </div>
+
+  <ul class="pts" data-c="home-calls">
+    <li><strong>"Today" goes.</strong> <span class="t">Agreed — it only ever made sense when the page was about one club's next match.</span></li>
+    <li><strong>Team watch links out.</strong> <span class="t">Every player name anywhere on the site opens its Scout record. That's the payoff of the spine: names stop being text.</span></li>
+    <li><strong>The reads move to the bottom of home,</strong> <span class="t">not to another tab. A tab you'd visit for one link is a tab you won't visit.</span></li>
+  </ul>
+</section>
+
+<section class="part" id="gaffers">
+  <div class="num">05</div>
+  <h2>Sketch · The Gaffers</h2>
+  <p data-c="gaffers-intro">The room where the five of you live. Person selector on top, everything below re-renders. No news here at all, as you said.</p>
+
+  <div class="wire" data-c="wire-gaffers">
+    <span class="cap">the gaffers · desktop</span>
+    <div class="box new">
+      <span class="bl">the roast — headline slot</span>
+      <span style="font-family:var(--serif);font-size:15px;color:var(--ink)">"Yogesh captained Haaland into a blank and still went up two places. Football is a cruel, stupid game."</span>
+      <span class="anno">post-gameweek only. never daily — forced banter is the worst banter</span>
+    </div>
+    <div class="box solid">
+      <span class="bl">who's talking</span>
+      <span class="chip on">KB</span><span class="chip">Aniket</span><span class="chip">Pritish</span><span class="chip">Yogesh</span><span class="chip">Rohan</span>
+      <span class="anno">defaults to whoever you were last time (localStorage)</span>
+    </div>
+    <div class="box">
+      <span class="bl">the five — compressed table</span>
+      5. KB 21 · 4. Rohan 26 · 3. Yogesh 29 · 2. Aniket 28 · 1. Pritish 21<br>
+      <span class="ghost">▸ expand to the full 11-team league (Nisarg and Mandar are running away with it)</span>
+    </div>
+    <div class="box solid">
+      <span class="bl">live now / last gameweek — GW ◂ 2 ▸</span>
+      fixtures in play, or the settled results
+      <span class="anno">back/forward through gameweeks, per person</span>
+    </div>
+    <div class="box solid">
+      <span class="bl">your desk + the pitch</span>
+      rank · points · bank · chips<br>
+      [ pitch view — tap any shirt → player card ]
+      <span class="anno">the pitch we just built, now per-person and per-gameweek</span>
+    </div>
+    <div class="box new">
+      <span class="bl">what worked · what didn't · what's next</span>
+      three short blocks, this person only — captaincy, punts, bench calls
+      <span class="anno">replaces "the call". a read, not an instruction</span>
+    </div>
+    <div class="row">
+      <div class="box"><span class="bl">watchlist</span>this person's,<br>pulled from The Scout</div>
+      <div class="box"><span class="bl">open wagers</span>claims with<br>settle-by GWs</div>
+    </div>
+    <div class="row">
+      <div class="box"><span class="bl">the ledger</span>hit/miss/unlucky/lucky</div>
+      <div class="box"><span class="bl">what we believe</span>doctrine</div>
+    </div>
+  </div>
+
+  <div class="note" data-c="drop-call">
+    <b>Dropping "the call" is right, and here's the deeper reason.</b> A single prescriptive call only works when there's one reader to be accountable to. With five, the same sentence becomes either bossy or generic. <b>Verdicts move down to the player file</b> (where they're shared and sortable) and <b>up to the weekly read</b> (where they're personal and honest). The middle layer — "do this transfer" — is the bit that stops earning its keep.
+  </div>
+  <div class="flag" data-c="ledger-scope">
+    <b>Question buried in your dump:</b> are wagers, ledger and doctrine <em>per person</em> or <em>house-wide</em>? I'd make doctrine house-wide (it's what the machine has learned about football), and wagers + ledger per person (they're your bets). Otherwise everyone inherits my Palmer wager, which is nonsense.
+  </div>
+</section>
+
+<section class="part" id="player">
+  <div class="num">06</div>
+  <h2>Sketch · the player card</h2>
+  <p data-c="player-intro">The most important new object in the whole thing. It's what a shirt-tap opens, what the watchlist rows expand into, and what The Scout is a list of. One object, four doors.</p>
+
+  <div class="wire" data-c="wire-player">
+    <span class="cap">player card · opened from anywhere</span>
+    <div class="box solid">
+      <span class="bl">identity</span>
+      <span style="font-family:var(--serif);font-size:19px;color:var(--ink)">Cole Palmer</span> &nbsp; CHE · MID · £9.5m · 10.4% owned
+    </div>
+    <div class="box new">
+      <span class="bl">our verdict — the thing that leads</span>
+      <span style="color:var(--pencil);font-weight:700;font-size:14px">SOLID</span> &nbsp;<span class="ghost">was ESSENTIAL until GW1</span><br>
+      <span style="font-family:var(--serif);font-size:15px;color:var(--ink)">Penalties are still his and the underlying numbers never left — but Alonso has used him wide twice, and wide Palmer is a different asset.</span>
+      <span class="anno">verdict + one sentence, before a single statistic</span>
+    </div>
+    <div class="box new">
+      <span class="bl">what would change our mind</span>
+      Two starts as a ten, or a penalty converted → back to ESSENTIAL.<br>
+      Benched once more → COOLING.
+      <span class="anno">written now, settled later. this is what feeds the ledger</span>
+    </div>
+    <div class="row">
+      <div class="box"><span class="bl">minutes</span>90 · 90 · 71 · 90 · 62<br><span class="ghost">started 5 of 5</span></div>
+      <div class="box"><span class="bl">returns</span>2g 1a in 5<br><span class="ghost">last: GW2 assist</span></div>
+      <div class="box"><span class="bl">next three</span>BHA(2) ars(5) HUL(2)<br><span class="ghost">avg 3.0</span></div>
+    </div>
+    <div class="box">
+      <span class="bl">duties + fitness</span>
+      penalties: <strong>1st</strong> · corners: shared · fit
+      <span class="anno">the four facts that actually decide transfers</span>
+    </div>
+    <div class="box">
+      <span class="bl">who owns him, among us</span>
+      KB ✓ · Pritish ✓ · Aniket ✗ · Yogesh ✗ · Rohan ✗
+      <span class="anno">cheap to compute, and it's where the banter comes from</span>
+    </div>
+  </div>
+  <p data-c="player-note">That last row is free — we already fetch all five squads — and it turns a data page into a social one. It's also the seed of every roast the machine will ever write.</p>
+</section>
+
+<section class="part" id="scout">
+  <div class="num">07</div>
+  <h2>Sketch · The Scout &amp; Locker Room</h2>
+  <div class="wire" data-c="wire-scout">
+    <span class="cap">the scout · the whole file</span>
+    <div class="box new">
+      <span class="bl">filter row</span>
+      <span class="chip on">All</span><span class="chip">Essential</span><span class="chip">Watch</span><span class="chip">Cooling</span><span class="chip">Avoid</span>
+      <span class="chip">GK</span><span class="chip">DEF</span><span class="chip">MID</span><span class="chip">FWD</span>
+      <span class="chip">owned by us</span><span class="chip">changed this week</span>
+      <span class="anno">"changed this week" is the one I'd open it on</span>
+    </div>
+    <div class="box">
+      <span class="bl">rows — verdict leads, numbers support</span>
+      <strong>ESSENTIAL</strong> · Haaland MCI £15.5 · <span class="ghost">nailed, on pens, 3 green fixtures</span> · <span class="ghost">owned by 5/5</span><br>
+      <strong>WATCH</strong> · Šeško MUN £7.0 · <span class="ghost">23 minutes at Hull — the start hasn't come</span> · <span class="ghost">0/5</span><br>
+      <strong>COOLING</strong> · Thiago BRE £8.0 · <span class="ghost">two blanks and the run turns</span> · <span class="ghost">1/5</span>
+    </div>
+    <div class="box"><span class="bl ghost">tap a row</span><span class="ghost">→ the player card above</span></div>
+  </div>
+
+  <div class="wire" data-c="wire-locker">
+    <span class="cap">locker room</span>
+    <div class="box"><span class="bl">injury room</span>rows are player cards filtered to <span class="ghost">status ≠ fit</span> · Dinnery's read where it differs from the game's flag<span class="anno">this is why it could just live inside The Scout</span></div>
+    <div class="box"><span class="bl">fixture runs</span>the heat strips, as now</div>
+  </div>
+  <div class="flag" data-c="dinnery">
+    <b>On Ben Dinnery.</b> Worth building in properly — he's the one source whose read regularly beats the game's own flag. But his site and X are both awkward to fetch reliably, so I'd treat him as a <em>named check</em> rather than a scrape: the brain looks, and where his read differs from the API flag, that difference is the story. Where we can't reach him, the card says so rather than pretending.
+  </div>
+</section>
+
+<section class="part" id="roast">
+  <div class="num">08</div>
+  <h2>The roast, and how it stays funny</h2>
+  <p data-c="roast-intro">This is the highest-risk, highest-reward thing in the dump. Automated banter fails in two directions: cringe (a bot doing "bantz") or genuinely unkind. Rules I'd write into the prompt:</p>
+  <ul class="pts" data-c="roast-rules">
+    <li><strong>Only ever about a decision.</strong> <span class="t">Captaincy, a transfer, a bench call, a rank move. Never about a person, their club's form, or anything outside the game.</span></li>
+    <li><strong>A fact must be attached.</strong> <span class="t">"Benched Hume for Diop and Hume returned 12" is funny because it's true. Freestanding insults aren't jokes.</span></li>
+    <li><strong>Rotate, and never twice running.</strong> <span class="t">Whoever had the worst week has probably had enough; the machine should notice when someone's been the punchline two weeks straight and go elsewhere.</span></li>
+    <li><strong>Roast the machine too.</strong> <span class="t">It told you to leave out every Arsenal player the week Arsenal hauled. Self-deprecation is what buys the licence to aim at anyone else.</span></li>
+    <li><strong>Weekly, after the gameweek settles.</strong> <span class="t">Daily banter is forced by definition. Post-GW banter has material.</span></li>
+  </ul>
+  <div class="flag" data-c="consent">
+    <b>Worth settling before anything ships:</b> this puts four named friends, their teams, and jokes at their expense on a public URL. Their FPL data is already public via the API, so it's not a data question — it's a social one. Options: first names only · an unguessable URL · a soft gate · or simply ask them (and let them see it, which is half the fun). <b>My recommendation: tell them it exists and let it be public to the group.</b> A product built to be shared works better when the people in it know.
+  </div>
+</section>
+
+<section class="part" id="how">
+  <div class="num">09</div>
+  <h2>How it gets built without the brain melting</h2>
+  <p data-c="econ-intro">Five people's worth of daily prose is the thing that would kill this. The spine solves it: the expensive writing is shared, and the per-person layer is thin.</p>
+  <div class="tw" data-c="econ">
+    <table>
+      <thead><tr><th>Run</th><th>When</th><th>Writes</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Post-gameweek</strong><br><span class="ghost">the big one</span></td><td class="mono">Tue, after lockdown</td><td>Verdict sweep across the file · the roast · five short weekly reads · settle wagers and triggers</td></tr>
+        <tr><td><strong>Pre-deadline</strong></td><td class="mono">deadline day</td><td>Team news into signals · injury room · verdicts that moved</td></tr>
+        <tr><td><strong>Daily light</strong></td><td class="mono">every morning</td><td>Prices, flags, table. No prose, no web. Cheap by construction.</td></tr>
+        <tr><td><strong>Live</strong></td><td class="mono">during matches</td><td>Nothing — the page reads the API directly through the proxy we already have</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p data-c="econ-note">Per-person writing is roughly a hundred words each, once a week. Everything else the five views need is a filter over shared records.</p>
+  <h3>Order I'd build in</h3>
+  <ul class="pts" data-c="order">
+    <li><strong>1 · The player file.</strong> <span class="t">Nothing else can be built properly until this exists, and it immediately improves the page we already have.</span></li>
+    <li><strong>2 · Five people.</strong> <span class="t">Person selector, five desks, five pitches, the compressed table. Mostly plumbing we've done once already.</span></li>
+    <li><strong>3 · The Gaffers room proper.</strong> <span class="t">Weekly reads, wagers and ledger per person, then the roast on top once there's material to roast.</span></li>
+    <li><strong>4 · Home rebuild.</strong> <span class="t">The filtered news page — biggest editorial change, and it can run on the current digest brain while we get there.</span></li>
+    <li><strong>5 · The Scout as a browsable tab.</strong> <span class="t">Last, because by then the file is rich enough to be worth browsing.</span></li>
+  </ul>
+</section>
+
+<section class="part" id="q">
+  <div class="num">10</div>
+  <h2>What I need from you</h2>
+  <div class="q" data-c="q1"><div class="qq">1 · Three rooms or four?</div><div class="qa">Locker Room folded into The Scout, fixture runs onto home — or kept separate as you wrote it. <b>My call: fold it, three rooms.</b></div></div>
+  <div class="q" data-c="q2"><div class="qq">2 · Do the other four know?</div><div class="qa">Roasts and names on a public URL. <b>My call: tell them, let them use it</b> — it's better as a group object than a private one.</div></div>
+  <div class="q" data-c="q3"><div class="qq">3 · Whose ledger?</div><div class="qa">Doctrine house-wide, wagers and ledger per person. <b>My call: yes</b> — but it means five ledgers to keep honest, which is real weight.</div></div>
+  <div class="q" data-c="q4"><div class="qq">4 · Is the verdict vocabulary right?</div><div class="qa">Essential · Solid · Watch · Cooling · Avoid. Fixed forever, because the whole file sorts by it. Change it now or not at all.</div></div>
+  <div class="q" data-c="q5"><div class="qq">5 · How much do I keep?</div><div class="qa">The current page's bones — pitch, live proxy, race, ledger, fixture strips — all carry over. <b>Assumed unless you say otherwise:</b> we evolve it in place rather than starting a new site.</div></div>
+  <div class="q" data-c="q6"><div class="qq">6 · Names.</div><div class="qa">Touchline · The Gaffers · Locker Room · The Scout. Yours to overrule — these stick around.</div></div>
+</section>
+
+<footer class="doc">
+  sketches only · nothing built · touchline · 23 aug 2026
+</footer>
+</div>
+
+<button id="c-pill" type="button" aria-pressed="false">✎ Comment</button>
+<div id="c-composer" role="dialog" aria-label="Comment composer">
+  <div class="cq" id="c-quote"></div>
+  <div class="prior" id="c-prior"></div>
+  <textarea id="c-text" placeholder="Your note on this block…"></textarea>
+  <div class="row2">
+    <button class="primary" id="c-save" type="button">Save note</button>
+    <button id="c-cancel" type="button">Cancel</button>
+    <button id="c-export" type="button">Export for Claude</button>
+    <span id="c-count"></span>
+  </div>
+</div>
+
+<script>
+(function () {
+  var KEY = "five-a-side-comments-v1";
+  var pill = document.getElementById("c-pill");
+  var composer = document.getElementById("c-composer");
+  var quoteEl = document.getElementById("c-quote");
+  var priorEl = document.getElementById("c-prior");
+  var textEl = document.getElementById("c-text");
+  var countEl = document.getElementById("c-count");
+  var current = null;
+
+  function load() { try { return JSON.parse(localStorage.getItem(KEY)) || {}; } catch (e) { return {}; } }
+  function save(d) { try { localStorage.setItem(KEY, JSON.stringify(d)); } catch (e) {} }
+  function esc(s) { return String(s == null ? "" : s).replace(/[&<>"']/g, function (c) { return ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"})[c]; }); }
+  function blocks() { return document.querySelectorAll("[data-c]"); }
+
+  function refresh() {
+    var d = load(); var n = 0;
+    blocks().forEach(function (el) {
+      var id = el.getAttribute("data-c");
+      var has = d[id] && d[id].notes && d[id].notes.length;
+      el.classList.toggle("c-has", !!has);
+      if (has) n += d[id].notes.length;
+    });
+    countEl.textContent = n ? n + " note" + (n === 1 ? "" : "s") : "";
+    pill.textContent = n ? "✎ Comment (" + n + ")" : "✎ Comment";
+  }
+  function quoteOf(el) {
+    var t = (el.innerText || "").replace(/\s+/g, " ").trim();
+    return t.length > 200 ? t.slice(0, 200) + "…" : t;
+  }
+  function sectionOf(el) {
+    var s = el.closest("section.part");
+    if (!s) return "Front matter";
+    var h = s.querySelector("h2");
+    return h ? h.innerText.trim() : "Section";
+  }
+  function openComposer(el) {
+    current = el;
+    var id = el.getAttribute("data-c");
+    var d = load();
+    quoteEl.textContent = "“" + quoteOf(el) + "”";
+    var prior = (d[id] && d[id].notes) || [];
+    priorEl.innerHTML = prior.length
+      ? "Existing notes:" + prior.map(function (nt, i) {
+          return '<div class="pc"><span>· ' + esc(nt) + '</span><button type="button" data-del="' + i + '">delete</button></div>';
+        }).join("")
+      : "";
+    textEl.value = "";
+    composer.classList.add("open");
+    textEl.focus();
+  }
+  function closeComposer() { composer.classList.remove("open"); current = null; }
+
+  pill.addEventListener("click", function () {
+    var on = document.body.classList.toggle("commenting");
+    pill.classList.toggle("on", on);
+    pill.setAttribute("aria-pressed", on ? "true" : "false");
+    if (!on) closeComposer();
+    if (on) blocks().forEach(function (el) { el.setAttribute("tabindex", "0"); });
+  });
+  document.addEventListener("click", function (e) {
+    if (!document.body.classList.contains("commenting")) return;
+    if (composer.contains(e.target) || e.target === pill) return;
+    var el = e.target.closest && e.target.closest("[data-c]");
+    if (el) { e.preventDefault(); openComposer(el); }
+  });
+  document.addEventListener("keydown", function (e) {
+    if (e.key === "Enter" && document.body.classList.contains("commenting") &&
+        document.activeElement && document.activeElement.hasAttribute &&
+        document.activeElement.hasAttribute("data-c")) {
+      e.preventDefault(); openComposer(document.activeElement);
+    }
+    if (e.key === "Escape") closeComposer();
+  });
+  priorEl.addEventListener("click", function (e) {
+    var b = e.target.closest("button[data-del]");
+    if (!b || !current) return;
+    var id = current.getAttribute("data-c"); var d = load();
+    if (d[id] && d[id].notes) { d[id].notes.splice(Number(b.getAttribute("data-del")), 1); if (!d[id].notes.length) delete d[id]; }
+    save(d); var el = current; refresh(); openComposer(el);
+  });
+  document.getElementById("c-save").addEventListener("click", function () {
+    if (!current) return;
+    var v = textEl.value.trim(); if (!v) { closeComposer(); return; }
+    var id = current.getAttribute("data-c"); var d = load();
+    if (!d[id]) d[id] = { quote: quoteOf(current), section: sectionOf(current), notes: [] };
+    d[id].quote = quoteOf(current); d[id].section = sectionOf(current);
+    d[id].notes.push(v);
+    save(d); refresh(); closeComposer();
+  });
+  document.getElementById("c-cancel").addEventListener("click", closeComposer);
+
+  function buildExport() {
+    var d = load(); var bySection = {};
+    Object.keys(d).forEach(function (id) {
+      var s = d[id].section || "Notes";
+      (bySection[s] = bySection[s] || []).push(d[id]);
+    });
+    var md = "# Comments on Five-a-Side (Touchline v2 sketches)\n\n";
+    Object.keys(bySection).forEach(function (s) {
+      md += "## " + s + "\n\n";
+      bySection[s].forEach(function (b) {
+        md += "> " + b.quote + "\n\n";
+        b.notes.forEach(function (n) { md += "- " + n + "\n"; });
+        md += "\n";
+      });
+    });
+    md += "---\nClaude: address every comment above — clarify, correct, or expand — and republish the revised sketches to the SAME artifact URL.\n";
+    return md;
+  }
+  document.getElementById("c-export").addEventListener("click", function () {
+    var md = buildExport();
+    var fallback = function () {
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(md).then(function () { countEl.textContent = "copied ✓"; },
+          function () { countEl.textContent = "export unavailable"; });
+      } else { countEl.textContent = "export unavailable"; }
+    };
+    if (window.claude && window.claude.use) {
+      window.claude.use("downloads").then(function (dl) {
+        if (!dl) { fallback(); return; }
+        dl.save({ filename: "five-a-side-comments.md", data: md }).then(
+          function () { countEl.textContent = "exported ✓"; },
+          function (err) {
+            if (err && err.code === "declined") { countEl.textContent = "cancelled"; return; }
+            fallback();
+          });
+      }, fallback);
+    } else { fallback(); }
+  });
+  refresh();
+})();
+</script>
