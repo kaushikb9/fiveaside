@@ -32,6 +32,7 @@ CAPTAIN_CANDIDATES = 3
 # a record exists for every player in the game. Cheap to build, and it means
 # no lookup can ever miss. Trim here first if the bundle gets unwieldy.
 FILE_FIXTURES = 5  # how many upcoming fixtures each player record carries
+FILE_RECENT = 5  # and how many finished ones behind it, for form
 FILE_MIN_OWNERSHIP = 0.0  # percent — everyone
 
 
@@ -92,6 +93,60 @@ def _compact_players(
             row["chance"] = e.chance_of_playing_next_round
         rows.append(row)
     return rows
+
+
+def _recent(
+    fixtures: FPLFixturesResult,
+    short_names: dict[int, str],
+    limit: int,
+) -> dict[str, list[dict]]:
+    """Each team's last `limit` FINISHED league matches, newest last.
+
+    This is the form side of the player card: what has happened, against the
+    fixture list's what is coming. It trims itself — in gameweek one most
+    teams have played once and the two yet to start have played none — and
+    fills out as the season goes.
+
+    LIMITATION, logged as a todo: this is Premier League only, because the FPL
+    API is the only source wired in here and it knows about nothing else. A
+    player who has played a cup tie or a European night in between shows a gap
+    his real form does not have. Fixing it needs a second fixtures source
+    keyed to the same clubs.
+    """
+    per_team: dict[int, list[dict]] = {team_id: [] for team_id in short_names}
+    played = [
+        f
+        for f in fixtures.fixtures
+        if f.event is not None
+        and f.team_h_score is not None
+        and f.team_a_score is not None
+        and (f.finished or f.finished_provisional or f.minutes >= 90)
+    ]
+    played.sort(key=lambda f: f.event or 0)
+
+    for f in played:
+        for team, opp, home, gf, ga in (
+            (f.team_h, f.team_a, True, f.team_h_score, f.team_a_score),
+            (f.team_a, f.team_h, False, f.team_a_score, f.team_h_score),
+        ):
+            if team not in per_team:
+                continue
+            per_team[team].append(
+                {
+                    "gw": f.event,
+                    "opp": short_names.get(opp, str(opp)),
+                    "home": home,
+                    "gf": gf,
+                    "ga": ga,
+                    "result": "W" if gf > ga else "L" if gf < ga else "D",
+                }
+            )
+
+    return {
+        short_names[team_id]: rows[-limit:]
+        for team_id, rows in per_team.items()
+        if team_id in short_names
+    }
 
 
 def _ticker(
@@ -201,6 +256,7 @@ def _player_file(
     short_names: dict[int, str],
     ticker: dict | None,
     owned: dict[int, list[str]],
+    recent_by_team: dict[str, list[dict]] | None = None,
 ) -> list[dict]:
     """The player file — one record per player that matters, evidence only.
 
@@ -212,6 +268,7 @@ def _player_file(
     is a dead end in the UI; completeness is worth more than compactness here.
     `FILE_MIN_OWNERSHIP` is the dial to turn if that stops being true.
     """
+    recent_by_team = recent_by_team or {}
     fixtures_by_team = {}
     if ticker:
         for row in ticker.get("rows", []):
@@ -237,6 +294,7 @@ def _player_file(
             "points": e.total_points,
             "form": e.form,
             "fixtures": upcoming,
+            "recent": recent_by_team.get(team, []),
             "owned_by": owned.get(e.id, []),
         }
         if upcoming:
@@ -406,6 +464,10 @@ def build_fpl_facts(
         ]
         ticker = _ticker(fixtures, short_names, current.id, config.fpl.horizon_gws)
 
+    # Form runs behind the fixture list. Built outside the `if current` block
+    # because results exist whether or not there is a next deadline.
+    recent_by_team = _recent(fixtures, short_names, FILE_RECENT)
+
     # The gameweek currently being played — distinct from the one being planned
     # for. During GW1's matches, `gameweek` is GW2 (next deadline) while
     # `live_gameweek` is GW1: the live view follows this one.
@@ -450,7 +512,9 @@ def build_fpl_facts(
         "desk": _desk(entry, playing.id if playing else None, bootstrap.elements, short_names),
         "squads": squads,
         "leagues": _leagues(entry, config.fpl.team_id, nicks),
-        "player_file": _player_file(bootstrap.elements, short_names, ticker, owned),
+        "player_file": _player_file(
+            bootstrap.elements, short_names, ticker, owned, recent_by_team
+        ),
         "players": _compact_players(bootstrap.elements, short_names),
         "errors": {
             "bootstrap": bootstrap.error,

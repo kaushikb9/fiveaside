@@ -106,6 +106,14 @@ cd site && python3 -m http.server # local preview (/api/* 404s; stars fall back)
 - The gameweek has two meanings and they differ mid-week: `gameweek` is the
   one being **planned for** (next deadline), `live_gameweek` the one being
   **played**. The pitch follows the second.
+- **Player-card form is Premier League only.** `_recent()` builds it from the
+  FPL API's fixtures, which know about no other competition, so a midweek cup
+  tie leaves a gap the strip cannot show. Logged in ROADMAP §4b; do not
+  describe it as "form" anywhere that implies all competitions.
+- **A finished match is not `finished`.** FPL flips that flag only once bonus
+  is confirmed, which can be a day later — a 3-0 that is ninety minutes old
+  still reads `finished: false`. Use `finished_provisional` or `minutes >= 90`
+  as well, which is what `_recent()` does.
 - Competition labels on stat boards are short codes ("PL", "CL", "FR"); only
   the table heading uses the human league name.
 - ESPN is unofficial: keep the wide date window (120d back / 45d forward) and

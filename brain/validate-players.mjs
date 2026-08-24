@@ -53,6 +53,21 @@ for (const [i, p] of data.players.entries()) {
       if (!isNonEmptyStr(nick)) fail(`${where}: 'owned_by' entries must be nicknames`);
     }
   }
+  // Form behind the fixtures. Trims to what has actually been played, so an
+  // empty array in gameweek one is correct, not a failure.
+  if (p.recent !== undefined) {
+    if (!Array.isArray(p.recent)) fail(`${where}: 'recent' must be an array`);
+    for (const [ri, r] of p.recent.entries()) {
+      if (!isNumber(r?.gw)) fail(`${where}, recent[${ri}]: 'gw' must be a number`);
+      if (!isNonEmptyStr(r?.opp)) fail(`${where}, recent[${ri}]: 'opp' must be a non-empty string`);
+      if (typeof r?.home !== "boolean") fail(`${where}, recent[${ri}]: 'home' must be a boolean`);
+      if (!isNumber(r?.gf) || !isNumber(r?.ga))
+        fail(`${where}, recent[${ri}]: 'gf' and 'ga' must be numbers`);
+      if (!["W", "D", "L"].includes(r?.result))
+        fail(`${where}, recent[${ri}]: 'result' must be W, D or L`);
+    }
+  }
+
   if (p.fixtures !== undefined) {
     if (!Array.isArray(p.fixtures)) fail(`${where}: 'fixtures' must be an array`);
     for (const [fi, f] of p.fixtures.entries()) {

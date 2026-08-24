@@ -48,6 +48,17 @@ class FPLFixture(BaseModel, frozen=True):
     team_a: int
     team_h_difficulty: int
     team_a_difficulty: int
+    # Scores are null until a match kicks off, and `finished` stays false while
+    # it is in play — so a result is only safe to read when finished is true.
+    team_h_score: int | None = None
+    team_a_score: int | None = None
+    # `finished` only flips once bonus is confirmed, which can be a day later.
+    # `finished_provisional` and `minutes` are what tell you the football is
+    # actually over — a match can be 3-0 and ninety minutes old with
+    # `finished` still false.
+    finished: bool = False
+    finished_provisional: bool = False
+    minutes: int = 0
 
 
 class FPLBootstrapResult(BaseModel, frozen=True):

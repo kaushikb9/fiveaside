@@ -139,6 +139,32 @@ one product: any player name in the first two opens their locker-room card.
 7. **FFScout** article bodies are JS- and membership-gated, so FPL colour
    comes from match facts rather than price/ownership commentary.
 
+## 4b. Known limitation — form is league-only
+
+**The player card's "Last five" covers the Premier League only.** It is built
+from the FPL API's own fixtures, and that API knows about nothing else — no
+cups, no Europe, no internationals. So a player who has had a midweek tie
+shows a gap his real form does not have, and a club knocked out of everything
+looks identically busy to one playing twice a week.
+
+KB flagged this on 2026-08-24 and parked it deliberately: *"this is going to
+be tricky given that you don't have all that data just yet — so log this as a
+todo, will fix this later."*
+
+What fixing it needs, when it comes:
+- A second fixtures source covering cups and Europe, keyed to the same clubs.
+  `sources/espn.py` and `thesportsdb.py` already fetch multi-competition data
+  for the digest — the join is club identity, and the two sources name clubs
+  differently, which is the actual work.
+- A competition label on each result, so the strip can show `PL` / `UCL` /
+  `EFL` rather than implying they are all league games.
+- A decision about what "last five" means once cups are in: five matches of
+  any kind, or five league matches with cup ties shown alongside. Five of any
+  kind is the truer read of form.
+
+Until then the section is honestly labelled and trims to what has been
+played, rather than padding with matches it cannot see.
+
 ## 5. Todos, end to end
 
 1. **Per-gameweek picks** (debt 1) — unblocks an honest back-step, chip

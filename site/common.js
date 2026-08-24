@@ -88,6 +88,20 @@
       esc(f.opp) + " &middot; difficulty " + f.fdr + '">' + esc(f.opp) + "</i>").join("") + "</span>";
   };
 
+  /* Form behind the fixtures. Trims to what has been played, so gameweek one
+     shows one match and the clubs yet to start show none — which is the
+     honest answer, not an empty state to apologise for. */
+  FA.formRun = function (recent) {
+    if (!recent || !recent.length) {
+      return '<span class="faint" style="font-size:13px">No league matches played yet.</span>';
+    }
+    return '<span class="frun">' + recent.map((r) =>
+      '<i data-r="' + esc(r.result) + '" title="GW' + r.gw + " " + (r.home ? "vs " : "away to ") +
+      esc(r.opp) + " &middot; " + r.gf + "-" + r.ga + '">' +
+      '<b>' + esc(r.result) + "</b>" + r.gf + "&ndash;" + r.ga +
+      '<em>' + (r.home ? "" : "@") + esc(r.opp) + "</em></i>").join("") + "</span>";
+  };
+
   FA.fdrKey = '<div class="fdr-key">' +
     '<span><span class="sw" style="background:var(--fdr1)"></span>1 kind</span>' +
     '<span><span class="sw" style="background:var(--fdr2)"></span>2</span>' +
@@ -231,6 +245,7 @@
         '<div class="stat"><b>' + esc(p.form) + "</b><span>form</span></div>" +
         '<div class="stat"><b>' + (p.fdr_avg == null ? "&mdash;" : p.fdr_avg) + "</b><span>avg fdr</span></div>" +
       "</div>" +
+      '<div class="sect">Last five</div>' + FA.formRun(p.recent) +
       '<div class="sect">Next five</div>' + FA.fdrStrip(p.fixtures) +
       '<div class="sect">Owned in the five</div><div class="owners" style="margin:0">' + owners + "</div>" +
       (v
