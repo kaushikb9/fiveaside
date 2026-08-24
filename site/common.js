@@ -115,18 +115,34 @@
   FA.kitSVG = function (team, isGK) {
     const kit = (isGK ? GK_KIT : KITS[team]) || ["#8A9295", "#5F6A6E", "plain"];
     const body = kit[0], sleeve = kit[1], detail = kit[2];
+
+    // One closed path for the whole garment. The previous version drew the
+    // sleeves as separate wedges nearly as wide as the torso, sticking out
+    // sideways — at 46px that reads as a paper aeroplane, not a shirt. Here
+    // the torso is the widest thing (24 of 44 units) and the sleeves hang
+    // DOWN from the shoulder rather than out from it.
+    const shirt =
+      "M22 9 L26 6 a6 5 0 0 0 12 0 L42 9 " +   // shoulders, with a collar scoop
+      "L53 16 L48 28 L44 25.5 " +               // right sleeve: out, down, back in
+      "L44 57 L20 57 L20 25.5 " +               // torso
+      "L16 28 L11 16 Z";                        // left sleeve
+
+    // Stripes live inside the torso only, clipped so they never bleed onto a
+    // sleeve — that was the other thing making the old mark look wrong.
+    const cid = "t" + (isGK ? "gk" : team);
     const stripes = detail === "stripe"
-      ? [28, 34].map((x) =>
-          '<rect x="' + x + '" y="10" width="4" height="36" fill="' + sleeve + '" opacity=".92"/>').join("")
+      ? '<clipPath id="' + cid + '"><path d="M20 9 h24 v48 h-24 Z"/></clipPath>' +
+        '<g clip-path="url(#' + cid + ')">' +
+        [25, 34].map((x) =>
+          '<rect x="' + x + '" y="6" width="5" height="52" fill="' + sleeve + '" opacity=".95"/>').join("") +
+        "</g>"
       : "";
-    // Sleeves first so the body overlaps them: one garment, not three shapes.
-    return '<svg class="kit" viewBox="0 0 64 56" role="img" aria-label="' + esc(team) + ' kit">' +
-      '<g stroke="rgba(0,0,0,.38)" stroke-width="1.3" stroke-linejoin="round">' +
-      '<path d="M21 5 L9 13 l6 12 8-5 Z" fill="' + sleeve + '"/>' +
-      '<path d="M43 5 L55 13 l-6 12 -8-5 Z" fill="' + sleeve + '"/>' +
-      '<path d="M21 5 L26 2 h12 l5 3 v18 l-6-3 v27 a2 2 0 0 1-2 2 H29 a2 2 0 0 1-2-2 V20 l-6 3 Z" fill="' + body + '"/>' +
-      "</g>" + stripes +
-      '<path d="M26 2 h12 l-6 8 Z" fill="rgba(0,0,0,.30)"/></svg>';
+
+    return '<svg class="kit" viewBox="0 0 64 64" role="img" aria-label="' + esc(team) + ' kit">' +
+      '<path d="' + shirt + '" fill="' + body + '"/>' + stripes +
+      '<path d="' + shirt + '" fill="none" stroke="rgba(0,0,0,.34)" stroke-width="1.4" stroke-linejoin="round"/>' +
+      '<path d="M26 6 a6 5 0 0 0 12 0" fill="none" stroke="rgba(0,0,0,.34)" stroke-width="1.4"/>' +
+      "</svg>";
   };
 
   FA.CLUB_COLOR = { Chelsea: "#034694", "Man Utd": "#DA291C", Arsenal: "#EF0107" };
@@ -213,9 +229,9 @@
         '<div class="stat"><b>' + p.points + "</b><span>points</span></div>" +
         '<div class="stat"><b>' + p.ownership + "%</b><span>owned</span></div>" +
         '<div class="stat"><b>' + esc(p.form) + "</b><span>form</span></div>" +
-        '<div class="stat"><b>' + (p.next3_avg == null ? "&mdash;" : p.next3_avg) + "</b><span>next 3 fdr</span></div>" +
+        '<div class="stat"><b>' + (p.fdr_avg == null ? "&mdash;" : p.fdr_avg) + "</b><span>avg fdr</span></div>" +
       "</div>" +
-      '<div class="sect">Next three</div>' + FA.fdrStrip(p.next3) +
+      '<div class="sect">Next five</div>' + FA.fdrStrip(p.fixtures) +
       '<div class="sect">Owned in the five</div><div class="owners" style="margin:0">' + owners + "</div>" +
       (v
         ? '<div class="sect">Our verdict</div><p class="why">' + esc(v.why) + "</p>" +
@@ -228,6 +244,62 @@
   FA.closeCard = function () {
     const b = document.getElementById("fa-backdrop");
     if (b) b.hidden = true;
+  };
+
+  /* ---------------- sortable tables ----------------
+     Any <table class="sortable">: click a header to sort by that column.
+     The type is inferred from the cells rather than declared, so a new table
+     gets it for free — a column whose cells all contain a number sorts
+     numerically (ignoring the pound signs and percents), everything else
+     sorts as text. Mark a column data-nosort to opt out; the fixture strips
+     have no meaningful order. */
+  const sortValue = (cell) => {
+    const t = (cell.textContent || "").trim();
+    // Strip currency, percent and thousands separators before parsing, so
+    // "£12.0m", "69.1%" and "1,204" all sort as the numbers they look like.
+    const n = parseFloat(t.replace(/[£$,%\s]/g, "").replace(/m$/i, ""));
+    return { n: Number.isFinite(n) ? n : null, t: t.toLowerCase() };
+  };
+
+  FA.wireSortable = function (root) {
+    (root || document).querySelectorAll("table.sortable").forEach((table) => {
+      const head = table.tHead && table.tHead.rows[0];
+      const body = table.tBodies[0];
+      if (!head || !body) return;
+      // Idempotent. A table inside a closed <details> is already in the DOM,
+      // so the page-level pass wires it AND the toggle handler wires it again
+      // — and two handlers on one header means every click sorts twice, which
+      // reads as "the first click sorts the wrong way round".
+      if (table.dataset.sortWired) return;
+      table.dataset.sortWired = "1";
+
+      [...head.cells].forEach((th, col) => {
+        if (th.hasAttribute("data-nosort")) return;
+        th.classList.add("th-sort");
+        th.tabIndex = 0;
+        const run = () => {
+          const dir = th.dataset.dir === "asc" ? "desc" : "asc";
+          [...head.cells].forEach((o) => { delete o.dataset.dir; o.classList.remove("sorted"); });
+          th.dataset.dir = dir;
+          th.classList.add("sorted");
+
+          const rows = [...body.rows];
+          // Every cell in the column must look numeric before sorting numerically:
+          // one stray "—" should not silently reorder the rest as text.
+          const vals = rows.map((r) => sortValue(r.cells[col] || document.createElement("td")));
+          const numeric = vals.length > 0 && vals.every((v) => v.n !== null);
+          const sign = dir === "asc" ? 1 : -1;
+          rows
+            .map((r, i) => ({ r, v: vals[i] }))
+            .sort((a, b) => sign * (numeric ? a.v.n - b.v.n : a.v.t.localeCompare(b.v.t)))
+            .forEach((x) => body.appendChild(x.r));
+        };
+        th.addEventListener("click", run);
+        th.addEventListener("keydown", (e) => {
+          if (e.key === "Enter" || e.key === " ") { e.preventDefault(); run(); }
+        });
+      });
+    });
   };
 
   /* ---------------- focus clubs ----------------

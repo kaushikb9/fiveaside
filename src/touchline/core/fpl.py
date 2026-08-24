@@ -31,6 +31,7 @@ CAPTAIN_CANDIDATES = 3
 # The player file is the spine every surface filters, so it holds everyone:
 # a record exists for every player in the game. Cheap to build, and it means
 # no lookup can ever miss. Trim here first if the bundle gets unwieldy.
+FILE_FIXTURES = 5  # how many upcoming fixtures each player record carries
 FILE_MIN_OWNERSHIP = 0.0  # percent — everyone
 
 
@@ -214,7 +215,7 @@ def _player_file(
     fixtures_by_team = {}
     if ticker:
         for row in ticker.get("rows", []):
-            fixtures_by_team[row["team"]] = row.get("fixtures", [])[:3]
+            fixtures_by_team[row["team"]] = row.get("fixtures", [])[:FILE_FIXTURES]
 
     keep: dict[int, FPLElement] = {}
     for e in elements:
@@ -225,7 +226,7 @@ def _player_file(
     records = []
     for e in sorted(keep.values(), key=lambda e: (-_ownership(e), e.web_name)):
         team = short_names.get(e.team, str(e.team))
-        next3 = fixtures_by_team.get(team, [])
+        upcoming = fixtures_by_team.get(team, [])
         record = {
             "id": e.id,
             "name": e.web_name,
@@ -235,11 +236,11 @@ def _player_file(
             "ownership": _ownership(e),
             "points": e.total_points,
             "form": e.form,
-            "next3": next3,
+            "fixtures": upcoming,
             "owned_by": owned.get(e.id, []),
         }
-        if next3:
-            record["next3_avg"] = round(sum(f["fdr"] for f in next3) / len(next3), 2)
+        if upcoming:
+            record["fdr_avg"] = round(sum(f["fdr"] for f in upcoming) / len(upcoming), 2)
         if e.penalties_order == 1:
             record["penalties"] = True
         if e.status != "a":

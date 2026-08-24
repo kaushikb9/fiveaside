@@ -119,7 +119,13 @@
 
   /* ---------------- gaffer chips ---------------- */
   function barHTML() {
-    return '<div class="gbar" id="gbar">' + G.people.map((p) =>
+    // Ordered by where they actually are, not by the order in config. The
+    // league rank is the honest sort; fall back to points when a rank is
+    // missing (someone who has not entered yet).
+    const ordered = G.people.slice().sort((a, b) =>
+      (a.league_rank == null ? 99 : a.league_rank) - (b.league_rank == null ? 99 : b.league_rank) ||
+      b.total_points - a.total_points);
+    return '<div class="gbar" id="gbar">' + ordered.map((p) =>
       '<button class="gchip" data-nick="' + esc(p.nick) + '" aria-pressed="' + (p.nick === who) + '">' +
       '<span class="gtop"><span class="clubdot" style="background:' +
         (FA.CLUB_COLOR[p.club] || "var(--faint)") + '"></span><b>' + esc(p.nick) + "</b></span>" +
@@ -196,7 +202,7 @@
   /* ---------------- the pitch ---------------- */
   const LIVE_GW = () => (G.live_gameweek ? G.live_gameweek.id : G.gameweek);
   const curGW = () => (gwView == null ? LIVE_GW() : gwView);
-  const fixtureFor = (r, gw) => (r && r.next3 ? r.next3.find((f) => f.gw === gw) : null) || null;
+  const fixtureFor = (r, gw) => (r && r.fixtures ? r.fixtures.find((f) => f.gw === gw) : null) || null;
 
   function pitchPlayer(pk, gw) {
     const r = rec(pk.element);
@@ -253,10 +259,10 @@
 
     const chip = p.active_chip ? (CHIP_NAME[p.active_chip] || p.active_chip) : null;
     // Walk forward as far as the fixture data actually reaches, rather than
-    // guessing an offset — next3 starts from the gameweek being planned for,
+    // guessing an offset — the fixture list starts from the gameweek being
     // so a fixed LIVE_GW+2 stopped one week short of what was on disk.
     const GW_MAX = pool().reduce((m, pl) =>
-      (pl.next3 || []).reduce((n, f) => Math.max(n, f.gw), m), LIVE_GW());
+      (pl.fixtures || []).reduce((n, f) => Math.max(n, f.gw), m), LIVE_GW());
 
     return '<div class="panel"><h3>' + gname(who) + "’s " + esc(shape) + "</h3>" +
       '<p class="note">The shape, not a list. Step back to a settled week to see what it scored, ' +
@@ -397,8 +403,9 @@
       '</summary><div class="foldbody">' +
       '<p class="note">Live positions in <strong>' + esc(G.league.name) + "</strong>, " +
       rows.length + " managers.</p>" +
-      '<div class="scroll"><table><thead><tr><th class="n">#</th><th>Team</th><th>Gaffer</th>' +
-      '<th class="n">GW</th><th class="n">Total</th><th class="n">Behind</th></tr></thead><tbody>' +
+      '<div class="scroll"><table class="sortable"><thead><tr><th class="n">#</th><th>Team</th>' +
+      '<th>Gaffer</th><th class="n">GW</th><th class="n">Total</th><th class="n">Behind</th>' +
+      "</tr></thead><tbody>" +
       rows.map((r) =>
         '<tr class="' + (r.nick === who ? "me" : "") + '">' +
         '<td class="n">' + r.rank + "</td><td>" + esc(r.name) +
@@ -414,10 +421,23 @@
     $("#main").innerHTML =
       '<section class="section"><div class="section-head"><h2>the gaffers</h2>' +
       '<span class="mute" style="font-size:13px">what we did about it</span></div>' +
-      headlineHTML() + longGameHTML() + barHTML() + liveHTML() + fiveHTML() + weekHTML() +
-      pitchHTML() + watchHTML() + roastHTML() +
+      headlineHTML() +
+      // Two short status panels that answer the same question — how much of
+      // this gameweek is real yet — so they sit on one row.
+      '<div class="grid2">' + longGameHTML() + liveHTML() + "</div>" +
+      barHTML() + fiveHTML() +
+      // Squad first, then the read about it. You look at the team, then at
+      // what someone made of it.
+      pitchHTML() + weekHTML() + watchHTML() + roastHTML() +
       '<div class="grid2">' + diffsHTML() + chipsHTML() + "</div></section>";
     wire();
+    FA.wireSortable($("#main"));
+    // The five table lives inside a <details>; wire it when it first opens.
+    document.querySelectorAll("details.fold").forEach((el) => {
+      el.addEventListener("toggle", function once() {
+        if (el.open) { FA.wireSortable(el); el.removeEventListener("toggle", once); }
+      });
+    });
   }
 
   function wire() {

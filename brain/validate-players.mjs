@@ -53,14 +53,14 @@ for (const [i, p] of data.players.entries()) {
       if (!isNonEmptyStr(nick)) fail(`${where}: 'owned_by' entries must be nicknames`);
     }
   }
-  if (p.next3 !== undefined) {
-    if (!Array.isArray(p.next3)) fail(`${where}: 'next3' must be an array`);
-    for (const [fi, f] of p.next3.entries()) {
-      if (!isNumber(f?.gw)) fail(`${where}, next3[${fi}]: 'gw' must be a number`);
-      if (!isNonEmptyStr(f?.opp)) fail(`${where}, next3[${fi}]: 'opp' must be a non-empty string`);
-      if (typeof f?.home !== "boolean") fail(`${where}, next3[${fi}]: 'home' must be a boolean`);
+  if (p.fixtures !== undefined) {
+    if (!Array.isArray(p.fixtures)) fail(`${where}: 'fixtures' must be an array`);
+    for (const [fi, f] of p.fixtures.entries()) {
+      if (!isNumber(f?.gw)) fail(`${where}, fixtures[${fi}]: 'gw' must be a number`);
+      if (!isNonEmptyStr(f?.opp)) fail(`${where}, fixtures[${fi}]: 'opp' must be a non-empty string`);
+      if (typeof f?.home !== "boolean") fail(`${where}, fixtures[${fi}]: 'home' must be a boolean`);
       if (!Number.isInteger(f?.fdr) || f.fdr < 1 || f.fdr > 5)
-        fail(`${where}, next3[${fi}]: 'fdr' must be an integer 1-5`);
+        fail(`${where}, fixtures[${fi}]: 'fdr' must be an integer 1-5`);
     }
   }
   // Evidence only. A verdict living here instead of in fpl.json would mean the

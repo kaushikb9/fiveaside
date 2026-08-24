@@ -49,8 +49,8 @@
       " the other two are seeded because an early table is noise. From GW" + FA.FOCUS_FROM_GW +
       " it becomes the real top " + FA.FOCUS_TOP + ", recomputed every week.</p>" +
       (t.note ? '<p class="note">' + esc(t.note) + "</p>" : "") +
-      '<div class="scroll"><table><thead><tr><th class="n">#</th><th>Club</th><th>Form</th>' +
-      '<th class="n">P</th><th class="n">Pts</th></tr></thead><tbody>' + rows +
+      '<div class="scroll"><table class="sortable"><thead><tr><th class="n">#</th><th>Club</th>' +
+      '<th data-nosort>Form</th><th class="n">P</th><th class="n">Pts</th></tr></thead><tbody>' + rows +
       "</tbody></table></div></div>";
   }
 
@@ -167,7 +167,7 @@
 
   function entryHTML(d, gw) {
     return '<div class="eyebrow">' + esc(fmtLong(d.date)) + "</div>" +
-      "<h2 style=\"font-size:clamp(21px,3.4vw,30px);margin:6px 0 18px\">" + esc(d.headline) + "</h2>" +
+      "<h2 class=\"digest-headline\" style=\"font-size:clamp(21px,3.4vw,30px);margin:6px 0 18px\">" + esc(d.headline) + "</h2>" +
       tableHTML(d, gw) + weekHTML(d) + teamWatchHTML(d) + aroundHTML(d, gw) +
       rumoursHTML(d) + linksHTML(d);
   }
@@ -231,10 +231,11 @@
         : "");
 
     wireFilter(main);
+    FA.wireSortable(main);
     // Archived entries carry their own filter bar; wire each one on open.
     main.querySelectorAll("details.fold").forEach((el) => {
       el.addEventListener("toggle", function once() {
-        if (el.open) { wireFilter(el); el.removeEventListener("toggle", once); }
+        if (el.open) { wireFilter(el); FA.wireSortable(el); el.removeEventListener("toggle", once); }
       });
     });
     FA.stamp(data.generated_at || (latest.date + "T08:00:00"));

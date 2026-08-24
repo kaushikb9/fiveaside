@@ -76,7 +76,9 @@
         '<td class="n">' + p.price.toFixed(1) + "</td>" +
         '<td class="n">' + p.ownership + "%</td>" +
         '<td class="n">' + p.points + "</td>" +
-        "<td>" + fdrStrip(p.next3) + "</td></tr>";
+        // The row stays at three: five strips crowd it and the card is where you
+        // go for the fuller picture.
+        "<td>" + fdrStrip((p.fixtures || []).slice(0, 3)) + "</td></tr>";
     }).join("");
 
     return '<div class="panel" id="the-file"><h3>The file</h3>' +
@@ -94,8 +96,8 @@
           '<button class="fc" data-min="' + t + '" aria-pressed="' + (t === minOwn) + '">' +
           (t === 0 ? "anyone" : t + "%") + '<span class="faint"> &middot; ' + countAt(t) + "</span></button>").join("") +
       "</div>" +
-      '<div class="scroll"><table><thead><tr><th>Verdict</th><th>Player</th>' +
-      '<th class="n">£</th><th class="n">Own</th><th class="n">Pts</th><th>Next three</th>' +
+      '<div class="scroll"><table class="sortable"><thead><tr><th>Verdict</th><th>Player</th>' +
+      '<th class="n">£</th><th class="n">Own</th><th class="n">Pts</th><th data-nosort>Next three</th>' +
       "</tr></thead><tbody>" + (rows || '<tr><td colspan="6" class="faint">Nothing matches.</td></tr>') +
       "</tbody></table></div>" + FA.fdrKey +
       '<p class="note" style="margin-top:8px">' + shown.length + " shown &middot; " +
@@ -161,8 +163,8 @@
     const block = (title, sub, list, id) =>
       '<div class="panel"><h3>' + esc(title) + "</h3>" +
       '<p class="note">' + esc(sub) + "</p>" +
-      '<div class="scroll"><table><thead><tr><th>Club</th><th class="n">Avg</th>' +
-      "<th>GW" + from + "&ndash;" + to + "</th></tr></thead><tbody>" +
+      '<div class="scroll"><table class="sortable"><thead><tr><th>Club</th><th class="n">Avg</th>' +
+      '<th data-nosort>GW' + from + "&ndash;" + to + "</th></tr></thead><tbody>" +
       list.map((r) =>
         "<tr><td><strong>" + esc(r.team) + '</strong></td><td class="n">' + r.avg.toFixed(2) + "</td>" +
         "<td>" + fdrStrip(r.fixtures) + "</td></tr>").join("") +
@@ -180,6 +182,7 @@
       '<span class="mute" style="font-size:13px">what we know &mdash; every player, evidence first</span></div>' +
       fileHTML() + injuryHTML() + signalsHTML() + runsHTML() + "</section>";
     wire();
+    FA.wireSortable($("#main"));
   }
 
   function wire() {

@@ -116,8 +116,14 @@ body {
 .wrap { max-width: 1060px; margin: 0 auto; padding: 0 20px 80px; }
 h1, h2, h3, h4 {
   font-family: var(--f-head); font-weight: 700; letter-spacing: -0.01em;
-  text-wrap: balance; margin: 0;
+  margin: 0;
 }
+/* `text-wrap: balance` evens out line lengths. That flatters a two-word
+   section heading and ruins a long headline on a wide page — it splits into
+   two half-width lines and leaves the right side empty. Balance the short
+   ones, and let the long ones fill the measure. */
+h3, h4, .section-head h2 { text-wrap: balance; }
+.digest-headline { text-wrap: pretty; }
 a { color: var(--accent); }
 .mute { color: var(--mute); }
 .faint { color: var(--faint); }
@@ -194,8 +200,13 @@ button:focus-visible, a:focus-visible, input:focus-visible, summary:focus-visibl
   box-shadow: var(--shadow); padding: 17px 19px; margin: 0 0 14px; position: relative;
 }
 .panel > h3 { font-size: 15px; font-weight: 800; letter-spacing: -0.015em; margin-bottom: 4px; }
-.panel .note { font-size: 13.5px; color: var(--mute); margin: 2px 0 13px; max-width: 70ch; }
+.panel .note { font-size: 13.5px; color: var(--mute); margin: 2px 0 13px; max-width: 95ch; }
 .grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+/* Grid items default to min-width:auto, so a wide child — a fixture table's
+   min-content — forces its 1fr track wider than the container and pushes the
+   whole page sideways. This is the fix for that, and it is why the tables
+   scroll inside their own box instead of the body scrolling. */
+.grid2 > * { min-width: 0; }
 @media (max-width: 760px) { .grid2 { grid-template-columns: 1fr; } }
 
 .callout {
@@ -361,7 +372,7 @@ tr.dim td { opacity: 0.38; }
 }
 .ghead p {
   margin: 0; font-size: 17px; line-height: 1.5; font-family: var(--f-head);
-  font-weight: 700; letter-spacing: -0.015em; max-width: 60ch;
+  font-weight: 700; letter-spacing: -0.015em; max-width: 88ch;
 }
 .ghead .gsub {
   margin-top: 7px; font-family: var(--f-body); font-weight: 400;
@@ -502,7 +513,7 @@ h3 .gname, summary .gname, td .gname, .ghead p .gname {
   border: 1px dashed var(--hot); border-radius: var(--r);
   padding: 18px 20px; background: var(--raise);
 }
-.roast p { margin: 0; font-size: 16px; line-height: 1.6; max-width: 66ch; }
+.roast p { margin: 0; font-size: 16px; line-height: 1.6; max-width: 88ch; }
 .roast .by {
   margin-top: 11px; font-family: var(--f-head); font-size: 10.5px;
   letter-spacing: 0.1em; text-transform: uppercase; color: var(--faint);
@@ -589,3 +600,14 @@ details.fold .foldbody { padding: 0 18px 16px; }
   .kit { width: 40px; height: 40px; }
   .pp .nb, .pp .vb { font-size: 9.5px; }
 }
+
+/* Sortable table headers. The affordance has to be visible without being
+   loud — these are reference tables, not a spreadsheet. */
+th.th-sort { cursor: pointer; user-select: none; }
+th.th-sort:hover { color: var(--ink); }
+th.th-sort::after {
+  content: "\2195"; margin-left: 5px; opacity: 0.35; font-size: 10px;
+}
+th.th-sort.sorted { color: var(--ink); }
+th.th-sort.sorted[data-dir="asc"]::after { content: "\2191"; opacity: 1; color: var(--accent); }
+th.th-sort.sorted[data-dir="desc"]::after { content: "\2193"; opacity: 1; color: var(--accent); }
