@@ -123,7 +123,25 @@ have not given you anything to judge.
 losing and the price starts to look like the problem" is a trigger. "If he
 plays badly" is not.
 
-### signals — team news
+### signals — team news, and player news
+
+One array, two destinations, decided by whether you set `player`:
+
+- **With `player`** the item is attached to that player's card in the locker
+  room, next to his price, form and fixtures. This is where rotation risk, a
+  missed penalty, a confirmed XI that left him out, a return date or a price
+  warning belong. Write these freely — a name is the thing people click.
+  `player` must match the player file's `name` exactly (`site/data/players.json`),
+  or the note lands nowhere.
+- **Without `player`** it appears in the Team news panel, which is now
+  **club-level only**: a manager's stated plan, a shape change, a side that
+  did not register a shot, a club with four defenders limping. If your item
+  is really about one footballer, name him and let it go to his card.
+
+Getting this wrong is the common failure. Last run, seven of nine signals
+named a player and sat in a panel titled "Team news" — which made the panel a
+list of individuals and left the cards empty. If you catch yourself writing
+"Team X's player Y is doubtful", that is a player note.
 
 Only from sources you actually fetched, with `source` filled in. Never invent
 a quote, an injury or a return date. If the sources are thin this week, write

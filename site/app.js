@@ -206,7 +206,7 @@
     // missing the page still renders, names simply stay plain text.
     try { players = await loadJSON("data/players.json"); } catch (e) { /* ignore */ }
     try { fpl = await loadJSON("data/fpl.json"); } catch (e) { /* ignore */ }
-    FA.initPlayerCards(players.players, fpl.verdicts, FA.ME);
+    FA.initPlayerCards(players.players, fpl.verdicts, FA.ME, fpl.signals);
 
     const entries = (data.digests || []).slice().sort((a, b) => b.date.localeCompare(a.date));
     if (!entries.length) {

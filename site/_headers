@@ -1,0 +1,9 @@
+# The data files change every day, and one of them used to be private. A
+# week-long edge cache on either count is wrong: it serves yesterday's league
+# table, and it kept serving a file after that file stopped being published.
+/data/*
+  Cache-Control: public, max-age=60, s-maxage=300
+
+# Never cache anything that depends on who is asking.
+/api/*
+  Cache-Control: no-store

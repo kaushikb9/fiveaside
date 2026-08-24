@@ -24,7 +24,8 @@ CI=1 npx wrangler kv key put --namespace-id "$KV" "private:people" \
 BACKUP="$(mktemp -d)"
 cp site/data/gaffers.json "$BACKUP/" 2>/dev/null || true
 cp site/data/fpl.json "$BACKUP/" 2>/dev/null || true
-rm -f site/data/gaffers.json
+# Replace, do not delete — see brain/publish-private.mjs for why.
+cp brain/scratch/public/gaffers.json site/data/gaffers.json
 cp brain/scratch/public/fpl.json site/data/fpl.json
 restore() { cp "$BACKUP"/gaffers.json site/data/ 2>/dev/null || true
             cp "$BACKUP"/fpl.json site/data/ 2>/dev/null || true; rm -rf "$BACKUP"; }

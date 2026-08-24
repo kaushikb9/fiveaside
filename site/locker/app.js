@@ -38,7 +38,7 @@
   };
   const CHIPS = [
     ["ours", "ours"], ["nailed", "nailed"], ["solid", "solid"], ["watch", "watch"],
-    ["sack", "sack"], ["flagged", "flagged"], ["all", "everyone"],
+    ["sack", "sack"], ["flagged", "injured / doubtful"], ["all", "everyone"],
   ];
   const THRESHOLDS = [0, 1, 2, 3, 5, 10];
 
@@ -71,7 +71,13 @@
           ? ' <span class="pill" style="color:var(--hot);border-color:var(--hot)" title="' +
             esc(p.news || "flagged") + '">!</span>' : "") +
         '<div class="row-sub">' +
-          (v ? esc(v.why) : esc(p.pos) + " &middot; " + esc(p.team) + " &middot; no verdict written yet") +
+          // A flagged player's news outranks his verdict here: "75% chance of
+          // playing" is what you came to the row for. This is what lets the
+          // injury room fold into the file as a filter rather than a table.
+          (p.status && p.status !== "a" && p.news
+            ? '<span style="color:var(--hot)">' + esc(p.news) + "</span>"
+            : v ? esc(v.why)
+            : esc(p.pos) + " &middot; " + esc(p.team) + " &middot; no verdict written yet") +
         "</div></td>" +
         '<td class="n">' + p.price.toFixed(1) + "</td>" +
         '<td class="n">' + p.ownership + "%</td>" +
@@ -82,8 +88,11 @@
     }).join("");
 
     return '<div class="panel" id="the-file"><h3>The file</h3>' +
-      '<p class="note">Every player we hold evidence on. Verdict first, then the name, then one ' +
-      "line of why. The verdict is judgment; everything else on the row is measured.</p>" +
+      '<p class="note">Every player we hold evidence on &mdash; the injury room included, as the ' +
+      '<strong>injured / doubtful</strong> filter. Verdict first, then the name, then one line of ' +
+      "why; for a flagged player the flag replaces the verdict, because that is what you came for. " +
+      "The verdict is judgment, everything else on the row is measured, and the name opens the " +
+      "full file.</p>" +
       '<div class="filters">' +
         CHIPS.map((c) =>
           '<button class="fc" data-f="' + c[0] + '" aria-pressed="' + (c[0] === filter) + '">' +
@@ -105,44 +114,21 @@
       " &middot; all " + owned().length + " the five own are in whatever their ownership.</p></div>";
   }
 
-  /* ---------------- injury room ----------------
-     Reference, not a decision: it sits below the file because it is for
-     keeping an eye on returns, not for picking anyone. */
-  function injuryHTML() {
-    const flagged = P.players.filter((p) => p.status && p.status !== "a" && p.news)
-      .sort((a, b) =>
-        ((b.owned_by || []).length - (a.owned_by || []).length) || (b.ownership - a.ownership));
-    const ours = flagged.filter((p) => p.owned_by && p.owned_by.length);
-    const rest = flagged.filter((p) => !(p.owned_by && p.owned_by.length)).slice(0, 12);
-    const STATUS = { i: "out", d: "doubt", u: "gone", s: "suspended", n: "ineligible" };
-    const one = (p) =>
-      '<div class="row"><div class="row-main"><div class="row-name">' +
-      '<a class="plink" data-player="' + esc(p.name) + '">' + esc(p.name) + "</a>" +
-      FA.ownerDots(p.owned_by, FA.ME) + "</div>" +
-      '<div class="row-sub">' + esc(p.news) + "</div></div>" +
-      '<div class="row-side"><span class="pill" style="color:var(--hot);border-color:var(--hot)">' +
-      esc(STATUS[p.status] || p.status) + "</span><br>" + esc(p.team) + " &middot; " + p.ownership + "%</div></div>";
-
-    return '<div class="panel"><h3>Injury room</h3>' +
-      '<p class="note">' + flagged.length + " players are flagged right now. The ones the five own " +
-      "come first; everything else is noise until it is cheap enough to matter.</p>" +
-      '<h4 class="eyebrow" style="margin:4px 0 4px">Ours (' + ours.length + ")</h4>" +
-      '<div class="rows">' + (ours.length ? ours.map(one).join("")
-        : '<div class="row"><div class="row-main faint">Nobody we own is flagged.</div></div>') + "</div>" +
-      '<h4 class="eyebrow" style="margin:18px 0 4px">Everyone else, most-owned first</h4>' +
-      '<div class="rows">' + rest.map(one).join("") + "</div></div>";
-  }
-
   /* ---------------- team news ----------------
      Judgment, and marked as such: the brain writes these from sources it
      actually fetched, and each carries where it came from so a claim can be
      checked rather than trusted. */
   function signalsHTML() {
-    if (!F || !F.signals || !F.signals.length) return "";
+    // Anything filed against a named player now lives on that player's card,
+    // where it is actually useful. What is left here is club-level: a
+    // manager's plan, a shape change, a team that stopped creating.
+    const club = ((F && F.signals) || []).filter((s) => !s.player);
+    if (!club.length) return "";
     return '<div class="panel"><h3>Team news</h3>' +
-      '<p class="note">Written by the editor from fetched sources, not measured &mdash; ' +
-      "each one says where it came from.</p><div class=\"rows\">" +
-      F.signals.map((s) =>
+      '<p class="note">Club-level only &mdash; anything about a named player is on his card. ' +
+      "Written by the editor from fetched sources, not measured, and each says where it came " +
+      "from.</p><div class=\"rows\">" +
+      club.map((s) =>
         '<div class="row"><div class="row-main"><div class="row-name">' +
         '<span class="wtag">' + esc(s.tag) + "</span>" +
         (s.player ? FA.linkPlayers(s.player) + " &middot; " : "") + esc(s.team) + "</div>" +
@@ -180,7 +166,9 @@
     $("#main").innerHTML =
       '<section class="section"><div class="section-head"><h2>the locker room</h2>' +
       '<span class="mute" style="font-size:13px">what we know &mdash; every player, evidence first</span></div>' +
-      fileHTML() + injuryHTML() + signalsHTML() + runsHTML() + "</section>";
+      // Fixture runs lead: they are the thing you scan before deciding
+      // anything, and they change slowest. Then the file, then club news.
+      runsHTML() + fileHTML() + signalsHTML() + "</section>";
     wire();
     FA.wireSortable($("#main"));
   }
@@ -218,7 +206,7 @@
     try { G = await loadJSON("../data/gaffers.json"); } catch (e) { G = null; }
     ((F && F.verdicts) || []).forEach((v) => { verdicts[v.id] = v; });
 
-    FA.initPlayerCards(P.players, F && F.verdicts, FA.ME);
+    FA.initPlayerCards(P.players, F && F.verdicts, FA.ME, F && F.signals);
     render();
     FA.stamp(P.generated_at);
   }

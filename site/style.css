@@ -626,3 +626,19 @@ th.th-sort.sorted[data-dir="desc"]::after { content: "\2193"; opacity: 1; color:
 .frun i[data-r="W"] { background: var(--ok); color: var(--on-accent); box-shadow: none; }
 .frun i[data-r="L"] { background: var(--hot); color: #fff; box-shadow: none; }
 .frun i[data-r="D"] { background: var(--fdr3); color: var(--fdr-ink); box-shadow: none; }
+
+/* Player news on the card — the flag the game sets, plus anything the editor
+   filed against that name. Sits above the form so you see why before what. */
+.pnews {
+  font-size: 13px; line-height: 1.5; color: var(--ink);
+  background: var(--raise); border-left: 3px solid var(--line);
+  border-radius: 0 var(--rs) var(--rs) 0; padding: 8px 11px; margin-bottom: 6px;
+}
+.pnews.f { border-left-color: var(--hot); }
+.pnews-tag {
+  display: inline-block; font-family: var(--f-head); font-size: 9.5px; font-weight: 700;
+  letter-spacing: 0.08em; text-transform: uppercase; color: var(--mute);
+  margin-right: 7px; vertical-align: 1px;
+}
+.pnews.f .pnews-tag { color: var(--hot); }
+.pnews-src { display: block; margin-top: 4px; font-size: 11px; color: var(--faint); }

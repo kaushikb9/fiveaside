@@ -185,10 +185,19 @@
      data-player opens the card, in any room. */
   let CARD_INDEX = null;
 
-  FA.initPlayerCards = function (players, verdicts, me) {
+  FA.initPlayerCards = function (players, verdicts, me, signals) {
     const byVerdict = {};
     (verdicts || []).forEach((v) => { byVerdict[v.id] = v; });
-    CARD_INDEX = { byName: {}, verdicts: byVerdict, me: me || FA.ME };
+    // Anything the editor wrote ABOUT A NAMED PLAYER belongs on that player's
+    // card, not in a team-news list. Rotation risk, a missed penalty, a
+    // confirmed XI that left him out — that is what you want when you click
+    // his name, and it is noise in a panel about clubs.
+    const byPlayer = {};
+    (signals || []).forEach((sig) => {
+      if (!sig.player) return;
+      (byPlayer[sig.player] = byPlayer[sig.player] || []).push(sig);
+    });
+    CARD_INDEX = { byName: {}, verdicts: byVerdict, signals: byPlayer, me: me || FA.ME };
     (players || []).forEach((p) => { CARD_INDEX.byName[p.name] = p; });
 
     if (!document.getElementById("fa-backdrop")) {
@@ -240,6 +249,31 @@
     return out;
   };
 
+  /* Everything currently known about this player beyond the numbers: the
+     game's own flag, plus whatever the editor filed against his name. */
+  const SIG_LABEL = {
+    injury: "Injury", doubt: "Doubt", ban: "Suspension",
+    rotation: "Rotation risk", price: "Price", news: "News", managers: "Manager",
+  };
+  function newsHTML(p) {
+    const sigs = (CARD_INDEX.signals && CARD_INDEX.signals[p.name]) || [];
+    const flagged = p.status && p.status !== "a" && p.news;
+    if (!sigs.length && !flagged) return "";
+    const rows = [];
+    if (flagged) {
+      rows.push('<div class="pnews f"><span class="pnews-tag">Flagged</span>' +
+        esc(p.news) + "</div>");
+    }
+    sigs.forEach((sig) => {
+      rows.push('<div class="pnews"><span class="pnews-tag">' +
+        esc(SIG_LABEL[sig.tag] || sig.tag) + "</span>" + esc(sig.text) +
+        (sig.action ? " <strong>" + esc(sig.action) + "</strong>" : "") +
+        (sig.source ? '<span class="pnews-src">' + esc(sig.source) + "</span>" : "") +
+        "</div>");
+    });
+    return '<div class="sect">What we know</div>' + rows.join("");
+  }
+
   FA.openCard = function (name) {
     if (!CARD_INDEX) return;
     const p = CARD_INDEX.byName[name];
@@ -256,14 +290,14 @@
       "<h3>" + esc(p.name) + " " + (v ? FA.vdChip(v) : "") + "</h3>" +
       '<div class="meta">' + esc(p.pos) + " &middot; " + esc(p.team) + " &middot; &pound;" +
         p.price.toFixed(1) + "m" + (p.penalties ? ' &middot; <span class="pill">penalties</span>' : "") + "</div>" +
-      (p.status && p.status !== "a" && p.news
-        ? '<p class="trig" style="border-left-color:var(--hot);margin-bottom:14px">' + esc(p.news) + "</p>" : "") +
+
       '<div class="stats">' +
         '<div class="stat"><b>' + p.points + "</b><span>points</span></div>" +
         '<div class="stat"><b>' + p.ownership + "%</b><span>owned</span></div>" +
         '<div class="stat"><b>' + esc(p.form) + "</b><span>form</span></div>" +
         '<div class="stat"><b>' + (p.fdr_avg == null ? "&mdash;" : p.fdr_avg) + "</b><span>avg fdr</span></div>" +
       "</div>" +
+      newsHTML(p) +
       '<div class="sect">Last five</div>' + FA.formRun(p.recent) +
       '<div class="sect">Next five</div>' + FA.fdrStrip(p.fixtures) +
       '<div class="sect">Owned in the five</div><div class="owners" style="margin:0">' + owners + "</div>" +

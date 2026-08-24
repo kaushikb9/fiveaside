@@ -557,7 +557,7 @@
     P.players.forEach((p) => { byId[p.id] = p; });
 
     await FA.loadStars();
-    FA.initPlayerCards(P.players, F && F.verdicts, who);
+    FA.initPlayerCards(P.players, F && F.verdicts, who, F && F.signals);
     render();
     FA.stamp(G.generated_at);
   }

@@ -26,6 +26,18 @@ const read = (p) => JSON.parse(readFileSync(p, "utf8"));
 const gaffers = read("site/data/gaffers.json");
 writeFileSync(`${OUT}/gaffers.json`, JSON.stringify(gaffers));
 
+// A tombstone, not a deletion. Cloudflare purges an asset it REPLACES on
+// deploy; an asset merely removed keeps being served from the edge cache
+// until s-maxage runs out — seven days, in this case. That was found live:
+// the old squads were still answering from cache with cf-cache-status HIT
+// long after they had stopped being uploaded. Publishing a stub at the same
+// URL overwrites the cached object.
+mkdirSync("brain/scratch/public", { recursive: true });
+writeFileSync(
+  "brain/scratch/public/gaffers.json",
+  JSON.stringify({ moved: "/api/private", why: "the five's squads are behind sign-in" }, null, 2) + "\n"
+);
+
 // --- fpl.json: split `people` out of the published copy ---
 const fpl = read("site/data/fpl.json");
 const people = fpl.people ?? [];

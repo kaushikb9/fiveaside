@@ -115,8 +115,15 @@ for EP in "api/private" "api/auth"; do
   CODE=$(curl -s -o /dev/null -w "%{http_code}" "$BASE$EP")
   check "$EP refuses anonymous" "401" "$CODE"
 done
-check "gaffers.json is not published" "false" \
-  "$(curl -s "$BASE" -o /dev/null -w '%{http_code}' >/dev/null; curl -s "${BASE}data/gaffers.json" | head -c 1 | grep -q '{' && echo true || echo false)"
+# Pages answers a missing path with its SPA fallback AND labels it
+# application/json when the path ends .json, so neither the status nor the
+# content type tells you anything. Parsing the body does.
+LEAK=$(curl -s "${BASE}data/gaffers.json" | node -e '
+  let s = ""; process.stdin.on("data", d => s += d).on("end", () => {
+    try { const j = JSON.parse(s); console.log(Array.isArray(j.people) ? "leaked" : "safe"); }
+    catch { console.log("safe"); }
+  });')
+check "gaffers.json is not published" "safe" "$LEAK"
 
 echo "== phone, 390px"
 $B viewport 390x844 >/dev/null

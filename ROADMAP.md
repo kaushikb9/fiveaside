@@ -165,6 +165,31 @@ What fixing it needs, when it comes:
 Until then the section is honestly labelled and trims to what has been
 played, rather than padding with matches it cannot see.
 
+## 4c. Blocked on KB — the gaffers door
+
+**Google sign-in is built, deployed and cannot lock without a client ID.**
+Everything else is done: the ID token is verified server-side against
+Google's published keys, the allowlist is re-checked per request, the session
+is an HMAC-signed HttpOnly cookie, `SESSION_SECRET` is set, and the personal
+data is no longer published as a static file — it lives in KV behind
+`/api/private`.
+
+The one missing input needs the Cloud Console, which no CLI here can reach:
+
+1. console.cloud.google.com &rarr; APIs & Services &rarr; Credentials
+2. Create credentials &rarr; OAuth client ID &rarr; **Web application**
+3. Authorised JavaScript origin: `https://fiveaside.pages.dev`
+4. `npx wrangler pages secret put GOOGLE_CLIENT_ID --project-name fiveaside`
+   then `./deploy.sh`
+
+Until then `/api/auth` answers 503 and the room says "no lock fitted yet"
+rather than showing a dead button. **The data is private either way** — it
+simply is not published — so this is not urgent, only unfinished.
+
+Also deferred, by KB: mapping the other four emails to their nicks. The
+allowlist in `functions/api/auth.js` has the slots commented in place; today
+every signed-in session resolves to the owner.
+
 ## 5. Todos, end to end
 
 1. **Per-gameweek picks** (debt 1) — unblocks an honest back-step, chip
