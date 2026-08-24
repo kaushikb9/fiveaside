@@ -11,9 +11,9 @@ hard boundary: **Python produces facts, the brain produces prose, the site
 produces pixels.** Work on one side of a boundary without leaking into
 another.
 
-Touchline runs its own palette (pitch green, club blue) on purpose, but
-follows the shared **structure** — see `../design-system/` for the token
-contract and the cross-app product/interaction invariants.
+Its own palette on purpose (Dugout in daylight, Floodlit at night — one
+design in two lights), but the shared **structure** — see `../design-system/`
+for the token contract and the cross-app invariants.
 
 ## Map
 
@@ -41,12 +41,20 @@ delegated listener in `site/common.js`. Keep it that way.
   the mechanical files straight to disk and hands the brain the remainder.
   The three `validate-*.mjs` files are the schema authorities.
 - `functions/` — Pages Functions, a **sibling** of `site/`, not inside it.
-  `api/live.js` proxies the FPL API (which sends no CORS headers);
-  `api/stars.js` is the KV-backed watchlist star.
+  `api/live.js` proxies the FPL API (which sends no CORS headers),
+  `api/stars.js` is the KV-backed watchlist star, `api/auth.js` is Google
+  sign-in for the gaffers room, and `api/private.js` serves the data that
+  room needs. One KV namespace (`STARS`) holds all of it, keyed by prefix.
 - `site/` — static, no framework, no build step, no CDNs. `common.js` loads
   first on every page and holds everything that must behave identically in
   all three rooms: theme, nicknames, kits, the focus-club rule, the player
   card. Every data-derived string goes through `esc()`.
+
+**Public and private.** `deploy.sh` runs `brain/publish-private.mjs`, which
+pushes the squads and the weekly reads into KV and keeps them out of the
+upload. `site/data/gaffers.json` exists in the repo as a build artifact and
+is **never published** — a tombstone ships in its place. Do not "fix" that by
+publishing it.
 
 **Which file may say what — the rule the whole repo turns on**
 
@@ -78,12 +86,18 @@ node brain/validate.mjs          # digests.json
 node brain/validate-fpl.mjs      # fpl.json — judgment layer
 node brain/validate-players.mjs  # players.json — the player file
 node --check site/common.js site/app.js site/gaffers/app.js site/locker/app.js \
-             functions/api/live.js functions/api/stars.js
+             functions/api/*.js brain/*.mjs
 ./brain/curate.sh --no-deploy      # league room, full run without publishing
 ./brain/curate-fpl.sh --no-deploy  # gaffers room, ditto
-./deploy.sh                      # copy config + wrangler pages deploy
-cd site && python3 -m http.server # local preview (/api/* 404s; stars fall back)
+./deploy.sh                      # stamp assets, split private, push to KV, deploy
+brain/test/smoke.sh https://fiveaside.pages.dev/   # 45 checks over the live site
+cd site && python3 -m http.server # local preview — /api/* 404s and the page
+                                  # degrades honestly, which is worth seeing
 ```
+
+**Wrap any long unattended run in `caffeinate -dimsu`.** This machine has
+`pmset sleep 1` on AC and two brain runs died mid-response before that was
+added; `-i` alone is not enough, it only blocks idle sleep. `auto.sh` does it.
 
 ## Rules that have bitten before
 
@@ -114,6 +128,28 @@ cd site && python3 -m http.server # local preview (/api/* 404s; stars fall back)
   is confirmed, which can be a day later — a 3-0 that is ninety minutes old
   still reads `finished: false`. Use `finished_provisional` or `minutes >= 90`
   as well, which is what `_recent()` does.
+- **Making something private means REPLACING it, not deleting it.** Removing
+  `gaffers.json` from the upload left Cloudflare serving it from the edge for
+  another six days (`cf-cache-status: HIT`, `s-maxage` 604800). Pages purges
+  an asset it replaces on deploy, not one that vanishes — so a tombstone
+  ships at that path. `site/_headers` also caps `/data/*` and forbids caching
+  `/api/*`.
+- **A `.json` path that 404s still answers 200 with `content-type:
+  application/json`** — Pages serves its SPA fallback and labels it by
+  extension. Neither status nor content type tells you whether a file
+  shipped; parse the body.
+- **The `?v=` cache-buster is a content hash**, stamped by
+  `brain/stamp-assets.mjs` at deploy. It used to be a hand-typed integer and
+  a forgotten bump served a stale `app.js` against fresh markup — the page
+  rendered, just without the feature.
+- **`text-wrap: balance` on a long headline** splits it into two half-width
+  lines and wastes the page. It is applied to short headings only.
+- **Grid items default to `min-width: auto`**, so a wide table's min-content
+  forces its `1fr` track past the container and scrolls the whole page
+  sideways. `.grid2 > * { min-width: 0 }`.
+- **Wire-once helpers must be idempotent.** A table inside a closed
+  `<details>` is already in the DOM, so a page-level pass and a toggle
+  handler both wired it and every sort click fired twice.
 - Competition labels on stat boards are short codes ("PL", "CL", "FR"); only
   the table heading uses the human league name.
 - ESPN is unofficial: keep the wide date window (120d back / 45d forward) and
@@ -135,19 +171,29 @@ cd site && python3 -m http.server # local preview (/api/* 404s; stars fall back)
 
 Cloudflare Pages project `fiveaside`, live at https://fiveaside.pages.dev (no
 custom domain). Deploys are non-interactive (`CI=1`) — just `./deploy.sh`,
-which copies the config, then asserts the Functions bundle uploaded, because
-the silent failure mode is `/api/*` 404ing to the static site.
+which stamps asset hashes, splits public from private, pushes the private half
+to KV, and asserts the Functions bundle uploaded (the silent failure mode is
+`/api/*` 404ing to the static site).
 
-A KV namespace `STARS` is bound in `wrangler.toml` for the watchlist stars.
-`/api/stars` returns 503 when the binding is missing and the site falls back
-to `localStorage`, which is exactly what a local preview does.
+**Secrets and bindings.** One KV namespace `STARS`, bound in `wrangler.toml`,
+holds `stars:<gaffer>` and `private:gaffers` / `private:people`.
+`SESSION_SECRET` is set as a Pages secret. `GOOGLE_CLIENT_ID` is **not set
+yet** — see ROADMAP §4a; without it sign-in returns 503 and the gaffers room
+says so honestly rather than showing a dead button.
+
+**Scheduling.** `brain/auto.sh` fires hourly via launchd
+(`com.kb.touchline.plist`). It pulls with autostash and a timeout, then:
+
+1. refreshes the **mechanical** data every hour (prices, points, squads,
+   chips — no LLM), publishing only if something moved;
+2. runs each brain at most once a day, on independent freshness checks, so a
+   failure in one never starves the other.
+
+The hourly refresh sits ABOVE the "nothing due, exit" guard on purpose. It
+was below it once, which meant that the moment both brains had run for the
+day the script exited before ever refreshing — the exact staleness it exists
+to remove.
 
 `touchline-pl` was deleted on 2026-08-23. The Chelsea digest moved to its own
-repo the same day — `~/Code/touchline-chelsea`, weekly, backup only, retire it
-once these three rooms are finished.
-
-Both brains run themselves: `brain/auto.sh` fires hourly via launchd
-(`com.kb.touchline.plist`) — pull with autostash and a timeout, then two
-independent freshness checks, so a failure in one never starves the other.
-Manual runs work any time. A run that dies because the machine slept leaves
-the data untouched; wrap long runs in `caffeinate -i`.
+repo the same day — `~/Code/touchline-chelsea`, weekly, backup only; retire it
+once these three rooms have run for a week.
