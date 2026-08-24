@@ -46,7 +46,7 @@ const urlRe = /^https?:\/\//;
 
 if (!isObj(data)) fail("top-level JSON must be an object");
 
-const NICKS = ["Xabi", "Sir Alex", "Ronaldo", "Enzo", "Arsene"];
+const NICKS = ["Xabi", "Sir Fergie", "Mr CR7", "The Special One", "Le Professeur"];
 const VERDICTS = ["nailed", "solid", "watch", "sack"];
 const MOVED = ["up", "down", "new", "held"];
 

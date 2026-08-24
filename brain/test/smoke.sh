@@ -28,8 +28,10 @@ for ROOM in "" "gaffers/" "locker/" "about/"; do
   check "no horizontal overflow" "false" "$(js 'document.documentElement.scrollWidth > window.innerWidth')"
 done
 
-echo "== theme, on the gaffers"
-go "gaffers/"
+echo "== theme, on the locker room"
+# Probed here rather than on the gaffers: that room is gated, and a signed-out
+# visitor sees no table for the ink check to read.
+go "locker/"
 for T in light dark auto; do
   js "FA.setTheme('$T'); ''" >/dev/null
   BG=$(js 'getComputedStyle(document.body).backgroundColor')
@@ -43,7 +45,8 @@ check "dark: table ink is the dark token" "rgb(231, 238, 247)" \
 js "FA.setTheme('auto'); ''" >/dev/null
 
 echo "== the seam: player card from every room"
-for ROOM in "" "gaffers/" "locker/"; do
+for ROOM in "" "locker/"; do
+  # gaffers is covered by the signed-in run; signed out it has no names.
   go "$ROOM"
   OPENED=$(js 'const l=document.querySelector("[data-player]"); if(!l) "noplink"; else { l.click(); (!document.getElementById("fa-backdrop").hidden).toString() }')
   check "/$ROOM card opens" "true" "$OPENED"
@@ -60,8 +63,17 @@ AFTER=$(js 'document.querySelectorAll("ul.feed > li:not([hidden])").length')
 check "FPL filter narrows the feed" "true" "$(js "${AFTER} <= ${BEFORE}")"
 check "filter dims the table"       "true" "$(js 'const b=document.querySelector(".filters .fc.club, .filters .fc:not([data-filter=all]):not([data-filter=PL]):not([data-filter=FPL])"); if(!b) true; else { b.click(); document.querySelectorAll("tr.dim").length > 0 }')"
 
-echo "== gaffers: chips, gameweek, star"
+echo "== gaffers: the door"
 go "gaffers/"
+GATED=$(js 'document.body.textContent.includes("Members only")')
+check "tab is visible to everyone" "3" "$(js 'document.querySelectorAll(".rooms a").length')"
+if [ "$GATED" = "true" ]; then
+  check "signed out: shows the wall"       "true"  "$(js 'document.body.textContent.includes("Members only")')"
+  check "signed out: no squad data leaks"  "0"     "$(js 'document.querySelectorAll(".pitch .pp, #gbar .gchip").length')"
+  echo "  note  gaffers interior not exercised — signed out. Sign in and re-run to cover it."
+else
+
+echo "== gaffers: chips, gameweek, star"
 check "five gaffer chips" "5" "$(js 'document.querySelectorAll("#gbar .gchip").length')"
 js 'document.querySelector("#gbar .gchip[data-nick=Arsene]").click(); ""' >/dev/null
 check "switching gaffer re-renders" "true" "$(js '/Arsene/.test(document.querySelector("#gbar .gchip[aria-pressed=true]").textContent)')"
@@ -81,6 +93,7 @@ else
   js 'document.querySelector("[data-star]").click(); ""' >/dev/null   # put it back
   sleep 0.5
 fi
+fi
 
 echo "== locker: filters, threshold, search"
 go "locker/"
@@ -96,6 +109,14 @@ js 'document.querySelector(".fc[data-min=\"2\"]").click(); document.querySelecto
 js 'const i=document.getElementById("fq"); i.value="haal"; i.dispatchEvent(new Event("input")); ""' >/dev/null
 sleep 0.3
 check "search filters" "true" "$(js 'document.querySelectorAll("#the-file table tbody tr").length <= 3')"
+
+echo "== the door holds"
+for EP in "api/private" "api/auth"; do
+  CODE=$(curl -s -o /dev/null -w "%{http_code}" "$BASE$EP")
+  check "$EP refuses anonymous" "401" "$CODE"
+done
+check "gaffers.json is not published" "false" \
+  "$(curl -s "$BASE" -o /dev/null -w '%{http_code}' >/dev/null; curl -s "${BASE}data/gaffers.json" | head -c 1 | grep -q '{' && echo true || echo false)"
 
 echo "== phone, 390px"
 $B viewport 390x844 >/dev/null

@@ -17,6 +17,7 @@
   // Live gameweek state, fetched on demand from /api/live. Keyed by element
   // so the pitch can prefer it over the snapshot in gaffers.json.
   let live = null, liveFor = null, liveBusy = false;
+  let session = null;
 
   const byId = {};
   const pool = () => P.players;
@@ -420,7 +421,11 @@
   function render() {
     $("#main").innerHTML =
       '<section class="section"><div class="section-head"><h2>the gaffers</h2>' +
-      '<span class="mute" style="font-size:13px">what we did about it</span></div>' +
+      '<span class="mute" style="font-size:13px">what we did about it</span>' +
+      (session
+        ? '<span style="margin-left:auto;font-size:12px;color:var(--faint)">' +
+          esc(session.email) + ' &middot; <a href="#" id="signout">sign out</a></span>'
+        : "") + "</div>" +
       headlineHTML() +
       // Two short status panels that answer the same question — how much of
       // this gameweek is real yet — so they sit on one row.
@@ -448,6 +453,12 @@
     document.querySelectorAll(".gwnav button[data-gw]").forEach((b) => {
       b.onclick = () => { if (!b.disabled) { gwView = Number(b.dataset.gw); render(); } };
     });
+    const so = document.getElementById("signout");
+    if (so) so.onclick = async (e) => {
+      e.preventDefault();
+      await fetch("/api/auth", { method: "DELETE" });
+      location.reload();
+    };
     document.querySelectorAll("[data-star]").forEach((b) => {
       b.onclick = async (e) => {
         e.stopPropagation();
@@ -458,16 +469,91 @@
     });
   }
 
+  /* ---------------- the door ----------------
+     The squads and weekly reads are not published as static files; they come
+     from /api/private and only with a valid session. So this room genuinely
+     cannot render without signing in, rather than merely declining to. */
+  function signInHTML(state) {
+    const body = {
+      out: "<p class=\"note\">This room is the five's own: squads, weekly reads and the " +
+        "league. Sign in with the Google account you gave KB.</p>",
+      denied: '<p class="note" style="color:var(--hot)">That account is not on the list. ' +
+        "Five people have keys to this room; ask KB to add yours.</p>",
+      unconfigured: '<p class="note" style="color:var(--warn)">Sign-in is not switched on yet ' +
+        "&mdash; the Google client ID has not been set. Nothing is broken; the door simply has " +
+        "no lock fitted.</p>",
+      error: '<p class="note" style="color:var(--hot)">Sign-in failed. Try again.</p>',
+    }[state] || "";
+    return '<section class="section"><div class="section-head"><h2>the gaffers</h2>' +
+      '<span class="mute" style="font-size:13px">what we did about it</span></div>' +
+      '<div class="panel" style="text-align:center;padding:34px 20px">' +
+      '<h3 style="font-size:18px">Members only</h3>' + body +
+      '<div id="gsi" style="display:flex;justify-content:center;margin-top:16px"></div>' +
+      '<p class="note" style="margin-top:14px;text-align:center">' +
+      '<a href="../">touchline</a> and <a href="../locker/">the locker room</a> are open to ' +
+      "everyone.</p></div></section>";
+  }
+
+  function renderSignIn(state) {
+    $("#main").innerHTML = signInHTML(state);
+    const cid = document.body.dataset.googleClientId;
+    if (!cid || state === "unconfigured") return;
+    // Google Identity Services renders its own button; it is loaded from the
+    // shell so that a blocked script leaves an honest message rather than a
+    // dead page.
+    if (!window.google || !google.accounts) return;
+    google.accounts.id.initialize({ client_id: cid, callback: onCredential });
+    google.accounts.id.renderButton(document.getElementById("gsi"),
+      { theme: "outline", size: "large", text: "signin_with", shape: "pill" });
+  }
+
+  async function onCredential(res) {
+    try {
+      const r = await fetch("/api/auth", {
+        method: "POST",
+        headers: { "content-type": "application/json" },
+        body: JSON.stringify({ credential: res.credential }),
+      });
+      if (r.status === 403) return renderSignIn("denied");
+      if (!r.ok) return renderSignIn("error");
+      main();
+    } catch (e) {
+      renderSignIn("error");
+    }
+  }
+
   async function main() {
     const el = $("#main");
+
+    let priv;
     try {
-      G = await loadJSON("../data/gaffers.json");
-      P = await loadJSON("../data/players.json");
+      const r = await fetch("/api/private", { cache: "no-store" });
+      if (r.status === 401) return renderSignIn("out");
+      if (r.status === 503) return renderSignIn("unconfigured");
+      if (!r.ok) throw new Error("HTTP " + r.status);
+      priv = await r.json();
     } catch (e) {
       FA.fail(el, "The gaffers room could not load. " + e.message);
       return;
     }
+
+    G = priv.gaffers;
+    session = priv.session || null;
+    // The signed-in gaffer is whose room it is. Falls back to the owner until
+    // the other four addresses are mapped.
+    who = (session && session.nick) || FA.ME;
+
+    try {
+      P = await loadJSON("../data/players.json");
+    } catch (e) {
+      FA.fail(el, "The player file could not load. " + e.message);
+      return;
+    }
     try { F = await loadJSON("../data/fpl.json"); } catch (e) { F = null; }
+    // `people` travels with the private payload, not with public fpl.json.
+    if (F) F.people = priv.people || [];
+    else F = { people: priv.people || [] };
+
     P.players.forEach((p) => { byId[p.id] = p; });
 
     await FA.loadStars();

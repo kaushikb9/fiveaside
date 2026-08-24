@@ -55,14 +55,33 @@
   /* ---------------- the five ----------------
      Nicknames only, ever. The FPL API hands back real names and they are
      dropped at the facts layer; nothing here should ever reintroduce one. */
-  FA.NICKS = ["Xabi", "Sir Alex", "Ronaldo", "Enzo", "Arsene"];
+  FA.NICKS = ["Xabi", "Sir Fergie", "Mr CR7", "The Special One", "Le Professeur"];
   FA.ME = "Xabi";
-  FA.initial = (n) => (n === "Sir Alex" ? "SA" : n.charAt(0));
+  /* Owner dots are one or two characters, so multi-word nicknames need a
+     chosen abbreviation — "Sir Fergie" and "The Special One" would otherwise
+     both collapse to "S". */
+  FA.INITIALS = {
+    "Xabi": "X",
+    "Sir Fergie": "SF",
+    "Mr CR7": "C7",
+    "The Special One": "SO",
+    "Le Professeur": "LP",
+  };
+  FA.initial = (n) => FA.INITIALS[n] || n.charAt(0);
 
-  const NICK_RE = new RegExp("\\b(" + FA.NICKS.join("|") + ")\\b(?! [A-Z])", "g");
-  /* Mark gaffer nicknames in prose. Guarded against "Enzo Maresca": a nickname
-     followed by a capitalised word is a real person, not one of us. Use this
-     in the gaffers room only — in touchline, Enzo IS the manager. */
+  /* Mark gaffer nicknames in prose, longest first so "The Special One" is
+     never half-matched.
+
+     The previous single-word nicknames needed a guard against "Enzo Maresca"
+     — a nickname followed by a capitalised word was a real person rather than
+     one of us. These nicknames are themselves multi-word, so that guard would
+     now reject every one of them; it is gone. The names are distinctive, and
+     gname is only ever applied inside the gaffers room. */
+  const NICK_RE = new RegExp(
+    "(" + FA.NICKS.slice().sort((a, b) => b.length - a.length)
+      .map((n) => n.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")).join("|") + ")",
+    "g"
+  );
   FA.gname = (t) => esc(t).replace(NICK_RE, '<span class="gname">$1</span>');
 
   FA.ownerDots = function (by, me) {

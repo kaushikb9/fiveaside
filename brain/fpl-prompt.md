@@ -23,7 +23,7 @@ is. Every sentence you write should be one a spreadsheet could not produce.
 
 ## Never write a real person's name
 
-The five are **Xabi, Sir Alex, Ronaldo, Enzo, Arsene**. Those are the only
+The five are **Xabi, Sir Fergie, Mr CR7, The Special One, Le Professeur**. Those are the only
 names they have here.
 
 You have access to this repository, so you can see git authorship, commit
@@ -85,7 +85,7 @@ Write accordingly:
     { "id": "D1", "text": "...", "established": "day 0",
       "grade": "doctrine", "status": "standing" }
   ],
-  "roast": { "text": "...", "by": "settles GW1", "target": "Enzo" },
+  "roast": { "text": "...", "by": "settles GW1", "target": "The Special One" },
   "plan": { "outlook": "a short paragraph on where the five stand" },
   "chips": { "rows": [ { "code": "WC1", "name": "Wildcard", "window": "...", "expires": "GW19" } ],
              "note": "..." },

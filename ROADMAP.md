@@ -26,10 +26,10 @@ The five, by nickname (real names are never used anywhere — see §4):
 | Nick | Team | Club | Entry |
 |---|---|---|---|
 | Xabi | Wabi Sabi Xabi | Chelsea | 7149204 |
-| Sir Alex | Youri kiddin' me! | Man Utd | 58500 |
-| Ronaldo | Yogesh11 | Man Utd | 522356 |
-| Enzo | WorldChamps | Chelsea | 6485401 |
-| Arsene | IceMan | Arsenal | 4135179 |
+| Sir Fergie | Youri kiddin' me! | Man Utd | 58500 |
+| Mr CR7 | Yogesh11 | Man Utd | 522356 |
+| The Special One | WorldChamps | Chelsea | 6485401 |
+| Le Professeur | IceMan | Arsenal | 4135179 |
 
 Mini-league **FPL 26-27** (id `391164`) has 11 entries; the five are a subset
 and the other six are context.
@@ -177,6 +177,32 @@ played, rather than padding with matches it cannot see.
 6. **Deferred by decision**: friend-facing team-ID entry, any auto-refresh or
    realtime behaviour, accounts/auth.
 
+## 5a. The five — frozen, 2026-08-24
+
+| Nick | Club | Entry | Dot |
+|---|---|---|---|
+| Xabi | Chelsea | 7149204 | X |
+| Sir Fergie | Man Utd | 58500 | SF |
+| Mr CR7 | Man Utd | 522356 | C7 |
+| The Special One | Chelsea | 6485401 | SO |
+| Le Professeur | Arsenal | 4135179 | LP |
+
+Renamed from Sir Alex / Ronaldo / Enzo / Arsene on KB's instruction and
+**frozen**. They live in `touchline.config.json`, `site/common.js`
+(`FA.NICKS` and `FA.INITIALS`), `functions/api/stars.js` and
+`brain/validate-fpl.mjs` — change all four together or the validator will
+reject the brain's next file.
+
+Two consequences worth knowing. The dots need an explicit abbreviation now,
+because "Sir Fergie" and "The Special One" both start with S. And the
+prose-marking regex lost its old guard: single-word nicknames needed
+protection against "Enzo Maresca", but multi-word ones would have been
+rejected by that same rule.
+
+Archived mockups and comment exports in `docs/superpowers/` keep the OLD
+names deliberately — rewriting a signed-off review would make the record lie
+about what was reviewed.
+
 ## 5b. Settled by review, 2026-08-23 — do not re-litigate
 
 From KB's comment export (`docs/superpowers/comments/2026-08-23-rooms-comments.md`),
@@ -200,7 +226,7 @@ all built into the mockup:
 - **The league table collapses** behind a one-line summary; the gaffer chips
   carry team name and club colour instead.
 - **Gaffer nicknames get their own visual treatment** in the gaffers room, and
-  deliberately not in touchline, where "Enzo" means Enzo Maresca.
+  deliberately not in touchline, where a manager's nickname means the manager.
 - **Focus clubs are a rule, not a list** (KB: "don't be static"). Three are
   permanent by allegiance — Chelsea, Manchester United, Arsenal, because that
   is who the five support. Until **GW10** the other two are seeded (Liverpool,

@@ -18,7 +18,11 @@
     })();
   </script>
 </head>
-<body>
+<body data-google-client-id="">
+  <!-- Google Identity Services. The client id is stamped into the body tag by
+       deploy.sh from GOOGLE_CLIENT_ID; with it blank the room shows an honest
+       "no lock fitted yet" rather than a broken button. -->
+  <script src="https://accounts.google.com/gsi/client" async defer></script>
   <div class="wrap">
     <header class="mast">
       <div class="mast-top">
@@ -44,7 +48,7 @@
       <span style="margin-left:auto"><a href="../about/">about</a></span>
     </footer>
   </div>
-  <script src="../common.js?v=26f6ebe4"></script>
-  <script src="app.js?v=e2a2643d"></script>
+  <script src="../common.js?v=2ced200d"></script>
+  <script src="app.js?v=b5f90c02"></script>
 </body>
 </html>

@@ -5,7 +5,7 @@
    is the same for everyone. localStorage cannot do either.
 
    Shape in KV: one key per gaffer, holding a JSON array of element ids.
-   GET  -> { "Xabi": [411, 426], "Enzo": [...] }
+   GET  -> { "Xabi": [411, 426], "The Special One": [...] }
    POST { gaffer, player, on } -> the updated array for that gaffer.
 
    No auth, by design and by scope: this is five friends and a list of
@@ -14,7 +14,7 @@
    the player id must be a plausible element id.
    ========================================================================= */
 
-const GAFFERS = ["Xabi", "Sir Alex", "Ronaldo", "Enzo", "Arsene"];
+const GAFFERS = ["Xabi", "Sir Fergie", "Mr CR7", "The Special One", "Le Professeur"];
 const MAX_STARS = 60;
 
 const json = (body, status = 200) =>
