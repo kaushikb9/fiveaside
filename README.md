@@ -1,74 +1,91 @@
-# Touchline
+# Five-a-Side
 
-One page of football a day. No scroll, no bait.
+Football and Fantasy Premier League for five friends. No scroll, no bait.
 
-**Live:** [touchline-chelsea.pages.dev](https://touchline-chelsea.pages.dev) ·
-[why this exists](https://touchline-chelsea.pages.dev/about/)
+**Live:** [fiveaside.pages.dev](https://fiveaside.pages.dev) ·
+[why this exists](https://fiveaside.pages.dev/about/)
 
-Touchline is a self-hostable football companion built on a simple model
-(borrowed from [antifeed](https://github.com/kaushikb9/antifeed)): a static
-site whose only database is a JSON file, plus a **brain** — headless Claude
-Code, run locally each morning — that gathers the facts, reads the day's
-discourse, and writes one calm, opinionated page: what happened, what's on
-today, and what's worth your click.
+Built on a simple model borrowed from
+[antifeed](https://github.com/kaushikb9/antifeed): a static site whose only
+database is a JSON file, plus a **brain** — headless Claude Code, run locally
+— that gathers the facts, reads the week's discourse, and writes one calm,
+opinionated page.
 
-The boundary rule: **Python produces facts, the brain produces prose, the
+The boundary rule: **Python produces facts, the brain produces judgment, the
 site produces pixels.**
 
+## Three rooms
+
+| Room | URL | Job |
+|---|---|---|
+| **touchline** | `/` | What happened. The league, the same for everyone. |
+| **the gaffers** | `/gaffers/` | What we did about it. Five squads, five weekly reads. Behind Google sign-in. |
+| **the locker room** | `/locker/` | What we know. Every player, evidence first. |
+
+Any player's name, in any room, opens their file — that join is what makes it
+one product rather than three tabs.
+
 ```
-touchline.config.json   your club, competitions, timezone, feeds, voice
-src/touchline/          facts CLI: `touchline facts` -> JSON bundle (ESPN by default)
-brain/                  prompt + sources + curate.sh (headless Claude Code)
-site/                   static reader; site/data/digests.json is the database
+touchline.config.json   club, competitions, timezone, feeds, voice, the five
+src/touchline/          facts CLI: `touchline facts` and `touchline fpl`
+brain/                  two prompts, three validators, the curate scripts
+functions/              Pages Functions: FPL proxy, stars, auth, private data
+site/                   static reader; no framework, no build step, no CDNs
 ```
+
+## What may say what
+
+The rule the whole repo turns on:
+
+| File | Written by | Contains |
+|---|---|---|
+| `players.json` | `touchline fpl` | Every player, evidence only. Mechanical. |
+| `gaffers.json` | `touchline fpl` | Squads, picks, captaincy, chips. Mechanical, **not published**. |
+| `fpl.json` | the brain | Judgment only — opinion with its reasoning attached. |
+| `digests.json` | the brain | The league page. Append-only, one entry per date. |
+
+If a value could be copied from the API, it does not belong in the file a
+language model writes. Routing 600 player records through one cost ~100k
+tokens a run to retype numbers, and every retyped number is a chance to get
+one wrong.
 
 ## Daily use
 
 ```sh
-./brain/curate.sh              # with morning coffee: facts -> brain -> validate -> commit -> deploy
-./brain/curate.sh --no-deploy  # same, but stop before deploying
+./brain/curate.sh --no-deploy      # the league room
+./brain/curate-fpl.sh --no-deploy  # the gaffers room
+./deploy.sh                        # stamp, split public/private, publish
 ```
 
-## Self-hosting
-
-1. Fork this repo.
-2. Edit `touchline.config.json` — club name + club `code`, plus
-   competitions, your timezone, feeds, and the voice you want the digest
-   written in. The `code` must match your configured `source` (step 3): the
-   ESPN abbreviation for `espn` (default — e.g. `MAN` for Manchester United,
-   not football-data's `MUN`), the [football-data.org TLA](https://www.football-data.org/)
-   for `football-data`, or nothing at all for `api-football` — it has no
-   club codes, so the club `name` must match its team name exactly instead.
-3. Pick a data source in `touchline.config.json` (`"source"`):
-   `espn+thesportsdb` (recommended, no key needed — ESPN for league data
-   plus [TheSportsDB](https://www.thesportsdb.com/)'s free per-team feed,
-   which catches tour friendlies ESPN misses; set `club.thesportsdb_id` to
-   your club's numeric TheSportsDB team id), `espn` (no key needed),
-   `api-football` (set `API_FOOTBALL_KEY`, from
-   [api-football.com](https://www.api-football.com/)), or `football-data`
-   (set `FOOTBALL_DATA_TOKEN`, from [football-data.org](https://www.football-data.org/)).
-4. Install [Claude Code](https://claude.com/claude-code) (the brain runs
-   `claude -p`), plus `uv` and `node`.
-5. First deploy: `npx wrangler login`, then
-   `npx wrangler pages project create <your-project> --production-branch main`
-   (once — deploy runs non-interactively and cannot create the project),
-   then `./deploy.sh`. After that, run `./brain/curate.sh` each morning.
-
-Nothing runs centrally: the brain runs on your machine, with your
-preferences, and publishes to your Cloudflare Pages project.
+Both brains also run themselves hourly via launchd (`brain/auto.sh`): the
+mechanical data refreshes every hour, each brain at most once a day.
 
 ## Development
 
 ```sh
-uv run pytest -q                     # Python suite
-node brain/validate.mjs              # check the database
-cd site && python3 -m http.server    # local preview
+uv run pytest -q                                   # Python suite
+uv run ruff check .                                # lint
+node brain/validate.mjs                            # the league database
+node brain/validate-fpl.mjs                        # the judgment layer
+node brain/validate-players.mjs                    # the player file
+brain/test/smoke.sh https://fiveaside.pages.dev/   # 45 checks over the live site
+cd site && python3 -m http.server                  # local preview
 ```
 
-## Deliberately not built (yet)
+Working on this? Read [`ROADMAP.md`](ROADMAP.md) for the state of play, then
+[`AGENTS.md`](AGENTS.md) for the rules and the traps that have already cost
+someone a debugging round.
 
-Match pages, standings pages, PWA install, push/Telegram/email delivery,
-preference sync, automated scheduling. Each may return if the habit sticks.
+## Self-hosting
+
+The machine is generic; only the config is ours. Fork it, put your own club
+and competitions in `touchline.config.json`, pick a data source
+(`espn+thesportsdb` needs no API key), install
+[Claude Code](https://claude.com/claude-code), `uv` and `node`, then
+`npx wrangler login` and `./deploy.sh`.
+
+Nothing runs centrally: the brain runs on your machine, with your
+preferences, and publishes to your own Cloudflare Pages project.
 
 ## License
 
