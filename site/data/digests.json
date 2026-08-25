@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-23T20:30:54.272Z",
+  "generated_at": "2026-08-25T03:26:45.121Z",
   "digests": [
     {
       "date": "2026-07-25",
@@ -5978,6 +5978,257 @@
           "to": "Juventus",
           "heat": "talks",
           "note": "Juventus have lodged a new bid, per The Athletic, in a week when Villa have already lost Ezri Konsa and may lose Watkins."
+        }
+      ]
+    },
+    {
+      "date": "2026-08-25",
+      "headline": "A front three that looked the part, a goalkeeper who did not, and seven days to the deadline",
+      "week": [
+        {
+          "tag": "PL",
+          "club": "Chelsea",
+          "kicker": "Thirty-one seconds.",
+          "text": "That is how long Xabi Alonso had to wait for his first Premier League goal in charge: João Pedro onto a Cole Palmer pass and over Bernd Leno, Chelsea's fastest goal since October 2016. Morgan Rogers tapped in before half-time on his debut after a club-record £117m move from Aston Villa, Palmer added the third, and the 3–2 win at Craven Cottage was built almost entirely by three players. Gary Neville called the front three \"electric\"; Jamie Carragher said they were \"as good as anything in the Premier League right now\"."
+        },
+        {
+          "tag": "PL",
+          "club": "Manchester United",
+          "kicker": "Twenty-one shots, one problem.",
+          "text": "Andrew Beasley's post-mortem on the 2–0 defeat at Hull puts the alarm somewhere other than the set pieces: United had 21 shots, 16 of them worth less than 0.1 expected goals apiece. That was the pattern last season too — the third-worst average shot quality in open play among the top-half clubs — and Opta had rated them 68.9% likely to win before kick-off."
+        },
+        {
+          "tag": "PL",
+          "club": "Newcastle United",
+          "kicker": "Newcastle keep spending.",
+          "text": "A verbal agreement with Manchester City for Nico González at £47m plus £3m in add-ons, per Fabrizio Romano, with the Guardian putting the fee nearer £50m — almost exactly what City paid Porto for him. L'Équipe adds a €40m offer for Lille's 21-year-old forward Matias Fernandez-Pardo on top."
+        },
+        {
+          "tag": "FPL",
+          "club": "Liverpool",
+          "kicker": "Elliott was not in the squad.",
+          "text": "Not injured, not benched — Harvey Elliott was left out of the matchday squad entirely at Newcastle, which BBC Sport reads as a verdict on his Liverpool future with a week of the window left. Anyone holding him as a cheap midfield bench filler is holding a player who may not be there on 2 September."
+        },
+        {
+          "tag": "PL",
+          "club": "Coventry City",
+          "kicker": "The promoted side shop on.",
+          "text": "Beaten 3–0 by Arsenal on their return to the top flight, Coventry have spent the days since agreeing a £6m deal for Brentford's 33-year-old centre-back Ethan Pinnock, per David Ornstein, having already taken Taiwo Awoniyi from Nottingham Forest for £9m. Experience first, and cheaply."
+        },
+        {
+          "tag": "FPL",
+          "club": "Nottingham Forest",
+          "kicker": "Delap is close to leaving.",
+          "text": "Forest are in advanced talks for Liam Delap, who has been training away from Alonso's first team and was left out at Fulham — a year and £30m after Chelsea took him from Ipswich. Oliver Glasner wants two more signings before the window shuts, and a Delap arrival puts real pressure on Chris Wood and Igor Jesus rather than simply backing them up."
+        }
+      ],
+      "team_watch": [
+        {
+          "name": "Robert Sánchez",
+          "tag": "GK · Chelsea",
+          "note": "Rated 3 by BBC Sport at Craven Cottage: an early kicking error, beaten at his near post by Josh King, then a parry into the danger area that Gonzalo García turned in. Alonso would only talk about collective responsibility and told him to relax and carry on; Carragher said Chelsea \"will never win the league\" with him in goal."
+        },
+        {
+          "name": "Josh King",
+          "tag": "Academy · Fulham",
+          "note": "Fulham's best player by a distance on Monday night — an 8 from BBC Sport, the near-post equaliser, and a 73rd-minute effort from range that almost made it 3–3.",
+          "talent": true
+        },
+        {
+          "name": "Gonzalo García",
+          "tag": "ST · Fulham",
+          "note": "A debut spent holding the ball up through long spells of Chelsea possession, rewarded with a close-range header for Fulham's second."
+        }
+      ],
+      "table": {
+        "competition": "Premier League",
+        "rows": [
+          {
+            "pos": 1,
+            "team": "Brighton & Hove Albion",
+            "crest": "https://a.espncdn.com/i/teamlogos/soccer/500/331.png",
+            "played": 1,
+            "points": 3
+          },
+          {
+            "pos": 2,
+            "team": "Arsenal",
+            "crest": "https://a.espncdn.com/i/teamlogos/soccer/500/359.png",
+            "played": 1,
+            "points": 3,
+            "form": "DWLDW",
+            "focus": true
+          },
+          {
+            "pos": 3,
+            "team": "Brentford",
+            "crest": "https://a.espncdn.com/i/teamlogos/soccer/500/337.png",
+            "played": 1,
+            "points": 3
+          },
+          {
+            "pos": 4,
+            "team": "Everton",
+            "crest": "https://a.espncdn.com/i/teamlogos/soccer/500/368.png",
+            "played": 1,
+            "points": 3
+          },
+          {
+            "pos": 5,
+            "team": "Hull City",
+            "crest": "https://a.espncdn.com/i/teamlogos/soccer/500/306.png",
+            "played": 1,
+            "points": 3
+          },
+          {
+            "pos": 6,
+            "team": "Chelsea",
+            "crest": "https://a.espncdn.com/i/teamlogos/soccer/500/363.png",
+            "played": 1,
+            "points": 3,
+            "form": "LWDWW",
+            "focus": true
+          },
+          {
+            "pos": 8,
+            "team": "Manchester City",
+            "crest": "https://a.espncdn.com/i/teamlogos/soccer/500/382.png",
+            "played": 1,
+            "points": 3,
+            "form": "DLDWW",
+            "focus": true
+          },
+          {
+            "pos": 10,
+            "team": "Liverpool",
+            "crest": "https://a.espncdn.com/i/teamlogos/soccer/500/364.png",
+            "played": 1,
+            "points": 1,
+            "form": "LLDWD",
+            "focus": true
+          },
+          {
+            "pos": 17,
+            "team": "Manchester United",
+            "crest": "https://a.espncdn.com/i/teamlogos/soccer/500/360.png",
+            "played": 1,
+            "points": 0,
+            "form": "WDDLL",
+            "focus": true
+          }
+        ],
+        "note": "All twenty clubs have now played once, and the top six is sorted purely on goal difference — Chelsea are sixth with the same three points as Brighton at the top."
+      },
+      "wider": [
+        {
+          "title": "'Enough is enough': players pile pressure on under-fire Gianni Infantino to resign",
+          "url": "https://www.theguardian.com/football/2026/aug/24/gianni-infantino-fifa-players-resign-football-politics",
+          "hook": "A group calling itself Fifa Legends — influential current and former players — has gone public accusing the president of being power hungry, while Samuel Eto'o insists he has not done anything wrong. Infantino spent Saturday at a youth tournament in the Dominican Republic, courting the small Caribbean associations his job may depend on.",
+          "source": "The Guardian Football",
+          "image": "https://i.guim.co.uk/img/media/2fe439991099bc64b95d81f4daaa19cc202fc979/389_114_3569_2857/master/3569.jpg?width=1200&height=630&quality=85&auto=format&fit=crop&precrop=40:21,offset-x50,offset-y0&overlay-align=bottom%2Cleft&overlay-width=100p&overlay-base64=L2ltZy9zdGF0aWMvb3ZlcmxheXMvdGctZGVmYXVsdC5wbmc&enable=upscale&s=f4113de0427457b45a0215061f5f21f7"
+        },
+        {
+          "title": "Julián Álvarez walks alone at Atlético in transfer saga with no end – and no winners",
+          "url": "https://www.theguardian.com/football/2026/aug/24/julian-alvarez-walks-alone-at-atletico-madrid-barcelona-transfer-saga-la-liga",
+          "hook": "Sid Lowe on a striker booed by his own supporters and left conspicuously alone on the pitch after a draw with Villarreal. The best account going of what a transfer saga actually does to the person in the middle of it.",
+          "source": "The Guardian Football",
+          "image": "https://i.guim.co.uk/img/media/ca5246456a9f4ee465542159abb62220bd2bd4ca/820_0_4410_3528/master/4410.jpg?width=1200&height=630&quality=85&auto=format&fit=crop&precrop=40:21,offset-x50,offset-y0&overlay-align=bottom%2Cleft&overlay-width=100p&overlay-base64=L2ltZy9zdGF0aWMvb3ZlcmxheXMvdGctZGVmYXVsdC5wbmc&enable=upscale&s=d1fb10cafc113fe847e9d4cec1ef3c9f"
+        },
+        {
+          "title": "Watkins' departure would cut deepest - and Villa did not see it coming",
+          "url": "https://www.bbc.co.uk/sport/football/articles/cq63ry9q6jzo",
+          "hook": "Villa have sold before and survived it. This one is different, and the club were not braced for it: a legend of the last six years weighing Al-Hilal, left out of a matchday squad, with his manager answering questions about him in silence.",
+          "source": "BBC Sport",
+          "image": "https://ichef.bbci.co.uk/ace/branded_sport/1200/cpsprodpb/29c5/live/0d070e60-9fd6-11f1-b1ca-0b18d44a4d5d.jpg"
+        }
+      ],
+      "read": {
+        "title": "Post-Pep Premier League era begins with blast of hyper-managed shock and awe",
+        "url": "https://www.theguardian.com/football/2026/aug/24/post-pep-premier-league-era-begins-with-blast-of-hyper-managed-shock-and-awe",
+        "hook": "Barney Ronay on what actually felt different about matchday one: the possession numbers, the physicality, the rhythm of games — and Ipswich, Hull and Brentford all thriving with barely any of the ball. A useful frame for the season rather than a reaction to it.",
+        "source": "The Guardian Football",
+        "image": "https://i.guim.co.uk/img/media/38b2aa56f87e9978238263678190165eba62024a/0_0_5000_4000/master/5000.jpg?width=1200&height=630&quality=85&auto=format&fit=crop&precrop=40:21,offset-x50,offset-y0&overlay-align=bottom%2Cleft&overlay-width=100p&overlay-base64=L2ltZy9zdGF0aWMvb3ZlcmxheXMvdGctZGVmYXVsdC5wbmc&enable=upscale&s=736fd53e0f1647d89caf00fd294fe45b"
+      },
+      "top_teams": [
+        {
+          "club": "Chelsea",
+          "crest": "https://a.espncdn.com/i/teamlogos/soccer/500/363.png",
+          "line": "#6 · 3 pts · PL",
+          "note": "Thirty-nine senior players are still on the books with seven days to sell or loan — the actual work of Chelsea's week now that the football has started well."
+        },
+        {
+          "club": "Arsenal",
+          "crest": "https://a.espncdn.com/i/teamlogos/soccer/500/359.png",
+          "line": "#2 · 3 pts · PL",
+          "note": "Talks with Al-Hilal over Gabriel Martinelli have reached at least £50m and are close to agreement; the wages on offer are said to dwarf his reported £180,000 a week, and with a deal in place the decision becomes the player's, having already turned Galatasaray down."
+        },
+        {
+          "club": "Manchester City",
+          "crest": "https://a.espncdn.com/i/teamlogos/soccer/500/382.png",
+          "line": "#8 · 3 pts · PL",
+          "note": "Another winger through the door: €37.5m plus €2.5m for Palmeiras' 22-year-old Allan Elias, who has 96 club appearances and no Brazil cap yet."
+        },
+        {
+          "club": "Manchester United",
+          "crest": "https://a.espncdn.com/i/teamlogos/soccer/500/360.png",
+          "line": "#17 · 0 pts · PL",
+          "note": "The Sun reports they are confident of persuading Arsenal to sell Myles Lewis-Skelly, with an asking price above £50m the obstacle — a 19-year-old who covers left-back and midfield, two of the positions the Hull defeat exposed."
+        },
+        {
+          "club": "Liverpool",
+          "crest": "https://a.espncdn.com/i/teamlogos/soccer/500/364.png",
+          "line": "#10 · 1 pt · PL",
+          "note": "They now have to decide on Cody Gakpo rather than simply keep him: Tottenham have been working on a deal for a while and Manchester City entered the race on Monday, per The Athletic."
+        }
+      ],
+      "elsewhere": [
+        {
+          "club": "Brighton & Hove Albion",
+          "crest": "https://a.espncdn.com/i/teamlogos/soccer/500/331.png",
+          "note": "Top of the league and not selling: a second Liverpool bid for Yankuba Minteh, this one worth £60m after a £50m opener, was turned down — and Minteh did not even play in the 4–0 win over Aston Villa."
+        },
+        {
+          "club": "Hull City",
+          "crest": "https://a.espncdn.com/i/teamlogos/soccer/500/306.png",
+          "note": "Promoted, fifth, and already shopping above their weight — a €21m offer is in for Union Berlin's Germany Under-21 forward Ilyas Ansah, with personal terms said to be at an advanced stage."
+        }
+      ],
+      "rumours": [
+        {
+          "player": "Alex Scott",
+          "from": "Bournemouth",
+          "to": "Chelsea",
+          "heat": "smoke",
+          "note": "Three bids for the 23-year-old England midfielder have been rejected this summer, per the i; Chelsea are still buying even as they try to thin the squad out."
+        },
+        {
+          "player": "Mykhailo Mudryk",
+          "from": "Chelsea",
+          "to": "undecided",
+          "heat": "talks",
+          "note": "BBC Sport reports Chelsea are now looking at alternatives to Leeds, with Coventry among the clubs showing interest."
+        },
+        {
+          "player": "Nicolas Jackson",
+          "from": "Chelsea",
+          "to": "Aston Villa",
+          "heat": "talks",
+          "note": "Atlético Madrid have registered interest, but BBC Sport understands Villa remain the more viable destination."
+        },
+        {
+          "player": "Savinho",
+          "from": "Manchester City",
+          "to": "Tottenham Hotspur",
+          "fee": "£75m plus £10m",
+          "heat": "talks",
+          "note": "The Guardian reports Savinho has told Enzo Maresca he wants to leave; Spurs also want Omar Marmoush at around £75m, and Maresca said on Friday the Egyptian had made no such request."
+        },
+        {
+          "player": "Joel Ordóñez",
+          "from": "Club Brugge",
+          "to": "Aston Villa",
+          "heat": "talks",
+          "note": "Villa have made an approach for the centre-back after failing to agree a fee with Southampton for Taylor Harwood-Bellis, per The Athletic."
         }
       ]
     }
