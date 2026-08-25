@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-25T05:38:34.856Z",
+  "generated_at": "2026-08-25T06:39:03.207Z",
   "gameweek": 2,
   "players": [
     {
@@ -69,7 +69,7 @@
       "team": "CHE",
       "pos": "FWD",
       "price": 7.5,
-      "ownership": 65.1,
+      "ownership": 65.2,
       "points": 11,
       "form": "11.0",
       "fixtures": [
@@ -646,7 +646,7 @@
       "team": "CHE",
       "pos": "MID",
       "price": 7.5,
-      "ownership": 25,
+      "ownership": 25.1,
       "points": 8,
       "form": "8.0",
       "fixtures": [
@@ -762,7 +762,7 @@
       "team": "BHA",
       "pos": "GK",
       "price": 4.5,
-      "ownership": 21.6,
+      "ownership": 21.7,
       "points": 6,
       "form": "6.0",
       "fixtures": [
@@ -1042,7 +1042,7 @@
       "team": "MCI",
       "pos": "DEF",
       "price": 6,
-      "ownership": 18.2,
+      "ownership": 18.3,
       "points": 10,
       "form": "10.0",
       "fixtures": [
@@ -1149,63 +1149,6 @@
       "fdr_avg": 3.2
     },
     {
-      "id": 418,
-      "name": "Maguire",
-      "team": "MUN",
-      "pos": "DEF",
-      "price": 5,
-      "ownership": 17.7,
-      "points": 1,
-      "form": "1.0",
-      "fixtures": [
-        {
-          "gw": 2,
-          "opp": "IPS",
-          "home": true,
-          "fdr": 2
-        },
-        {
-          "gw": 3,
-          "opp": "EVE",
-          "home": false,
-          "fdr": 3
-        },
-        {
-          "gw": 4,
-          "opp": "MCI",
-          "home": true,
-          "fdr": 4
-        },
-        {
-          "gw": 5,
-          "opp": "FUL",
-          "home": false,
-          "fdr": 3
-        },
-        {
-          "gw": 6,
-          "opp": "TOT",
-          "home": true,
-          "fdr": 3
-        }
-      ],
-      "recent": [
-        {
-          "gw": 1,
-          "opp": "HUL",
-          "home": false,
-          "gf": 0,
-          "ga": 2,
-          "result": "L"
-        }
-      ],
-      "owned_by": [
-        "The Special One",
-        "Le Professeur"
-      ],
-      "fdr_avg": 3
-    },
-    {
       "id": 13,
       "name": "Rice",
       "team": "ARS",
@@ -1258,6 +1201,63 @@
       ],
       "owned_by": [],
       "fdr_avg": 3.2
+    },
+    {
+      "id": 418,
+      "name": "Maguire",
+      "team": "MUN",
+      "pos": "DEF",
+      "price": 5,
+      "ownership": 17.6,
+      "points": 1,
+      "form": "1.0",
+      "fixtures": [
+        {
+          "gw": 2,
+          "opp": "IPS",
+          "home": true,
+          "fdr": 2
+        },
+        {
+          "gw": 3,
+          "opp": "EVE",
+          "home": false,
+          "fdr": 3
+        },
+        {
+          "gw": 4,
+          "opp": "MCI",
+          "home": true,
+          "fdr": 4
+        },
+        {
+          "gw": 5,
+          "opp": "FUL",
+          "home": false,
+          "fdr": 3
+        },
+        {
+          "gw": 6,
+          "opp": "TOT",
+          "home": true,
+          "fdr": 3
+        }
+      ],
+      "recent": [
+        {
+          "gw": 1,
+          "opp": "HUL",
+          "home": false,
+          "gf": 0,
+          "ga": 2,
+          "result": "L"
+        }
+      ],
+      "owned_by": [
+        "The Special One",
+        "Le Professeur"
+      ],
+      "fdr_avg": 3
     },
     {
       "id": 106,
@@ -1320,7 +1320,7 @@
       "team": "LIV",
       "pos": "FWD",
       "price": 9,
-      "ownership": 16.9,
+      "ownership": 16.8,
       "points": 2,
       "form": "2.0",
       "fixtures": [
@@ -1374,7 +1374,7 @@
       "team": "MUN",
       "pos": "GK",
       "price": 5,
-      "ownership": 16.1,
+      "ownership": 16,
       "points": 1,
       "form": "1.0",
       "fixtures": [
@@ -1658,7 +1658,7 @@
       "team": "COV",
       "pos": "DEF",
       "price": 4,
-      "ownership": 13.5,
+      "ownership": 13.4,
       "points": 1,
       "form": "1.0",
       "fixtures": [
@@ -1938,7 +1938,7 @@
       "team": "CRY",
       "pos": "MID",
       "price": 4.5,
-      "ownership": 11.5,
+      "ownership": 11.4,
       "points": 0,
       "form": "0.0",
       "fixtures": [
@@ -2540,7 +2540,7 @@
       "team": "CHE",
       "pos": "DEF",
       "price": 6,
-      "ownership": 9.2,
+      "ownership": 9.3,
       "points": 6,
       "form": "6.0",
       "fixtures": [
@@ -3303,62 +3303,6 @@
       "fdr_avg": 3.2
     },
     {
-      "id": 11,
-      "name": "Mosquera",
-      "team": "ARS",
-      "pos": "DEF",
-      "price": 5.5,
-      "ownership": 6.1,
-      "points": 6,
-      "form": "6.0",
-      "fixtures": [
-        {
-          "gw": 2,
-          "opp": "AVL",
-          "home": false,
-          "fdr": 4
-        },
-        {
-          "gw": 3,
-          "opp": "CHE",
-          "home": true,
-          "fdr": 4
-        },
-        {
-          "gw": 4,
-          "opp": "SUN",
-          "home": false,
-          "fdr": 3
-        },
-        {
-          "gw": 5,
-          "opp": "BHA",
-          "home": false,
-          "fdr": 3
-        },
-        {
-          "gw": 6,
-          "opp": "LEE",
-          "home": true,
-          "fdr": 2
-        }
-      ],
-      "recent": [
-        {
-          "gw": 1,
-          "opp": "COV",
-          "home": true,
-          "gf": 3,
-          "ga": 0,
-          "result": "W"
-        }
-      ],
-      "owned_by": [
-        "The Special One"
-      ],
-      "fdr_avg": 3.2
-    },
-    {
       "id": 260,
       "name": "Wilson",
       "team": "LEE",
@@ -3469,12 +3413,122 @@
       "fdr_avg": 3
     },
     {
+      "id": 11,
+      "name": "Mosquera",
+      "team": "ARS",
+      "pos": "DEF",
+      "price": 5.5,
+      "ownership": 6,
+      "points": 6,
+      "form": "6.0",
+      "fixtures": [
+        {
+          "gw": 2,
+          "opp": "AVL",
+          "home": false,
+          "fdr": 4
+        },
+        {
+          "gw": 3,
+          "opp": "CHE",
+          "home": true,
+          "fdr": 4
+        },
+        {
+          "gw": 4,
+          "opp": "SUN",
+          "home": false,
+          "fdr": 3
+        },
+        {
+          "gw": 5,
+          "opp": "BHA",
+          "home": false,
+          "fdr": 3
+        },
+        {
+          "gw": 6,
+          "opp": "LEE",
+          "home": true,
+          "fdr": 2
+        }
+      ],
+      "recent": [
+        {
+          "gw": 1,
+          "opp": "COV",
+          "home": true,
+          "gf": 3,
+          "ga": 0,
+          "result": "W"
+        }
+      ],
+      "owned_by": [
+        "The Special One"
+      ],
+      "fdr_avg": 3.2
+    },
+    {
+      "id": 565,
+      "name": "M.Sangaré",
+      "team": "BRE",
+      "pos": "MID",
+      "price": 5.5,
+      "ownership": 5.6,
+      "points": 14,
+      "form": "14.0",
+      "fixtures": [
+        {
+          "gw": 2,
+          "opp": "LEE",
+          "home": false,
+          "fdr": 3
+        },
+        {
+          "gw": 3,
+          "opp": "SUN",
+          "home": true,
+          "fdr": 2
+        },
+        {
+          "gw": 4,
+          "opp": "BOU",
+          "home": false,
+          "fdr": 3
+        },
+        {
+          "gw": 5,
+          "opp": "CHE",
+          "home": true,
+          "fdr": 4
+        },
+        {
+          "gw": 6,
+          "opp": "AVL",
+          "home": false,
+          "fdr": 4
+        }
+      ],
+      "recent": [
+        {
+          "gw": 1,
+          "opp": "TOT",
+          "home": true,
+          "gf": 3,
+          "ga": 0,
+          "result": "W"
+        }
+      ],
+      "owned_by": [],
+      "fdr_avg": 3.2
+    },
+    {
       "id": 223,
       "name": "Mateta",
       "team": "CRY",
       "pos": "FWD",
       "price": 6.5,
-      "ownership": 5.6,
+      "ownership": 5.5,
       "points": 2,
       "form": "2.0",
       "fixtures": [
@@ -3522,60 +3576,6 @@
       "owned_by": [],
       "fdr_avg": 3,
       "penalties": true
-    },
-    {
-      "id": 565,
-      "name": "M.Sangaré",
-      "team": "BRE",
-      "pos": "MID",
-      "price": 5.5,
-      "ownership": 5.5,
-      "points": 14,
-      "form": "14.0",
-      "fixtures": [
-        {
-          "gw": 2,
-          "opp": "LEE",
-          "home": false,
-          "fdr": 3
-        },
-        {
-          "gw": 3,
-          "opp": "SUN",
-          "home": true,
-          "fdr": 2
-        },
-        {
-          "gw": 4,
-          "opp": "BOU",
-          "home": false,
-          "fdr": 3
-        },
-        {
-          "gw": 5,
-          "opp": "CHE",
-          "home": true,
-          "fdr": 4
-        },
-        {
-          "gw": 6,
-          "opp": "AVL",
-          "home": false,
-          "fdr": 4
-        }
-      ],
-      "recent": [
-        {
-          "gw": 1,
-          "opp": "TOT",
-          "home": true,
-          "gf": 3,
-          "ga": 0,
-          "result": "W"
-        }
-      ],
-      "owned_by": [],
-      "fdr_avg": 3.2
     },
     {
       "id": 532,
@@ -3694,7 +3694,7 @@
       "team": "BRE",
       "pos": "DEF",
       "price": 4.5,
-      "ownership": 5.2,
+      "ownership": 5.3,
       "points": 13,
       "form": "13.0",
       "fixtures": [
@@ -3851,6 +3851,60 @@
       "fdr_avg": 3
     },
     {
+      "id": 367,
+      "name": "Gakpo",
+      "team": "LIV",
+      "pos": "MID",
+      "price": 7,
+      "ownership": 4.7,
+      "points": 12,
+      "form": "12.0",
+      "fixtures": [
+        {
+          "gw": 2,
+          "opp": "NFO",
+          "home": true,
+          "fdr": 3
+        },
+        {
+          "gw": 3,
+          "opp": "IPS",
+          "home": false,
+          "fdr": 2
+        },
+        {
+          "gw": 4,
+          "opp": "FUL",
+          "home": true,
+          "fdr": 2
+        },
+        {
+          "gw": 5,
+          "opp": "BOU",
+          "home": false,
+          "fdr": 3
+        },
+        {
+          "gw": 6,
+          "opp": "MCI",
+          "home": true,
+          "fdr": 4
+        }
+      ],
+      "recent": [
+        {
+          "gw": 1,
+          "opp": "NEW",
+          "home": false,
+          "gf": 2,
+          "ga": 2,
+          "result": "D"
+        }
+      ],
+      "owned_by": [],
+      "fdr_avg": 2.8
+    },
+    {
       "id": 115,
       "name": "De Cuyper",
       "team": "BHA",
@@ -3903,60 +3957,6 @@
       ],
       "owned_by": [],
       "fdr_avg": 3
-    },
-    {
-      "id": 367,
-      "name": "Gakpo",
-      "team": "LIV",
-      "pos": "MID",
-      "price": 7,
-      "ownership": 4.6,
-      "points": 12,
-      "form": "12.0",
-      "fixtures": [
-        {
-          "gw": 2,
-          "opp": "NFO",
-          "home": true,
-          "fdr": 3
-        },
-        {
-          "gw": 3,
-          "opp": "IPS",
-          "home": false,
-          "fdr": 2
-        },
-        {
-          "gw": 4,
-          "opp": "FUL",
-          "home": true,
-          "fdr": 2
-        },
-        {
-          "gw": 5,
-          "opp": "BOU",
-          "home": false,
-          "fdr": 3
-        },
-        {
-          "gw": 6,
-          "opp": "MCI",
-          "home": true,
-          "fdr": 4
-        }
-      ],
-      "recent": [
-        {
-          "gw": 1,
-          "opp": "NEW",
-          "home": false,
-          "gf": 2,
-          "ga": 2,
-          "result": "D"
-        }
-      ],
-      "owned_by": [],
-      "fdr_avg": 2.8
     },
     {
       "id": 301,
@@ -4018,7 +4018,7 @@
       "team": "TOT",
       "pos": "DEF",
       "price": 5,
-      "ownership": 4.6,
+      "ownership": 4.5,
       "points": 0,
       "form": "0.0",
       "fixtures": [
@@ -5815,65 +5815,6 @@
       "fdr_avg": 3
     },
     {
-      "id": 152,
-      "name": "Palestra",
-      "team": "CHE",
-      "pos": "DEF",
-      "price": 5.5,
-      "ownership": 2.8,
-      "points": 0,
-      "form": "0.0",
-      "fixtures": [
-        {
-          "gw": 2,
-          "opp": "BHA",
-          "home": true,
-          "fdr": 2
-        },
-        {
-          "gw": 3,
-          "opp": "ARS",
-          "home": false,
-          "fdr": 5
-        },
-        {
-          "gw": 4,
-          "opp": "HUL",
-          "home": true,
-          "fdr": 2
-        },
-        {
-          "gw": 5,
-          "opp": "BRE",
-          "home": false,
-          "fdr": 3
-        },
-        {
-          "gw": 6,
-          "opp": "BOU",
-          "home": true,
-          "fdr": 3
-        }
-      ],
-      "recent": [
-        {
-          "gw": 1,
-          "opp": "FUL",
-          "home": false,
-          "gf": 3,
-          "ga": 2,
-          "result": "W"
-        }
-      ],
-      "owned_by": [
-        "The Special One"
-      ],
-      "fdr_avg": 3,
-      "status": "d",
-      "news": "Unspecified injury - 75% chance of playing",
-      "chance": 75
-    },
-    {
       "id": 67,
       "name": "Rayan",
       "team": "BOU",
@@ -6035,6 +5976,65 @@
       "owned_by": [],
       "fdr_avg": 3.2,
       "chance": 100
+    },
+    {
+      "id": 152,
+      "name": "Palestra",
+      "team": "CHE",
+      "pos": "DEF",
+      "price": 5.5,
+      "ownership": 2.7,
+      "points": 0,
+      "form": "0.0",
+      "fixtures": [
+        {
+          "gw": 2,
+          "opp": "BHA",
+          "home": true,
+          "fdr": 2
+        },
+        {
+          "gw": 3,
+          "opp": "ARS",
+          "home": false,
+          "fdr": 5
+        },
+        {
+          "gw": 4,
+          "opp": "HUL",
+          "home": true,
+          "fdr": 2
+        },
+        {
+          "gw": 5,
+          "opp": "BRE",
+          "home": false,
+          "fdr": 3
+        },
+        {
+          "gw": 6,
+          "opp": "BOU",
+          "home": true,
+          "fdr": 3
+        }
+      ],
+      "recent": [
+        {
+          "gw": 1,
+          "opp": "FUL",
+          "home": false,
+          "gf": 3,
+          "ga": 2,
+          "result": "W"
+        }
+      ],
+      "owned_by": [
+        "The Special One"
+      ],
+      "fdr_avg": 3,
+      "status": "d",
+      "news": "Unspecified injury - 75% chance of playing",
+      "chance": 75
     },
     {
       "id": 248,
@@ -8656,6 +8656,60 @@
       "fdr_avg": 3.2
     },
     {
+      "id": 123,
+      "name": "Hinshelwood",
+      "team": "BHA",
+      "pos": "MID",
+      "price": 6,
+      "ownership": 1.5,
+      "points": 16,
+      "form": "16.0",
+      "fixtures": [
+        {
+          "gw": 2,
+          "opp": "CHE",
+          "home": false,
+          "fdr": 4
+        },
+        {
+          "gw": 3,
+          "opp": "LEE",
+          "home": true,
+          "fdr": 2
+        },
+        {
+          "gw": 4,
+          "opp": "COV",
+          "home": false,
+          "fdr": 2
+        },
+        {
+          "gw": 5,
+          "opp": "ARS",
+          "home": true,
+          "fdr": 4
+        },
+        {
+          "gw": 6,
+          "opp": "SUN",
+          "home": false,
+          "fdr": 3
+        }
+      ],
+      "recent": [
+        {
+          "gw": 1,
+          "opp": "AVL",
+          "home": true,
+          "gf": 4,
+          "ga": 0,
+          "result": "W"
+        }
+      ],
+      "owned_by": [],
+      "fdr_avg": 3
+    },
+    {
       "id": 231,
       "name": "Keane",
       "team": "EVE",
@@ -9035,60 +9089,6 @@
       ],
       "owned_by": [],
       "fdr_avg": 2.6
-    },
-    {
-      "id": 123,
-      "name": "Hinshelwood",
-      "team": "BHA",
-      "pos": "MID",
-      "price": 6,
-      "ownership": 1.4,
-      "points": 16,
-      "form": "16.0",
-      "fixtures": [
-        {
-          "gw": 2,
-          "opp": "CHE",
-          "home": false,
-          "fdr": 4
-        },
-        {
-          "gw": 3,
-          "opp": "LEE",
-          "home": true,
-          "fdr": 2
-        },
-        {
-          "gw": 4,
-          "opp": "COV",
-          "home": false,
-          "fdr": 2
-        },
-        {
-          "gw": 5,
-          "opp": "ARS",
-          "home": true,
-          "fdr": 4
-        },
-        {
-          "gw": 6,
-          "opp": "SUN",
-          "home": false,
-          "fdr": 3
-        }
-      ],
-      "recent": [
-        {
-          "gw": 1,
-          "opp": "AVL",
-          "home": true,
-          "gf": 4,
-          "ga": 0,
-          "result": "W"
-        }
-      ],
-      "owned_by": [],
-      "fdr_avg": 3
     },
     {
       "id": 419,
@@ -9853,60 +9853,6 @@
       "fdr_avg": 3.2
     },
     {
-      "id": 369,
-      "name": "Ngumoha",
-      "team": "LIV",
-      "pos": "MID",
-      "price": 6,
-      "ownership": 1.2,
-      "points": 2,
-      "form": "2.0",
-      "fixtures": [
-        {
-          "gw": 2,
-          "opp": "NFO",
-          "home": true,
-          "fdr": 3
-        },
-        {
-          "gw": 3,
-          "opp": "IPS",
-          "home": false,
-          "fdr": 2
-        },
-        {
-          "gw": 4,
-          "opp": "FUL",
-          "home": true,
-          "fdr": 2
-        },
-        {
-          "gw": 5,
-          "opp": "BOU",
-          "home": false,
-          "fdr": 3
-        },
-        {
-          "gw": 6,
-          "opp": "MCI",
-          "home": true,
-          "fdr": 4
-        }
-      ],
-      "recent": [
-        {
-          "gw": 1,
-          "opp": "NEW",
-          "home": false,
-          "gf": 2,
-          "ga": 2,
-          "result": "D"
-        }
-      ],
-      "owned_by": [],
-      "fdr_avg": 2.8
-    },
-    {
       "id": 95,
       "name": "O.Dango",
       "team": "BRE",
@@ -10283,6 +10229,60 @@
       ],
       "owned_by": [],
       "fdr_avg": 3.2
+    },
+    {
+      "id": 369,
+      "name": "Ngumoha",
+      "team": "LIV",
+      "pos": "MID",
+      "price": 6,
+      "ownership": 1.1,
+      "points": 2,
+      "form": "2.0",
+      "fixtures": [
+        {
+          "gw": 2,
+          "opp": "NFO",
+          "home": true,
+          "fdr": 3
+        },
+        {
+          "gw": 3,
+          "opp": "IPS",
+          "home": false,
+          "fdr": 2
+        },
+        {
+          "gw": 4,
+          "opp": "FUL",
+          "home": true,
+          "fdr": 2
+        },
+        {
+          "gw": 5,
+          "opp": "BOU",
+          "home": false,
+          "fdr": 3
+        },
+        {
+          "gw": 6,
+          "opp": "MCI",
+          "home": true,
+          "fdr": 4
+        }
+      ],
+      "recent": [
+        {
+          "gw": 1,
+          "opp": "NEW",
+          "home": false,
+          "gf": 2,
+          "ga": 2,
+          "result": "D"
+        }
+      ],
+      "owned_by": [],
+      "fdr_avg": 2.8
     },
     {
       "id": 441,
@@ -16306,6 +16306,60 @@
       "chance": 100
     },
     {
+      "id": 98,
+      "name": "Janelt",
+      "team": "BRE",
+      "pos": "MID",
+      "price": 5,
+      "ownership": 0.3,
+      "points": 9,
+      "form": "9.0",
+      "fixtures": [
+        {
+          "gw": 2,
+          "opp": "LEE",
+          "home": false,
+          "fdr": 3
+        },
+        {
+          "gw": 3,
+          "opp": "SUN",
+          "home": true,
+          "fdr": 2
+        },
+        {
+          "gw": 4,
+          "opp": "BOU",
+          "home": false,
+          "fdr": 3
+        },
+        {
+          "gw": 5,
+          "opp": "CHE",
+          "home": true,
+          "fdr": 4
+        },
+        {
+          "gw": 6,
+          "opp": "AVL",
+          "home": false,
+          "fdr": 4
+        }
+      ],
+      "recent": [
+        {
+          "gw": 1,
+          "opp": "TOT",
+          "home": true,
+          "gf": 3,
+          "ga": 0,
+          "result": "W"
+        }
+      ],
+      "owned_by": [],
+      "fdr_avg": 3.2
+    },
+    {
       "id": 214,
       "name": "Kamada",
       "team": "CRY",
@@ -19080,60 +19134,6 @@
           "gf": 0,
           "ga": 1,
           "result": "L"
-        }
-      ],
-      "owned_by": [],
-      "fdr_avg": 3.2
-    },
-    {
-      "id": 98,
-      "name": "Janelt",
-      "team": "BRE",
-      "pos": "MID",
-      "price": 5,
-      "ownership": 0.2,
-      "points": 9,
-      "form": "9.0",
-      "fixtures": [
-        {
-          "gw": 2,
-          "opp": "LEE",
-          "home": false,
-          "fdr": 3
-        },
-        {
-          "gw": 3,
-          "opp": "SUN",
-          "home": true,
-          "fdr": 2
-        },
-        {
-          "gw": 4,
-          "opp": "BOU",
-          "home": false,
-          "fdr": 3
-        },
-        {
-          "gw": 5,
-          "opp": "CHE",
-          "home": true,
-          "fdr": 4
-        },
-        {
-          "gw": 6,
-          "opp": "AVL",
-          "home": false,
-          "fdr": 4
-        }
-      ],
-      "recent": [
-        {
-          "gw": 1,
-          "opp": "TOT",
-          "home": true,
-          "gf": 3,
-          "ga": 0,
-          "result": "W"
         }
       ],
       "owned_by": [],
