@@ -65,18 +65,20 @@ check "filter dims the table"       "true" "$(js 'const b=document.querySelector
 
 echo "== gaffers: the door"
 go "gaffers/"
-GATED=$(js 'document.body.textContent.includes("Members only")')
+GATED=$(js '!!document.querySelector(".door")')
 check "tab is visible to everyone" "3" "$(js 'document.querySelectorAll(".rooms a").length')"
 if [ "$GATED" = "true" ]; then
-  check "signed out: shows the wall"       "true"  "$(js 'document.body.textContent.includes("Members only")')"
+  check "signed out: shows the wall"       "true"  "$(js '!!document.querySelector(".door")')"
+  check "signed out: the five are drawn"   "5"     "$(js 'document.querySelectorAll(".door .lu .face").length')"
   check "signed out: no squad data leaks"  "0"     "$(js 'document.querySelectorAll(".pitch .pp, #gbar .gchip").length')"
   echo "  note  gaffers interior not exercised — signed out. Sign in and re-run to cover it."
 else
 
 echo "== gaffers: chips, gameweek, star"
 check "five gaffer chips" "5" "$(js 'document.querySelectorAll("#gbar .gchip").length')"
-js 'document.querySelector("#gbar .gchip[data-nick=Arsene]").click(); ""' >/dev/null
-check "switching gaffer re-renders" "true" "$(js '/Arsene/.test(document.querySelector("#gbar .gchip[aria-pressed=true]").textContent)')"
+check "every chip carries a face" "5" "$(js 'document.querySelectorAll("#gbar .gchip .face").length')"
+js 'document.querySelector("#gbar .gchip[data-nick=\"Mr CR7\"]").click(); ""' >/dev/null
+check "switching gaffer re-renders" "true" "$(js '/Mr CR7/.test(document.querySelector("#gbar .gchip[aria-pressed=true]").textContent)')"
 check "pitch has 11 + 4"  "15" "$(js 'document.querySelectorAll(".pitch .pp, .benchrow .pp").length')"
 check "captain armband shown" "true" "$(js 'document.querySelectorAll(".pp .arm").length > 0')"
 GW=$(js 'document.querySelector(".gwlabel").textContent')

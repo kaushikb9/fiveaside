@@ -40,7 +40,7 @@
     people.filter((p) => p.active_chip).forEach((p) => {
       const lead = sorted[0];
       cand.push({
-        score: 100, kicker: "Chip played",
+        score: 100, kicker: "Chip played", nick: p.nick,
         text: p.nick + " played the " + (CHIP_NAME[p.active_chip] || p.active_chip) +
           " in the opening week — " + p.total_points + " points, " +
           (lead.nick === p.nick ? "top of the five" : (lead.total_points - p.total_points) + " behind " + lead.nick) +
@@ -76,7 +76,7 @@
         p.total_points > worst.total_points && p.total_points <= worst.total_points + worst.bench_points)
         .map((p) => p.nick);
       cand.push({
-        score: 40 + worst.bench_points, kicker: "Left on the bench",
+        score: 40 + worst.bench_points, kicker: "Left on the bench", nick: worst.nick,
         text: worst.nick + " left " + worst.bench_points + " points on the bench.",
         sub: "Enough to have moved them past " + (passed.join(" and ") || "nobody, as it turns out") + ".",
       });
@@ -84,7 +84,7 @@
 
     if (sorted.length > 1) {
       cand.push({
-        score: 10, kicker: "The five",
+        score: 10, kicker: "The five", nick: sorted[0].nick,
         text: sorted[0].nick + " leads the five on " + sorted[0].total_points + ", " +
           (sorted[0].total_points - sorted[1].total_points) + " clear of " + sorted[1].nick + ".",
         sub: "",
@@ -93,9 +93,14 @@
 
     const best = cand.sort((a, b) => b.score - a.score)[0];
     if (!best) return "";
-    return '<div class="ghead"><div class="gk">' + esc(best.kicker) + "</div><p>" +
+    // The portrait belongs to whoever the headline is ABOUT, not to whoever
+    // is selected — a face next to a sentence about someone else is a lie.
+    // The captaincy split has no single subject, so it gets no face.
+    return '<div class="ghead' + (best.nick ? " haface" : "") + '">' +
+      (best.nick ? '<span class="hface">' + FA.faceSVG(best.nick) + "</span>" : "") +
+      '<div><div class="gk">' + esc(best.kicker) + "</div><p>" +
       gname(best.text) + "</p>" +
-      (best.sub ? '<div class="gsub">' + gname(best.sub) + "</div>" : "") + "</div>";
+      (best.sub ? '<div class="gsub">' + gname(best.sub) + "</div>" : "") + "</div></div>";
   }
 
   /* ---------------- the long game ----------------
@@ -126,13 +131,17 @@
     const ordered = G.people.slice().sort((a, b) =>
       (a.league_rank == null ? 99 : a.league_rank) - (b.league_rank == null ? 99 : b.league_rank) ||
       b.total_points - a.total_points);
+    // The face is what you aim at; the numbers are what you read once you
+    // have. The club dot went with the portrait — the caricature already
+    // says who this is, and two identity marks on one chip is one too many.
     return '<div class="gbar" id="gbar">' + ordered.map((p) =>
       '<button class="gchip" data-nick="' + esc(p.nick) + '" aria-pressed="' + (p.nick === who) + '">' +
-      '<span class="gtop"><span class="clubdot" style="background:' +
-        (FA.CLUB_COLOR[p.club] || "var(--faint)") + '"></span><b>' + esc(p.nick) + "</b></span>" +
+      '<span class="gface">' + FA.faceSVG(p.nick) + "</span>" +
+      '<span class="gmeta"><b>' + esc(p.nick) + "</b>" +
       '<span class="gteam">' + esc(p.team_name) + "</span>" +
       '<span class="gpts">' + p.total_points + " pts &middot; " +
-        (p.league_rank == null ? "&mdash;" : "#" + p.league_rank) + "</span></button>").join("") + "</div>";
+        (p.league_rank == null ? "&mdash;" : "#" + p.league_rank) + "</span></span></button>").join("") +
+      "</div>";
   }
 
   /* ---------------- live gameweek ----------------
@@ -474,30 +483,51 @@
      from /api/private and only with a valid session. So this room genuinely
      cannot render without signing in, rather than merely declining to. */
   function signInHTML(state) {
-    const body = {
-      out: "<p class=\"note\">This room is the five's own: squads, weekly reads and the " +
-        "league. Sign in with the Google account you gave KB.</p>",
-      denied: '<p class="note" style="color:var(--hot)">That account is not on the list. ' +
-        "Five people have keys to this room; ask KB to add yours.</p>",
-      unconfigured: '<p class="note" style="color:var(--warn)">Sign-in is not switched on yet ' +
-        "&mdash; the Google client ID has not been set. Nothing is broken; the door simply has " +
-        "no lock fitted.</p>",
-      error: '<p class="note" style="color:var(--hot)">Sign-in failed. Try again.</p>',
+    const note = {
+      out: "",
+      denied: '<p class="door-note" style="color:var(--hot)">That account is not on the ' +
+        "list. Five people have keys to this room; ask KB to add yours.</p>",
+      unconfigured: '<p class="door-note" style="color:var(--warn)">Sign-in is not switched ' +
+        "on yet &mdash; the Google client ID has not been set. Nothing is broken; the door " +
+        "simply has no lock fitted.</p>",
+      error: '<p class="door-note" style="color:var(--hot)">Sign-in failed. Try again.</p>',
     }[state] || "";
+
+    // The lineup is drawn from FA.NICKS, not from the data: this page runs
+    // before there is a session, so there is no squad list to read. It is
+    // also the honest content for a locked door — who it is locked FOR.
+    const lineup = FA.NICKS.map((n) =>
+      '<div class="lu"><span class="facewrap lu-face">' + FA.faceSVG(n) + "</span>" +
+      "<b>" + esc(n) + "</b>" +
+      '<span class="lu-club">' + esc(FA.faceClub(n)) + "</span></div>").join("");
+
     return '<section class="section"><div class="section-head"><h2>the gaffers</h2>' +
       '<span class="mute" style="font-size:13px">what we did about it</span></div>' +
-      '<div class="panel" style="text-align:center;padding:34px 20px">' +
-      '<h3 style="font-size:18px">Members only</h3>' + body +
-      '<div id="gsi" style="display:flex;justify-content:center;margin-top:16px"></div>' +
-      '<p class="note" style="margin-top:14px;text-align:center">' +
-      '<a href="../">touchline</a> and <a href="../locker/">the locker room</a> are open to ' +
-      "everyone.</p></div></section>";
+      '<div class="door">' +
+      '<div class="door-k">Five keys &middot; members only</div>' +
+      "<h3>This room belongs to the five.</h3>" +
+      '<p class="door-p">Squads, weekly reads, the roast and the mini-league. It is not ' +
+      "published &mdash; it is fetched, and only for one of these five.</p>" +
+      '<div class="lineup">' + lineup + "</div>" +
+      note +
+      // No lock fitted means no button will ever land here; an empty slot
+      // under the lineup reads as a broken page.
+      (state === "unconfigured" ? "" : '<div class="door-cta"><div id="gsi"></div></div>') +
+      '<p class="door-foot"><a href="../">touchline</a> and <a href="../locker/">the locker ' +
+      'room</a> are open to everyone.</p>' +
+      "</div></section>";
   }
 
   function renderSignIn(state) {
     $("#main").innerHTML = signInHTML(state);
     const cid = document.body.dataset.googleClientId;
-    if (!cid || state === "unconfigured") return;
+    // No client id means no button will ever appear. Say so rather than
+    // leaving an empty slot under the lineup where a door handle should be.
+    if (!cid) {
+      if (state !== "unconfigured") $("#main").innerHTML = signInHTML("unconfigured");
+      return;
+    }
+    if (state === "unconfigured") return;
     // Google Identity Services renders its own button; it is loaded from the
     // shell so that a blocked script leaves an honest message rather than a
     // dead page.

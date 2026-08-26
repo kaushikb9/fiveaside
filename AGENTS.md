@@ -48,7 +48,10 @@ delegated listener in `site/common.js`. Keep it that way.
 - `site/` — static, no framework, no build step, no CDNs. `common.js` loads
   first on every page and holds everything that must behave identically in
   all three rooms: theme, nicknames, kits, the focus-club rule, the player
-  card. Every data-derived string goes through `esc()`.
+  card. Every data-derived string goes through `esc()`. `faces.js` loads
+  after it in the gaffers room only: five inline-SVG caricatures of the
+  football people the five are named after, drawn on one skeleton so they
+  read as a set. Drawn, never fetched — same rule as the kits.
 
 **Public and private.** `deploy.sh` runs `brain/publish-private.mjs`, which
 pushes the squads and the weekly reads into KV and keeps them out of the
