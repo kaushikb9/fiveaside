@@ -37,7 +37,7 @@
   <div id="head"></div>
 
   <hr class="rule">
-  <div class="lbl">4 &middot; the door &mdash; signed out</div>
+  <div class="lbl">4 &middot; the door &mdash; signed out (invite code)</div>
   <div id="door"></div>
 </div>
 
@@ -95,7 +95,9 @@
       '<div class="lu"><span class="facewrap lu-face">' + FA.faceSVG(n) + '</span>' +
       '<b>' + n + '</b><span class="lu-club">' + CLUB[n] + '</span></div>').join("") +
     '</div>' +
-    '<div class="door-cta"><div class="fake-gsi">Sign in with Google</div></div>' +
+    '<div class="door-cta"><form class="codeform" onsubmit="return false">' +
+    '<input type="text" placeholder="XXXX-XXXX-XXXX" maxlength="19">' +
+    '<button type="submit">Enter</button></form></div>' +
     '<p class="door-foot"><a href="#">touchline</a> and <a href="#">the locker room</a> ' +
     'are open to everyone.</p>' +
     '</div></section>';

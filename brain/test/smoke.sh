@@ -58,10 +58,34 @@ done
 echo "== touchline: the filter"
 go ""
 BEFORE=$(js 'document.querySelectorAll("ul.feed > li:not([hidden])").length')
-js 'const b=document.querySelector(".filters .fc[data-filter=\"FPL\"]"); if(b) b.click(); ""' >/dev/null
+js 'const b=document.querySelector(".filters:not(.tabs) .fc[data-filter=\"FPL\"]"); if(b) b.click(); ""' >/dev/null
 AFTER=$(js 'document.querySelectorAll("ul.feed > li:not([hidden])").length')
 check "FPL filter narrows the feed" "true" "$(js "${AFTER} <= ${BEFORE}")"
-check "filter dims the table"       "true" "$(js 'const b=document.querySelector(".filters .fc.club, .filters .fc:not([data-filter=all]):not([data-filter=PL]):not([data-filter=FPL])"); if(!b) true; else { b.click(); document.querySelectorAll("tr.dim").length > 0 }')"
+check "filter dims the table"       "true" "$(js 'const b=document.querySelector(".filters:not(.tabs) .fc[data-filter^=club]"); if(!b) true; else { b.click(); document.querySelectorAll("tr.dim").length > 0 }')"
+
+echo "== touchline: the league panel"
+go ""
+sleep 2   # the two match-week tabs arrive from /api/matches after first paint
+check "one panel, three tabs" "3" "$(js 'document.querySelectorAll("#league .tabs .fc").length')"
+check "exactly one tab is on" "1" "$(js 'document.querySelectorAll("#league .tabs .fc[aria-pressed=true]").length')"
+check "exactly one pane shown" "1" \
+  "$(js 'document.querySelectorAll("#league .tabpane:not([hidden])").length')"
+check "the table is in a tab"  "true" \
+  "$(js 'document.querySelectorAll("#league [data-pane=table] tbody tr").length > 0')"
+check "this match week has fixtures" "true" "$(js 'const b=document.querySelector("#league .fc[data-tab=now]"); b.click(); document.querySelectorAll("#league [data-pane=now] .fx").length > 0')"
+check "a finished score is shown" "true" \
+  "$(js '/\d/.test(document.querySelector("#league [data-pane=now] .fx-score").textContent)')"
+check "next match week has fixtures" "true" "$(js 'const b=document.querySelector("#league .fc[data-tab=next]"); b.click(); document.querySelectorAll("#league [data-pane=next] .fx").length > 0')"
+check "no scores in the next week" "true" \
+  "$(js '[...document.querySelectorAll("#league [data-pane=next] .fx-score")].every(s => !/\d/.test(s.textContent))')"
+check "no attribute leaked into a scorer name" "false" \
+  "$(js '/plink|data-player|">/.test(document.querySelector("#league [data-pane=now]").innerText)')"
+
+echo "== the archive"
+check "home shows one entry only" "0" "$(js 'document.querySelectorAll("#main details.fold").length')"
+go "archive/"
+check "archive lists the rest" "true" "$(js 'document.querySelectorAll("details.fold").length > 0')"
+check "archive renders an entry" "true" "$(js 'const d=document.querySelector("details.fold"); d.open=true; d.querySelectorAll(".panel").length > 0')"
 
 echo "== gaffers: the door"
 go "gaffers/"
@@ -71,14 +95,19 @@ if [ "$GATED" = "true" ]; then
   check "signed out: shows the wall"       "true"  "$(js '!!document.querySelector(".door")')"
   check "signed out: the five are drawn"   "5"     "$(js 'document.querySelectorAll(".door .lu .face").length')"
   check "signed out: no squad data leaks"  "0"     "$(js 'document.querySelectorAll(".pitch .pp, #gbar .gchip").length')"
+  check "signed out: offers a code box"    "true"  "$(js 'document.querySelectorAll("#codeform input, #codeform button").length === 2')"
+  check "signed out: no third-party script" "true" "$(js '![...document.scripts].some(s => /accounts\.google|gstatic|gsi/.test(s.src))')"
   echo "  note  gaffers interior not exercised — signed out. Sign in and re-run to cover it."
 else
 
 echo "== gaffers: chips, gameweek, star"
 check "five gaffer chips" "5" "$(js 'document.querySelectorAll("#gbar .gchip").length')"
 check "every chip carries a face" "5" "$(js 'document.querySelectorAll("#gbar .gchip .face").length')"
-js 'document.querySelector("#gbar .gchip[data-nick=\"Mr CR7\"]").click(); ""' >/dev/null
-check "switching gaffer re-renders" "true" "$(js '/Mr CR7/.test(document.querySelector("#gbar .gchip[aria-pressed=true]").textContent)')"
+# The nick is quoted because it has a space in it, and it is the CURRENT nick:
+# this branch never ran until the door worked, so it still named Arsene, who was
+# renamed to Le Professeur on 2026-08-24 and frozen.
+js 'document.querySelector("#gbar .gchip[data-nick=\"Le Professeur\"]").click(); ""' >/dev/null
+check "switching gaffer re-renders" "true" "$(js '/Professeur/.test(document.querySelector("#gbar .gchip[aria-pressed=true]").textContent)')"
 check "pitch has 11 + 4"  "15" "$(js 'document.querySelectorAll(".pitch .pp, .benchrow .pp").length')"
 check "captain armband shown" "true" "$(js 'document.querySelectorAll(".pp .arm").length > 0')"
 GW=$(js 'document.querySelector(".gwlabel").textContent')
@@ -117,6 +146,18 @@ for EP in "api/private" "api/auth"; do
   CODE=$(curl -s -o /dev/null -w "%{http_code}" "$BASE$EP")
   check "$EP refuses anonymous" "401" "$CODE"
 done
+# A wrong invite code is refused, and refused the same way whichever wrong
+# code it is — the endpoint must not become an oracle for which codes exist.
+# 403 when the code is simply wrong, 429 once this script's own repeated runs
+# have tripped the throttle. Both are refusals; asserting which one made the
+# test fail on its fourth run in ten minutes, which is a test bug, not a leak.
+refused() { case "$1" in 403|429) echo "refused" ;; *) echo "$1" ;; esac; }
+BADCODE=$(curl -s -o /dev/null -w "%{http_code}" -X POST "${BASE}api/auth" \
+  -H 'content-type: application/json' -d '{"code":"ZZZZZZZZZZZZ"}')
+check "api/auth refuses a wrong code" "refused" "$(refused "$BADCODE")"
+EMPTY=$(curl -s -o /dev/null -w "%{http_code}" -X POST "${BASE}api/auth" \
+  -H 'content-type: application/json' -d '{"code":""}')
+check "api/auth refuses an empty code" "refused" "$(refused "$EMPTY")"
 # Pages answers a missing path with its SPA fallback AND labels it
 # application/json when the path ends .json, so neither the status nor the
 # content type tells you anything. Parsing the body does.

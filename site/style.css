@@ -470,11 +470,7 @@ h3 .gname, summary .gname, td .gname, .ghead p .gname {
 .lu-club { font-size: 10.5px; color: var(--faint); font-family: var(--f-head); font-weight: 600; }
 .door-cta { display: flex; justify-content: center; margin-top: 18px; min-height: 44px; }
 .door-foot { font-size: 13px; color: var(--mute); margin: 16px 0 0; }
-/* Mockup only — stands in for the Google button. */
-.fake-gsi {
-  border: 1px solid var(--line); border-radius: 999px; padding: 9px 20px;
-  font-family: var(--f-head); font-weight: 600; font-size: 14px; background: var(--card);
-}
+/* The code box itself is styled further down, under "the code box". */
 /* On a phone the chips wrapped into a ragged two-column stagger. A grid
    gives two even columns and lets the fifth sit alone under them, which
    reads as a team sheet rather than as a layout accident. */
@@ -730,3 +726,158 @@ th.th-sort.sorted[data-dir="desc"]::after { content: "\2193"; opacity: 1; color:
 }
 .pnews.f .pnews-tag { color: var(--hot); }
 .pnews-src { display: block; margin-top: 4px; font-size: 11px; color: var(--faint); }
+
+/* ---------- the league panel: fixtures ----------
+   One panel, three tabs. The tab strip reuses .filters/.fc so the page has
+   one chip, not two that nearly match. The fixture row is a four-column grid
+   — home, score, away, state — and the goalscorer line re-uses the same
+   columns underneath so names sit under the club that scored them. */
+.gwchip {
+  font-family: var(--f-num);
+  font-size: 10px;
+  opacity: 0.65;
+  margin-left: 5px;
+  letter-spacing: 0.02em;
+}
+.tabpane[hidden] { display: none; }
+
+/* The scoreline is a centred object, not a full-bleed row: at 1060px a
+   four-column stretch pushes the two clubs to opposite edges and the score
+   stops reading as one thing. */
+.fx-list { max-width: 620px; margin: 0 auto; }
+
+.fx-day {
+  font-size: 11.5px;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--faint);
+  padding: 14px 0 5px;
+  border-bottom: 1px solid var(--hair);
+}
+.fx-day:first-of-type { padding-top: 2px; }
+
+.fx {
+  display: grid;
+  grid-template-columns: 1fr 62px 1fr 52px;
+  align-items: center;
+  gap: 4px 8px;
+  padding: 9px 0;
+  border-bottom: 1px solid var(--hair);
+}
+.fx:last-child { border-bottom: 0; }
+
+.fx-team {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  min-width: 0;
+  font-family: var(--f-head);
+  font-weight: 700;
+  font-size: 14.5px;
+}
+.fx-team.home { justify-content: flex-end; text-align: right; }
+.fx-team b { font-weight: inherit; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.fx-team .crest { margin: 0 0 0 7px; }
+.fx-team.away .crest { margin: 0 7px 0 0; }
+.fx-abbr { display: none; }
+
+.fx-score {
+  font-family: var(--f-num);
+  font-weight: 800;
+  font-size: 16px;
+  text-align: center;
+  white-space: nowrap;
+}
+.fx-score em { font-style: normal; color: var(--faint); margin: 0 3px; }
+.fx-score.pre { font-size: 12px; font-weight: 600; color: var(--faint); }
+
+.fx-status {
+  font-family: var(--f-num);
+  font-size: 11px;
+  color: var(--faint);
+  text-align: right;
+  white-space: nowrap;
+}
+.fx-status.live { color: var(--hot); font-weight: 700; }
+.fx-status.live i {
+  display: inline-block;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--hot);
+  margin-right: 4px;
+  vertical-align: 1px;
+  animation: fxpulse 1.6s ease-in-out infinite;
+}
+@keyframes fxpulse { 50% { opacity: 0.25; } }
+@media (prefers-reduced-motion: reduce) { .fx-status.live i { animation: none; } }
+.fx.is-live { background: linear-gradient(90deg, transparent, color-mix(in srgb, var(--hot) 7%, transparent), transparent); }
+
+.fx-goals {
+  grid-column: 1 / -1;
+  display: grid;
+  grid-template-columns: 1fr 62px 1fr 52px;
+  gap: 8px;
+  font-size: 12.5px;
+  color: var(--mute);
+  margin-top: -3px;
+}
+.fx-goals .g.h { text-align: right; }
+.fx-goals .og { font-size: 10px; color: var(--faint); text-transform: uppercase; letter-spacing: 0.04em; }
+
+@media (max-width: 560px) {
+  .fx { grid-template-columns: 1fr 54px 1fr 40px; }
+  /* The goal line drops the score and status columns on a phone: three-word
+     names in a 100px column wrap to three lines, which is taller than the
+     scoreline it belongs to. */
+  .fx-goals { grid-template-columns: 1fr 1fr; font-size: 11.5px; }
+  .fx-goals span:nth-child(2), .fx-goals span:nth-child(4) { display: none; }
+  .fx-goals .g.a { grid-column: 2; }
+  .fx-full { display: none; }
+  .fx-abbr { display: inline; }
+  .fx-team { font-size: 14px; }
+}
+
+/* ---------- the code box ----------
+   The handle on the door above. One field and one button. The code is grouped in fours as it is typed
+   because that is how it was sent; everything the server sees is stripped
+   back down, so the grouping is a reading aid and never a rule to get wrong. */
+.codeform {
+  display: flex; gap: 8px; justify-content: center; flex-wrap: wrap;
+  margin: 0 0 4px;
+}
+.codeform input {
+  font-family: var(--f-num);
+  font-size: 17px;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-align: center;
+  width: 20ch;
+  padding: 11px 12px;
+  color: var(--ink);
+  background: var(--bg);
+  border: 1px solid var(--line);
+  border-radius: var(--rs);
+}
+.codeform input::placeholder { color: var(--faint); letter-spacing: 0.08em; }
+.codeform input:focus-visible { outline: 2px solid var(--accent); outline-offset: 1px; }
+.codeform button {
+  font-family: var(--f-head);
+  font-size: 14px;
+  font-weight: 700;
+  padding: 11px 20px;
+  border-radius: var(--rs);
+  border: 1px solid var(--accent);
+  background: var(--accent);
+  color: var(--on-accent);
+  cursor: pointer;
+}
+.codeform button:disabled { opacity: 0.6; cursor: default; }
+.codeform button:focus-visible { outline: 2px solid var(--ink); outline-offset: 2px; }
+
+/* A label the screen reader gets and the layout does not. */
+.vh {
+  position: absolute; width: 1px; height: 1px; margin: -1px;
+  padding: 0; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0;
+}

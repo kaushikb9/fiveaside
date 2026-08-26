@@ -433,7 +433,8 @@
       '<span class="mute" style="font-size:13px">what we did about it</span>' +
       (session
         ? '<span style="margin-left:auto;font-size:12px;color:var(--faint)">' +
-          esc(session.email) + ' &middot; <a href="#" id="signout">sign out</a></span>'
+          'signed in as ' + esc(session.nick) +
+          ' &middot; <a href="#" id="signout">sign out</a></span>'
         : "") + "</div>" +
       headlineHTML() +
       // Two short status panels that answer the same question — how much of
@@ -481,17 +482,36 @@
   /* ---------------- the door ----------------
      The squads and weekly reads are not published as static files; they come
      from /api/private and only with a valid session. So this room genuinely
-     cannot render without signing in, rather than merely declining to. */
+     cannot render without signing in, rather than merely declining to.
+
+     A code, not a password: KB mints one per gaffer, it works on any device
+     until he revokes it, and there is nothing to reset. Typing it and tapping
+     a /gaffers/?i=CODE link are the same act — the link just fills the box. */
   function signInHTML(state) {
-    const note = {
-      out: "",
-      denied: '<p class="door-note" style="color:var(--hot)">That account is not on the ' +
-        "list. Five people have keys to this room; ask KB to add yours.</p>",
+    // Main's copy, in the door's own layout: the wording is theirs, only the
+    // class changes so a note sits inside the lineup panel rather than in a
+    // bare card.
+    const say = {
+      out: '<p class="door-p">Enter the code KB sent you &mdash; once per device, then it ' +
+        "remembers.</p>",
+      denied: '<p class="door-note" style="color:var(--hot)">That code is not one of ours. ' +
+        "Check for a typo, or ask KB for a new one.</p>",
+      throttled: '<p class="door-note" style="color:var(--hot)">Too many tries from here. ' +
+        "Wait ten minutes, then have another go.</p>",
       unconfigured: '<p class="door-note" style="color:var(--warn)">Sign-in is not switched ' +
-        "on yet &mdash; the Google client ID has not been set. Nothing is broken; the door " +
-        "simply has no lock fitted.</p>",
-      error: '<p class="door-note" style="color:var(--hot)">Sign-in failed. Try again.</p>',
+        "on yet &mdash; the session secret or the store is not bound. Nothing is broken; the " +
+        "door simply has no lock fitted.</p>",
+      error: '<p class="door-note" style="color:var(--hot)">That did not go through. ' +
+        "Try again.</p>",
     }[state] || "";
+    // No lock fitted means the box can never open the door; an input nobody
+    // can use is worse than no input at all.
+    const form = state === "unconfigured" ? "" :
+      '<form id="codeform" class="codeform" autocomplete="off">' +
+      '<label class="vh" for="code">Your invite code</label>' +
+      '<input id="code" name="code" type="text" inputmode="latin" autocapitalize="characters" ' +
+      'spellcheck="false" maxlength="19" placeholder="XXXX-XXXX-XXXX">' +
+      '<button type="submit">Enter</button></form>';
 
     // The lineup is drawn from FA.NICKS, not from the data: this page runs
     // before there is a session, so there is no squad list to read. It is
@@ -509,42 +529,50 @@
       '<p class="door-p">Squads, weekly reads, the roast and the mini-league. It is not ' +
       "published &mdash; it is fetched, and only for one of these five.</p>" +
       '<div class="lineup">' + lineup + "</div>" +
-      note +
-      // No lock fitted means no button will ever land here; an empty slot
-      // under the lineup reads as a broken page.
-      (state === "unconfigured" ? "" : '<div class="door-cta"><div id="gsi"></div></div>') +
+      say +
+      (form ? '<div class="door-cta">' + form + "</div>" : "") +
       '<p class="door-foot"><a href="../">touchline</a> and <a href="../locker/">the locker ' +
-      'room</a> are open to everyone.</p>' +
+      "room</a> are open to everyone.</p>" +
       "</div></section>";
   }
 
+  /* The code is only ever grouped for reading. Everything the server compares
+     is stripped and upper-cased, here and there, so a dash or a lower-case
+     letter is never the reason someone cannot get in. */
+  const groupCode = (v) =>
+    (String(v).toUpperCase().replace(/[^0-9A-Z]/g, "").slice(0, 16).match(/.{1,4}/g) || []).join("-");
+
   function renderSignIn(state) {
     $("#main").innerHTML = signInHTML(state);
-    const cid = document.body.dataset.googleClientId;
-    // No client id means no button will ever appear. Say so rather than
-    // leaving an empty slot under the lineup where a door handle should be.
-    if (!cid) {
-      if (state !== "unconfigured") $("#main").innerHTML = signInHTML("unconfigured");
-      return;
-    }
-    if (state === "unconfigured") return;
-    // Google Identity Services renders its own button; it is loaded from the
-    // shell so that a blocked script leaves an honest message rather than a
-    // dead page.
-    if (!window.google || !google.accounts) return;
-    google.accounts.id.initialize({ client_id: cid, callback: onCredential });
-    google.accounts.id.renderButton(document.getElementById("gsi"),
-      { theme: "outline", size: "large", text: "signin_with", shape: "pill" });
+    const form = document.getElementById("codeform");
+    if (!form) return;
+    const input = document.getElementById("code");
+    input.addEventListener("input", () => {
+      const at = input.selectionStart === input.value.length;
+      input.value = groupCode(input.value);
+      if (at) input.setSelectionRange(input.value.length, input.value.length);
+    });
+    form.addEventListener("submit", (e) => {
+      e.preventDefault();
+      submitCode(input.value, form);
+    });
+    input.focus();
   }
 
-  async function onCredential(res) {
+  async function submitCode(code, form) {
+    const clean = String(code).replace(/[^0-9A-Za-z]/g, "");
+    if (!clean) return;
+    const btn = form && form.querySelector("button");
+    if (btn) { btn.disabled = true; btn.textContent = "Checking\u2026"; }
     try {
       const r = await fetch("/api/auth", {
         method: "POST",
         headers: { "content-type": "application/json" },
-        body: JSON.stringify({ credential: res.credential }),
+        body: JSON.stringify({ code: clean }),
       });
       if (r.status === 403) return renderSignIn("denied");
+      if (r.status === 429) return renderSignIn("throttled");
+      if (r.status === 503) return renderSignIn("unconfigured");
       if (!r.ok) return renderSignIn("error");
       main();
     } catch (e) {
@@ -552,8 +580,36 @@
     }
   }
 
-  async function main() {
+  /* A link is a code someone else can read over your shoulder, so it is spent
+     the moment it is used: taken out of the URL before anything renders, and
+     out of the history entry with it. */
+  function codeFromURL() {
+    const params = new URLSearchParams(location.search);
+    const code = params.get("i") || params.get("invite");
+    if (!code) return null;
+    params.delete("i");
+    params.delete("invite");
+    const rest = params.toString();
+    history.replaceState(null, "", location.pathname + (rest ? "?" + rest : ""));
+    return code;
+  }
+
+  async function main(urlCode) {
     const el = $("#main");
+
+    // A code in the URL is redeemed before anything else asks a question:
+    // /gaffers/?i=CODE has to behave exactly like typing it into the box.
+    if (urlCode) {
+      try {
+        const r = await fetch("/api/auth", {
+          method: "POST",
+          headers: { "content-type": "application/json" },
+          body: JSON.stringify({ code: String(urlCode).replace(/[^0-9A-Za-z]/g, "") }),
+        });
+        if (r.status === 403) return renderSignIn("denied");
+        if (r.status === 429) return renderSignIn("throttled");
+      } catch (e) { /* fall through to the session check below */ }
+    }
 
     let priv;
     try {
@@ -570,7 +626,7 @@
     G = priv.gaffers;
     session = priv.session || null;
     // The signed-in gaffer is whose room it is. Falls back to the owner until
-    // the other four addresses are mapped.
+    // the other four have codes of their own.
     who = (session && session.nick) || FA.ME;
 
     try {
@@ -593,5 +649,5 @@
   }
 
   FA.initTheme();
-  main();
+  main(codeFromURL());
 })();

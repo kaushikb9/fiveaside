@@ -118,24 +118,33 @@ replaced wholesale each run, except `log`, which is append-and-settle.
 
 ## 4. Open, and why
 
-### 4a. Blocked on KB — the gaffers door
+### 4a. The gaffers door — invite codes
 
-Google sign-in is built and deployed but **cannot lock without a client ID**,
-which needs the Cloud Console. Everything else is done: the ID token is
-verified server-side against Google's published keys, the allowlist is
-re-checked per request, the session is an HMAC-signed HttpOnly cookie,
-`SESSION_SECRET` is set, and the personal data is not published — it lives in
-KV behind `/api/private`.
+**Changed 2026-08-26.** Google sign-in is gone. It meant an OAuth client, a
+Cloud Console, an email allowlist and a third party in the loop to identify
+five people who already know each other, and it sat blocked on a client ID for
+days. A code per gaffer does the same job with a KV key.
 
-1. console.cloud.google.com → APIs & Services → Credentials
-2. Create credentials → OAuth client ID → **Web application**
-3. Authorised JavaScript origin: `https://fiveaside.pages.dev`
-4. `npx wrangler pages secret put GOOGLE_CLIENT_ID --project-name fiveaside`
-   then `./deploy.sh`
+```
+node brain/invite.mjs "Sir Fergie"     mint (replaces their old code)
+node brain/invite.mjs --list           who has one, and whether they used it
+node brain/invite.mjs --revoke <code>  kill one
+node brain/invite.mjs --revoke-all     kill all of them
+```
 
-Until then `/api/auth` answers 503 and the room says "no lock fitted yet".
-**Not urgent** — the data is private either way. Mapping the other four emails
-to their nicks is deferred; the slots are commented in `functions/api/auth.js`.
+It prints the code and a `/gaffers/?i=CODE` link; either one signs them in on
+any device for 30 days. The code is twelve Crockford base32 characters (no I,
+L, O or U — 60 bits), stored at KV `invite:<CODE>` as `{ nick, issued,
+last_used }`, re-read on **every** request, so revoking signs that person out
+within a request rather than in 30 days. Ten wrong codes from one address buys
+a ten-minute rest.
+
+What is still true from before: the session is an HMAC-signed HttpOnly cookie,
+`SESSION_SECRET` is a Pages secret, and the personal data is not published at
+all — it lives in KV behind `/api/private`.
+
+**Left to do:** mint the other four and send them out. Xabi's own code is the
+only one that has to exist for the room to be usable.
 
 ### 4b. Form is Premier League only
 
@@ -196,5 +205,6 @@ From KB's comment exports in `docs/superpowers/comments/`:
 ## 6. Open questions for KB
 
 Nothing outstanding from the review rounds. The next decisions are build-order
-ones, plus the two parked items above: the Google client ID, and what replaces
-the fan voice.
+ones, plus the one parked item above: what replaces the fan voice. The gaffers
+door is no longer blocked — it needs four codes minted and sent, not a
+decision.

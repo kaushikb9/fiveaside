@@ -26,7 +26,7 @@ export async function onRequestGet({ request, env }) {
   if (!env.SESSION_SECRET) return json({ error: "auth not configured" }, 503);
   if (!env.STARS) return json({ error: "store not bound" }, 503);
 
-  const session = await readSession(request, env.SESSION_SECRET);
+  const session = await readSession(request, env);
   if (!session) return json({ error: "not signed in" }, 401);
 
   // Both blobs live in the same namespace as the stars — one binding is
