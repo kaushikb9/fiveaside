@@ -19,7 +19,7 @@ site produces pixels.**
 | Room | URL | Job |
 |---|---|---|
 | **touchline** | `/` | What happened. The league, the same for everyone. |
-| **the gaffers** | `/gaffers/` | What we did about it. Five squads, five weekly reads. Behind Google sign-in. |
+| **the gaffers** | `/gaffers/` | What we did about it. Five squads, five weekly reads. Behind an invite code. |
 | **the locker room** | `/locker/` | What we know. Every player, evidence first. |
 
 Any player's name, in any room, opens their file — that join is what makes it

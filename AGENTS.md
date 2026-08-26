@@ -41,14 +41,30 @@ delegated listener in `site/common.js`. Keep it that way.
   the mechanical files straight to disk and hands the brain the remainder.
   The three `validate-*.mjs` files are the schema authorities.
 - `functions/` — Pages Functions, a **sibling** of `site/`, not inside it.
-  `api/live.js` proxies the FPL API (which sends no CORS headers),
-  `api/stars.js` is the KV-backed watchlist star, `api/auth.js` is Google
-  sign-in for the gaffers room, and `api/private.js` serves the data that
-  room needs. One KV namespace (`STARS`) holds all of it, keyed by prefix.
+  `api/live.js` proxies the FPL API (which sends no CORS headers) for the
+  gaffers room, `api/matches.js` does the same for the league room's two
+  match-week tabs (this gameweek's scores and goalscorers, next gameweek's
+  fixtures), `api/stars.js` is the KV-backed watchlist star, `api/auth.js` is
+  invite-code sign-in for the gaffers room, and `api/private.js` serves the
+  data that room needs. One KV namespace (`STARS`) holds all of it, keyed by
+  prefix — `stars:`, `private:`, `invite:`, `throttle:`.
 - `site/` — static, no framework, no build step, no CDNs. `common.js` loads
   first on every page and holds everything that must behave identically in
   all three rooms: theme, nicknames, kits, the focus-club rule, the player
-  card. Every data-derived string goes through `esc()`.
+  card. Every data-derived string goes through `esc()`. `digest.js` loads
+  second on the two pages that draw digest entries — `/` and `/archive/` —
+  so an entry from July draws exactly as this week's does.
+
+**The league room shows one entry.** `/` renders only the newest digest;
+`/archive/` renders every earlier one, folded shut, and is linked from the
+footer and from a line under the entry. Entries are still appended to
+`digests.json` as before — nothing stopped being written, it stopped being
+shown, because nobody reads backwards through a week-in-review. Its table,
+this match week and next match week are **one panel with three tabs**, not
+three panels: the table is local from `digests.json`, the two match weeks
+come from `/api/matches`, and losing that feed costs the two tabs, never the
+page. The default tab is the table unless a match is live or finished in the
+last 26 hours, in which case the scores lead.
 
 **Public and private.** `deploy.sh` runs `brain/publish-private.mjs`, which
 pushes the squads and the weekly reads into KV and keeps them out of the
@@ -85,8 +101,9 @@ uv run ruff check .              # lint (line-length 100)
 node brain/validate.mjs          # digests.json
 node brain/validate-fpl.mjs      # fpl.json — judgment layer
 node brain/validate-players.mjs  # players.json — the player file
-node --check site/common.js site/app.js site/gaffers/app.js site/locker/app.js \
-             functions/api/*.js brain/*.mjs
+node --check site/common.js site/digest.js site/app.js site/archive/app.js \
+             site/gaffers/app.js site/locker/app.js functions/api/*.js brain/*.mjs
+node brain/invite.mjs --list     # who has a gaffers code (add --local for dev)
 ./brain/curate.sh --no-deploy      # league room, full run without publishing
 ./brain/curate-fpl.sh --no-deploy  # gaffers room, ditto
 ./deploy.sh                      # stamp assets, split private, push to KV, deploy
@@ -147,6 +164,22 @@ added; `-i` alone is not enough, it only blocks idle sleep. `auto.sh` does it.
 - **Grid items default to `min-width: auto`**, so a wide table's min-content
   forces its `1fr` track past the container and scrolls the whole page
   sideways. `.grid2 > * { min-width: 0 }`.
+- **`FA.linkPlayers()` rewrites its own output, so its guard has to cover
+  three places, not one.** It loops over every known name longest-first and
+  splices an `<a>` in; a later pass for "Potter" matched inside the
+  `data-player="Lewis-Potter"` an earlier pass had written — a quote is not a
+  word character and neither is a hyphen — and spliced a tag into the
+  attribute, which rendered as `Lewis-Potter">Lewis-Potter`. The lookarounds
+  exclude `"`, `=` and `-` as well as word characters and tag brackets. Any
+  new name source (goalscorers, squads) will hit this the first time a
+  double-barrelled name shows up.
+- **The gaffers door is an invite code, not an identity provider.** Google
+  sign-in was replaced on 2026-08-26: it needed a Cloud Console, an OAuth
+  client and an email allowlist to identify five people who already know each
+  other, and it shipped a login wall with no button for weeks because the
+  client ID was never set. Codes live at KV `invite:<CODE>` and are re-read on
+  **every** request — a session that outlives the code it was minted from is a
+  revoke button that does nothing. Mint with `node brain/invite.mjs "<nick>"`.
 - **Wire-once helpers must be idempotent.** A table inside a closed
   `<details>` is already in the DOM, so a page-level pass and a toggle
   handler both wired it and every sort click fired twice.
@@ -176,10 +209,11 @@ to KV, and asserts the Functions bundle uploaded (the silent failure mode is
 `/api/*` 404ing to the static site).
 
 **Secrets and bindings.** One KV namespace `STARS`, bound in `wrangler.toml`,
-holds `stars:<gaffer>` and `private:gaffers` / `private:people`.
-`SESSION_SECRET` is set as a Pages secret. `GOOGLE_CLIENT_ID` is **not set
-yet** — see ROADMAP §4a; without it sign-in returns 503 and the gaffers room
-says so honestly rather than showing a dead button.
+holds `stars:<gaffer>`, `private:gaffers` / `private:people`, `invite:<CODE>`
+and short-lived `throttle:<ip>` counters. `SESSION_SECRET` is set as a Pages
+secret; with it or the KV binding missing, `/api/auth` answers 503 and the
+gaffers room says the door has no lock fitted rather than showing a dead
+button.
 
 **Scheduling.** `brain/auto.sh` fires hourly via launchd
 (`com.kb.touchline.plist`). It pulls with autostash and a timeout, then:
