@@ -36,9 +36,12 @@ anywhere opens their locker-room card, via one delegated listener in
 | Le Professeur | Arsenal | 4135179 | LP |
 
 Renamed from Sir Alex / Ronaldo / Enzo / Arsene on 2026-08-24 and **frozen**.
-They live in four places that must change together — `touchline.config.json`,
-`site/common.js` (`FA.NICKS`, `FA.INITIALS`), `functions/api/stars.js`,
-`brain/validate-fpl.mjs`. **Real names never appear anywhere.** Archived
+They live in five places that must change together — `touchline.config.json`,
+`site/common.js` (`FA.NICKS`, `FA.INITIALS`), `site/faces.js` (`FACES`, one
+caricature each), `functions/api/stars.js`, `brain/validate-fpl.mjs`.
+`faces.js` warns in the console if a nickname in `FA.NICKS` has no face, so
+that particular drift announces itself rather than shipping an initial where
+a portrait belongs. **Real names never appear anywhere.** Archived
 mockups in `docs/superpowers/` keep the OLD names on purpose: rewriting a
 signed-off review would make the record lie about what was reviewed.
 

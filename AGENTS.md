@@ -53,7 +53,10 @@ delegated listener in `site/common.js`. Keep it that way.
   all three rooms: theme, nicknames, kits, the focus-club rule, the player
   card. Every data-derived string goes through `esc()`. `digest.js` loads
   second on the two pages that draw digest entries — `/` and `/archive/` —
-  so an entry from July draws exactly as this week's does.
+  so an entry from July draws exactly as this week's does, and `faces.js`
+  loads second in the gaffers room: five inline-SVG caricatures of the
+  football people the five are named after, drawn on one skeleton so they
+  read as a set. Drawn, never fetched — same rule as the kits.
 
 **The league room shows one entry.** `/` renders only the newest digest;
 `/archive/` renders every earlier one, folded shut, and is linked from the

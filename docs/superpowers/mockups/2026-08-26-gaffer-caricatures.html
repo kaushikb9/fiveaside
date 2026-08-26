@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Mockup &middot; the five, drawn</title>
+<link rel="stylesheet" href="../../../site/style.css">
+<style>
+  .mk { max-width: 1060px; margin: 0 auto; padding: 24px 20px 90px; }
+  .mk h1 { font-size: 26px; margin-bottom: 4px; }
+  .mk .sub { color: var(--mute); font-size: 14px; margin: 0 0 26px; }
+  .rule { border: 0; border-top: 1px solid var(--line); margin: 34px 0 22px; }
+  .lbl { font-size: 10px; letter-spacing: .13em; text-transform: uppercase;
+         color: var(--faint); font-weight: 700; margin-bottom: 10px; }
+  .row { display: flex; gap: 22px; align-items: flex-end; flex-wrap: wrap; }
+  .sz { text-align: center; }
+  .sz .cap { font-size: 11px; color: var(--faint); font-family: var(--f-num); margin-top: 4px; }
+</style>
+</head>
+<body>
+<div class="mk">
+  <div class="themectl" id="themectl" style="float:right">
+    <button data-t="auto">Auto</button><button data-t="light">Light</button><button data-t="dark">Dark</button>
+  </div>
+  <h1>The five, drawn</h1>
+  <p class="sub">Mockup &middot; 2026-08-26 &middot; caricatures for the gaffers room and its door.</p>
+
+  <div class="lbl">1 &middot; the set, at the sizes it has to survive</div>
+  <div id="sizes"></div>
+
+  <hr class="rule">
+  <div class="lbl">2 &middot; the selector bar &mdash; face cards</div>
+  <div id="bar"></div>
+
+  <hr class="rule">
+  <div class="lbl">3 &middot; the headline, anchored by whoever is selected</div>
+  <div id="head"></div>
+
+  <hr class="rule">
+  <div class="lbl">4 &middot; the door &mdash; signed out (invite code)</div>
+  <div id="door"></div>
+</div>
+
+<script src="../../../site/common.js"></script>
+<script src="../../../site/faces.js"></script>
+<script>
+(function () {
+  const NICKS = FA.NICKS;
+  const CLUB = { "Xabi": "Chelsea", "Sir Fergie": "Man Utd", "Mr CR7": "Man Utd",
+                 "The Special One": "Chelsea", "Le Professeur": "Arsenal" };
+  const TEAM = { "Xabi": "Stamford Bridgade", "Sir Fergie": "Govan Boys",
+                 "Mr CR7": "Siuuuperstars", "The Special One": "Parked Bus FC",
+                 "Le Professeur": "Invincibles XI" };
+  const PTS = { "Xabi": 71, "Sir Fergie": 68, "Mr CR7": 64, "The Special One": 61,
+                "Le Professeur": 58 };
+
+  // 1 — sizes
+  document.getElementById("sizes").innerHTML = NICKS.map((n) =>
+    '<div style="margin-bottom:18px"><div class="row">' +
+    [96, 56, 40, 28].map((s) =>
+      '<div class="sz"><span class="facewrap" style="width:' + s + 'px;height:' + s + 'px">' +
+      FA.faceSVG(n) + '</span><div class="cap">' + s + '</div></div>').join("") +
+    '<div style="font-weight:700;font-family:var(--f-head)">' + n +
+    '<div style="font-size:12px;color:var(--faint);font-weight:600">' + CLUB[n] + '</div></div>' +
+    '</div></div>').join("");
+
+  // 2 — the bar
+  document.getElementById("bar").innerHTML = '<div class="gbar">' + NICKS.map((n, i) =>
+    '<button class="gchip" aria-pressed="' + (i === 0) + '">' +
+    '<span class="gface">' + FA.faceSVG(n) + '</span>' +
+    '<span class="gmeta"><b>' + n + '</b>' +
+    '<span class="gteam">' + TEAM[n] + '</span>' +
+    '<span class="gpts">' + PTS[n] + ' pts &middot; #' + (i + 1) + '</span></span>' +
+    '</button>').join("") + '</div>';
+
+  // 3 — headline
+  document.getElementById("head").innerHTML =
+    '<div class="ghead haface"><span class="hface">' + FA.faceSVG("Sir Fergie") + '</span>' +
+    '<div><div class="gk">Chip played</div>' +
+    '<p><span class="gname">Sir Fergie</span> played the Bench Boost in the opening week ' +
+    '&mdash; 68 points, 3 behind <span class="gname">Xabi</span>, and nothing left on the bench.</p>' +
+    '<div class="gsub">4 of the five still have theirs. First-half chips expire at GW19.</div>' +
+    '</div></div>';
+
+  // 4 — the door
+  document.getElementById("door").innerHTML =
+    '<section class="section"><div class="section-head"><h2>the gaffers</h2>' +
+    '<span class="mute" style="font-size:13px">what we did about it</span></div>' +
+    '<div class="door">' +
+    '<div class="door-k">Five keys &middot; members only</div>' +
+    '<h3>This room belongs to the five.</h3>' +
+    '<p class="door-p">Squads, weekly reads, the roast and the mini-league. ' +
+    'It is not published &mdash; it is fetched, and only for one of these five.</p>' +
+    '<div class="lineup">' + NICKS.map((n) =>
+      '<div class="lu"><span class="facewrap lu-face">' + FA.faceSVG(n) + '</span>' +
+      '<b>' + n + '</b><span class="lu-club">' + CLUB[n] + '</span></div>').join("") +
+    '</div>' +
+    '<div class="door-cta"><form class="codeform" onsubmit="return false">' +
+    '<input type="text" placeholder="XXXX-XXXX-XXXX" maxlength="19">' +
+    '<button type="submit">Enter</button></form></div>' +
+    '<p class="door-foot"><a href="#">touchline</a> and <a href="#">the locker room</a> ' +
+    'are open to everyone.</p>' +
+    '</div></section>';
+
+  FA.initTheme();
+})();
+</script>
+</body>
+</html>

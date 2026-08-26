@@ -390,24 +390,108 @@ h3 .gname, summary .gname, td .gname, .ghead p .gname {
   background: none; box-shadow: none; padding: 0;
 }
 
-/* ---------- gaffers: chips ---------- */
-.gbar { display: flex; gap: 7px; flex-wrap: wrap; margin-bottom: 14px; }
+/* ---------- the five, drawn -------------------------------------------
+   Caricatures of the football people the five borrowed their names from,
+   drawn as inline SVG in faces.js. `.facewrap` is the sizing handle: the
+   SVG always fills its box, so a face is resized by resizing the wrapper
+   and never by touching the drawing. */
+.facewrap { display: inline-block; line-height: 0; flex: 0 0 auto; }
+.face { display: block; width: 100%; height: 100%; }
+.face.dim { filter: grayscale(1) opacity(0.55); }
+
+/* ---------- gaffers: chips ----------
+   Five face cards, not five text chips: the portrait is the thing you aim
+   at, the numbers are what you read once you have. */
+.gbar { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 14px; }
 .gchip {
-  display: flex; flex-direction: column; gap: 2px; align-items: flex-start;
-  padding: 8px 13px; border: 1px solid var(--line); border-radius: var(--rs);
-  background: var(--card); cursor: pointer; min-width: 104px; text-align: left;
-  color: var(--ink); font-family: var(--f-head);
+  display: flex; align-items: center; gap: 9px;
+  padding: 7px 13px 7px 8px; border: 1px solid var(--line); border-radius: 999px;
+  background: var(--card); cursor: pointer; min-width: 132px; text-align: left;
+  color: var(--ink); font-family: var(--f-head); box-shadow: var(--shadow);
 }
-.gchip b { font-size: 13.5px; font-weight: 700; }
+.gchip .gface { display: block; width: 38px; height: 38px; line-height: 0; flex: 0 0 auto; }
+.gchip .gmeta { display: flex; flex-direction: column; gap: 1px; min-width: 0; }
+.gchip b { font-size: 13.5px; font-weight: 700; white-space: nowrap; }
 .gchip .gteam {
   font-size: 10.5px; color: var(--faint); font-family: var(--f-head); font-weight: 600;
-  overflow: hidden; text-overflow: ellipsis; max-width: 130px; white-space: nowrap;
+  overflow: hidden; text-overflow: ellipsis; max-width: 132px; white-space: nowrap;
 }
 .gchip .gpts { font-size: 11px; color: var(--faint); font-family: var(--f-num); }
-.gchip .gtop { display: flex; align-items: center; }
 .gchip[aria-pressed="true"] { background: var(--accent); border-color: var(--accent); color: var(--on-accent); }
 .gchip[aria-pressed="true"] .gteam, .gchip[aria-pressed="true"] .gpts { color: inherit; opacity: 0.85; }
+/* On the accent fill the tinted disc disappears; give the face its own ring. */
+.gchip[aria-pressed="true"] .gface .face { border-radius: 50%; background: var(--card); }
 .clubdot { display: inline-block; width: 9px; height: 9px; border-radius: 50%; margin-right: 6px; flex: 0 0 auto; }
+
+/* The headline, anchored by whoever is selected. */
+.ghead.haface { display: flex; gap: 15px; align-items: flex-start; }
+.ghead .hface { display: block; width: 62px; height: 62px; line-height: 0; flex: 0 0 auto; }
+@media (max-width: 620px) { .ghead .hface { width: 46px; height: 46px; } }
+
+/* ---------- the door ---------------------------------------------------
+   Signed out, this room shows the five it belongs to. The squads and reads
+   are fetched, not published, so there is nothing here to leak — the faces
+   ARE the explanation of who this is for. */
+.door {
+  border: 1px solid var(--line); border-radius: var(--r); background: var(--card);
+  box-shadow: var(--shadow); padding: 30px 22px 26px; text-align: center;
+  position: relative; overflow: hidden;
+}
+/* A dugout stripe behind the lineup, the same grass the pitch uses. */
+.door::before {
+  content: ""; position: absolute; inset: 0;
+  background: repeating-linear-gradient(90deg, var(--grass) 0 34px, var(--stripe) 34px 68px);
+  /* Faded out downward rather than cut off at a fixed height — a hard edge
+     across the middle of a paragraph reads as a rendering bug. */
+  -webkit-mask-image: linear-gradient(180deg, #000, transparent 78%);
+  mask-image: linear-gradient(180deg, #000, transparent 78%);
+  opacity: 0.13; pointer-events: none;
+}
+.door > * { position: relative; }
+.door-k {
+  font-family: var(--f-head); font-size: 10px; font-weight: 700; letter-spacing: 0.14em;
+  text-transform: uppercase; color: var(--accent); margin-bottom: 8px;
+}
+.door h3 { font-size: 21px; letter-spacing: -0.02em; }
+.door-p { font-size: 14px; color: var(--mute); margin: 8px auto 0; max-width: 56ch; }
+.door-note { font-size: 13.5px; margin: 12px auto 0; max-width: 56ch; }
+.lineup {
+  display: flex; justify-content: center; gap: 14px; flex-wrap: wrap;
+  margin: 22px 0 6px;
+}
+.lu { display: flex; flex-direction: column; align-items: center; gap: 2px; width: 104px; }
+.lu-face { width: 74px; height: 74px; }
+/* The names are two and three words long; a fixed two-line box keeps the
+   club labels on one baseline instead of stepping down under the long one. */
+.lu b {
+  font-family: var(--f-head); font-size: 12.5px; font-weight: 700; line-height: 1.25;
+  margin-top: 6px; min-height: 2.5em; display: flex; align-items: center;
+}
+.lu-club { font-size: 10.5px; color: var(--faint); font-family: var(--f-head); font-weight: 600; }
+.door-cta { display: flex; justify-content: center; margin-top: 18px; min-height: 44px; }
+.door-foot { font-size: 13px; color: var(--mute); margin: 16px 0 0; }
+/* The code box itself is styled further down, under "the code box". */
+/* On a phone the chips wrapped into a ragged two-column stagger. A grid
+   gives two even columns and lets the fifth sit alone under them, which
+   reads as a team sheet rather than as a layout accident. */
+@media (max-width: 620px) {
+  .gbar { display: grid; grid-template-columns: 1fr 1fr; gap: 7px; }
+  .gchip { min-width: 0; padding-right: 10px; }
+  .gchip .gteam { max-width: 100%; }
+  .gchip .gface { width: 34px; height: 34px; }
+}
+
+@media (max-width: 620px) {
+  /* Five across, not four and a straggler: a lineup that wraps stops being
+     a lineup. The name box grows to three lines so "The Special One" does
+     not push its club label out of line with the rest. */
+  .lineup { gap: 5px; flex-wrap: nowrap; }
+  .lu { width: 64px; }
+  .lu-face { width: 50px; height: 50px; }
+  .lu b { font-size: 10.5px; min-height: 3.9em; margin-top: 4px; }
+  .lu-club { font-size: 9.5px; }
+  .door { padding: 26px 12px 22px; }
+}
 
 /* ---------- the pitch --------------------------------------------------
    Modelled on the official FPL and FotMob lineups. Kits are drawn as inline
@@ -755,13 +839,13 @@ th.th-sort.sorted[data-dir="desc"]::after { content: "\2193"; opacity: 1; color:
   .fx-team { font-size: 14px; }
 }
 
-/* ---------- the gaffers door ----------
-   One field and one button. The code is grouped in fours as it is typed
+/* ---------- the code box ----------
+   The handle on the door above. One field and one button. The code is grouped in fours as it is typed
    because that is how it was sent; everything the server sees is stripped
    back down, so the grouping is a reading aid and never a rule to get wrong. */
 .codeform {
   display: flex; gap: 8px; justify-content: center; flex-wrap: wrap;
-  margin: 18px 0 4px;
+  margin: 0 0 4px;
 }
 .codeform input {
   font-family: var(--f-num);
