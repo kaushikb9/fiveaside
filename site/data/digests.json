@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-25T03:26:45.121Z",
+  "generated_at": "2026-08-26T17:24:36.997Z",
   "digests": [
     {
       "date": "2026-07-25",
@@ -6229,6 +6229,256 @@
           "to": "Aston Villa",
           "heat": "talks",
           "note": "Villa have made an approach for the centre-back after failing to agree a fee with Southampton for Taylor Harwood-Bellis, per The Athletic."
+        }
+      ]
+    },
+    {
+      "date": "2026-08-26",
+      "headline": "Six days left, and the Premier League is doing more selling than buying",
+      "week": [
+        {
+          "tag": "PL",
+          "club": "Aston Villa",
+          "kicker": "A league that sells.",
+          "text": "Aston Villa (€293.1m), Manchester City (€278.6m) and Newcastle (€275.5m) have all moved into the all-time top six for transfer income in a single window, with Monaco’s €360m from the summer of Mbappé now in reach. Villa are closest, largely on Morgan Rogers’ £117m, and are doing it under a €22.5m Uefa fine for breaching the squad-cost rule."
+        },
+        {
+          "tag": "PL",
+          "club": "Manchester City",
+          "kicker": "City buy the future.",
+          "text": "Ayyoub Bouaddi arrived from Lille for €100m (£85.7m) on a five-year deal, an 18-year-old asked to fill the hole Rodri left. He is the second piece after Elliot Anderson’s €135m, and City funded him to the pound by agreeing a £52m sale of Nico González to Newcastle on the same afternoon."
+        },
+        {
+          "tag": "PL",
+          "club": "Chelsea",
+          "kicker": "City come back for Enzo.",
+          "text": "Manchester City are set to lodge an opening offer for Enzo Fernández, whose manager at Chelsea, Enzo Maresca, has made him the priority of the rebuild. Chelsea set an unofficial deadline of 14 August at a minimum £120m and let it pass; the fee would sit second only to Alexander Isak’s £125m in Premier League history. Xabi Alonso says he expects him to be involved against Luton in the Carabao Cup on Thursday: \"We know his qualities... we have to wait, but we will think about tomorrow.\""
+        },
+        {
+          "tag": "FPL",
+          "club": "Chelsea",
+          "kicker": "Seventeen games, no clean sheet.",
+          "text": "Chelsea have not kept a Premier League clean sheet in 17 matches, their longest run since August 1991 — which is the number to hold in your head before you buy a Chelsea defender. Emiliano Martínez has now been offered to them and talks with his camp are under way, the 33-year-old having told Aston Villa he wants out after a move to Juventus collapsed."
+        },
+        {
+          "tag": "FPL",
+          "club": "Tottenham Hotspur",
+          "kicker": "A striker in, a playmaker out.",
+          "text": "Spurs agreed a loan for Omar Marmoush with an obligation to buy at £60m next summer, and have a medical booked. In the same 24 hours James Maddison was ruled out for up to two weeks with a shoulder fracture, per David Ornstein — so the new man arrives into a side missing the one who feeds it."
+        },
+        {
+          "tag": "PL",
+          "club": "Nottingham Forest",
+          "kicker": "Fifty million for Delap.",
+          "text": "Forest have agreed a club-record £45m plus £5m in add-ons for Liam Delap, a year and £30m after Chelsea took him from Ipswich. Oliver Glasner is not finished either: talks are open with Celta Vigo over the €15m right-back Javi Rueda, which would likely be the last of Forest’s summer."
+        },
+        {
+          "tag": "FPL",
+          "club": "Liverpool",
+          "kicker": "Still no number six.",
+          "text": "BBC Sport’s reading of the draw at Newcastle is structural rather than personal: Liverpool have not had an out-and-out holding midfielder since Fabinho left in 2023, and both goals came from turnovers with Ryan Gravenberch and Dominik Szoboszlai high up the pitch. Neither made a tackle all match; Alexis Mac Allister, on for the last half hour, made two and won four of his five duels. Andoni Iraola insists it is \"just not personnel\"."
+        },
+        {
+          "tag": "PL",
+          "kicker": "Sterling charged.",
+          "text": "Raheem Sterling has been charged with dangerous driving, possession of nitrous oxide and failing to provide a specimen after crashing into motorway barriers on the M3 in late May. He is due in court next month."
+        }
+      ],
+      "team_watch": [
+        {
+          "name": "Mike Penders",
+          "tag": "GK · 21",
+          "note": "The Guardian reports Chelsea have been lining him up to become their first-choice goalkeeper — which is precisely what a Martínez signing would postpone.",
+          "talent": true
+        },
+        {
+          "name": "Zion Suzuki",
+          "tag": "GK · Aston Villa",
+          "note": "Signed from Parma for £30m as Martínez’s successor, then watched the opening weekend from the bench at Brighton while Marco Bizot started."
+        }
+      ],
+      "table": {
+        "competition": "Premier League",
+        "rows": [
+          {
+            "pos": 1,
+            "team": "Brighton & Hove Albion",
+            "crest": "https://a.espncdn.com/i/teamlogos/soccer/500/331.png",
+            "played": 1,
+            "points": 3
+          },
+          {
+            "pos": 2,
+            "team": "Arsenal",
+            "crest": "https://a.espncdn.com/i/teamlogos/soccer/500/359.png",
+            "played": 1,
+            "points": 3,
+            "form": "DWLDW",
+            "focus": true
+          },
+          {
+            "pos": 3,
+            "team": "Brentford",
+            "crest": "https://a.espncdn.com/i/teamlogos/soccer/500/337.png",
+            "played": 1,
+            "points": 3
+          },
+          {
+            "pos": 4,
+            "team": "Everton",
+            "crest": "https://a.espncdn.com/i/teamlogos/soccer/500/368.png",
+            "played": 1,
+            "points": 3
+          },
+          {
+            "pos": 5,
+            "team": "Hull City",
+            "crest": "https://a.espncdn.com/i/teamlogos/soccer/500/306.png",
+            "played": 1,
+            "points": 3
+          },
+          {
+            "pos": 6,
+            "team": "Chelsea",
+            "crest": "https://a.espncdn.com/i/teamlogos/soccer/500/363.png",
+            "played": 1,
+            "points": 3,
+            "form": "LWDWW",
+            "focus": true
+          },
+          {
+            "pos": 8,
+            "team": "Manchester City",
+            "crest": "https://a.espncdn.com/i/teamlogos/soccer/500/382.png",
+            "played": 1,
+            "points": 3,
+            "form": "DLDWW",
+            "focus": true
+          },
+          {
+            "pos": 10,
+            "team": "Liverpool",
+            "crest": "https://a.espncdn.com/i/teamlogos/soccer/500/364.png",
+            "played": 1,
+            "points": 1,
+            "form": "LLDWD",
+            "focus": true
+          },
+          {
+            "pos": 17,
+            "team": "Manchester United",
+            "crest": "https://a.espncdn.com/i/teamlogos/soccer/500/360.png",
+            "played": 1,
+            "points": 0,
+            "form": "WDDLL",
+            "focus": true
+          }
+        ],
+        "note": "Nothing has moved since Monday night and nothing will until the league returns on Friday evening — for the rest of the week this table is settled in the transfer market rather than on grass."
+      },
+      "wider": [
+        {
+          "title": "Another season, another failure - where did it all go wrong for Celtic?",
+          "url": "https://www.bbc.co.uk/sport/football/articles/cdj4exv1xgwo",
+          "hook": "Three-nil up from the first leg, still three goals ahead with a quarter of the tie left, and beaten 5-4 on aggregate by Lask. Six failed Champions League qualifications in eight years, a captain calling his team \"scared\", and a back four at full time of a third-choice right-back, an ill centre-half, an untested academy kid and a left-back out of position.",
+          "source": "BBC Sport",
+          "image": "https://ichef.bbci.co.uk/ace/branded_sport/1200/cpsprodpb/93e1/live/2b9b96d0-a13d-11f1-9311-09d4e1fc9016.jpg"
+        },
+        {
+          "title": "Uefa poised to lift boycott threat after Fifa promises no World Cup sale repeat",
+          "url": "https://www.theguardian.com/football/2026/aug/26/uefa-poised-lift-boycott-threat-fifa-promises-no-world-cup-sale-repeat-gianni-infantino",
+          "hook": "The end of the standoff, and the terms are worth reading: Uefa wanted binding guarantees that nothing resembling the Fifa Forward Enterprise plan to sell stakes in the World Cup would ever be tabled again, and appears to have got them. European teams are likely to be cleared for the Under-20 Women’s World Cup.",
+          "source": "The Guardian Football",
+          "image": "https://i.guim.co.uk/img/media/4dd6c3cebcf9ec47a64fda5b94e33a3f1259ed41/172_0_2809_2248/master/2809.jpg?width=1200&height=630&quality=85&auto=format&fit=crop&precrop=40:21,offset-x50,offset-y0&overlay-align=bottom%2Cleft&overlay-width=100p&overlay-base64=L2ltZy9zdGF0aWMvb3ZlcmxheXMvdGctZGVmYXVsdC5wbmc&enable=upscale&s=5a82071672ec8da5a452d183488962f4"
+        }
+      ],
+      "read": {
+        "title": "Ayyoub Bouaddi: maths student, chess fan and Manchester City’s new Rodri",
+        "url": "https://www.theguardian.com/football/2026/aug/26/ayyoub-bouaddi-manchester-city-lille-transfer-rodri",
+        "hook": "Will Unwin on the 18-year-old who plays chess for two hours on the team bus while everyone else is on YouTube, passed his exams a year early and is studying maths remotely. The coaches who had him describe someone who does the dirty work and never makes a highlight reel — which is a strange thing to spend €100m on, and the piece is honest about that.",
+        "source": "The Guardian Football",
+        "image": "https://i.guim.co.uk/img/media/a2fd7c6d7b79a081c16df4fad27b02db6fd5717f/1342_0_6713_5370/master/6713.jpg?width=1200&height=630&quality=85&auto=format&fit=crop&precrop=40:21,offset-x50,offset-y0&overlay-align=bottom%2Cleft&overlay-width=100p&overlay-base64=L2ltZy9zdGF0aWMvb3ZlcmxheXMvdGctZGVmYXVsdC5wbmc&enable=upscale&s=2d2079daa514e1661606f4eedce20665"
+      },
+      "top_teams": [
+        {
+          "club": "Chelsea",
+          "crest": "https://a.espncdn.com/i/teamlogos/soccer/500/363.png",
+          "line": "#6 · 3 pts · PL",
+          "note": "The clear-out keeps moving: Axel Disasi has gone to Crystal Palace on a season-long loan — his third loan since arriving from Monaco — while talks continue over selling Nicolas Jackson to Aston Villa."
+        },
+        {
+          "club": "Arsenal",
+          "crest": "https://a.espncdn.com/i/teamlogos/soccer/500/359.png",
+          "line": "#2 · 3 pts · PL",
+          "note": "Julián Álvarez remains what BBC Sport calls the dream target, but the tussle around him has turned ugly — Atlético say there is \"0% chance\" of selling to Barcelona and accuse them of \"many lies and half-truths\", while sources close to Álvarez say he wants to stay in Spain."
+        },
+        {
+          "club": "Manchester City",
+          "crest": "https://a.espncdn.com/i/teamlogos/soccer/500/382.png",
+          "line": "#8 · 3 pts · PL",
+          "note": "Jack Grealish is the loose end: Sunderland have submitted a loan offer, Everton remain interested after last season, and his contract runs to June 2027 — though he had viewed Maresca’s arrival as a fresh start."
+        },
+        {
+          "club": "Manchester United",
+          "crest": "https://a.espncdn.com/i/teamlogos/soccer/500/360.png",
+          "line": "#17 · 0 pts · PL",
+          "note": "Bruno Fernandes was voted PFA men’s player of the year by his fellow professionals on Tuesday night, four days after United were beaten at Hull."
+        },
+        {
+          "club": "Liverpool",
+          "crest": "https://a.espncdn.com/i/teamlogos/soccer/500/364.png",
+          "line": "#10 · 1 pt · PL",
+          "note": "Six days to find a winger and no obvious way in: a £50m approach for Ismaïla Sarr was rebuffed by Crystal Palace, per David Ornstein, after Brighton turned down two bids for Yankuba Minteh, and talks with PSG over Bradley Barcola remain unresolved."
+        }
+      ],
+      "elsewhere": [
+        {
+          "club": "Coventry City",
+          "crest": "https://a.espncdn.com/i/teamlogos/soccer/500/388.png",
+          "note": "Frank Lampard’s promoted side went two goals up at Plymouth inside four minutes and six seconds and came through a six-goal Carabao Cup thriller, Victor Torp settling it — then signed Ethan Pinnock from Brentford for a reported £6m."
+        },
+        {
+          "club": "Brentford",
+          "crest": "https://a.espncdn.com/i/teamlogos/soccer/500/337.png",
+          "note": "Third in the table and trading briskly at both ends: Pinnock out to Coventry, and an agreement struck with West Ham to sign left-back El Hadji Malick Diouf for £35m plus £5m in add-ons."
+        }
+      ],
+      "rumours": [
+        {
+          "player": "Jean-Philippe Mateta",
+          "from": "Crystal Palace",
+          "to": "Aston Villa",
+          "heat": "talks",
+          "note": "Villa have made a formal offer for the striker, per The Athletic, and have also approached Bayer Leverkusen about Christian Kofane — two strikers pursued while Ollie Watkins’ future stays unresolved."
+        },
+        {
+          "player": "Joel Ordóñez",
+          "from": "Club Brugge",
+          "to": "Crystal Palace",
+          "heat": "talks",
+          "note": "BBC Sport reports Palace are trying to hijack Villa’s move for the centre-back, who has been a long-term target at Selhurst Park."
+        },
+        {
+          "player": "Matias Fernandez-Pardo",
+          "from": "Lille",
+          "to": "Newcastle United",
+          "fee": "~€60m",
+          "heat": "smoke",
+          "note": "A final offer for the 21-year-old Belgium forward, per Sacha Tavolieri, after an earlier bid was turned down."
+        },
+        {
+          "player": "Jake O’Brien",
+          "from": "Everton",
+          "to": "Leeds United",
+          "heat": "smoke",
+          "note": "Leeds and Crystal Palace have both registered interest in the 25-year-old Ireland defender, per Football Insider."
+        },
+        {
+          "player": "Andre",
+          "from": "Corinthians",
+          "to": "Nottingham Forest",
+          "heat": "smoke",
+          "note": "Forest are in talks over the 20-year-old Brazil midfielder, per the Daily Mail — the buying has not stopped at Delap."
         }
       ]
     }
