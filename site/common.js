@@ -234,13 +234,18 @@
     for (const n of names) {
       if (n.length < 5) continue;
       const safe = esc(n).replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+      // The guard has to keep the name out of THREE places, not one: mid-word,
+      // inside a tag, and inside an attribute value already written by an
+      // earlier pass. The third is what broke "Lewis-Potter" — a later pass for
+      // "Potter" matched inside data-player="Lewis-Potter" (a quote is not a
+      // word character, nor is a hyphen) and spliced a tag into the attribute.
       if (HAS_LOOKBEHIND) {
-        const re = new RegExp("(?<![\\w>])(" + safe + ")(?![\\w<])");
+        const re = new RegExp("(?<![\\w>\"=-])(" + safe + ")(?![\\w<\"-])");
         if (re.test(out)) out = out.replace(re, '<a class="plink" data-player="$1">$1</a>');
       } else {
         // Capture the preceding character instead of asserting it, then put
-        // it back. Same guard: not mid-word, and not inside a tag.
-        const re = new RegExp("(^|[^\\w>])(" + safe + ")(?![\\w<])");
+        // it back. Same guard, same three places.
+        const re = new RegExp("(^|[^\\w>\"=-])(" + safe + ")(?![\\w<\"-])");
         if (re.test(out)) {
           out = out.replace(re, '$1<a class="plink" data-player="' + esc(n) + '">$2</a>');
         }

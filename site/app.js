@@ -4,202 +4,155 @@
    personal state. If something here depends on who is reading it, it belongs
    in the gaffers room instead.
 
-   Reads site/data/digests.json (append-only, one entry per date). The player
-   file and verdicts are loaded only to power the card seam — a player name
-   anywhere here opens their locker-room card.
+   Shows the LATEST digest entry only. Older entries keep accumulating in
+   digests.json and are listed at /archive/ — nobody reads last fortnight's
+   week-in-review on the way to this week's, so the fold that used to hold
+   them was cost with no reader.
+
+   The league sits in one panel with three tabs: the table, this match week,
+   the next one. The table comes from digests.json (already local); the two
+   match weeks come from /api/matches, and their absence costs the tab, never
+   the page.
    ========================================================================= */
 (function () {
   "use strict";
-  const { esc, $, loadJSON, fdrStrip, linkPlayers } = FA;
+  const { esc, $, loadJSON } = FA;
+  const D = FA.Digest;
 
-  const fmtLong = (iso) => {
-    const d = new Date(iso + "T00:00:00");
-    if (isNaN(d.getTime())) return iso;
-    return d.toLocaleDateString("en-GB", {
-      weekday: "long", day: "numeric", month: "long", year: "numeric",
+  /* ---------- fixtures ---------- */
+
+  const dayKey = (iso) => {
+    const d = new Date(iso);
+    return isNaN(d.getTime()) ? "" : d.toLocaleDateString("en-GB", { weekday: "long", day: "numeric", month: "long" });
+  };
+  const clock = (iso) => {
+    const d = new Date(iso);
+    return isNaN(d.getTime()) ? "" : d.toLocaleTimeString("en-GB", { hour: "2-digit", minute: "2-digit" });
+  };
+
+  const side = (t, cls) =>
+    '<span class="fx-team ' + cls + '">' +
+    (cls === "away" ? D.crest(t.crest) : "") +
+    '<b class="fx-full">' + esc(t.name || "") + "</b>" +
+    '<b class="fx-abbr">' + esc(t.short || "") + "</b>" +
+    (cls === "home" ? D.crest(t.crest) : "") + "</span>";
+
+  /* FPL reports who scored but never when, so the line is names and counts —
+     no invented clock. An own goal is credited to the side it helped, marked
+     as one, because that is how a scoreline reads. */
+  const goals = (list) =>
+    (list || []).map((g) =>
+      FA.linkPlayers(g.name) + (g.goals > 1 ? " (" + g.goals + ")" : "") +
+      (g.og ? ' <span class="og">og</span>' : "")).join(", ");
+
+  function statusHTML(f) {
+    if (f.finished) return '<span class="fx-status">FT</span>';
+    if (f.started) {
+      const m = f.minutes >= 90 ? "90+" : f.minutes;
+      return '<span class="fx-status live"><i></i>' + esc(m) + "'</span>";
+    }
+    return '<span class="fx-status">' + esc(clock(f.kickoff)) + "</span>";
+  }
+
+  function fixtureHTML(f) {
+    const played = f.started;
+    const score = played
+      ? '<span class="fx-score">' + esc(f.home.score) + "<em>&ndash;</em>" + esc(f.away.score) + "</span>"
+      : '<span class="fx-score pre">v</span>';
+    const gh = goals(f.home.scorers);
+    const ga = goals(f.away.scorers);
+    const scorers = (gh || ga)
+      ? '<div class="fx-goals"><span class="g h">' + gh + '</span><span></span><span class="g a">' + ga +
+        "</span><span></span></div>"
+      : "";
+    return '<div class="fx' + (f.started && !f.finished ? " is-live" : "") + '">' +
+      side(f.home, "home") + score + side(f.away, "away") + statusHTML(f) + scorers + "</div>";
+  }
+
+  function weekPaneHTML(week, kind) {
+    if (!week) {
+      return '<p class="note">' + (kind === "next"
+        ? "The next match week has not been published yet."
+        : "No match week is running.") + "</p>";
+    }
+    if (!week.fixtures.length) return '<p class="note">No fixtures in ' + esc(week.name) + ".</p>";
+    const note = kind === "next"
+      ? "Kick-offs in your own time zone. Nothing here has happened yet."
+      : week.status === "live"
+        ? "Scores update themselves while matches are on. Goalscorers arrive as the game does; the FPL feed carries no minutes."
+        : "Final scores and goalscorers. The FPL feed carries no minutes, so the line is who, not when.";
+    let out = '<p class="note">' + note + '</p><div class="fx-list">';
+    let day = null;
+    week.fixtures.forEach((f) => {
+      const k = dayKey(f.kickoff);
+      if (k !== day) { day = k; out += '<div class="fx-day">' + esc(k) + "</div>"; }
+      out += fixtureHTML(f);
     });
-  };
-  const fmtShort = (iso) => {
-    const d = new Date(iso + "T00:00:00");
-    return isNaN(d.getTime()) ? iso : d.toLocaleDateString("en-GB", { day: "numeric", month: "short" });
-  };
-
-  const crest = (u, name) =>
-    u ? '<img class="crest" src="' + esc(u) + '" alt="" loading="lazy">' : "";
-
-  /* ---------- the league table ----------
-     Focus is a rule, not a stored flag: three clubs are permanent, two are
-     seeded until GW10, and after that the top six is earned. The `focus`
-     field the brain writes is deliberately ignored so the rule is the single
-     source of truth. */
-  function tableHTML(d, gw) {
-    const t = d.table;
-    if (!t || !t.rows || !t.rows.length) return "";
-    const focus = FA.focusClubs(gw, t.rows);
-    const rows = t.rows.map((r) =>
-      '<tr class="' + (focus.indexOf(r.team) !== -1 ? "focus" : "") + '" data-club="' + esc(r.team) + '">' +
-      '<td class="n">' + esc(r.pos) + "</td>" +
-      "<td>" + crest(r.crest, r.team) + esc(r.team) + "</td>" +
-      '<td class="faint num">' + esc(r.form || "") + "</td>" +
-      '<td class="n">' + esc(r.played) + "</td>" +
-      '<td class="n"><strong>' + esc(r.points) + "</strong></td></tr>").join("");
-    return '<div class="panel"><h3>' + esc(t.competition) + "</h3>" +
-      '<p class="note">Bold clubs are the ones this page follows: ' +
-      esc(FA.ALLEGIANCE.join(", ")) + " are permanent, and until GW" + FA.FOCUS_FROM_GW +
-      " the other two are seeded because an early table is noise. From GW" + FA.FOCUS_FROM_GW +
-      " it becomes the real top " + FA.FOCUS_TOP + ", recomputed every week.</p>" +
-      (t.note ? '<p class="note">' + esc(t.note) + "</p>" : "") +
-      '<div class="scroll"><table class="sortable"><thead><tr><th class="n">#</th><th>Club</th>' +
-      '<th data-nosort>Form</th><th class="n">P</th><th class="n">Pts</th></tr></thead><tbody>' + rows +
-      "</tbody></table></div></div>";
+    return out + "</div>";
   }
 
-  /* ---------- the week: the primary feed ----------
-     Around the top and Elsewhere are secondary by design. A story that leads
-     here does not reappear below. */
-  function weekHTML(d) {
-    if (!d.week || !d.week.length) return "";
-    const clubs = [];
-    d.week.forEach((w) => { if (w.club && clubs.indexOf(w.club) === -1) clubs.push(w.club); });
-    const bar = (d.week.some((w) => w.tag) || clubs.length)
-      ? '<div class="filters" role="group" aria-label="Filter the week">' +
-        '<button class="fc" data-filter="all" aria-pressed="true">All</button>' +
-        '<button class="fc" data-filter="PL" aria-pressed="false">League</button>' +
-        '<button class="fc" data-filter="FPL" aria-pressed="false">FPL</button>' +
-        clubs.map((c) =>
-          '<button class="fc" data-filter="club:' + esc(c) + '" aria-pressed="false">' + esc(c) + "</button>").join("") +
-        "</div>"
-      : "";
-    const items = d.week.map((w) =>
-      '<li data-tag="' + esc(w.tag || "PL") + '" data-club="' + esc(w.club || "") + '">' +
-      '<span class="wtag ' + (w.tag === "FPL" ? "fpl" : "") + '">' + esc(w.tag || "PL") + "</span>" +
-      "<strong>" + esc(w.kicker) + "</strong> " + linkPlayers(w.text) +
-      (w.club ? '<span class="clubchip">' + esc(w.club) + "</span>" : "") + "</li>").join("");
-    return '<div class="panel"><h3>This week</h3>' +
-      '<p class="note">The league’s last seven days as one feed. One control narrows it and ' +
-      "dims the table with it.</p>" + bar + '<ul class="feed">' + items + "</ul></div>";
+  /* ---------- the league panel: table, this week, next ---------- */
+
+  const TABS = ["table", "now", "next"];
+
+  /* Smart default: the scores lead only when there is something live or
+     freshly finished to lead with. Otherwise the table — the thing that is
+     true all week — holds the tab. */
+  function defaultTab(m) {
+    if (!m || !m.now) return "table";
+    if (m.now.status === "live") return "now";
+    const recent = m.now.fixtures.some((f) => {
+      const t = Date.parse(f.kickoff);
+      return f.finished && !isNaN(t) && Date.now() - t < 26 * 3600 * 1000;
+    });
+    return recent ? "now" : "table";
   }
 
-  function teamWatchHTML(d) {
-    if (!d.team_watch || !d.team_watch.length) return "";
-    return '<div class="panel"><h3>Team watch</h3>' +
-      '<p class="note">Players worth knowing about. Every name opens their file.</p><div class="rows">' +
-      d.team_watch.map((p) =>
-        '<div class="row"><div class="row-main"><div class="row-name">' +
-        linkPlayers(p.name) + ' <span class="pill">' + esc(p.tag) + "</span></div>" +
-        '<div class="row-sub">' + esc(p.note) + "</div></div></div>").join("") +
-      "</div></div>";
+  function leagueHTML(d, gw, m, active) {
+    const gwc = (w) => (w ? ' <span class="gwchip">GW' + esc(w.gw) + "</span>" : "");
+    const live = m && m.now && m.now.status === "live";
+    const tab = (k, label) =>
+      '<button class="fc" data-tab="' + k + '" aria-pressed="' + String(k === active) + '">' + label + "</button>";
+    const pane = (k, body) =>
+      '<div class="tabpane" data-pane="' + k + '"' + (k === active ? "" : " hidden") + ">" + body + "</div>";
+    const pending = '<p class="note">Loading the fixtures&hellip;</p>';
+
+    return '<div class="panel" id="league">' +
+      '<h3>The league' + (live ? ' <span class="tag hot">live</span>' : "") + "</h3>" +
+      '<div class="filters tabs" role="tablist" aria-label="The league">' +
+      tab("table", "Table") +
+      tab("now", "This match week" + gwc(m && m.now)) +
+      tab("next", "Next match week" + gwc(m && m.next)) +
+      "</div>" +
+      pane("table", D.tableBody(d, gw) || '<p class="note">No table this week.</p>') +
+      pane("now", m ? weekPaneHTML(m.now, "now") : pending) +
+      pane("next", m ? weekPaneHTML(m.next, "next") : pending) +
+      "</div>";
   }
 
-  function aroundHTML(d, gw) {
-    const focus = FA.focusClubs(gw, (d.table && d.table.rows) || []);
-    const all = d.top_teams || d.rivals || [];
-    const shown = all.filter((r) => focus.indexOf(r.club) !== -1);
-    const dropped = all.filter((r) => focus.indexOf(r.club) === -1).map((r) => r.club);
-    const one = (r) =>
-      '<div class="row"><div class="row-main"><div class="row-name">' +
-      crest(r.crest, r.club) + esc(r.club) + "</div>" +
-      '<div class="row-sub">' + linkPlayers(r.note) + "</div></div>" +
-      (r.line ? '<div class="row-side">' + esc(r.line) + "</div>" : "") + "</div>";
-
-    const left = shown.length
-      ? '<div class="panel"><h3>Around the top</h3>' +
-        '<p class="note">One line each for the clubs this page follows, written as a league ' +
-        "view: no us, no them. Secondary to the week above.</p>" +
-        '<div class="rows">' + shown.map(one).join("") + "</div>" +
-        (dropped.length
-          ? '<p class="note" style="margin:12px 0 0">Not covered this week: ' +
-            dropped.map(esc).join(", ") + " &mdash; they return automatically once they are in the top " +
-            FA.FOCUS_TOP + " from GW" + FA.FOCUS_FROM_GW + ".</p>"
-          : "") + "</div>"
-      : "";
-
-    const rest = (d.elsewhere || []).map(one).join("");
-    const right = rest
-      ? '<div class="panel"><h3>Elsewhere</h3>' +
-        '<p class="note">The league is more than six clubs.</p><div class="rows">' + rest + "</div></div>"
-      : "";
-    if (!left && !right) return "";
-    return '<div class="grid2">' + left + right + "</div>";
-  }
-
-  const HEAT = { done: "done", "here we go": "done", close: "close", talks: "talks", smoke: "smoke" };
-  function rumoursHTML(d) {
-    if (!d.rumours || !d.rumours.length) return "";
-    return '<div class="panel"><h3>Rumour mill</h3><div class="rows">' +
-      d.rumours.map((r) =>
-        '<div class="row"><div class="row-main"><div class="row-name">' + linkPlayers(r.player) + "</div>" +
-        '<div class="row-sub">' + esc(r.from) + " &rarr; " + esc(r.to) +
-        (r.fee ? " &middot; " + esc(r.fee) : "") + " &middot; " + esc(r.note) + "</div></div>" +
-        '<div class="row-side"><span class="heat ' + (HEAT[r.heat] || "smoke") + '">' +
-        esc(r.heat) + "</span></div></div>").join("") +
-      "</div></div>";
-  }
-
-  /* Deterministic colour for a link with no image, so the grid never has a
-     hole in it and never fetches something that might not exist. */
-  const THUMB = ["#ff5722", "#052962", "#1e7d4c", "#7b3fa0", "#b8860b", "#345995"];
-  function hash(s) {
-    let h = 0;
-    for (let i = 0; i < s.length; i++) h = (h * 31 + s.charCodeAt(i)) >>> 0;
-    return h;
-  }
-  function linkCard(item) {
-    const thumb = item.image
-      ? '<div class="lthumb" style="background-image:url(' + esc(item.image) + ')"></div>'
-      : '<div class="lthumb" style="background:' + THUMB[hash(item.title) % THUMB.length] +
-        '"><span class="letter">' + esc((item.source || item.title).charAt(0)) + "</span></div>";
-    return '<a class="lcard" href="' + esc(item.url) + '" target="_blank" rel="noopener">' + thumb +
-      '<div class="lbody"><div class="lt">' + esc(item.title) + "</div>" +
-      '<div class="lh">' + esc(item.hook) + "</div>" +
-      (item.source ? '<div class="ls">' + esc(item.source) + "</div>" : "") + "</div></a>";
-  }
-
-  function linksHTML(d) {
-    const items = [];
-    if (d.read) items.push(d.read);
-    (d.wider || []).forEach((w) => items.push(w));
-    if (!items.length) return "";
-    return '<div class="panel"><h3>Worth the click</h3>' +
-      '<p class="note">One good read, and the rest of the week’s writing.</p>' +
-      '<div class="cards">' + items.map(linkCard).join("") + "</div></div>";
-  }
-
-  function entryHTML(d, gw) {
-    return '<div class="eyebrow">' + esc(fmtLong(d.date)) + "</div>" +
-      "<h2 class=\"digest-headline\" style=\"font-size:clamp(21px,3.4vw,30px);margin:6px 0 18px\">" + esc(d.headline) + "</h2>" +
-      tableHTML(d, gw) + weekHTML(d) + teamWatchHTML(d) + aroundHTML(d, gw) +
-      rumoursHTML(d) + linksHTML(d);
-  }
-
-  /* One control, two effects: it narrows the feed and dims the table, so the
-     page reads as one thing rather than a page with a widget on it. */
-  function wireFilter(scope) {
-    const bar = scope.querySelector(".filters");
-    if (!bar) return;
-    bar.addEventListener("click", (e) => {
-      const btn = e.target.closest("button[data-filter]");
+  function wireTabs(root) {
+    const panel = root.querySelector("#league");
+    if (!panel) return;
+    panel.querySelector(".filters").addEventListener("click", (e) => {
+      const btn = e.target.closest("button[data-tab]");
       if (!btn) return;
-      bar.querySelectorAll(".fc").forEach((b) => b.setAttribute("aria-pressed", String(b === btn)));
-      const f = btn.dataset.filter;
-      scope.querySelectorAll("ul.feed > li").forEach((li) => {
-        const show = f === "all" ||
-          (f.indexOf("club:") === 0 ? li.dataset.club === f.slice(5) : li.dataset.tag === f);
-        li.hidden = !show;
-      });
-      scope.querySelectorAll("tbody tr[data-club]").forEach((tr) => {
-        tr.classList.toggle("dim", f.indexOf("club:") === 0 && tr.dataset.club !== f.slice(5));
+      const k = btn.dataset.tab;
+      panel.querySelectorAll("button[data-tab]").forEach((b) =>
+        b.setAttribute("aria-pressed", String(b.dataset.tab === k)));
+      TABS.forEach((t) => {
+        const p = panel.querySelector('[data-pane="' + t + '"]');
+        if (p) p.hidden = t !== k;
       });
     });
   }
 
   async function main() {
-    const main = $("#main");
+    const el = $("#main");
     let data, players = { players: [] }, fpl = { verdicts: [] };
     try {
       data = await loadJSON("data/digests.json");
     } catch (e) {
-      FA.fail(main, "The league page could not load. " + e.message);
+      FA.fail(el, "The league page could not load. " + e.message);
       return;
     }
     // The card seam is a bonus, not a dependency: if the player file is
@@ -210,35 +163,61 @@
 
     const entries = (data.digests || []).slice().sort((a, b) => b.date.localeCompare(a.date));
     if (!entries.length) {
-      FA.fail(main, "No entries yet — run ./brain/curate.sh.");
+      FA.fail(el, "No entries yet — run ./brain/curate.sh.");
       return;
     }
     const gw = (players && players.gameweek) || null;
     const latest = entries[0];
-    const past = entries.slice(1);
 
-    main.innerHTML =
+    const shell = (m, active) =>
       '<section class="section"><div class="section-head"><h2>touchline</h2>' +
       '<span class="mute" style="font-size:13px">what happened &mdash; the same for all five</span></div>' +
-      entryHTML(latest, gw) + "</section>" +
-      (past.length
-        ? '<section class="section"><div class="section-head"><h2>Earlier</h2>' +
-          '<span class="tag ghost">' + past.length + " entries</span></div>" +
-          past.map((d) =>
-            '<details class="fold"><summary>' + esc(fmtShort(d.date)) + " &middot; " +
-            esc(d.headline) + '</summary><div class="foldbody">' + entryHTML(d, gw) +
-            "</div></details>").join("") + "</section>"
-        : "");
+      '<div class="eyebrow">' + esc(D.fmtLong(latest.date)) + "</div>" +
+      '<h2 class="digest-headline" style="font-size:clamp(21px,3.4vw,30px);margin:6px 0 18px">' +
+      esc(latest.headline) + "</h2>" +
+      leagueHTML(latest, gw, m, active) +
+      D.weekHTML(latest) + D.teamWatchHTML(latest) + D.aroundHTML(latest, gw) +
+      D.rumoursHTML(latest) + D.linksHTML(latest) +
+      (entries.length > 1
+        ? '<p class="note" style="margin-top:16px">' + (entries.length - 1) +
+          ' earlier ' + (entries.length === 2 ? "entry is" : "entries are") +
+          ' kept in <a href="archive/">the archive</a>.</p>'
+        : "") +
+      "</section>";
 
-    wireFilter(main);
-    FA.wireSortable(main);
-    // Archived entries carry their own filter bar; wire each one on open.
-    main.querySelectorAll("details.fold").forEach((el) => {
-      el.addEventListener("toggle", function once() {
-        if (el.open) { wireFilter(el); FA.wireSortable(el); el.removeEventListener("toggle", once); }
-      });
-    });
+    const paint = (m, active) => {
+      el.innerHTML = shell(m, active);
+      D.wireFilter(el, el);
+      FA.wireSortable(el);
+      wireTabs(el);
+    };
+
+    paint(null, "table");
     FA.stamp(data.generated_at || (latest.date + "T08:00:00"));
+
+    // Fixtures are the one thing on this page that can be wrong by the
+    // minute, so they arrive after the page rather than holding it up.
+    const load = async (firstRun) => {
+      let m;
+      try {
+        const r = await fetch("/api/matches", { cache: "no-store" });
+        if (!r.ok) throw new Error("HTTP " + r.status);
+        m = await r.json();
+      } catch (e) {
+        const panel = el.querySelector("#league");
+        if (panel && firstRun) {
+          panel.querySelectorAll(".tabpane[data-pane='now'], .tabpane[data-pane='next']").forEach((p) => {
+            p.innerHTML = '<p class="note">The fixture feed is not answering right now. The table above is unaffected.</p>';
+          });
+        }
+        return;
+      }
+      const keep = el.querySelector("button[data-tab][aria-pressed='true']");
+      paint(m, firstRun ? defaultTab(m) : (keep ? keep.dataset.tab : defaultTab(m)));
+      // Only a live match earns a poll; a finished week is finished.
+      if (m.now && m.now.status === "live") setTimeout(() => load(false), 60000);
+    };
+    load(true);
   }
 
   FA.initTheme();
