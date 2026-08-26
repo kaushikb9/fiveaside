@@ -54,18 +54,6 @@ for (const file of htmlFiles) {
   }
 }
 
-// Stamp the Google client id into the gaffers shell, from the environment.
-// Kept out of the repo so the id is configuration rather than source, and so
-// a blank one degrades to an honest message instead of a dead button.
-const CID = process.env.GOOGLE_CLIENT_ID || "";
-const shell = "site/gaffers/index.html";
-try {
-  const before = readFileSync(shell, "utf8");
-  const after = before.replace(/data-google-client-id="[^"]*"/, `data-google-client-id="${CID}"`);
-  if (after !== before) writeFileSync(shell, after);
-  console.log(CID ? "google client id: stamped" : "google client id: NOT SET — gaffers stays unlocked");
-} catch { /* shell missing; nothing to stamp */ }
-
 // Report the stamps so a deploy log shows what version shipped.
 const stamps = new Map();
 for (const file of htmlFiles) {
