@@ -44,3 +44,14 @@ class StandingsSource(Protocol):
     """A source of competition group/league standings."""
 
     def fetch_standings(self, competition: str) -> StandingsResult: ...
+
+class LineupResult(BaseModel, frozen=True):
+    """Who played in one match, per club, with the same degradation contract.
+
+    `teams` is [{club, players: [{name, started}]}]. Anyone who did not get on
+    the pitch is absent rather than listed as having played nothing.
+    """
+
+    ok: bool
+    teams: list[dict]
+    error: str | None = None

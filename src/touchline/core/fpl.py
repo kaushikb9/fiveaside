@@ -10,6 +10,7 @@ from zoneinfo import ZoneInfo
 
 from touchline.config import TouchlineConfig
 from touchline.core.clubs import build_index, resolve
+from touchline.core.squads import build_squad, resolve_player, squad_initials
 from touchline.sources.fpl import (
     FPLBootstrapResult,
     FPLElement,
@@ -228,6 +229,137 @@ def other_competition_rows(
     return rows
 
 
+def pl_ties(results_by_comp: dict[str, list], fpl_teams: list[tuple[str, str]],
+            since: str | None = None) -> list[tuple[str, str]]:
+    """(competition, event id) for every non-league match a PL club played.
+
+    The caller fetches one lineup per entry, so this list is the whole cost
+    control: 58 cup ties were played this season and 8 of them involved a
+    Premier League club.
+    """
+    index = build_index(fpl_teams)
+    out = []
+    for comp, results in (results_by_comp or {}).items():
+        for r in results:
+            if since and r.kickoff.date().isoformat() < since:
+                continue
+            if resolve(r.home.name, index) or resolve(r.away.name, index):
+                out.append((comp, str(r.id)))
+    return out
+
+
+def other_upcoming(
+    fixtures_by_comp: dict[str, list],
+    fpl_teams: list[tuple[str, str]],
+    now: datetime | None = None,
+    limit: int = 3,
+) -> dict[str, list[dict]]:
+    """A club's next non-league fixtures, by FPL short code.
+
+    Club-level on purpose, and the card has to say so. Who plays in a cup tie
+    on Wednesday is a team sheet nobody has written yet; all that is knowable
+    today is that the fixture exists and falls between two league games, which
+    is exactly the thing that gets a player rotated.
+
+    There is no fixture difficulty here either. FDR is an FPL number and FPL
+    does not rate a cup tie, so inventing one would be the form column all over
+    again.
+    """
+    index = build_index(fpl_teams)
+    out: dict[str, list[dict]] = {}
+    for comp, items in (fixtures_by_comp or {}).items():
+        for f in items:
+            # A feed's "fixtures" are not all in the future. ESPN was still
+            # listing last season's FA Cup final as unplayed months later,
+            # which put a May fixture in a card headed "next".
+            if now is not None and f.kickoff <= now:
+                continue
+            home_code = resolve(f.home.name, index)
+            away_code = resolve(f.away.name, index)
+            for code, opp, home in ((home_code, f.away, True), (away_code, f.home, False)):
+                if code is None:
+                    continue
+                # A cup round can be scheduled before the draw that fills it.
+                # ESPN names those sides "TBD Home"/"TBD Away", which is worth
+                # keeping as a fixture — the date is what rotates a player —
+                # but not worth printing as if it were a club.
+                name = opp.name or ""
+                undecided = name.upper().startswith("TBD")
+                out.setdefault(code, []).append(
+                    {
+                        "date": f.kickoff.date().isoformat(),
+                        "kickoff": f.kickoff.isoformat(),
+                        "comp": comp,
+                        "opp": None if undecided else (resolve(name, index) or name),
+                        "home": home,
+                    }
+                )
+    for code, rows in out.items():
+        rows.sort(key=lambda r: r["kickoff"])
+        out[code] = rows[:limit]
+    return out
+
+
+def other_appearances(
+    results_by_comp: dict[str, list],
+    lineups: dict[str, list[dict]],
+    teams: list,
+    elements: list,
+    since: str | None = None,
+) -> dict[int, list[dict]]:
+    """Which players actually played in the cups and in Europe, by element id.
+
+    This is the difference between "Chelsea played on Wednesday" and "he played
+    on Wednesday", and only the second one changes a captaincy call.
+
+    `started` is as far as the evidence goes. ESPN's summary carries `starter`,
+    `subIns` and `appearances` and no minutes at all, so nothing here says how
+    long anyone was on the pitch — see ESPNClient.fetch_lineups.
+
+    `teams` are the bootstrap team objects, carrying both the numeric id that
+    `element.team` points at and the short code the club index speaks.
+    """
+    club_index = build_index([(t.name, t.short_name) for t in teams])
+    code_of_team = {t.id: t.short_name for t in teams}
+
+    by_code: dict[str, list] = {}
+    for e in elements:
+        code = code_of_team.get(e.team)
+        if code:
+            by_code.setdefault(code, []).append(e)
+    squads = {c: (build_squad(els), squad_initials(els)) for c, els in by_code.items()}
+
+    apps: dict[int, list[dict]] = {}
+    for comp, results in (results_by_comp or {}).items():
+        for r in results:
+            when = r.kickoff.date().isoformat()
+            if since and when < since:
+                continue
+            for entry in lineups.get(str(r.id)) or []:
+                club = entry.get("club", "")
+                code = resolve(club, club_index)
+                if not code or code not in squads:
+                    continue  # the other side of the tie, or a club we do not follow
+                squad, initials = squads[code]
+                opponent = r.away if club == r.home.name else r.home
+                for player in entry.get("players") or []:
+                    element_id = resolve_player(player.get("name", ""), squad, initials)
+                    if element_id is None:
+                        continue  # an academy debutant with no FPL record, usually
+                    apps.setdefault(element_id, []).append(
+                        {
+                            "date": when,
+                            "comp": comp,
+                            "opp": resolve(opponent.name, club_index) or opponent.name,
+                            "started": bool(player.get("started")),
+                        }
+                    )
+
+    for rows in apps.values():
+        rows.sort(key=lambda x: x["date"])
+    return apps
+
+
 def _ticker(
     fixtures: FPLFixturesResult,
     short_names: dict[int, str],
@@ -336,6 +468,8 @@ def _player_file(
     ticker: dict | None,
     owned: dict[int, list[str]],
     recent_by_team: dict[str, list[dict]] | None = None,
+    apps_by_element: dict[int, list[dict]] | None = None,
+    upcoming_other: dict[str, list[dict]] | None = None,
 ) -> list[dict]:
     """The player file — one record per player that matters, evidence only.
 
@@ -348,6 +482,8 @@ def _player_file(
     `FILE_MIN_OWNERSHIP` is the dial to turn if that stops being true.
     """
     recent_by_team = recent_by_team or {}
+    apps_by_element = apps_by_element or {}
+    upcoming_other = upcoming_other or {}
     fixtures_by_team = {}
     if ticker:
         for row in ticker.get("rows", []):
@@ -374,6 +510,11 @@ def _player_file(
             "form": e.form,
             "fixtures": upcoming,
             "recent": recent_by_team.get(team, []),
+            # The cup and European matches THIS player was on the pitch for.
+            "other_apps": apps_by_element.get(e.id, []),
+            # And what his CLUB has coming in them. Club-level: no team sheet
+            # exists yet for a tie that has not been played.
+            "other_next": upcoming_other.get(team, []),
             "owned_by": owned.get(e.id, []),
         }
         if upcoming:
@@ -514,6 +655,8 @@ def build_fpl_facts(
     entry: FPLEntryResult | None = None,
     people: dict[str, FPLEntryResult] | None = None,
     other_results: dict[str, list] | None = None,
+    other_fixtures: dict[str, list] | None = None,
+    lineups: dict[str, list[dict]] | None = None,
 ) -> dict:
     """Assemble the JSON-ready FPL facts bundle as of `now`.
 
@@ -569,6 +712,15 @@ def build_fpl_facts(
         [(t.name, t.short_name) for t in bootstrap.teams],
         since=season_start,
     )
+    # Club-level form says the club played midweek. This says HE did, which is
+    # the version that changes a captaincy call.
+    upcoming_other = other_upcoming(
+        other_fixtures or {}, [(t.name, t.short_name) for t in bootstrap.teams], now=now
+    )
+    apps_by_element = other_appearances(
+        other_results or {}, lineups or {}, bootstrap.teams, bootstrap.elements,
+        since=season_start,
+    )
     recent_by_team = _recent(fixtures, short_names, FILE_RECENT, other_rows)
 
     # The gameweek currently being played — distinct from the one being planned
@@ -616,7 +768,8 @@ def build_fpl_facts(
         "squads": squads,
         "leagues": _leagues(entry, config.fpl.team_id, nicks),
         "player_file": _player_file(
-            bootstrap.elements, short_names, ticker, owned, recent_by_team
+            bootstrap.elements, short_names, ticker, owned, recent_by_team,
+            apps_by_element, upcoming_other
         ),
         "players": _compact_players(bootstrap.elements, short_names),
         "errors": {

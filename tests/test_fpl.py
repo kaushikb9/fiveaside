@@ -582,3 +582,58 @@ def test_a_july_european_qualifier_still_counts():
         {"UECL": [_R()]}, [("Crystal Palace", "CRY")], since="2026-07-01"
     )
     assert rows["CRY"][0]["date"] == "2026-07-24"
+
+
+def test_upcoming_non_league_fixtures_are_actually_upcoming():
+    """A feed's "fixtures" are not all in the future.
+
+    ESPN was still listing last season's FA Cup final as unplayed in August,
+    which put a 16 May fixture in a card headed "next".
+    """
+    from datetime import UTC, datetime
+
+    from touchline.core.fpl import other_upcoming
+
+    class _T:
+        def __init__(self, name):
+            self.name = name
+
+    class _F:
+        def __init__(self, when, opp):
+            self.home, self.away = _T("Chelsea"), _T(opp)
+            self.kickoff = when
+
+    rows = other_upcoming(
+        {"FA": [_F(datetime(2026, 5, 16, 14, 0, tzinfo=UTC), "Manchester City")],
+         "EFL": [_F(datetime(2026, 8, 27, 18, 30, tzinfo=UTC), "Luton Town")]},
+        [("Chelsea", "CHE"), ("Man City", "MCI")],
+        now=datetime(2026, 8, 27, 9, 0, tzinfo=UTC),
+    )
+    assert [r["date"] for r in rows["CHE"]] == ["2026-08-27"], "May is not next"
+    assert rows["CHE"][0]["opp"] == "Luton Town"
+
+
+def test_an_undrawn_cup_tie_keeps_its_date_and_loses_its_opponent():
+    """A round can be scheduled before the draw that fills it.
+
+    The date is the part that rotates a player, so the fixture stays; "TBD
+    Home" is not a club and must not be printed as one.
+    """
+    from datetime import UTC, datetime
+
+    from touchline.core.fpl import other_upcoming
+
+    class _T:
+        def __init__(self, name):
+            self.name = name
+
+    class _F:
+        def __init__(self):
+            self.home, self.away = _T("Leeds United"), _T("TBD Home")
+            self.kickoff = datetime(2026, 9, 8, 18, 45, tzinfo=UTC)
+
+    rows = other_upcoming(
+        {"EFL": [_F()]}, [("Leeds", "LEE")], now=datetime(2026, 8, 27, tzinfo=UTC)
+    )
+    assert rows["LEE"][0]["date"] == "2026-09-08"
+    assert rows["LEE"][0]["opp"] is None

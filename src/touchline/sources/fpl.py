@@ -30,6 +30,10 @@ class FPLTeam(BaseModel, frozen=True):
 class FPLElement(BaseModel, frozen=True):
     id: int
     web_name: str
+    # The full name, which `web_name` is not: ESPN says "Patrick Dorgu" where
+    # FPL says "Dorgu", and a surname alone cannot tell two squad-mates apart.
+    first_name: str = ""
+    second_name: str = ""
     team: int  # FPLTeam.id
     element_type: int  # 1 GK, 2 DEF, 3 MID, 4 FWD
     now_cost: int  # tenths of £m (75 = £7.5m)

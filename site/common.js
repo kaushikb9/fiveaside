@@ -121,6 +121,7 @@
     PL: "Premier League", UCL: "Champions League", CL: "Champions League",
     EL: "Europa League", UECL: "Conference League", FA: "FA Cup", EFL: "EFL Cup",
   };
+  FA.compName = (code) => COMP_LABEL[code] || code || "";
   const whenLabel = (r) => {
     if (r.comp && r.comp !== "PL") {
       const d = r.date ? new Date(r.date + "T12:00:00Z") : null;
@@ -129,6 +130,63 @@
       return (COMP_LABEL[r.comp] || r.comp) + (day ? ", " + day : "");
     }
     return r.gw ? "GW" + r.gw : (COMP_LABEL[r.comp] || "");
+  };
+
+  /* ---------------- midweek ----------------
+     What a player did BETWEEN the league games, which is the half of his week
+     the fixture strip cannot show. Two different claims, kept visibly apart:
+
+       what he played   player-level, from ESPN team sheets
+       what is coming   CLUB-level, because a cup team sheet does not exist yet
+
+     There is no minutes figure anywhere in this, and there is not meant to be.
+     ESPN's summary carries starter/subIns/appearances and nothing else, so the
+     card can say he started on Wednesday and must not imply it knows for how
+     long. */
+  const MW_DAY = { weekday: "short", day: "numeric", month: "short" };
+  const mwDay = (d) => {
+    const t = new Date(d + "T12:00:00Z");
+    return isNaN(t.getTime()) ? d : t.toLocaleDateString("en-GB", MW_DAY);
+  };
+
+  /* Escalates, because one cup tie and three are not the same warning. Starts
+     only: coming off the bench for twenty minutes is not why anyone gets
+     rested. */
+  FA.midweekLoad = function (p) {
+    const starts = (p.other_apps || []).filter((a) => a.started);
+    if (!starts.length) return "";
+    return starts.length === 1
+      ? "midweek starter"
+      : starts.length + " midweek starts";
+  };
+
+  FA.midweekHTML = function (p) {
+    const played = p.other_apps || [];
+    const next = p.other_next || [];
+    if (!played.length && !next.length) return "";
+
+    let out = '<div class="sect">Midweek</div><div class="mw">';
+    played.forEach((a) => {
+      out += '<div class="mw-row' + (a.started ? " on" : "") + '">' +
+        '<span class="mw-mark">' + (a.started ? "&#9679;" : "&#9675;") + "</span>" +
+        '<span class="mw-what"><b>' + (a.started ? "Started" : "Came on") + "</b> " +
+        esc(FA.compName(a.comp)) + " v " + esc(FA.club(a.opp)) + "</span>" +
+        '<span class="mw-when">' + esc(mwDay(a.date)) + "</span></div>";
+    });
+    next.forEach((f) => {
+      out += '<div class="mw-row next">' +
+        '<span class="mw-mark">&#9675;</span>' +
+        '<span class="mw-what"><b>' + esc(p.team) + "</b> " + esc(FA.compName(f.comp)) + " " +
+        (f.opp ? (f.home ? "v " : "at ") + esc(FA.club(f.opp)) : "&mdash; opponent not drawn") +
+        "</span>" +
+        '<span class="mw-when">' + esc(mwDay(f.date)) + "</span></div>";
+    });
+    out += "</div>";
+    if (next.length) {
+      out += '<p class="mw-note">The fixture is the club&rsquo;s &mdash; a cup team sheet ' +
+        "does not exist yet.</p>";
+    }
+    return out;
   };
 
   FA.formRun = function (recent) {
@@ -387,6 +445,14 @@
     if (!p) return;
     const v = CARD_INDEX.verdicts[p.id];
     const me = CARD_INDEX.me;
+    // A cup start between two league games is the thing that gets a player
+    // rested, so it earns a mark next to his name rather than only a line
+    // further down the card.
+    const load = FA.midweekLoad(p);
+    const mwPill = load
+      ? ' <span class="pill rot" title="Cup or European starts since the last league game">' +
+        esc(load) + "</span>"
+      : "";
     // The five are drawn, not initialled: faces.js is loaded on every page and
     // a caricature says who at a glance where "SF" needs decoding.
     const owners = (p.owned_by && p.owned_by.length)
@@ -398,7 +464,7 @@
 
     document.getElementById("fa-pcard").innerHTML =
       '<button class="close" data-fa-close>close</button>' +
-      "<h3>" + esc(p.name) + " " + (v ? FA.vdChip(v) : "") + "</h3>" +
+      "<h3>" + esc(p.name) + " " + (v ? FA.vdChip(v) : "") + mwPill + "</h3>" +
       '<div class="meta">' + esc(p.pos) + " &middot; " + esc(p.team) + " &middot; &pound;" +
         p.price.toFixed(1) + "m" + (p.penalties ? ' &middot; <span class="pill">penalties</span>' : "") + "</div>" +
 
@@ -411,6 +477,7 @@
       newsHTML(p) +
       '<div class="sect">Last five</div>' + FA.formRun(p.recent) +
       '<div class="sect">Next five</div>' + FA.fdrStrip(p.fixtures) +
+      FA.midweekHTML(p) +
       '<div class="sect">Owned in the five</div><div class="ownfaces">' + owners + "</div>" +
       '<div id="fa-star" data-for="' + p.id + '">' + starButtonHTML(p) + "</div>" +
       (v

@@ -7,7 +7,7 @@ from datetime import UTC, datetime
 
 from touchline.config import TouchlineConfig, load_config
 from touchline.core.facts import build_facts
-from touchline.core.fpl import build_fpl_facts
+from touchline.core.fpl import build_fpl_facts, pl_ties
 from touchline.sources.api_football import APIFootballClient
 from touchline.sources.espn import ESPNClient
 from touchline.sources.football_data import FootballDataClient
@@ -66,12 +66,34 @@ def run_fpl(client, config: TouchlineConfig, *, now: datetime | None = None) -> 
     # The league is FPL's own and a friendly is not form, so neither is fetched.
     wanted = [c for c in config.competitions if c not in {"PL", "FRIENDLIES"}]
     other_results: dict[str, list] = {}
+    other_fixtures: dict[str, list] = {}
     if wanted:
         espn = ESPNClient()
         for comp in wanted:
             out = espn.fetch_matches(comp)
-            if out.ok and out.results:
+            if not out.ok:
+                continue
+            if out.results:
                 other_results[comp] = out.results
+            # The same call already carries what has NOT been played yet, and
+            # a cup tie between two league games is exactly what rotates a
+            # player out of one.
+            if out.fixtures:
+                other_fixtures[comp] = out.fixtures
+
+    # One lineup request per non-league tie a Premier League club actually
+    # played — 8 of the 58 cup ties this season, so the filter is the cost
+    # control. A failed lineup costs that match's appearances, never the run.
+    lineups: dict[str, list[dict]] = {}
+    if other_results:
+        season_start = f"{now.year}-07-01"
+        want = pl_ties(
+            other_results, [(t.name, t.short_name) for t in bootstrap.teams], since=season_start
+        )
+        for comp, event_id in want:
+            out = espn.fetch_lineups(comp, event_id)
+            if out.ok and out.teams:
+                lineups[event_id] = out.teams
 
     bundle = build_fpl_facts(
         bootstrap,
@@ -81,6 +103,8 @@ def run_fpl(client, config: TouchlineConfig, *, now: datetime | None = None) -> 
         entry=entry,
         people=people or None,
         other_results=other_results,
+        other_fixtures=other_fixtures,
+        lineups=lineups,
     )
     return json.dumps(bundle, indent=2, ensure_ascii=False)
 

@@ -7,7 +7,7 @@ from typing import Any
 import httpx
 
 from touchline.core.models import Competition, Fixture, MatchStatus, Result, Standing, Team
-from touchline.sources.base import SourceResult, StandingsResult
+from touchline.sources.base import LineupResult, SourceResult, StandingsResult
 
 # A Premier League club's season is not one competition. Following a club means
 # following it into the cups and into Europe, so every competition a PL side can
@@ -177,6 +177,54 @@ class ESPNClient:
         except (KeyError, TypeError, ValueError) as exc:
             error = f"unexpected payload: {exc}"
             return SourceResult(ok=False, fixtures=[], results=[], error=error)
+
+    def fetch_lineups(self, competition: str, event_id: str) -> LineupResult:
+        """Who actually played in one match, per club.
+
+        ESPN's scoreboard says a match happened; only the summary endpoint says
+        who was on the pitch. One request per match, which is why callers must
+        filter to matches that matter before asking.
+
+        There is no minutes field anywhere in this payload — `starter`,
+        `subIns` and `appearances` are the whole vocabulary. That is enough for
+        the question being asked (did he play midweek) and not enough for the
+        one it looks like it answers (how tired is he), so nothing downstream
+        should claim minutes.
+        """
+        league = self._league(competition)
+        if league is None:
+            return LineupResult(ok=False, teams=[], error=f"no mapping for '{competition}'")
+
+        url = f"{self.base_url}/site/v2/sports/soccer/{league}/summary"
+        try:
+            response = self._client.get(url, params={"event": event_id})
+            response.raise_for_status()
+            payload = response.json()
+        except httpx.HTTPError as exc:
+            return LineupResult(ok=False, teams=[], error=str(exc))
+        except ValueError as exc:
+            return LineupResult(ok=False, teams=[], error=f"invalid JSON: {exc}")
+
+        teams: list[dict] = []
+        for entry in payload.get("rosters") or []:
+            club = ((entry.get("team") or {}).get("displayName") or "").strip()
+            if not club:
+                continue
+            players = []
+            for row in entry.get("roster") or []:
+                athlete = row.get("athlete") or {}
+                name = (athlete.get("displayName") or athlete.get("fullName") or "").strip()
+                if not name:
+                    continue
+                stats = {st.get("name"): st.get("value") for st in (row.get("stats") or [])}
+                started = bool(row.get("starter"))
+                came_on = bool(stats.get("subIns"))
+                if not started and not came_on:
+                    continue  # an unused substitute did not play
+                players.append({"name": name, "started": started})
+            teams.append({"club": club, "players": players})
+
+        return LineupResult(ok=True, teams=teams)
 
     def fetch_standings(self, competition: str = "PL") -> StandingsResult:
         league = self._league(competition)

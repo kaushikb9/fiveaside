@@ -1,0 +1,105 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>Midweek — what he played between the gameweeks</title>
+<script>
+  var T = new URLSearchParams(location.search).get("theme");
+  if (T) document.documentElement.setAttribute("data-theme", T);
+</script>
+<link rel="stylesheet" href="../../../site/style.css">
+<style>
+  .mk { max-width: 1180px; margin: 0 auto; padding: 26px 20px 60px; }
+  .mk h1 { font-size: 22px; margin: 0 0 6px; letter-spacing: -0.02em; }
+  .mk .lede { color: var(--mute); font-size: 14px; margin: 0 0 22px; max-width: 74ch; }
+  .frames { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
+  @media (max-width: 900px) { .frames { grid-template-columns: 1fr; } }
+  .frame { border: 1px solid var(--line); border-radius: var(--r); overflow: hidden; background: var(--card); }
+  .frame > h2 { font-size: 10px; text-transform: uppercase; letter-spacing: .14em; font-weight: 700;
+    color: var(--faint); padding: 10px 14px; border-bottom: 1px solid var(--hair); margin: 0; }
+  .frame iframe { display: block; width: 100%; height: 1180px; border: 0; }
+  .spec { padding: 18px 16px; }
+  .spec > h2 { font-size: 10px; text-transform: uppercase; letter-spacing: .12em; color: var(--accent);
+    font-weight: 700; margin: 22px 0 4px; }
+  .spec > h2:first-child { margin-top: 0; }
+  .spec > .cap { font-size: 12.5px; color: var(--faint); margin: 0 0 10px; max-width: 60ch; }
+  .spec .pcard { max-width: 520px; margin: 0 0 6px; box-shadow: var(--shadow); }
+  .spec .pcard .close { display: none; }
+</style>
+<div class="mk" id="mk"></div>
+<script src="../../../site/common.js"></script>
+<script src="../../../site/faces.js"></script>
+<script>
+(function () {
+  const T = new URLSearchParams(location.search).get("theme");
+  const root = document.getElementById("mk");
+  if (!T) {
+    root.innerHTML =
+      "<h1>Midweek</h1>" +
+      '<p class="lede">What a player did between the gameweeks, and what his club has coming. ' +
+      "Real data: 135 players played an EFL Cup tie this week, 95 of them started one. " +
+      "The past half is <strong>player-level</strong> — he was on the pitch. The next half is " +
+      "<strong>club-level</strong>, because no team sheet exists for a tie that has not been " +
+      "played, and the card says so rather than implying otherwise.</p>" +
+      '<div class="frames">' +
+        '<div class="frame"><h2>Dugout</h2><iframe src="?theme=light"></iframe></div>' +
+        '<div class="frame"><h2>Floodlit</h2><iframe src="?theme=dark"></iframe></div>' +
+      "</div>";
+    return;
+  }
+  root.className = "spec";
+  const esc = FA.esc;
+  const COMP = { PL:"Premier League", UCL:"Champions League", CL:"Champions League",
+                 EL:"Europa League", UECL:"Conference League", FA:"FA Cup", EFL:"EFL Cup" };
+  const day = (d) => new Date(d + "T12:00:00Z").toLocaleDateString("en-GB",
+    { weekday:"short", day:"numeric", month:"short" });
+
+  /* The proposed block. Past is his; next is the club's, and it says which. */
+  function midweekHTML(p) {
+    const played = p.other_apps || [], next = p.other_next || [];
+    if (!played.length && !next.length) return "";
+    let out = '<div class="sect">Midweek</div><div class="mw">';
+    played.forEach((a) => {
+      out += '<div class="mw-row' + (a.started ? " on" : "") + '">' +
+        '<span class="mw-mark">' + (a.started ? "&#9679;" : "&#9675;") + "</span>" +
+        '<span class="mw-what"><b>' + (a.started ? "Started" : "Came on") + "</b> " +
+        esc(COMP[a.comp] || a.comp) + " v " + esc(FA.club(a.opp)) + "</span>" +
+        '<span class="mw-when">' + esc(day(a.date)) + "</span></div>";
+    });
+    next.forEach((f) => {
+      out += '<div class="mw-row next">' +
+        '<span class="mw-mark">&#9675;</span>' +
+        '<span class="mw-what"><b>' + esc(p.team) + "</b> " + esc(COMP[f.comp] || f.comp) + " " +
+        (f.opp ? (f.home ? "v " : "at ") + esc(FA.club(f.opp)) : "&mdash; opponent not drawn") +
+        "</span>" +
+        '<span class="mw-when">' + esc(day(f.date)) + "</span></div>";
+    });
+    return out + "</div>" +
+      (next.length ? '<p class="mw-note">Who plays a cup tie is a team sheet nobody has ' +
+        "written yet, so the fixture is the club&rsquo;s, not his.</p>" : "");
+  }
+
+  const rotPill = (p) => (p.other_apps || []).some((a) => a.started)
+    ? ' <span class="pill rot" title="Started a cup tie since the last league game">midweek starter</span>' : "";
+
+  function card(p, caption) {
+    return '<h2>' + esc(caption) + "</h2>" +
+      '<div class="pcard">' +
+      "<h3>" + esc(p.name) + rotPill(p) + "</h3>" +
+      '<div class="meta">' + esc(p.pos) + " &middot; " + esc(p.team) + " &middot; &pound;" +
+        p.price.toFixed(1) + "m</div>" +
+      '<div class="sect">Last five</div>' + FA.formRun(p.recent) +
+      '<div class="sect">Next five</div>' + FA.fdrStrip(p.fixtures) +
+      midweekHTML(p) + "</div>";
+  }
+
+  fetch("../../../site/data/players.json").then((r) => r.json()).then((d) => {
+    const by = (n) => d.players.find((p) => p.name === n);
+    const started = by("Kinsky");
+    const sub = by("Calvert-Lewin");
+    const none = by("Palmer") || by("Haaland");
+    root.innerHTML =
+      card(started, "1 · started a midweek tie") +
+      card(sub, "2 · came off the bench, and an undrawn next round") +
+      card(none, "3 · played none of it, but his club has one coming");
+  });
+})();
+</script>

@@ -79,6 +79,38 @@ for (const [i, p] of data.players.entries()) {
     }
   }
 
+  // Midweek. `other_apps` is PLAYER-level — he was on the pitch — and
+  // `other_next` is CLUB-level, because a cup team sheet does not exist until
+  // the team sheet exists. They are separate fields precisely so nothing
+  // downstream can quietly treat one as the other.
+  const OTHER_COMPS = ["CL", "UCL", "EL", "UECL", "FA", "EFL"];
+  if (p.other_apps !== undefined) {
+    if (!Array.isArray(p.other_apps)) fail(`${where}: 'other_apps' must be an array`);
+    for (const [ai, a] of p.other_apps.entries()) {
+      const aw = `${where}, other_apps[${ai}]`;
+      if (!OTHER_COMPS.includes(a?.comp)) fail(`${aw}: 'comp' must be one of ${OTHER_COMPS.join(", ")}`);
+      if (!/^\d{4}-\d{2}-\d{2}$/.test(a?.date || "")) fail(`${aw}: 'date' must be YYYY-MM-DD`);
+      if (!isNonEmptyStr(a?.opp)) fail(`${aw}: 'opp' must be a non-empty string`);
+      if (typeof a?.started !== "boolean") fail(`${aw}: 'started' must be a boolean`);
+      // No minutes, ever. ESPN does not report them, so a minutes field here
+      // could only have been invented.
+      if (a.minutes !== undefined) fail(`${aw}: 'minutes' is not something any source gives us`);
+    }
+  }
+  if (p.other_next !== undefined) {
+    if (!Array.isArray(p.other_next)) fail(`${where}: 'other_next' must be an array`);
+    for (const [fi, f] of p.other_next.entries()) {
+      const fw = `${where}, other_next[${fi}]`;
+      if (!OTHER_COMPS.includes(f?.comp)) fail(`${fw}: 'comp' must be one of ${OTHER_COMPS.join(", ")}`);
+      if (!/^\d{4}-\d{2}-\d{2}$/.test(f?.date || "")) fail(`${fw}: 'date' must be YYYY-MM-DD`);
+      // null is legitimate: a round can be scheduled before its draw.
+      if (f.opp !== null && !isNonEmptyStr(f?.opp))
+        fail(`${fw}: 'opp' must be a non-empty string, or null when the tie is undrawn`);
+      if (typeof f?.home !== "boolean") fail(`${fw}: 'home' must be a boolean`);
+      if (f.fdr !== undefined) fail(`${fw}: 'fdr' does not exist for a cup tie — FPL does not rate one`);
+    }
+  }
+
   if (p.fixtures !== undefined) {
     if (!Array.isArray(p.fixtures)) fail(`${where}: 'fixtures' must be an array`);
     for (const [fi, f] of p.fixtures.entries()) {

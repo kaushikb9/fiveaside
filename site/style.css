@@ -776,6 +776,28 @@ th.th-sort.sorted[data-dir="desc"]::after { content: "\2193"; opacity: 1; color:
 }
 .frun i[data-cup] { box-shadow: inset 0 0 0 1px var(--line); }
 
+/* ---------- midweek: what he played between the gameweeks ----------
+   The past half is player-level and the next half is club-level, and the
+   block has to keep them visibly apart — "he started on Wednesday" and
+   "his club play on Wednesday" are different claims and only one of them
+   is knowable in advance. */
+.mw { display: flex; flex-direction: column; gap: 2px; }
+.mw-row {
+  display: grid; grid-template-columns: 14px 1fr auto; align-items: baseline; gap: 8px;
+  font-size: 13px; color: var(--mute); padding: 5px 0; border-bottom: 1px solid var(--hair);
+}
+.mw-row:last-child { border-bottom: 0; }
+.mw-row b { color: var(--ink); font-weight: 700; }
+.mw-mark { color: var(--faint); font-size: 9px; line-height: 1.6; }
+.mw-row.on .mw-mark { color: var(--warn); }
+.mw-row.next { color: var(--faint); }
+.mw-row.next b { color: var(--mute); font-weight: 600; }
+.mw-when { font-family: var(--f-num); font-size: 11px; color: var(--faint); white-space: nowrap; }
+.mw-note { font-size: 11.5px; color: var(--faint); margin: 7px 0 0; line-height: 1.45; }
+.pill.rot {
+  color: var(--warn); border-color: var(--warn); font-weight: 700;
+}
+
 /* Player news on the card — the flag the game sets, plus anything the editor
    filed against that name. Sits above the form so you see why before what. */
 .pnews {
