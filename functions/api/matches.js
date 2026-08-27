@@ -53,10 +53,24 @@ const DONE = new Set([
 const ymd = (d) => `${d.getUTCFullYear()}${String(d.getUTCMonth() + 1).padStart(2, "0")}${String(d.getUTCDate()).padStart(2, "0")}`;
 const iso = (d) => d.toISOString().slice(0, 10);
 
+/* ESPN's bot rules are the wrong way round, and it cost a deploy to find out.
+   Measured against the live API on 2026-08-27:
+
+     no User-Agent at all ........ 403
+     Cloudflare-Workers default .. 403
+     a normal desktop browser UA . 403
+     curl/8.7.1 .................. 200
+
+   It rejects things that look like browsers and accepts things that look like
+   command-line tools, so the header below is deliberate and load-bearing
+   rather than decoration. If this starts 403ing again, this is the first line
+   to look at, and `errors[]` in the response will be carrying the status. */
+const UA = "curl/8.7.1";
+
 async function scoreboard(slug, window) {
   const url = `${ESPN}/${slug}/scoreboard?dates=${window}&limit=400`;
   const res = await fetch(url, {
-    headers: { accept: "application/json" },
+    headers: { accept: "application/json", "user-agent": UA },
     cf: { cacheTtl: 60, cacheEverything: true },
   });
   if (!res.ok) throw new Error(String(res.status));
