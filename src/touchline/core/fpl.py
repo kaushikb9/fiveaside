@@ -9,6 +9,7 @@ from datetime import UTC, datetime
 from zoneinfo import ZoneInfo
 
 from touchline.config import TouchlineConfig
+from touchline.core.clubs import build_index, resolve
 from touchline.sources.fpl import (
     FPLBootstrapResult,
     FPLElement,
@@ -99,20 +100,28 @@ def _recent(
     fixtures: FPLFixturesResult,
     short_names: dict[int, str],
     limit: int,
+    other: dict[str, list[dict]] | None = None,
 ) -> dict[str, list[dict]]:
-    """Each team's last `limit` FINISHED league matches, newest last.
+    """Each team's last `limit` FINISHED matches, newest last, ALL competitions.
 
     This is the form side of the player card: what has happened, against the
     fixture list's what is coming. It trims itself — in gameweek one most
     teams have played once and the two yet to start have played none — and
     fills out as the season goes.
 
-    LIMITATION, logged as a todo: this is Premier League only, because the FPL
-    API is the only source wired in here and it knows about nothing else. A
-    player who has played a cup tie or a European night in between shows a gap
-    his real form does not have. Fixing it needs a second fixtures source
-    keyed to the same clubs.
+    Premier League only until 2026-08-27, because FPL was the one source wired
+    in and it knows about nothing else, so a club that played a cup tie or a
+    European night showed a gap its real form did not have. `other` carries
+    those matches in, already keyed by FPL short code (see core.clubs for why
+    that keying is the hard part).
+
+    "Last five" means the last five matches of any kind. A cup tie is a match
+    the players played; leaving it out to keep the column pure would be
+    reporting a different team's week. Every row says which competition it
+    was, so a win over League Two opposition is never mistaken for a league
+    result.
     """
+    other = other or {}
     per_team: dict[int, list[dict]] = {team_id: [] for team_id in short_names}
     played = [
         f
@@ -134,6 +143,8 @@ def _recent(
             per_team[team].append(
                 {
                     "gw": f.event,
+                    "date": (f.kickoff_time or "")[:10] or None,
+                    "comp": "PL",
                     "opp": short_names.get(opp, str(opp)),
                     "home": home,
                     "gf": gf,
@@ -142,11 +153,79 @@ def _recent(
                 }
             )
 
-    return {
-        short_names[team_id]: rows[-limit:]
-        for team_id, rows in per_team.items()
-        if team_id in short_names
-    }
+    merged: dict[str, list[dict]] = {}
+    for team_id, rows in per_team.items():
+        if team_id not in short_names:
+            continue
+        code = short_names[team_id]
+        combined = rows + other.get(code, [])
+        # A league match and a cup tie can only be ordered by date. Rows with
+        # no date at all sort oldest, which keeps them out of the way rather
+        # than letting them claim to be the most recent thing that happened.
+        combined.sort(key=lambda r: (r.get("date") or "", r.get("gw") or 0))
+        merged[code] = combined[-limit:]
+    return merged
+
+
+def other_competition_rows(
+    results_by_comp: dict[str, list],
+    fpl_teams: list[tuple[str, str]],
+    since: str | None = None,
+) -> dict[str, list[dict]]:
+    """Non-league results, shaped like `_recent`'s rows and keyed by FPL code.
+
+    Only matches involving a Premier League club produce rows. The opponent
+    can be anyone and keeps its own name rather than being forced into a
+    three-letter code it does not have.
+
+    There is deliberately no "unresolved clubs" report here, and the reason is
+    worth writing down because the field existed for an afternoon. Almost every
+    cup opponent legitimately fails to resolve — Bradford City and Benfica are
+    not Premier League clubs and never will be — so a list of them is noise,
+    not a signal, and a noisy alarm is one nobody reads. The failure actually
+    worth catching is different: ESPN renaming a club we DO follow, so its cup
+    ties quietly vanish. That is guarded in tests/test_clubs.py, which pins
+    every current club's ESPN spelling to its FPL code, and it is the diff to
+    update when a club goes up or down.
+
+    `since` scopes to the current season, and it is not optional in practice.
+    ESPN's match window reaches 120 days back, which in August still contains
+    May: without a cutoff, Arsenal's "last five" opened with three Champions
+    League ties from last season sitting above one league game from this one.
+    Chronologically true, and useless as form next to a current-season table.
+    """
+    index = build_index(fpl_teams)
+    rows: dict[str, list[dict]] = {}
+
+    for comp, results in (results_by_comp or {}).items():
+        for r in results:
+            home_code = resolve(r.home.name, index)
+            away_code = resolve(r.away.name, index)
+            if home_code is None and away_code is None:
+                # A tie between two clubs we do not follow. Not a failure:
+                # most of the Champions League is not our business.
+                continue
+            when = r.kickoff.date().isoformat()
+            if since and when < since:
+                continue  # last season, however recently it ended
+            for code, opp, home, gf, ga in (
+                (home_code, r.away, True, r.home_score, r.away_score),
+                (away_code, r.home, False, r.away_score, r.home_score),
+            ):
+                if code is None:
+                    continue  # the other side is not ours; its row is not ours to write
+                rows.setdefault(code, []).append(
+                    {
+                        "date": when,
+                        "comp": comp,
+                        "opp": resolve(opp.name, index) or opp.name,
+                        "home": home,
+                        "gf": gf,
+                        "ga": ga,
+                        "result": "W" if gf > ga else "L" if gf < ga else "D",
+                    }
+                )
+    return rows
 
 
 def _ticker(
@@ -434,8 +513,14 @@ def build_fpl_facts(
     now: datetime,
     entry: FPLEntryResult | None = None,
     people: dict[str, FPLEntryResult] | None = None,
+    other_results: dict[str, list] | None = None,
 ) -> dict:
-    """Assemble the JSON-ready FPL facts bundle as of `now`."""
+    """Assemble the JSON-ready FPL facts bundle as of `now`.
+
+    `other_results` is {competition code: [Result]} for everything that is not
+    the league — the cups and Europe — so a player's form is the last five
+    matches he actually played rather than the last five league ones.
+    """
     tz = ZoneInfo(config.timezone)
     today = now.astimezone(tz).date()
     short_names = {t.id: t.short_name for t in bootstrap.teams}
@@ -471,7 +556,20 @@ def build_fpl_facts(
 
     # Form runs behind the fixture list. Built outside the `if current` block
     # because results exist whether or not there is a next deadline.
-    recent_by_team = _recent(fixtures, short_names, FILE_RECENT)
+    # A season starts on 1 July, which is early enough to keep a genuine July
+    # European qualifier and late enough to drop last season's finals. Taken
+    # from the league fixture list rather than the clock, so a bundle built in
+    # June belongs to the season it is actually describing.
+    first_kickoff = min(
+        (f.kickoff_time for f in fixtures.fixtures if f.kickoff_time), default=None
+    )
+    season_start = f"{int(first_kickoff[:4]) if first_kickoff else now.year}-07-01"
+    other_rows = other_competition_rows(
+        other_results or {},
+        [(t.name, t.short_name) for t in bootstrap.teams],
+        since=season_start,
+    )
+    recent_by_team = _recent(fixtures, short_names, FILE_RECENT, other_rows)
 
     # The gameweek currently being played — distinct from the one being planned
     # for. During GW1's matches, `gameweek` is GW2 (next deadline) while

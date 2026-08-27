@@ -757,10 +757,24 @@ th.th-sort.sorted[data-dir="desc"]::after { content: "\2193"; opacity: 1; color:
   background: var(--raise); color: var(--mute); box-shadow: inset 0 0 0 1px var(--line);
 }
 .frun i b { font-weight: 800; font-size: 10.5px; }
-.frun i em { font-style: normal; opacity: 0.7; }
+/* A cup opponent has no three-letter code of its own, so the name goes in
+   whole — and "Charlton Athletic" is three times the width of "@BRE". Capped
+   with an ellipsis; the full name is in the chip's title either way. */
+.frun i em {
+  font-style: normal; opacity: 0.7;
+  max-width: 9ch; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+}
 .frun i[data-r="W"] { background: var(--ok); color: var(--on-accent); box-shadow: none; }
 .frun i[data-r="L"] { background: var(--hot); color: #fff; box-shadow: none; }
 .frun i[data-r="D"] { background: var(--fdr3); color: var(--fdr-ink); box-shadow: none; }
+/* A non-league result says so. Same shape, so the strip still reads as one
+   run of form, with a marker rather than a different chip — a cup tie is a
+   match the players played, it just is not evidence of the same thing. */
+.frun i > u {
+  text-decoration: none; font-size: 8px; font-weight: 800; letter-spacing: 0.05em;
+  opacity: 0.75; margin-left: 1px; align-self: center;
+}
+.frun i[data-cup] { box-shadow: inset 0 0 0 1px var(--line); }
 
 /* Player news on the card — the flag the game sets, plus anything the editor
    filed against that name. Sits above the form so you see why before what. */

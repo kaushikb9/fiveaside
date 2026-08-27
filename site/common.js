@@ -109,16 +109,45 @@
 
   /* Form behind the fixtures. Trims to what has been played, so gameweek one
      shows one match and the clubs yet to start show none — which is the
-     honest answer, not an empty state to apologise for. */
+     honest answer, not an empty state to apologise for.
+
+     Every competition since 2026-08-27, not just the league. It was FPL-only
+     because FPL was the only source wired in, so a club that played a cup tie
+     or a European night showed a gap its real form did not have. A non-league
+     result is marked, because a win over League Two opposition and a win at
+     Anfield are not the same evidence and the strip must not pretend they
+     are. */
+  const COMP_LABEL = {
+    PL: "Premier League", UCL: "Champions League", CL: "Champions League",
+    EL: "Europa League", UECL: "Conference League", FA: "FA Cup", EFL: "EFL Cup",
+  };
+  const whenLabel = (r) => {
+    if (r.comp && r.comp !== "PL") {
+      const d = r.date ? new Date(r.date + "T12:00:00Z") : null;
+      const day = d && !isNaN(d.getTime())
+        ? d.toLocaleDateString("en-GB", { day: "numeric", month: "short" }) : "";
+      return (COMP_LABEL[r.comp] || r.comp) + (day ? ", " + day : "");
+    }
+    return r.gw ? "GW" + r.gw : (COMP_LABEL[r.comp] || "");
+  };
+
   FA.formRun = function (recent) {
     if (!recent || !recent.length) {
-      return '<span class="faint" style="font-size:13px">No league matches played yet.</span>';
+      return '<span class="faint" style="font-size:13px">No matches played yet.</span>';
     }
-    return '<span class="frun">' + recent.map((r) =>
-      '<i data-r="' + esc(r.result) + '" title="GW' + r.gw + " " + (r.home ? "vs " : "away to ") +
-      esc(r.opp) + " &middot; " + r.gf + "-" + r.ga + '">' +
-      '<b>' + esc(r.result) + "</b>" + r.gf + "&ndash;" + r.ga +
-      '<em>' + (r.home ? "" : "@") + esc(r.opp) + "</em></i>").join("") + "</span>";
+    return '<span class="frun">' + recent.map((r) => {
+      const cup = r.comp && r.comp !== "PL";
+      // The opponent may be a club with no three-letter code of its own —
+      // a cup tie brings sides FPL has never heard of — so fall back to the
+      // name itself rather than inventing an abbreviation for it.
+      const opp = FA.clubAbbr ? FA.clubAbbr(r.opp, r.opp) : r.opp;
+      return '<i data-r="' + esc(r.result) + '"' + (cup ? ' data-cup="' + esc(r.comp) + '"' : "") +
+        ' title="' + esc(whenLabel(r)) + " " + (r.home ? "vs " : "away to ") +
+        esc(FA.club(r.opp)) + " &middot; " + r.gf + "-" + r.ga + '">' +
+        "<b>" + esc(r.result) + "</b>" + r.gf + "&ndash;" + r.ga +
+        '<em>' + (r.home ? "" : "@") + esc(opp) + "</em>" +
+        (cup ? '<u>' + esc(r.comp) + "</u>" : "") + "</i>";
+    }).join("") + "</span>";
   };
 
   FA.fdrKey = '<div class="fdr-key">' +

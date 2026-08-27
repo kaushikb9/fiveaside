@@ -438,3 +438,147 @@ def test_picks_carry_captaincy_multiplier_and_chip():
     assert desk["active_chip"] == "bboost"
     assert desk["bench_points"] == 7
     assert desk["transfers_cost"] == 4
+
+
+def test_form_merges_cup_ties_into_the_last_five():
+    """ROADMAP 4b: a cup tie used to leave a gap the form strip could not show.
+
+    Builds two league rows and one EFL Cup tie between them, and asserts the
+    strip is the last five matches PLAYED, in date order, each saying which
+    competition it was.
+    """
+    from datetime import datetime
+
+    from touchline.core.fpl import _recent, other_competition_rows
+    from touchline.sources.fpl import FPLFixture, FPLFixturesResult
+
+    short_names = {1: "CHE", 2: "ARS"}
+    fixtures = FPLFixturesResult(
+        ok=True,
+        fixtures=[
+            FPLFixture(event=1, team_h=1, team_a=2, team_h_difficulty=3,
+                       team_a_difficulty=3, team_h_score=2, team_a_score=1,
+                       finished=True, kickoff_time="2026-08-15T14:00:00Z"),
+            FPLFixture(event=2, team_h=2, team_a=1, team_h_difficulty=3,
+                       team_a_difficulty=3, team_h_score=0, team_a_score=3,
+                       finished=True, kickoff_time="2026-08-29T14:00:00Z"),
+        ],
+    )
+
+    class _T:
+        def __init__(self, name):
+            self.name = name
+
+    class _R:
+        def __init__(self, home, away, hs, a_s, when):
+            self.home, self.away = _T(home), _T(away)
+            self.home_score, self.away_score = hs, a_s
+            self.kickoff = when
+
+    # A midweek cup tie, sitting between the two league games.
+    other = other_competition_rows(
+        {"EFL": [_R("Bradford City", "Chelsea", 1, 4, datetime(2026, 8, 22, 18, 45))]},
+        [("Chelsea", "CHE"), ("Arsenal", "ARS")],
+    )
+
+    recent = _recent(fixtures, short_names, 5, other)
+    che = recent["CHE"]
+
+    assert [r["comp"] for r in che] == ["PL", "EFL", "PL"], "the cup tie sits in date order"
+    assert [r["result"] for r in che] == ["W", "W", "W"]
+    # The cup row keeps the opponent's real name; it has no FPL code to take.
+    assert che[1]["opp"] == "Bradford City"
+    assert che[1]["home"] is False and che[1]["gf"] == 4
+
+
+def test_a_cup_tie_writes_a_row_only_for_the_club_we_follow():
+    """Chelsea v Wrexham is Chelsea's match. Wrexham has no card to appear on."""
+    from datetime import datetime
+
+    from touchline.core.fpl import other_competition_rows
+
+    class _T:
+        def __init__(self, name):
+            self.name = name
+
+    class _R:
+        def __init__(self, home, away):
+            self.home, self.away = _T(home), _T(away)
+            self.home_score, self.away_score = 1, 0
+            self.kickoff = datetime(2026, 8, 22, 18, 45)
+
+    rows = other_competition_rows({"EFL": [_R("Chelsea", "Wrexham")]}, [("Chelsea", "CHE")])
+    assert list(rows) == ["CHE"]
+    assert rows["CHE"][0]["opp"] == "Wrexham", "the opponent keeps its own name"
+    assert rows["CHE"][0]["result"] == "W"
+
+
+def test_a_tie_between_two_clubs_we_do_not_follow_is_not_an_error():
+    """Most of the Champions League is not our business, and that is fine."""
+    from datetime import datetime
+
+    from touchline.core.fpl import other_competition_rows
+
+    class _T:
+        def __init__(self, name):
+            self.name = name
+
+    class _R:
+        def __init__(self):
+            self.home, self.away = _T("Bayern Munich"), _T("Real Madrid")
+            self.home_score, self.away_score = 2, 1
+            self.kickoff = datetime(2026, 8, 22, 19, 0)
+
+    assert other_competition_rows({"CL": [_R()]}, [("Chelsea", "CHE")]) == {}
+
+
+def test_form_does_not_reach_back_into_last_season():
+    """ESPN's window is 120 days, which in August still contains May.
+
+    Without a cutoff Arsenal's "last five" opened with three Champions League
+    ties from the previous season above one league game from this one: true
+    chronologically, useless as form beside a current-season table.
+    """
+    from datetime import datetime
+
+    from touchline.core.fpl import other_competition_rows
+
+    class _T:
+        def __init__(self, name):
+            self.name = name
+
+    class _R:
+        def __init__(self, when):
+            self.home, self.away = _T("Arsenal"), _T("Paris Saint-Germain")
+            self.home_score, self.away_score = 1, 1
+            self.kickoff = when
+
+    args = ({"CL": [_R(datetime(2026, 5, 30)), _R(datetime(2026, 9, 16))]},
+            [("Arsenal", "ARS")])
+
+    assert len(other_competition_rows(*args)["ARS"]) == 2, "no cutoff keeps both"
+
+    kept = other_competition_rows(*args, since="2026-07-01")["ARS"]
+    assert [r["date"] for r in kept] == ["2026-09-16"], "May belongs to last season"
+
+
+def test_a_july_european_qualifier_still_counts():
+    """The cutoff is 1 July, not the first league game, precisely for these."""
+    from datetime import datetime
+
+    from touchline.core.fpl import other_competition_rows
+
+    class _T:
+        def __init__(self, name):
+            self.name = name
+
+    class _R:
+        def __init__(self):
+            self.home, self.away = _T("Crystal Palace"), _T("Shakhtar Donetsk")
+            self.home_score, self.away_score = 2, 1
+            self.kickoff = datetime(2026, 7, 24)
+
+    rows = other_competition_rows(
+        {"UECL": [_R()]}, [("Crystal Palace", "CRY")], since="2026-07-01"
+    )
+    assert rows["CRY"][0]["date"] == "2026-07-24"

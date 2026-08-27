@@ -58,7 +58,18 @@ for (const [i, p] of data.players.entries()) {
   if (p.recent !== undefined) {
     if (!Array.isArray(p.recent)) fail(`${where}: 'recent' must be an array`);
     for (const [ri, r] of p.recent.entries()) {
-      if (!isNumber(r?.gw)) fail(`${where}, recent[${ri}]: 'gw' must be a number`);
+      // Since 2026-08-27 form spans every competition, and a cup tie has no
+      // gameweek — that is the whole reason it was invisible before. So a
+      // league row is identified by its gameweek and any other row by its
+      // date, and every row has to say which competition it was.
+      const COMPS = ["PL", "CL", "UCL", "EL", "UECL", "FA", "EFL"];
+      if (!COMPS.includes(r?.comp))
+        fail(`${where}, recent[${ri}]: 'comp' must be one of ${COMPS.join(", ")}`);
+      if (r?.comp === "PL") {
+        if (!isNumber(r?.gw)) fail(`${where}, recent[${ri}]: a league row needs a numeric 'gw'`);
+      } else if (!/^\d{4}-\d{2}-\d{2}$/.test(r?.date || "")) {
+        fail(`${where}, recent[${ri}]: a ${r?.comp} row needs a 'date' (YYYY-MM-DD) — it has no gameweek`);
+      }
       if (!isNonEmptyStr(r?.opp)) fail(`${where}, recent[${ri}]: 'opp' must be a non-empty string`);
       if (typeof r?.home !== "boolean") fail(`${where}, recent[${ri}]: 'home' must be a boolean`);
       if (!isNumber(r?.gf) || !isNumber(r?.ga))

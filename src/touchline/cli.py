@@ -59,8 +59,28 @@ def run_fpl(client, config: TouchlineConfig, *, now: datetime | None = None) -> 
         for person in config.fpl.people
     }
 
+    # Form is the last five matches a club played, not the last five LEAGUE
+    # matches, so the cups and Europe come from the same ESPN client the
+    # digest uses. Each competition degrades on its own: a dead feed costs
+    # those rows, never the bundle.
+    # The league is FPL's own and a friendly is not form, so neither is fetched.
+    wanted = [c for c in config.competitions if c not in {"PL", "FRIENDLIES"}]
+    other_results: dict[str, list] = {}
+    if wanted:
+        espn = ESPNClient()
+        for comp in wanted:
+            out = espn.fetch_matches(comp)
+            if out.ok and out.results:
+                other_results[comp] = out.results
+
     bundle = build_fpl_facts(
-        bootstrap, fixtures, config, now=now, entry=entry, people=people or None
+        bootstrap,
+        fixtures,
+        config,
+        now=now,
+        entry=entry,
+        people=people or None,
+        other_results=other_results,
     )
     return json.dumps(bundle, indent=2, ensure_ascii=False)
 

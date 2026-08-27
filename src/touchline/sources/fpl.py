@@ -59,6 +59,9 @@ class FPLFixture(BaseModel, frozen=True):
     finished: bool = False
     finished_provisional: bool = False
     minutes: int = 0
+    # The only thing that can order a league match against a cup tie. A
+    # gameweek cannot: a midweek European night does not have one.
+    kickoff_time: str | None = None
 
 
 class FPLBootstrapResult(BaseModel, frozen=True):
