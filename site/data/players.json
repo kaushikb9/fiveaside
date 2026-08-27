@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-27T04:55:40.832Z",
+  "generated_at": "2026-08-27T05:56:09.025Z",
   "gameweek": 2,
   "players": [
     {
@@ -3136,7 +3136,7 @@
       "team": "FUL",
       "pos": "FWD",
       "price": 4.5,
-      "ownership": 7.1,
+      "ownership": 7,
       "points": 0,
       "form": "0.0",
       "fixtures": [
@@ -3183,6 +3183,60 @@
       ],
       "owned_by": [],
       "fdr_avg": 3.2
+    },
+    {
+      "id": 115,
+      "name": "De Cuyper",
+      "team": "BHA",
+      "pos": "DEF",
+      "price": 4.6,
+      "ownership": 6.8,
+      "points": 17,
+      "form": "17.0",
+      "fixtures": [
+        {
+          "gw": 2,
+          "opp": "CHE",
+          "home": false,
+          "fdr": 4
+        },
+        {
+          "gw": 3,
+          "opp": "LEE",
+          "home": true,
+          "fdr": 2
+        },
+        {
+          "gw": 4,
+          "opp": "COV",
+          "home": false,
+          "fdr": 2
+        },
+        {
+          "gw": 5,
+          "opp": "ARS",
+          "home": true,
+          "fdr": 4
+        },
+        {
+          "gw": 6,
+          "opp": "SUN",
+          "home": false,
+          "fdr": 3
+        }
+      ],
+      "recent": [
+        {
+          "gw": 1,
+          "opp": "AVL",
+          "home": true,
+          "gf": 4,
+          "ga": 0,
+          "result": "W"
+        }
+      ],
+      "owned_by": [],
+      "fdr_avg": 3
     },
     {
       "id": 88,
@@ -3237,60 +3291,6 @@
       ],
       "owned_by": [],
       "fdr_avg": 3.2
-    },
-    {
-      "id": 115,
-      "name": "De Cuyper",
-      "team": "BHA",
-      "pos": "DEF",
-      "price": 4.6,
-      "ownership": 6.7,
-      "points": 17,
-      "form": "17.0",
-      "fixtures": [
-        {
-          "gw": 2,
-          "opp": "CHE",
-          "home": false,
-          "fdr": 4
-        },
-        {
-          "gw": 3,
-          "opp": "LEE",
-          "home": true,
-          "fdr": 2
-        },
-        {
-          "gw": 4,
-          "opp": "COV",
-          "home": false,
-          "fdr": 2
-        },
-        {
-          "gw": 5,
-          "opp": "ARS",
-          "home": true,
-          "fdr": 4
-        },
-        {
-          "gw": 6,
-          "opp": "SUN",
-          "home": false,
-          "fdr": 3
-        }
-      ],
-      "recent": [
-        {
-          "gw": 1,
-          "opp": "AVL",
-          "home": true,
-          "gf": 4,
-          "ga": 0,
-          "result": "W"
-        }
-      ],
-      "owned_by": [],
-      "fdr_avg": 3
     },
     {
       "id": 534,
@@ -4280,6 +4280,60 @@
       "fdr_avg": 3
     },
     {
+      "id": 449,
+      "name": "Hall",
+      "team": "NEW",
+      "pos": "DEF",
+      "price": 5,
+      "ownership": 4.1,
+      "points": 3,
+      "form": "3.0",
+      "fixtures": [
+        {
+          "gw": 2,
+          "opp": "TOT",
+          "home": false,
+          "fdr": 3
+        },
+        {
+          "gw": 3,
+          "opp": "BOU",
+          "home": true,
+          "fdr": 3
+        },
+        {
+          "gw": 4,
+          "opp": "LEE",
+          "home": false,
+          "fdr": 3
+        },
+        {
+          "gw": 5,
+          "opp": "HUL",
+          "home": true,
+          "fdr": 2
+        },
+        {
+          "gw": 6,
+          "opp": "COV",
+          "home": false,
+          "fdr": 2
+        }
+      ],
+      "recent": [
+        {
+          "gw": 1,
+          "opp": "LIV",
+          "home": true,
+          "gf": 2,
+          "ga": 2,
+          "result": "D"
+        }
+      ],
+      "owned_by": [],
+      "fdr_avg": 2.6
+    },
+    {
       "id": 28,
       "name": "Martinez",
       "team": "AVL",
@@ -4440,60 +4494,6 @@
       ],
       "owned_by": [],
       "fdr_avg": 3
-    },
-    {
-      "id": 449,
-      "name": "Hall",
-      "team": "NEW",
-      "pos": "DEF",
-      "price": 5,
-      "ownership": 4,
-      "points": 3,
-      "form": "3.0",
-      "fixtures": [
-        {
-          "gw": 2,
-          "opp": "TOT",
-          "home": false,
-          "fdr": 3
-        },
-        {
-          "gw": 3,
-          "opp": "BOU",
-          "home": true,
-          "fdr": 3
-        },
-        {
-          "gw": 4,
-          "opp": "LEE",
-          "home": false,
-          "fdr": 3
-        },
-        {
-          "gw": 5,
-          "opp": "HUL",
-          "home": true,
-          "fdr": 2
-        },
-        {
-          "gw": 6,
-          "opp": "COV",
-          "home": false,
-          "fdr": 2
-        }
-      ],
-      "recent": [
-        {
-          "gw": 1,
-          "opp": "LIV",
-          "home": true,
-          "gf": 2,
-          "ga": 2,
-          "result": "D"
-        }
-      ],
-      "owned_by": [],
-      "fdr_avg": 2.6
     },
     {
       "id": 385,
@@ -6244,60 +6244,6 @@
       "chance": 100
     },
     {
-      "id": 248,
-      "name": "Beto",
-      "team": "EVE",
-      "pos": "FWD",
-      "price": 5.5,
-      "ownership": 2.5,
-      "points": 1,
-      "form": "1.0",
-      "fixtures": [
-        {
-          "gw": 2,
-          "opp": "BOU",
-          "home": false,
-          "fdr": 3
-        },
-        {
-          "gw": 3,
-          "opp": "MUN",
-          "home": true,
-          "fdr": 4
-        },
-        {
-          "gw": 4,
-          "opp": "TOT",
-          "home": false,
-          "fdr": 3
-        },
-        {
-          "gw": 5,
-          "opp": "IPS",
-          "home": true,
-          "fdr": 2
-        },
-        {
-          "gw": 6,
-          "opp": "HUL",
-          "home": false,
-          "fdr": 2
-        }
-      ],
-      "recent": [
-        {
-          "gw": 1,
-          "opp": "CRY",
-          "home": true,
-          "gf": 2,
-          "ga": 0,
-          "result": "W"
-        }
-      ],
-      "owned_by": [],
-      "fdr_avg": 2.8
-    },
-    {
       "id": 417,
       "name": "Dalot",
       "team": "MUN",
@@ -6463,6 +6409,60 @@
       ],
       "owned_by": [],
       "fdr_avg": 3
+    },
+    {
+      "id": 248,
+      "name": "Beto",
+      "team": "EVE",
+      "pos": "FWD",
+      "price": 5.5,
+      "ownership": 2.4,
+      "points": 1,
+      "form": "1.0",
+      "fixtures": [
+        {
+          "gw": 2,
+          "opp": "BOU",
+          "home": false,
+          "fdr": 3
+        },
+        {
+          "gw": 3,
+          "opp": "MUN",
+          "home": true,
+          "fdr": 4
+        },
+        {
+          "gw": 4,
+          "opp": "TOT",
+          "home": false,
+          "fdr": 3
+        },
+        {
+          "gw": 5,
+          "opp": "IPS",
+          "home": true,
+          "fdr": 2
+        },
+        {
+          "gw": 6,
+          "opp": "HUL",
+          "home": false,
+          "fdr": 2
+        }
+      ],
+      "recent": [
+        {
+          "gw": 1,
+          "opp": "CRY",
+          "home": true,
+          "gf": 2,
+          "ga": 0,
+          "result": "W"
+        }
+      ],
+      "owned_by": [],
+      "fdr_avg": 2.8
     },
     {
       "id": 113,
@@ -11802,60 +11802,6 @@
       "fdr_avg": 2.8
     },
     {
-      "id": 581,
-      "name": "Diomande",
-      "team": "NFO",
-      "pos": "DEF",
-      "price": 5.5,
-      "ownership": 0.8,
-      "points": 0,
-      "form": "0.0",
-      "fixtures": [
-        {
-          "gw": 2,
-          "opp": "LIV",
-          "home": false,
-          "fdr": 4
-        },
-        {
-          "gw": 3,
-          "opp": "TOT",
-          "home": true,
-          "fdr": 3
-        },
-        {
-          "gw": 4,
-          "opp": "AVL",
-          "home": false,
-          "fdr": 4
-        },
-        {
-          "gw": 5,
-          "opp": "COV",
-          "home": true,
-          "fdr": 2
-        },
-        {
-          "gw": 6,
-          "opp": "CRY",
-          "home": false,
-          "fdr": 3
-        }
-      ],
-      "recent": [
-        {
-          "gw": 1,
-          "opp": "LEE",
-          "home": true,
-          "gf": 0,
-          "ga": 1,
-          "result": "L"
-        }
-      ],
-      "owned_by": [],
-      "fdr_avg": 3.2
-    },
-    {
       "id": 36,
       "name": "Maatsen",
       "team": "AVL",
@@ -12340,6 +12286,60 @@
       ],
       "owned_by": [],
       "fdr_avg": 3
+    },
+    {
+      "id": 581,
+      "name": "Diomande",
+      "team": "NFO",
+      "pos": "DEF",
+      "price": 5.5,
+      "ownership": 0.7,
+      "points": 0,
+      "form": "0.0",
+      "fixtures": [
+        {
+          "gw": 2,
+          "opp": "LIV",
+          "home": false,
+          "fdr": 4
+        },
+        {
+          "gw": 3,
+          "opp": "TOT",
+          "home": true,
+          "fdr": 3
+        },
+        {
+          "gw": 4,
+          "opp": "AVL",
+          "home": false,
+          "fdr": 4
+        },
+        {
+          "gw": 5,
+          "opp": "COV",
+          "home": true,
+          "fdr": 2
+        },
+        {
+          "gw": 6,
+          "opp": "CRY",
+          "home": false,
+          "fdr": 3
+        }
+      ],
+      "recent": [
+        {
+          "gw": 1,
+          "opp": "LEE",
+          "home": true,
+          "gf": 0,
+          "ga": 1,
+          "result": "L"
+        }
+      ],
+      "owned_by": [],
+      "fdr_avg": 3.2
     },
     {
       "id": 51,
@@ -12993,60 +12993,6 @@
       "chance": 75
     },
     {
-      "id": 96,
-      "name": "Damsgaard",
-      "team": "BRE",
-      "pos": "MID",
-      "price": 5.5,
-      "ownership": 0.6,
-      "points": 1,
-      "form": "1.0",
-      "fixtures": [
-        {
-          "gw": 2,
-          "opp": "LEE",
-          "home": false,
-          "fdr": 3
-        },
-        {
-          "gw": 3,
-          "opp": "SUN",
-          "home": true,
-          "fdr": 2
-        },
-        {
-          "gw": 4,
-          "opp": "BOU",
-          "home": false,
-          "fdr": 3
-        },
-        {
-          "gw": 5,
-          "opp": "CHE",
-          "home": true,
-          "fdr": 4
-        },
-        {
-          "gw": 6,
-          "opp": "AVL",
-          "home": false,
-          "fdr": 4
-        }
-      ],
-      "recent": [
-        {
-          "gw": 1,
-          "opp": "TOT",
-          "home": true,
-          "gf": 3,
-          "ga": 0,
-          "result": "W"
-        }
-      ],
-      "owned_by": [],
-      "fdr_avg": 3.2
-    },
-    {
       "id": 308,
       "name": "Furlong",
       "team": "IPS",
@@ -13640,6 +13586,60 @@
       ],
       "owned_by": [],
       "fdr_avg": 2.6
+    },
+    {
+      "id": 96,
+      "name": "Damsgaard",
+      "team": "BRE",
+      "pos": "MID",
+      "price": 5.5,
+      "ownership": 0.5,
+      "points": 1,
+      "form": "1.0",
+      "fixtures": [
+        {
+          "gw": 2,
+          "opp": "LEE",
+          "home": false,
+          "fdr": 3
+        },
+        {
+          "gw": 3,
+          "opp": "SUN",
+          "home": true,
+          "fdr": 2
+        },
+        {
+          "gw": 4,
+          "opp": "BOU",
+          "home": false,
+          "fdr": 3
+        },
+        {
+          "gw": 5,
+          "opp": "CHE",
+          "home": true,
+          "fdr": 4
+        },
+        {
+          "gw": 6,
+          "opp": "AVL",
+          "home": false,
+          "fdr": 4
+        }
+      ],
+      "recent": [
+        {
+          "gw": 1,
+          "opp": "TOT",
+          "home": true,
+          "gf": 3,
+          "ga": 0,
+          "result": "W"
+        }
+      ],
+      "owned_by": [],
+      "fdr_avg": 3.2
     },
     {
       "id": 148,
