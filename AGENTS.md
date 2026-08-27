@@ -43,6 +43,10 @@ delegated listener in `site/common.js`. Keep it that way.
   `split-facts.mjs` sits between the facts CLI and the FPL prompt: it writes
   the mechanical files straight to disk and hands the brain the remainder.
   The three `validate-*.mjs` files are the schema authorities.
+- `src/touchline/core/squads.py` — the same join one level down: ESPN names a
+  footballer "Patrick Dorgu", FPL says "Dorgu". Scoped to ONE SQUAD, which is
+  the safety story — across the league a surname is a coin flip, inside a
+  squad it is nearly always unique, and when it is not the answer is nothing.
 - `src/touchline/core/clubs.py` — the join FPL and ESPN do not provide. FPL
   says Spurs and Man Utd, ESPN says Tottenham Hotspur and Manchester United;
   nothing bridges those automatically. Hand-written map for the cases no rule
@@ -122,7 +126,7 @@ node brain/invite.mjs --list     # who has a gaffers code (add --local for dev)
 ./deploy.sh                      # stamp assets, split private, push to KV, deploy
 node brain/test/stars.mjs        # /api/stars auth — stubbed KV, no wrangler
 node brain/test/matches.mjs      # /api/matches — stubbed ESPN, real captured payload
-brain/test/smoke.sh https://fiveaside.pages.dev/   # 85 signed in, 75 signed out
+brain/test/smoke.sh https://fiveaside.pages.dev/   # 87 signed in, 77 signed out
 cd site && python3 -m http.server # local preview — /api/* 404s and the page
                                   # degrades honestly, which is worth seeing
 ```
@@ -133,6 +137,21 @@ added; `-i` alone is not enough, it only blocks idle sleep. `auto.sh` does it.
 
 ## Rules that have bitten before
 
+- **Sources disagree about name ORDER, not only spelling.** FPL files Ao
+  Tanaka as `first_name: "Tanaka", second_name: "Ao"`. `squads.py` indexes both
+  directions; without it the surname check compares the wrong halves and
+  rejects a real player as an impostor.
+- **A cup tie is where academy players appear, and they are not in FPL.** Hull
+  fielded Babajide David, who has no FPL record; a bare surname fallback would
+  have credited his appearance to somebody else's David. The fallback requires
+  the given names to agree on their first letter.
+- **A feed's "fixtures" are not all in the future.** ESPN was still listing
+  last season's FA Cup final as unplayed in late August, which put a 16 May
+  match in a card headed "next". Filter on the clock, not on the field name.
+- **Nothing anywhere reports MINUTES.** ESPN's summary carries `starter`,
+  `subIns` and `appearances`. `validate-players.mjs` rejects a `minutes` field
+  on an appearance and an `fdr` on a cup fixture, because both could only have
+  been invented — the same failure as the fabricated form column.
 - **A club name is not a key until it has been joined.** FPL and ESPN name the
   same twenty clubs differently and share no id. `core/clubs.py` owns that
   join; `tests/test_clubs.py` pins every current club's ESPN spelling and is

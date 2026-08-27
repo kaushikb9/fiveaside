@@ -282,6 +282,31 @@ check "form spans every competition" "true" "$(js '(function(){
 })()')"
 # The card is the same object in every room, so the five are drawn here too —
 # faces.js used to load only in the gaffers room and this fell back to letters.
+# A cup start between two league games is why a player gets rested, and it was
+# invisible until the ESPN team sheets were joined to FPL's squads.
+check "a midweek appearance reaches the card" "true" "$(js '(function(){
+  var rows = [...document.querySelectorAll("#the-file [data-pid]")].slice(0, 40);
+  for (var i = 0; i < rows.length; i++) {
+    rows[i].click();
+    var mw = document.querySelector(".pcard .mw-row.on");
+    FA.closeCard();
+    if (mw && /Started/.test(mw.textContent)) return true;
+  }
+  return "no midweek start on the first 40 cards";
+})()')"
+# What is coming is the CLUB fixture, and the card must not imply a team sheet
+# it cannot have.
+check "an upcoming cup tie is labelled as the club's" "true" "$(js '(function(){
+  var rows = [...document.querySelectorAll("#the-file [data-pid]")].slice(0, 20);
+  for (var i = 0; i < rows.length; i++) {
+    rows[i].click();
+    var next = document.querySelector(".pcard .mw-row.next");
+    var note = document.querySelector(".pcard .mw-note");
+    FA.closeCard();
+    if (next) return !!note && /club/.test(note.textContent);
+  }
+  return true;
+})()')"
 check "the five are drawn on the card, not lettered" "true" "$(js '(function(){
   var a = document.querySelector("#the-file [data-pid]");
   if (!a) return true;
