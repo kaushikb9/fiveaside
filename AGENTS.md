@@ -43,6 +43,11 @@ delegated listener in `site/common.js`. Keep it that way.
   `split-facts.mjs` sits between the facts CLI and the FPL prompt: it writes
   the mechanical files straight to disk and hands the brain the remainder.
   The three `validate-*.mjs` files are the schema authorities.
+- `src/touchline/core/clubs.py` — the join FPL and ESPN do not provide. FPL
+  says Spurs and Man Utd, ESPN says Tottenham Hotspur and Manchester United;
+  nothing bridges those automatically. Hand-written map for the cases no rule
+  can reach, normaliser for the rest, and an ambiguous key resolves to
+  NOTHING rather than guessing.
 - `functions/` — Pages Functions, a **sibling** of `site/`, not inside it.
   `api/live.js` proxies the FPL API (which sends no CORS headers) for the
   gaffers room, `api/matches.js` does the same for the league room's two
@@ -117,7 +122,7 @@ node brain/invite.mjs --list     # who has a gaffers code (add --local for dev)
 ./deploy.sh                      # stamp assets, split private, push to KV, deploy
 node brain/test/stars.mjs        # /api/stars auth — stubbed KV, no wrangler
 node brain/test/matches.mjs      # /api/matches — stubbed ESPN, real captured payload
-brain/test/smoke.sh https://fiveaside.pages.dev/   # 83 signed in, 73 signed out
+brain/test/smoke.sh https://fiveaside.pages.dev/   # 85 signed in, 75 signed out
 cd site && python3 -m http.server # local preview — /api/* 404s and the page
                                   # degrades honestly, which is worth seeing
 ```
@@ -128,6 +133,23 @@ added; `-i` alone is not enough, it only blocks idle sleep. `auto.sh` does it.
 
 ## Rules that have bitten before
 
+- **A club name is not a key until it has been joined.** FPL and ESPN name the
+  same twenty clubs differently and share no id. `core/clubs.py` owns that
+  join; `tests/test_clubs.py` pins every current club's ESPN spelling and is
+  the diff to update on promotion or relegation. Its rule: an ambiguous key
+  resolves to nothing. "Manchester City" and "Manchester United" both reduce
+  to "manchester", and crediting one club's cup exit to the other is worse
+  than a visible gap.
+- **A cup tie has no gameweek.** Anything keyed on `gw` silently excludes
+  every match that is not a league match — that is exactly how form came to be
+  league-only. `recent` rows carry `comp` always, `gw` for league rows and
+  `date` for the rest.
+- **ESPN's match window is 120 days**, which in August still contains May.
+  Scope to the season (from 1 July) or last season's finals turn up as this
+  season's form.
+- **faces.js has to load wherever a player card can open**, which is every
+  room. It was on `/gaffers/` alone for half a day while `common.js` claimed
+  otherwise, so the drawn owners quietly became initials everywhere else.
 - **ESPN 403s browsers and accepts curl.** The bot rules run the wrong way
   round, measured against the live API on 2026-08-27: no User-Agent 403, the
   Cloudflare-Workers default 403, a normal desktop browser UA 403,

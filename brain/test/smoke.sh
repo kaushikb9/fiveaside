@@ -265,6 +265,33 @@ js 'const i=document.getElementById("fq"); i.value="haal"; i.dispatchEvent(new E
 sleep 0.3
 check "search filters" "true" "$(js 'document.querySelectorAll("#the-file table tbody tr").length <= 3')"
 
+# ROADMAP 4b: form was Premier League only, so a club that played a cup tie
+# showed a gap its real form did not have. Leeds beat Forest twice in four
+# days, league then cup, and the card could only see one of them.
+js 'const i=document.getElementById("fq"); i.value=""; i.dispatchEvent(new Event("input")); ""' >/dev/null
+sleep 0.3
+check "form spans every competition" "true" "$(js '(function(){
+  var rows = [...document.querySelectorAll("#the-file [data-pid]")].slice(0, 40);
+  for (var i = 0; i < rows.length; i++) {
+    rows[i].click();
+    var cup = document.querySelector(".pcard .frun i[data-cup]");
+    FA.closeCard();
+    if (cup) return true;
+  }
+  return "no cup result on the first 40 cards";
+})()')"
+# The card is the same object in every room, so the five are drawn here too —
+# faces.js used to load only in the gaffers room and this fell back to letters.
+check "the five are drawn on the card, not lettered" "true" "$(js '(function(){
+  var a = document.querySelector("#the-file [data-pid]");
+  if (!a) return true;
+  a.click();
+  var o = document.querySelector(".pcard .ownfaces");
+  var ok = !o || o.querySelectorAll(".ownface .face").length > 0 || /nobody in the five/.test(o.textContent);
+  FA.closeCard();
+  return ok;
+})()')"
+
 echo "== the door holds"
 for EP in "api/private" "api/auth"; do
   CODE=$(curl -s -o /dev/null -w "%{http_code}" "$BASE$EP")
