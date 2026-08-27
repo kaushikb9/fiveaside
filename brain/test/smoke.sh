@@ -114,6 +114,13 @@ check "captain armband shown" "true" "$(js 'document.querySelectorAll(".pp .arm"
 GW=$(js 'document.querySelector(".gwlabel").textContent')
 js 'const b=document.querySelector(".gwnav button[data-gw]:not([disabled])"); b.click(); ""' >/dev/null
 check "gameweek nav moves" "false" "$(js "document.querySelector('.gwlabel').textContent === '$GW'")"
+# Back to your OWN room first: the checks above switch to Le Professeur, and
+# a star only renders where you can press it — in your own watchlist and
+# nobody else's. Without this the whole block skips itself.
+js 'const n=FA.myNick(); const b=n && document.querySelector(`#gbar .gchip[data-nick="${n}"]`); if (b) b.click(); ""' >/dev/null
+sleep 1
+check "back in your own room" "true" "$(js 'const p=document.querySelector("#gbar .gchip[aria-pressed=true]"); !!p && p.textContent.includes(FA.myNick())')"
+
 # A star moves the row between "yours" and "what the brain suggests" and
 # re-renders the panel, so the FIRST [data-star] on the page is not the same
 # player before and after. Pin to the element id and follow it across the move.
