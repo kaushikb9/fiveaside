@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-27T02:55:01.066Z",
+  "generated_at": "2026-08-27T03:55:26.196Z",
   "gameweek": 2,
   "players": [
     {
@@ -7173,6 +7173,60 @@
       "penalties": true
     },
     {
+      "id": 335,
+      "name": "Stach",
+      "team": "LEE",
+      "pos": "MID",
+      "price": 6,
+      "ownership": 2,
+      "points": 13,
+      "form": "13.0",
+      "fixtures": [
+        {
+          "gw": 2,
+          "opp": "BRE",
+          "home": true,
+          "fdr": 3
+        },
+        {
+          "gw": 3,
+          "opp": "BHA",
+          "home": false,
+          "fdr": 3
+        },
+        {
+          "gw": 4,
+          "opp": "NEW",
+          "home": true,
+          "fdr": 2
+        },
+        {
+          "gw": 5,
+          "opp": "CRY",
+          "home": true,
+          "fdr": 3
+        },
+        {
+          "gw": 6,
+          "opp": "ARS",
+          "home": false,
+          "fdr": 5
+        }
+      ],
+      "recent": [
+        {
+          "gw": 1,
+          "opp": "NFO",
+          "home": false,
+          "gf": 1,
+          "ga": 0,
+          "result": "W"
+        }
+      ],
+      "owned_by": [],
+      "fdr_avg": 3.2
+    },
+    {
       "id": 198,
       "name": "Henderson",
       "team": "CRY",
@@ -7276,60 +7330,6 @@
           "gf": 0,
           "ga": 1,
           "result": "L"
-        }
-      ],
-      "owned_by": [],
-      "fdr_avg": 3.2
-    },
-    {
-      "id": 335,
-      "name": "Stach",
-      "team": "LEE",
-      "pos": "MID",
-      "price": 6,
-      "ownership": 1.9,
-      "points": 13,
-      "form": "13.0",
-      "fixtures": [
-        {
-          "gw": 2,
-          "opp": "BRE",
-          "home": true,
-          "fdr": 3
-        },
-        {
-          "gw": 3,
-          "opp": "BHA",
-          "home": false,
-          "fdr": 3
-        },
-        {
-          "gw": 4,
-          "opp": "NEW",
-          "home": true,
-          "fdr": 2
-        },
-        {
-          "gw": 5,
-          "opp": "CRY",
-          "home": true,
-          "fdr": 3
-        },
-        {
-          "gw": 6,
-          "opp": "ARS",
-          "home": false,
-          "fdr": 5
-        }
-      ],
-      "recent": [
-        {
-          "gw": 1,
-          "opp": "NFO",
-          "home": false,
-          "gf": 1,
-          "ga": 0,
-          "result": "W"
         }
       ],
       "owned_by": [],
