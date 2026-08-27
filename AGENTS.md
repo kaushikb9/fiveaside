@@ -116,7 +116,8 @@ node brain/invite.mjs --list     # who has a gaffers code (add --local for dev)
 ./brain/curate-fpl.sh --no-deploy  # gaffers room, ditto
 ./deploy.sh                      # stamp assets, split private, push to KV, deploy
 node brain/test/stars.mjs        # /api/stars auth — stubbed KV, no wrangler
-brain/test/smoke.sh https://fiveaside.pages.dev/   # 83 checks over the live site
+node brain/test/matches.mjs      # /api/matches — stubbed ESPN, real captured payload
+brain/test/smoke.sh https://fiveaside.pages.dev/   # 83 signed in, 73 signed out
 cd site && python3 -m http.server # local preview — /api/* 404s and the page
                                   # degrades honestly, which is worth seeing
 ```
@@ -127,6 +128,25 @@ added; `-i` alone is not enough, it only blocks idle sleep. `auto.sh` does it.
 
 ## Rules that have bitten before
 
+- **ESPN 403s browsers and accepts curl.** The bot rules run the wrong way
+  round, measured against the live API on 2026-08-27: no User-Agent 403, the
+  Cloudflare-Workers default 403, a normal desktop browser UA 403,
+  `curl/8.7.1` 200. `functions/api/matches.js` sets `user-agent: curl/8.7.1`
+  deliberately; it reads like decoration and is the opposite. If the river
+  empties out, read `errors[]` in the response — it carries the status.
+- **ESPN sends `score: "0"` for a fixture that has not kicked off.** Trust it
+  and every upcoming match renders as a goalless draw. A score exists only
+  once `status` says the match has been played.
+- **ESPN's team abbreviations are per-competition and disagree with
+  themselves.** Manchester United came back `MAN` in the league feed and `MNU`
+  in the EFL Cup feed, so one club wore two codes on one page. `FA.clubAbbr`
+  keys off the canonical full name and falls back to the feed only for clubs
+  we do not carry.
+- **The front page's match window is the CALENDAR, not an FPL gameweek.** A
+  gameweek is a Premier League construct: a European tie or a cup round cannot
+  live inside one, and "current" stays current from the last whistle to the
+  next kickoff, which is exactly the midweek those matches are played. The
+  gaffers room still runs on gameweeks and should — that is what FPL scores.
 - **The brain wrote a form column out of memory, and the schema allowed it.**
   No source we fetch returns per-team form: football-data and ESPN both give
   standings without it, and `Standing` has no such field. The digest still
