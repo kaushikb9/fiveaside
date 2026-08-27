@@ -197,8 +197,24 @@
       if (!sig.player) return;
       (byPlayer[sig.player] = byPlayer[sig.player] || []).push(sig);
     });
+    /* Names are NOT unique — two Palmers, two Wilsons, three Phillipses, 14
+       shared surnames in a 614-man file. Building byName with last-write-wins
+       handed each shared name to whoever happened to sit later in the file,
+       which is how clicking Cole Palmer opened the Ipswich goalkeeper: same
+       surname, lower id, later in the array.
+
+       Two fixes, and both are needed. Here, when a name is shared, it
+       resolves to the player the reader means — one of the five's own first,
+       then the most owned. And at every call site that has a player object in
+       hand, the card is addressed by ELEMENT ID instead (data-pid), so the
+       name index is only ever consulted for prose. */
     CARD_INDEX = { byName: {}, byId: {}, verdicts: byVerdict, signals: byPlayer, me: me || FA.ME };
-    (players || []).forEach((p) => { CARD_INDEX.byName[p.name] = p; CARD_INDEX.byId[p.id] = p; });
+    const claim = (x) => ((x.owned_by && x.owned_by.length) ? 1e6 : 0) + (x.ownership || 0);
+    (players || []).forEach((p) => {
+      CARD_INDEX.byId[p.id] = p;
+      const held = CARD_INDEX.byName[p.name];
+      if (!held || claim(p) > claim(held)) CARD_INDEX.byName[p.name] = p;
+    });
 
     if (!document.getElementById("fa-backdrop")) {
       const el = document.createElement("div");
@@ -231,8 +247,13 @@
         });
         return;
       }
-      const link = e.target.closest("[data-player]");
-      if (link) { e.preventDefault(); FA.openCard(link.dataset.player); return; }
+      const link = e.target.closest("[data-player],[data-pid]");
+      if (link) {
+        e.preventDefault();
+        // An id if the emitter had one, the name only as a last resort.
+        FA.openCard(link.dataset.pid || link.dataset.player);
+        return;
+      }
       if (e.target.closest("[data-fa-close]") || e.target.id === "fa-backdrop") FA.closeCard();
     });
     document.addEventListener("keydown", (e) => { if (e.key === "Escape") FA.closeCard(); });
@@ -255,6 +276,7 @@
     for (const n of names) {
       if (n.length < 5) continue;
       const safe = esc(n).replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+      const pid = CARD_INDEX.byName[n].id;
       // The guard has to keep the name out of THREE places, not one: mid-word,
       // inside a tag, and inside an attribute value already written by an
       // earlier pass. The third is what broke "Lewis-Potter" — a later pass for
@@ -262,13 +284,16 @@
       // word character, nor is a hyphen) and spliced a tag into the attribute.
       if (HAS_LOOKBEHIND) {
         const re = new RegExp("(?<![\\w>\"=-])(" + safe + ")(?![\\w<\"-])");
-        if (re.test(out)) out = out.replace(re, '<a class="plink" data-player="$1">$1</a>');
+        if (re.test(out)) {
+          out = out.replace(re, '<a class="plink" data-pid="' + pid + '" data-player="$1">$1</a>');
+        }
       } else {
         // Capture the preceding character instead of asserting it, then put
         // it back. Same guard, same three places.
         const re = new RegExp("(^|[^\\w>\"=-])(" + safe + ")(?![\\w<\"-])");
         if (re.test(out)) {
-          out = out.replace(re, '$1<a class="plink" data-player="' + esc(n) + '">$2</a>');
+          out = out.replace(re,
+            '$1<a class="plink" data-pid="' + pid + '" data-player="' + esc(n) + '">$2</a>');
         }
       }
     }
@@ -325,9 +350,11 @@
     slot.innerHTML = starButtonHTML(p);
   }
 
-  FA.openCard = function (name) {
+  /* Takes an element id or a name. Ids win: they are exact, and a name is a
+     guess whenever two players share one. */
+  FA.openCard = function (ref) {
     if (!CARD_INDEX) return;
-    const p = CARD_INDEX.byName[name];
+    const p = CARD_INDEX.byId[ref] || CARD_INDEX.byName[ref];
     if (!p) return;
     const v = CARD_INDEX.verdicts[p.id];
     const me = CARD_INDEX.me;

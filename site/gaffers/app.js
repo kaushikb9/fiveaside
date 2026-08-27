@@ -314,7 +314,8 @@
       (pk.vice && !pk.captain ? '<span class="arm v" title="Vice-captain">V</span>' : "") +
       (r && r.status && r.status !== "a" ? '<span class="dot" title="Flagged"></span>' : "") +
       FA.kitSVG(pk.team, pk.pos === "GK") +
-      '<a class="nb" data-player="' + esc(pk.name) + '">' + esc(pk.name) + "</a>" +
+      '<a class="nb" data-pid="' + pk.element + '" data-player="' + esc(pk.name) + '">' +
+      esc(pk.name) + "</a>" +
       '<div class="vb' + cls + '">' + bar + "</div></div>";
   }
 
@@ -419,7 +420,8 @@
     const v = (F && F.verdicts || []).find((x) => x.id === p.id);
     const canEdit = who === FA.myNick();
     return '<div class="row"><div class="row-main"><div class="row-name">' +
-      '<a class="plink" data-player="' + esc(p.name) + '">' + esc(p.name) + "</a>" +
+      '<a class="plink" data-pid="' + p.id + '" data-player="' + esc(p.name) + '">' +
+      esc(p.name) + "</a>" +
       (v ? " " + FA.vdChip(v) : "") +
       FA.ownerDots(p.owned_by, who) +
       (canEdit
@@ -438,7 +440,8 @@
     const r = pool().find((q) => q.name === w.name);
     const canEdit = r && who === FA.myNick();
     return '<div class="row"><div class="row-main"><div class="row-name">' +
-      (r ? '<a class="plink" data-player="' + esc(w.name) + '">' + esc(w.name) + "</a>" : esc(w.name)) +
+      (r ? '<a class="plink" data-pid="' + r.id + '" data-player="' + esc(w.name) + '">' +
+        esc(w.name) + "</a>" : esc(w.name)) +
       ' <span class="pill">' + esc(w.status) + "</span>" +
       (canEdit
         ? ' <button class="star" data-star="' + r.id + '" aria-pressed="false" ' +
@@ -515,7 +518,8 @@
       '<p class="note">Under 10% owned, sorted by points returned.</p><div class="rows">' +
       d.map((r) =>
         '<div class="row"><div class="row-main"><div class="row-name">' +
-        '<a class="plink" data-player="' + esc(r.name) + '">' + esc(r.name) + "</a>" +
+        '<a class="plink" data-pid="' + r.id + '" data-player="' + esc(r.name) + '">' +
+        esc(r.name) + "</a>" +
         FA.ownerDots(r.owned_by, who) + "</div>" +
         '<div class="row-sub">' + esc(r.pos) + " &middot; " + esc(r.team) +
         " &middot; £" + r.price.toFixed(1) + "m</div></div>" +

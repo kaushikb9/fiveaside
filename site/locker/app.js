@@ -70,7 +70,8 @@
       const v = verdicts[p.id];
       return '<tr>' +
         "<td>" + (v ? FA.vdChip(v) : '<span class="faint">&mdash;</span>') + "</td>" +
-        "<td><strong><a class=\"plink\" data-player=\"" + esc(p.name) + "\">" + esc(p.name) + "</a></strong>" +
+        "<td><strong><a class=\"plink\" data-pid=\"" + p.id + "\" data-player=\"" + esc(p.name) + "\">" +
+          esc(p.name) + "</a></strong>" +
         FA.ownerDots(p.owned_by, FA.ME) +
         (p.penalties ? ' <span class="pill" title="on penalties">P</span>' : "") +
         (p.status && p.status !== "a"

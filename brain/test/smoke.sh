@@ -157,6 +157,21 @@ sleep 1
 check "card star flips"     "true" "$(js "document.querySelector('.pcard .cardstar').getAttribute('aria-pressed') !== '$CWAS'")"
 check "starred says how to undo it" "true" "$(js 'const b=document.querySelector(".pcard .cardstar"); b.getAttribute("aria-pressed") !== "true" || /Remove/i.test(b.textContent)')"
 check "unstarred says how to add"   "true" "$(js 'const b=document.querySelector(".pcard .cardstar"); b.getAttribute("aria-pressed") !== "false" || /Add/i.test(b.textContent)')"
+# The bug that started this: a starred row said NAILED and the card it opened
+# said "nobody in the five", because they were two different players sharing a
+# surname. The row carries the team; the card has to agree.
+check "card agrees with the row that opened it" "true" "$(js '(function(){
+  FA.closeCard();
+  var a = document.querySelector(".panel .rows .row [data-pid]");
+  if (!a) return true;
+  var side = a.closest(".row").querySelector(".row-side");
+  if (!side) return true;
+  var team = side.textContent.trim().split(/\s+/)[0];
+  a.click();
+  var meta = document.querySelector(".pcard .meta").textContent;
+  var ok = meta.indexOf(team) !== -1;
+  return ok;
+})()')"
 js 'document.querySelector(".pcard .cardstar").click(); ""' >/dev/null   # put it back
 sleep 0.5
 js 'FA.closeCard(); ""' >/dev/null
@@ -172,6 +187,32 @@ js 'document.querySelector(".fc[data-min=\"10\"]").click(); ""' >/dev/null
 T10=$(js 'document.querySelectorAll("#the-file table tbody tr").length')
 js 'document.querySelector(".fc[data-min=\"0\"]").click(); ""' >/dev/null
 T0=$(js 'document.querySelectorAll("#the-file table tbody tr").length')
+# 14 surnames are shared in a 614-man file — two Palmers, two Wilsons, three
+# Phillipses. Cards used to be addressed by NAME, so clicking Chelsea's Palmer
+# opened the Ipswich goalkeeper. Every link carries the element id now; the
+# price is the discriminator, since the two Palmers are £9.5m and £4.0m.
+check "every card is the man whose row opened it" "true" "$(js '(function(){
+  var bad = 0;
+  Array.from(document.querySelectorAll("#the-file tbody tr")).slice(0, 30).forEach(function (tr) {
+    var a = tr.querySelector("[data-pid]"); if (!a) return;
+    var price = tr.querySelector("td.n").textContent.trim();
+    a.click();
+    if (document.querySelector(".pcard .meta").textContent.indexOf("\u00a3" + price + "m") === -1) bad++;
+    FA.closeCard();
+  });
+  return bad === 0;
+})()')"
+# Prose has no id to carry, so linkPlayers has to GUESS which Palmer the
+# editor meant — and it must guess the one the reader has heard of, not
+# whoever sat later in the file.
+check "prose picks the player you have heard of" "true" "$(js '(function(){
+  var a = document.querySelector("[data-player=\"Palmer\"]");
+  if (!a) return true;                       // not in this view, nothing to prove
+  a.click();
+  var meta = document.querySelector(".pcard .meta").textContent;
+  FA.closeCard();
+  return /MID/.test(meta);                   // Chelsea midfielder, not the Ipswich keeper
+})()')"
 check "threshold changes the file" "true" "$(js "${T0} >= ${T10}")"
 # "ours" was retired on 2026-08-27; this line only resets the file to a normal
 # state before the search assertion, so it resets to everyone instead.
