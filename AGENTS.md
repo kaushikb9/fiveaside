@@ -116,7 +116,7 @@ node brain/invite.mjs --list     # who has a gaffers code (add --local for dev)
 ./brain/curate-fpl.sh --no-deploy  # gaffers room, ditto
 ./deploy.sh                      # stamp assets, split private, push to KV, deploy
 node brain/test/stars.mjs        # /api/stars auth — stubbed KV, no wrangler
-brain/test/smoke.sh https://fiveaside.pages.dev/   # 82 checks over the live site
+brain/test/smoke.sh https://fiveaside.pages.dev/   # 83 checks over the live site
 cd site && python3 -m http.server # local preview — /api/* 404s and the page
                                   # degrades honestly, which is worth seeing
 ```
