@@ -44,7 +44,8 @@ delegated listener in `site/common.js`. Keep it that way.
   `api/live.js` proxies the FPL API (which sends no CORS headers) for the
   gaffers room, `api/matches.js` does the same for the league room's two
   match-week tabs (this gameweek's scores and goalscorers, next gameweek's
-  fixtures), `api/stars.js` is the KV-backed watchlist star, `api/auth.js` is
+  fixtures), `api/stars.js` is the KV-backed watchlist star — reads are open,
+  writes take the gaffer from the session and never from the body — `api/auth.js` is
   invite-code sign-in for the gaffers room, and `api/private.js` serves the
   data that room needs. One KV namespace (`STARS`) holds all of it, keyed by
   prefix — `stars:`, `private:`, `invite:`, `throttle:`.
@@ -110,7 +111,8 @@ node brain/invite.mjs --list     # who has a gaffers code (add --local for dev)
 ./brain/curate.sh --no-deploy      # league room, full run without publishing
 ./brain/curate-fpl.sh --no-deploy  # gaffers room, ditto
 ./deploy.sh                      # stamp assets, split private, push to KV, deploy
-brain/test/smoke.sh https://fiveaside.pages.dev/   # 45 checks over the live site
+node brain/test/stars.mjs        # /api/stars auth — stubbed KV, no wrangler
+brain/test/smoke.sh https://fiveaside.pages.dev/   # 50 checks over the live site
 cd site && python3 -m http.server # local preview — /api/* 404s and the page
                                   # degrades honestly, which is worth seeing
 ```
@@ -121,6 +123,18 @@ added; `-i` alone is not enough, it only blocks idle sleep. `auto.sh` does it.
 
 ## Rules that have bitten before
 
+- **Whose list is a server question.** `/api/stars` used to take the gaffer
+  from the POST body, so starring a player while looking at somebody else's
+  squad wrote to THEIR watchlist. Since 2026-08-27 the gaffer comes from the
+  session cookie and a body that names one is ignored. The client-side rule
+  is the same shape: `FA.toggleStar(playerId)` takes no gaffer, and
+  `FA.myNick()` (who is holding the phone) is never the same variable as
+  `who` (whose room is on screen). `brain/test/stars.mjs` pins this shut.
+- **The gaffers room already knows who you are.** `/api/private` returns the
+  session, so it seeds `FA.setSession()` instead of letting `common.js` ask
+  `/api/auth` again. A second round trip there races the first render, and
+  the failure is silent and wrong rather than loud: your own star buttons
+  disappear and your own watchlist is labelled "theirs".
 - **The brain invents things it was never given.** On 2026-08-23 it wrote the
   owner's real name into `fpl.json` as `desk.manager` — a key the facts layer
   deliberately does not produce, from a name that appears nowhere in the

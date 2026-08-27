@@ -6,13 +6,19 @@
 
    Shape in KV: one key per gaffer, holding a JSON array of element ids.
    GET  -> { "Xabi": [411, 426], "The Special One": [...] }
-   POST { gaffer, player, on } -> the updated array for that gaffer.
+   POST { player, on } -> the updated array for the SIGNED-IN gaffer.
 
-   No auth, by design and by scope: this is five friends and a list of
-   footballers. The worst case is someone stars Haaland for you. What it must
-   NOT do is accept unbounded input, so the gaffer must be one of the five and
-   the player id must be a plausible element id.
+   READING is open — the room shows you what everyone is watching, and the
+   worst case is that a stranger learns five people like Palmer. WRITING is
+   not: whose list a star lands in comes from the session cookie, never from
+   the request body. The body used to name the gaffer, which meant starring a
+   player while looking at someone else's squad wrote to THEIR watchlist.
+
+   What it must also not do is accept unbounded input, so the player id has to
+   be a plausible element id and a list is capped.
    ========================================================================= */
+
+import { readSession } from "./auth.js";
 
 const GAFFERS = ["Xabi", "Sir Fergie", "Mr CR7", "The Special One", "Le Professeur"];
 const MAX_STARS = 60;
@@ -57,11 +63,16 @@ export async function onRequestPost({ request, env }) {
     return json({ error: "body must be JSON" }, 400);
   }
 
-  const gaffer = body && body.gaffer;
+  // The signed-in gaffer, and nobody else. A body that names one is ignored
+  // rather than rejected: the client has no business sending it either way.
+  const session = await readSession(request, env);
+  if (!session) return json({ error: "not signed in" }, 401);
+  const gaffer = session.nick;
+  if (GAFFERS.indexOf(gaffer) === -1) return json({ error: "unknown gaffer" }, 403);
+
   const player = body && body.player;
   const on = !!(body && body.on);
 
-  if (GAFFERS.indexOf(gaffer) === -1) return json({ error: "unknown gaffer" }, 400);
   if (!Number.isInteger(player) || player < 1 || player > 100000) {
     return json({ error: "player must be an element id" }, 400);
   }

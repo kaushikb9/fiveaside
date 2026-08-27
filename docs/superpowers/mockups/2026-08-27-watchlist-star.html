@@ -1,0 +1,162 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>Watchlist by hand — the star, the faces, the empty state</title>
+<script>
+  // Stamped before the stylesheet decides anything: this file is loaded twice,
+  // once per light, so each frame has to commit rather than follow the OS.
+  var T = new URLSearchParams(location.search).get("theme");
+  if (T) document.documentElement.setAttribute("data-theme", T);
+</script>
+<link rel="stylesheet" href="../../../site/style.css">
+<style>
+  /* Mockup chrome only — nothing here ships. */
+  body { padding: 0; }
+  .mk { max-width: 1180px; margin: 0 auto; padding: 26px 20px 60px; }
+  .mk h1 { font-size: 22px; letter-spacing: -0.02em; margin: 0 0 6px; }
+  .mk .lede { color: var(--mute); font-size: 14px; margin: 0 0 22px; max-width: 70ch; }
+  .frames { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
+  @media (max-width: 900px) { .frames { grid-template-columns: 1fr; } }
+  .frame { border: 1px solid var(--line); border-radius: var(--r); overflow: hidden; background: var(--card); }
+  .frame > h2 {
+    font-size: 10px; text-transform: uppercase; letter-spacing: 0.14em; font-weight: 700;
+    color: var(--faint); padding: 10px 14px; border-bottom: 1px solid var(--hair); margin: 0;
+  }
+  .frame iframe { display: block; width: 100%; height: 2100px; border: 0; }
+  .spec { padding: 20px 18px 4px; }
+  .spec > h2 {
+    font-size: 10px; text-transform: uppercase; letter-spacing: 0.12em; color: var(--accent);
+    font-weight: 700; margin: 26px 0 4px;
+  }
+  .spec > h2:first-child { margin-top: 0; }
+  .spec > .cap { font-size: 12.5px; color: var(--faint); margin: 0 0 12px; max-width: 62ch; }
+  /* The card normally lives on a backdrop; shown flat so both states are
+     visible at once instead of one modal at a time. */
+  .spec .pcard { max-width: 520px; margin: 0; box-shadow: var(--shadow); }
+  .spec .pcard .close { display: none; }
+</style>
+
+<div class="mk" id="mk"></div>
+
+<script src="../../../site/common.js"></script>
+<script src="../../../site/faces.js"></script>
+<script>
+(function () {
+  const T = new URLSearchParams(location.search).get("theme");
+  const root = document.getElementById("mk");
+
+  if (!T) {
+    root.innerHTML =
+      "<h1>Watchlist by hand — the star, the faces, the empty state</h1>" +
+      '<p class="lede">27 Aug 2026. The three pieces that had no CSS when the session ' +
+      "was cut off, drawn against the real <code>site/style.css</code> — not a redraw of it. " +
+      "Both lights, side by side, because the ring on your own face and the pressed star " +
+      "are the two places a palette swap could quietly stop reading.</p>" +
+      '<div class="frames">' +
+        '<div class="frame"><h2>Dugout — daylight</h2>' +
+          '<iframe src="?theme=light" title="Light"></iframe></div>' +
+        '<div class="frame"><h2>Floodlit — night</h2>' +
+          '<iframe src="?theme=dark" title="Dark"></iframe></div>' +
+      "</div>";
+    return;
+  }
+
+  const F = (n) => FA.faceSVG(n);
+  const own = (n, mine) =>
+    '<span class="ownface' + (mine ? " mine" : "") + '" title="' + n + '">' +
+    F(n) + "<b>" + n + "</b></span>";
+
+  const card = (starred, owners) =>
+    '<div class="pcard">' +
+      '<button class="close">close</button>' +
+      "<h3>Cole Palmer " + FA.vdChip({ verdict: "nailed", moved: "up" }) + "</h3>" +
+      '<div class="meta">MID &middot; Chelsea &middot; &pound;10.6m &middot; ' +
+        '<span class="pill">penalties</span></div>' +
+      '<div class="stats">' +
+        '<div class="stat"><b>18</b><span>points</span></div>' +
+        '<div class="stat"><b>41.2%</b><span>owned</span></div>' +
+        '<div class="stat"><b>6.4</b><span>form</span></div>' +
+        '<div class="stat"><b>2.6</b><span>avg fdr</span></div>' +
+      "</div>" +
+      '<div class="sect">Owned in the five</div><div class="ownfaces">' + owners + "</div>" +
+      '<button class="cardstar" aria-pressed="' + starred + '">' +
+        (starred ? "&#9733; On your watchlist" : "&#9734; Add to your watchlist") + "</button>" +
+      '<div class="sect">Our verdict</div>' +
+      '<p class="why">Every Chelsea attack still goes through him and he takes the penalties. ' +
+      "The price is the argument, not the player.</p>" +
+      '<p class="trig"><strong>What changes it:</strong> a start on the right wing rather ' +
+      "than behind the striker, two weeks running.</p>" +
+    "</div>";
+
+  const EMPTY =
+    '<div class="emptywatch">' +
+    "<p><strong>Nothing starred yet.</strong> This list is yours to build by hand.</p>" +
+    "<p>Open any player &mdash; a name is clickable everywhere on the site, on the pitch, " +
+    "in the file, in a digest, even in somebody else&rsquo;s squad &mdash; and press " +
+    '<span class="star" aria-hidden="true">&#9734;</span> <em>Add to your watchlist</em>. ' +
+    "It lands here and nowhere else; starring from another gaffer&rsquo;s room does not touch " +
+    "theirs.</p>" +
+    '<p class="faint">The list below is what the brain suggests. Star one and it moves up ' +
+    "here.</p></div>";
+
+  const row = (name, sub, side, pressed, chip) =>
+    '<div class="row"><div class="row-main"><div class="row-name">' +
+      '<a class="plink">' + name + "</a>" + (chip ? " " + chip : "") +
+      ' <button class="star" aria-pressed="' + pressed + '">' +
+      (pressed ? "&#9733;" : "&#9734;") + "</button>" +
+    "</div>" +
+    '<div class="row-sub">' + sub + "</div></div>" +
+    '<div class="row-side">' + side + "</div></div>";
+
+  root.className = "spec";
+  root.innerHTML =
+    "<h2>1 &middot; Owned in the five, drawn</h2>" +
+    '<p class="cap">Four owners, one of them you. The ring and the accent name are the ' +
+    "only thing marking which is yours.</p>" +
+    card(false,
+      own("Xabi", true) + own("Sir Fergie") + own("The Special One") + own("Le Professeur")) +
+
+    "<h2>2 &middot; Already on your watchlist</h2>" +
+    '<p class="cap">All five own him, and the star has been pressed. Pressed state borrows ' +
+    "the same amber the row stars use, so the two gestures read as one.</p>" +
+    card(true,
+      own("Xabi", true) + own("Sir Fergie") + own("Mr CR7") +
+      own("The Special One") + own("Le Professeur")) +
+
+    "<h2>3 &middot; Nobody owns him</h2>" +
+    '<p class="cap">The empty branch, and the star still offered — the whole point is that ' +
+    "you can keep a player none of the five have.</p>" +
+    card(false, '<span class="faint" style="font-size:13px">nobody in the five</span>') +
+
+    "<h2>4 &middot; The empty watchlist</h2>" +
+    '<p class="cap">The one screen that has to teach the gesture. Dashed, because it is a ' +
+    "placeholder for something you are going to put there.</p>" +
+    '<div class="panel"><h3>Xabi&rsquo;s watchlist</h3>' +
+      '<p class="note">Yours, starred by hand and kept server-side, so a star set on a phone ' +
+      "is there on the laptop.</p>" + EMPTY +
+      '<h3 style="margin-top:20px">What the brain suggests</h3>' +
+      '<p class="note">The house list and its picks for Xabi. Star one and it moves up.</p>' +
+      '<div class="rows">' +
+        row("Antoine Semenyo", "Two goals in three and the fixtures turn.",
+            "BOU MID<br>&pound;7.4m<br>18.2%", "false") +
+        row("Jo&atilde;o Pedro", "Nailed at nine, and the price has not moved yet.",
+            "CHE FWD<br>&pound;7.8m<br>11.9%", "false") +
+      "</div>" +
+    "</div>" +
+
+    "<h2>5 &middot; The list once it has something in it</h2>" +
+    '<p class="cap">A starred player carries the verdict chip and the owner dots, and leaves ' +
+    "the suggestions below — once you have taken the advice, repeating it is the page " +
+    "talking to itself.</p>" +
+    '<div class="panel"><h3>Xabi&rsquo;s watchlist</h3>' +
+      '<p class="note">Yours, starred by hand and kept server-side.</p>' +
+      '<div class="rows">' +
+        row("Cole Palmer", "Every Chelsea attack still goes through him.",
+            "CHE MID<br>&pound;10.6m<br>41.2%", "true",
+            FA.vdChip({ verdict: "nailed", moved: "up" }) + FA.ownerDots(
+              ["Xabi", "Sir Fergie", "Mr CR7"], "Xabi")) +
+        row("Bruno Guimar&atilde;es", "No verdict written yet.",
+            "NEW MID<br>&pound;6.4m<br>4.1%", "true", FA.ownerDots(["Xabi"], "Xabi")) +
+      "</div>" +
+    "</div>";
+})();
+</script>

@@ -209,7 +209,27 @@
       document.body.appendChild(el);
     }
 
+    // Stars and the signed-in gaffer are needed wherever a card can open,
+    // which is everywhere. Fired rather than awaited: the card is a click
+    // away, the list is small, and a room that already knows who you are has
+    // seeded FA.setSession before this runs.
+    if (!FA.stars.remote) FA.loadStars();
+    FA.sessionReady();
+
     document.addEventListener("click", (e) => {
+      const star = e.target.closest("[data-cardstar]");
+      if (star) {
+        e.preventDefault();
+        const id = Number(star.dataset.cardstar);
+        star.disabled = true;
+        FA.toggleStar(id).then((on) => {
+          star.disabled = false;
+          if (on === null) return; // signed out between render and click
+          star.setAttribute("aria-pressed", String(on));
+          star.innerHTML = on ? "&#9733; On your watchlist" : "&#9734; Add to your watchlist";
+        });
+        return;
+      }
       const link = e.target.closest("[data-player]");
       if (link) { e.preventDefault(); FA.openCard(link.dataset.player); return; }
       if (e.target.closest("[data-fa-close]") || e.target.id === "fa-backdrop") FA.closeCard();
@@ -285,10 +305,24 @@
     if (!p) return;
     const v = CARD_INDEX.verdicts[p.id];
     const me = CARD_INDEX.me;
+    // The five are drawn, not initialled: faces.js is loaded on every page and
+    // a caricature says who at a glance where "SF" needs decoding.
     const owners = (p.owned_by && p.owned_by.length)
       ? p.owned_by.map((n) =>
-          '<span class="own' + (n === me ? " mine" : "") + '">' + esc(FA.initial(n)) + "</span>").join("")
+          '<span class="ownface' + (n === me ? " mine" : "") + '" title="' + esc(n) + '">' +
+          (FA.faceSVG ? FA.faceSVG(n) : esc(FA.initial(n))) +
+          "<b>" + esc(n) + "</b></span>").join("")
       : '<span class="faint" style="font-size:13px">nobody in the five</span>';
+
+    // The star is the whole point of the card being reachable from every room:
+    // see a name anywhere, open it, keep it. Offered only to a signed-in
+    // gaffer, because a watchlist belongs to somebody.
+    const mine = FA.myNick();
+    const starred = mine ? FA.isStarred(mine, p.id) : false;
+    const star = mine
+      ? '<button class="cardstar" data-cardstar="' + p.id + '" aria-pressed="' + starred + '">' +
+        (starred ? "&#9733; On your watchlist" : "&#9734; Add to your watchlist") + "</button>"
+      : "";
 
     document.getElementById("fa-pcard").innerHTML =
       '<button class="close" data-fa-close>close</button>' +
@@ -305,7 +339,8 @@
       newsHTML(p) +
       '<div class="sect">Last five</div>' + FA.formRun(p.recent) +
       '<div class="sect">Next five</div>' + FA.fdrStrip(p.fixtures) +
-      '<div class="sect">Owned in the five</div><div class="owners" style="margin:0">' + owners + "</div>" +
+      '<div class="sect">Owned in the five</div><div class="ownfaces">' + owners + "</div>" +
+      star +
       (v
         ? '<div class="sect">Our verdict</div><p class="why">' + esc(v.why) + "</p>" +
           '<p class="trig"><strong>What changes it:</strong> ' + esc(v.trigger) + "</p>"
@@ -415,8 +450,48 @@
     return FA.stars.data;
   };
 
-  FA.toggleStar = async function (gaffer, playerId) {
-    const list = FA.stars.data[gaffer] || (FA.stars.data[gaffer] = []);
+  /* Who is holding the phone, as opposed to whose room is on screen. The
+     answer is what decides whether a star can be offered at all, and it is
+     never the argument to a star. The server does not believe the client
+     about this either — see functions/api/stars.js.
+
+     Asked for lazily and at most once per page. A room that already has the
+     session in hand seeds it with FA.setSession rather than asking again:
+     the gaffers room gets it inside the /api/private payload, and a second
+     /api/auth round trip there would be a race as well as a waste — the
+     watchlist renders on that payload, so an unresolved FA.session would
+     hide your own star buttons and label your own list "theirs". */
+  FA.session = null;
+  let sessionAsked = null;
+
+  FA.setSession = function (s) {
+    FA.session = s || null;
+    sessionAsked = Promise.resolve(FA.session);
+    return FA.session;
+  };
+
+  FA.sessionReady = function () {
+    if (!sessionAsked) {
+      sessionAsked = (async function () {
+        try {
+          const res = await fetch("/api/auth", { cache: "no-store" });
+          if (res.ok) FA.session = await res.json();
+        } catch (e) { /* signed out, or no functions in a local preview */ }
+        return FA.session;
+      })();
+    }
+    return sessionAsked;
+  };
+
+  FA.myNick = () => (FA.session && FA.session.nick) || null;
+
+  /* A star always lands in YOUR list, whoever's room you are looking at.
+     Passing the gaffer in was how starring from another gaffer's squad wrote
+     to theirs. */
+  FA.toggleStar = async function (playerId) {
+    const me = FA.myNick();
+    if (!me) return null;
+    const list = FA.stars.data[me] || (FA.stars.data[me] = []);
     const i = list.indexOf(playerId);
     if (i === -1) list.push(playerId); else list.splice(i, 1);
 
@@ -425,12 +500,13 @@
         await fetch("/api/stars", {
           method: "POST",
           headers: { "content-type": "application/json" },
-          body: JSON.stringify({ gaffer: gaffer, player: playerId, on: i === -1 }),
+          body: JSON.stringify({ player: playerId, on: i === -1 }),
         });
       } catch (e) { /* the optimistic update stands; next load reconciles */ }
     } else {
       try { localStorage.setItem(LKEY, JSON.stringify(FA.stars.data)); } catch (e) { /* ignore */ }
     }
+    if (typeof FA.onStarChange === "function") FA.onStarChange(playerId, i === -1);
     return i === -1;
   };
 

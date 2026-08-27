@@ -190,8 +190,16 @@ From KB's comment exports in `docs/superpowers/comments/`:
   default. Teamsheet archived.
 - **Dropped**: the wagers panel, the captain poll (replaced by *what the crowd
   missed*, computed), the commons divider, the race, the single "call".
-- **The file** opens on *ours*, gated at >2%, recalibratable.
-- **Watchlists** are per person, in KV keyed by gaffer.
+- **The file** opens on *nailed*, gated at >2%, recalibratable. Revised
+  2026-08-27: the *ours* chip is gone entirely — who the five own is what the
+  gaffers room is for — and the file opens on the shortest list we are willing
+  to sign rather than on 600 names with no opinion in them.
+- **Watchlists** are per person, in KV keyed by gaffer, and as of 2026-08-27
+  are **built by hand**: a star pressed on a player card, which can be opened
+  from anywhere on the site. A star always lands in the presser's list —
+  `/api/stars` takes the gaffer from the session cookie and ignores any the
+  body names — so starring from inside another gaffer's squad no longer writes
+  to theirs. What the brain suggests sits below your list, not merged into it.
 - **The Bus** is a set-and-forget reliability benchmark serviced monthly —
   never the crowd's team. "The crowd's favourite is useless and FOMO driven."
 - **One signed call, not competing lanes.** "Don't want more FOMO."

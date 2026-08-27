@@ -114,17 +114,34 @@ check "captain armband shown" "true" "$(js 'document.querySelectorAll(".pp .arm"
 GW=$(js 'document.querySelector(".gwlabel").textContent')
 js 'const b=document.querySelector(".gwnav button[data-gw]:not([disabled])"); b.click(); ""' >/dev/null
 check "gameweek nav moves" "false" "$(js "document.querySelector('.gwlabel').textContent === '$GW'")"
-WAS=$(js 'const s=document.querySelector("[data-star]"); s ? s.getAttribute("aria-pressed") : "nostar"')
-if [ "$WAS" = "nostar" ]; then
-  echo "  skip star toggles — no watchlist entries to star yet"
+# A star moves the row between "yours" and "what the brain suggests" and
+# re-renders the panel, so the FIRST [data-star] on the page is not the same
+# player before and after. Pin to the element id and follow it across the move.
+SID=$(js 'const s=document.querySelector("[data-star]"); s ? s.dataset.star : ""')
+if [ -z "$SID" ]; then
+  echo "  skip star toggles — nothing starrable in this room"
 else
-  js 'document.querySelector("[data-star]").click(); ""' >/dev/null
+  WAS=$(js "const s=document.querySelector('[data-star=\"$SID\"]'); s.getAttribute('aria-pressed')")
+  js "document.querySelector('[data-star=\"$SID\"]').click(); ''" >/dev/null
   sleep 1
-  NOW=$(js 'document.querySelector("[data-star]").getAttribute("aria-pressed")')
-  check "star toggles" "true" "$(js "'$NOW' !== '$WAS'")"
-  js 'document.querySelector("[data-star]").click(); ""' >/dev/null   # put it back
+  NOW=$(js "const s=document.querySelector('[data-star=\"$SID\"]'); s ? s.getAttribute('aria-pressed') : 'gone'")
+  check "star toggles"            "true" "$(js "'$NOW' !== '$WAS'")"
+  check "starred row survives"    "true" "$(js "'$NOW' !== 'gone'")"
+  js "const s=document.querySelector('[data-star=\"$SID\"]'); if (s) s.click(); ''" >/dev/null
   sleep 0.5
 fi
+
+# The card is reachable from every room, and since 2026-08-27 it is where a
+# star is pressed. Both halves are new and neither had coverage.
+echo "== the card: the five drawn, and the star"
+js 'const a=document.querySelector("[data-player]"); if (a) a.click(); ""' >/dev/null
+sleep 0.5
+check "card opens from a name"   "false" "$(js 'document.getElementById("fa-backdrop").hidden')"
+check "owners drawn, not lettered" "true" "$(js 'const o=document.querySelector(".pcard .ownfaces"); !!o && (o.querySelectorAll(".ownface .face").length > 0 || /nobody in the five/.test(o.textContent))')"
+check "signed in, card offers the star" "1" "$(js 'document.querySelectorAll(".pcard .cardstar").length')"
+check "star button says which way it goes" "true" "$(js '/watchlist/i.test(document.querySelector(".pcard .cardstar").textContent)')"
+js 'FA.closeCard(); ""' >/dev/null
+sleep 0.3
 fi
 
 echo "== locker: filters, threshold, search"
@@ -137,7 +154,9 @@ T10=$(js 'document.querySelectorAll("#the-file table tbody tr").length')
 js 'document.querySelector(".fc[data-min=\"0\"]").click(); ""' >/dev/null
 T0=$(js 'document.querySelectorAll("#the-file table tbody tr").length')
 check "threshold changes the file" "true" "$(js "${T0} >= ${T10}")"
-js 'document.querySelector(".fc[data-min=\"2\"]").click(); document.querySelector(".fc[data-f=ours]").click(); ""' >/dev/null
+# "ours" was retired on 2026-08-27; this line only resets the file to a normal
+# state before the search assertion, so it resets to everyone instead.
+js 'document.querySelector(".fc[data-min=\"2\"]").click(); document.querySelector(".fc[data-f=all]").click(); ""' >/dev/null
 js 'const i=document.getElementById("fq"); i.value="haal"; i.dispatchEvent(new Event("input")); ""' >/dev/null
 sleep 0.3
 check "search filters" "true" "$(js 'document.querySelectorAll("#the-file table tbody tr").length <= 3')"

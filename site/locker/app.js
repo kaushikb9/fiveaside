@@ -20,15 +20,21 @@
   /* KB's call: >2% ownership, recalibratable. Anyone the five own is never
      dropped however low their ownership — Aït-Nouri is under 1% and starting. */
   let minOwn = 2;
-  let filter = "ours";
+  let filter = "nailed";
   let query = "";
 
   // A threshold of 0 means EVERYONE, including the 130-odd players nobody owns
   // at all. Using `> 0` there quietly excluded them and made "anyone" a lie.
   const inFile = (p) => minOwn === 0 || p.ownership > minOwn || (p.owned_by && p.owned_by.length);
 
+  /* "ours" was the first chip and the default view. It went on 2026-08-27:
+     who the five own is what the gaffers room is for, and a watchlist is now
+     a thing you build by hand rather than a filter over everyone's squads.
+
+     The file opens on *nailed* in its place. Opening on "everyone" made the
+     first screen a 600-name list with no opinion in it; nailed is the shortest
+     list we are willing to sign, which is the right thing to see first. */
   const FILTERS = {
-    ours: (p) => p.owned_by && p.owned_by.length,
     nailed: (p) => verdicts[p.id] && verdicts[p.id].verdict === "nailed",
     solid: (p) => verdicts[p.id] && verdicts[p.id].verdict === "solid",
     watch: (p) => verdicts[p.id] && verdicts[p.id].verdict === "watch",
@@ -37,8 +43,8 @@
     all: () => true,
   };
   const CHIPS = [
-    ["ours", "ours"], ["nailed", "nailed"], ["solid", "solid"], ["watch", "watch"],
-    ["sack", "sack"], ["flagged", "injured / doubtful"], ["all", "everyone"],
+    ["nailed", "nailed"], ["solid", "solid"], ["watch", "watch"], ["sack", "sack"],
+    ["flagged", "injured / doubtful"], ["all", "everyone"],
   ];
   const THRESHOLDS = [0, 1, 2, 3, 5, 10];
 

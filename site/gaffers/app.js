@@ -404,37 +404,94 @@
       '<div class="wk next"><h4>What’s next</h4><p>' + gname(me.week.next) + "</p></div></div></div>";
   }
 
-  /* ---------------- watchlist ---------------- */
+  /* ---------------- watchlist ----------------
+     Two lists, and the difference between them is who wrote them. The top one
+     is curated by hand: a star, pressed on a card opened from anywhere on the
+     site, including from somebody else's squad. It always lands in the
+     starrer's list — /api/stars takes the gaffer from the session and ignores
+     anything the page claims. Below it is what the brain recommends, the
+     house list and its picks for this gaffer together, because both are the
+     machine's opinion rather than a person's.
+
+     A starred player leaves the recommendations: once you have taken the
+     advice, repeating it is just the page talking to itself. */
+  function starRow(p) {
+    const v = (F && F.verdicts || []).find((x) => x.id === p.id);
+    const canEdit = who === FA.myNick();
+    return '<div class="row"><div class="row-main"><div class="row-name">' +
+      '<a class="plink" data-player="' + esc(p.name) + '">' + esc(p.name) + "</a>" +
+      (v ? " " + FA.vdChip(v) : "") +
+      FA.ownerDots(p.owned_by, who) +
+      (canEdit
+        ? ' <button class="star" data-star="' + p.id + '" aria-pressed="true" ' +
+          'title="Remove from your watchlist">&#9733;</button>'
+        : "") +
+      "</div>" +
+      '<div class="row-sub">' +
+        (v ? esc(v.why) : esc(p.pos) + " &middot; " + esc(p.team) + " &middot; no verdict written yet") +
+      "</div></div>" +
+      '<div class="row-side">' + esc(p.team) + " " + esc(p.pos) + "<br>£" + p.price.toFixed(1) +
+      "m<br>" + p.ownership + "%</div></div>";
+  }
+
   function watchRow(w) {
     const r = pool().find((q) => q.name === w.name);
-    const starred = r ? FA.isStarred(who, r.id) : false;
+    const canEdit = r && who === FA.myNick();
     return '<div class="row"><div class="row-main"><div class="row-name">' +
       (r ? '<a class="plink" data-player="' + esc(w.name) + '">' + esc(w.name) + "</a>" : esc(w.name)) +
       ' <span class="pill">' + esc(w.status) + "</span>" +
-      (r ? ' <button class="star" data-star="' + r.id + '" aria-pressed="' + starred +
-        '" title="Star this player">' + (starred ? "&#9733;" : "&#9734;") + "</button>" : "") +
+      (canEdit
+        ? ' <button class="star" data-star="' + r.id + '" aria-pressed="false" ' +
+          'title="Add to your watchlist">&#9734;</button>'
+        : "") +
       "</div>" +
       '<div class="row-sub">' + esc(w.note) + "</div></div>" +
       '<div class="row-side">' + esc(w.team) + " " + esc(w.pos) + "<br>£" + w.price.toFixed(1) +
       "m<br>" + esc(w.ownership) + "</div></div>";
   }
 
+  const EMPTY_WATCH =
+    '<div class="emptywatch">' +
+    "<p><strong>Nothing starred yet.</strong> This list is yours to build by hand.</p>" +
+    "<p>Open any player &mdash; a name is clickable everywhere on the site, on the pitch, " +
+    "in the file, in a digest, even in somebody else&rsquo;s squad &mdash; and press " +
+    "<span class=\"star\" aria-hidden=\"true\">&#9734;</span> <em>Add to your watchlist</em>. " +
+    "It lands here and nowhere else; starring from another gaffer&rsquo;s room does not touch " +
+    "theirs.</p>" +
+    "<p class=\"faint\">The list below is what the brain suggests. Star one and it moves up " +
+    "here.</p></div>";
+
   function watchHTML() {
     const me = person();
-    const mine = (me && me.watchlist) || [];
-    const house = (F && F.watchlist) || [];
-    const rest = house.filter((w) => !mine.some((m) => m.name === w.name));
+    const stars = (FA.stars.data[who] || []);
+    const starred = stars.map((id) => byId[id]).filter(Boolean);
+    const starredNames = new Set(starred.map((p) => p.name));
+
+    // The brain's picks for this gaffer and the house list are the same kind
+    // of thing — a recommendation — so they are one list, deduped by name.
+    const suggested = [];
+    const seen = new Set();
+    ((me && me.watchlist) || []).concat((F && F.watchlist) || []).forEach((w) => {
+      if (seen.has(w.name) || starredNames.has(w.name)) return;
+      seen.add(w.name);
+      suggested.push(w);
+    });
+
+    const yours = who === FA.myNick();
     return '<div class="panel"><h3>' + gname(who) + "’s watchlist</h3>" +
-      '<p class="note">Yours, kept per person' +
-      (FA.stars.remote ? " and stored server-side, so a star set on a phone is there on the laptop"
-                       : " (stored in this browser — the shared store is unavailable here)") + ".</p>" +
-      '<div class="rows">' + (mine.length
-        ? mine.map(watchRow).join("")
-        : '<div class="row"><div class="row-main faint">Nothing starred yet.</div></div>') + "</div>" +
-      (rest.length
-        ? '<h3 style="margin-top:20px">On the house list</h3>' +
-          '<p class="note">Watched by the room, not by you.</p>' +
-          '<div class="rows">' + rest.map(watchRow).join("") + "</div>"
+      '<p class="note">' + (yours ? "Yours" : "Theirs") + ", starred by hand" +
+      (FA.stars.remote ? " and kept server-side, so a star set on a phone is there on the laptop"
+                       : " (kept in this browser — the shared store is unavailable here)") + ".</p>" +
+      (starred.length
+        ? '<div class="rows">' + starred.map(starRow).join("") + "</div>"
+        : yours ? EMPTY_WATCH
+        : '<div class="row"><div class="row-main faint">' + gname(who) +
+          " has not starred anyone.</div></div>") +
+      (suggested.length
+        ? '<h3 style="margin-top:20px">What the brain suggests</h3>' +
+          '<p class="note">The house list and its picks for ' + gname(who) +
+          ". Star one and it moves up.</p>" +
+          '<div class="rows">' + suggested.map(watchRow).join("") + "</div>"
         : "") + "</div>";
   }
 
@@ -546,12 +603,14 @@
       await fetch("/api/auth", { method: "DELETE" });
       location.reload();
     };
+    // A star moves a player between the two lists, so the panel is redrawn
+    // rather than the button retoggled in place.
     document.querySelectorAll("[data-star]").forEach((b) => {
       b.onclick = async (e) => {
         e.stopPropagation();
-        const on = await FA.toggleStar(who, Number(b.dataset.star));
-        b.setAttribute("aria-pressed", String(on));
-        b.innerHTML = on ? "&#9733;" : "&#9734;";
+        b.disabled = true;
+        await FA.toggleStar(Number(b.dataset.star));
+        render();
       };
     });
   }
@@ -705,6 +764,11 @@
     // The signed-in gaffer is whose room it is. Falls back to the owner until
     // the other four have codes of their own.
     who = (session && session.nick) || FA.ME;
+    // Seeded, not re-fetched: /api/private already answered "who is holding
+    // the phone", and the watchlist renders below on that answer. Leaving
+    // common.js to ask /api/auth on its own would race the first render and
+    // quietly hide your own star buttons.
+    FA.setSession(session);
 
     try {
       P = await loadJSON("../data/players.json");
@@ -724,6 +788,11 @@
     render();
     FA.stamp(G.generated_at);
   }
+
+  // A card can be opened from anywhere in this room — the pitch, the file,
+  // another gaffer's squad — so the watchlist has to follow a star pressed
+  // there as well as one pressed on its own rows.
+  FA.onStarChange = () => { if (G) render(); };
 
   FA.initTheme();
   main(codeFromURL());

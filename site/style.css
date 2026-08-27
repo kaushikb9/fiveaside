@@ -292,6 +292,28 @@ tr.dim td { opacity: 0.38; }
 }
 .own.mine { background: var(--accent); color: var(--on-accent); }
 
+/* Owner marks come at two scales. The 17px `.own` disc is a margin note — it
+   sits beside a name in a dense row and only has to say "how many, and is one
+   of them me". The card has room to answer "WHO", so it uses the drawn five
+   at a size you can actually read a caricature at. Same fact, different
+   budget; that is why there are two and not one that compromises. */
+.ownfaces { display: flex; flex-wrap: wrap; align-items: flex-start; gap: 14px 10px; }
+.ownface {
+  display: flex; flex-direction: column; align-items: center; gap: 0;
+  width: 66px; text-align: center;
+}
+.ownface .face { width: 42px; height: 42px; }
+/* Same trick the door lineup uses: the names run one to three words, so a
+   fixed two-line box keeps five of them on one bottom edge instead of
+   stepping down under "The Special One". */
+.ownface b {
+  font-family: var(--f-head); font-size: 10.5px; font-weight: 600; line-height: 1.25;
+  color: var(--mute); margin-top: 6px; min-height: 2.5em;
+}
+/* You are marked by weight and a ring, not by a different face. */
+.ownface.mine .face { border-radius: 50%; box-shadow: 0 0 0 2px var(--accent); }
+.ownface.mine b { color: var(--accent); font-weight: 700; }
+
 /* ---------- the seam: any player name opens their locker card ---------- */
 .plink {
   color: inherit; text-decoration: none; border-bottom: 1.5px dotted var(--accent);
@@ -656,6 +678,37 @@ details.fold .foldbody { padding: 0 18px 16px; }
 }
 .star[aria-pressed="true"] { color: var(--warn); }
 .star[disabled] { opacity: 0.4; cursor: default; }
+
+/* The star on the card is the same act as the star on a row, but it is the
+   card's call to action rather than an ornament beside a name — so it is a
+   labelled button, full width, and it says which way it will go. */
+.cardstar {
+  display: block; width: 100%; margin-top: 14px; padding: 10px 12px;
+  border: 1px solid var(--line); border-radius: var(--rs); background: var(--raise);
+  color: var(--ink); font-family: var(--f-head); font-size: 13.5px; font-weight: 700;
+  text-align: center; cursor: pointer; line-height: 1.3;
+}
+.cardstar:hover { border-color: var(--accent); color: var(--accent); }
+.cardstar[aria-pressed="true"] {
+  background: var(--card); border-color: var(--warn); color: var(--warn);
+}
+.cardstar[aria-pressed="true"]:hover { border-color: var(--warn); color: var(--warn); opacity: 0.8; }
+.cardstar[disabled] { opacity: 0.5; cursor: default; }
+
+/* An empty watchlist is the one screen that has to teach the gesture: the
+   list is built by hand, so a bare "nothing here" would read as broken data
+   rather than as an invitation. Dashed, because it is a placeholder for
+   something you are going to put there. */
+.emptywatch {
+  border: 1px dashed var(--line); border-radius: var(--rs); background: var(--raise);
+  padding: 15px 17px;
+}
+.emptywatch p { font-size: 13.5px; line-height: 1.55; margin: 0 0 9px; color: var(--mute); }
+.emptywatch p:first-child { color: var(--ink); }
+.emptywatch p:last-child { margin-bottom: 0; }
+.emptywatch .faint { font-size: 12.5px; color: var(--faint); }
+/* Inline in a sentence here, not a button — no hit area, no padding. */
+.emptywatch .star { display: inline; padding: 0; font-size: 14px; color: var(--warn); }
 
 /* ---------- footer ---------- */
 .foot {
