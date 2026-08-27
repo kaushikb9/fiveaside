@@ -112,7 +112,7 @@ node brain/invite.mjs --list     # who has a gaffers code (add --local for dev)
 ./brain/curate-fpl.sh --no-deploy  # gaffers room, ditto
 ./deploy.sh                      # stamp assets, split private, push to KV, deploy
 node brain/test/stars.mjs        # /api/stars auth — stubbed KV, no wrangler
-brain/test/smoke.sh https://fiveaside.pages.dev/   # 74 checks over the live site
+brain/test/smoke.sh https://fiveaside.pages.dev/   # 77 checks over the live site
 cd site && python3 -m http.server # local preview — /api/* 404s and the page
                                   # degrades honestly, which is worth seeing
 ```
@@ -123,6 +123,16 @@ added; `-i` alone is not enough, it only blocks idle sleep. `auto.sh` does it.
 
 ## Rules that have bitten before
 
+- **Player names are not unique, and the card is addressed by id.** Fourteen
+  surnames are shared across the 614 — two Palmers, two Wilsons, three
+  Phillipses — and two of the collisions are players the five own. A card
+  index keyed by name with last-write-wins hands each shared surname to
+  whoever sits later in the file, which is reliably the lesser player:
+  clicking Chelsea's Palmer opened Ipswich's goalkeeper on 2026-08-27. Any
+  new link to a player carries `data-pid` and `FA.openCard` takes an element
+  id. `FA.linkPlayers` is the one caller that cannot — prose has no id — so
+  it resolves a shared name to the five's own first, then the most owned,
+  and writes the chosen id into the link.
 - **Whose list is a server question.** `/api/stars` used to take the gaffer
   from the POST body, so starring a player while looking at somebody else's
   squad wrote to THEIR watchlist. Since 2026-08-27 the gaffer comes from the
