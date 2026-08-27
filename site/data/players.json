@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-27T05:56:09.025Z",
+  "generated_at": "2026-08-27T06:56:36.991Z",
   "gameweek": 2,
   "players": [
     {
@@ -361,7 +361,7 @@
       "team": "MUN",
       "pos": "MID",
       "price": 8,
-      "ownership": 36.4,
+      "ownership": 36.3,
       "points": 2,
       "form": "2.0",
       "fixtures": [
@@ -1211,7 +1211,7 @@
       "team": "ARS",
       "pos": "MID",
       "price": 7.5,
-      "ownership": 17.3,
+      "ownership": 17.2,
       "points": 3,
       "form": "3.0",
       "fixtures": [
@@ -1265,7 +1265,7 @@
       "team": "BRE",
       "pos": "FWD",
       "price": 8,
-      "ownership": 16.9,
+      "ownership": 16.8,
       "points": 0,
       "form": "0.0",
       "fixtures": [
@@ -1488,7 +1488,7 @@
       "team": "CHE",
       "pos": "MID",
       "price": 9.5,
-      "ownership": 14.3,
+      "ownership": 14.4,
       "points": 13,
       "form": "13.0",
       "fixtures": [
@@ -2369,7 +2369,7 @@
       "team": "NFO",
       "pos": "MID",
       "price": 8,
-      "ownership": 9.4,
+      "ownership": 9.3,
       "points": 2,
       "form": "2.0",
       "fixtures": [
@@ -2480,7 +2480,7 @@
       "team": "SUN",
       "pos": "MID",
       "price": 6,
-      "ownership": 9.1,
+      "ownership": 9,
       "points": 2,
       "form": "2.0",
       "fixtures": [
@@ -3572,60 +3572,6 @@
       "fdr_avg": 3.2
     },
     {
-      "id": 204,
-      "name": "Mitchell",
-      "team": "CRY",
-      "pos": "DEF",
-      "price": 4.5,
-      "ownership": 5.8,
-      "points": 1,
-      "form": "1.0",
-      "fixtures": [
-        {
-          "gw": 2,
-          "opp": "MCI",
-          "home": true,
-          "fdr": 4
-        },
-        {
-          "gw": 3,
-          "opp": "FUL",
-          "home": false,
-          "fdr": 3
-        },
-        {
-          "gw": 4,
-          "opp": "IPS",
-          "home": true,
-          "fdr": 2
-        },
-        {
-          "gw": 5,
-          "opp": "LEE",
-          "home": false,
-          "fdr": 3
-        },
-        {
-          "gw": 6,
-          "opp": "NFO",
-          "home": true,
-          "fdr": 3
-        }
-      ],
-      "recent": [
-        {
-          "gw": 1,
-          "opp": "EVE",
-          "home": false,
-          "gf": 0,
-          "ga": 2,
-          "result": "L"
-        }
-      ],
-      "owned_by": [],
-      "fdr_avg": 3
-    },
-    {
       "id": 260,
       "name": "Wilson",
       "team": "LEE",
@@ -3680,6 +3626,60 @@
         "The Special One"
       ],
       "fdr_avg": 3.2
+    },
+    {
+      "id": 204,
+      "name": "Mitchell",
+      "team": "CRY",
+      "pos": "DEF",
+      "price": 4.5,
+      "ownership": 5.7,
+      "points": 1,
+      "form": "1.0",
+      "fixtures": [
+        {
+          "gw": 2,
+          "opp": "MCI",
+          "home": true,
+          "fdr": 4
+        },
+        {
+          "gw": 3,
+          "opp": "FUL",
+          "home": false,
+          "fdr": 3
+        },
+        {
+          "gw": 4,
+          "opp": "IPS",
+          "home": true,
+          "fdr": 2
+        },
+        {
+          "gw": 5,
+          "opp": "LEE",
+          "home": false,
+          "fdr": 3
+        },
+        {
+          "gw": 6,
+          "opp": "NFO",
+          "home": true,
+          "fdr": 3
+        }
+      ],
+      "recent": [
+        {
+          "gw": 1,
+          "opp": "EVE",
+          "home": false,
+          "gf": 0,
+          "ga": 2,
+          "result": "L"
+        }
+      ],
+      "owned_by": [],
+      "fdr_avg": 3
     },
     {
       "id": 367,
@@ -20562,64 +20562,6 @@
       "fdr_avg": 2.8
     },
     {
-      "id": 193,
-      "name": "Wright",
-      "team": "COV",
-      "pos": "FWD",
-      "price": 5.5,
-      "ownership": 0.2,
-      "points": 0,
-      "form": "0.0",
-      "fixtures": [
-        {
-          "gw": 2,
-          "opp": "HUL",
-          "home": true,
-          "fdr": 2
-        },
-        {
-          "gw": 3,
-          "opp": "MCI",
-          "home": false,
-          "fdr": 5
-        },
-        {
-          "gw": 4,
-          "opp": "BHA",
-          "home": true,
-          "fdr": 2
-        },
-        {
-          "gw": 5,
-          "opp": "NFO",
-          "home": false,
-          "fdr": 3
-        },
-        {
-          "gw": 6,
-          "opp": "NEW",
-          "home": true,
-          "fdr": 2
-        }
-      ],
-      "recent": [
-        {
-          "gw": 1,
-          "opp": "ARS",
-          "home": false,
-          "gf": 0,
-          "ga": 3,
-          "result": "L"
-        }
-      ],
-      "owned_by": [],
-      "fdr_avg": 2.8,
-      "penalties": true,
-      "status": "i",
-      "news": "Thigh injury - Unknown return date",
-      "chance": 0
-    },
-    {
       "id": 211,
       "name": "Yeremy",
       "team": "CRY",
@@ -26532,6 +26474,64 @@
       ],
       "owned_by": [],
       "fdr_avg": 3
+    },
+    {
+      "id": 193,
+      "name": "Wright",
+      "team": "COV",
+      "pos": "FWD",
+      "price": 5.5,
+      "ownership": 0.1,
+      "points": 0,
+      "form": "0.0",
+      "fixtures": [
+        {
+          "gw": 2,
+          "opp": "HUL",
+          "home": true,
+          "fdr": 2
+        },
+        {
+          "gw": 3,
+          "opp": "MCI",
+          "home": false,
+          "fdr": 5
+        },
+        {
+          "gw": 4,
+          "opp": "BHA",
+          "home": true,
+          "fdr": 2
+        },
+        {
+          "gw": 5,
+          "opp": "NFO",
+          "home": false,
+          "fdr": 3
+        },
+        {
+          "gw": 6,
+          "opp": "NEW",
+          "home": true,
+          "fdr": 2
+        }
+      ],
+      "recent": [
+        {
+          "gw": 1,
+          "opp": "ARS",
+          "home": false,
+          "gf": 0,
+          "ga": 3,
+          "result": "L"
+        }
+      ],
+      "owned_by": [],
+      "fdr_avg": 2.8,
+      "penalties": true,
+      "status": "i",
+      "news": "Thigh injury - Unknown return date",
+      "chance": 0
     },
     {
       "id": 605,
