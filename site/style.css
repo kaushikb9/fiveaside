@@ -881,3 +881,4 @@ th.th-sort.sorted[data-dir="desc"]::after { content: "\2193"; opacity: 1; color:
   position: absolute; width: 1px; height: 1px; margin: -1px;
   padding: 0; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0;
 }
+

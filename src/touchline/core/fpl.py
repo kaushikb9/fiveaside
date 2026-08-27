@@ -343,7 +343,12 @@ def _desk(
     }
     if picks:
         entry_history = picks.get("entry_history") or {}
-        desk["free_transfers"] = entry_history.get("event_transfers")
+        # `event_transfers` is how many transfers were MADE this gameweek, not
+        # how many free ones are left — FPL only tells you that through
+        # /my-team/, which needs the manager's own login. It was named
+        # `free_transfers` and the room reported "0 free transfers" to five
+        # people who all had one.
+        desk["transfers_made"] = entry_history.get("event_transfers")
         desk["gameweek"] = gameweek_id
         # `active_chip` is null on a normal week. When it isn't, it changes how
         # the same set of picks scores, so it travels with them.

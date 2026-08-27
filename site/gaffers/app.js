@@ -103,13 +103,59 @@
       (best.sub ? '<div class="gsub">' + gname(best.sub) + "</div>" : "") + "</div></div>";
   }
 
+  /* ---------------- where in the week we are ----------------
+     Three states, and the room reads differently in each:
+
+       in play   a gameweek has started and has not finished
+       between   it has finished and the next deadline has not passed
+       locked    the deadline has passed, nothing has kicked off yet
+
+     Two numbers, and confusing them is what made the room say "it is gameweek
+     1" on the day gameweek 2 was being picked. PICKS_GW is the gameweek the
+     squad snapshot belongs to — FPL will not hand over anyone's picks for a
+     gameweek whose deadline has not passed, so it is always the last one
+     played. NEXT_GW is the one being planned for. They are the same number
+     only while a gameweek is actually being played. */
+  const PICKS_GW = () => (G.live_gameweek ? G.live_gameweek.id : G.gameweek);
+  const NEXT_GW = () => G.gameweek || PICKS_GW();
+  const inPlay = () => Boolean(G.live_gameweek && !G.live_gameweek.finished);
+  const between = () =>
+    Boolean(G.live_gameweek && G.live_gameweek.finished && NEXT_GW() > PICKS_GW());
+  // What the room is ABOUT, as opposed to what the squad data is of.
+  const focusGW = () => (between() ? NEXT_GW() : PICKS_GW());
+
+  /* "Fri 29 Aug, 23:00 — in 2 days". The date string is pre-formatted in the
+     owner's zone by the facts layer; only the distance is computed here, and
+     only in whole units, because "in 1 day and 4 hours" is not how anyone
+     thinks about a deadline. */
+  function untilDeadline() {
+    if (!G.deadline_utc) return null;
+    const ms = Date.parse(G.deadline_utc) - Date.now();
+    if (isNaN(ms)) return null;
+    if (ms <= 0) return "closed";
+    const mins = Math.round(ms / 60000);
+    if (mins < 60) return "in " + mins + " minute" + (mins === 1 ? "" : "s");
+    const hours = Math.round(mins / 60);
+    if (hours < 36) return "in " + hours + " hour" + (hours === 1 ? "" : "s");
+    const days = Math.round(hours / 24);
+    return "in " + days + " day" + (days === 1 ? "" : "s");
+  }
+
+  const deadlineLine = () => {
+    const when = G.deadline_local;
+    const away = untilDeadline();
+    if (!when) return "Gameweek " + NEXT_GW() + " is next.";
+    return "Gameweek " + NEXT_GW() + " locks " + esc(when) +
+      (away && away !== "closed" ? " &mdash; " + away : "") + ".";
+  };
+
   /* ---------------- the long game ----------------
      A standing guard against reading one weekend as a season. It renders on
      real evidence — how much of the table is still matchday-one noise — and
      retires itself once there is enough football to argue from. */
   const SETTLED_FROM_GW = 6;
   function longGameHTML() {
-    const gw = G.live_gameweek ? G.live_gameweek.id : G.gameweek;
+    const gw = focusGW();
     if (!gw || gw >= SETTLED_FROM_GW) return "";
     const played = pool().filter((p) => p.points > 0).length;
     const spread = G.people.map((p) => p.total_points).sort((a, b) => a - b);
@@ -154,7 +200,7 @@
     if (!p || !p.entry) return;
     liveBusy = true; render();
     try {
-      const r = await fetch("/api/live?gw=" + LIVE_GW() + "&entry=" + p.entry, { cache: "no-store" });
+      const r = await fetch("/api/live?gw=" + PICKS_GW() + "&entry=" + p.entry, { cache: "no-store" });
       if (!r.ok) throw new Error("HTTP " + r.status);
       const d = await r.json();
       const byEl = {};
@@ -178,16 +224,38 @@
       ? (live.byEl[pk.element] || live.byName[pk.name] || null)
       : null;
 
+  /* Between weeks there is nothing live to fetch, and a "Live gameweek" panel
+     with a dead button is the room telling you about a state it is not in. It
+     becomes the deadline panel instead, which is the only thing anyone wants
+     between a full-time whistle and the next lock. */
+  function deadlineHTML() {
+    const p = G.people.find((x) => x.nick === who);
+    const moves = p && p.transfers_made != null
+      ? p.transfers_made + " transfer" + (p.transfers_made === 1 ? "" : "s") +
+        (p.transfers_cost ? " at &minus;" + p.transfers_cost : "") + " in gameweek " + PICKS_GW()
+      : null;
+    return '<div class="panel" style="border-left:4px solid var(--accent)">' +
+      "<h3>Next deadline</h3>" +
+      '<p class="note">' + deadlineLine() +
+      " Gameweek " + PICKS_GW() + " is settled, so the pitch below is a result, not a plan " +
+      "&mdash; nobody&rsquo;s gameweek " + NEXT_GW() + " picks exist until the deadline passes.</p>" +
+      '<p class="note" style="margin-bottom:0">' + gname(who) + ": &pound;" +
+      (p && p.bank != null ? p.bank.toFixed(1) : "?") + "m in the bank, squad worth &pound;" +
+      (p && p.value != null ? p.value.toFixed(1) : "?") + "m" +
+      (moves ? " &middot; " + moves : "") + ".</p></div>";
+  }
+
   function liveHTML() {
+    if (between() && !live) return deadlineHTML();
     if (!live) {
-      return '<div class="panel"><h3>Live gameweek</h3>' +
+      return '<div class="panel"><h3>Gameweek ' + PICKS_GW() + "</h3>" +
         '<p class="note">Squad points below are a snapshot from the last data run. ' +
         "Pull the live scores when a gameweek is in play.</p>" +
         '<button class="btn-live fc" data-live>' +
         (liveBusy ? "fetching…" : "Fetch live scores") + "</button></div>";
     }
     if (live.error) {
-      return '<div class="panel"><h3>Live gameweek</h3>' +
+      return '<div class="panel"><h3>Gameweek ' + PICKS_GW() + "</h3>" +
         '<p class="note">Live scores unavailable (' + esc(live.error) + '). The snapshot below still stands.</p>' +
         '<button class="btn-live fc" data-live>try again</button></div>';
     }
@@ -198,7 +266,10 @@
       esc(f.home) + " " + f.home_score + "&ndash;" + f.away_score + " " + esc(f.away) + "</div>" +
       '<div class="row-sub">' + (f.finished ? "full time" : f.started ? f.minutes + "&prime;" : "not started") +
       "</div></div></div>";
-    return '<div class="panel"><h3>Live gameweek ' + live.gw + "</h3>" +
+    const heading = live.status === "live" ? "Live gameweek " + live.gw
+      : live.status === "done" ? "Gameweek " + live.gw + " &mdash; final"
+      : "Gameweek " + live.gw + " &mdash; not started";
+    return '<div class="panel"><h3>' + heading + "</h3>" +
       '<p class="note">' + done + " of " + live.fixtures.length + " matches finished" +
       (inPlay.length ? ", " + inPlay.length + " in play" : "") +
       ". Points on the pitch below are live, including provisional bonus.</p>" +
@@ -210,14 +281,20 @@
   }
 
   /* ---------------- the pitch ---------------- */
-  const LIVE_GW = () => (G.live_gameweek ? G.live_gameweek.id : G.gameweek);
-  const curGW = () => (gwView == null ? LIVE_GW() : gwView);
+  // The pitch opens on the week the squad data is actually of, so it shows a
+  // result rather than last week's XI drawn against next week's fixtures. The
+  // deadline for the week ahead is called out separately, above it.
+  const curGW = () => (gwView == null ? PICKS_GW() : gwView);
+  // "Settled" is about the football, not about which number is current: a
+  // gameweek that has finished is settled even while it is still the latest.
+  const isSettled = (gw) => gw < PICKS_GW() || (gw === PICKS_GW() && !inPlay());
+  const isLive = (gw) => gw === PICKS_GW() && inPlay();
   const fixtureFor = (r, gw) => (r && r.fixtures ? r.fixtures.find((f) => f.gw === gw) : null) || null;
 
   function pitchPlayer(pk, gw) {
     const r = rec(pk.element);
     const fx = fixtureFor(r, gw);
-    const settled = gw < LIVE_GW(), live = gw === LIVE_GW();
+    const settled = isSettled(gw), live = isLive(gw);
     // multiplier: 0 benched, 2 captain, 3 triple captain, 1 a bench slot that
     // Bench Boost switched on. A benched player still shows what he scored —
     // the regret is the point.
@@ -243,7 +320,7 @@
 
   function pitchHTML() {
     const p = G.people.find((x) => x.nick === who);
-    const gw = curGW(), live = gw === LIVE_GW(), settled = gw < LIVE_GW();
+    const gw = curGW(), live = isLive(gw), settled = isSettled(gw);
     const xi = p.picks.filter((x) => x.role !== "bench");
     const bench = p.picks.filter((x) => x.role === "bench");
     const rows = ["GK", "DEF", "MID", "FWD"].map((pos) => xi.filter((x) => x.pos === pos));
@@ -270,9 +347,9 @@
     const chip = p.active_chip ? (CHIP_NAME[p.active_chip] || p.active_chip) : null;
     // Walk forward as far as the fixture data actually reaches, rather than
     // guessing an offset — the fixture list starts from the gameweek being
-    // so a fixed LIVE_GW+2 stopped one week short of what was on disk.
+    // so a fixed PICKS_GW+2 stopped one week short of what was on disk.
     const GW_MAX = pool().reduce((m, pl) =>
-      (pl.fixtures || []).reduce((n, f) => Math.max(n, f.gw), m), LIVE_GW());
+      (pl.fixtures || []).reduce((n, f) => Math.max(n, f.gw), m), PICKS_GW());
 
     return '<div class="panel"><h3>' + gname(who) + "’s " + esc(shape) + "</h3>" +
       '<p class="note">The shape, not a list. Step back to a settled week to see what it scored, ' +
@@ -316,8 +393,8 @@
     const head = '<div class="panel"><h3>' + gname(who) + "’s week</h3>" +
       '<p class="note">Written after the gameweek settles &mdash; this is judgment, not data. ' +
       esc(p.team_name) + " &middot; " + p.total_points + " pts &middot; " +
-      p.free_transfers + " free transfer" + (p.free_transfers === 1 ? "" : "s") +
-      " &middot; £" + p.bank.toFixed(1) + "m banked.</p>";
+      p.transfers_made + " transfer" + (p.transfers_made === 1 ? "" : "s") +
+      " made &middot; £" + p.bank.toFixed(1) + "m banked.</p>";
     if (!me || !me.week) {
       return head + '<p class="empty" style="padding:12px 0">Nothing written for this gameweek yet.</p></div>';
     }

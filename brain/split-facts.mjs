@@ -33,6 +33,11 @@ const nicks = new Set((bundle.squads ?? []).map((s) => s.nick));
 const gaffers = {
   generated_at: stamp,
   gameweek: gw,
+  // The deadline travels with the gameweek it belongs to. Without it the room
+  // could tell you which gameweek was next but not when it locked, which is
+  // the only thing anyone actually wants to know between weeks.
+  deadline_utc: bundle.gameweek?.deadline_utc ?? null,
+  deadline_local: bundle.gameweek?.deadline_local ?? null,
   live_gameweek: bundle.live_gameweek ?? null,
   people: (bundle.squads ?? []).map((s) => {
     const row = (league?.rows ?? []).find((r) => r.nick === s.nick) ?? null;
@@ -47,7 +52,7 @@ const gaffers = {
       overall_rank: s.overall_rank ?? null,
       bank: s.bank ?? null,
       value: s.value ?? null,
-      free_transfers: s.free_transfers ?? null,
+      transfers_made: s.transfers_made ?? null,
       chips_used: s.chips_used ?? [],
       league_rank: row?.rank ?? null,
       active_chip: s.active_chip ?? null,

@@ -21,7 +21,8 @@ for ROOM in "" "gaffers/" "locker/" "about/"; do
   go "$ROOM"
   $B console --clear >/dev/null 2>&1
   $B goto "$BASE$ROOM" >/dev/null 2>&1; sleep 1.5
-  check "renders content"        "true"  "$(js 'document.querySelectorAll(".panel,details.fold").length > 0')"
+  # .door is the signed-out gaffers room, which is a room and not a panel.
+  check "renders content"        "true"  "$(js 'document.querySelectorAll(".panel,details.fold,.door").length > 0')"
   check "no empty-state error"   "true"  "$(js '!document.querySelector(".empty") || !/could not load/.test(document.querySelector(".empty").textContent)')"
   check "nav has three rooms"    "3"     "$(js 'document.querySelectorAll(".rooms a").length')"
   check "body painted"           "true"  "$(js 'getComputedStyle(document.body).backgroundColor !== "rgba(0, 0, 0, 0)"')"
