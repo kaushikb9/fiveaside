@@ -212,7 +212,7 @@
       '<h2 class="digest-headline" style="font-size:clamp(21px,3.4vw,30px);margin:6px 0 18px">' +
       esc(latest.headline) + "</h2>" +
       leagueHTML(latest, gw, m, active) +
-      D.weekHTML(latest) + D.teamWatchHTML(latest) + D.aroundHTML(latest, gw) +
+      D.weekHTML(latest) + D.aroundHTML(latest, gw) +
       D.rumoursHTML(latest) + D.linksHTML(latest) +
       (entries.length > 1
         ? '<p class="note" style="margin-top:16px">' + (entries.length - 1) +

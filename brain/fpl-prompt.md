@@ -151,11 +151,17 @@ fewer.
 
 Post-gameweek only, never daily. Rules agreed with the owner:
 
+- **TWO SENTENCES. 300 characters, hard.** `validate-fpl.mjs` rejects the file
+  over that, and the limit is the point rather than a formatting detail. The
+  GW1 roast ran to 880 characters and four separate jokes, and a roast that
+  needs a paragraph to land has stopped being a roast and become an essay
+  about someone's bench. Pick the single best line and cut the rest.
 - Always about a **decision someone actually made**, with the fact attached.
 - Never the same person two gameweeks running — check `roast.target` in the
   existing file before choosing.
-- It **roasts the machine too**. This page's own advice is fair game, and
-  there is plenty to work with.
+- It **roasts the machine too** when there is room, and with two sentences
+  there usually is not. Choosing between roasting a gaffer and roasting the
+  page is part of the job; do not cram both in.
 - Funny, not cruel. These are friends.
 
 ### doctrine

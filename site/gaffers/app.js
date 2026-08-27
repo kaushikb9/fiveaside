@@ -501,9 +501,10 @@
   /* ---------------- roast + chips ---------------- */
   function roastHTML() {
     if (!F || !F.roast || !F.roast.text) return "";
+    // The note used to print the rules back at the reader. A roast that needs
+    // its terms and conditions above it is not landing.
     return '<div class="panel"><h3>The roast</h3>' +
-      '<p class="note">Post-gameweek only. Always about a decision, with the fact attached, ' +
-      "and it roasts the machine too.</p>" +
+      '<p class="note">Once a gameweek, about a decision somebody actually made.</p>' +
       '<div class="roast"><p>' + gname(F.roast.text) + "</p>" +
       (F.roast.by ? '<div class="by">' + esc(F.roast.by) + "</div>" : "") + "</div></div>";
   }

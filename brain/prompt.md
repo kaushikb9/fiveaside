@@ -85,9 +85,6 @@ Schema:
   "week": [
     { "kicker": "Two-nil to start.", "text": "One or two sentences of what happened and why it matters." }
   ],
-  "team_watch": [
-    { "name": "Estêvão", "tag": "RW · 19", "note": "One line, from a fetched source — never an invented stat.", "talent": false }
-  ],
   "today": "prose: what's on and why it matters, with an honest take",
   "wider": [
     {
@@ -188,7 +185,7 @@ Rules:
   else is truly optional and should be omitted (not emitted as an empty
   string/array/object) when the bundle has no data for it: `club`'s nested
   keys (`latest_result`, `fixtures`, `table`, `form`), `read`, `top_teams`, `elsewhere`,
-  `team_watch`, `rumours`, and the optional nested fields noted above
+  `rumours`, and the optional nested fields noted above
   (crest fields, `source`, `image`).
 - `table` (REQUIRED): the league table, from the bundle's PL `table`. The
   site marks the focus clubs itself, using the focus-club rule described
@@ -207,7 +204,7 @@ Rules:
   Never use the phrase "here we go" in the headline (or anywhere in prose) —
   it's reporter branding, not editorial voice.
 - ONE home per story. A fact or storyline appears in exactly one section:
-  if a transfer leads `week`, it doesn't get restated in `team_watch` or a
+  if a transfer leads `week`, it doesn't get restated in a
   club's `top_teams` note; if a piece is the `read`, its angle doesn't double as a
   `wider` hook or a `top_teams` note. Pick the section where it lands hardest and
   cut it everywhere else. Before finishing, reread the whole entry as the
@@ -230,9 +227,12 @@ Rules:
     team, the week was genuinely about that team or you have written a club
     page by accident. Include at least one item from outside `top_clubs`
     whenever something out there deserves it.
-- `team_watch` (optional, 2–4 players): in-form stars, fitness watches,
-  academy prospects (`"talent": true`, tag like "Academy · 17"). Notes only
-  from fetched sources.
+- **`team_watch` is RETIRED — do not write it.** Retired 2026-08-27 by KB: a
+  paragraph on a nineteen-year-old who came off the bench is not why anyone
+  opens the page, and it read as filler next to the week itself. The page no
+  longer renders it, so writing one is tokens spent on something nobody sees.
+  A player genuinely worth knowing about belongs in `week`, where the reason
+  he matters is the story rather than a card of its own.
 - `today`: if the club plays today or within the next 2–3 days, this
   section is about that match — opponent, day and kickoff, and what
   actually matters about it (2–5 sentences). If nothing is coming inside

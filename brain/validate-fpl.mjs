@@ -213,6 +213,8 @@ if (data.doctrine !== undefined) {
   }
 }
 
+const ROAST_MAX = 300;
+
 // ---------------------------------------------------------------- roast
 // Rules, agreed with the owner: post-gameweek only, never daily; always about
 // a decision someone actually made, with the fact attached; never the same
@@ -221,6 +223,13 @@ if (data.roast !== undefined) {
   const r = data.roast;
   if (!isObj(r)) fail("'roast' must be an object");
   if (!isStr(r.text)) fail("roast.text must be a non-empty string");
+  // Two sentences, hard. The GW1 roast ran to 880 characters and four jokes;
+  // a roast that needs a paragraph has become an essay about someone's bench.
+  // KB's call, 2026-08-27. The cap is enforced here rather than trusted to the
+  // prompt because "be brief" is the first instruction any model drops.
+  if (isStr(r.text) && r.text.length > ROAST_MAX) {
+    fail(`roast.text is ${r.text.length} characters; the limit is ${ROAST_MAX} (two sentences)`);
+  }
   if (r.by !== undefined && !isStr(r.by)) fail("roast.by must be a non-empty string when present");
   if (r.target !== undefined && !NICKS.includes(r.target)) {
     fail(`roast.target must be one of ${NICKS.join(", ")} when present`);

@@ -87,17 +87,6 @@
       '<p class="note">The league’s last seven days as one feed.</p>' + bar + '<ul class="feed">' + items + "</ul></div>";
   };
 
-  D.teamWatchHTML = function (d) {
-    if (!d.team_watch || !d.team_watch.length) return "";
-    return '<div class="panel"><h3>Team watch</h3>' +
-      '<p class="note">Players worth knowing about. Every name opens their file.</p><div class="rows">' +
-      d.team_watch.map((p) =>
-        '<div class="row"><div class="row-main"><div class="row-name">' +
-        linkPlayers(p.name) + ' <span class="pill">' + esc(p.tag) + "</span></div>" +
-        '<div class="row-sub">' + esc(p.note) + "</div></div></div>").join("") +
-      "</div></div>";
-  };
-
   D.aroundHTML = function (d, gw) {
     const focus = FA.focusClubs(gw, (d.table && d.table.rows) || []);
     const all = d.top_teams || d.rivals || [];
@@ -181,7 +170,7 @@
       '<h2 class="digest-headline" style="font-size:clamp(21px,3.4vw,30px);margin:6px 0 18px">' +
       esc(d.headline) + "</h2>" +
       (withTable ? D.tableHTML(d) : "") +
-      D.weekHTML(d) + D.teamWatchHTML(d) + D.aroundHTML(d, gw) +
+      D.weekHTML(d) + D.aroundHTML(d, gw) +
       D.rumoursHTML(d) + D.linksHTML(d);
   };
 
