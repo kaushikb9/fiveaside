@@ -161,8 +161,17 @@ for (const [i, d] of data.digests.entries()) {
       if (!isNonEmptyStr(row?.team)) fail(`${rwhere}: 'team' must be a non-empty string`);
       if (row.crest !== undefined && row.crest !== null && typeof row.crest !== "string")
         fail(`${rwhere}: 'crest' must be a string or null when present`);
-      if (row.form !== undefined && !isNonEmptyStr(row.form))
-        fail(`${rwhere}: 'form' must be a non-empty string like "WWDLW" when present`);
+      // 'form' is BANNED here, and this check is the whole reason it stays
+      // banned. No source we fetch returns per-team form — football-data and
+      // ESPN both give standings without it — so a form string in a
+      // model-authored table is remembered, not read: on 2026-08-27 the file
+      // carried five-result strings for clubs that had played one match, for
+      // exactly the five clubs a model would recognise. Form is now derived
+      // from real results in facts.py and written mechanically to
+      // site/data/table.json. Do not weaken this to "warn".
+      if (row.form !== undefined)
+        fail(`${rwhere}: 'form' is not the brain's to write — it comes from ` +
+             `site/data/table.json, derived from results. Omit it.`);
       if (row.focus !== undefined && typeof row.focus !== "boolean")
         fail(`${rwhere}: 'focus' must be a boolean when present`);
     }

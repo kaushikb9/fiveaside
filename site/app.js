@@ -33,7 +33,7 @@
   const side = (t, cls) =>
     '<span class="fx-team ' + cls + '">' +
     (cls === "away" ? D.crest(t.crest) : "") +
-    '<b class="fx-full">' + esc(t.name || "") + "</b>" +
+    '<b class="fx-full">' + esc(FA.club(t.name || "")) + "</b>" +
     '<b class="fx-abbr">' + esc(t.short || "") + "</b>" +
     (cls === "home" ? D.crest(t.crest) : "") + "</span>";
 
@@ -108,6 +108,19 @@
     return recent ? "now" : "table";
   }
 
+  /* Rows from the mechanical file, note from the digest. The note is a reading
+     of the table and readings are the brain's job; the rows are not. */
+  let LEAGUE_TABLE = null;
+  function leagueTable(d) {
+    const own = d && d.table;
+    if (!LEAGUE_TABLE || !LEAGUE_TABLE.rows || !LEAGUE_TABLE.rows.length) return own;
+    return {
+      competition: LEAGUE_TABLE.competition || (own && own.competition) || "",
+      rows: LEAGUE_TABLE.rows,
+      note: own && own.note,
+    };
+  }
+
   function leagueHTML(d, gw, m, active) {
     const gwc = (w) => (w ? ' <span class="gwchip">GW' + esc(w.gw) + "</span>" : "");
     const live = m && m.now && m.now.status === "live";
@@ -124,7 +137,7 @@
       tab("now", "This match week" + gwc(m && m.now)) +
       tab("next", "Next match week" + gwc(m && m.next)) +
       "</div>" +
-      pane("table", D.tableBody(d, gw) || '<p class="note">No table this week.</p>') +
+      pane("table", D.tableBody(leagueTable(d)) || '<p class="note">No table this week.</p>') +
       pane("now", m ? weekPaneHTML(m.now, "now") : pending) +
       pane("next", m ? weekPaneHTML(m.next, "next") : pending) +
       "</div>";
@@ -159,6 +172,12 @@
     // missing the page still renders, names simply stay plain text.
     try { players = await loadJSON("data/players.json"); } catch (e) { /* ignore */ }
     try { fpl = await loadJSON("data/fpl.json"); } catch (e) { /* ignore */ }
+    // The standings, written straight from the source by split-league.mjs.
+    // Optional on purpose: until the next brain run writes it, and on any day
+    // the source is out, the page falls back to the digest's own table rather
+    // than showing nothing.
+    let table = null;
+    try { table = await loadJSON("data/table.json"); } catch (e) { /* fall back below */ }
     FA.initPlayerCards(players.players, fpl.verdicts, FA.ME, fpl.signals);
 
     const entries = (data.digests || []).slice().sort((a, b) => b.date.localeCompare(a.date));
@@ -166,6 +185,7 @@
       FA.fail(el, "No entries yet — run ./brain/curate.sh.");
       return;
     }
+    LEAGUE_TABLE = table;
     const gw = (players && players.gameweek) || null;
     const latest = entries[0];
 
@@ -187,7 +207,7 @@
 
     const paint = (m, active) => {
       el.innerHTML = shell(m, active);
-      D.wireFilter(el, el);
+      D.wireFilter(el);
       FA.wireSortable(el);
       wireTabs(el);
     };

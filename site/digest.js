@@ -29,33 +29,34 @@
   D.crest = crest;
 
   /* ---------- the league table ----------
-     Focus is a rule, not a stored flag: three clubs are permanent, two are
-     seeded until GW10, and after that the top six is earned. The `focus`
-     field the brain writes is deliberately ignored so the rule is the single
-     source of truth. */
-  D.tableBody = function (d, gw) {
-    const t = d.table;
+     Neutral, by KB's call on 2026-08-27: no allegiance on the front page. It
+     was three permanent clubs plus two seeded ones, drawn in bold with a
+     paragraph explaining the rule — a table that told you who it was for
+     before it told you who was top. Every club is now the same weight, in the
+     same font, and the paragraph is gone. `data-club` keeps the FULL name,
+     because it is an identity; only the printed name is shortened. */
+  /* Takes the TABLE, not the digest that used to carry it. Since 2026-08-27
+     the home page's rows come from site/data/table.json, written mechanically
+     by brain/split-league.mjs; the archive still passes each entry's own
+     historical table, which is the whole reason this takes an argument rather
+     than reaching for today's file itself. */
+  D.tableBody = function (t) {
     if (!t || !t.rows || !t.rows.length) return "";
-    const focus = FA.focusClubs(gw, t.rows);
     const rows = t.rows.map((r) =>
-      '<tr class="' + (focus.indexOf(r.team) !== -1 ? "focus" : "") + '" data-club="' + esc(r.team) + '">' +
+      '<tr data-club="' + esc(r.team) + '">' +
       '<td class="n">' + esc(r.pos) + "</td>" +
-      "<td>" + crest(r.crest) + esc(r.team) + "</td>" +
+      "<td>" + crest(r.crest) + esc(FA.club(r.team)) + "</td>" +
       '<td class="faint num">' + esc(r.form || "") + "</td>" +
       '<td class="n">' + esc(r.played) + "</td>" +
       '<td class="n"><strong>' + esc(r.points) + "</strong></td></tr>").join("");
-    return '<p class="note">Bold clubs are the ones this page follows: ' +
-      esc(FA.ALLEGIANCE.join(", ")) + " are permanent, and until GW" + FA.FOCUS_FROM_GW +
-      " the other two are seeded because an early table is noise. From GW" + FA.FOCUS_FROM_GW +
-      " it becomes the real top " + FA.FOCUS_TOP + ", recomputed every week.</p>" +
-      (t.note ? '<p class="note">' + esc(t.note) + "</p>" : "") +
+    return (t.note ? '<p class="note">' + esc(t.note) + "</p>" : "") +
       '<div class="scroll"><table class="sortable"><thead><tr><th class="n">#</th><th>Club</th>' +
       '<th data-nosort>Form</th><th class="n">P</th><th class="n">Pts</th></tr></thead><tbody>' + rows +
       "</tbody></table></div>";
   };
 
-  D.tableHTML = function (d, gw) {
-    const body = D.tableBody(d, gw);
+  D.tableHTML = function (d) {
+    const body = D.tableBody(d.table);
     if (!body) return "";
     return '<div class="panel"><h3>' + esc(d.table.competition) + "</h3>" + body + "</div>";
   };
@@ -65,25 +66,25 @@
      here does not reappear below. */
   D.weekHTML = function (d) {
     if (!d.week || !d.week.length) return "";
-    const clubs = [];
-    d.week.forEach((w) => { if (w.club && clubs.indexOf(w.club) === -1) clubs.push(w.club); });
-    const bar = (d.week.some((w) => w.tag) || clubs.length)
+    /* Three chips and no more. A club chip per club mentioned that week made
+       the bar as long as the feed and different every day, which is not a
+       control so much as a second index. What it filters is the KIND of
+       story — league or FPL — which is the only cut that means the same
+       thing every week. */
+    const bar = d.week.some((w) => w.tag)
       ? '<div class="filters" role="group" aria-label="Filter the week">' +
         '<button class="fc" data-filter="all" aria-pressed="true">All</button>' +
         '<button class="fc" data-filter="PL" aria-pressed="false">League</button>' +
         '<button class="fc" data-filter="FPL" aria-pressed="false">FPL</button>' +
-        clubs.map((c) =>
-          '<button class="fc" data-filter="club:' + esc(c) + '" aria-pressed="false">' + esc(c) + "</button>").join("") +
         "</div>"
       : "";
     const items = d.week.map((w) =>
       '<li data-tag="' + esc(w.tag || "PL") + '" data-club="' + esc(w.club || "") + '">' +
       '<span class="wtag ' + (w.tag === "FPL" ? "fpl" : "") + '">' + esc(w.tag || "PL") + "</span>" +
       "<strong>" + esc(w.kicker) + "</strong> " + linkPlayers(w.text) +
-      (w.club ? '<span class="clubchip">' + esc(w.club) + "</span>" : "") + "</li>").join("");
+      (w.club ? '<span class="clubchip">' + esc(FA.club(w.club)) + "</span>" : "") + "</li>").join("");
     return '<div class="panel"><h3>This week</h3>' +
-      '<p class="note">The league’s last seven days as one feed. One control narrows it and ' +
-      "dims the table with it.</p>" + bar + '<ul class="feed">' + items + "</ul></div>";
+      '<p class="note">The league’s last seven days as one feed.</p>' + bar + '<ul class="feed">' + items + "</ul></div>";
   };
 
   D.teamWatchHTML = function (d) {
@@ -104,7 +105,7 @@
     const dropped = all.filter((r) => focus.indexOf(r.club) === -1).map((r) => r.club);
     const one = (r) =>
       '<div class="row"><div class="row-main"><div class="row-name">' +
-      crest(r.crest) + esc(r.club) + "</div>" +
+      crest(r.crest) + esc(FA.club(r.club)) + "</div>" +
       '<div class="row-sub">' + linkPlayers(r.note) + "</div></div>" +
       (r.line ? '<div class="row-side">' + esc(r.line) + "</div>" : "") + "</div>";
 
@@ -115,7 +116,8 @@
         '<div class="rows">' + shown.map(one).join("") + "</div>" +
         (dropped.length
           ? '<p class="note" style="margin:12px 0 0">Not covered this week: ' +
-            dropped.map(esc).join(", ") + " &mdash; they return automatically once they are in the top " +
+            dropped.map((c) => esc(FA.club(c))).join(", ") +
+            " &mdash; they return automatically once they are in the top " +
             FA.FOCUS_TOP + " from GW" + FA.FOCUS_FROM_GW + ".</p>"
           : "") + "</div>"
       : "";
@@ -135,7 +137,7 @@
     return '<div class="panel"><h3>Rumour mill</h3><div class="rows">' +
       d.rumours.map((r) =>
         '<div class="row"><div class="row-main"><div class="row-name">' + linkPlayers(r.player) + "</div>" +
-        '<div class="row-sub">' + esc(r.from) + " &rarr; " + esc(r.to) +
+        '<div class="row-sub">' + esc(FA.club(r.from)) + " &rarr; " + esc(FA.club(r.to)) +
         (r.fee ? " &middot; " + esc(r.fee) : "") + " &middot; " + esc(r.note) + "</div></div>" +
         '<div class="row-side"><span class="heat ' + (HEAT[r.heat] || "smoke") + '">' +
         esc(r.heat) + "</span></div></div>").join("") +
@@ -178,34 +180,28 @@
     return '<div class="eyebrow">' + esc(D.fmtLong(d.date)) + "</div>" +
       '<h2 class="digest-headline" style="font-size:clamp(21px,3.4vw,30px);margin:6px 0 18px">' +
       esc(d.headline) + "</h2>" +
-      (withTable ? D.tableHTML(d, gw) : "") +
+      (withTable ? D.tableHTML(d) : "") +
       D.weekHTML(d) + D.teamWatchHTML(d) + D.aroundHTML(d, gw) +
       D.rumoursHTML(d) + D.linksHTML(d);
   };
 
-  /* One control, two effects: it narrows the feed and dims the table, so the
-     page reads as one thing rather than a page with a widget on it. The table
-     it dims may now sit in a different panel — hence the separate scope. */
-  D.wireFilter = function (scope, tableScope) {
+  /* Narrows the feed by tag. It used to dim the league table as well, but
+     that only ever fired for a club chip, and the club chips are gone —
+     dimming half a neutral table on "FPL" would mean nothing. */
+  D.wireFilter = function (scope) {
     // Find the bar by what is IN it, not by its class: the league panel's tab
     // strip reuses .filters for its chips, and grabbing the first one on the
     // page wired the listener to the tabs and silently killed the dimming.
     const first = scope.querySelector(".filters .fc[data-filter]");
     const bar = first && first.closest(".filters");
     if (!bar) return;
-    const tables = tableScope || scope;
     bar.addEventListener("click", (e) => {
       const btn = e.target.closest("button[data-filter]");
       if (!btn) return;
       bar.querySelectorAll(".fc").forEach((b) => b.setAttribute("aria-pressed", String(b === btn)));
       const f = btn.dataset.filter;
       scope.querySelectorAll("ul.feed > li").forEach((li) => {
-        const show = f === "all" ||
-          (f.indexOf("club:") === 0 ? li.dataset.club === f.slice(5) : li.dataset.tag === f);
-        li.hidden = !show;
-      });
-      tables.querySelectorAll("tbody tr[data-club]").forEach((tr) => {
-        tr.classList.toggle("dim", f.indexOf("club:") === 0 && tr.dataset.club !== f.slice(5));
+        li.hidden = !(f === "all" || li.dataset.tag === f);
       });
     });
   };

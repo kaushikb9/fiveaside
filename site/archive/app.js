@@ -54,7 +54,7 @@
     el.querySelectorAll("details.fold").forEach((entry) => {
       entry.addEventListener("toggle", function once() {
         if (!entry.open) return;
-        D.wireFilter(entry, entry);
+        D.wireFilter(entry);
         FA.wireSortable(entry);
         entry.removeEventListener("toggle", once);
       });

@@ -457,6 +457,59 @@
     });
   };
 
+  /* ---------------- club names, as people say them ----------------
+     DISPLAY ONLY, and that is load-bearing. The full name is the identity:
+     FA.ALLEGIANCE matches on it, focusClubs compares against it, and every
+     data-club attribute carries it. Shortening a value that is later compared
+     is how a rule quietly stops matching, so this is applied at the moment of
+     printing and never to anything stored, keyed or compared.
+
+     Only clubs whose full name is longer than the name anyone actually says.
+     Crystal Palace and Aston Villa are deliberately absent — those ARE what
+     people say, and inventing "Palace" or "Villa" would be forcing it. The
+     FPL feed's own short forms are folded in too, so the league room and the
+     digest spell the same club the same way. */
+  const CLUB_SHORT = {
+    "AFC Bournemouth": "Bournemouth",
+    "Brighton & Hove Albion": "Brighton",
+    "Brighton and Hove Albion": "Brighton",
+    "Manchester City": "Man City",
+    "Manchester United": "Man United",
+    "Man Utd": "Man United",
+    "Newcastle United": "Newcastle",
+    "Tottenham Hotspur": "Spurs",
+    "Nottingham Forest": "Forest",
+    "Nott'm Forest": "Forest",
+    "Wolverhampton Wanderers": "Wolves",
+    "West Ham United": "West Ham",
+    "West Bromwich Albion": "West Brom",
+    "Sheffield United": "Sheff United",
+    "Sheffield Wednesday": "Sheff Wednesday",
+    "Queens Park Rangers": "QPR",
+    "Leeds United": "Leeds",
+    "Ipswich Town": "Ipswich",
+    "Leicester City": "Leicester",
+    "Norwich City": "Norwich",
+    "Luton Town": "Luton",
+    "Hull City": "Hull",
+    "Coventry City": "Coventry",
+    "Bradford City": "Bradford",
+    "Stoke City": "Stoke",
+    "Swansea City": "Swansea",
+    "Cardiff City": "Cardiff",
+    "Birmingham City": "Birmingham",
+    "Derby County": "Derby",
+    "Preston North End": "Preston",
+    "Blackburn Rovers": "Blackburn",
+    "Bolton Wanderers": "Bolton",
+    "Huddersfield Town": "Huddersfield",
+    "Plymouth Argyle": "Plymouth",
+    "Rotherham United": "Rotherham",
+    "Oxford United": "Oxford",
+  };
+
+  FA.club = (name) => CLUB_SHORT[name] || name || "";
+
   /* ---------------- focus clubs ----------------
      A rule, not a list. Three clubs are permanent because that is who the
      five support; until GW10 the other two are seeded because an early table

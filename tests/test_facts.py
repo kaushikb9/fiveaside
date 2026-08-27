@@ -1,6 +1,7 @@
 from datetime import UTC, datetime
 
 from touchline.config import ClubConfig, TouchlineConfig
+from touchline.core import facts as facts_module
 from touchline.core.facts import build_facts
 from touchline.core.models import Competition, Fixture, MatchStatus, Result, Standing, Team
 from touchline.sources.base import SourceResult, StandingsResult
@@ -84,10 +85,14 @@ def test_buckets_yesterday_today_and_upcoming():
          "home_crest": None,
          "away_crest": "https://crests.football-data.org/58.png"}
     ]
+    # form is derived from the results we hold, not carried by the source:
+    # Chelsea beat Arsenal 2-1 yesterday, so one match deep the form is "W".
     assert comp["table"][0] == {
         "pos": 1, "team": "Chelsea", "played": 1, "points": 3, "gd": 1,
-        "crest": "https://crests.football-data.org/61.png",
+        "crest": "https://crests.football-data.org/61.png", "form": "W",
     }
+    assert comp["table"][1]["team"] == "Arsenal"
+    assert comp["table"][1]["form"] == "L"
     assert comp["club_position"] == {"pos": 1, "points": 3, "played": 1}
     assert comp["errors"] == {"matches": None, "standings": None}
 
@@ -157,3 +162,37 @@ def test_source_errors_are_surfaced_not_hidden():
     assert comp["club_position"] is None
     # No fixtures/results to source a name from — falls back to the code.
     assert comp["name"] == "PL"
+
+
+def test_team_form_is_derived_from_results_oldest_to_newest():
+    """No source returns per-team form, so it is computed from the matches.
+
+    Guards the specific failure this replaced: the digest carried five-result
+    form strings for teams that had played one match, because a model wrote
+    them from memory instead of from the bundle.
+    """
+    d = lambda day: datetime(2026, 8, day, 14, 0, tzinfo=UTC)  # noqa: E731
+    results = [
+        _result("r1", d(1), CHELSEA, ARSENAL, 2, 1),   # CHE W, ARS L
+        _result("r2", d(2), ARSENAL, SPURS, 1, 1),     # ARS D, TOT D
+        _result("r3", d(3), SPURS, CHELSEA, 0, 3),     # TOT L, CHE W
+        _result("r4", d(4), CHELSEA, VILLA, 0, 1),     # CHE L, AVL W
+    ]
+    form = facts_module._team_form(results)
+
+    assert form["Chelsea"] == "WWL"      # oldest to newest, newest last
+    assert form["Arsenal"] == "LD"
+    assert form["Tottenham"] == "DL"
+    assert form["Aston Villa"] == "W"
+    # A team with no completed match is absent rather than blank-padded.
+    assert "Brentford" not in form
+
+
+def test_team_form_keeps_only_the_last_five():
+    results = [
+        _result(f"r{i}", datetime(2026, 8, i, 14, 0, tzinfo=UTC), CHELSEA, ARSENAL, 1, 0)
+        for i in range(1, 9)
+    ]
+    form = facts_module._team_form(results)
+    assert form["Chelsea"] == "WWWWW"
+    assert len(form["Arsenal"]) == 5

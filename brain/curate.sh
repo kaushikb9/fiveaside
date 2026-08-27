@@ -3,7 +3,9 @@
 set -euo pipefail
 cd "$(dirname "$0")/.."
 
-FACTS="$(uv run touchline facts)"
+# The league table goes straight to site/data/table.json — it is a fact, not a
+# reading of one. The bundle passes through unchanged for the brain.
+FACTS="$(uv run touchline facts | node brain/split-league.mjs)"
 TODAY="$(printf '%s' "$FACTS" | node -pe 'JSON.parse(require("fs").readFileSync(0,"utf8")).date')"
 if [[ ! "$TODAY" =~ ^[0-9]{4}-[0-9]{2}-[0-9]{2}$ ]]; then
   echo "could not extract a valid 'date' from the facts bundle" >&2
@@ -49,7 +51,7 @@ node brain/validate.mjs site/data/digests.json \
        echo "rejected output saved to brain/scratch/rejected-$TODAY.json; digests.json restored so the next hourly run retries";
        exit 1; }
 
-git add site/data/digests.json
+git add site/data/digests.json site/data/table.json
 git commit -m "digest: $TODAY"
 git push -q || echo "push failed — run 'git push' manually"
 

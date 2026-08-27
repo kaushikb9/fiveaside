@@ -170,6 +170,15 @@ Rules:
     every other `club.*` field, `competition` here stays the raw short code
     from the bundle — do NOT map it to the human name.
   - Crest URLs are copied verbatim from the bundle — never guessed.
+- **Never write `form` into a table row.** No source in the bundle carries
+  per-team form, so any form string you write is remembered rather than read.
+  It is derived from real results and published mechanically to
+  `site/data/table.json` by `brain/split-league.mjs`; the site reads it from
+  there. `validate.mjs` rejects the entry if a table row carries `form`.
+- The `table` you write is now the ARCHIVE's copy of the day, not what the
+  front page renders — the front page takes its rows from
+  `site/data/table.json`. Keep writing `table.note`: a reading of the table is
+  judgment and stays yours. The rows are not.
 - **`club` and `today` are LEGACY — never write them again.** They were the
   single-club era's sections (the owner's next match, the owner's form). The
   page is a league page now; the same ground is covered by `table`, `week` and

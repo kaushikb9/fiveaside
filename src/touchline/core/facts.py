@@ -55,7 +55,35 @@ def _fixture_row(f: Fixture, club: ClubConfig, tz: ZoneInfo) -> dict:
     }
 
 
-def _table_rows(standings: list[Standing]) -> list[dict]:
+def _team_form(results: list[Result]) -> dict[str, str]:
+    """Last-FORM_LIMIT results per team, oldest to newest, as a "WDLWW" string.
+
+    No source we fetch returns per-team form: football-data and ESPN both give
+    standings without it, and `Standing` has no field for it. It was being
+    written into the digest by the brain instead, from memory rather than from
+    the bundle — five clubs deep, and five results deep for teams that had
+    played one match. Derived here from the results we already hold, so the
+    column says something that happened.
+    """
+    by_team: dict[str, list[tuple[datetime, str]]] = {}
+    for r in results:
+        if r.is_draw:
+            outcomes = [(r.home.name, "D"), (r.away.name, "D")]
+        else:
+            won = r.winning_team
+            lost = r.away if won is r.home else r.home
+            outcomes = [(won.name, "W"), (lost.name, "L")]
+        for name, mark in outcomes:
+            by_team.setdefault(name, []).append((r.kickoff, mark))
+
+    return {
+        name: "".join(mark for _, mark in sorted(rows)[-FORM_LIMIT:])
+        for name, rows in by_team.items()
+    }
+
+
+def _table_rows(standings: list[Standing], form: dict[str, str] | None = None) -> list[dict]:
+    form = form or {}
     return [
         {
             "pos": s.position,
@@ -64,6 +92,7 @@ def _table_rows(standings: list[Standing]) -> list[dict]:
             "points": s.points,
             "gd": s.goal_difference,
             "crest": s.team.crest,
+            "form": form.get(s.team.name, ""),
         }
         for s in sorted(standings, key=lambda s: s.position)
     ]
@@ -240,7 +269,7 @@ def build_facts(
                         if _local(f.kickoff, tz).date() == today
                     ]
                 ),
-                "table": _table_rows(standings.standings),
+                "table": _table_rows(standings.standings, _team_form(matches.results)),
                 "club_position": (
                     {"pos": club_row.position, "points": club_row.points, "played": club_row.played}
                     if club_row is not None

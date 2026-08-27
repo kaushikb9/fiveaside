@@ -306,7 +306,8 @@
   let seq = 0;
 
   FA.faceOf = (nick) => FACES[nick] || null;
-  FA.faceClub = (nick) => (FACES[nick] || {}).clubName || "";
+  // Through FA.club so the door spells a club the way the rest of the site does.
+  FA.faceClub = (nick) => FA.club((FACES[nick] || {}).clubName || "");
   FA.FACE_NICKS = Object.keys(FACES);
 
   /* The five are frozen and live in several files at once. This one is the

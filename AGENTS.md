@@ -37,6 +37,9 @@ delegated listener in `site/common.js`. Keep it that way.
   hardcode a club, competition or timezone.
 - `brain/` — two editors, same discipline. `curate.sh` + `prompt.md` write
   `digests.json`; `curate-fpl.sh` + `fpl-prompt.md` write `fpl.json`.
+  `split-league.mjs` sits between the facts CLI and the digest prompt and
+  writes `site/data/table.json` — the full standings with real form —
+  straight to disk; the brain never sees the table as its job.
   `split-facts.mjs` sits between the facts CLI and the FPL prompt: it writes
   the mechanical files straight to disk and hands the brain the remainder.
   The three `validate-*.mjs` files are the schema authorities.
@@ -105,6 +108,7 @@ uv run ruff check .              # lint (line-length 100)
 node brain/validate.mjs          # digests.json
 node brain/validate-fpl.mjs      # fpl.json — judgment layer
 node brain/validate-players.mjs  # players.json — the player file
+uv run touchline facts | node brain/split-league.mjs >/dev/null   # rewrite site/data/table.json
 node --check site/common.js site/digest.js site/app.js site/archive/app.js \
              site/gaffers/app.js site/locker/app.js functions/api/*.js brain/*.mjs
 node brain/invite.mjs --list     # who has a gaffers code (add --local for dev)
@@ -123,6 +127,25 @@ added; `-i` alone is not enough, it only blocks idle sleep. `auto.sh` does it.
 
 ## Rules that have bitten before
 
+- **The brain wrote a form column out of memory, and the schema allowed it.**
+  No source we fetch returns per-team form: football-data and ESPN both give
+  standings without it, and `Standing` has no such field. The digest still
+  carried `form: "DWLDW"` for clubs that had played one match — five results
+  from one game — for exactly the five allegiance clubs a model recognises.
+  Form is now computed in `facts.py::_team_form` from the results we already
+  hold and published in `site/data/table.json`; `validate.mjs` REJECTS a
+  table row that carries `form`. If a column has no source, it has no place
+  in the file, and "the validator permits it" is not a source.
+- **The league table is a fact, so it does not go through the brain.** Asked
+  for "the top four rows plus the club's own", the model returned positions
+  1-6, 8, 10 and 17 — a table with holes in it. `split-league.mjs` writes all
+  20 rows verbatim. The brain keeps `table.note`, which is a reading, and the
+  archive keeps each entry's historical copy.
+- **Club names are shortened for DISPLAY only.** `FA.club()` maps
+  "Manchester City" to "Man City" at the moment of printing. Never shorten a
+  value that is stored, keyed or compared — `data-club` attributes and
+  `FA.ALLEGIANCE` match on the full name, and shortening a key is how a rule
+  silently stops matching.
 - **Player names are not unique, and the card is addressed by id.** Fourteen
   surnames are shared across the 614 — two Palmers, two Wilsons, three
   Phillipses — and two of the collisions are players the five own. A card

@@ -228,8 +228,6 @@ tr:last-child td { border-bottom: 0; }
 td.n, th.n { text-align: right; font-family: var(--f-num); font-variant-numeric: tabular-nums; }
 tr.me td { background: var(--raise); }
 tr.me td:first-child { box-shadow: inset 3px 0 0 var(--accent); }
-tr.focus td:nth-child(2) { font-weight: 700; }
-tr.dim td { opacity: 0.38; }
 .crest { width: 17px; height: 17px; object-fit: contain; vertical-align: -4px; margin-right: 6px; }
 .pill {
   display: inline-block; font-family: var(--f-head); font-size: 10px; font-weight: 700;

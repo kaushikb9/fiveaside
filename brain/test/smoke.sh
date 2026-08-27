@@ -62,7 +62,31 @@ BEFORE=$(js 'document.querySelectorAll("ul.feed > li:not([hidden])").length')
 js 'const b=document.querySelector(".filters:not(.tabs) .fc[data-filter=\"FPL\"]"); if(b) b.click(); ""' >/dev/null
 AFTER=$(js 'document.querySelectorAll("ul.feed > li:not([hidden])").length')
 check "FPL filter narrows the feed" "true" "$(js "${AFTER} <= ${BEFORE}")"
-check "filter dims the table"       "true" "$(js 'const b=document.querySelector(".filters:not(.tabs) .fc[data-filter^=club]"); if(!b) true; else { b.click(); document.querySelectorAll("tr.dim").length > 0 }')"
+# The week filter is All / League / FPL and nothing else. A club chip per club
+# mentioned made the bar as long as the feed and different every day.
+check "no club chips in the week filter" "0" "$(js 'document.querySelectorAll(".filters:not(.tabs) .fc[data-filter^=club]").length')"
+check "three chips, and they are the tags" "All League FPL" "$(js 'Array.from(document.querySelectorAll(".filters:not(.tabs) .fc[data-filter]")).map(function(b){return b.textContent.trim()}).join(" ")')"
+# Neutral: the table tells you who is top before it tells you who it is for.
+check "no club is bolded in the table" "0" "$(js 'document.querySelectorAll("#league tr.focus").length')"
+check "no allegiance paragraph"        "true" "$(js '!/clubs this page follows/i.test(document.getElementById("league").textContent)')"
+# Long names cost two lines each on a phone.
+check "the table says Man City, not Manchester City" "true" "$(js '(function(){var t=document.getElementById("league").textContent;return !/Manchester City|Brighton & Hove|AFC Bournemouth|Tottenham Hotspur/.test(t)})()')"
+# The table used to be model-authored and came back trimmed: positions 1-6, 8,
+# 10 and 17, with holes. It is written mechanically now, so it is the whole
+# division and the positions run without a gap.
+check "the table is the whole division" "true" "$(js '(function(){
+  var pos = Array.from(document.querySelectorAll("#league tbody tr")).map(function (tr) {
+    return Number(tr.children[0].textContent.trim());
+  });
+  if (pos.length < 20) return false;
+  return pos.every(function (p, i) { return p === i + 1; });
+})()')"
+# Form is derived from results now, so every club that has played has one.
+check "form is not just the famous clubs" "true" "$(js '(function(){
+  var rows = Array.from(document.querySelectorAll("#league tbody tr"));
+  var withForm = rows.filter(function (tr) { return tr.children[2].textContent.trim().length > 0; });
+  return withForm.length >= rows.length - 2;
+})()')"
 
 echo "== touchline: the league panel"
 go ""
