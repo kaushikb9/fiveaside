@@ -1,0 +1,108 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>The match river — every competition, either side of today</title>
+<script>
+  var T = new URLSearchParams(location.search).get("theme");
+  if (T) document.documentElement.setAttribute("data-theme", T);
+</script>
+<link rel="stylesheet" href="../../../site/style.css">
+<style>
+  .mk { max-width: 1180px; margin: 0 auto; padding: 26px 20px 60px; }
+  .mk h1 { font-size: 22px; letter-spacing: -0.02em; margin: 0 0 6px; }
+  .mk .lede { color: var(--mute); font-size: 14px; margin: 0 0 22px; max-width: 74ch; }
+  .frames { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
+  @media (max-width: 900px) { .frames { grid-template-columns: 1fr; } }
+  .frame { border: 1px solid var(--line); border-radius: var(--r); overflow: hidden; background: var(--card); }
+  .frame > h2 { font-size: 10px; text-transform: uppercase; letter-spacing: 0.14em; font-weight: 700;
+    color: var(--faint); padding: 10px 14px; border-bottom: 1px solid var(--hair); margin: 0; }
+  .frame iframe { display: block; width: 100%; height: 1500px; border: 0; }
+  .spec { padding: 18px 16px 4px; }
+</style>
+<div class="mk" id="mk"></div>
+<script src="../../../site/common.js"></script>
+<script>
+(function () {
+  const T = new URLSearchParams(location.search).get("theme");
+  const root = document.getElementById("mk");
+  if (!T) {
+    root.innerHTML =
+      "<h1>The match river</h1>" +
+      '<p class="lede">Every match a Premier League club plays, seven days back and seven forward, ' +
+      "grouped by day with a rule where today falls. Real Premier League data from ESPN " +
+      "(21&ndash;31 Aug), plus a Champions League night and an EFL Cup tie so the case that " +
+      "motivated the change is visible. Drawn against the real <code>site/style.css</code>, " +
+      "reusing the existing <code>.fx</code> row rather than inventing one. 390px, both lights.</p>" +
+      '<div class="frames">' +
+        '<div class="frame"><h2>Dugout &mdash; daylight</h2><iframe src="?theme=light"></iframe></div>' +
+        '<div class="frame"><h2>Floodlit &mdash; night</h2><iframe src="?theme=dark"></iframe></div>' +
+      "</div>";
+    return;
+  }
+  root.className = "spec";
+  fetch("2026-08-27-river-data.json").then(r => r.json()).then((data) => {
+    root.innerHTML =
+      '<div class="panel" id="league"><h3>The league</h3>' +
+      '<div class="filters tabs" role="tablist">' +
+      '<button class="fc" aria-pressed="false">Table</button>' +
+      '<button class="fc" aria-pressed="true">Matches</button></div>' +
+      riverHTML(data) + "</div>";
+  });
+
+  const esc = FA.esc;
+  const DAY = { weekday: "short", day: "numeric", month: "short" };
+  const dayLabel = (iso) => new Date(iso + "T12:00:00Z").toLocaleDateString("en-GB", DAY).toUpperCase();
+  const clock = (iso) => new Date(iso).toLocaleTimeString("en-GB", { hour: "2-digit", minute: "2-digit" });
+  const crest = (u) => (u ? '<img class="crest" src="' + esc(u) + '" alt="" loading="lazy">' : "");
+
+  const side = (t, cls) =>
+    '<span class="fx-team ' + cls + '">' +
+    (cls === "away" ? crest(t.crest) : "") +
+    '<b class="fx-full">' + esc(FA.club(t.name)) + "</b>" +
+    '<b class="fx-abbr">' + esc(FA.clubAbbr(t.name, t.short)) + "</b>" +
+    (cls === "home" ? crest(t.crest) : "") + "</span>";
+
+  const goals = (list, which) => list.filter((g) => g.side === which).map((g) =>
+    esc(g.name) + (g.minute ? ' <span class="gm">' + esc(g.minute) + "</span>" : "") +
+    (g.pen ? ' <span class="og">pen</span>' : "") +
+    (g.og ? ' <span class="og">og</span>' : "")).join(", ");
+
+  function statusHTML(m) {
+    if (m.status === "FINISHED") return '<span class="fx-status">FT</span>';
+    if (m.status === "LIVE") return '<span class="fx-status live"><i></i>' + esc(m.minute || "") + "</span>";
+    return '<span class="fx-status">' + esc(clock(m.kickoff)) + "</span>";
+  }
+
+  function matchHTML(m) {
+    const played = m.status !== "SCHEDULED";
+    const score = played
+      ? '<span class="fx-score">' + esc(m.home.score) + "<em>&ndash;</em>" + esc(m.away.score) + "</span>"
+      : '<span class="fx-score pre">v</span>';
+    const gh = goals(m.scorers, "home"), ga = goals(m.scorers, "away");
+    const scorers = (gh || ga)
+      ? '<div class="fx-goals"><span class="g h">' + gh + '</span><span></span><span class="g a">' + ga +
+        "</span><span></span></div>"
+      : "";
+    // Only non-league ties are tagged. A normal weekend reads exactly as before;
+    // a European night is the thing that stands out, which is the point.
+    const tag = m.comp === "PL" ? "" : '<span class="fx-comp">' + esc(m.comp) + "</span>";
+    return '<div class="fx' + (m.status === "LIVE" ? " is-live" : "") + '">' +
+      side(m.home, "home") + score + side(m.away, "away") +
+      '<span class="fx-meta">' + statusHTML(m) + tag + "</span>" + scorers + "</div>";
+  }
+
+  function riverHTML(data) {
+    if (!data.days || !data.days.length) return '<p class="note">No matches in this fortnight.</p>';
+    const today = new Date().toISOString().slice(0, 10);
+    let out = '<p class="note">Every competition a Premier League club is in, a week either side of ' +
+      "today.</p>" + '<div class="fx-list">';
+    let ruled = false;
+    data.days.forEach((d) => {
+      if (!ruled && d.date >= today) { out += '<div class="fx-today"><span>today</span></div>'; ruled = true; }
+      out += '<div class="fx-day">' + esc(dayLabel(d.date)) + "</div>";
+      d.matches.forEach((m) => { out += matchHTML(m); });
+    });
+    return out + "</div>";
+  }
+  window.riverHTML = riverHTML;
+})();
+</script>

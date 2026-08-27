@@ -9,9 +9,11 @@
    week-in-review on the way to this week's, so the fold that used to hold
    them was cost with no reader.
 
-   The league sits in one panel with three tabs: the table, this match week,
-   the next one. The table comes from digests.json (already local); the two
-   match weeks come from /api/matches, and their absence costs the tab, never
+   The league sits in one panel with two tabs: the table and the matches. The
+   table comes from site/data/table.json (already local, Premier League only).
+   The matches come from /api/matches, which since 2026-08-27 is a CALENDAR
+   window rather than an FPL gameweek: a week either side of today, every
+   competition a Premier League club is in. Their absence costs the tab, never
    the page.
    ========================================================================= */
 (function () {
@@ -19,93 +21,110 @@
   const { esc, $, loadJSON } = FA;
   const D = FA.Digest;
 
-  /* ---------- fixtures ---------- */
+  /* ---------- the match river ----------
+     Seven days back, seven forward, grouped by day, with a rule where today
+     falls. This replaced two FPL-gameweek tabs, and the reason is worth
+     keeping: an FPL gameweek is a Premier League construct, so a Tuesday in
+     Europe or a January cup round could not appear in one at all, and a
+     "current" gameweek stays current from the last whistle until the next
+     kickoff — which is precisely the midweek when the missing matches are
+     played. The calendar does not have that problem. */
 
-  const dayKey = (iso) => {
-    const d = new Date(iso);
-    return isNaN(d.getTime()) ? "" : d.toLocaleDateString("en-GB", { weekday: "long", day: "numeric", month: "long" });
+  const DAY_FMT = { weekday: "short", day: "numeric", month: "short" };
+  const dayLabel = (ymd) => {
+    // Noon UTC, so a timezone shift can never move the label to the day before.
+    const d = new Date(ymd + "T12:00:00Z");
+    return isNaN(d.getTime()) ? ymd : d.toLocaleDateString("en-GB", DAY_FMT).toUpperCase();
   };
   const clock = (iso) => {
     const d = new Date(iso);
     return isNaN(d.getTime()) ? "" : d.toLocaleTimeString("en-GB", { hour: "2-digit", minute: "2-digit" });
   };
 
+  /* ESPN's abbreviations are per-competition and disagree with themselves —
+     Manchester United came back "MAN" in the league feed and "MNU" in the cup
+     one — so the code comes from the canonical name via FA.clubAbbr, with the
+     feed's own as the fallback for clubs we do not carry. */
   const side = (t, cls) =>
     '<span class="fx-team ' + cls + '">' +
     (cls === "away" ? D.crest(t.crest) : "") +
-    '<b class="fx-full">' + esc(FA.club(t.name || "")) + "</b>" +
-    '<b class="fx-abbr">' + esc(t.short || "") + "</b>" +
+    '<b class="fx-full">' + esc(FA.club(t.name)) + "</b>" +
+    '<b class="fx-abbr">' + esc(FA.clubAbbr(t.name, t.short)) + "</b>" +
     (cls === "home" ? D.crest(t.crest) : "") + "</span>";
 
-  /* FPL reports who scored but never when, so the line is names and counts —
-     no invented clock. An own goal is credited to the side it helped, marked
-     as one, because that is how a scoreline reads. */
-  const goals = (list) =>
-    (list || []).map((g) =>
-      FA.linkPlayers(g.name) + (g.goals > 1 ? " (" + g.goals + ")" : "") +
+  /* Names stay clickable — every scorer opens their file. The minute is new:
+     FPL never carried one, ESPN does. */
+  const goals = (list, which) =>
+    (list || []).filter((g) => g.side === which).map((g) =>
+      FA.linkPlayers(g.name) +
+      (g.minute ? ' <span class="gm">' + esc(g.minute) + "</span>" : "") +
+      (g.pen ? ' <span class="og">pen</span>' : "") +
       (g.og ? ' <span class="og">og</span>' : "")).join(", ");
 
-  function statusHTML(f) {
-    if (f.finished) return '<span class="fx-status">FT</span>';
-    if (f.started) {
-      const m = f.minutes >= 90 ? "90+" : f.minutes;
-      return '<span class="fx-status live"><i></i>' + esc(m) + "'</span>";
+  function statusHTML(m) {
+    if (m.status === "FINISHED") return '<span class="fx-status">FT</span>';
+    if (m.status === "LIVE") {
+      return '<span class="fx-status live"><i></i>' + esc(m.minute || "LIVE") + "</span>";
     }
-    return '<span class="fx-status">' + esc(clock(f.kickoff)) + "</span>";
+    return '<span class="fx-status">' + esc(clock(m.kickoff)) + "</span>";
   }
 
-  function fixtureHTML(f) {
-    const played = f.started;
+  function matchHTML(m) {
+    const played = m.status !== "SCHEDULED";
     const score = played
-      ? '<span class="fx-score">' + esc(f.home.score) + "<em>&ndash;</em>" + esc(f.away.score) + "</span>"
+      ? '<span class="fx-score">' + esc(m.home.score) + "<em>&ndash;</em>" + esc(m.away.score) + "</span>"
       : '<span class="fx-score pre">v</span>';
-    const gh = goals(f.home.scorers);
-    const ga = goals(f.away.scorers);
+    const gh = goals(m.scorers, "home");
+    const ga = goals(m.scorers, "away");
     const scorers = (gh || ga)
       ? '<div class="fx-goals"><span class="g h">' + gh + '</span><span></span><span class="g a">' + ga +
         "</span><span></span></div>"
       : "";
-    return '<div class="fx' + (f.started && !f.finished ? " is-live" : "") + '">' +
-      side(f.home, "home") + score + side(f.away, "away") + statusHTML(f) + scorers + "</div>";
+    // Only a non-league tie is tagged. A normal Saturday reads exactly as it
+    // always did; a European night is what stands out, which is the point.
+    const tag = m.comp === "PL" ? "" : '<span class="fx-comp">' + esc(m.comp) + "</span>";
+    return '<div class="fx' + (m.status === "LIVE" ? " is-live" : "") + '">' +
+      side(m.home, "home") + score + side(m.away, "away") +
+      '<span class="fx-meta">' + statusHTML(m) + tag + "</span>" + scorers + "</div>";
   }
 
-  function weekPaneHTML(week, kind) {
-    if (!week) {
-      return '<p class="note">' + (kind === "next"
-        ? "The next match week has not been published yet."
-        : "No match week is running.") + "</p>";
+  function riverHTML(m) {
+    if (!m) return '<p class="note">Loading the fixtures&hellip;</p>';
+    if (!m.days || !m.days.length) {
+      // Six dead feeds still return 200, so say which rather than showing a
+      // blank list and letting the reader assume there is no football on.
+      return '<p class="note">No matches in this fortnight' +
+        (m.errors && m.errors.length ? " (" + esc(m.errors.join(", ")) + ")" : "") + ".</p>";
     }
-    if (!week.fixtures.length) return '<p class="note">No fixtures in ' + esc(week.name) + ".</p>";
-    const note = kind === "next"
-      ? "Kick-offs in your own time zone. Nothing here has happened yet."
-      : week.status === "live"
-        ? "Scores update themselves while matches are on. Goalscorers arrive as the game does; the FPL feed carries no minutes."
-        : "Final scores and goalscorers. The FPL feed carries no minutes, so the line is who, not when.";
-    let out = '<p class="note">' + note + '</p><div class="fx-list">';
-    let day = null;
-    week.fixtures.forEach((f) => {
-      const k = dayKey(f.kickoff);
-      if (k !== day) { day = k; out += '<div class="fx-day">' + esc(k) + "</div>"; }
-      out += fixtureHTML(f);
+    const today = new Date().toISOString().slice(0, 10);
+    let out = '<p class="note">Every competition a Premier League club is in, a week either side ' +
+      "of today. Kick-offs in your own time zone.</p>" + '<div class="fx-list">';
+    let ruled = false;
+    m.days.forEach((d) => {
+      if (!ruled && d.date >= today) { out += '<div class="fx-today"><span>today</span></div>'; ruled = true; }
+      out += '<div class="fx-day">' + esc(dayLabel(d.date)) + "</div>";
+      (d.matches || []).forEach((x) => { out += matchHTML(x); });
     });
     return out + "</div>";
   }
 
-  /* ---------- the league panel: table, this week, next ---------- */
+  /* ---------- the league panel: table, matches ---------- */
 
-  const TABS = ["table", "now", "next"];
+  const TABS = ["table", "matches"];
 
-  /* Smart default: the scores lead only when there is something live or
-     freshly finished to lead with. Otherwise the table — the thing that is
-     true all week — holds the tab. */
+  /* Smart default, unchanged in spirit and only in shape: the scores lead when
+     there is something live or freshly finished to lead with, otherwise the
+     table, which is the thing that is true all week. It reads the flat match
+     list now instead of a gameweek's `status`. */
   function defaultTab(m) {
-    if (!m || !m.now) return "table";
-    if (m.now.status === "live") return "now";
-    const recent = m.now.fixtures.some((f) => {
-      const t = Date.parse(f.kickoff);
-      return f.finished && !isNaN(t) && Date.now() - t < 26 * 3600 * 1000;
+    if (!m || !m.days || !m.days.length) return "table";
+    const all = m.days.reduce((acc, d) => acc.concat(d.matches || []), []);
+    if (all.some((x) => x.status === "LIVE")) return "matches";
+    const recent = all.some((x) => {
+      const t = Date.parse(x.kickoff);
+      return x.status === "FINISHED" && !isNaN(t) && Date.now() - t < 26 * 3600 * 1000;
     });
-    return recent ? "now" : "table";
+    return recent ? "matches" : "table";
   }
 
   /* Rows from the mechanical file, note from the digest. The note is a reading
@@ -122,24 +141,21 @@
   }
 
   function leagueHTML(d, gw, m, active) {
-    const gwc = (w) => (w ? ' <span class="gwchip">GW' + esc(w.gw) + "</span>" : "");
-    const live = m && m.now && m.now.status === "live";
+    const all = m && m.days ? m.days.reduce((acc, x) => acc.concat(x.matches || []), []) : [];
+    const live = all.some((x) => x.status === "LIVE");
     const tab = (k, label) =>
       '<button class="fc" data-tab="' + k + '" aria-pressed="' + String(k === active) + '">' + label + "</button>";
     const pane = (k, body) =>
       '<div class="tabpane" data-pane="' + k + '"' + (k === active ? "" : " hidden") + ">" + body + "</div>";
-    const pending = '<p class="note">Loading the fixtures&hellip;</p>';
 
     return '<div class="panel" id="league">' +
       '<h3>The league' + (live ? ' <span class="tag hot">live</span>' : "") + "</h3>" +
       '<div class="filters tabs" role="tablist" aria-label="The league">' +
       tab("table", "Table") +
-      tab("now", "This match week" + gwc(m && m.now)) +
-      tab("next", "Next match week" + gwc(m && m.next)) +
+      tab("matches", "Matches") +
       "</div>" +
       pane("table", D.tableBody(leagueTable(d)) || '<p class="note">No table this week.</p>') +
-      pane("now", m ? weekPaneHTML(m.now, "now") : pending) +
-      pane("next", m ? weekPaneHTML(m.next, "next") : pending) +
+      pane("matches", riverHTML(m)) +
       "</div>";
   }
 
@@ -226,16 +242,19 @@
       } catch (e) {
         const panel = el.querySelector("#league");
         if (panel && firstRun) {
-          panel.querySelectorAll(".tabpane[data-pane='now'], .tabpane[data-pane='next']").forEach((p) => {
-            p.innerHTML = '<p class="note">The fixture feed is not answering right now. The table above is unaffected.</p>';
-          });
+          const pane = panel.querySelector(".tabpane[data-pane='matches']");
+          if (pane) {
+            pane.innerHTML = '<p class="note">The fixture feed is not answering right now. ' +
+              "The table is unaffected.</p>";
+          }
         }
         return;
       }
       const keep = el.querySelector("button[data-tab][aria-pressed='true']");
       paint(m, firstRun ? defaultTab(m) : (keep ? keep.dataset.tab : defaultTab(m)));
-      // Only a live match earns a poll; a finished week is finished.
-      if (m.now && m.now.status === "live") setTimeout(() => load(false), 60000);
+      // Only a live match earns a poll; a finished round is finished.
+      const anyLive = (m.days || []).some((d) => (d.matches || []).some((x) => x.status === "LIVE"));
+      if (anyLive) setTimeout(() => load(false), 60000);
     };
     load(true);
   }

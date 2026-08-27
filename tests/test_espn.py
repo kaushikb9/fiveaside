@@ -156,3 +156,31 @@ def test_invalid_json_degrades():
     client = _client_with(handler)
     res = client.fetch_matches("PL")
     assert not res.ok and "JSON" in res.error
+
+
+def test_league_map_covers_every_competition_a_pl_club_can_play_in():
+    """Following a club means following it into the cups and into Europe.
+
+    Guards the gap this closed: the front page could not show a Tuesday
+    Champions League tie or a January FA Cup round because no slug existed for
+    them, so the fixtures were never fetched in the first place.
+    """
+    client = ESPNClient()
+    for code, slug in [
+        ("PL", "eng.1"),
+        ("CL", "uefa.champions"),
+        ("EL", "uefa.europa"),
+        ("UECL", "uefa.europa.conf"),
+        ("FA", "eng.fa"),
+        ("EFL", "eng.league_cup"),
+    ]:
+        assert client._league(code) == slug, f"{code} lost its slug"
+
+
+def test_unknown_competition_still_fails_cleanly():
+    """Adding slugs must not turn a typo into a silent empty result."""
+    client = ESPNClient()
+    out = client.fetch_matches("NOT_A_COMP")
+    assert out.ok is False
+    assert "no mapping" in (out.error or "")
+    assert out.fixtures == [] and out.results == []

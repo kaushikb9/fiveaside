@@ -510,6 +510,35 @@
 
   FA.club = (name) => CLUB_SHORT[name] || name || "";
 
+  /* Three-letter codes, because ESPN's own abbreviations are per-competition
+     and disagree with themselves: Manchester United came back as "MAN" in the
+     league feed and "MNU" in the EFL Cup feed, so the same club wore two codes
+     on one page. Keyed on the canonical full name, which is stable.
+
+     Anyone not in here — Benfica, Napoli, a National League cup opponent —
+     keeps whatever the feed said, which is right far more often than a
+     truncation we invented would be. */
+  const CLUB_ABBR = {
+    "Arsenal": "ARS", "Aston Villa": "AVL", "AFC Bournemouth": "BOU",
+    "Brentford": "BRE", "Brighton & Hove Albion": "BHA", "Chelsea": "CHE",
+    "Crystal Palace": "CRY", "Everton": "EVE", "Fulham": "FUL",
+    "Ipswich Town": "IPS", "Leeds United": "LEE", "Leicester City": "LEI",
+    "Liverpool": "LIV", "Manchester City": "MCI", "Manchester United": "MUN",
+    "Newcastle United": "NEW", "Nottingham Forest": "NFO", "Southampton": "SOU",
+    "Tottenham Hotspur": "TOT", "West Ham United": "WHU",
+    "Wolverhampton Wanderers": "WOL", "Sunderland": "SUN", "Hull City": "HUL",
+    "Coventry City": "COV", "Bradford City": "BRD", "Sheffield United": "SHU",
+    "Sheffield Wednesday": "SHW", "Norwich City": "NOR", "Watford": "WAT",
+    "Stoke City": "STK", "Swansea City": "SWA", "Cardiff City": "CAR",
+    "Middlesbrough": "MID", "Preston North End": "PNE", "Millwall": "MIL",
+    "Blackburn Rovers": "BLB", "Bristol City": "BRC", "Derby County": "DER",
+    "Plymouth Argyle": "PLY", "Portsmouth": "POR", "Oxford United": "OXF",
+    "Queens Park Rangers": "QPR", "Luton Town": "LUT", "West Bromwich Albion": "WBA",
+  };
+
+  FA.clubAbbr = (name, fallback) =>
+    CLUB_ABBR[name] || fallback || (name || "").slice(0, 3).toUpperCase();
+
   /* ---------------- focus clubs ----------------
      A rule, not a list. Three clubs are permanent because that is who the
      five support; until GW10 the other two are seeded because an early table

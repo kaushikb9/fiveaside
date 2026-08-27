@@ -865,6 +865,31 @@ th.th-sort.sorted[data-dir="desc"]::after { content: "\2193"; opacity: 1; color:
 @media (prefers-reduced-motion: reduce) { .fx-status.live i { animation: none; } }
 .fx.is-live { background: linear-gradient(90deg, transparent, color-mix(in srgb, var(--hot) 7%, transparent), transparent); }
 
+/* The fourth cell used to hold the kick-off time alone. It now stacks a
+   competition tag under it — but ONLY for a tie that is not the league. A
+   normal Saturday reads exactly as it always did; a Tuesday in Europe is the
+   thing that stands out, which is the entire point of widening the feed. */
+.fx-meta { display: flex; flex-direction: column; align-items: flex-end; gap: 3px; }
+.fx-comp {
+  font-family: var(--f-head); font-size: 9px; font-weight: 700; letter-spacing: 0.06em;
+  color: var(--faint); border: 1px solid var(--line); border-radius: 4px;
+  padding: 0 4px; line-height: 1.55; white-space: nowrap;
+}
+
+/* Where today falls in the river. The list runs a week each way, so without a
+   rule you cannot tell a result from a fixture at a glance. */
+.fx-today { display: flex; align-items: center; gap: 10px; padding: 17px 0 3px; }
+.fx-today::before, .fx-today::after {
+  content: ""; flex: 1; height: 1px; background: var(--accent); opacity: 0.32;
+}
+.fx-today span {
+  font-family: var(--f-head); font-size: 9.5px; font-weight: 700; letter-spacing: 0.14em;
+  text-transform: uppercase; color: var(--accent);
+}
+
+/* The minute a goal went in. FPL never carried one, so this is new. */
+.fx-goals .gm { color: var(--faint); font-variant-numeric: tabular-nums; font-size: 11px; }
+
 .fx-goals {
   grid-column: 1 / -1;
   display: grid;

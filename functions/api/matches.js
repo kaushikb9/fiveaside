@@ -1,117 +1,203 @@
-/* /api/matches — this match week and the next one.
+/* /api/matches — every match a Premier League club plays, either side of today.
    =========================================================================
-   The league room needs three things in one place: the table (which comes
-   from digests.json and is already local), this match week's scores, and
-   next match week's fixtures. Only the last two need the network, and the
-   FPL API sends no CORS headers, so they come through here.
+   This used to be built on the FPL API, and that was the bug. An FPL gameweek
+   is a Premier League construct: a Tuesday Champions League tie or a January
+   FA Cup round has nowhere to live inside one, so those matches could not be
+   shown at all. And FPL's "current" gameweek stays current from the last
+   whistle until the next kickoff, which meant Sunday evening to Friday the
+   page showed a finished weekend and an empty midweek — exactly the days when
+   European football is played.
 
-   One request, server-joined: bootstrap (teams, events, player names) plus
-   the fixture list for each of the two gameweeks. The browser gets names and
-   crests already resolved rather than three blobs to join itself.
+   So the window is now the CALENDAR, not the gameweek: seven days back, seven
+   forward, every competition a PL club can be in, grouped by day.
 
    GET /api/matches
-     -> { updated, now: WEEK|null, next: WEEK|null }
-        WEEK = { gw, name, deadline, status, fixtures[] }
+     -> { updated, window: {from, to}, days: [DAY], errors: [string] }
+        DAY   = { date: "2026-08-23", matches: [MATCH] }
+        MATCH = { id, comp, comp_name, kickoff, status, minute,
+                  home: SIDE, away: SIDE, scorers: [GOAL] }
+        SIDE  = { name, short, crest, score }
+        GOAL  = { name, side, minute, og, pen }
 
-   "now" is the gameweek FPL calls current — which stays current after its
-   last whistle until the next one kicks off, so a finished week keeps
-   showing its results rather than blanking out mid-week. Everything
-   degrades: a dead sub-fetch drops its week, never the response.
+   Everything degrades: a competition that fails drops its matches and adds a
+   line to `errors`. Six dead feeds still return 200 with an empty `days`, so
+   the page renders its table rather than an error.
    ========================================================================= */
 
-const API = "https://fantasy.premierleague.com/api";
-const BADGE = (code) => `https://resources.premierleague.com/premierleague/badges/70/t${code}.png`;
+const ESPN = "https://site.api.espn.com/apis/site/v2/sports/soccer";
 
-const fetchJSON = async (path) => {
-  const res = await fetch(`${API}${path}`, {
+/* Slugs verified against the live API, and they are not guessable: the
+   Conference League is uefa.europa.conf with a DOT, while uefa.europa_conf
+   answers HTTP 400. Kept in step with _LEAGUE_MAP in src/touchline/sources/espn.py
+   — two parsers of the same feed, because one runs in Python for the brain and
+   one runs here for the page, and neither can call the other. */
+const COMPS = [
+  { code: "PL", slug: "eng.1", name: "Premier League" },
+  { code: "UCL", slug: "uefa.champions", name: "Champions League" },
+  { code: "EL", slug: "uefa.europa", name: "Europa League" },
+  { code: "UECL", slug: "uefa.europa.conf", name: "Conference League" },
+  { code: "FA", slug: "eng.fa", name: "FA Cup" },
+  { code: "EFL", slug: "eng.league_cup", name: "EFL Cup" },
+];
+
+const DAYS_BACK = 7;
+const DAYS_FORWARD = 7;
+
+const LIVE = new Set([
+  "STATUS_IN_PLAY", "STATUS_HALFTIME", "STATUS_FIRST_HALF", "STATUS_SECOND_HALF",
+]);
+const DONE = new Set([
+  "STATUS_FINAL", "STATUS_FULL_TIME", "STATUS_AFTER_EXTRA_TIME", "STATUS_AFTER_PENALTIES",
+]);
+
+const ymd = (d) => `${d.getUTCFullYear()}${String(d.getUTCMonth() + 1).padStart(2, "0")}${String(d.getUTCDate()).padStart(2, "0")}`;
+const iso = (d) => d.toISOString().slice(0, 10);
+
+async function scoreboard(slug, window) {
+  const url = `${ESPN}/${slug}/scoreboard?dates=${window}&limit=400`;
+  const res = await fetch(url, {
     headers: { accept: "application/json" },
     cf: { cacheTtl: 60, cacheEverything: true },
   });
-  if (!res.ok) throw new Error(`${path}: ${res.status}`);
+  if (!res.ok) throw new Error(String(res.status));
   return res.json();
-};
+}
 
-/* Goals out of a fixture's stat block. FPL reports who scored but never when,
-   so the minute is genuinely not available — the row says "Saka, Saka" as
-   "Saka (2)" rather than inventing a clock. Own goals are attributed to the
-   side that benefits, flagged, because that is how a scoreline reads. */
-function scorers(fixture, names) {
-  const out = { h: [], a: [] };
-  const push = (side, element, value, og) => {
-    const name = names[element];
-    if (!name) return;
-    out[side].push({ name, goals: value, og: Boolean(og) });
-  };
-  for (const stat of fixture.stats || []) {
-    if (stat.identifier === "goals_scored") {
-      (stat.h || []).forEach((p) => push("h", p.element, p.value, false));
-      (stat.a || []).forEach((p) => push("a", p.element, p.value, false));
-    } else if (stat.identifier === "own_goals") {
-      // An own goal by a home player is a goal for the away side.
-      (stat.h || []).forEach((p) => push("a", p.element, p.value, true));
-      (stat.a || []).forEach((p) => push("h", p.element, p.value, true));
-    }
+/* ESPN carries what FPL never did: the minute a goal went in, whether it was a
+   penalty, and whether it was an own goal. The old code said "FPL reports who
+   scored but never when, so the line is names and counts — no invented clock."
+   That limitation belonged to the feed, not to football. */
+function goalsFrom(competition, homeId) {
+  const out = [];
+  for (const d of competition.details || []) {
+    if (!d.scoringPlay) continue;
+    const who = (d.athletesInvolved || [])[0];
+    if (!who) continue;
+    // An own goal is credited to the side it helped, which is the other one.
+    const scoredFor = d.ownGoal
+      ? (String(d.team?.id) === String(homeId) ? "away" : "home")
+      : (String(d.team?.id) === String(homeId) ? "home" : "away");
+    out.push({
+      name: who.displayName || who.fullName || "",
+      side: scoredFor,
+      minute: d.clock?.displayValue || null,
+      og: Boolean(d.ownGoal),
+      pen: Boolean(d.penaltyKick),
+    });
   }
   return out;
 }
 
-function weekFrom(event, fixtures, teams, names) {
-  const rows = fixtures.map((f) => {
-    const s = scorers(f, names);
-    const side = (id, score, list) => {
-      const t = teams[id] || {};
-      return { name: t.name, short: t.short_name, crest: t.code ? BADGE(t.code) : null, score, scorers: list };
-    };
-    return {
-      id: f.id,
-      kickoff: f.kickoff_time,
-      provisional_start: Boolean(f.provisional_start_time),
-      minutes: f.minutes || 0,
-      started: Boolean(f.started),
-      finished: Boolean(f.finished_provisional ?? f.finished),
-      home: side(f.team_h, f.team_h_score, s.h),
-      away: side(f.team_a, f.team_a_score, s.a),
-    };
-  }).sort((x, y) => String(x.kickoff).localeCompare(String(y.kickoff)));
-
-  const anyStarted = rows.some((f) => f.started);
-  const allDone = rows.length > 0 && rows.every((f) => f.finished);
+/* ESPN sends score "0" for a match that has not kicked off, so a scheduled
+   fixture will claim to be a goalless draw unless the status is consulted.
+   A score exists only once there is a match to have scored in. */
+function sideFrom(competitor, played) {
+  const t = competitor?.team || {};
+  const raw = competitor?.score;
+  const hasScore = played && raw !== undefined && raw !== null && raw !== "";
   return {
-    gw: event.id,
-    name: event.name,
-    deadline: event.deadline_time,
-    status: !anyStarted ? "pre" : allDone ? "done" : "live",
-    fixtures: rows,
+    name: (t.displayName || t.name || "").trim(),
+    short: t.abbreviation || t.shortDisplayName || null,
+    crest: t.logo || null,
+    score: hasScore ? Number(raw) : null,
   };
 }
 
-export async function onRequestGet() {
-  let bootstrap;
-  try {
-    bootstrap = await fetchJSON("/bootstrap-static/");
-  } catch (err) {
-    return new Response(`upstream unavailable: ${err.message}`, { status: 502 });
-  }
+function matchFrom(event, comp) {
+  const c = (event.competitions || [])[0];
+  if (!c) return null;
+  const competitors = c.competitors || [];
+  const homeC = competitors.find((x) => x.homeAway === "home");
+  const awayC = competitors.find((x) => x.homeAway === "away");
+  if (!homeC || !awayC) return null;
 
-  const teams = Object.fromEntries(bootstrap.teams.map((t) => [t.id, t]));
-  const names = Object.fromEntries(bootstrap.elements.map((e) => [e.id, e.web_name]));
-  const events = bootstrap.events || [];
-  const current = events.find((e) => e.is_current) || null;
-  const upcoming = events.find((e) => e.is_next) || null;
+  const state = event.status?.type?.name || c.status?.type?.name || "";
+  const status = LIVE.has(state) ? "LIVE" : DONE.has(state) ? "FINISHED" : "SCHEDULED";
 
-  const load = async (event) => {
-    if (!event) return null;
-    try {
-      return weekFrom(event, await fetchJSON(`/fixtures/?event=${event.id}`), teams, names);
-    } catch {
-      return null; // one week missing is not a broken response
-    }
+  const played = status !== "SCHEDULED";
+
+  return {
+    id: String(event.id),
+    comp: comp.code,
+    comp_name: comp.name,
+    kickoff: event.date || c.date || null,
+    status,
+    minute: status === "LIVE" ? (event.status?.displayClock || null) : null,
+    home: sideFrom(homeC, played),
+    away: sideFrom(awayC, played),
+    scorers: played ? goalsFrom(c, homeC.team?.id) : [],
   };
+}
 
-  const [now, next] = await Promise.all([load(current), load(upcoming)]);
+/* The page follows Premier League clubs, so a tie earns a row only when one of
+   them is in it: Chelsea v Benfica yes, Bayern v Real Madrid no.
+
+   The 20 names come from site/data/table.json, which this deployment already
+   publishes and which is correct as of the morning's run — cheaper and more
+   honest than a seventh request to ESPN for standings we already have. If it
+   cannot be read we keep PL matches only, which is the safe direction to fail:
+   fewer rows, never wrong ones. */
+async function premierLeagueClubs(request) {
+  try {
+    const res = await fetch(new URL("/data/table.json", request.url).toString(), {
+      cf: { cacheTtl: 300, cacheEverything: true },
+    });
+    if (!res.ok) throw new Error(String(res.status));
+    const t = await res.json();
+    const names = (t.rows || []).map((r) => r.team).filter(Boolean);
+    if (names.length) return new Set(names.map((n) => n.toLowerCase()));
+  } catch { /* fall through */ }
+  return null;
+}
+
+export async function onRequestGet({ request }) {
+  const now = new Date();
+  const from = new Date(now.getTime() - DAYS_BACK * 864e5);
+  const to = new Date(now.getTime() + DAYS_FORWARD * 864e5);
+  const window = `${ymd(from)}-${ymd(to)}`;
+
+  const clubs = await premierLeagueClubs(request);
+  const errors = [];
+
+  const pulls = await Promise.all(
+    COMPS.map(async (comp) => {
+      try {
+        const payload = await scoreboard(comp.slug, window);
+        return (payload.events || [])
+          .map((e) => matchFrom(e, comp))
+          .filter(Boolean);
+      } catch (err) {
+        // One dead competition is not a dead page.
+        errors.push(`${comp.code}: ${err.message}`);
+        return [];
+      }
+    })
+  );
+
+  const isPL = (m) =>
+    m.comp === "PL" ||
+    !clubs ||
+    clubs.has(m.home.name.toLowerCase()) ||
+    clubs.has(m.away.name.toLowerCase());
+
+  const matches = pulls.flat().filter((m) => m.kickoff && isPL(m));
+
+  // Grouped by local date, days ascending, matches within a day by kickoff.
+  const byDay = new Map();
+  for (const m of matches) {
+    const key = iso(new Date(m.kickoff));
+    if (!byDay.has(key)) byDay.set(key, []);
+    byDay.get(key).push(m);
+  }
+  const days = [...byDay.entries()]
+    .sort((a, b) => a[0].localeCompare(b[0]))
+    .map(([date, list]) => ({
+      date,
+      matches: list.sort((x, y) => String(x.kickoff).localeCompare(String(y.kickoff))),
+    }));
 
   return Response.json(
-    { updated: new Date().toISOString(), now, next },
+    { updated: now.toISOString(), window: { from: iso(from), to: iso(to) }, days, errors },
     { headers: { "cache-control": "public, max-age=60" } },
   );
 }

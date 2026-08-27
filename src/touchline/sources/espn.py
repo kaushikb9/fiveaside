@@ -9,7 +9,28 @@ import httpx
 from touchline.core.models import Competition, Fixture, MatchStatus, Result, Standing, Team
 from touchline.sources.base import SourceResult, StandingsResult
 
-_LEAGUE_MAP = {"PL": "eng.1", "CL": "uefa.champions", "FRIENDLIES": "club.friendly"}
+# A Premier League club's season is not one competition. Following a club means
+# following it into the cups and into Europe, so every competition a PL side can
+# actually be playing in on a given midweek has a slug here.
+#
+# Slugs verified against the live API on 2026-08-27, which is the only way to
+# get them right: uefa.europa.conf is a DOT, not the underscore the others
+# would lead you to guess, and uefa.europa_conf answers HTTP 400.
+#
+# A slug returning zero events is not a broken slug. On 2026-08-27 ESPN had
+# 2026-27 loaded for eng.1 (380 fixtures) and eng.league_cup (76) but was still
+# serving 2025-26 for the FA Cup and all three UEFA competitions, because those
+# calendars are not published yet. Those competitions start appearing on their
+# own; nothing here needs changing when they do.
+_LEAGUE_MAP = {
+    "PL": "eng.1",
+    "CL": "uefa.champions",
+    "EL": "uefa.europa",
+    "UECL": "uefa.europa.conf",
+    "FA": "eng.fa",
+    "EFL": "eng.league_cup",
+    "FRIENDLIES": "club.friendly",
+}
 
 _LIVE_STATUSES = {
     "STATUS_IN_PLAY",

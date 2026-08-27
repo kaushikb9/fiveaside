@@ -90,21 +90,43 @@ check "form is not just the famous clubs" "true" "$(js '(function(){
 
 echo "== touchline: the league panel"
 go ""
-sleep 2   # the two match-week tabs arrive from /api/matches after first paint
-check "one panel, three tabs" "3" "$(js 'document.querySelectorAll("#league .tabs .fc").length')"
+sleep 2   # the river arrives from /api/matches after first paint
+check "one panel, two tabs" "2" "$(js 'document.querySelectorAll("#league .tabs .fc").length')"
 check "exactly one tab is on" "1" "$(js 'document.querySelectorAll("#league .tabs .fc[aria-pressed=true]").length')"
 check "exactly one pane shown" "1" \
   "$(js 'document.querySelectorAll("#league .tabpane:not([hidden])").length')"
 check "the table is in a tab"  "true" \
   "$(js 'document.querySelectorAll("#league [data-pane=table] tbody tr").length > 0')"
-check "this match week has fixtures" "true" "$(js 'const b=document.querySelector("#league .fc[data-tab=now]"); b.click(); document.querySelectorAll("#league [data-pane=now] .fx").length > 0')"
-check "a finished score is shown" "true" \
-  "$(js '/\d/.test(document.querySelector("#league [data-pane=now] .fx-score").textContent)')"
-check "next match week has fixtures" "true" "$(js 'const b=document.querySelector("#league .fc[data-tab=next]"); b.click(); document.querySelectorAll("#league [data-pane=next] .fx").length > 0')"
-check "no scores in the next week" "true" \
-  "$(js '[...document.querySelectorAll("#league [data-pane=next] .fx-score")].every(s => !/\d/.test(s.textContent))')"
+# The tabs were FPL gameweeks, which is why a Tuesday in Europe could never
+# appear in one. The river is a calendar window instead: a week either side of
+# today, grouped by day, with a rule where today falls.
+check "no gameweek tabs remain" "0" \
+  "$(js 'document.querySelectorAll(\"#league .fc[data-tab=now], #league .fc[data-tab=next]\").length')"
+js 'const b=document.querySelector("#league .fc[data-tab=matches]"); if(b) b.click(); ""' >/dev/null
+sleep 0.5
+check "the river has matches" "true" \
+  "$(js 'document.querySelectorAll("#league [data-pane=matches] .fx").length > 0')"
+check "grouped by day"       "true" \
+  "$(js 'document.querySelectorAll("#league [data-pane=matches] .fx-day").length > 1')"
+check "today is ruled once"  "1" \
+  "$(js 'document.querySelectorAll("#league [data-pane=matches] .fx-today").length')"
+check "a played match shows a score" "true" \
+  "$(js '[...document.querySelectorAll("#league [data-pane=matches] .fx-score")].some(s => /\d/.test(s.textContent))')"
+# ESPN sends score "0" for a fixture that has not kicked off, so an upcoming
+# match will claim to be a goalless draw unless the status is consulted.
+check "an upcoming match shows a time, not 0-0" "true" \
+  "$(js '[...document.querySelectorAll("#league [data-pane=matches] .fx-score.pre")].every(s => !/\d/.test(s.textContent))')"
 check "no attribute leaked into a scorer name" "false" \
-  "$(js '/plink|data-player|">/.test(document.querySelector("#league [data-pane=now]").innerText)')"
+  "$(js '/plink|data-player|\">/.test(document.querySelector("#league [data-pane=matches]").innerText)')"
+# A goal line that renders must still be clickable — the seam that makes every
+# name on the site open that player's file.
+check "scorer names still open a card" "true" \
+  "$(js '(function(){
+     var lines = [...document.querySelectorAll(\"#league [data-pane=matches] .fx-goals .g\")]
+       .filter(function (x) { return x.textContent.trim().length; });
+     if (!lines.length) return true;              // nothing scored in the window
+     return lines.every(function (x) { return x.querySelector(\"[data-pid]\"); });
+   })()')"
 
 echo "== the archive"
 check "home shows one entry only" "0" "$(js 'document.querySelectorAll("#main details.fold").length')"
