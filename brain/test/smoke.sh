@@ -147,6 +147,18 @@ check "card opens from a name"   "false" "$(js 'document.getElementById("fa-back
 check "owners drawn, not lettered" "true" "$(js 'const o=document.querySelector(".pcard .ownfaces"); !!o && (o.querySelectorAll(".ownface .face").length > 0 || /nobody in the five/.test(o.textContent))')"
 check "signed in, card offers the star" "1" "$(js 'document.querySelectorAll(".pcard .cardstar").length')"
 check "star button says which way it goes" "true" "$(js '/watchlist/i.test(document.querySelector(".pcard .cardstar").textContent)')"
+# The label has to be an ACTION in both directions. "On your watchlist" was a
+# status sitting on a button, and an already-starred player was offered "Add
+# to your watchlist" again whenever the star list had not landed yet.
+check "no status-as-label"  "true" "$(js '!/On your watchlist/i.test(document.querySelector(".pcard .cardstar").textContent)')"
+CWAS=$(js 'document.querySelector(".pcard .cardstar").getAttribute("aria-pressed")')
+js 'document.querySelector(".pcard .cardstar").click(); ""' >/dev/null
+sleep 1
+check "card star flips"     "true" "$(js "document.querySelector('.pcard .cardstar').getAttribute('aria-pressed') !== '$CWAS'")"
+check "starred says how to undo it" "true" "$(js 'const b=document.querySelector(".pcard .cardstar"); b.getAttribute("aria-pressed") !== "true" || /Remove/i.test(b.textContent)')"
+check "unstarred says how to add"   "true" "$(js 'const b=document.querySelector(".pcard .cardstar"); b.getAttribute("aria-pressed") !== "false" || /Add/i.test(b.textContent)')"
+js 'document.querySelector(".pcard .cardstar").click(); ""' >/dev/null   # put it back
+sleep 0.5
 js 'FA.closeCard(); ""' >/dev/null
 sleep 0.3
 fi

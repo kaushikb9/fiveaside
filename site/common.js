@@ -197,8 +197,8 @@
       if (!sig.player) return;
       (byPlayer[sig.player] = byPlayer[sig.player] || []).push(sig);
     });
-    CARD_INDEX = { byName: {}, verdicts: byVerdict, signals: byPlayer, me: me || FA.ME };
-    (players || []).forEach((p) => { CARD_INDEX.byName[p.name] = p; });
+    CARD_INDEX = { byName: {}, byId: {}, verdicts: byVerdict, signals: byPlayer, me: me || FA.ME };
+    (players || []).forEach((p) => { CARD_INDEX.byName[p.name] = p; CARD_INDEX.byId[p.id] = p; });
 
     if (!document.getElementById("fa-backdrop")) {
       const el = document.createElement("div");
@@ -210,10 +210,11 @@
     }
 
     // Stars and the signed-in gaffer are needed wherever a card can open,
-    // which is everywhere. Fired rather than awaited: the card is a click
-    // away, the list is small, and a room that already knows who you are has
-    // seeded FA.setSession before this runs.
-    if (!FA.stars.remote) FA.loadStars();
+    // which is everywhere. Started here and awaited by the card rather than
+    // by the page: a room that already knows who you are has seeded
+    // FA.setSession before this runs, and the card repaints its star when
+    // both answers are in.
+    FA.starsReady();
     FA.sessionReady();
 
     document.addEventListener("click", (e) => {
@@ -225,8 +226,8 @@
         FA.toggleStar(id).then((on) => {
           star.disabled = false;
           if (on === null) return; // signed out between render and click
-          star.setAttribute("aria-pressed", String(on));
-          star.innerHTML = on ? "&#9733; On your watchlist" : "&#9734; Add to your watchlist";
+          const p = CARD_INDEX.byId ? CARD_INDEX.byId[id] : null;
+          if (p) repaintStar(p);
         });
         return;
       }
@@ -299,6 +300,31 @@
     return '<div class="sect">What we know</div>' + rows.join("");
   }
 
+  /* The star's label says what pressing it will DO, in both directions —
+     "On your watchlist" was a status sitting on a button, which reads as
+     already-pressed rather than as the way back out.
+
+     Drawn from whatever is known at the moment the card opens and corrected
+     by repaintStar when the rest arrives. Getting that wrong is worse than
+     it looks: on / and /locker/ the star list is fetched but not awaited, so
+     a card opened straight after load used to offer "Add to your watchlist"
+     for a player already on it. */
+  function starButtonHTML(p) {
+    const mine = FA.myNick();
+    if (!mine) return "";   // a watchlist belongs to somebody
+    const on = FA.isStarred(mine, p.id);
+    return '<button class="cardstar" data-cardstar="' + p.id + '" aria-pressed="' + on + '">' +
+      (on ? "&#9733; Remove from watchlist" : "&#9734; Add to your watchlist") + "</button>";
+  }
+
+  /* Only if that card is still the one on screen — the answer can arrive
+     after the reader has closed it and opened somebody else. */
+  function repaintStar(p) {
+    const slot = document.getElementById("fa-star");
+    if (!slot || slot.dataset.for !== String(p.id)) return;
+    slot.innerHTML = starButtonHTML(p);
+  }
+
   FA.openCard = function (name) {
     if (!CARD_INDEX) return;
     const p = CARD_INDEX.byName[name];
@@ -313,16 +339,6 @@
           (FA.faceSVG ? FA.faceSVG(n) : esc(FA.initial(n))) +
           "<b>" + esc(n) + "</b></span>").join("")
       : '<span class="faint" style="font-size:13px">nobody in the five</span>';
-
-    // The star is the whole point of the card being reachable from every room:
-    // see a name anywhere, open it, keep it. Offered only to a signed-in
-    // gaffer, because a watchlist belongs to somebody.
-    const mine = FA.myNick();
-    const starred = mine ? FA.isStarred(mine, p.id) : false;
-    const star = mine
-      ? '<button class="cardstar" data-cardstar="' + p.id + '" aria-pressed="' + starred + '">' +
-        (starred ? "&#9733; On your watchlist" : "&#9734; Add to your watchlist") + "</button>"
-      : "";
 
     document.getElementById("fa-pcard").innerHTML =
       '<button class="close" data-fa-close>close</button>' +
@@ -340,13 +356,17 @@
       '<div class="sect">Last five</div>' + FA.formRun(p.recent) +
       '<div class="sect">Next five</div>' + FA.fdrStrip(p.fixtures) +
       '<div class="sect">Owned in the five</div><div class="ownfaces">' + owners + "</div>" +
-      star +
+      '<div id="fa-star" data-for="' + p.id + '">' + starButtonHTML(p) + "</div>" +
       (v
         ? '<div class="sect">Our verdict</div><p class="why">' + esc(v.why) + "</p>" +
           '<p class="trig"><strong>What changes it:</strong> ' + esc(v.trigger) + "</p>"
         : '<div class="sect">Our verdict</div><p class="why faint">No verdict written yet &mdash; evidence only.</p>');
 
     document.getElementById("fa-backdrop").hidden = false;
+    // Both facts the star needs travel over the network, and a card can open
+    // before either lands. Paint again when they do rather than hold the
+    // whole card back on a fetch.
+    Promise.all([FA.sessionReady(), FA.starsReady()]).then(() => repaintStar(p));
   };
 
   FA.closeCard = function () {
@@ -436,6 +456,16 @@
      endpoint is unavailable, which is what happens on a local preview. */
   const LKEY = "fiveaside-stars";
   FA.stars = { data: {}, remote: false };
+
+  let starsAsked = null;
+
+  /* Memoised so the rooms and the card cannot each start their own fetch,
+     and so anything that needs the list can await the SAME answer instead of
+     reading a half-filled FA.stars.data. */
+  FA.starsReady = function () {
+    if (!starsAsked) starsAsked = FA.loadStars();
+    return starsAsked;
+  };
 
   FA.loadStars = async function () {
     try {
