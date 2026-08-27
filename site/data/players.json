@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-27T11:59:09.380Z",
+  "generated_at": "2026-08-27T12:59:29.974Z",
   "gameweek": 2,
   "players": [
     {
@@ -71,7 +71,7 @@
       "team": "CHE",
       "pos": "FWD",
       "price": 7.6,
-      "ownership": 67.1,
+      "ownership": 67.2,
       "points": 11,
       "form": "11.0",
       "fixtures": [
@@ -195,7 +195,7 @@
       "team": "LIV",
       "pos": "MID",
       "price": 7,
-      "ownership": 42.9,
+      "ownership": 43,
       "points": 8,
       "form": "8.0",
       "fixtures": [
@@ -922,7 +922,7 @@
       "team": "MUN",
       "pos": "DEF",
       "price": 4.5,
-      "ownership": 19.9,
+      "ownership": 19.8,
       "points": 1,
       "form": "1.0",
       "fixtures": [
@@ -1037,7 +1037,7 @@
       "team": "MCI",
       "pos": "DEF",
       "price": 6,
-      "ownership": 19.1,
+      "ownership": 19.2,
       "points": 10,
       "form": "10.0",
       "fixtures": [
@@ -3213,7 +3213,7 @@
       "team": "BRE",
       "pos": "MID",
       "price": 5.6,
-      "ownership": 7.5,
+      "ownership": 7.6,
       "points": 14,
       "form": "14.0",
       "fixtures": [
@@ -3278,7 +3278,7 @@
       "team": "ARS",
       "pos": "FWD",
       "price": 7.4,
-      "ownership": 7.3,
+      "ownership": 7.2,
       "points": 0,
       "form": "0.0",
       "fixtures": [
@@ -4765,7 +4765,7 @@
       "team": "SUN",
       "pos": "GK",
       "price": 5,
-      "ownership": 4.1,
+      "ownership": 4,
       "points": 1,
       "form": "1.0",
       "fixtures": [
@@ -6529,6 +6529,71 @@
       "fdr_avg": 3
     },
     {
+      "id": 249,
+      "name": "Barry",
+      "team": "EVE",
+      "pos": "FWD",
+      "price": 5.5,
+      "ownership": 2.8,
+      "points": 8,
+      "form": "8.0",
+      "fixtures": [
+        {
+          "gw": 2,
+          "opp": "BOU",
+          "home": false,
+          "fdr": 3
+        },
+        {
+          "gw": 3,
+          "opp": "MUN",
+          "home": true,
+          "fdr": 4
+        },
+        {
+          "gw": 4,
+          "opp": "TOT",
+          "home": false,
+          "fdr": 3
+        },
+        {
+          "gw": 5,
+          "opp": "IPS",
+          "home": true,
+          "fdr": 2
+        },
+        {
+          "gw": 6,
+          "opp": "HUL",
+          "home": false,
+          "fdr": 2
+        }
+      ],
+      "recent": [
+        {
+          "gw": 1,
+          "date": "2026-08-22",
+          "comp": "PL",
+          "opp": "CRY",
+          "home": true,
+          "gf": 2,
+          "ga": 0,
+          "result": "W"
+        },
+        {
+          "date": "2026-08-26",
+          "comp": "EFL",
+          "opp": "Preston North End",
+          "home": false,
+          "gf": 4,
+          "ga": 0,
+          "result": "W"
+        }
+      ],
+      "owned_by": [],
+      "fdr_avg": 2.8
+    },
+    {
       "id": 79,
       "name": "Evanilson",
       "team": "BOU",
@@ -6691,71 +6756,6 @@
           "gf": 2,
           "ga": 2,
           "result": "D"
-        }
-      ],
-      "owned_by": [],
-      "fdr_avg": 2.8
-    },
-    {
-      "id": 249,
-      "name": "Barry",
-      "team": "EVE",
-      "pos": "FWD",
-      "price": 5.5,
-      "ownership": 2.7,
-      "points": 8,
-      "form": "8.0",
-      "fixtures": [
-        {
-          "gw": 2,
-          "opp": "BOU",
-          "home": false,
-          "fdr": 3
-        },
-        {
-          "gw": 3,
-          "opp": "MUN",
-          "home": true,
-          "fdr": 4
-        },
-        {
-          "gw": 4,
-          "opp": "TOT",
-          "home": false,
-          "fdr": 3
-        },
-        {
-          "gw": 5,
-          "opp": "IPS",
-          "home": true,
-          "fdr": 2
-        },
-        {
-          "gw": 6,
-          "opp": "HUL",
-          "home": false,
-          "fdr": 2
-        }
-      ],
-      "recent": [
-        {
-          "gw": 1,
-          "date": "2026-08-22",
-          "comp": "PL",
-          "opp": "CRY",
-          "home": true,
-          "gf": 2,
-          "ga": 0,
-          "result": "W"
-        },
-        {
-          "date": "2026-08-26",
-          "comp": "EFL",
-          "opp": "Preston North End",
-          "home": false,
-          "gf": 4,
-          "ga": 0,
-          "result": "W"
         }
       ],
       "owned_by": [],
@@ -6929,67 +6929,6 @@
       ],
       "owned_by": [],
       "fdr_avg": 3
-    },
-    {
-      "id": 152,
-      "name": "Palestra",
-      "team": "CHE",
-      "pos": "DEF",
-      "price": 5.5,
-      "ownership": 2.5,
-      "points": 0,
-      "form": "0.0",
-      "fixtures": [
-        {
-          "gw": 2,
-          "opp": "BHA",
-          "home": true,
-          "fdr": 2
-        },
-        {
-          "gw": 3,
-          "opp": "ARS",
-          "home": false,
-          "fdr": 5
-        },
-        {
-          "gw": 4,
-          "opp": "HUL",
-          "home": true,
-          "fdr": 2
-        },
-        {
-          "gw": 5,
-          "opp": "BRE",
-          "home": false,
-          "fdr": 3
-        },
-        {
-          "gw": 6,
-          "opp": "BOU",
-          "home": true,
-          "fdr": 3
-        }
-      ],
-      "recent": [
-        {
-          "gw": 1,
-          "date": "2026-08-24",
-          "comp": "PL",
-          "opp": "FUL",
-          "home": false,
-          "gf": 3,
-          "ga": 2,
-          "result": "W"
-        }
-      ],
-      "owned_by": [
-        "The Special One"
-      ],
-      "fdr_avg": 3,
-      "status": "d",
-      "news": "Unspecified injury - 75% chance of playing",
-      "chance": 75
     },
     {
       "id": 504,
@@ -7168,6 +7107,67 @@
       "owned_by": [],
       "fdr_avg": 2.8,
       "chance": 100
+    },
+    {
+      "id": 152,
+      "name": "Palestra",
+      "team": "CHE",
+      "pos": "DEF",
+      "price": 5.5,
+      "ownership": 2.4,
+      "points": 0,
+      "form": "0.0",
+      "fixtures": [
+        {
+          "gw": 2,
+          "opp": "BHA",
+          "home": true,
+          "fdr": 2
+        },
+        {
+          "gw": 3,
+          "opp": "ARS",
+          "home": false,
+          "fdr": 5
+        },
+        {
+          "gw": 4,
+          "opp": "HUL",
+          "home": true,
+          "fdr": 2
+        },
+        {
+          "gw": 5,
+          "opp": "BRE",
+          "home": false,
+          "fdr": 3
+        },
+        {
+          "gw": 6,
+          "opp": "BOU",
+          "home": true,
+          "fdr": 3
+        }
+      ],
+      "recent": [
+        {
+          "gw": 1,
+          "date": "2026-08-24",
+          "comp": "PL",
+          "opp": "FUL",
+          "home": false,
+          "gf": 3,
+          "ga": 2,
+          "result": "W"
+        }
+      ],
+      "owned_by": [
+        "The Special One"
+      ],
+      "fdr_avg": 3,
+      "status": "d",
+      "news": "Unspecified injury - 75% chance of playing",
+      "chance": 75
     },
     {
       "id": 43,
@@ -11517,8 +11517,8 @@
       "owned_by": [],
       "fdr_avg": 2.6,
       "status": "d",
-      "news": "Knock - 50% chance of playing",
-      "chance": 50
+      "news": "Foot injury - 25% chance of playing",
+      "chance": 25
     },
     {
       "id": 352,
@@ -14019,71 +14019,6 @@
       "fdr_avg": 3
     },
     {
-      "id": 564,
-      "name": "Scherpen",
-      "team": "IPS",
-      "pos": "GK",
-      "price": 4.5,
-      "ownership": 0.7,
-      "points": 2,
-      "form": "2.0",
-      "fixtures": [
-        {
-          "gw": 2,
-          "opp": "MUN",
-          "home": false,
-          "fdr": 4
-        },
-        {
-          "gw": 3,
-          "opp": "LIV",
-          "home": true,
-          "fdr": 4
-        },
-        {
-          "gw": 4,
-          "opp": "CRY",
-          "home": false,
-          "fdr": 3
-        },
-        {
-          "gw": 5,
-          "opp": "EVE",
-          "home": false,
-          "fdr": 3
-        },
-        {
-          "gw": 6,
-          "opp": "FUL",
-          "home": true,
-          "fdr": 2
-        }
-      ],
-      "recent": [
-        {
-          "gw": 1,
-          "date": "2026-08-22",
-          "comp": "PL",
-          "opp": "SUN",
-          "home": true,
-          "gf": 2,
-          "ga": 1,
-          "result": "W"
-        },
-        {
-          "date": "2026-08-25",
-          "comp": "EFL",
-          "opp": "Leicester City",
-          "home": true,
-          "gf": 3,
-          "ga": 1,
-          "result": "W"
-        }
-      ],
-      "owned_by": [],
-      "fdr_avg": 3.2
-    },
-    {
       "id": 420,
       "name": "Yoro",
       "team": "MUN",
@@ -14806,6 +14741,71 @@
           "home": false,
           "gf": 2,
           "ga": 0,
+          "result": "W"
+        }
+      ],
+      "owned_by": [],
+      "fdr_avg": 3.2
+    },
+    {
+      "id": 564,
+      "name": "Scherpen",
+      "team": "IPS",
+      "pos": "GK",
+      "price": 4.5,
+      "ownership": 0.6,
+      "points": 2,
+      "form": "2.0",
+      "fixtures": [
+        {
+          "gw": 2,
+          "opp": "MUN",
+          "home": false,
+          "fdr": 4
+        },
+        {
+          "gw": 3,
+          "opp": "LIV",
+          "home": true,
+          "fdr": 4
+        },
+        {
+          "gw": 4,
+          "opp": "CRY",
+          "home": false,
+          "fdr": 3
+        },
+        {
+          "gw": 5,
+          "opp": "EVE",
+          "home": false,
+          "fdr": 3
+        },
+        {
+          "gw": 6,
+          "opp": "FUL",
+          "home": true,
+          "fdr": 2
+        }
+      ],
+      "recent": [
+        {
+          "gw": 1,
+          "date": "2026-08-22",
+          "comp": "PL",
+          "opp": "SUN",
+          "home": true,
+          "gf": 2,
+          "ga": 1,
+          "result": "W"
+        },
+        {
+          "date": "2026-08-25",
+          "comp": "EFL",
+          "opp": "Leicester City",
+          "home": true,
+          "gf": 3,
+          "ga": 1,
           "result": "W"
         }
       ],
