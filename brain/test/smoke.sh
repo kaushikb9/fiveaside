@@ -183,15 +183,15 @@ else
 fi
 
 check "the chip clock is gone"        "0" \
-  "$(js '[...document.querySelectorAll(\"#main .panel h3\")].filter(function(h){return /chip clock/i.test(h.textContent)}).length')"
+  "$(js '[...document.querySelectorAll("#main .panel h3")].filter(function(h){return /chip clock/i.test(h.textContent)}).length')"
 check "crowd missed is gone from here" "0" \
-  "$(js '[...document.querySelectorAll(\"#main .panel h3\")].filter(function(h){return /crowd missed/i.test(h.textContent)}).length')"
+  "$(js '[...document.querySelectorAll("#main .panel h3")].filter(function(h){return /crowd missed/i.test(h.textContent)}).length')"
 # The week looks backwards. "What's next" was an essay and became The Big
 # Decision, which is short and only appears when it can still change something.
 check "the week is two blocks, not three" "2" \
-  "$(js 'document.querySelectorAll(\".week2 .wk\").length')"
+  "$(js 'document.querySelectorAll(".week2 .wk").length')"
 check "no What is next block remains"  "0" \
-  "$(js '[...document.querySelectorAll(\"#main h4\")].filter(function(h){return /next/i.test(h.textContent)}).length')"
+  "$(js '[...document.querySelectorAll("#main h4")].filter(function(h){return /next/i.test(h.textContent)}).length')"
 # Only assertable when the deadline is close; the check passes cleanly when the
 # panel is correctly absent.
 check "the big decision is short and timed" "true" "$(js '(function(){
@@ -293,7 +293,7 @@ sleep 0.3
 # sorted, searched or crossed with a verdict. It is a question about the player
 # file, so it is a filter in the file.
 check "differentials is a filter in the file" "1" \
-  "$(js 'document.querySelectorAll(\"#the-file .fc[data-f=differentials]\").length')"
+  "$(js 'document.querySelectorAll("#the-file .fc[data-f=differentials]").length')"
 check "and it narrows to the under-owned" "true" "$(js '(function(){
   document.querySelector("#the-file .fc[data-f=differentials]").click();
   var rows = [...document.querySelectorAll("#the-file tbody tr")];
