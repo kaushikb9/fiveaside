@@ -25,6 +25,13 @@
 
 import { readFileSync } from "node:fs";
 
+// The Big Decision's caps, declared before the people loop that reads them:
+// a const used above its declaration is a crash the moment the field is
+// first written, and it validates cleanly until then.
+const BIG_MAX = 2;
+const BIG_CALL_MAX = 80;
+const BIG_WHY_MAX = 260;
+
 const path = process.argv[2] ?? "site/data/fpl.json";
 const fail = (msg) => {
   console.error(`fpl.json invalid: ${msg}`);
@@ -100,11 +107,35 @@ if (data.people !== undefined) {
     if (seen.has(p.nick)) fail(`${where}: duplicate nick`);
     seen.add(p.nick);
 
-    // The three-block weekly read that replaced the single signed "call".
+    // The weekly read, looking BACKWARDS. `next` was retired on 2026-08-28:
+    // it had become a seven-hundred-character essay about a transfer nobody
+    // had decided to make, inside a panel that is otherwise a retrospective.
+    // What comes next is a decision, and decisions live in `big`.
     if (p.week !== undefined) {
       if (!isObj(p.week)) fail(`${where}.week must be an object`);
-      for (const k of ["worked", "didnt", "next"]) {
+      for (const k of ["worked", "didnt"]) {
         if (!isStr(p.week[k])) fail(`${where}.week.${k} must be a non-empty string`);
+      }
+      if (p.week.next !== undefined && !isStr(p.week.next))
+        fail(`${where}.week.next must be a non-empty string when present`);
+    }
+
+    // The Big Decision. One or two calls, and short, for the same reason the
+    // roast is capped: a decision that needs a paragraph has not been made.
+    // The page only shows these in the last day before the deadline.
+    if (p.big !== undefined) {
+      if (!Array.isArray(p.big)) fail(`${where}.big must be an array`);
+      if (p.big.length > BIG_MAX) {
+        fail(`${where}.big has ${p.big.length} calls; ${BIG_MAX} is the limit — pick the big ones`);
+      }
+      for (const [bi, c] of p.big.entries()) {
+        const bw = `${where}.big[${bi}]`;
+        if (!isStr(c?.call)) fail(`${bw}.call must be a non-empty string`);
+        if (!isStr(c?.why)) fail(`${bw}.why must be a non-empty string`);
+        if (isStr(c?.call) && c.call.length > BIG_CALL_MAX)
+          fail(`${bw}.call is ${c.call.length} characters; ${BIG_CALL_MAX} is the limit — it is a heading`);
+        if (isStr(c?.why) && c.why.length > BIG_WHY_MAX)
+          fail(`${bw}.why is ${c.why.length} characters; ${BIG_WHY_MAX} is the limit`);
       }
     }
     if (p.watchlist !== undefined) {

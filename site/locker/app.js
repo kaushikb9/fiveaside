@@ -35,6 +35,12 @@
      first screen a 600-name list with no opinion in it; nailed is the shortest
      list we are willing to sign, which is the right thing to see first. */
   const FILTERS = {
+    // Moved out of the gaffers room on 2026-08-28. It was a panel called
+    // "What the crowd missed" that listed eight names and could not be
+    // sorted, searched or crossed with a verdict. It is a QUESTION about the
+    // player file — who is scoring while nobody owns them — so it belongs in
+    // the file, where every other question about players already lives.
+    differentials: (p) => p.ownership < 10 && p.points > 0,
     nailed: (p) => verdicts[p.id] && verdicts[p.id].verdict === "nailed",
     solid: (p) => verdicts[p.id] && verdicts[p.id].verdict === "solid",
     watch: (p) => verdicts[p.id] && verdicts[p.id].verdict === "watch",
@@ -44,7 +50,8 @@
   };
   const CHIPS = [
     ["nailed", "nailed"], ["solid", "solid"], ["watch", "watch"], ["sack", "sack"],
-    ["flagged", "injured / doubtful"], ["all", "everyone"],
+    ["differentials", "differentials"], ["flagged", "injured / doubtful"],
+    ["all", "everyone"],
   ];
   const THRESHOLDS = [0, 1, 2, 3, 5, 10];
 
@@ -95,11 +102,7 @@
     }).join("");
 
     return '<div class="panel" id="the-file"><h3>The file</h3>' +
-      '<p class="note">Every player we hold evidence on &mdash; the injury room included, as the ' +
-      '<strong>injured / doubtful</strong> filter. Verdict first, then the name, then one line of ' +
-      "why; for a flagged player the flag replaces the verdict, because that is what you came for. " +
-      "The verdict is judgment, everything else on the row is measured, and the name opens the " +
-      "full file.</p>" +
+      '<p class="note">The verdict is ours. Everything else on the row is measured.</p>' +
       '<div class="filters">' +
         CHIPS.map((c) =>
           '<button class="fc" data-f="' + c[0] + '" aria-pressed="' + (c[0] === filter) + '">' +
@@ -132,9 +135,8 @@
     const club = ((F && F.signals) || []).filter((s) => !s.player);
     if (!club.length) return "";
     return '<div class="panel"><h3>Team news</h3>' +
-      '<p class="note">Club-level only &mdash; anything about a named player is on his card. ' +
-      "Written by the editor from fetched sources, not measured, and each says where it came " +
-      "from.</p><div class=\"rows\">" +
+      '<p class="note">Club-level. Anything about a named player is on his card.</p>' +
+      '<div class="rows">' +
       club.map((s) =>
         '<div class="row"><div class="row-main"><div class="row-name">' +
         '<span class="wtag">' + esc(s.tag) + "</span>" +

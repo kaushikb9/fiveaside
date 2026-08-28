@@ -41,9 +41,8 @@
     el.innerHTML =
       '<section class="section"><div class="section-head"><h2>archive</h2>' +
       '<span class="tag ghost">' + past.length + " entries</span></div>" +
-      '<p class="note" style="margin:0 0 14px">Every entry before the current one, newest first. ' +
-      'The latest is on <a href="../">touchline</a>. The league table inside an old entry is the ' +
-      "table as it stood that day, not today's.</p>" +
+      '<p class="note" style="margin:0 0 14px">The league table inside an old entry is the ' +
+      "table as it stood that day, not today&rsquo;s.</p>" +
       past.map((d) =>
         '<details class="fold"><summary>' + esc(D.fmtShort(d.date)) + " &middot; " +
         esc(d.headline) + '</summary><div class="foldbody">' + D.entryHTML(d, gw) +

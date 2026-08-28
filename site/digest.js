@@ -49,8 +49,8 @@
       '<td class="faint num">' + esc(r.form || "") + "</td>" +
       '<td class="n">' + esc(r.played) + "</td>" +
       '<td class="n"><strong>' + esc(r.points) + "</strong></td></tr>").join("");
-    return (t.note ? '<p class="note">' + esc(t.note) + "</p>" : "") +
-      '<div class="scroll"><table class="sortable"><thead><tr><th class="n">#</th><th>Club</th>' +
+    // No table note — retired 2026-08-28; the rows are the reading.
+    return '<div class="scroll"><table class="sortable"><thead><tr><th class="n">#</th><th>Club</th>' +
       '<th data-nosort>Form</th><th class="n">P</th><th class="n">Pts</th></tr></thead><tbody>' + rows +
       "</tbody></table></div>";
   };
@@ -84,7 +84,7 @@
       "<strong>" + esc(w.kicker) + "</strong> " + linkPlayers(w.text) +
       (w.club ? '<span class="clubchip">' + esc(FA.club(w.club)) + "</span>" : "") + "</li>").join("");
     return '<div class="panel"><h3>This week</h3>' +
-      '<p class="note">The league’s last seven days as one feed.</p>' + bar + '<ul class="feed">' + items + "</ul></div>";
+      bar + '<ul class="feed">' + items + "</ul></div>";
   };
 
   D.aroundHTML = function (d, gw) {
@@ -100,21 +100,17 @@
 
     const left = shown.length
       ? '<div class="panel"><h3>Around the top</h3>' +
-        '<p class="note">One line each for the clubs this page follows, written as a league ' +
-        "view: no us, no them. Secondary to the week above.</p>" +
         '<div class="rows">' + shown.map(one).join("") + "</div>" +
         (dropped.length
           ? '<p class="note" style="margin:12px 0 0">Not covered this week: ' +
-            dropped.map((c) => esc(FA.club(c))).join(", ") +
-            " &mdash; they return automatically once they are in the top " +
-            FA.FOCUS_TOP + " from GW" + FA.FOCUS_FROM_GW + ".</p>"
+            dropped.map((c) => esc(FA.club(c))).join(", ") + ".</p>"
           : "") + "</div>"
       : "";
 
     const rest = (d.elsewhere || []).map(one).join("");
     const right = rest
       ? '<div class="panel"><h3>Elsewhere</h3>' +
-        '<p class="note">The league is more than six clubs.</p><div class="rows">' + rest + "</div></div>"
+        '<div class="rows">' + rest + "</div></div>"
       : "";
     if (!left && !right) return "";
     return '<div class="grid2">' + left + right + "</div>";
@@ -158,7 +154,6 @@
     (d.wider || []).forEach((w) => items.push(w));
     if (!items.length) return "";
     return '<div class="panel"><h3>Worth the click</h3>' +
-      '<p class="note">One good read, and the rest of the week’s writing.</p>' +
       '<div class="cards">' + items.map(linkCard).join("") + "</div></div>";
   };
 

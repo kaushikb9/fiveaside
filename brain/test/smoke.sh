@@ -182,6 +182,25 @@ else
   sleep 0.5
 fi
 
+check "the chip clock is gone"        "0" \
+  "$(js '[...document.querySelectorAll(\"#main .panel h3\")].filter(function(h){return /chip clock/i.test(h.textContent)}).length')"
+check "crowd missed is gone from here" "0" \
+  "$(js '[...document.querySelectorAll(\"#main .panel h3\")].filter(function(h){return /crowd missed/i.test(h.textContent)}).length')"
+# The week looks backwards. "What's next" was an essay and became The Big
+# Decision, which is short and only appears when it can still change something.
+check "the week is two blocks, not three" "2" \
+  "$(js 'document.querySelectorAll(\".week2 .wk\").length')"
+check "no What is next block remains"  "0" \
+  "$(js '[...document.querySelectorAll(\"#main h4\")].filter(function(h){return /next/i.test(h.textContent)}).length')"
+# Only assertable when the deadline is close; the check passes cleanly when the
+# panel is correctly absent.
+check "the big decision is short and timed" "true" "$(js '(function(){
+  var p = document.querySelector(".panel.big");
+  if (!p) return true;
+  var rows = p.querySelectorAll(".row").length;
+  return rows > 0 && rows <= 2 && !!p.querySelector(".big-clock");
+})()')"
+
 # The card is reachable from every room, and since 2026-08-27 it is where a
 # star is pressed. Both halves are new and neither had coverage.
 echo "== the card: the five drawn, and the star"
@@ -270,6 +289,17 @@ check "search filters" "true" "$(js 'document.querySelectorAll("#the-file table 
 # days, league then cup, and the card could only see one of them.
 js 'const i=document.getElementById("fq"); i.value=""; i.dispatchEvent(new Event("input")); ""' >/dev/null
 sleep 0.3
+# "What the crowd missed" was a gaffers panel of eight names that could not be
+# sorted, searched or crossed with a verdict. It is a question about the player
+# file, so it is a filter in the file.
+check "differentials is a filter in the file" "1" \
+  "$(js 'document.querySelectorAll(\"#the-file .fc[data-f=differentials]\").length')"
+check "and it narrows to the under-owned" "true" "$(js '(function(){
+  document.querySelector("#the-file .fc[data-f=differentials]").click();
+  var rows = [...document.querySelectorAll("#the-file tbody tr")];
+  if (!rows.length) return "nothing shown";
+  return rows.every(function (tr) { return parseFloat(tr.children[3].textContent) < 10; });
+})()')"
 check "form spans every competition" "true" "$(js '(function(){
   var rows = [...document.querySelectorAll("#the-file [data-pid]")].slice(0, 40);
   for (var i = 0; i < rows.length; i++) {

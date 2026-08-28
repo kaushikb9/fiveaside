@@ -175,8 +175,11 @@ for (const [i, d] of data.digests.entries()) {
       if (row.focus !== undefined && typeof row.focus !== "boolean")
         fail(`${rwhere}: 'focus' must be a boolean when present`);
     }
-    if (t.note !== undefined && !isNonEmptyStr(t.note))
-      fail(`${where}: table.note must be a non-empty string when present`);
+    // Retired 2026-08-28: every note the brain wrote restated the arithmetic
+    // the rows already show. The site stopped rendering it; this stops it
+    // being written.
+    if (t.note !== undefined)
+      fail(`${where}: 'table.note' is retired — the rows say it already. Omit it.`);
   }
 
   if (!Array.isArray(d.wider)) fail(`${where}: 'wider' must be an array`);

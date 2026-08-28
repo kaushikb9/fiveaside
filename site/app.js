@@ -97,8 +97,8 @@
         (m.errors && m.errors.length ? " (" + esc(m.errors.join(", ")) + ")" : "") + ".</p>";
     }
     const today = new Date().toISOString().slice(0, 10);
-    let out = '<p class="note">Every competition a Premier League club is in, a week either side ' +
-      "of today. Kick-offs in your own time zone.</p>" + '<div class="fx-list">';
+    let out = '<p class="note">Every competition, a week either side of today. Kick-offs in ' +
+      "your time zone.</p>" + '<div class="fx-list">';
     let ruled = false;
     m.days.forEach((d) => {
       if (!ruled && d.date >= today) { out += '<div class="fx-today"><span>today</span></div>'; ruled = true; }
@@ -127,8 +127,8 @@
     return recent ? "matches" : "table";
   }
 
-  /* Rows from the mechanical file, note from the digest. The note is a reading
-     of the table and readings are the brain's job; the rows are not. */
+  /* Rows from the mechanical file. The digest's `table` is only the archive's
+     copy of the day now, and its note is retired. */
   let LEAGUE_TABLE = null;
   function leagueTable(d) {
     const own = d && d.table;
@@ -136,7 +136,6 @@
     return {
       competition: LEAGUE_TABLE.competition || (own && own.competition) || "",
       rows: LEAGUE_TABLE.rows,
-      note: own && own.note,
     };
   }
 

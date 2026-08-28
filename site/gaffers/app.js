@@ -273,8 +273,8 @@
       '<p class="note">' + done + " of " + live.fixtures.length + " matches finished" +
       (inPlay.length ? ", " + inPlay.length + " in play" : "") +
       ". Points on the pitch below are live, including provisional bonus.</p>" +
-      '<p class="note" style="margin-top:-6px">The total in the pitch header is the one to read: ' +
-      "the proxy&rsquo;s own net counts starters only and does not know a bench was boosted.</p>" +
+      '<p class="note" style="margin-top:-6px">Read the total in the pitch header &mdash; the ' +
+      "other one counts starters only.</p>" +
       (inPlay.length ? '<div class="rows">' + inPlay.map(fx).join("") + "</div>" : "") +
       '<button class="btn-live fc" data-live style="margin-top:10px">' +
       (liveBusy ? "refreshing…" : "Refresh") + "</button></div>";
@@ -353,8 +353,7 @@
       (pl.fixtures || []).reduce((n, f) => Math.max(n, f.gw), m), PICKS_GW());
 
     return '<div class="panel"><h3>' + gname(who) + "’s " + esc(shape) + "</h3>" +
-      '<p class="note">The shape, not a list. Step back to a settled week to see what it scored, ' +
-      "or forward to see who everyone plays and how hard it looks.</p>" +
+
       '<div class="gwnav">' +
       '<button data-gw="' + (gw - 1) + '"' + (gw <= 1 ? " disabled" : "") + ' aria-label="Previous gameweek">&larr;</button>' +
       '<span class="gwlabel">Gameweek ' + gw + "</span>" +
@@ -392,17 +391,21 @@
     const me = person();
     const p = G.people.find((x) => x.nick === who);
     const head = '<div class="panel"><h3>' + gname(who) + "’s week</h3>" +
-      '<p class="note">Written after the gameweek settles &mdash; this is judgment, not data. ' +
+      '<p class="note">Judgment, not data. ' +
       esc(p.team_name) + " &middot; " + p.total_points + " pts &middot; " +
       p.transfers_made + " transfer" + (p.transfers_made === 1 ? "" : "s") +
       " made &middot; £" + p.bank.toFixed(1) + "m banked.</p>";
     if (!me || !me.week) {
       return head + '<p class="empty" style="padding:12px 0">Nothing written for this gameweek yet.</p></div>';
     }
-    return head + '<div class="week3">' +
+    // Two blocks, not three. "What's next" was a seven-hundred-character essay
+    // about a transfer nobody had decided to make, sitting inside a panel that
+    // is otherwise a look backwards. What comes next is a DECISION and it now
+    // lives in The Big Decision, where it is short and it is timed.
+    return head + '<div class="week2">' +
       '<div class="wk good"><h4>What worked</h4><p>' + gname(me.week.worked) + "</p></div>" +
       '<div class="wk bad"><h4>What didn’t</h4><p>' + gname(me.week.didnt) + "</p></div>" +
-      '<div class="wk next"><h4>What’s next</h4><p>' + gname(me.week.next) + "</p></div></div></div>";
+      "</div></div>";
   }
 
   /* ---------------- watchlist ----------------
@@ -498,50 +501,53 @@
         : "") + "</div>";
   }
 
+  /* ---------------- the big decision ----------------
+     One or two calls, and only in the last day before the deadline. The gate
+     is the point: a decision panel that is always there is a column, and a
+     column gets skimmed. This appears when it can still change something and
+     is gone by kick-off.
+
+     Per gaffer, because a captaincy or a chip is not a house opinion — five
+     people, five different squads, five different questions. */
+  const DEADLINE_WINDOW_H = 24;
+
+  function hoursToDeadline() {
+    const iso = G && G.deadline_utc;
+    if (!iso) return null;
+    const t = Date.parse(iso);
+    return isNaN(t) ? null : (t - Date.now()) / 3600000;
+  }
+
+  function bigHTML() {
+    const me = person();
+    const calls = (me && me.big) || [];
+    if (!calls.length) return "";
+    const h = hoursToDeadline();
+    if (h === null || h <= 0 || h > DEADLINE_WINDOW_H) return "";
+
+    const left = h < 1
+      ? Math.max(1, Math.round(h * 60)) + " min"
+      : Math.round(h) + " hour" + (Math.round(h) === 1 ? "" : "s");
+    return '<div class="panel big"><h3>The Big Decision' +
+      '<span class="big-clock">' + esc(left) + " left</span></h3>" +
+      '<div class="rows">' + calls.slice(0, 2).map((c) =>
+        '<div class="row"><div class="row-main">' +
+        '<div class="row-name">' + gname(c.call) + "</div>" +
+        '<div class="row-sub">' + gname(c.why) + "</div></div></div>").join("") +
+      "</div></div>";
+  }
+
   /* ---------------- roast + chips ---------------- */
   function roastHTML() {
     if (!F || !F.roast || !F.roast.text) return "";
     // The note used to print the rules back at the reader. A roast that needs
     // its terms and conditions above it is not landing.
     return '<div class="panel"><h3>The roast</h3>' +
-      '<p class="note">Once a gameweek, about a decision somebody actually made.</p>' +
+
       '<div class="roast"><p>' + gname(F.roast.text) + "</p>" +
       (F.roast.by ? '<div class="by">' + esc(F.roast.by) + "</div>" : "") + "</div></div>";
   }
 
-  function diffsHTML() {
-    // What the crowd MISSED — computed, never asserted. A captain poll tells
-    // you nothing you can act on; this is a list of things everyone got wrong.
-    const d = pool().filter((p) => p.ownership < 10 && p.points > 0)
-      .sort((a, b) => b.points - a.points || a.ownership - b.ownership).slice(0, 8);
-    if (!d.length) return "";
-    return '<div class="panel"><h3>What the crowd missed</h3>' +
-      '<p class="note">Under 10% owned, sorted by points returned.</p><div class="rows">' +
-      d.map((r) =>
-        '<div class="row"><div class="row-main"><div class="row-name">' +
-        '<a class="plink" data-pid="' + r.id + '" data-player="' + esc(r.name) + '">' +
-        esc(r.name) + "</a>" +
-        FA.ownerDots(r.owned_by, who) + "</div>" +
-        '<div class="row-sub">' + esc(r.pos) + " &middot; " + esc(r.team) +
-        " &middot; £" + r.price.toFixed(1) + "m</div></div>" +
-        '<div class="row-side"><strong style="color:var(--ok);font-size:14px">' + r.points +
-        "</strong> pts<br>" + r.ownership + "% owned</div></div>").join("") + "</div></div>";
-  }
-
-  function chipsHTML() {
-    if (!F || !F.chips || !F.chips.rows) return "";
-    const played = {};
-    G.people.forEach((p) => { if (p.active_chip) (played[p.active_chip] = played[p.active_chip] || []).push(p.nick); });
-    return '<div class="panel"><h3>Chip clock</h3>' +
-      (F.chips.note ? '<p class="note">' + esc(F.chips.note) + "</p>" : "") +
-      '<div class="rows">' + F.chips.rows.map((c) => {
-        const users = played[c.code ? c.code.toLowerCase() : ""] || [];
-        return '<div class="row"><div class="row-main"><div class="row-name">' + esc(c.name) + "</div>" +
-          '<div class="row-sub">' + esc(c.window) + "</div></div>" +
-          '<div class="row-side">' + (users.length ? gname(users.join(", ")) + "<br>" : "") +
-          '<span class="pill">' + esc(c.expires) + "</span></div></div>";
-      }).join("") + "</div></div>";
-  }
 
   function fiveHTML() {
     const rows = G.league.rows;
@@ -582,8 +588,7 @@
       barHTML() + fiveHTML() +
       // Squad first, then the read about it. You look at the team, then at
       // what someone made of it.
-      pitchHTML() + weekHTML() + watchHTML() + roastHTML() +
-      '<div class="grid2">' + diffsHTML() + chipsHTML() + "</div></section>";
+      pitchHTML() + weekHTML() + watchHTML() + bigHTML() + roastHTML() + "</section>";
     wire();
     FA.wireSortable($("#main"));
     // The five table lives inside a <details>; wire it when it first opens.

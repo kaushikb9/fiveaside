@@ -85,6 +85,7 @@ Write accordingly:
     { "id": "D1", "text": "...", "established": "day 0",
       "grade": "doctrine", "status": "standing" }
   ],
+  "big": [ { "call": "a heading, under 80 characters", "why": "one or two sentences" } ],
   "roast": { "text": "...", "by": "settles GW1", "target": "The Special One" },
   "plan": { "outlook": "a short paragraph on where the five stand" },
   "chips": { "rows": [ { "code": "WC1", "name": "Wildcard", "window": "...", "expires": "GW19" } ],
@@ -102,7 +103,7 @@ finish and fix whatever it reports.
 One entry per gaffer, all five, **every run**. This is the room's whole
 purpose: five people, five different weeks.
 
-- **`week.worked` / `week.didnt` / `week.next`.** Written after the gameweek
+- **`week.worked` / `week.didnt`.** Written after the gameweek
   settles. Ground every one of them in something specific from
   `gaffers.json` — their captain, their chip, their bench, a differential
   nobody else owns. Read those files before writing; do not guess a squad.
@@ -146,6 +147,30 @@ list of individuals and left the cards empty. If you catch yourself writing
 Only from sources you actually fetched, with `source` filled in. Never invent
 a quote, an injury or a return date. If the sources are thin this week, write
 fewer.
+
+### the big decision
+
+`people[].big` — one or two calls per gaffer, and the page shows them only in
+the last twenty-four hours before the deadline.
+
+- **`week.next` is RETIRED — do not write it.** It became a seven-hundred
+  character essay about a transfer nobody had decided to make, sitting inside
+  a panel that is otherwise a look backwards. This section replaces it.
+- **One or two. Never three.** `validate-fpl.mjs` rejects the file at three,
+  and the limit is the whole idea: if everything is a big decision then
+  nothing is, and a gaffer with twenty minutes before a deadline needs the one
+  thing worth changing, not a list.
+- **`call` is a HEADING**, under 80 characters. "Captain: Haaland or Palmer".
+  "Hold the United block?" Not a sentence.
+- **`why` is one or two sentences**, 260 characters, and it must contain the
+  fact that makes it a question — the fixture, the price, the ownership, the
+  minutes. A `why` that only says "he is in form" is not a decision, it is a
+  mood.
+- **Only real decisions.** Captaincy when it is genuinely close, a chip whose
+  window is closing, a transfer the data actually argues for. If a gaffer's
+  week has no real question in it, write nothing for him. An invented dilemma
+  is worse than an empty panel, because the panel only appears when it has
+  something to say.
 
 ### the roast
 

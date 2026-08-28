@@ -174,8 +174,12 @@ Rules:
   there. `validate.mjs` rejects the entry if a table row carries `form`.
 - The `table` you write is now the ARCHIVE's copy of the day, not what the
   front page renders — the front page takes its rows from
-  `site/data/table.json`. Keep writing `table.note`: a reading of the table is
-  judgment and stays yours. The rows are not.
+  `site/data/table.json`.
+- **`table.note` is RETIRED — do not write it.** Retired 2026-08-28. It kept
+  producing sentences that restated the arithmetic already visible in the
+  rows ("nine clubs have three points from their one game, so the order is
+  goal difference"). A reader looking at the table can see the table. The site
+  no longer renders it and `validate.mjs` rejects the entry if it appears.
 - **`club` and `today` are LEGACY — never write them again.** They were the
   single-club era's sections (the owner's next match, the owner's form). The
   page is a league page now; the same ground is covered by `table`, `week` and
@@ -198,8 +202,7 @@ Rules:
   `form` is optional, a five-character string like `"WWDLW"` built from the
   bundle's `focus[].form` (oldest first) — include it only for clubs where the
   bundle actually carries form. `competition` is the human league name.
-  One optional `note`: a single sentence on what the table is actually saying
-  this week, or omit it when the table speaks for itself.
+  No `note` — see the retirement above.
 - `headline` earns the open. Specific beats clever; clever beats generic.
   Never use the phrase "here we go" in the headline (or anywhere in prose) —
   it's reporter branding, not editorial voice.

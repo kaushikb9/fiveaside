@@ -597,8 +597,22 @@ h3 .gname, summary .gname, td .gname, .ghead p .gname {
 }
 
 /* ---------- the weekly read ---------- */
-.week3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
-@media (max-width: 760px) { .week3 { grid-template-columns: 1fr; } }
+.week2 { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; }
+@media (max-width: 760px) { .week2 { grid-template-columns: 1fr; } }
+
+/* ---------- the big decision ----------
+   Only on screen in the last day before a deadline, so it can afford to look
+   like it matters. The clock is the reason the panel exists; without it this
+   is just another opinion box. */
+.panel.big { border-color: var(--accent); }
+.panel.big > h3 { display: flex; align-items: baseline; gap: 10px; }
+.big-clock {
+  font-family: var(--f-num); font-size: 10.5px; font-weight: 700; letter-spacing: 0.04em;
+  color: var(--on-accent); background: var(--accent); border-radius: 999px;
+  padding: 2px 8px; text-transform: uppercase;
+}
+.panel.big .row-name { font-size: 15px; }
+.panel.big .row-sub { font-size: 13.5px; line-height: 1.5; margin-top: 4px; }
 .wk {
   border-left: 4px solid var(--line); border-radius: 0 var(--rs) var(--rs) 0;
   padding: 12px 14px; background: var(--raise);
