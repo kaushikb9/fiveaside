@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-28T03:20:42.622Z",
+  "generated_at": "2026-08-28T04:21:26.038Z",
   "gameweek": 2,
   "players": [
     {
@@ -169,7 +169,7 @@
       "team": "MUN",
       "pos": "MID",
       "price": 12,
-      "ownership": 48.6,
+      "ownership": 48.5,
       "points": 2,
       "form": "2.0",
       "fixtures": [
@@ -828,7 +828,7 @@
       "team": "MCI",
       "pos": "MID",
       "price": 8.5,
-      "ownership": 24.4,
+      "ownership": 24.3,
       "points": 2,
       "form": "2.0",
       "fixtures": [
@@ -4025,7 +4025,7 @@
       "team": "ARS",
       "pos": "FWD",
       "price": 7.5,
-      "ownership": 7.3,
+      "ownership": 7.4,
       "points": 6,
       "form": "6.0",
       "fixtures": [
@@ -4175,7 +4175,7 @@
       "team": "ARS",
       "pos": "FWD",
       "price": 7.4,
-      "ownership": 7.1,
+      "ownership": 7,
       "points": 0,
       "form": "0.0",
       "fixtures": [
@@ -6704,6 +6704,82 @@
       "fdr_avg": 3.2
     },
     {
+      "id": 586,
+      "name": "Mendy",
+      "team": "HUL",
+      "pos": "DEF",
+      "price": 4,
+      "ownership": 3.5,
+      "points": 15,
+      "form": "15.0",
+      "fixtures": [
+        {
+          "gw": 2,
+          "opp": "COV",
+          "home": false,
+          "fdr": 2
+        },
+        {
+          "gw": 3,
+          "opp": "AVL",
+          "home": true,
+          "fdr": 3
+        },
+        {
+          "gw": 4,
+          "opp": "CHE",
+          "home": false,
+          "fdr": 4
+        },
+        {
+          "gw": 5,
+          "opp": "NEW",
+          "home": false,
+          "fdr": 3
+        },
+        {
+          "gw": 6,
+          "opp": "EVE",
+          "home": true,
+          "fdr": 3
+        }
+      ],
+      "recent": [
+        {
+          "gw": 1,
+          "date": "2026-08-22",
+          "comp": "PL",
+          "opp": "MUN",
+          "home": true,
+          "gf": 2,
+          "ga": 0,
+          "result": "W"
+        },
+        {
+          "date": "2026-08-25",
+          "comp": "EFL",
+          "opp": "Stoke City",
+          "home": false,
+          "gf": 1,
+          "ga": 1,
+          "result": "D"
+        }
+      ],
+      "other_apps": [],
+      "other_next": [
+        {
+          "date": "2026-09-08",
+          "kickoff": "2026-09-08T18:00:00+00:00",
+          "comp": "EFL",
+          "opp": "SUN",
+          "home": false
+        }
+      ],
+      "owned_by": [],
+      "fdr_avg": 3,
+      "chance": 100
+    },
+    {
       "id": 539,
       "name": "O'Nien",
       "team": "SUN",
@@ -7001,82 +7077,6 @@
       "owned_by": [],
       "fdr_avg": 3.2,
       "penalties": true
-    },
-    {
-      "id": 586,
-      "name": "Mendy",
-      "team": "HUL",
-      "pos": "DEF",
-      "price": 4,
-      "ownership": 3.4,
-      "points": 15,
-      "form": "15.0",
-      "fixtures": [
-        {
-          "gw": 2,
-          "opp": "COV",
-          "home": false,
-          "fdr": 2
-        },
-        {
-          "gw": 3,
-          "opp": "AVL",
-          "home": true,
-          "fdr": 3
-        },
-        {
-          "gw": 4,
-          "opp": "CHE",
-          "home": false,
-          "fdr": 4
-        },
-        {
-          "gw": 5,
-          "opp": "NEW",
-          "home": false,
-          "fdr": 3
-        },
-        {
-          "gw": 6,
-          "opp": "EVE",
-          "home": true,
-          "fdr": 3
-        }
-      ],
-      "recent": [
-        {
-          "gw": 1,
-          "date": "2026-08-22",
-          "comp": "PL",
-          "opp": "MUN",
-          "home": true,
-          "gf": 2,
-          "ga": 0,
-          "result": "W"
-        },
-        {
-          "date": "2026-08-25",
-          "comp": "EFL",
-          "opp": "Stoke City",
-          "home": false,
-          "gf": 1,
-          "ga": 1,
-          "result": "D"
-        }
-      ],
-      "other_apps": [],
-      "other_next": [
-        {
-          "date": "2026-09-08",
-          "kickoff": "2026-09-08T18:00:00+00:00",
-          "comp": "EFL",
-          "opp": "SUN",
-          "home": false
-        }
-      ],
-      "owned_by": [],
-      "fdr_avg": 3,
-      "chance": 100
     },
     {
       "id": 334,
