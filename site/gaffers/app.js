@@ -37,15 +37,23 @@
     const cand = [];
     const sorted = people.slice().sort((a, b) => b.total_points - a.total_points);
 
-    people.filter((p) => p.active_chip).forEach((p) => {
+    /* Every chip anyone has played, with the week it was played in. This read
+       `active_chip` and called it "the opening week" regardless, so a Bench
+       Boost played in GW2 was announced as a GW1 one and the GW1 chip that
+       really existed was not announced at all. */
+    people.forEach((p) => {
+      const played = (p.chips || []).slice().sort((a, b) => b.gw - a.gw)[0]
+        || (p.active_chip ? { name: p.active_chip, gw: PICKS_GW() } : null);
+      if (!played) return;
       const lead = sorted[0];
       cand.push({
         score: 100, kicker: "Chip played", nick: p.nick,
-        text: p.nick + " played the " + (CHIP_NAME[p.active_chip] || p.active_chip) +
-          " in the opening week — " + p.total_points + " points, " +
+        text: p.nick + " played the " + (CHIP_NAME[played.name] || played.name) +
+          " in gameweek " + played.gw + " — " + p.total_points + " points, " +
           (lead.nick === p.nick ? "top of the five" : (lead.total_points - p.total_points) + " behind " + lead.nick) +
           ", and " + (p.bench_points === 0 ? "nothing left on the bench" : p.bench_points + " off the bench") + ".",
-        sub: (people.length - 1) + " of the five still have theirs. First-half chips expire at GW19.",
+        sub: people.filter((x) => !(x.chips || []).length && !x.active_chip).length +
+          " of the five still have theirs. First-half chips expire at GW19.",
       });
     });
 
@@ -69,7 +77,7 @@
       });
     }
 
-    const worst = people.filter((p) => !p.active_chip)
+    const worst = people.filter((p) => !(p.chips || []).length && !p.active_chip)
       .sort((a, b) => (b.bench_points || 0) - (a.bench_points || 0))[0];
     if (worst && worst.bench_points >= 5) {
       const passed = people.filter((p) =>
@@ -399,14 +407,18 @@
       ? scored(xi)
       : (gw === PICKS_GW() && p.gw_points != null ? p.gw_points : null);
 
-    /* `active_chip` is the chip played in the gameweek the picks are from. It
-       carries no gameweek of its own, so it used to be drawn onto every week
-       stepped through — one Bench Boost appearing in GW1 and GW2 at once. */
-    const chipHere = gw === PICKS_GW();
+    /* A chip belongs to the week it was played in, and `chips` is the only
+       place that pairing exists — `active_chip` is this gameweek's and forgets
+       everything else, so when GW2 began, one gaffer's GW1 Bench Boost stopped
+       existing and another's appeared on every screen at once. */
+    const chipFor = (n) => ((p.chips || []).find((c) => c.gw === n) || {}).name
+      || (n === PICKS_GW() ? p.active_chip : null) || null;
+    const chipThisWeek = chipFor(gw);
+    const chipHere = Boolean(chipThisWeek);
     // Two different questions. Normally the bench is REGRET and the API's
     // points_on_bench is the answer. Under Bench Boost the bench SCORED and
     // that field reads 0, so the contribution has to be summed instead.
-    const boosted = chipHere && p.active_chip === "bboost";
+    const boosted = chipThisWeek === "bboost";
     const benchPts = liveHere
       ? (boosted ? scored(bench) : (p.bench_points || 0))
       : (chipHere && p.bench_points != null ? p.bench_points : null);
@@ -415,7 +427,7 @@
     const avgFdr = fixtures.length
       ? (fixtures.reduce((n, f) => n + f.fdr, 0) / fixtures.length).toFixed(2) : null;
 
-    const chip = (chipHere && p.active_chip) ? (CHIP_NAME[p.active_chip] || p.active_chip) : null;
+    const chip = chipThisWeek ? (CHIP_NAME[chipThisWeek] || chipThisWeek) : null;
     // Walk forward as far as the fixture data actually reaches, rather than
     // guessing an offset — the fixture list starts from the gameweek being
     // so a fixed PICKS_GW+2 stopped one week short of what was on disk.

@@ -80,6 +80,9 @@ const gaffers = {
       value: s.value ?? null,
       transfers_made: s.transfers_made ?? null,
       chips_used: s.chips_used ?? [],
+      // Chips WITH the gameweek they were played in — the pitch needs to know
+      // which week a Bench Boost belongs to, not merely that one exists.
+      chips: s.chips ?? [],
       league_rank: row?.rank ?? null,
       active_chip: s.active_chip ?? null,
       bench_points: s.bench_points ?? null,

@@ -435,6 +435,16 @@
 
   /* Takes an element id or a name. Ids win: they are exact, and a name is a
      guess whenever two players share one. */
+  /* The verdict is the one opinion on the card, so the man who wrote it puts
+     his face next to it. Falls back to the name alone where faces.js is not
+     loaded, the same way the owner marks do. */
+  function coachSect() {
+    const face = FA.faceSVG
+      ? '<span class="coachface">' + FA.faceSVG(FA.COACH) + "</span>"
+      : "";
+    return '<div class="sect coach">' + face + esc(FA.COACH) + "\u2019s verdict</div>";
+  }
+
   FA.openCard = function (ref) {
     if (!CARD_INDEX) return;
     const p = CARD_INDEX.byId[ref] || CARD_INDEX.byName[ref];
@@ -477,9 +487,9 @@
       '<div class="sect">Owned in the five</div><div class="ownfaces">' + owners + "</div>" +
       '<div id="fa-star" data-for="' + p.id + '">' + starButtonHTML(p) + "</div>" +
       (v
-        ? '<div class="sect">' + esc(FA.COACH) + '\u2019s verdict</div><p class="why">' + esc(v.why) + "</p>" +
+        ? coachSect() + '<p class="why">' + esc(v.why) + "</p>" +
           '<p class="trig"><strong>What changes it:</strong> ' + esc(v.trigger) + "</p>"
-        : '<div class="sect">' + esc(FA.COACH) + '\u2019s verdict</div><p class="why faint">No verdict written yet &mdash; evidence only.</p>');
+        : coachSect() + '<p class="why faint">No verdict written yet &mdash; evidence only.</p>');
 
     document.getElementById("fa-backdrop").hidden = false;
     // Both facts the star needs travel over the network, and a card can open

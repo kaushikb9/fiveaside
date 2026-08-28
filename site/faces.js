@@ -63,6 +63,13 @@
       clubName: "Arsenal", club: "ARS", skin: "#DDB194", shade: "#BC8E70",
       hair: "#A29C93", coat: "#17253F", collar: "#D8232A", style: "wenger",
     },
+    /* The assistant manager, and the only face here who is not one of the
+       five. No club, so the backdrop falls through to neutral grey — he works
+       for all of them and supports none of them. */
+    "Ted": {
+      clubName: "assistant manager", club: "STAFF", skin: "#E4B08C", shade: "#C08C68",
+      hair: "#8A6A46", coat: "#2F3A4A", collar: "#D9DEE5", style: "ted",
+    },
   };
 
   /* ---- the shared skeleton ---------------------------------------------
@@ -167,6 +174,43 @@
       '<path d="M27 41.8 C29.6 41.2 34.8 41.4 37 42.4 Z" fill="#FFFFFF" opacity=".85"/>' +
       '<path d="M26.6 46.4 q5.4 1.6 10.8 -0.4" stroke="' + f.shade + '" ' +
       'stroke-width="1" fill="none" opacity=".35"/>',
+
+    /* The moustache does the whole job — take it off and this is nobody. So
+       it is drawn wide, thick and slightly lopsided, and everything else
+       stays out of its way: a neat side part, brows up rather than down, and
+       the only open smile on the site. Four scowling managers and one man
+       pleased to be here. */
+    ted: (f) =>
+      // side part, short, combed across
+      '<path d="M15.6 30 C14.8 19.4 20 9.2 32 9.2 C43.6 9.2 49.2 19.6 48.4 30 ' +
+      "C47.6 23.4 46.4 19.8 44.2 18 C41.4 15.8 37.4 17.4 32.6 17.4 " +
+      "C27 17.4 22.4 16.4 19.8 19 C18 20.8 16.8 24.4 16.4 30 Z\" fill=\"" +
+      f.hair + '"/>' +
+      // the part itself, a single lighter stroke off-centre
+      '<path d="M24.4 12.4 q3.6 3.4 3 8.2" stroke="#A98459" stroke-width="1.5" ' +
+      'fill="none" stroke-linecap="round" opacity=".9"/>' +
+      // brows raised, not knitted
+      '<g stroke="' + f.hair + '" stroke-width="1.9" fill="none" stroke-linecap="round">' +
+      '<path d="M23.4 24.2 q2.8 -1.8 5.6 -0.6"/>' +
+      '<path d="M40.6 24.2 q-2.8 -1.8 -5.6 -0.6"/></g>' +
+      deepEye(26.4, 28.2, 1.8, f) + deepEye(37.6, 28.2, 1.8, f) +
+      // crow's feet, because the smile is real
+      '<g stroke="' + f.shade + '" stroke-width="0.9" fill="none" opacity=".4" ' +
+      'stroke-linecap="round">' +
+      '<path d="M22.2 29.4 l-2 -1"/><path d="M22 31 l-2.2 0.4"/>' +
+      '<path d="M41.8 29.4 l2 -1"/><path d="M42 31 l2.2 0.4"/></g>' +
+      bigNose(f, 33.4, 3, 0.14) +
+      // THE MOUSTACHE
+      '<path d="M22.6 38.4 C25.4 35.8 29.2 35.6 32 36.6 C34.8 35.6 38.6 35.8 41.4 38.4 ' +
+      "C41.8 41.2 38.6 42.6 35.4 41.6 C33.8 41 32.8 40.4 32 39.6 " +
+      "C31.2 40.4 30.2 41 28.6 41.6 C25.4 42.6 22.2 41.2 22.6 38.4 Z\" fill=\"" +
+      f.hair + '"/>' +
+      '<path d="M24.6 38 C27 36.6 29.6 36.8 31.4 37.6" stroke="#A98459" ' +
+      'stroke-width="0.9" fill="none" stroke-linecap="round" opacity=".55"/>' +
+      // the smile under it, teeth showing, corners up
+      '<path d="M26 44 C28.8 46.6 35.2 46.6 38 44 C36.4 47.8 27.6 47.8 26 44 Z" ' +
+      'fill="#6E3226"/>' +
+      '<path d="M27.6 44.4 C30 45.2 34 45.2 36.4 44.4 Z" fill="#FFFFFF" opacity=".9"/>',
 
     /* The zip. It has come up over his mouth and he is going to argue
        through it anyway. */
@@ -282,12 +326,26 @@
       'fill="none" stroke-linecap="round"/>',
     // plain white collar, nothing to prove
     xabi: (f) => '<path d="' + COLLAR + '" fill="' + f.collar + '"/>',
+    // a tracksuit, zipped: the only person here dressed to run a session
+    ted: (f) => '<path d="' + COLLAR + '" fill="' + f.collar + '"/>' +
+      '<path d="M32 55.6 V64" stroke="' + f.collar + '" stroke-width="2.2"/>' +
+      '<path d="M32 56.4 V64" stroke="#8D95A1" stroke-width="0.8"/>',
   };
 
   /* Props, drawn last. Only one face has one: three fingers, held up,
      unhurried, at somebody else's crowd. The forearm has to be drawn before
      the hand or the hand reads as a thumbprint stuck to the shoulder. */
   const PROP = {
+    // A whistle on a cord. Every other face is identified by a feature; his
+    // job needs saying too, and a whistle says assistant manager faster than
+    // any amount of tracksuit.
+    ted: () =>
+      '<path d="M24.4 52.4 C26.6 58.6 37.4 58.6 39.6 52.4" stroke="#C8CDD4" ' +
+      'stroke-width="1.1" fill="none" stroke-linecap="round"/>' +
+      '<path d="M29.6 57.4 h5.6 a1.5 1.5 0 0 1 1.5 1.5 v2.2 a1.5 1.5 0 0 1 -1.5 1.5 ' +
+      'h-5.6 a1.5 1.5 0 0 1 -1.5 -1.5 v-2.2 a1.5 1.5 0 0 1 1.5 -1.5 Z" fill="#D8DDE3" ' +
+      'stroke="#8D95A1" stroke-width="0.6"/>' +
+      '<circle cx="34.6" cy="60" r="0.8" fill="#8D95A1"/>',
     mourinho: (f) =>
       '<path d="M44 64 L55 64 L53 48 L43 50 Z" fill="' + f.coat + '"/>' +
       '<path d="M43 50 L53 48 L53.6 52 L43.6 54 Z" fill="#FFFFFF" fill-opacity=".16"/>' +

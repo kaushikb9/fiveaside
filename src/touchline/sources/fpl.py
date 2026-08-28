@@ -101,6 +101,10 @@ class FPLEntryResult(BaseModel, frozen=True):
     entry: dict[str, Any] | None = None
     picks: dict[str, Any] | None = None
     leagues: list[dict[str, Any]] = []
+    # Chips WITH the gameweek they were played in. The entry summary only
+    # carries `active_chip`, which is this gameweek's and nothing else, so the
+    # moment a new gameweek starts the previous chip stops existing anywhere.
+    chips: list[dict[str, Any]] = []
     error: str | None = None
 
 
@@ -192,4 +196,14 @@ class FPLClient:
                 }
             )
 
-        return FPLEntryResult(ok=True, entry=entry, picks=picks, leagues=leagues)
+        # A chip is played once and matters forever after; `active_chip` forgets
+        # it the moment the gameweek turns over. The history endpoint is the
+        # only place the pairing of chip and gameweek exists.
+        chips: list[dict[str, Any]] = []
+        history, history_error = self._get_json(f"/entry/{entry_id}/history/")
+        if history_error is None and isinstance(history, dict):
+            for chip in history.get("chips") or []:
+                if isinstance(chip, dict) and chip.get("name") and chip.get("event"):
+                    chips.append({"name": chip["name"], "gw": chip["event"]})
+
+        return FPLEntryResult(ok=True, entry=entry, picks=picks, leagues=leagues, chips=chips)

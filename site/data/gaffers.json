@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-28T18:08:00.803Z",
+  "generated_at": "2026-08-28T18:26:09.555Z",
   "gameweek": 3,
   "deadline_utc": "2026-09-04T17:30:00Z",
   "deadline_local": "Fri 04 Sep, 23:00",
@@ -21,6 +21,7 @@
       "value": 100.2,
       "transfers_made": 0,
       "chips_used": [],
+      "chips": [],
       "league_rank": 7,
       "active_chip": null,
       "bench_points": 0,
@@ -251,6 +252,12 @@
       "value": 100.2,
       "transfers_made": 0,
       "chips_used": [],
+      "chips": [
+        {
+          "name": "bboost",
+          "gw": 2
+        }
+      ],
       "league_rank": 8,
       "active_chip": "bboost",
       "bench_points": 0,
@@ -481,6 +488,7 @@
       "value": 100.2,
       "transfers_made": 0,
       "chips_used": [],
+      "chips": [],
       "league_rank": 4,
       "active_chip": null,
       "bench_points": 0,
@@ -711,6 +719,7 @@
       "value": 100.1,
       "transfers_made": 1,
       "chips_used": [],
+      "chips": [],
       "league_rank": 9,
       "active_chip": null,
       "bench_points": 0,
@@ -941,6 +950,12 @@
       "value": 100.2,
       "transfers_made": 0,
       "chips_used": [],
+      "chips": [
+        {
+          "name": "bboost",
+          "gw": 1
+        }
+      ],
       "league_rank": 2,
       "active_chip": null,
       "bench_points": 0,

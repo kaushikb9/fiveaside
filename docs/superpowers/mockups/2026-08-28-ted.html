@@ -1,0 +1,26 @@
+<!doctype html>
+<meta charset="utf-8"><title>Ted</title>
+<link rel="stylesheet" href="../../../site/style.css">
+<style>
+  .mk{max-width:900px;margin:0 auto;padding:28px 20px}
+  .row{display:flex;gap:26px;align-items:flex-end;flex-wrap:wrap;margin:18px 0 26px}
+  .one{display:flex;flex-direction:column;align-items:center;gap:6px;width:120px}
+  .one .face{width:104px;height:104px}
+  .one b{font-family:var(--f-head);font-size:12px;font-weight:700}
+  .sm{width:42px!important;height:42px!important}
+  .tiny{width:22px!important;height:22px!important}
+</style>
+<div class="mk"><h2 style="font-size:20px">Ted, next to the five</h2>
+<div class="row" id="all"></div>
+<h2 style="font-size:20px">At the sizes he will actually appear</h2>
+<div class="row" id="sizes"></div></div>
+<script src="../../../site/common.js"></script><script src="../../../site/faces.js"></script>
+<script>
+  var five=["Xabi","Sir Fergie","Mr CR7","The Special One","Le Professeur"];
+  document.getElementById("all").innerHTML =
+    ["Ted"].concat(five).map(function(n){
+      return '<div class="one">'+FA.faceSVG(n)+'<b>'+n+'</b></div>';}).join("");
+  document.getElementById("sizes").innerHTML =
+    '<div class="one">'+FA.faceSVG("Ted").replace('class="face"','class="face sm"')+'<b>42px — card</b></div>' +
+    '<div class="one">'+FA.faceSVG("Ted").replace('class="face"','class="face tiny"')+'<b>22px — inline</b></div>';
+</script>

@@ -560,6 +560,11 @@ def _desk(
         "bank": (e.get("last_deadline_bank") or 0) / 10,
         "value": (e.get("last_deadline_value") or 0) / 10,
         "chips_used": sorted(c for c in chips_used if c),
+        # WITH the gameweek. `active_chip` is only ever this gameweek's, so
+        # without this a chip played in GW1 stops existing the moment GW2
+        # starts — which is exactly what happened: one gaffer's Bench Boost
+        # disappeared and another's took its place on every screen at once.
+        "chips": list(entry.chips or []),
     }
     if picks:
         entry_history = picks.get("entry_history") or {}
