@@ -116,8 +116,17 @@ js 'const b=document.querySelector("#league .fc[data-tab=matches]"); if(b) b.cli
 sleep 0.5
 check "the river has matches" "true" \
   "$(js 'document.querySelectorAll("#league [data-pane=matches] .fx").length > 0')"
+# The day heading is a collapsible button now, not a bare .fx-day div — this
+# check asserted the old markup and read a restructure as a broken page.
 check "grouped by day"       "true" \
-  "$(js 'document.querySelectorAll("#league [data-pane=matches] .fx-day").length > 1')"
+  "$(js 'document.querySelectorAll("#league [data-pane=matches] .fx-dayhead").length > 1')"
+check "and a day can be opened and shut" "true" "$(js '(function(){
+  var h = document.querySelector("#league [data-pane=matches] .fx-dayhead");
+  if (!h) return "no day heading";
+  var was = h.getAttribute("aria-expanded");
+  h.click();
+  return h.getAttribute("aria-expanded") !== was;
+})()')"
 check "today is ruled once"  "1" \
   "$(js 'document.querySelectorAll("#league [data-pane=matches] .fx-today").length')"
 check "a played match shows a score" "true" \
