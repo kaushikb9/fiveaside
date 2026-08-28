@@ -1,4 +1,4 @@
-/* the locker room — what the brain knows.
+/* the locker room — what Ted knows.
    =========================================================================
    Every player there is evidence on, plus the injury room and the fixture
    runs. This is the reference layer: the other two rooms link into it and it
@@ -131,7 +131,7 @@
      Was "Team news" until 2026-08-28, when it had become a newsdesk: transfer
      bids, a Champions League draw, a club's pre-season travel. All true, all
      sourced, none of it any use to somebody picking a team. The panel is now
-     club-level things that change the upcoming gameweek, and the brain has to
+     club-level things that change the upcoming gameweek, and Ted has to
      write the FPL consequence — `action` — for each one or the run fails
      validation. That line is the point of the row, so it renders as the row,
      with what was reported underneath it. */
@@ -180,7 +180,7 @@
   function render() {
     $("#main").innerHTML =
       '<section class="section"><div class="section-head"><h2>the locker room</h2>' +
-      '<span class="mute" style="font-size:13px">what the brain knows &mdash; every player, evidence first</span></div>' +
+      '<span class="mute" style="font-size:13px">what ' + esc(FA.COACH) + ' knows &mdash; every player, evidence first</span></div>' +
       // Fixture runs lead: they are the thing you scan before deciding
       // anything, and they change slowest. Then the file, then the radar.
       runsHTML() + fileHTML() + signalsHTML() + "</section>";

@@ -477,9 +477,9 @@
       '<div class="sect">Owned in the five</div><div class="ownfaces">' + owners + "</div>" +
       '<div id="fa-star" data-for="' + p.id + '">' + starButtonHTML(p) + "</div>" +
       (v
-        ? '<div class="sect">The brain\u2019s verdict</div><p class="why">' + esc(v.why) + "</p>" +
+        ? '<div class="sect">' + esc(FA.COACH) + '\u2019s verdict</div><p class="why">' + esc(v.why) + "</p>" +
           '<p class="trig"><strong>What changes it:</strong> ' + esc(v.trigger) + "</p>"
-        : '<div class="sect">The brain\u2019s verdict</div><p class="why faint">No verdict written yet &mdash; evidence only.</p>');
+        : '<div class="sect">' + esc(FA.COACH) + '\u2019s verdict</div><p class="why faint">No verdict written yet &mdash; evidence only.</p>');
 
     document.getElementById("fa-backdrop").hidden = false;
     // Both facts the star needs travel over the network, and a card can open
@@ -603,6 +603,16 @@
     "Rotherham United": "Rotherham",
     "Oxford United": "Oxford",
   };
+
+  /* ---------------- the assistant manager ----------------
+     The machine has a name and a job. Named 2026-08-28: it watches everything,
+     writes the verdicts and the weekly reads, and never picks the team. "We"
+     is the five; this is not one of them and does not get to say "we".
+
+     One constant, because the name appears on every player card, in the nav,
+     on the watchlist and in both prompts — and a name is exactly the kind of
+     thing that gets changed after somebody lives with it for a week. */
+  FA.COACH = "Ted";
 
   FA.club = (name) => CLUB_SHORT[name] || name || "";
 

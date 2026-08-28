@@ -152,7 +152,8 @@ added; `-i` alone is not enough, it only blocks idle sleep. `auto.sh` does it.
   never the brain and never the page — the audit that set this found "we"
   meaning two different groups in adjacent nav items ("the gaffers, what we
   did about it" vs "the locker room, what we know"). The machine is called
-  **the brain** or referred to impersonally. **"You"** is the gaffer reading;
+  **Ted** — the assistant manager, named 2026-08-28 — or referred to
+  impersonally. `FA.COACH` in common.js is the single place the name lives. **"You"** is the gaffer reading;
   the gaffers room already knows `who === FA.myNick()` and every heading that
   names a gaffer goes through `whose()` / `whom()`. Another gaffer is named by
   nickname. Both prompts carry the rule so the brain does not write "the

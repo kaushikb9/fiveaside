@@ -4,7 +4,7 @@
    five; the league itself lives in touchline.
 
    Mechanical facts (squads, picks, points, chips) come from gaffers.json and
-   are never written by the brain. Judgment (the weekly read, the watchlist
+   are never written by Ted. Judgment (the weekly read, the watchlist
    notes, the roast) comes from fpl.json and is always marked as judgment.
    ========================================================================= */
 (function () {
@@ -457,7 +457,7 @@
 
   /* ---------------- the weekly read ----------------
      Per person, and explicitly judgment. Falls back to a flat message rather
-     than inventing anything when the brain has not written one. */
+     than inventing anything when Ted has not written one. */
   function person() {
     return ((F && F.people) || []).find((x) => x.nick === who) || null;
   }
@@ -494,7 +494,7 @@
      is curated by hand: a star, pressed on a card opened from anywhere on the
      site, including from somebody else's squad. It always lands in the
      starrer's list — /api/stars takes the gaffer from the session and ignores
-     anything the page claims. Below it is what the brain recommends, the
+     anything the page claims. Below it is what Ted recommends, the
      house list and its picks for this gaffer together, because both are the
      machine's opinion rather than a person's.
 
@@ -548,7 +548,7 @@
     const starred = stars.map((id) => byId[id]).filter(Boolean);
     const starredNames = new Set(starred.map((p) => p.name));
 
-    // The brain's picks for this gaffer and the house list are the same kind
+    // Ted's picks for this gaffer and the house list are the same kind
     // of thing — a recommendation — so they are one list, deduped by name.
     const suggested = [];
     const seen = new Set();
@@ -568,7 +568,7 @@
         : '<div class="row"><div class="row-main faint">' + gname(who) +
           " has not starred anyone.</div></div>") +
       (suggested.length
-        ? '<h3 style="margin-top:20px">What the brain suggests</h3>' +
+        ? '<h3 style="margin-top:20px">What ' + esc(FA.COACH) + ' suggests</h3>' +
           '<div class="rows">' + suggested.map(watchRow).join("") + "</div>"
         : "") + "</div>";
   }
