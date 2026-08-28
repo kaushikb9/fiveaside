@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-27T01:43:12.553Z",
+  "generated_at": "2026-08-28T02:10:08.982Z",
   "digests": [
     {
       "date": "2026-07-25",
@@ -6703,6 +6703,239 @@
           "fee": "£6m",
           "heat": "smoke",
           "note": "Sky Sport Italy says Fiorentina turned down Forest’s opening bid for the Brazil right-back — the second right-back they have been linked with this week, after Celta Vigo’s Javi Rueda."
+        }
+      ]
+    },
+    {
+      "date": "2026-08-28",
+      "headline": "Real Madrid drawn at the Emirates, Bayern at Old Trafford — and a goalkeeper for Chelsea",
+      "week": [
+        {
+          "tag": "PL",
+          "kicker": "Monte Carlo deals the 36.",
+          "text": "The Champions League league phase was drawn on Thursday: Arsenal host Real Madrid — José Mourinho's, now — and travel to Bayern Munich, Manchester City go to Barcelona to face Rodri and welcome the holders PSG to the Etihad, and Manchester United mark their return with Bayern at Old Trafford and a trip to Cesc Fàbregas's Como. Stamford Bridge gets Champions League football anyway: Shakhtar Donetsk, still unable to play at home, will stage their home ties there, with Real Madrid among the visitors. The first round is 8–9 September."
+        },
+        {
+          "tag": "PL",
+          "club": "Chelsea",
+          "kicker": "Alonso buys a goalkeeper.",
+          "text": "Three days after Robert Sánchez's evening against Fulham, Chelsea agreed a £7.5m deal for Emiliano Martínez, who turns 34 next week and had fallen out of favour at Villa after the arrival of Zion Suzuki; he is due to sign for two years with the option of a third. The knock-ons come fast — the Guardian reports Sánchez is unlikely to accept being second choice and may have to be moved before Tuesday, while Mike Penders, who made his debut against Luton, could go out on loan."
+        },
+        {
+          "tag": "PL",
+          "club": "Liverpool",
+          "kicker": "£120m, and still no Salah.",
+          "text": "An overnight breakthrough with PSG got Liverpool to an outline agreement for Bradley Barcola: just over £100m guaranteed and about £120m with add-ons, which would make him the second most expensive signing in their history behind Alexander Isak. Barcola has been left out of PSG's squads all season and told them he would not extend. The right wing is still the hole — two bids for Yankuba Minteh have been rejected by Brighton, and the enquiry about Ismaïla Sarr has not turned into an offer."
+        },
+        {
+          "tag": "PL",
+          "club": "Aston Villa",
+          "kicker": "Villa rebuild in reverse.",
+          "text": "Leon Goretzka arrived on a free after eight seasons and 312 games at Bayern, walking into a squad that has lost Ollie Watkins to Al-Hilal, Emiliano Martínez to Chelsea and Ezri Konsa to Arsenal inside a month. They are bottom with no points and a goal difference of minus four, and Arsenal visit Villa Park before the window shuts — Konsa could make his debut against the club he gave seven years to."
+        },
+        {
+          "tag": "FPL",
+          "club": "Nottingham Forest",
+          "kicker": "Delap registered in time.",
+          "text": "Forest's record signing, £45m and rising, is eligible for the trip to Anfield this weekend — a ground where they have won two league games in a row, largely through set pieces and the room behind Liverpool's midfield that Morgan Gibbs-White kept finding. Andoni Iraola says the fix is on the training ground rather than in the market, which is a brave thing to say four days before the deadline."
+        },
+        {
+          "tag": "FPL",
+          "club": "Tottenham Hotspur",
+          "kicker": "A second City forward.",
+          "text": "Omar Marmoush joined on loan with an obligation to buy at £60m next summer, two days after Sávio's £75m move, taking Tottenham past £312m for the window. That is a lot of attacking options for one front line: Marmoush started only eight of his 21 league games for City last season behind Erling Haaland, and until Roberto De Zerbi settles on a shape, none of them is safe to own."
+        },
+        {
+          "tag": "FPL",
+          "club": "AFC Bournemouth",
+          "kicker": "Still leaking from corners.",
+          "text": "Bournemouth conceded from another corner at Manchester City on Sunday, in a game they had done enough in to take something from. Only Liverpool shipped more set-piece goals in the top flight last season than their 18, which is why they hired their first dedicated set-piece coach, Nicolas Gagnon, in the summer. Everton and the Branthwaite–Tarkowski axis are next: either the fix has landed, or Everton's defenders are a cheap route to points."
+        }
+      ],
+      "table": {
+        "competition": "Premier League",
+        "rows": [
+          {
+            "pos": 1,
+            "team": "Brighton & Hove Albion",
+            "crest": "https://a.espncdn.com/i/teamlogos/soccer/500/331.png",
+            "played": 1,
+            "points": 3
+          },
+          {
+            "pos": 2,
+            "team": "Arsenal",
+            "crest": "https://a.espncdn.com/i/teamlogos/soccer/500/359.png",
+            "played": 1,
+            "points": 3,
+            "focus": true
+          },
+          {
+            "pos": 3,
+            "team": "Brentford",
+            "crest": "https://a.espncdn.com/i/teamlogos/soccer/500/337.png",
+            "played": 1,
+            "points": 3
+          },
+          {
+            "pos": 4,
+            "team": "Everton",
+            "crest": "https://a.espncdn.com/i/teamlogos/soccer/500/368.png",
+            "played": 1,
+            "points": 3
+          },
+          {
+            "pos": 5,
+            "team": "Hull City",
+            "crest": "https://a.espncdn.com/i/teamlogos/soccer/500/306.png",
+            "played": 1,
+            "points": 3
+          },
+          {
+            "pos": 6,
+            "team": "Chelsea",
+            "crest": "https://a.espncdn.com/i/teamlogos/soccer/500/363.png",
+            "played": 1,
+            "points": 3,
+            "focus": true
+          },
+          {
+            "pos": 8,
+            "team": "Manchester City",
+            "crest": "https://a.espncdn.com/i/teamlogos/soccer/500/382.png",
+            "played": 1,
+            "points": 3,
+            "focus": true
+          },
+          {
+            "pos": 10,
+            "team": "Liverpool",
+            "crest": "https://a.espncdn.com/i/teamlogos/soccer/500/364.png",
+            "played": 1,
+            "points": 1,
+            "focus": true
+          },
+          {
+            "pos": 17,
+            "team": "Manchester United",
+            "crest": "https://a.espncdn.com/i/teamlogos/soccer/500/360.png",
+            "played": 1,
+            "points": 0,
+            "focus": true
+          }
+        ],
+        "note": "Nine clubs have three points from their one game, so everything between first and ninth is goal difference — the order is decoration until everyone has played twice."
+      },
+      "wider": [
+        {
+          "title": "Uefa raises stakes with criminal complaint in battle to unseat Infantino",
+          "url": "https://www.theguardian.com/football/2026/aug/27/uefa-criminal-complaint-plan-fifa-gianni-infantino-analysis",
+          "hook": "On the day of the Champions League draw, Uefa announced it is preparing a criminal complaint in Switzerland alleging \"criminal mismanagement\" over the abandoned plan to sell 21% of Fifa's future revenues to Thrive Capital for $4.2bn. Matt Hughes is good on why the legal route came first: several federations have privately said it will take evidence of criminality before they turn on Infantino at March's election.",
+          "source": "The Guardian Football",
+          "image": "https://i.guim.co.uk/img/media/15b7d537fad1f3439ddcaf838d3fa0a55e1bb785/224_0_3391_2712/master/3391.jpg?width=1200&height=630&quality=85&auto=format&fit=crop&precrop=40:21,offset-x50,offset-y0&overlay-align=bottom%2Cleft&overlay-width=100p&overlay-base64=L2ltZy9zdGF0aWMvb3ZlcmxheXMvdGctZGVmYXVsdC5wbmc&enable=upscale&s=22f76728282173ddaa96afcf11c5f831"
+        },
+        {
+          "title": "Why Herrera is playing for free in Spanish third division",
+          "url": "https://www.bbc.co.uk/sport/football/articles/c9864p3wz1jo",
+          "hook": "Ander Herrera's last competitive game was at La Bombonera for Boca Juniors; his next is in Spain's third tier in front of about 6,500 people. He has gone back to Real Zaragoza on a free, 15 years after leaving, and is doing it without a wage. A useful corrective to a week spent counting other people's £120m.",
+          "source": "BBC Sport",
+          "image": "https://ichef.bbci.co.uk/ace/branded_sport/1200/cpsprodpb/6615/live/aa73c5f0-a083-11f1-bfeb-dfb02ea642ef.jpg"
+        }
+      ],
+      "read": {
+        "title": "'Armchair supporter': do I still love going to football or just love the idea of it?",
+        "url": "https://www.theguardian.com/football/2026/aug/27/cambridge-united-millwall-carabao-cup-max-rushden-football-supporter",
+        "hook": "Max Rushden goes back to the Abbey with the friend whose first Cambridge game was a 6-0 in 1989, and finds the same bricks, the same yellow wooden doors, the same rickety turnstiles — and a conversation that is now about mortgages and retirement rather than Panini stickers. Honest about the thing most fans won't admit: not knowing whether the nostalgia is real or just wanted.",
+        "source": "The Guardian Football",
+        "image": "https://i.guim.co.uk/img/media/5ddf8a901f5b60340d70bed2c5142d789a8a6e1c/925_0_4823_3858/master/4823.jpg?width=1200&height=630&quality=85&auto=format&fit=crop&precrop=40:21,offset-x50,offset-y0&overlay-align=bottom%2Cleft&overlay-width=100p&overlay-base64=L2ltZy9zdGF0aWMvb3ZlcmxheXMvdGctb3BpbmlvbnMucG5n&enable=upscale&s=a6551075023ed98d7bdea79557791878"
+      },
+      "top_teams": [
+        {
+          "club": "Chelsea",
+          "crest": "https://a.espncdn.com/i/teamlogos/soccer/500/363.png",
+          "line": "#6 · 3 pts · PL",
+          "note": "Enzo Fernández was left out of the Luton tie with Manchester City expected to bid inside 48 hours; the club insist there has been no contact yet and that he leaves only on their terms, and having missed an unofficial £120m deadline earlier this month, City may find the price has gone up rather than down."
+        },
+        {
+          "club": "Arsenal",
+          "crest": "https://a.espncdn.com/i/teamlogos/soccer/500/359.png",
+          "line": "#2 · 3 pts · PL",
+          "note": "Julián Álvarez has skipped two days of Atlético Madrid training citing illness after being told privately he will not be sold to Barcelona, and BBC Sport reports Arsenal are now his only realistic exit: club-to-club talks have gone well at an asking price of €150m, and the move waits on the player saying yes."
+        },
+        {
+          "club": "Manchester City",
+          "crest": "https://a.espncdn.com/i/teamlogos/soccer/500/382.png",
+          "line": "#8 · 3 pts · PL",
+          "note": "Marc Guéhi goes back to Selhurst Park this weekend having spent his first City league game not in defence but as a midfielder alongside Elliot Anderson, and scoring; behind that, Ornstein reports City have asked about Everton's Iliman Ndiaye."
+        },
+        {
+          "club": "Manchester United",
+          "crest": "https://a.espncdn.com/i/teamlogos/soccer/500/360.png",
+          "line": "#17 · 0 pts · PL",
+          "note": "Bruno Fernandes was named PFA players' player of the year on Tuesday, an individual honour sitting oddly against a side with nothing on the board; Ipswich come to Old Trafford on Sunday, and a home defeat by a second promoted club in a fortnight would start the inquest every post-Ferguson manager has faced."
+        },
+        {
+          "club": "Liverpool",
+          "crest": "https://a.espncdn.com/i/teamlogos/soccer/500/364.png",
+          "line": "#10 · 1 pt · PL",
+          "note": "Cody Gakpo is the loose thread — Andoni Iraola would not guarantee he is still a Liverpool player after Tuesday, with Tottenham and Manchester City interested — and with Conor Bradley and Hugo Ekitiké out long-term, the squad is thin in places no winger fixes."
+        }
+      ],
+      "elsewhere": [
+        {
+          "club": "Hull City",
+          "crest": "https://a.espncdn.com/i/teamlogos/soccer/500/306.png",
+          "note": "Fifth, having taken Manchester United apart on the opening weekend, and Ornstein reports they are close to signing Roma's Robinio Vaz. The name to learn is Lucas Herrington, the teenage defender who missed Australia's penalty against Egypt at the World Cup and has looked the part since; Coventry are next, and the bookmakers still have both of them going down."
+        },
+        {
+          "club": "Sunderland",
+          "crest": "https://a.espncdn.com/i/teamlogos/soccer/500/366.png",
+          "note": "Jamie Carragher used Monday night on Sky to predict relegation and call them \"arrogant\", comparing them to Chris Wilder's second-season Sheffield United. Fulham visit the Stadium of Light on Sunday, a side Sunderland have not beaten in 12 years — a lot of freight for one afternoon."
+        },
+        {
+          "club": "Leeds United",
+          "crest": "https://a.espncdn.com/i/teamlogos/soccer/500/357.png",
+          "note": "Two wins from two and James Trafford has not conceded yet, but Daniel Farke spent his press conference asking the board for more: he is racing Sunderland for Marseille's Igor Paixão at around £30m. Brentford, also unbeaten, are at Elland Road."
+        }
+      ],
+      "rumours": [
+        {
+          "player": "Honest Ahanor",
+          "from": "Atalanta",
+          "to": "Chelsea",
+          "fee": "£40m",
+          "heat": "close",
+          "note": "BBC Sport reports a deal agreed for the 18-year-old defender — the second Chelsea agreement of a single day, alongside Martínez."
+        },
+        {
+          "player": "Robert Sánchez",
+          "from": "Chelsea",
+          "to": "undecided",
+          "heat": "smoke",
+          "note": "The Guardian reports he is unlikely to accept dropping behind Martínez and may need moving before Tuesday, with no obvious destination identified."
+        },
+        {
+          "player": "Lamine Camara",
+          "from": "AS Monaco",
+          "to": "Chelsea",
+          "heat": "smoke",
+          "note": "Named by the Guardian as a possible midfield target with days left, after Bournemouth made clear they will not sell Alex Scott and Crystal Palace said the same about Adam Wharton."
+        },
+        {
+          "player": "Daniel Muñoz",
+          "from": "Crystal Palace",
+          "to": "Nottingham Forest",
+          "fee": "£22m",
+          "heat": "talks",
+          "note": "Ornstein reports Forest have made an offer for the Colombia right-back, the third full-back they have been linked with this week."
+        },
+        {
+          "player": "Rafael Leão",
+          "from": "AC Milan",
+          "to": "Galatasaray",
+          "fee": "~€45m",
+          "heat": "talks",
+          "note": "Ornstein reports Milan have accepted a €45m package from Galatasaray, with Aston Villa still pushing for a loan instead."
         }
       ]
     }
