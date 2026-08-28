@@ -174,7 +174,16 @@ if (data.verdicts !== undefined) {
 // ---------------------------------------------------------------- signals
 if (data.signals !== undefined) {
   if (!Array.isArray(data.signals)) fail("'signals' must be an array");
-  const TAGS = ["injury", "doubt", "ban", "rotation", "price", "news", "managers"];
+  const TAGS = ["injury", "doubt", "ban", "rotation", "price", "news", "managers",
+                "setpieces", "shape", "minutes", "squad"];
+  // Club-level items (no `player`) render as the Team radar, and the radar is
+  // for the upcoming gameweek only. Tightened 2026-08-28, when the panel had
+  // filled with transfer gossip, a Champions League draw and a club's
+  // pre-season travel — true, sourced, and of no use to anyone picking a team.
+  // A radar tag is one of the things that changes a lineup, and `action` — the
+  // FPL consequence — is the test: if you cannot write it, it is not radar.
+  const RADAR_TAGS = ["rotation", "injury", "setpieces", "shape", "minutes", "squad", "managers"];
+  let radar = 0;
   for (const [i, s] of data.signals.entries()) {
     const where = `signals[${i}]`;
     if (!TAGS.includes(s?.tag)) fail(`${where}.tag must be one of ${TAGS.join(", ")}`);
@@ -184,7 +193,22 @@ if (data.signals !== undefined) {
       if (s[k] !== undefined && !isStr(s[k])) fail(`${where}.${k} must be a non-empty string when present`);
     }
     if (s.url !== undefined && !urlRe.test(s.url ?? "")) fail(`${where}.url must be http(s)`);
+    if (s.player === undefined) {
+      radar++;
+      if (!RADAR_TAGS.includes(s.tag))
+        fail(`${where}: a club-level signal is Team radar, so its tag must be one of ` +
+             `${RADAR_TAGS.join(", ")} — '${s.tag}' is a player-level or newsdesk tag. ` +
+             `Name the player and it goes to his card, or drop it.`);
+      if (!isStr(s.action))
+        fail(`${where}: a club-level signal needs 'action' — what it means for the ` +
+             `upcoming gameweek. If you cannot write one, it is not Team radar.`);
+      if (!isStr(s.source))
+        fail(`${where}: a club-level signal needs 'source'`);
+    }
   }
+  if (radar > 8)
+    fail(`'signals': ${radar} club-level items — the Team radar takes at most 8. ` +
+         `Cut to the ones that change a team this gameweek.`);
 }
 
 // ---------------------------------------------------------------- ticker
