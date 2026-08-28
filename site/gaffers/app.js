@@ -226,6 +226,24 @@
      with a dead button is the room telling you about a state it is not in. It
      becomes the deadline panel instead, which is the only thing anyone wants
      between a full-time whistle and the next lock. */
+  /* FPL locks its entry endpoints around every deadline, so on a Friday
+     evening the squads on screen are the last ones it would tell us about.
+     They have not changed — nobody can transfer during a lock either — but
+     the page should not imply it just checked. */
+  function staleHTML() {
+    if (!G || !G.people_stale) return "";
+    const when = G.people_as_of ? new Date(G.people_as_of) : null;
+    const day = when && !isNaN(when.getTime())
+      ? when.toLocaleString("en-GB", { weekday: "short", day: "numeric", month: "short",
+                                       hour: "2-digit", minute: "2-digit" })
+      : "the last run";
+    return '<div class="panel" style="border-left:4px solid var(--warn)">' +
+      "<h3>Squads are from " + esc(day) + "</h3>" +
+      '<p class="note" style="margin-bottom:0">FPL closes its squad data around every ' +
+      "deadline, so this is the last it published. Nobody can transfer during a lock, so " +
+      "these are still the teams &mdash; they refresh on their own once it lifts.</p></div>";
+  }
+
   function deadlineHTML() {
     const p = G.people.find((x) => x.nick === who);
     const moves = p && p.transfers_made != null
@@ -314,6 +332,13 @@
 
   function pitchHTML() {
     const p = G.people.find((x) => x.nick === who);
+    // A gaffer with no squad published cannot have a pitch drawn. This threw
+    // on 2026-08-28 rather than saying so.
+    if (!p || !p.picks || !p.picks.length) {
+      return '<div class="panel"><h3>' + gname(who) + "’s squad</h3>" +
+        '<p class="empty" style="padding:12px 0">No squad published for ' + gname(who) +
+        " yet.</p></div>";
+    }
     const gw = curGW(), live = isLive(gw), settled = isSettled(gw);
     const xi = p.picks.filter((x) => x.role !== "bench");
     const bench = p.picks.filter((x) => x.role === "bench");
@@ -381,6 +406,13 @@
   function weekHTML() {
     const me = person();
     const p = G.people.find((x) => x.nick === who);
+    // No squad for this gaffer: the API was locked when the data was built,
+    // or he has not entered. Say which rather than reading fields off nothing.
+    if (!p) {
+      return '<div class="panel"><h3>' + gname(who) + "’s week</h3>" +
+        '<p class="empty" style="padding:12px 0">No squad published for ' + gname(who) +
+        " yet.</p></div>";
+    }
     const head = '<div class="panel"><h3>' + gname(who) + "’s week</h3>" +
       '<p class="note">' + esc(p.team_name) + " &middot; " + p.total_points + " pts &middot; " +
       p.transfers_made + " transfer" + (p.transfers_made === 1 ? "" : "s") +
@@ -531,7 +563,10 @@
 
 
   function fiveHTML() {
-    const rows = G.league.rows;
+    // The mini-league comes from the same FPL endpoints as the squads, so a
+    // deadline lock takes it too. No table is a missing fold, not a dead room.
+    const rows = (G.league && G.league.rows) || [];
+    if (!rows.length) return "";
     const top = rows[0];
     const me = rows.find((r) => r.nick === who);
     return '<details class="fold"><summary>The league &mdash; ' + esc(top.name) + " lead on " +
@@ -551,7 +586,28 @@
   }
 
   /* ---------------- render ---------------- */
+  /* Every panel below reads a squad, and on 2026-08-28 there were none: FPL
+     takes its entry endpoints down around each deadline, the bundle honestly
+     reported no squads, and the first panel to do `G.people.find(...)` read
+     `.team_name` off undefined. render() threw halfway through building a
+     string, innerHTML was never assigned, and the room sat on the static
+     "Loading…" from index.html — which looks like a slow network and is
+     actually a dead page.
+
+     The data is protected upstream now (split-facts carries the last squads
+     forward), but a room that white-screens on unexpected data is a bug of
+     its own. A thrown render says so instead of pretending to load. */
   function render() {
+    try {
+      renderRoom();
+    } catch (err) {
+      FA.fail($("#main"),
+        "The gaffers room could not be drawn. " + (err && err.message ? err.message : err));
+      throw err;   // still reaches the console, where it can be read
+    }
+  }
+
+  function renderRoom() {
     $("#main").innerHTML =
       '<section class="section"><div class="section-head"><h2>the gaffers</h2>' +
       '<span class="mute" style="font-size:13px">what we did about it</span>' +
@@ -567,7 +623,8 @@
       barHTML() + fiveHTML() +
       // Squad first, then the read about it. You look at the team, then at
       // what someone made of it.
-      pitchHTML() + weekHTML() + watchHTML() + bigHTML() + roastHTML() + "</section>";
+      staleHTML() + pitchHTML() + weekHTML() + watchHTML() + bigHTML() + roastHTML() +
+      "</section>";
     wire();
     FA.wireSortable($("#main"));
     // The five table lives inside a <details>; wire it when it first opens.

@@ -126,6 +126,7 @@ node brain/invite.mjs --list     # who has a gaffers code (add --local for dev)
 ./deploy.sh                      # stamp assets, split private, push to KV, deploy
 node brain/test/stars.mjs        # /api/stars auth — stubbed KV, no wrangler
 node brain/test/matches.mjs      # /api/matches — stubbed ESPN, real captured payload
+node brain/test/split-facts.mjs  # the deadline-lock fallback
 brain/test/smoke.sh https://fiveaside.pages.dev/   # 87 signed in, 77 signed out
 cd site && python3 -m http.server # local preview — /api/* 404s and the page
                                   # degrades honestly, which is worth seeing
@@ -137,6 +138,18 @@ added; `-i` alone is not enough, it only blocks idle sleep. `auto.sh` does it.
 
 ## Rules that have bitten before
 
+- **FPL takes its entry endpoints down around EVERY deadline.**
+  `entry/{id}/event/{gw}/picks/` answers 503 for every gameweek, not just the
+  new one, and the mini-league goes with it. The bundle honestly reports no
+  squads; `split-facts.mjs` must never write that through, because five squads
+  becoming zero is not news, it is an outage. It carries the last squads and
+  league forward, marks `people_stale`, and keeps `people_as_of` pinned to when
+  they were real so repeated locks do not creep the date to today. This happens
+  weekly — it is the normal case, not an edge one.
+- **A room that throws mid-render leaves the static "Loading…" on screen**,
+  which reads as a slow network and is a dead page. `render()` in the gaffers
+  room catches and reports; every panel that reads a squad guards against not
+  having one. If you add a panel there, guard it.
 - **Sources disagree about name ORDER, not only spelling.** FPL files Ao
   Tanaka as `first_name: "Tanaka", second_name: "Ao"`. `squads.py` indexes both
   directions; without it the surname check compares the wrong halves and

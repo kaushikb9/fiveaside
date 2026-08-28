@@ -85,7 +85,47 @@ const gaffers = {
       }
     : null,
 };
-writeFileSync("site/data/gaffers.json", JSON.stringify(gaffers, null, 2) + "\n");
+/* Never publish an empty room over a full one.
+   =========================================================================
+   FPL takes its entry endpoints down around every deadline: `entry/{id}/
+   event/{gw}/picks/` answers 503 for EVERY gameweek, not just the new one,
+   for as long as the lock lasts. The bundle reports that honestly as no
+   squads, and this file used to write it straight through — so five squads
+   became zero, and the gaffers room rendered nothing at all.
+
+   The squads have not changed; the API is simply refusing to say what they
+   are. So the last known ones are carried forward and marked stale, and the
+   room says which day they are from. That is a true statement, where an
+   empty room was a false one. This happens every Friday evening, so it is
+   the normal case and not an edge one. */
+function carryForwardSquads(next) {
+  if (next.people.length) return next;
+  let previous;
+  try {
+    previous = JSON.parse(readFileSync("site/data/gaffers.json", "utf8"));
+  } catch {
+    return next; // nothing to fall back to; a first run has to start somewhere
+  }
+  if (!previous.people?.length) return next;
+  console.error(
+    `split: FPL published no squads (deadline lock) — carrying forward ` +
+    `${previous.people.length} from ${previous.people_as_of ?? previous.generated_at}`
+  );
+  return {
+    ...next,
+    people: previous.people,
+    // The mini-league standings come from the same locked endpoints, so they
+    // vanish on exactly the same runs and come back the same way.
+    league: next.league ?? previous.league ?? null,
+    // The stamp the squads actually belong to, which survives repeated
+    // carry-forwards rather than creeping to today on each one.
+    people_as_of: previous.people_as_of ?? previous.generated_at,
+    people_stale: true,
+  };
+}
+
+const published = carryForwardSquads(gaffers);
+writeFileSync("site/data/gaffers.json", JSON.stringify(published, null, 2) + "\n");
 
 // --- what the brain actually needs to read ---
 delete bundle.player_file;
@@ -94,5 +134,6 @@ process.stdout.write(JSON.stringify(bundle, null, 2));
 
 const players = JSON.parse(readFileSync("site/data/players.json", "utf8")).players ?? [];
 console.error(
-  `split: players.json ${players.length} records · gaffers.json ${gaffers.people.length} people`
+  `split: players.json ${players.length} records · gaffers.json ` +
+  `${published.people.length} people${published.people_stale ? " (carried forward)" : ""}`
 );
