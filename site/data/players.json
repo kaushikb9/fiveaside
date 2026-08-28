@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-28T05:22:09.618Z",
+  "generated_at": "2026-08-28T06:22:52.962Z",
   "gameweek": 2,
   "players": [
     {
@@ -81,7 +81,7 @@
       "team": "CHE",
       "pos": "FWD",
       "price": 7.6,
-      "ownership": 67.6,
+      "ownership": 67.7,
       "points": 11,
       "form": "11.0",
       "fixtures": [
@@ -1253,7 +1253,7 @@
       "team": "MCI",
       "pos": "DEF",
       "price": 6,
-      "ownership": 19.3,
+      "ownership": 19.4,
       "points": 10,
       "form": "10.0",
       "fixtures": [
@@ -1545,7 +1545,7 @@
       "team": "ARS",
       "pos": "MID",
       "price": 7.5,
-      "ownership": 17.1,
+      "ownership": 17,
       "points": 3,
       "form": "3.0",
       "fixtures": [
@@ -1846,7 +1846,7 @@
       "team": "MUN",
       "pos": "GK",
       "price": 5,
-      "ownership": 15.7,
+      "ownership": 15.6,
       "points": 1,
       "form": "1.0",
       "fixtures": [
@@ -1914,7 +1914,7 @@
       "team": "CHE",
       "pos": "MID",
       "price": 9.5,
-      "ownership": 15.3,
+      "ownership": 15.4,
       "points": 13,
       "form": "13.0",
       "fixtures": [
@@ -2081,7 +2081,7 @@
       "team": "MCI",
       "pos": "DEF",
       "price": 5.5,
-      "ownership": 13.4,
+      "ownership": 13.5,
       "points": 9,
       "form": "9.0",
       "fixtures": [
@@ -3959,7 +3959,7 @@
       "team": "BHA",
       "pos": "DEF",
       "price": 4.6,
-      "ownership": 7.5,
+      "ownership": 7.6,
       "points": 17,
       "form": "17.0",
       "fixtures": [
@@ -4093,7 +4093,7 @@
       "team": "BRE",
       "pos": "DEF",
       "price": 4.6,
-      "ownership": 7.2,
+      "ownership": 7.3,
       "points": 13,
       "form": "13.0",
       "fixtures": [
@@ -4723,12 +4723,78 @@
       "fdr_avg": 3.2
     },
     {
+      "id": 204,
+      "name": "Mitchell",
+      "team": "CRY",
+      "pos": "DEF",
+      "price": 4.5,
+      "ownership": 5.7,
+      "points": 1,
+      "form": "1.0",
+      "fixtures": [
+        {
+          "gw": 2,
+          "opp": "MCI",
+          "home": true,
+          "fdr": 4
+        },
+        {
+          "gw": 3,
+          "opp": "FUL",
+          "home": false,
+          "fdr": 3
+        },
+        {
+          "gw": 4,
+          "opp": "IPS",
+          "home": true,
+          "fdr": 2
+        },
+        {
+          "gw": 5,
+          "opp": "LEE",
+          "home": false,
+          "fdr": 3
+        },
+        {
+          "gw": 6,
+          "opp": "NFO",
+          "home": true,
+          "fdr": 3
+        }
+      ],
+      "recent": [
+        {
+          "gw": 1,
+          "date": "2026-08-22",
+          "comp": "PL",
+          "opp": "EVE",
+          "home": false,
+          "gf": 0,
+          "ga": 2,
+          "result": "L"
+        }
+      ],
+      "other_apps": [],
+      "other_next": [
+        {
+          "date": "2026-09-08",
+          "kickoff": "2026-09-08T18:00:00+00:00",
+          "comp": "EFL",
+          "opp": "Middlesbrough",
+          "home": true
+        }
+      ],
+      "owned_by": [],
+      "fdr_avg": 3
+    },
+    {
       "id": 260,
       "name": "Wilson",
       "team": "LEE",
       "pos": "MID",
       "price": 6.5,
-      "ownership": 5.8,
+      "ownership": 5.7,
       "points": 3,
       "form": "3.0",
       "fixtures": [
@@ -4805,72 +4871,6 @@
         "The Special One"
       ],
       "fdr_avg": 3.2
-    },
-    {
-      "id": 204,
-      "name": "Mitchell",
-      "team": "CRY",
-      "pos": "DEF",
-      "price": 4.5,
-      "ownership": 5.7,
-      "points": 1,
-      "form": "1.0",
-      "fixtures": [
-        {
-          "gw": 2,
-          "opp": "MCI",
-          "home": true,
-          "fdr": 4
-        },
-        {
-          "gw": 3,
-          "opp": "FUL",
-          "home": false,
-          "fdr": 3
-        },
-        {
-          "gw": 4,
-          "opp": "IPS",
-          "home": true,
-          "fdr": 2
-        },
-        {
-          "gw": 5,
-          "opp": "LEE",
-          "home": false,
-          "fdr": 3
-        },
-        {
-          "gw": 6,
-          "opp": "NFO",
-          "home": true,
-          "fdr": 3
-        }
-      ],
-      "recent": [
-        {
-          "gw": 1,
-          "date": "2026-08-22",
-          "comp": "PL",
-          "opp": "EVE",
-          "home": false,
-          "gf": 0,
-          "ga": 2,
-          "result": "L"
-        }
-      ],
-      "other_apps": [],
-      "other_next": [
-        {
-          "date": "2026-09-08",
-          "kickoff": "2026-09-08T18:00:00+00:00",
-          "comp": "EFL",
-          "opp": "Middlesbrough",
-          "home": true
-        }
-      ],
-      "owned_by": [],
-      "fdr_avg": 3
     },
     {
       "id": 223,
@@ -6704,6 +6704,89 @@
       "fdr_avg": 3.2
     },
     {
+      "id": 569,
+      "name": "Gonzalo",
+      "team": "FUL",
+      "pos": "FWD",
+      "price": 6,
+      "ownership": 3.5,
+      "points": 6,
+      "form": "6.0",
+      "fixtures": [
+        {
+          "gw": 2,
+          "opp": "SUN",
+          "home": false,
+          "fdr": 3
+        },
+        {
+          "gw": 3,
+          "opp": "CRY",
+          "home": true,
+          "fdr": 3
+        },
+        {
+          "gw": 4,
+          "opp": "LIV",
+          "home": false,
+          "fdr": 4
+        },
+        {
+          "gw": 5,
+          "opp": "MUN",
+          "home": true,
+          "fdr": 4
+        },
+        {
+          "gw": 6,
+          "opp": "IPS",
+          "home": false,
+          "fdr": 2
+        }
+      ],
+      "recent": [
+        {
+          "gw": 1,
+          "date": "2026-08-24",
+          "comp": "PL",
+          "opp": "CHE",
+          "home": true,
+          "gf": 2,
+          "ga": 3,
+          "result": "L"
+        },
+        {
+          "date": "2026-08-27",
+          "comp": "EFL",
+          "opp": "AFC Wimbledon",
+          "home": true,
+          "gf": 3,
+          "ga": 0,
+          "result": "W"
+        }
+      ],
+      "other_apps": [
+        {
+          "date": "2026-08-27",
+          "comp": "EFL",
+          "opp": "AFC Wimbledon",
+          "started": false
+        }
+      ],
+      "other_next": [
+        {
+          "date": "2026-09-08",
+          "kickoff": "2026-09-08T18:00:00+00:00",
+          "comp": "EFL",
+          "opp": "West Ham United",
+          "home": false
+        }
+      ],
+      "owned_by": [],
+      "fdr_avg": 3.2,
+      "penalties": true
+    },
+    {
       "id": 586,
       "name": "Mendy",
       "team": "HUL",
@@ -6994,89 +7077,6 @@
       ],
       "owned_by": [],
       "fdr_avg": 2.8
-    },
-    {
-      "id": 569,
-      "name": "Gonzalo",
-      "team": "FUL",
-      "pos": "FWD",
-      "price": 6,
-      "ownership": 3.4,
-      "points": 6,
-      "form": "6.0",
-      "fixtures": [
-        {
-          "gw": 2,
-          "opp": "SUN",
-          "home": false,
-          "fdr": 3
-        },
-        {
-          "gw": 3,
-          "opp": "CRY",
-          "home": true,
-          "fdr": 3
-        },
-        {
-          "gw": 4,
-          "opp": "LIV",
-          "home": false,
-          "fdr": 4
-        },
-        {
-          "gw": 5,
-          "opp": "MUN",
-          "home": true,
-          "fdr": 4
-        },
-        {
-          "gw": 6,
-          "opp": "IPS",
-          "home": false,
-          "fdr": 2
-        }
-      ],
-      "recent": [
-        {
-          "gw": 1,
-          "date": "2026-08-24",
-          "comp": "PL",
-          "opp": "CHE",
-          "home": true,
-          "gf": 2,
-          "ga": 3,
-          "result": "L"
-        },
-        {
-          "date": "2026-08-27",
-          "comp": "EFL",
-          "opp": "AFC Wimbledon",
-          "home": true,
-          "gf": 3,
-          "ga": 0,
-          "result": "W"
-        }
-      ],
-      "other_apps": [
-        {
-          "date": "2026-08-27",
-          "comp": "EFL",
-          "opp": "AFC Wimbledon",
-          "started": false
-        }
-      ],
-      "other_next": [
-        {
-          "date": "2026-09-08",
-          "kickoff": "2026-09-08T18:00:00+00:00",
-          "comp": "EFL",
-          "opp": "West Ham United",
-          "home": false
-        }
-      ],
-      "owned_by": [],
-      "fdr_avg": 3.2,
-      "penalties": true
     },
     {
       "id": 334,
@@ -8036,75 +8036,6 @@
       "fdr_avg": 3.4
     },
     {
-      "id": 208,
-      "name": "Sarr",
-      "team": "CRY",
-      "pos": "MID",
-      "price": 6.4,
-      "ownership": 2.8,
-      "points": 0,
-      "form": "0.0",
-      "fixtures": [
-        {
-          "gw": 2,
-          "opp": "MCI",
-          "home": true,
-          "fdr": 4
-        },
-        {
-          "gw": 3,
-          "opp": "FUL",
-          "home": false,
-          "fdr": 3
-        },
-        {
-          "gw": 4,
-          "opp": "IPS",
-          "home": true,
-          "fdr": 2
-        },
-        {
-          "gw": 5,
-          "opp": "LEE",
-          "home": false,
-          "fdr": 3
-        },
-        {
-          "gw": 6,
-          "opp": "NFO",
-          "home": true,
-          "fdr": 3
-        }
-      ],
-      "recent": [
-        {
-          "gw": 1,
-          "date": "2026-08-22",
-          "comp": "PL",
-          "opp": "EVE",
-          "home": false,
-          "gf": 0,
-          "ga": 2,
-          "result": "L"
-        }
-      ],
-      "other_apps": [],
-      "other_next": [
-        {
-          "date": "2026-09-08",
-          "kickoff": "2026-09-08T18:00:00+00:00",
-          "comp": "EFL",
-          "opp": "Middlesbrough",
-          "home": true
-        }
-      ],
-      "owned_by": [],
-      "fdr_avg": 3,
-      "status": "i",
-      "news": "Groin injury - Unknown return date",
-      "chance": 0
-    },
-    {
       "id": 579,
       "name": "Araujo",
       "team": "LIV",
@@ -8169,6 +8100,75 @@
       ],
       "owned_by": [],
       "fdr_avg": 2.8
+    },
+    {
+      "id": 208,
+      "name": "Sarr",
+      "team": "CRY",
+      "pos": "MID",
+      "price": 6.4,
+      "ownership": 2.7,
+      "points": 0,
+      "form": "0.0",
+      "fixtures": [
+        {
+          "gw": 2,
+          "opp": "MCI",
+          "home": true,
+          "fdr": 4
+        },
+        {
+          "gw": 3,
+          "opp": "FUL",
+          "home": false,
+          "fdr": 3
+        },
+        {
+          "gw": 4,
+          "opp": "IPS",
+          "home": true,
+          "fdr": 2
+        },
+        {
+          "gw": 5,
+          "opp": "LEE",
+          "home": false,
+          "fdr": 3
+        },
+        {
+          "gw": 6,
+          "opp": "NFO",
+          "home": true,
+          "fdr": 3
+        }
+      ],
+      "recent": [
+        {
+          "gw": 1,
+          "date": "2026-08-22",
+          "comp": "PL",
+          "opp": "EVE",
+          "home": false,
+          "gf": 0,
+          "ga": 2,
+          "result": "L"
+        }
+      ],
+      "other_apps": [],
+      "other_next": [
+        {
+          "date": "2026-09-08",
+          "kickoff": "2026-09-08T18:00:00+00:00",
+          "comp": "EFL",
+          "opp": "Middlesbrough",
+          "home": true
+        }
+      ],
+      "owned_by": [],
+      "fdr_avg": 3,
+      "status": "i",
+      "news": "Groin injury - Unknown return date",
+      "chance": 0
     },
     {
       "id": 572,
@@ -8656,86 +8656,6 @@
       "chance": 100
     },
     {
-      "id": 152,
-      "name": "Palestra",
-      "team": "CHE",
-      "pos": "DEF",
-      "price": 5.5,
-      "ownership": 2.4,
-      "points": 0,
-      "form": "0.0",
-      "fixtures": [
-        {
-          "gw": 2,
-          "opp": "BHA",
-          "home": true,
-          "fdr": 2
-        },
-        {
-          "gw": 3,
-          "opp": "ARS",
-          "home": false,
-          "fdr": 5
-        },
-        {
-          "gw": 4,
-          "opp": "HUL",
-          "home": true,
-          "fdr": 2
-        },
-        {
-          "gw": 5,
-          "opp": "BRE",
-          "home": false,
-          "fdr": 3
-        },
-        {
-          "gw": 6,
-          "opp": "BOU",
-          "home": true,
-          "fdr": 3
-        }
-      ],
-      "recent": [
-        {
-          "gw": 1,
-          "date": "2026-08-24",
-          "comp": "PL",
-          "opp": "FUL",
-          "home": false,
-          "gf": 3,
-          "ga": 2,
-          "result": "W"
-        },
-        {
-          "date": "2026-08-27",
-          "comp": "EFL",
-          "opp": "Luton Town",
-          "home": true,
-          "gf": 2,
-          "ga": 0,
-          "result": "W"
-        }
-      ],
-      "other_apps": [],
-      "other_next": [
-        {
-          "date": "2026-09-08",
-          "kickoff": "2026-09-08T18:00:00+00:00",
-          "comp": "EFL",
-          "opp": "LEE",
-          "home": true
-        }
-      ],
-      "owned_by": [
-        "The Special One"
-      ],
-      "fdr_avg": 3,
-      "status": "d",
-      "news": "Unspecified injury - 75% chance of playing",
-      "chance": 75
-    },
-    {
       "id": 43,
       "name": "Tielemans",
       "team": "MUN",
@@ -8950,6 +8870,86 @@
       "owned_by": [],
       "fdr_avg": 3,
       "chance": 100
+    },
+    {
+      "id": 152,
+      "name": "Palestra",
+      "team": "CHE",
+      "pos": "DEF",
+      "price": 5.5,
+      "ownership": 2.3,
+      "points": 0,
+      "form": "0.0",
+      "fixtures": [
+        {
+          "gw": 2,
+          "opp": "BHA",
+          "home": true,
+          "fdr": 2
+        },
+        {
+          "gw": 3,
+          "opp": "ARS",
+          "home": false,
+          "fdr": 5
+        },
+        {
+          "gw": 4,
+          "opp": "HUL",
+          "home": true,
+          "fdr": 2
+        },
+        {
+          "gw": 5,
+          "opp": "BRE",
+          "home": false,
+          "fdr": 3
+        },
+        {
+          "gw": 6,
+          "opp": "BOU",
+          "home": true,
+          "fdr": 3
+        }
+      ],
+      "recent": [
+        {
+          "gw": 1,
+          "date": "2026-08-24",
+          "comp": "PL",
+          "opp": "FUL",
+          "home": false,
+          "gf": 3,
+          "ga": 2,
+          "result": "W"
+        },
+        {
+          "date": "2026-08-27",
+          "comp": "EFL",
+          "opp": "Luton Town",
+          "home": true,
+          "gf": 2,
+          "ga": 0,
+          "result": "W"
+        }
+      ],
+      "other_apps": [],
+      "other_next": [
+        {
+          "date": "2026-09-08",
+          "kickoff": "2026-09-08T18:00:00+00:00",
+          "comp": "EFL",
+          "opp": "LEE",
+          "home": true
+        }
+      ],
+      "owned_by": [
+        "The Special One"
+      ],
+      "fdr_avg": 3,
+      "status": "d",
+      "news": "Unspecified injury - 75% chance of playing",
+      "chance": 75
     },
     {
       "id": 140,
