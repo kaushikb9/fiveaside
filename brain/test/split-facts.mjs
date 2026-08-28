@@ -38,11 +38,14 @@ const SQUAD = (nick) => ({
 
 /* Runs the real script in a throwaway tree, so the hardcoded relative paths
    it writes to cannot touch the repo. */
-function run(bundle, previousGaffers) {
+function run(bundle, previousGaffers, previousPlayers) {
   const dir = mkdtempSync(join(tmpdir(), "split-"));
   mkdirSync(join(dir, "site", "data"), { recursive: true });
   if (previousGaffers) {
     writeFileSync(join(dir, "site/data/gaffers.json"), JSON.stringify(previousGaffers));
+  }
+  if (previousPlayers) {
+    writeFileSync(join(dir, "site/data/players.json"), JSON.stringify(previousPlayers));
   }
   const out = execFileSync("node", [SCRIPT], {
     cwd: dir, input: JSON.stringify(bundle), encoding: "utf8",
@@ -50,12 +53,16 @@ function run(bundle, previousGaffers) {
   });
   return {
     gaffers: JSON.parse(readFileSync(join(dir, "site/data/gaffers.json"), "utf8")),
+    players: JSON.parse(readFileSync(join(dir, "site/data/players.json"), "utf8")),
     remainder: JSON.parse(out || "{}"),
   };
 }
 
 const FULL = { gameweek: { id: 3 }, squads: [SQUAD("Xabi"), SQUAD("Sir Fergie")], player_file: [] };
 const LOCKED = { gameweek: { id: 3 }, squads: [], player_file: [] };
+const FULL_OWNED = { gameweek: { id: 3 }, squads: [SQUAD("Xabi")], player_file: [
+  { id: 1, name: "Palmer", owned_by: ["Le Professeur"] },
+] };
 
 console.log("split-facts.mjs — the deadline lock");
 
@@ -91,6 +98,24 @@ check("a second lock keeps the original date",
 const recovered = run(FULL, r.gaffers).gaffers;
 check("a recovered API drops the stale mark", recovered.people_stale, undefined);
 check("and republishes live squads", recovered.people.length, 2);
+
+// owned_by is built from the same squads, so the lock empties it for every
+// player: cards read "nobody in the five", owner dots vanish, and a player who
+// is only in the file BECAUSE one of the five owns him drops out of it.
+const OWNED = { gameweek: { id: 3 }, squads: [], player_file: [
+  { id: 1, name: "Palmer", owned_by: [] },
+  { id: 2, name: "Haaland", owned_by: [] },
+] };
+const previousPlayers = { players: [
+  { id: 1, name: "Palmer", owned_by: ["Xabi", "Mr CR7"] },
+  { id: 2, name: "Haaland", owned_by: [] },
+] };
+r = run(OWNED, previous, previousPlayers);
+check("a locked API does not strip the owners", r.players.players[0].owned_by, ["Xabi", "Mr CR7"]);
+check("and leaves genuinely unowned players alone", r.players.players[1].owned_by, []);
+
+const stillOwned = run(FULL_OWNED, previous, previousPlayers).players.players[0].owned_by;
+check("live owners win over carried ones", stillOwned, ["Le Professeur"]);
 
 // A genuinely first run has nothing to fall back to and must not invent any.
 const firstEver = run(LOCKED, null).gaffers;

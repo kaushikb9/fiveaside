@@ -162,10 +162,23 @@
     const gap = spread[spread.length - 1] - spread[0];
     return '<div class="panel" style="border-left:4px solid var(--warn)">' +
       "<h3>It is gameweek " + gw + "</h3>" +
-      '<p class="note" style="margin-bottom:0">The whole five are separated by ' + gap +
+      '<p class="note" style="margin-bottom:0">We are separated by ' + gap +
       " points, which is one captain and a late goal, and " + played +
       " players have scored anything at all. Nothing here is evidence yet.</p></div>";
   }
+
+  /* ---------------- how the room addresses you ----------------
+     The room shows any of the five and already knows which one you are, so it
+     can say "your week" to you and "Mr CR7's week" about him. It used to do
+     that in exactly one place — the watchlist note said "Yours" while the
+     heading above it said "Xabi's watchlist", two persons for one thing in
+     adjacent lines. These two helpers are the rule, and every heading that
+     names a gaffer goes through them. */
+  const isMe = () => who === FA.myNick();
+  // "Your squad" / "Mr CR7's squad"
+  const whose = (Cap) => (isMe() ? (Cap ? "Your" : "your") : gname(who) + "’s");
+  // "You" / "Mr CR7"
+  const whom = (Cap) => (isMe() ? (Cap ? "You" : "you") : gname(who));
 
   /* ---------------- gaffer chips ---------------- */
   function barHTML() {
@@ -253,7 +266,7 @@
     return '<div class="panel" style="border-left:4px solid var(--accent)">' +
       "<h3>Next deadline</h3>" +
       '<p class="note">' + deadlineLine() + "</p>" +
-      '<p class="note" style="margin-bottom:0">' + gname(who) + ": &pound;" +
+      '<p class="note" style="margin-bottom:0">' + whom(true) + ": &pound;" +
       (p && p.bank != null ? p.bank.toFixed(1) : "?") + "m in the bank, squad worth &pound;" +
       (p && p.value != null ? p.value.toFixed(1) : "?") + "m" +
       (moves ? " &middot; " + moves : "") + ".</p></div>";
@@ -335,9 +348,9 @@
     // A gaffer with no squad published cannot have a pitch drawn. This threw
     // on 2026-08-28 rather than saying so.
     if (!p || !p.picks || !p.picks.length) {
-      return '<div class="panel"><h3>' + gname(who) + "’s squad</h3>" +
-        '<p class="empty" style="padding:12px 0">No squad published for ' + gname(who) +
-        " yet.</p></div>";
+      return '<div class="panel"><h3>' + whose(true) + " squad</h3>" +
+        '<p class="empty" style="padding:12px 0">No squad published ' +
+        (isMe() ? "for you" : "for " + gname(who)) + " yet.</p></div>";
     }
     const gw = curGW(), live = isLive(gw), settled = isSettled(gw);
     const xi = p.picks.filter((x) => x.role !== "bench");
@@ -370,7 +383,7 @@
     const GW_MAX = pool().reduce((m, pl) =>
       (pl.fixtures || []).reduce((n, f) => Math.max(n, f.gw), m), PICKS_GW());
 
-    return '<div class="panel"><h3>' + gname(who) + "’s " + esc(shape) + "</h3>" +
+    return '<div class="panel"><h3>' + whose(true) + " " + esc(shape) + "</h3>" +
 
       '<div class="gwnav">' +
       '<button data-gw="' + (gw - 1) + '"' + (gw <= 1 ? " disabled" : "") + ' aria-label="Previous gameweek">&larr;</button>' +
@@ -409,11 +422,11 @@
     // No squad for this gaffer: the API was locked when the data was built,
     // or he has not entered. Say which rather than reading fields off nothing.
     if (!p) {
-      return '<div class="panel"><h3>' + gname(who) + "’s week</h3>" +
-        '<p class="empty" style="padding:12px 0">No squad published for ' + gname(who) +
-        " yet.</p></div>";
+      return '<div class="panel"><h3>' + whose(true) + " week</h3>" +
+        '<p class="empty" style="padding:12px 0">No squad published ' +
+        (isMe() ? "for you" : "for " + gname(who)) + " yet.</p></div>";
     }
-    const head = '<div class="panel"><h3>' + gname(who) + "’s week</h3>" +
+    const head = '<div class="panel"><h3>' + whose(true) + " week</h3>" +
       '<p class="note">' + esc(p.team_name) + " &middot; " + p.total_points + " pts &middot; " +
       p.transfers_made + " transfer" + (p.transfers_made === 1 ? "" : "s") +
       " made &middot; £" + p.bank.toFixed(1) + "m banked.</p>";
@@ -500,7 +513,7 @@
     });
 
     const yours = who === FA.myNick();
-    return '<div class="panel"><h3>' + gname(who) + "’s watchlist</h3>" +
+    return '<div class="panel"><h3>' + whose(true) + " watchlist</h3>" +
       '<p class="note">' + (yours ? "Yours" : "Theirs") + ", starred by hand" +
       (FA.stars.remote ? "" : " (kept in this browser — the shared store is unavailable here)") + ".</p>" +
       (starred.length

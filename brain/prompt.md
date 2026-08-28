@@ -316,3 +316,20 @@ Rules:
   `top_teams` note) lives there, not here — the mill is for the market's undercard.
 - After editing, run `node brain/validate.mjs site/data/digests.json` via
   Bash and fix anything it reports before finishing.
+
+## Person and voice — the rule for every word that reaches a reader
+
+Settled with KB on 2026-08-28, after an audit found "we" meaning two different
+groups in adjacent nav items.
+
+- **"We" and "our" mean THE FIVE.** Never the brain, never the page. If you are
+  about to write "the trigger we wrote" or "our verdict", you are the machine
+  claiming to be the people, and it reads as the page taking credit for their
+  football or blaming them for its own calls.
+- **The brain refers to itself in the third person or not at all.** "The
+  trigger written on Monday" or "the brain's verdict". Prefer no self-reference
+  at all: the sentence is almost always better without it.
+- **"You" is the gaffer reading.** The site addresses one person at a time.
+- **A gaffer other than the reader is named by nickname**, never by "he" alone
+  where two gaffers are in play.
+- Never a real name. Nicknames only.

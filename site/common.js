@@ -477,9 +477,9 @@
       '<div class="sect">Owned in the five</div><div class="ownfaces">' + owners + "</div>" +
       '<div id="fa-star" data-for="' + p.id + '">' + starButtonHTML(p) + "</div>" +
       (v
-        ? '<div class="sect">Our verdict</div><p class="why">' + esc(v.why) + "</p>" +
+        ? '<div class="sect">The brain\u2019s verdict</div><p class="why">' + esc(v.why) + "</p>" +
           '<p class="trig"><strong>What changes it:</strong> ' + esc(v.trigger) + "</p>"
-        : '<div class="sect">Our verdict</div><p class="why faint">No verdict written yet &mdash; evidence only.</p>');
+        : '<div class="sect">The brain\u2019s verdict</div><p class="why faint">No verdict written yet &mdash; evidence only.</p>');
 
     document.getElementById("fa-backdrop").hidden = false;
     // Both facts the star needs travel over the network, and a card can open

@@ -138,6 +138,20 @@ added; `-i` alone is not enough, it only blocks idle sleep. `auto.sh` does it.
 
 ## Rules that have bitten before
 
+- **Person and voice, settled 2026-08-28.** "We" and "our" mean THE FIVE,
+  never the brain and never the page — the audit that set this found "we"
+  meaning two different groups in adjacent nav items ("the gaffers, what we
+  did about it" vs "the locker room, what we know"). The machine is called
+  **the brain** or referred to impersonally. **"You"** is the gaffer reading;
+  the gaffers room already knows `who === FA.myNick()` and every heading that
+  names a gaffer goes through `whose()` / `whom()`. Another gaffer is named by
+  nickname. Both prompts carry the rule so the brain does not write "the
+  trigger we wrote" about itself.
+- **`owned_by` dies in the same outage as the squads.** It is built from them,
+  so a deadline lock empties it for every player: cards read "nobody in the
+  five", owner dots vanish, and a player who is in the file only BECAUSE one
+  of the five owns him drops out of it. `split-facts.mjs` carries the last
+  known owners forward alongside the squads.
 - **FPL takes its entry endpoints down around EVERY deadline.**
   `entry/{id}/event/{gw}/picks/` answers 503 for every gameweek, not just the
   new one, and the mini-league goes with it. The bundle honestly reports no

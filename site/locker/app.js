@@ -1,6 +1,6 @@
-/* the locker room — what we know.
+/* the locker room — what the brain knows.
    =========================================================================
-   Every player we hold evidence on, plus the injury room and the fixture
+   Every player there is evidence on, plus the injury room and the fixture
    runs. This is the reference layer: the other two rooms link into it and it
    links out to nothing.
 
@@ -120,7 +120,11 @@
       "</tbody></table></div>" + FA.fdrKey +
       '<p class="note" style="margin-top:8px">' + shown.length + " shown &middot; " +
       countAt(minOwn) + " in the file at this threshold, of " + P.players.length +
-      " &middot; all " + owned().length + " the five own are in whatever their ownership.</p></div>";
+      // "all 0 the five own are in whatever their ownership" — ungrammatical at
+      // any count, and it read as a bug when a deadline lock briefly made the
+      // number zero. Says it as the five would say it now.
+      " &middot; the " + owned().length + " we own are always in, whatever their ownership." +
+      "</p></div>";
   }
 
   /* ---------------- team radar ----------------
@@ -176,7 +180,7 @@
   function render() {
     $("#main").innerHTML =
       '<section class="section"><div class="section-head"><h2>the locker room</h2>' +
-      '<span class="mute" style="font-size:13px">what we know &mdash; every player, evidence first</span></div>' +
+      '<span class="mute" style="font-size:13px">what the brain knows &mdash; every player, evidence first</span></div>' +
       // Fixture runs lead: they are the thing you scan before deciding
       // anything, and they change slowest. Then the file, then the radar.
       runsHTML() + fileHTML() + signalsHTML() + "</section>";

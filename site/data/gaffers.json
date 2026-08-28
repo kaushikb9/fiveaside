@@ -1,11 +1,11 @@
 {
-  "generated_at": "2026-08-28T17:47:34.838Z",
+  "generated_at": "2026-08-28T18:08:00.803Z",
   "gameweek": 3,
   "deadline_utc": "2026-09-04T17:30:00Z",
   "deadline_local": "Fri 04 Sep, 23:00",
   "live_gameweek": {
-    "id": 1,
-    "finished": true
+    "id": 2,
+    "finished": false
   },
   "people": [
     {
@@ -15,15 +15,15 @@
       "entry": 7149204,
       "entered": true,
       "total_points": 50,
-      "gw_points": 50,
+      "gw_points": 0,
       "overall_rank": 4383525,
       "bank": 0,
-      "value": 100,
+      "value": 100.2,
       "transfers_made": 0,
       "chips_used": [],
       "league_rank": 7,
       "active_chip": null,
-      "bench_points": 4,
+      "bench_points": 0,
       "transfers_cost": 0,
       "picks": [
         {
@@ -92,9 +92,9 @@
           "pos": "MID",
           "price": 12,
           "status": null,
-          "captain": false,
-          "vice": true,
-          "multiplier": 1
+          "captain": true,
+          "vice": false,
+          "multiplier": 2
         },
         {
           "element": 427,
@@ -148,9 +148,9 @@
           "pos": "FWD",
           "price": 15.5,
           "status": null,
-          "captain": true,
-          "vice": false,
-          "multiplier": 2
+          "captain": false,
+          "vice": true,
+          "multiplier": 1
         },
         {
           "element": 346,
@@ -245,15 +245,15 @@
       "entry": 58500,
       "entered": true,
       "total_points": 49,
-      "gw_points": 49,
+      "gw_points": 0,
       "overall_rank": 4673927,
       "bank": 0,
-      "value": 100,
+      "value": 100.2,
       "transfers_made": 0,
       "chips_used": [],
       "league_rank": 8,
-      "active_chip": null,
-      "bench_points": 8,
+      "active_chip": "bboost",
+      "bench_points": 0,
       "transfers_cost": 0,
       "picks": [
         {
@@ -422,7 +422,7 @@
           "status": null,
           "captain": false,
           "vice": false,
-          "multiplier": 0
+          "multiplier": 1
         },
         {
           "element": 124,
@@ -436,7 +436,7 @@
           "status": null,
           "captain": false,
           "vice": false,
-          "multiplier": 0
+          "multiplier": 1
         },
         {
           "element": 175,
@@ -450,7 +450,7 @@
           "status": null,
           "captain": false,
           "vice": false,
-          "multiplier": 0
+          "multiplier": 1
         },
         {
           "element": 173,
@@ -464,7 +464,7 @@
           "status": null,
           "captain": false,
           "vice": false,
-          "multiplier": 0
+          "multiplier": 1
         }
       ]
     },
@@ -475,15 +475,15 @@
       "entry": 522356,
       "entered": true,
       "total_points": 58,
-      "gw_points": 58,
+      "gw_points": 0,
       "overall_rank": 2201654,
       "bank": 0,
-      "value": 100,
+      "value": 100.2,
       "transfers_made": 0,
       "chips_used": [],
       "league_rank": 4,
       "active_chip": null,
-      "bench_points": 12,
+      "bench_points": 0,
       "transfers_cost": 0,
       "picks": [
         {
@@ -501,14 +501,14 @@
           "multiplier": 1
         },
         {
-          "element": 423,
+          "element": 391,
           "position": 2,
           "role": "start",
           "bench_order": null,
-          "name": "Shaw",
-          "team": "MUN",
+          "name": "Gvardiol",
+          "team": "MCI",
           "pos": "DEF",
-          "price": 4.5,
+          "price": 5.5,
           "status": null,
           "captain": false,
           "vice": false,
@@ -669,14 +669,14 @@
           "multiplier": 0
         },
         {
-          "element": 391,
+          "element": 423,
           "position": 14,
           "role": "bench",
           "bench_order": 3,
-          "name": "Gvardiol",
-          "team": "MCI",
+          "name": "Shaw",
+          "team": "MUN",
           "pos": "DEF",
-          "price": 5.5,
+          "price": 4.5,
           "status": null,
           "captain": false,
           "vice": false,
@@ -705,24 +705,24 @@
       "entry": 6485401,
       "entered": true,
       "total_points": 48,
-      "gw_points": 48,
+      "gw_points": 0,
       "overall_rank": 4969899,
-      "bank": 0,
-      "value": 100,
-      "transfers_made": 0,
+      "bank": 0.9,
+      "value": 100.1,
+      "transfers_made": 1,
       "chips_used": [],
       "league_rank": 9,
       "active_chip": null,
-      "bench_points": 5,
+      "bench_points": 0,
       "transfers_cost": 0,
       "picks": [
         {
-          "element": 109,
+          "element": 496,
           "position": 1,
           "role": "start",
           "bench_order": null,
-          "name": "Verbruggen",
-          "team": "BHA",
+          "name": "Kinsky",
+          "team": "TOT",
           "pos": "GK",
           "price": 4.5,
           "status": null,
@@ -745,8 +745,22 @@
           "multiplier": 1
         },
         {
-          "element": 418,
+          "element": 115,
           "position": 3,
+          "role": "start",
+          "bench_order": null,
+          "name": "De Cuyper",
+          "team": "BHA",
+          "pos": "DEF",
+          "price": 4.6,
+          "status": null,
+          "captain": false,
+          "vice": false,
+          "multiplier": 1
+        },
+        {
+          "element": 418,
+          "position": 4,
           "role": "start",
           "bench_order": null,
           "name": "Maguire",
@@ -759,42 +773,28 @@
           "multiplier": 1
         },
         {
-          "element": 306,
-          "position": 4,
-          "role": "start",
-          "bench_order": null,
-          "name": "Greaves",
-          "team": "IPS",
-          "pos": "DEF",
-          "price": 4,
-          "status": null,
-          "captain": false,
-          "vice": false,
-          "multiplier": 1
-        },
-        {
-          "element": 124,
-          "position": 5,
-          "role": "start",
-          "bench_order": null,
-          "name": "Groß",
-          "team": "BHA",
-          "pos": "MID",
-          "price": 5.5,
-          "status": null,
-          "captain": false,
-          "vice": false,
-          "multiplier": 1
-        },
-        {
           "element": 427,
-          "position": 6,
+          "position": 5,
           "role": "start",
           "bench_order": null,
           "name": "Mbeumo",
           "team": "MUN",
           "pos": "MID",
           "price": 8,
+          "status": null,
+          "captain": false,
+          "vice": false,
+          "multiplier": 1
+        },
+        {
+          "element": 397,
+          "position": 6,
+          "role": "start",
+          "bench_order": null,
+          "name": "Semenyo",
+          "team": "MCI",
+          "pos": "MID",
+          "price": 8.5,
           "status": null,
           "captain": false,
           "vice": false,
@@ -815,14 +815,14 @@
           "multiplier": 1
         },
         {
-          "element": 397,
+          "element": 260,
           "position": 8,
           "role": "start",
           "bench_order": null,
-          "name": "Semenyo",
-          "team": "MCI",
+          "name": "Wilson",
+          "team": "LEE",
           "pos": "MID",
-          "price": 8.5,
+          "price": 6.5,
           "status": null,
           "captain": false,
           "vice": false,
@@ -838,9 +838,9 @@
           "pos": "FWD",
           "price": 15.5,
           "status": null,
-          "captain": true,
-          "vice": false,
-          "multiplier": 2
+          "captain": false,
+          "vice": true,
+          "multiplier": 1
         },
         {
           "element": 165,
@@ -852,9 +852,9 @@
           "pos": "FWD",
           "price": 7.6,
           "status": null,
-          "captain": false,
-          "vice": true,
-          "multiplier": 1
+          "captain": true,
+          "vice": false,
+          "multiplier": 2
         },
         {
           "element": 26,
@@ -871,12 +871,12 @@
           "multiplier": 1
         },
         {
-          "element": 496,
+          "element": 109,
           "position": 12,
           "role": "bench",
           "bench_order": 1,
-          "name": "Kinsky",
-          "team": "TOT",
+          "name": "Verbruggen",
+          "team": "BHA",
           "pos": "GK",
           "price": 4.5,
           "status": null,
@@ -885,42 +885,42 @@
           "multiplier": 0
         },
         {
-          "element": 152,
+          "element": 392,
           "position": 13,
           "role": "bench",
           "bench_order": 2,
-          "name": "Palestra",
-          "team": "CHE",
+          "name": "Aït-Nouri",
+          "team": "MCI",
           "pos": "DEF",
           "price": 5.5,
-          "status": "d",
-          "captain": false,
-          "vice": false,
-          "multiplier": 0
-        },
-        {
-          "element": 260,
-          "position": 14,
-          "role": "bench",
-          "bench_order": 3,
-          "name": "Wilson",
-          "team": "LEE",
-          "pos": "MID",
-          "price": 6.5,
           "status": null,
           "captain": false,
           "vice": false,
           "multiplier": 0
         },
         {
-          "element": 392,
+          "element": 124,
+          "position": 14,
+          "role": "bench",
+          "bench_order": 3,
+          "name": "Groß",
+          "team": "BHA",
+          "pos": "MID",
+          "price": 5.5,
+          "status": null,
+          "captain": false,
+          "vice": false,
+          "multiplier": 0
+        },
+        {
+          "element": 306,
           "position": 15,
           "role": "bench",
           "bench_order": 4,
-          "name": "Aït-Nouri",
-          "team": "MCI",
+          "name": "Greaves",
+          "team": "IPS",
           "pos": "DEF",
-          "price": 5.5,
+          "price": 4,
           "status": null,
           "captain": false,
           "vice": false,
@@ -935,24 +935,24 @@
       "entry": 4135179,
       "entered": true,
       "total_points": 64,
-      "gw_points": 64,
+      "gw_points": 0,
       "overall_rank": 1142767,
       "bank": 0.5,
-      "value": 100,
+      "value": 100.2,
       "transfers_made": 0,
       "chips_used": [],
       "league_rank": 2,
-      "active_chip": "bboost",
+      "active_chip": null,
       "bench_points": 0,
       "transfers_cost": 0,
       "picks": [
         {
-          "element": 109,
+          "element": 496,
           "position": 1,
           "role": "start",
           "bench_order": null,
-          "name": "Verbruggen",
-          "team": "BHA",
+          "name": "Kinsky",
+          "team": "TOT",
           "pos": "GK",
           "price": 4.5,
           "status": null,
@@ -1040,9 +1040,9 @@
           "pos": "MID",
           "price": 12,
           "status": null,
-          "captain": false,
-          "vice": true,
-          "multiplier": 1
+          "captain": true,
+          "vice": false,
+          "multiplier": 2
         },
         {
           "element": 237,
@@ -1096,23 +1096,23 @@
           "pos": "FWD",
           "price": 15.5,
           "status": null,
-          "captain": true,
-          "vice": false,
-          "multiplier": 2
+          "captain": false,
+          "vice": true,
+          "multiplier": 1
         },
         {
-          "element": 496,
+          "element": 109,
           "position": 12,
           "role": "bench",
           "bench_order": 1,
-          "name": "Kinsky",
-          "team": "TOT",
+          "name": "Verbruggen",
+          "team": "BHA",
           "pos": "GK",
           "price": 4.5,
           "status": null,
           "captain": false,
           "vice": false,
-          "multiplier": 1
+          "multiplier": 0
         },
         {
           "element": 259,
@@ -1126,7 +1126,7 @@
           "status": null,
           "captain": false,
           "vice": false,
-          "multiplier": 1
+          "multiplier": 0
         },
         {
           "element": 31,
@@ -1140,7 +1140,7 @@
           "status": null,
           "captain": false,
           "vice": false,
-          "multiplier": 1
+          "multiplier": 0
         },
         {
           "element": 124,
@@ -1154,7 +1154,7 @@
           "status": null,
           "captain": false,
           "vice": false,
-          "multiplier": 1
+          "multiplier": 0
         }
       ]
     }
@@ -1168,7 +1168,7 @@
         "name": "Gunners.exe",
         "entry": 3265819,
         "total": 70,
-        "event_total": 70,
+        "event_total": 0,
         "is_owner": false,
         "is_gaffer": false
       },
@@ -1177,7 +1177,7 @@
         "name": "IceMan",
         "entry": 4135179,
         "total": 64,
-        "event_total": 64,
+        "event_total": 0,
         "is_owner": false,
         "nick": "Le Professeur",
         "is_gaffer": true
@@ -1187,7 +1187,7 @@
         "name": "Mad11",
         "entry": 5286779,
         "total": 60,
-        "event_total": 60,
+        "event_total": 0,
         "is_owner": false,
         "is_gaffer": false
       },
@@ -1196,7 +1196,7 @@
         "name": "Yogesh11",
         "entry": 522356,
         "total": 58,
-        "event_total": 58,
+        "event_total": 0,
         "is_owner": false,
         "nick": "Mr CR7",
         "is_gaffer": true
@@ -1206,7 +1206,7 @@
         "name": "Vabby_Blues",
         "entry": 5255110,
         "total": 57,
-        "event_total": 57,
+        "event_total": 0,
         "is_owner": false,
         "is_gaffer": false
       },
@@ -1215,7 +1215,7 @@
         "name": "Peaky Malayali FC",
         "entry": 1654923,
         "total": 56,
-        "event_total": 56,
+        "event_total": 0,
         "is_owner": false,
         "is_gaffer": false
       },
@@ -1224,7 +1224,7 @@
         "name": "Wabi Sabi Xabi",
         "entry": 7149204,
         "total": 50,
-        "event_total": 50,
+        "event_total": 0,
         "is_owner": true,
         "nick": "Xabi",
         "is_gaffer": true
@@ -1234,7 +1234,7 @@
         "name": "Youri kiddin’ me!",
         "entry": 58500,
         "total": 49,
-        "event_total": 49,
+        "event_total": 0,
         "is_owner": false,
         "nick": "Sir Fergie",
         "is_gaffer": true
@@ -1244,7 +1244,7 @@
         "name": "WorldChamps",
         "entry": 6485401,
         "total": 48,
-        "event_total": 48,
+        "event_total": 0,
         "is_owner": false,
         "nick": "The Special One",
         "is_gaffer": true
@@ -1254,7 +1254,7 @@
         "name": "CFC",
         "entry": 4550750,
         "total": 44,
-        "event_total": 44,
+        "event_total": 0,
         "is_owner": false,
         "is_gaffer": false
       },
@@ -1263,12 +1263,10 @@
         "name": "AbKiBaar?",
         "entry": 3044473,
         "total": 40,
-        "event_total": 40,
+        "event_total": 0,
         "is_owner": false,
         "is_gaffer": false
       }
     ]
-  },
-  "people_as_of": "2026-08-28T16:29:38.278Z",
-  "people_stale": true
+  }
 }

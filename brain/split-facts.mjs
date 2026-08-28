@@ -15,11 +15,37 @@ const bundle = JSON.parse(readFileSync(0, "utf8"));
 const stamp = new Date().toISOString();
 const gw = bundle.gameweek?.id ?? null;
 
-// --- the player file: one evidence record per player, every player ---
+/* --- the player file: one evidence record per player, every player ---
+   `owned_by` is built from the squads, so a deadline lock empties it for all
+   620 players just as it empties the room: every card reads "nobody in the
+   five", every owner dot vanishes, and a player under the ownership floor who
+   is only in the file BECAUSE one of the five owns him drops out of it
+   altogether. Same outage, same answer — carry the last known owners
+   forward. */
+function carryForwardOwners(players) {
+  if (players.some((p) => p.owned_by?.length)) return players;
+  let previous;
+  try {
+    previous = JSON.parse(readFileSync("site/data/players.json", "utf8"));
+  } catch {
+    return players;
+  }
+  const was = new Map(
+    (previous.players ?? []).filter((p) => p.owned_by?.length).map((p) => [p.id, p.owned_by])
+  );
+  if (!was.size) return players;
+  console.error(`split: no squads, so no owners — carrying forward ${was.size} owned players`);
+  return players.map((p) => (was.has(p.id) ? { ...p, owned_by: was.get(p.id) } : p));
+}
+
 writeFileSync(
   "site/data/players.json",
   JSON.stringify(
-    { generated_at: stamp, gameweek: gw, players: bundle.player_file ?? [] },
+    {
+      generated_at: stamp,
+      gameweek: gw,
+      players: carryForwardOwners(bundle.player_file ?? []),
+    },
     null,
     2
   ) + "\n"
