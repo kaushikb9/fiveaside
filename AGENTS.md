@@ -138,6 +138,16 @@ added; `-i` alone is not enough, it only blocks idle sleep. `auto.sh` does it.
 
 ## Rules that have bitten before
 
+- **In `smoke.sh`, never write `\"` inside a `js '...'` argument.** The
+  argument is single-quoted, so a backslash-quote reaches the browser as a
+  literal backslash and the expression throws — which `check` reports as an
+  EMPTY result, not a failure, so it looks like the page is broken rather than
+  the test. Use plain double quotes. This has cost four separate debugging
+  detours; every working check in the file already does it the plain way.
+- **A smoke check must assert a FEATURE, not a sentence.** One pinned the exact
+  words "Our verdict" and broke the moment the voice audit renamed the heading.
+  Match the element and a keyword, so a rewrite of the prose does not read as a
+  regression.
 - **Person and voice, settled 2026-08-28.** "We" and "our" mean THE FIVE,
   never the brain and never the page — the audit that set this found "we"
   meaning two different groups in adjacent nav items ("the gaffers, what we

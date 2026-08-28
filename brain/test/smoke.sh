@@ -51,7 +51,11 @@ for ROOM in "" "locker/"; do
   go "$ROOM"
   OPENED=$(js 'const l=document.querySelector("[data-player]"); if(!l) "noplink"; else { l.click(); (!document.getElementById("fa-backdrop").hidden).toString() }')
   check "/$ROOM card opens" "true" "$OPENED"
-  check "/$ROOM card has a verdict section" "true" "$(js '/Our verdict/.test(document.getElementById("fa-pcard").textContent)')"
+  # Matches the section heading, not the exact prose — this check pinned the
+  # words "Our verdict" and broke when the voice audit renamed it, which is a
+  # test asserting a sentence rather than a feature.
+  check "/$ROOM card has a verdict section" "true" \
+    "$(js '[...document.querySelectorAll("#fa-pcard .sect")].some(function(s){return /verdict/i.test(s.textContent)})')"
   js 'document.querySelector("#fa-pcard [data-fa-close]").click(); ""' >/dev/null
   check "/$ROOM card closes" "true" "$(js 'document.getElementById("fa-backdrop").hidden')"
 done
