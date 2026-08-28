@@ -40,19 +40,60 @@
      by brain/split-league.mjs; the archive still passes each entry's own
      historical table, which is the whole reason this takes an argument rather
      than reaching for today's file itself. */
-  D.tableBody = function (t) {
+  /* `opts.cut` truncates to the first N rows behind a Show all button, and
+     `opts.expanded` says which way that button is currently pointing. Only
+     the home page asks for it: a twenty-row table above the fold pushed the
+     matches, the week and everything under them off the screen. The archive
+     passes nothing and gets the full table, because a historical entry is
+     read once, deliberately, and folding it would only add a click. */
+  D.tableBody = function (t, opts) {
     if (!t || !t.rows || !t.rows.length) return "";
-    const rows = t.rows.map((r) =>
-      '<tr data-club="' + esc(r.team) + '">' +
+    const cut = (opts && opts.cut) || 0;
+    const expanded = !!(opts && opts.expanded);
+    const folded = cut > 0 && t.rows.length > cut && !expanded;
+    const rows = t.rows.map((r, i) =>
+      "<tr" + (folded && i >= cut ? ' class="tr-hidden"' : "") +
+      ' data-club="' + esc(r.team) + '">' +
       '<td class="n">' + esc(r.pos) + "</td>" +
       "<td>" + crest(r.crest) + esc(FA.club(r.team)) + "</td>" +
       '<td class="faint num">' + esc(r.form || "") + "</td>" +
       '<td class="n">' + esc(r.played) + "</td>" +
       '<td class="n"><strong>' + esc(r.points) + "</strong></td></tr>").join("");
     // No table note — retired 2026-08-28; the rows are the reading.
-    return '<div class="scroll"><table class="sortable"><thead><tr><th class="n">#</th><th>Club</th>' +
+    const table = '<div class="scroll"><table class="sortable"><thead><tr><th class="n">#</th><th>Club</th>' +
       '<th data-nosort>Form</th><th class="n">P</th><th class="n">Pts</th></tr></thead><tbody>' + rows +
       "</tbody></table></div>";
+    if (cut <= 0 || t.rows.length <= cut) return table;
+    return '<div class="tbl-cut">' + table +
+      '<div class="tbl-more-wrap"><button class="tbl-more" data-cut="' + cut +
+      '" aria-expanded="' + String(expanded) + '">' +
+      (expanded ? "Show top " + cut : "Show all " + t.rows.length) +
+      "</button></div></div>";
+  };
+
+  /* The cut is by POSITION, not by club, so it has to be re-applied whenever
+     the rows move: sorting by Form and leaving the original ten hidden where
+     they landed would show a table that is top-ten of nothing. FA.wireSortable
+     fires `fa:sorted` for exactly this. */
+  D.wireTableCut = function (scope, onToggle) {
+    scope.querySelectorAll(".tbl-cut").forEach((box) => {
+      const btn = box.querySelector(".tbl-more");
+      const body = box.querySelector("table tbody");
+      if (!btn || !body) return;
+      const cut = Number(btn.dataset.cut) || 10;
+      const apply = () => {
+        const open = btn.getAttribute("aria-expanded") === "true";
+        [...body.rows].forEach((r, i) => r.classList.toggle("tr-hidden", !open && i >= cut));
+      };
+      btn.addEventListener("click", () => {
+        const open = btn.getAttribute("aria-expanded") !== "true";
+        btn.setAttribute("aria-expanded", String(open));
+        btn.textContent = open ? "Show top " + cut : "Show all " + body.rows.length;
+        apply();
+        if (onToggle) onToggle(open);
+      });
+      box.addEventListener("fa:sorted", apply);
+    });
   };
 
   D.tableHTML = function (d) {

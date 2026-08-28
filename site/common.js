@@ -540,6 +540,10 @@
             .map((r, i) => ({ r, v: vals[i] }))
             .sort((a, b) => sign * (numeric ? a.v.n - b.v.n : a.v.t.localeCompare(b.v.t)))
             .forEach((x) => body.appendChild(x.r));
+          // Anything that depends on ROW POSITION rather than row identity has
+          // to re-run now — the truncated league table hides everything past
+          // the tenth row, and after a sort that is a different ten.
+          table.dispatchEvent(new CustomEvent("fa:sorted", { bubbles: true }));
         };
         th.addEventListener("click", run);
         th.addEventListener("keydown", (e) => {

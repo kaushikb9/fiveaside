@@ -321,6 +321,12 @@ added; `-i` alone is not enough, it only blocks idle sleep. `auto.sh` does it.
   exclude `"`, `=` and `-` as well as word characters and tag brackets. Any
   new name source (goalscorers, squads) will hit this the first time a
   double-barrelled name shows up.
+- **A truncated table cuts by POSITION, so sorting has to re-cut it.** The
+  home page's table shows ten rows behind a Show all button. Sorting reorders
+  the rows in place, which leaves the hidden ten hidden where they landed and
+  shows a top-ten of nothing. `FA.wireSortable` fires `fa:sorted` on the table
+  after every reorder and `D.wireTableCut` re-applies the cut on it. Anything
+  else that keys off row position has to listen for the same event.
 - **The gaffers door is an invite code, not an identity provider.** Google
   sign-in was replaced on 2026-08-26: it needed a Cloud Console, an OAuth
   client and an email allowlist to identify five people who already know each

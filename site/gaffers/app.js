@@ -211,7 +211,14 @@
     if (!p || !p.entry) return;
     liveBusy = true; render();
     try {
-      const r = await fetch("/api/live?gw=" + PICKS_GW() + "&entry=" + p.entry, { cache: "no-store" });
+      /* The gameweek being LOOKED AT, not the current one. The fetch was
+         pinned to PICKS_GW, which was invisible while live scores were also
+         being painted onto every week — now that they are gated to their own
+         gameweek, stepping back and refreshing would have fetched this week
+         and shown nothing. Stepping back and asking is how a settled week
+         gets its per-player points at all. */
+      const want = curGW();
+      const r = await fetch("/api/live?gw=" + want + "&entry=" + p.entry, { cache: "no-store" });
       if (!r.ok) throw new Error("HTTP " + r.status);
       const d = await r.json();
       const byEl = {};
@@ -219,7 +226,8 @@
       // Match on name when the proxy does not echo the element id back.
       const byName = {};
       (d.squad || []).forEach((x) => { byName[x.name] = x; });
-      live = { gw: d.gw, status: d.status, updated: d.updated, fixtures: d.fixtures || [],
+      live = { gw: d.gw != null ? d.gw : want, status: d.status, updated: d.updated,
+               fixtures: d.fixtures || [],
                totals: d.totals || null, byEl: byEl, byName: byName };
       liveFor = who;
     } catch (e) {
@@ -230,10 +238,21 @@
     render();
   }
 
-  const livePlayer = (pk) =>
-    (live && !live.error && liveFor === who)
-      ? (live.byEl[pk.element] || live.byName[pk.name] || null)
-      : null;
+  /* Live data belongs to ONE gameweek as well as one gaffer. Without the
+     gameweek check, stepping back to a settled week painted this week's live
+     scores onto it. */
+  /* The fetched live payload, but only if it is for this gaffer AND this
+     gameweek. Named rather than inlined because `live` is shadowed inside
+     pitchHTML by a BOOLEAN (`const live = isLive(gw)`), so testing
+     `live && !live.error` in there silently asks a true/false whether it has
+     an `.error` property and always decides no. */
+  const liveDataFor = (gw) =>
+    (live && !live.error && liveFor === who && (gw == null || live.gw === gw)) ? live : null;
+
+  const livePlayer = (pk, gw) => {
+    const d = liveDataFor(gw);
+    return d ? (d.byEl[pk.element] || d.byName[pk.name] || null) : null;
+  };
 
   /* Between weeks there is nothing live to fetch, and a "Live gameweek" panel
      with a dead button is the room telling you about a state it is not in. It
@@ -322,13 +341,20 @@
     // multiplier: 0 benched, 2 captain, 3 triple captain, 1 a bench slot that
     // Bench Boost switched on. A benched player still shows what he scored —
     // the regret is the point.
-    const lv = livePlayer(pk);
+    const lv = livePlayer(pk, gw);
     const mult = pk.multiplier == null ? 1 : pk.multiplier;
-    // Live points already include provisional bonus; fall back to the snapshot.
-    const raw = lv ? lv.points : (r ? r.points : 0);
+    /* `r.points` is the player's SEASON total, and it used to be the fallback
+       here — so every tile showed the season as if it were this gameweek, and
+       stepping between weeks changed nothing because the number never moved.
+       In a season one gameweek old the two happened to be equal, which is what
+       hid it.
+
+       There is no per-gameweek, per-player figure in the snapshot at all
+       (ROADMAP 4c.1), so when the live feed has not been fetched the honest
+       answer is the fixture, not a number that is wrong. */
     let bar = "&mdash;", cls = "";
-    if (settled || live) {
-      bar = raw * (mult > 1 ? mult : 1) + (mult > 1 ? " &times;" + mult : "");
+    if (lv) {
+      bar = lv.points * (mult > 1 ? mult : 1) + (mult > 1 ? " &times;" + mult : "");
     } else if (fx) {
       bar = (fx.home ? "" : "@") + esc(fx.opp);
       cls = " f" + fx.fdr;
@@ -358,25 +384,38 @@
     const rows = ["GK", "DEF", "MID", "FWD"].map((pos) => xi.filter((x) => x.pos === pos));
     const shape = rows.slice(1).map((r) => r.length).join("-");
 
+    /* Only the live feed knows what a player scored in ONE gameweek; the
+       snapshot only has season totals. So a sum is available when the feed has
+       been fetched, and otherwise the only true gameweek figure in the file is
+       the team's own `gw_points` — which belongs to the gameweek the picks
+       belong to, and to no other. */
+    const liveHere = Boolean(liveDataFor(gw));
     const scored = (list) => list.reduce((n, x) => {
-      const lv = livePlayer(x);
-      const r = rec(x.element);
-      const pts = lv ? lv.points : (r ? r.points : 0);
+      const lv = livePlayer(x, gw);
       const m = x.multiplier == null ? 1 : x.multiplier;
-      return n + pts * (m > 1 ? m : 1);
+      return n + (lv ? lv.points : 0) * (m > 1 ? m : 1);
     }, 0);
-    const total = (settled || live) ? scored(xi) : null;
+    const total = liveHere
+      ? scored(xi)
+      : (gw === PICKS_GW() && p.gw_points != null ? p.gw_points : null);
+
+    /* `active_chip` is the chip played in the gameweek the picks are from. It
+       carries no gameweek of its own, so it used to be drawn onto every week
+       stepped through — one Bench Boost appearing in GW1 and GW2 at once. */
+    const chipHere = gw === PICKS_GW();
     // Two different questions. Normally the bench is REGRET and the API's
     // points_on_bench is the answer. Under Bench Boost the bench SCORED and
     // that field reads 0, so the contribution has to be summed instead.
-    const boosted = p.active_chip === "bboost";
-    const benchPts = (settled || live) ? (boosted ? scored(bench) : (p.bench_points || 0)) : null;
+    const boosted = chipHere && p.active_chip === "bboost";
+    const benchPts = liveHere
+      ? (boosted ? scored(bench) : (p.bench_points || 0))
+      : (chipHere && p.bench_points != null ? p.bench_points : null);
 
     const fixtures = xi.map((x) => fixtureFor(rec(x.element), gw)).filter(Boolean);
     const avgFdr = fixtures.length
       ? (fixtures.reduce((n, f) => n + f.fdr, 0) / fixtures.length).toFixed(2) : null;
 
-    const chip = p.active_chip ? (CHIP_NAME[p.active_chip] || p.active_chip) : null;
+    const chip = (chipHere && p.active_chip) ? (CHIP_NAME[p.active_chip] || p.active_chip) : null;
     // Walk forward as far as the fixture data actually reaches, rather than
     // guessing an offset — the fixture list starts from the gameweek being
     // so a fixed PICKS_GW+2 stopped one week short of what was on disk.
@@ -395,10 +434,17 @@
       '<span class="gwtotal">' +
         (total !== null
           ? "<strong>" + total + "</strong> pts on the pitch" +
-            (boosted ? " + <strong>" + benchPts + "</strong> from the bench = <strong>" + (total + benchPts) + "</strong>"
-                     : benchPts ? " &middot; <strong>" + benchPts + "</strong> left on the bench" : "") +
+            (boosted
+              ? " + <strong>" + (benchPts || 0) + "</strong> from the bench = <strong>" +
+                (total + (benchPts || 0)) + "</strong>"
+              : benchPts ? " &middot; <strong>" + benchPts + "</strong> left on the bench" : "") +
             (p.total_points ? " &middot; season total <strong>" + p.total_points + "</strong>" : "")
-          : avgFdr !== null ? "average difficulty <strong>" + avgFdr + "</strong>" : "") +
+          // Difficulty is a preview of a week not yet played. On a settled week
+          // with no stored per-player points it would be answering a question
+          // nobody asked, so that week says nothing rather than something odd.
+          : (!settled && avgFdr !== null)
+            ? "average difficulty <strong>" + avgFdr + "</strong>"
+            : "") +
       "</span></div>" +
       '<div class="pitchwrap"><div class="pitch">' +
       '<div class="chalk"><i class="box"></i><i class="box6"></i><i class="half"></i><i class="circle"></i></div>' +

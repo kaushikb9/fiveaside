@@ -28,7 +28,16 @@
      Europe or a January cup round could not appear in one at all, and a
      "current" gameweek stays current from the last whistle until the next
      kickoff — which is precisely the midweek when the missing matches are
-     played. The calendar does not have that problem. */
+     played. The calendar does not have that problem.
+
+     FOLDED BY DAY since 2026-08-28. A fortnight of every competition a
+     Premier League club is in runs to thirty-odd rows, and the reader who
+     wanted this week's result was scrolling past next Tuesday to reach the
+     table under it. Each day is now a header over a hidden body; what opens
+     by itself is today and the last day that was played, which between them
+     are the two days anyone came here for. A folded day still says how many
+     matches it holds and which competitions they are in, so a European night
+     announces itself without being opened. */
 
   const DAY_FMT = { weekday: "short", day: "numeric", month: "short" };
   const dayLabel = (ymd) => {
@@ -88,6 +97,47 @@
       '<span class="fx-meta">' + statusHTML(m) + tag + "</span>" + scorers + "</div>";
   }
 
+  /* Which days open on their own: today, the last day that was played, and
+     anything live — a match in progress is never folded away on the first
+     paint. It is a first-paint rule only. Once the reader has opened or shut
+     anything, OPEN_DAYS holds what THEY chose and the sixty-second live
+     repaint honours it rather than springing the list back to the default. */
+  function defaultOpenDays(m) {
+    const today = new Date().toISOString().slice(0, 10);
+    const open = new Set();
+    let lastPlayed = null;
+    (m.days || []).forEach((d) => {
+      const ms = d.matches || [];
+      if (!ms.length) return;
+      // "Played" means a ball was kicked, not merely that the date has passed:
+      // today's fixtures are usually still SCHEDULED when the page is opened in
+      // the morning, and treating today as the last played day would then open
+      // a list of kick-off times and no results at all.
+      if (d.date <= today && ms.some((x) => x.status !== "SCHEDULED")) lastPlayed = d.date;
+      if (d.date === today) open.add(d.date);
+      if (ms.some((x) => x.status === "LIVE")) open.add(d.date);
+    });
+    if (lastPlayed) open.add(lastPlayed);
+    return open;
+  }
+
+  // Null until the first river paints; a Set of dates after that. It outlives
+  // paint() on purpose — see defaultOpenDays.
+  let OPEN_DAYS = null;
+
+  function dayHeadHTML(d, open) {
+    const ms = d.matches || [];
+    const comps = ms.reduce((a, x) => (a.indexOf(x.comp) === -1 ? a.concat(x.comp) : a), []);
+    const live = ms.some((x) => x.status === "LIVE");
+    return '<button class="fx-dayhead" data-day="' + esc(d.date) + '" aria-expanded="' + String(open) + '">' +
+      '<span class="fx-caret" aria-hidden="true">&#9654;</span>' +
+      '<span class="fx-dayname">' + esc(dayLabel(d.date)) + "</span>" +
+      '<span class="fx-daycount">' + ms.length + (ms.length === 1 ? " match" : " matches") + "</span>" +
+      '<span class="fx-daycomps">' +
+      comps.map((c) => '<span class="fx-comp' + (live ? " live" : "") + '">' + esc(c) + "</span>").join("") +
+      "</span></button>";
+  }
+
   function riverHTML(m) {
     if (!m) return '<p class="note">Loading the fixtures&hellip;</p>';
     if (!m.days || !m.days.length) {
@@ -96,13 +146,19 @@
       return '<p class="note">No matches in this fortnight' +
         (m.errors && m.errors.length ? " (" + esc(m.errors.join(", ")) + ")" : "") + ".</p>";
     }
+    if (!OPEN_DAYS) OPEN_DAYS = defaultOpenDays(m);
     const today = new Date().toISOString().slice(0, 10);
-    let out = '<div class="fx-list">';
+    const allOpen = m.days.every((d) => OPEN_DAYS.has(d.date));
+    let out = '<div class="fx-tools"><button class="fx-more" data-days="all">' +
+      (allOpen ? "Collapse all" : "Expand all") + "</button></div>" +
+      '<div class="fx-list">';
     let ruled = false;
     m.days.forEach((d) => {
       if (!ruled && d.date >= today) { out += '<div class="fx-today"><span>today</span></div>'; ruled = true; }
-      out += '<div class="fx-day">' + esc(dayLabel(d.date)) + "</div>";
-      (d.matches || []).forEach((x) => { out += matchHTML(x); });
+      const open = OPEN_DAYS.has(d.date);
+      out += dayHeadHTML(d, open) +
+        '<div class="fx-daybody" data-body="' + esc(d.date) + '"' + (open ? "" : " hidden") + ">" +
+        (d.matches || []).map(matchHTML).join("") + "</div>";
     });
     return out + "</div>";
   }
@@ -129,6 +185,11 @@
   /* Rows from the mechanical file. The digest's `table` is only the archive's
      copy of the day now, and its note is retired. */
   let LEAGUE_TABLE = null;
+  /* Ten rows is the whole European conversation plus a row of daylight; the
+     other half of the table is a click away. Like OPEN_DAYS, the reader's
+     choice outlives the repaint. */
+  const TABLE_CUT = 10;
+  let TABLE_OPEN = false;
   function leagueTable(d) {
     const own = d && d.table;
     if (!LEAGUE_TABLE || !LEAGUE_TABLE.rows || !LEAGUE_TABLE.rows.length) return own;
@@ -152,9 +213,39 @@
       tab("table", "Table") +
       tab("matches", "Matches") +
       "</div>" +
-      pane("table", D.tableBody(leagueTable(d)) || '<p class="note">No table this week.</p>') +
+      pane("table", D.tableBody(leagueTable(d), { cut: TABLE_CUT, expanded: TABLE_OPEN }) ||
+        '<p class="note">No table this week.</p>') +
       pane("matches", riverHTML(m)) +
       "</div>";
+  }
+
+  /* Day headers and the expand-all link. One delegated listener on the panel,
+     because the pane is rebuilt wholesale on every live poll and per-header
+     listeners would have to be re-attached each time anyway. */
+  function wireRiver(root) {
+    const panel = root.querySelector("#league");
+    if (!panel) return;
+    const setDay = (date, open) => {
+      const head = panel.querySelector('.fx-dayhead[data-day="' + date + '"]');
+      const body = panel.querySelector('.fx-daybody[data-body="' + date + '"]');
+      if (!head || !body) return;
+      head.setAttribute("aria-expanded", String(open));
+      body.hidden = !open;
+      if (open) OPEN_DAYS.add(date); else OPEN_DAYS.delete(date);
+    };
+    panel.addEventListener("click", (e) => {
+      const head = e.target.closest(".fx-dayhead");
+      if (head) {
+        setDay(head.dataset.day, head.getAttribute("aria-expanded") !== "true");
+        return;
+      }
+      const all = e.target.closest(".fx-more[data-days]");
+      if (!all) return;
+      const heads = [...panel.querySelectorAll(".fx-dayhead")];
+      const open = heads.some((h) => h.getAttribute("aria-expanded") !== "true");
+      heads.forEach((h) => setDay(h.dataset.day, open));
+      all.textContent = open ? "Collapse all" : "Expand all";
+    });
   }
 
   function wireTabs(root) {
@@ -223,7 +314,9 @@
       el.innerHTML = shell(m, active);
       D.wireFilter(el);
       FA.wireSortable(el);
+      D.wireTableCut(el, (open) => { TABLE_OPEN = open; });
       wireTabs(el);
+      wireRiver(el);
     };
 
     paint(null, "table");

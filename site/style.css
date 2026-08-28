@@ -861,16 +861,58 @@ th.th-sort.sorted[data-dir="desc"]::after { content: "\2193"; opacity: 1; color:
    stops reading as one thing. */
 .fx-list { max-width: 620px; margin: 0 auto; }
 
-.fx-day {
+/* The day header. A button over a hidden body rather than <details>, because
+   the pane is repainted wholesale on every live poll and a native disclosure
+   would lose its state on each one. Four columns: caret, date, count, and the
+   competitions in that day — the last of these is why a folded Tuesday still
+   tells you there is European football in it. */
+.fx-dayhead {
+  display: grid;
+  grid-template-columns: 13px 1fr auto auto;
+  align-items: center;
+  gap: 9px;
+  width: 100%;
+  background: none;
+  border: 0;
+  border-bottom: 1px solid var(--hair);
+  padding: 12px 0 7px;
+  margin: 0;
+  cursor: pointer;
+  text-align: left;
+  color: inherit;
+  font-family: var(--f-head);
   font-size: 11.5px;
   font-weight: 700;
   letter-spacing: 0.05em;
   text-transform: uppercase;
-  color: var(--faint);
-  padding: 14px 0 5px;
-  border-bottom: 1px solid var(--hair);
 }
-.fx-day:first-of-type { padding-top: 2px; }
+.fx-dayhead:first-of-type { padding-top: 2px; }
+.fx-dayhead:hover .fx-dayname { color: var(--ink); }
+.fx-caret { color: var(--faint); font-size: 9px; line-height: 1; transition: transform 0.14s ease; }
+.fx-dayhead[aria-expanded="true"] .fx-caret { transform: rotate(90deg); }
+@media (prefers-reduced-motion: reduce) { .fx-caret { transition: none; } }
+.fx-dayname { color: var(--faint); }
+.fx-dayhead[aria-expanded="true"] .fx-dayname { color: var(--ink); }
+.fx-daycount {
+  font-family: var(--f-num); font-size: 11px; font-weight: 400;
+  letter-spacing: 0; text-transform: none; color: var(--faint);
+}
+.fx-daycomps { display: flex; gap: 4px; }
+.fx-dayhead .fx-comp { line-height: 1.45; }
+.fx-dayhead .fx-comp.live { color: var(--hot); border-color: var(--hot); }
+.fx-daybody[hidden] { display: none; }
+.fx-daybody .fx:last-child { border-bottom: 0; }
+
+/* The escape hatch, for the day you do want the whole fortnight. */
+.fx-tools { display: flex; justify-content: flex-end; max-width: 620px; margin: 0 auto 2px; }
+.fx-more, .tbl-more {
+  background: none; border: 0; padding: 6px 2px; cursor: pointer;
+  font-family: var(--f-head); font-size: 11.5px; font-weight: 700;
+  letter-spacing: 0.04em; color: var(--accent);
+}
+.fx-more:hover, .tbl-more:hover { text-decoration: underline; }
+.tbl-more-wrap { border-top: 1px solid var(--hair); margin-top: 2px; text-align: center; }
+tr.tr-hidden { display: none; }
 
 .fx {
   display: grid;
