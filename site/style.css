@@ -200,7 +200,12 @@ button:focus-visible, a:focus-visible, input:focus-visible, summary:focus-visibl
   box-shadow: var(--shadow); padding: 17px 19px; margin: 0 0 14px; position: relative;
 }
 .panel > h3 { font-size: 15px; font-weight: 800; letter-spacing: -0.015em; margin-bottom: 4px; }
-.panel .note { font-size: 13.5px; color: var(--mute); margin: 2px 0 13px; max-width: 95ch; }
+/* `.note` was scoped to `.panel .note`, so every note written straight into a
+   .section — the archive line under the home page digest, the empty-state
+   lines in the tab panes — fell through to bare <p> and rendered at body
+   16px in full --ink: bigger and blacker than the panel notes it sits among.
+   One unscoped rule, so a note looks like a note wherever it is put. */
+.note { font-size: 13.5px; color: var(--mute); margin: 2px 0 13px; max-width: 95ch; }
 .grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
 /* Grid items default to min-width:auto, so a wide child — a fixture table's
    min-content — forces its 1fr track wider than the container and pushes the
@@ -332,6 +337,10 @@ tr.me td:first-child { box-shadow: inset 3px 0 0 var(--accent); }
 }
 .wtag.fpl { background: var(--accent); color: var(--on-accent); border-color: var(--accent); }
 .clubchip { display: inline-block; font-size: 11px; color: var(--faint); margin-left: 6px; }
+/* Team radar: the FPL consequence is the headline of the row, the club a
+   label in front of it, and what was reported sits underneath in .row-sub. */
+.radar-do { font-weight: 500; }
+.row-name .radar-do::before { content: " \2014  "; color: var(--faint); }
 
 /* ---------- filters ---------- */
 .filters { display: flex; gap: 6px; flex-wrap: wrap; align-items: center; margin-bottom: 13px; }
@@ -626,12 +635,19 @@ h3 .gname, summary .gname, td .gname, .ghead p .gname {
 .wk.next { border-left-color: var(--accent); } .wk.next h4 { color: var(--accent); }
 .wk p { margin: 0; font-size: 14px; line-height: 1.5; }
 
-/* ---------- the roast ---------- */
+/* ---------- the roast ----------
+   The roast used to be the only 16px regular-weight paragraph on the site,
+   which read as text pasted in from somewhere else. It now takes the same
+   type as .ghead p — the page's established "this is a statement" setting —
+   so the joke sits in the page instead of on top of it. KB, 2026-08-28. */
 .roast {
   border: 1px dashed var(--hot); border-radius: var(--r);
   padding: 18px 20px; background: var(--raise);
 }
-.roast p { margin: 0; font-size: 16px; line-height: 1.6; max-width: 88ch; }
+.roast p {
+  margin: 0; font-family: var(--f-head); font-size: 17px; font-weight: 700;
+  line-height: 1.5; letter-spacing: -0.015em; max-width: 88ch;
+}
 .roast .by {
   margin-top: 11px; font-family: var(--f-head); font-size: 10.5px;
   letter-spacing: 0.1em; text-transform: uppercase; color: var(--faint);
@@ -718,7 +734,6 @@ details.fold .foldbody { padding: 0 18px 16px; }
 .emptywatch p { font-size: 13.5px; line-height: 1.55; margin: 0 0 9px; color: var(--mute); }
 .emptywatch p:first-child { color: var(--ink); }
 .emptywatch p:last-child { margin-bottom: 0; }
-.emptywatch .faint { font-size: 12.5px; color: var(--faint); }
 /* Inline in a sentence here, not a button — no hit area, no padding. */
 .emptywatch .star { display: inline; padding: 0; font-size: 14px; color: var(--warn); }
 
@@ -807,7 +822,6 @@ th.th-sort.sorted[data-dir="desc"]::after { content: "\2193"; opacity: 1; color:
 .mw-row.next { color: var(--faint); }
 .mw-row.next b { color: var(--mute); font-weight: 600; }
 .mw-when { font-family: var(--f-num); font-size: 11px; color: var(--faint); white-space: nowrap; }
-.mw-note { font-size: 11.5px; color: var(--faint); margin: 7px 0 0; line-height: 1.45; }
 .pill.rot {
   color: var(--warn); border-color: var(--warn); font-weight: 700;
 }

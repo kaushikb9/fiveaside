@@ -292,6 +292,17 @@ sleep 0.3
 # "What the crowd missed" was a gaffers panel of eight names that could not be
 # sorted, searched or crossed with a verdict. It is a question about the player
 # file, so it is a filter in the file.
+# Renamed from "Team news" on 2026-08-28 and tightened: a club-level signal has
+# to carry the FPL consequence. Passes cleanly when there are none to show.
+check "the radar carries a consequence" "true" "$(js '(function(){
+  var panel = [...document.querySelectorAll("#main .panel")].find(function (p) {
+    var h = p.querySelector("h3"); return h && /team radar/i.test(h.textContent);
+  });
+  if (!panel) return true;
+  var rows = [...panel.querySelectorAll(".row")];
+  return rows.length > 0 && rows.every(function (r) { return !!r.querySelector(".radar-do"); });
+})()')"
+check "team news is gone from the locker" "0" "$(js '[...document.querySelectorAll("#main .panel h3")].filter(function(h){return /team news/i.test(h.textContent)}).length')"
 check "differentials is a filter in the file" "1" \
   "$(js 'document.querySelectorAll("#the-file .fc[data-f=differentials]").length')"
 check "and it narrows to the under-owned" "true" "$(js '(function(){
@@ -324,16 +335,18 @@ check "a midweek appearance reaches the card" "true" "$(js '(function(){
   }
   return "no midweek start on the first 40 cards";
 })()')"
-# What is coming is the CLUB fixture, and the card must not imply a team sheet
-# it cannot have.
-check "an upcoming cup tie is labelled as the club's" "true" "$(js '(function(){
+# What is coming is the CLUB's fixture, not his. The explaining note was cut in
+# the caption sweep, so the distinction now rests entirely on the row naming
+# the club — which makes it worth a check rather than less worth one.
+check "an upcoming cup tie names the club, not the player" "true" "$(js '(function(){
   var rows = [...document.querySelectorAll("#the-file [data-pid]")].slice(0, 20);
   for (var i = 0; i < rows.length; i++) {
     rows[i].click();
     var next = document.querySelector(".pcard .mw-row.next");
-    var note = document.querySelector(".pcard .mw-note");
+    var club = next && next.querySelector("b");
+    var team = document.querySelector(".pcard .meta");
     FA.closeCard();
-    if (next) return !!note && /club/.test(note.textContent);
+    if (next) return !!club && team.textContent.indexOf(club.textContent) !== -1;
   }
   return true;
 })()')"

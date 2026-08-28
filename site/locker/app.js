@@ -102,7 +102,6 @@
     }).join("");
 
     return '<div class="panel" id="the-file"><h3>The file</h3>' +
-      '<p class="note">The verdict is ours. Everything else on the row is measured.</p>' +
       '<div class="filters">' +
         CHIPS.map((c) =>
           '<button class="fc" data-f="' + c[0] + '" aria-pressed="' + (c[0] === filter) + '">' +
@@ -124,25 +123,28 @@
       " &middot; all " + owned().length + " the five own are in whatever their ownership.</p></div>";
   }
 
-  /* ---------------- team news ----------------
-     Judgment, and marked as such: the brain writes these from sources it
-     actually fetched, and each carries where it came from so a claim can be
-     checked rather than trusted. */
+  /* ---------------- team radar ----------------
+     Was "Team news" until 2026-08-28, when it had become a newsdesk: transfer
+     bids, a Champions League draw, a club's pre-season travel. All true, all
+     sourced, none of it any use to somebody picking a team. The panel is now
+     club-level things that change the upcoming gameweek, and the brain has to
+     write the FPL consequence — `action` — for each one or the run fails
+     validation. That line is the point of the row, so it renders as the row,
+     with what was reported underneath it. */
   function signalsHTML() {
-    // Anything filed against a named player now lives on that player's card,
-    // where it is actually useful. What is left here is club-level: a
-    // manager's plan, a shape change, a team that stopped creating.
+    // Anything filed against a named player lives on that player's card,
+    // where it is actually useful.
     const club = ((F && F.signals) || []).filter((s) => !s.player);
     if (!club.length) return "";
-    return '<div class="panel"><h3>Team news</h3>' +
-      '<p class="note">Club-level. Anything about a named player is on his card.</p>' +
+    return '<div class="panel"><h3>Team radar</h3>' +
+      '<p class="note">Club-level, and only what moves a team sheet this gameweek.</p>' +
       '<div class="rows">' +
       club.map((s) =>
         '<div class="row"><div class="row-main"><div class="row-name">' +
-        '<span class="wtag">' + esc(s.tag) + "</span>" +
-        (s.player ? FA.linkPlayers(s.player) + " &middot; " : "") + esc(s.team) + "</div>" +
+        '<span class="wtag">' + esc(s.tag) + "</span>" + esc(s.team) +
+        (s.action ? ' <span class="radar-do">' + FA.linkPlayers(s.action) + "</span>" : "") +
+        "</div>" +
         '<div class="row-sub">' + FA.linkPlayers(s.text) +
-        (s.action ? ' <strong>' + esc(s.action) + "</strong>" : "") +
         (s.source ? '<br><span class="faint">' + esc(s.source) +
           (s.url ? ' &middot; <a href="' + esc(s.url) + '" target="_blank" rel="noopener">source</a>' : "") +
           "</span>" : "") +
@@ -176,7 +178,7 @@
       '<section class="section"><div class="section-head"><h2>the locker room</h2>' +
       '<span class="mute" style="font-size:13px">what we know &mdash; every player, evidence first</span></div>' +
       // Fixture runs lead: they are the thing you scan before deciding
-      // anything, and they change slowest. Then the file, then club news.
+      // anything, and they change slowest. Then the file, then the radar.
       runsHTML() + fileHTML() + signalsHTML() + "</section>";
     wire();
     FA.wireSortable($("#main"));

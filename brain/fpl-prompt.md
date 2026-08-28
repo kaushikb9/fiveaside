@@ -79,6 +79,11 @@ Write accordingly:
     { "tag": "injury", "team": "HUL", "player": "Ajayi",
       "text": "what was actually said or reported",
       "source": "where you read it", "action": "what it means to do, if anything",
+      "url": "https://..." },
+    { "tag": "rotation", "team": "NEW",
+      "text": "club-level: no `player`, so this is Team radar",
+      "source": "where you read it",
+      "action": "REQUIRED club-level — what it means for the upcoming gameweek",
       "url": "https://..." }
   ],
   "doctrine": [
@@ -124,7 +129,7 @@ have not given you anything to judge.
 losing and the price starts to look like the problem" is a trigger. "If he
 plays badly" is not.
 
-### signals — team news, and player news
+### signals — the team radar, and player news
 
 One array, two destinations, decided by whether you set `player`:
 
@@ -134,19 +139,53 @@ One array, two destinations, decided by whether you set `player`:
   warning belong. Write these freely — a name is the thing people click.
   `player` must match the player file's `name` exactly (`site/data/players.json`),
   or the note lands nowhere.
-- **Without `player`** it appears in the Team news panel, which is now
-  **club-level only**: a manager's stated plan, a shape change, a side that
-  did not register a shot, a club with four defenders limping. If your item
-  is really about one footballer, name him and let it go to his card.
+- **Without `player`** it is club-level and appears in **Team radar** (renamed
+  from "Team news" on 2026-08-28). Read the rules below before writing one.
 
-Getting this wrong is the common failure. Last run, seven of nine signals
-named a player and sat in a panel titled "Team news" — which made the panel a
-list of individuals and left the cards empty. If you catch yourself writing
-"Team X's player Y is doubtful", that is a player note.
+Getting the destination wrong is one common failure. If you catch yourself
+writing "Team X's player Y is doubtful", that is a player note — name him.
 
-Only from sources you actually fetched, with `source` filled in. Never invent
-a quote, an injury or a return date. If the sources are thin this week, write
-fewer.
+#### Team radar — the bar
+
+**The only test: does it change how somebody picks a team for the upcoming
+gameweek?** Not "is it true", not "is it interesting". The radar is read by
+five people with a deadline, and everything in it has to survive that question.
+
+In:
+
+- A manager's stated plan for the next fixture, rotation policy, a European
+  tie three days before it, minutes management.
+- Set-piece and penalty duty moving, a shape change, a club that has switched
+  to a back three, a side that has stopped creating or stopped defending.
+- A defence with four players out — club-level because it is the clean sheet
+  that is affected, not one man.
+- **Deadline-day squad moves, only when they change who plays.** A goalkeeper
+  signed, a striker sold, a full-back in on loan. Write it as the consequence
+  ("Villa have sold Konsa and signed a right-back on loan — the defence in
+  front of Martinez is not the one that kept two clean sheets"), never as
+  gossip. Tag it `squad`.
+
+Out — these were all in the panel on 2026-08-28 and none of them belong:
+
+- Transfer rumours, bids, fees, agreed deals and "poised to move" — the whole
+  market undercard. If the move has not changed a lineup, it is not radar.
+- Champions League draws, takeovers, contract talk, pre-season travel,
+  last-season records, anything about a manager's job security.
+- Anything that is really about one player. Name him; it goes to his card.
+
+Rules `validate-fpl.mjs` enforces, so a bad item fails the run rather than
+reaching the page:
+
+- **`tag` must be one of** `rotation`, `injury`, `setpieces`, `shape`,
+  `minutes`, `squad`, `managers`. `news` is a player-level tag and is rejected
+  club-level — it was the bucket the gossip arrived in.
+- **`action` is REQUIRED** and is the real filter: one short line on what it
+  means to do this gameweek ("their defenders are not clean-sheet buys until
+  the back three settles"). If you cannot write it, the item is not radar.
+- **`source` is REQUIRED**, and **at most 8 items**. Six sharp ones beat eight.
+
+Only from sources you actually fetched. Never invent a quote, an injury or a
+return date. If the sources are thin this week, write fewer.
 
 ### the big decision
 
@@ -182,6 +221,29 @@ Post-gameweek only, never daily. Rules agreed with the owner:
   needs a paragraph to land has stopped being a roast and become an essay
   about someone's bench. Pick the single best line and cut the rest.
 - Always about a **decision someone actually made**, with the fact attached.
+- **The fact is the setup. Sentence two is the turn, and it adds no new
+  facts.** KB's call, 2026-08-28, on a roast that shipped: "Mr CR7 finished
+  second of the five without spending a chip, then left twelve points on his
+  bench — nine of them a City left-back who started at the Etihad. Six of them
+  would have put him top." Every word true, inside the limit, and *not at all
+  funny* — because both sentences are information. It is a match report with
+  a victim. If sentence two is another number, you have not written a roast;
+  you have written the week's read twice.
+- **The read-aloud test, before you write it into the file.** Would this line
+  be at home in `week.good` or `week.bad`? If it could move there and nobody
+  would notice, bin it and write another. The turn is what a friend says
+  *after* the fact has landed: the image, the comparison, the mock sympathy,
+  the too-charitable reading of an obviously bad decision. Aim it at the
+  decision — the logic of it — never at the person.
+- **The shape, on the same week's material** (KB picked this one; beat it):
+  "Mr CR7 left twelve points on his bench, nine of them Gvardiol, playing at
+  the Etihad. Somewhere in that team sheet is a man who looked at a City
+  defender at home and decided it was too risky." Sentence one is the fact
+  and nothing else. Sentence two invents no number; it just says out loud the
+  thinking the decision implies, which is the joke.
+- **The Voice section applies to the whole page except here.** "Calm,
+  specific, dry" is right everywhere else; the roast is the one block on the
+  site allowed a joke. Dry is welcome. Flat is the failure mode.
 - Never the same person two gameweeks running — check `roast.target` in the
   existing file before choosing.
 - It **roasts the machine too** when there is room, and with two sentences

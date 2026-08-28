@@ -86,9 +86,26 @@ replaced wholesale each run, except `log`, which is append-and-settle.
 - **A verdict is a hypothesis with a trigger** — four words (nailed / solid /
   watch / sack), a direction, one line of why, and what would change our mind,
   written before the fact.
-- **Player news vs team news.** A signal with `player` attaches to that
-  player's card; without one it is club-level and belongs in Team news. Seven
-  of nine got this wrong once and the panel became a list of individuals.
+- **Player news vs the team radar.** A signal with `player` attaches to that
+  player's card; without one it is club-level and belongs in **Team radar**.
+  Seven of nine got this wrong once and the panel became a list of individuals.
+- **The radar earns its place by the deadline.** A club-level signal has to
+  change how somebody picks a team this gameweek — rotation, set pieces,
+  shape, minutes, a squad move that changes who plays. Transfer gossip, a
+  Champions League draw and a club's pre-season travel are not radar, however
+  true. `validate-fpl.mjs` enforces it: a radar tag, a required `action` (the
+  FPL consequence), a source, and at most eight.
+- **`table.note` is retired.** The reading of the table kept restating the
+  arithmetic the rows already show. The rows are the reading.
+- **A note carries a fact the panel does not already show, or it does not
+  exist.** Never describe the section ("Judgment, not data" over two boxes
+  headed *What worked* / *What didn't*), never teach the control ("pull the
+  live scores when a gameweek is in play", above a button reading *Fetch live
+  scores*), never apologise for the data ("only this week's picks are
+  stored"). Swept 2026-08-28: roughly 900 characters of chrome came out of
+  four rooms in one pass. If a number needs a caption to be read correctly,
+  fix the label, not the caption — that is how *"read the total in the pitch
+  header"* became `season total`.
 
 ---
 
@@ -105,8 +122,8 @@ replaced wholesale each run, except `log`, which is append-and-settle.
   **live scores on demand**.
 - **the locker room** — fixture runs, then **the file** (gated at >2%
   ownership, never dropping anyone the five own, with the injury room folded
-  in as the *injured / doubtful* filter), then club-level team news. Every
-  table sorts by column.
+  in as the *injured / doubtful* filter), then **Team radar** — club-level,
+  and only what moves a team sheet this gameweek. Every table sorts by column.
 - **The player card** — the game's flag and the editor's notes under "What we
   know", last five results, next five fixtures, ownership across the five, and
   the verdict with its trigger.

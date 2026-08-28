@@ -97,8 +97,7 @@
         (m.errors && m.errors.length ? " (" + esc(m.errors.join(", ")) + ")" : "") + ".</p>";
     }
     const today = new Date().toISOString().slice(0, 10);
-    let out = '<p class="note">Every competition, a week either side of today. Kick-offs in ' +
-      "your time zone.</p>" + '<div class="fx-list">';
+    let out = '<div class="fx-list">';
     let ruled = false;
     m.days.forEach((d) => {
       if (!ruled && d.date >= today) { out += '<div class="fx-today"><span>today</span></div>'; ruled = true; }

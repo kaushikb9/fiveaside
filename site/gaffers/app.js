@@ -163,10 +163,8 @@
     return '<div class="panel" style="border-left:4px solid var(--warn)">' +
       "<h3>It is gameweek " + gw + "</h3>" +
       '<p class="note" style="margin-bottom:0">The whole five are separated by ' + gap +
-      " points, which is one captain and a late goal. Upsets and stoppage-time returns are " +
-      "doing most of the work in these numbers, and " + played + " players have scored anything at all. " +
-      "Nothing here is evidence yet: a verdict written this week is a hypothesis with a trigger " +
-      "attached, not a conclusion. This box retires itself at GW" + SETTLED_FROM_GW + ".</p></div>";
+      " points, which is one captain and a late goal, and " + played +
+      " players have scored anything at all. Nothing here is evidence yet.</p></div>";
   }
 
   /* ---------------- gaffer chips ---------------- */
@@ -236,9 +234,7 @@
       : null;
     return '<div class="panel" style="border-left:4px solid var(--accent)">' +
       "<h3>Next deadline</h3>" +
-      '<p class="note">' + deadlineLine() +
-      " Gameweek " + PICKS_GW() + " is settled, so the pitch below is a result, not a plan " +
-      "&mdash; nobody&rsquo;s gameweek " + NEXT_GW() + " picks exist until the deadline passes.</p>" +
+      '<p class="note">' + deadlineLine() + "</p>" +
       '<p class="note" style="margin-bottom:0">' + gname(who) + ": &pound;" +
       (p && p.bank != null ? p.bank.toFixed(1) : "?") + "m in the bank, squad worth &pound;" +
       (p && p.value != null ? p.value.toFixed(1) : "?") + "m" +
@@ -249,8 +245,7 @@
     if (between() && !live) return deadlineHTML();
     if (!live) {
       return '<div class="panel"><h3>Gameweek ' + PICKS_GW() + "</h3>" +
-        '<p class="note">Squad points below are a snapshot from the last data run. ' +
-        "Pull the live scores when a gameweek is in play.</p>" +
+        '<p class="note">Squad points below are a snapshot from the last data run.</p>' +
         '<button class="btn-live fc" data-live>' +
         (liveBusy ? "fetching…" : "Fetch live scores") + "</button></div>";
     }
@@ -273,8 +268,6 @@
       '<p class="note">' + done + " of " + live.fixtures.length + " matches finished" +
       (inPlay.length ? ", " + inPlay.length + " in play" : "") +
       ". Points on the pitch below are live, including provisional bonus.</p>" +
-      '<p class="note" style="margin-top:-6px">Read the total in the pitch header &mdash; the ' +
-      "other one counts starters only.</p>" +
       (inPlay.length ? '<div class="rows">' + inPlay.map(fx).join("") + "</div>" : "") +
       '<button class="btn-live fc" data-live style="margin-top:10px">' +
       (liveBusy ? "refreshing…" : "Refresh") + "</button></div>";
@@ -366,7 +359,7 @@
           ? "<strong>" + total + "</strong> pts on the pitch" +
             (boosted ? " + <strong>" + benchPts + "</strong> from the bench = <strong>" + (total + benchPts) + "</strong>"
                      : benchPts ? " &middot; <strong>" + benchPts + "</strong> left on the bench" : "") +
-            (p.total_points ? " &middot; FPL says " + p.total_points : "")
+            (p.total_points ? " &middot; season total <strong>" + p.total_points + "</strong>" : "")
           : avgFdr !== null ? "average difficulty <strong>" + avgFdr + "</strong>" : "") +
       "</span></div>" +
       '<div class="pitchwrap"><div class="pitch">' +
@@ -375,9 +368,7 @@
       "</div>" +
       '<div class="benchlabel">Bench' +
         (boosted && (settled || live) ? " — boosted, all four counted" : "") + "</div>" +
-      '<div class="benchrow">' + bench.map((x) => pitchPlayer(x, gw)).join("") + "</div></div>" +
-      '<p class="note" style="margin:12px 0 0">The squad shown is the <em>current</em> one: only ' +
-      "this week’s picks are stored, so stepping back pairs this team with that week’s points.</p></div>";
+      '<div class="benchrow">' + bench.map((x) => pitchPlayer(x, gw)).join("") + "</div></div></div>";
   }
 
   /* ---------------- the weekly read ----------------
@@ -391,8 +382,7 @@
     const me = person();
     const p = G.people.find((x) => x.nick === who);
     const head = '<div class="panel"><h3>' + gname(who) + "’s week</h3>" +
-      '<p class="note">Judgment, not data. ' +
-      esc(p.team_name) + " &middot; " + p.total_points + " pts &middot; " +
+      '<p class="note">' + esc(p.team_name) + " &middot; " + p.total_points + " pts &middot; " +
       p.transfers_made + " transfer" + (p.transfers_made === 1 ? "" : "s") +
       " made &middot; £" + p.bank.toFixed(1) + "m banked.</p>";
     if (!me || !me.week) {
@@ -458,14 +448,8 @@
 
   const EMPTY_WATCH =
     '<div class="emptywatch">' +
-    "<p><strong>Nothing starred yet.</strong> This list is yours to build by hand.</p>" +
-    "<p>Open any player &mdash; a name is clickable everywhere on the site, on the pitch, " +
-    "in the file, in a digest, even in somebody else&rsquo;s squad &mdash; and press " +
-    "<span class=\"star\" aria-hidden=\"true\">&#9734;</span> <em>Add to your watchlist</em>. " +
-    "It lands here and nowhere else; starring from another gaffer&rsquo;s room does not touch " +
-    "theirs.</p>" +
-    "<p class=\"faint\">The list below is what the brain suggests. Star one and it moves up " +
-    "here.</p></div>";
+    "<p><strong>Nothing starred yet.</strong> Open any player and press " +
+    "<span class=\"star\" aria-hidden=\"true\">&#9734;</span> <em>Add to your watchlist</em>.</p></div>";
 
   function watchHTML() {
     const me = person();
@@ -486,8 +470,7 @@
     const yours = who === FA.myNick();
     return '<div class="panel"><h3>' + gname(who) + "’s watchlist</h3>" +
       '<p class="note">' + (yours ? "Yours" : "Theirs") + ", starred by hand" +
-      (FA.stars.remote ? " and kept server-side, so a star set on a phone is there on the laptop"
-                       : " (kept in this browser — the shared store is unavailable here)") + ".</p>" +
+      (FA.stars.remote ? "" : " (kept in this browser — the shared store is unavailable here)") + ".</p>" +
       (starred.length
         ? '<div class="rows">' + starred.map(starRow).join("") + "</div>"
         : yours ? EMPTY_WATCH
@@ -495,8 +478,6 @@
           " has not starred anyone.</div></div>") +
       (suggested.length
         ? '<h3 style="margin-top:20px">What the brain suggests</h3>' +
-          '<p class="note">The house list and its picks for ' + gname(who) +
-          ". Star one and it moves up.</p>" +
           '<div class="rows">' + suggested.map(watchRow).join("") + "</div>"
         : "") + "</div>";
   }
@@ -556,8 +537,6 @@
     return '<details class="fold"><summary>The league &mdash; ' + esc(top.name) + " lead on " +
       top.total + (me ? ", " + esc(who) + " " + (me.rank === 1 ? "top" : me.rank + "th") + " on " + me.total : "") +
       '</summary><div class="foldbody">' +
-      '<p class="note">Live positions in <strong>' + esc(G.league.name) + "</strong>, " +
-      rows.length + " managers.</p>" +
       '<div class="scroll"><table class="sortable"><thead><tr><th class="n">#</th><th>Team</th>' +
       '<th>Gaffer</th><th class="n">GW</th><th class="n">Total</th><th class="n">Behind</th>' +
       "</tr></thead><tbody>" +

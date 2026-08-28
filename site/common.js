@@ -182,10 +182,6 @@
         '<span class="mw-when">' + esc(mwDay(f.date)) + "</span></div>";
     });
     out += "</div>";
-    if (next.length) {
-      out += '<p class="mw-note">The fixture is the club&rsquo;s &mdash; a cup team sheet ' +
-        "does not exist yet.</p>";
-    }
     return out;
   };
 
