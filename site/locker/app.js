@@ -101,7 +101,12 @@
         "<td>" + fdrStrip((p.fixtures || []).slice(0, 3)) + "</td></tr>";
     }).join("");
 
-    return '<div class="panel" id="the-file"><h3>The file</h3>' +
+    const face = FA.faceSVG
+      ? '<span class="coachface">' + FA.faceSVG(FA.COACH) + "</span>" : "";
+    // His room, his verdicts. A face on the heading costs a line and makes
+    // the column of judgments read as somebody's rather than nobody's.
+    return '<div class="panel" id="the-file"><h3 class="withcoach">' + face +
+      "The file</h3>" +
       '<div class="filters">' +
         CHIPS.map((c) =>
           '<button class="fc" data-f="' + c[0] + '" aria-pressed="' + (c[0] === filter) + '">' +

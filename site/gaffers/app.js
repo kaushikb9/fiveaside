@@ -612,7 +612,10 @@
     const left = h < 1
       ? Math.max(1, Math.round(h * 60)) + " min"
       : Math.round(h) + " hour" + (Math.round(h) === 1 ? "" : "s");
-    return '<div class="panel big"><h3>The Big Decision' +
+    const face = FA.faceSVG
+      ? '<span class="coachface">' + FA.faceSVG(FA.COACH) + "</span>" : "";
+    // The one moment his job is visible in action, and he was absent from it.
+    return '<div class="panel big"><h3 class="withcoach">' + face + "The Big Decision" +
       '<span class="big-clock">' + esc(left) + " left</span></h3>" +
       '<div class="rows">' + calls.slice(0, 2).map((c) =>
         '<div class="row"><div class="row-main">' +
@@ -626,10 +629,14 @@
     if (!F || !F.roast || !F.roast.text) return "";
     // The note used to print the rules back at the reader. A roast that needs
     // its terms and conditions above it is not landing.
-    return '<div class="panel"><h3>The roast</h3>' +
+    const face = FA.faceSVG
+      ? '<span class="coachface">' + FA.faceSVG(FA.COACH) + "</span>" : "";
+    return '<div class="panel"><h3 class="withcoach">' + face + "The roast</h3>" +
 
       '<div class="roast"><p>' + gname(F.roast.text) + "</p>" +
-      (F.roast.by ? '<div class="by">' + esc(F.roast.by) + "</div>" : "") + "</div></div>";
+      // It was signed "settles GW1" — a timestamp, not an author.
+      '<div class="by">' + esc(FA.COACH) +
+      (F.roast.by ? " &middot; " + esc(F.roast.by) : "") + "</div></div></div>";
   }
 
 

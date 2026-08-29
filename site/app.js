@@ -163,6 +163,17 @@
     return out + "</div>";
   }
 
+  /* Ted, once, on the front page. He writes the headline above it and the
+     verdicts a click away, and until now the only place he was named at full
+     size was three-quarters of the way down the about page. */
+  function coachLineHTML() {
+    const face = FA.faceSVG
+      ? '<span class="coachface lg">' + FA.faceSVG(FA.COACH) + "</span>" : "";
+    return '<p class="coachline">' + face +
+      "<span>Written by <strong>" + esc(FA.COACH) + "</strong>, the assistant manager. " +
+      'He watched all of it. <a href="about/#ted">Who is Ted?</a></span></p>';
+  }
+
   /* ---------- the league panel: table, matches ---------- */
 
   const TABS = ["table", "matches"];
@@ -300,6 +311,10 @@
       '<div class="eyebrow">' + esc(D.fmtLong(latest.date)) + "</div>" +
       '<h2 class="digest-headline" style="font-size:clamp(21px,3.4vw,30px);margin:6px 0 18px">' +
       esc(latest.headline) + "</h2>" +
+      // Touchline is what everyone opens, so it is the only place an
+      // introduction actually reaches anybody. One line, under the headline
+      // he wrote, rather than a panel about himself.
+      coachLineHTML() +
       leagueHTML(latest, gw, m, active) +
       D.weekHTML(latest) + D.aroundHTML(latest, gw) +
       D.rumoursHTML(latest) + D.linksHTML(latest) +

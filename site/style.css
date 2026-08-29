@@ -694,11 +694,25 @@ details.fold .foldbody { padding: 0 18px 16px; }
   background: var(--card); color: var(--mute); border-radius: var(--rs);
   cursor: pointer; font-size: 13px; padding: 4px 9px; line-height: 1.3;
 }
-/* The assistant manager's face beside the one opinion on the card. Small
-   enough to be a signature rather than a portrait. */
+/* The assistant manager, wherever he speaks. A signature, never a portrait:
+   the point is to say who wrote a thing, not to take up room saying it. */
 .sect.coach { display: flex; align-items: center; gap: 6px; }
 .coachface { display: block; width: 20px; height: 20px; line-height: 0; flex: 0 0 auto; }
 .coachface .face { width: 100%; height: 100%; }
+/* On a panel heading, sized to the cap height beside it. */
+h3.withcoach { display: flex; align-items: center; gap: 8px; }
+h3.withcoach .coachface { width: 22px; height: 22px; }
+
+/* The one introduction that reaches everybody: under the headline he wrote,
+   on the page everybody opens. */
+.coachline {
+  display: flex; align-items: center; gap: 10px;
+  margin: -8px 0 18px; font-size: 13.5px; color: var(--mute); line-height: 1.45;
+}
+.coachline .coachface.lg { width: 34px; height: 34px; }
+.coachline strong { color: var(--ink); font-weight: 700; }
+.coachline a { color: var(--accent); }
+@media (max-width: 480px) { .coachline { font-size: 13px; } }
 
 .pcard .sect {
   font-size: 10px; text-transform: uppercase; letter-spacing: 0.1em;
