@@ -72,6 +72,18 @@ brain/test/smoke.sh https://fiveaside.pages.dev/   # live room/theme/control smo
 cd site && python3 -m http.server                  # local preview
 ```
 
+To exercise the private room locally, run Pages Functions with a throwaway
+secret, then mint the invite into Wrangler's local KV state:
+
+```sh
+npx wrangler pages dev site --local --port 8787 \
+  --binding SESSION_SECRET=local-only-test-secret
+node brain/invite.mjs --local "Xabi"
+```
+
+The generated link points at `http://localhost:8787`; the code is never
+written to production KV or the repository.
+
 Working on this? Read [`ROADMAP.md`](ROADMAP.md) for the state of play, then
 [`AGENTS.md`](AGENTS.md) for the rules and the traps that have already cost
 someone a debugging round.

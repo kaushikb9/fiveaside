@@ -16,13 +16,13 @@ import { execFileSync } from "node:child_process";
 import { readFileSync } from "node:fs";
 
 const KV = "371bb71f0a1245f697375846236bd58b";
-const SITE = "https://fiveaside.pages.dev";
 const ALPHABET = "0123456789ABCDEFGHJKMNPQRSTVWXYZ"; // Crockford: no I, L, O, U
 const CODE_LEN = 12;
 
 const args = process.argv.slice(2);
 const LOCAL = args.includes("--local");
 const rest = args.filter((a) => a !== "--local");
+const SITE = LOCAL ? "http://localhost:8787" : "https://fiveaside.pages.dev";
 
 const NICKS = JSON.parse(readFileSync("touchline.config.json", "utf8")).fpl.people.map((p) => p.nick);
 
