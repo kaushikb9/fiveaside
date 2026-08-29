@@ -150,6 +150,21 @@ added; `-i` alone is not enough, it only blocks idle sleep. `auto.sh` does it.
 
 ## Rules that have bitten before
 
+- **`auto.sh` runs hourly and writes data files, so `git checkout` is racy in
+  this repo.** On 2026-08-29 a checkout aborted mid-command three times; twice
+  a session's commits landed on a feature branch and once the live site ended
+  up ahead of main. Guards now exist at both ends and you should not remove
+  them: `auto.sh` refuses to run unless HEAD is main AND the only modified
+  files are its own mechanical data; `deploy.sh` refuses to publish from any
+  branch but main without `ALLOW_BRANCH_DEPLOY=1`.
+- **Always check WHICH BRANCH a commit landed on.** `git push origin main`
+  from a feature branch pushes the unchanged local main and reports success —
+  a silent no-op that reads exactly like a successful push. `git status -sb`
+  after committing, every time.
+- **Never `git add -A` in this repo.** Multiple agents share one working tree.
+  It swept another session's in-progress validator edit into a commit titled
+  "deploy: stamp the rooms", and later swept a river restructure into an
+  unrelated fix. Stage the files you actually touched.
 - **In `smoke.sh`, never write `\"` inside a `js '...'` argument.** The
   argument is single-quoted, so a backslash-quote reaches the browser as a
   literal backslash and the expression throws — which `check` reports as an

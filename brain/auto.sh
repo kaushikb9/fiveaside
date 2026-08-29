@@ -9,6 +9,32 @@ cd "$(dirname "$0")/.."
 # digests are a morning ritual — don't curate in the middle of the night
 [ "$(date +%H)" -ge 7 ] || exit 0
 
+# ---------------------------------------------------------------- guards
+# This script commits, pushes AND deploys. All three act on whatever is
+# checked out at that moment, and on 2026-08-29 that cost three separate
+# incidents in one day: a `git checkout` aborted because this had just written
+# data files, so a session's commits landed on a feature branch; the live site
+# ended up ahead of main; and a deploy from a dirty tree would have shipped
+# somebody's half-finished work.
+#
+# So: only ever act on main, and only ever when the sole changes are the
+# mechanical data files this script owns. A session in progress is a reason to
+# do nothing at all — the next hourly run will pick it up.
+BRANCH=$(git rev-parse --abbrev-ref HEAD 2>/dev/null || echo unknown)
+if [ "$BRANCH" != "main" ]; then
+  echo "[auto] $(date '+%F %T') — on '$BRANCH', not main; skipping so a session's branch is left alone"
+  exit 0
+fi
+
+# Anything modified that is NOT one of this script's own data files means
+# somebody is working. Deploying then would publish their work in progress.
+OTHERS=$(git status --porcelain -- .   ':(exclude)site/data/players.json'   ':(exclude)site/data/gaffers.json'   ':(exclude)site/data/table.json'   ':(exclude)site/data/digests.json'   ':(exclude)site/data/fpl.json' | head -5)
+if [ -n "$OTHERS" ]; then
+  echo "[auto] $(date '+%F %T') — working tree has changes that are not mine; a session is live, skipping"
+  echo "$OTHERS" | sed 's/^/[auto]   /'
+  exit 0
+fi
+
 # sync first — the other laptop may have curated already
 # (--autostash: a stray uncommitted edit must not wedge the pull; timeout +
 # non-interactive ssh: a hung fetch once blocked launchd for 33 hours)

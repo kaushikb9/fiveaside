@@ -3,6 +3,21 @@
 set -euo pipefail
 cd "$(dirname "$0")"
 
+# ---------------------------------------------------------------- guard
+# A deploy publishes the WORKING TREE, not a commit. On 2026-08-29 two commits
+# landed on a feature branch because `git checkout main` had aborted, the
+# deploy went out anyway, and the live site sat ahead of main for an hour —
+# where the next deploy from a fresh clone would have silently reverted it.
+#
+# So a deploy from anywhere but main has to be deliberate. Set
+# ALLOW_BRANCH_DEPLOY=1 when it genuinely is.
+BRANCH=$(git rev-parse --abbrev-ref HEAD 2>/dev/null || echo unknown)
+if [ "$BRANCH" != "main" ] && [ "${ALLOW_BRANCH_DEPLOY:-}" != "1" ]; then
+  echo "refusing to deploy from '$BRANCH' — the live site should match main." >&2
+  echo "merge it first, or run again with ALLOW_BRANCH_DEPLOY=1 if you mean it." >&2
+  exit 1
+fi
+
 cp touchline.config.json site/data/config.json
 
 # Cache-bust from content, not from memory. A hand-typed ?v= was forgotten
