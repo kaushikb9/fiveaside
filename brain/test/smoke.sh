@@ -402,6 +402,16 @@ done
 # have tripped the throttle. Both are refusals; asserting which one made the
 # test fail on its fourth run in ten minutes, which is a test bug, not a leak.
 refused() { case "$1" in 403|429) echo "refused" ;; *) echo "$1" ;; esac; }
+# /usage/ is unlisted, and unlisted means the reading endpoint gives away no
+# more than the page does: a 404 whether you are signed out or signed in as
+# one of the other four. A 401 or a 403 here would confirm it exists.
+USAGE=$(curl -s -o /dev/null -w "%{http_code}" "${BASE}api/telemetry?days=7")
+check "api/telemetry hides itself" "404" "$USAGE"
+# And the collector accepts a post without ever answering with a body — a
+# reader must not be able to tell whether anything was written.
+TEL=$(curl -s -o /dev/null -w "%{http_code}" -X POST "${BASE}api/telemetry" \
+  -H 'content-type: application/json' -d '{"e":"view","p":"/"}')
+check "api/telemetry accepts quietly" "204" "$TEL"
 BADCODE=$(curl -s -o /dev/null -w "%{http_code}" -X POST "${BASE}api/auth" \
   -H 'content-type: application/json' -d '{"code":"ZZZZZZZZZZZZ"}')
 check "api/auth refuses a wrong code" "refused" "$(refused "$BADCODE")"

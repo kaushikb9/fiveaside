@@ -3,15 +3,14 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Archive &middot; Five-a-Side</title>
-  <meta name="description" content="Every touchline entry, oldest kept, newest first.">
-  <meta name="robots" content="noindex">
+  <title>Usage &middot; Five-a-Side</title>
+  <!-- Unlisted on purpose: nothing on the site links here, and the page is
+       empty for anyone who is not KB. Keep it out of the nav, the footer,
+       the service worker and the sitemap. -->
+  <meta name="robots" content="noindex, nofollow">
   <link rel="stylesheet" href="../style.css?v=3da387f0">
   <link rel="icon" href="../icon.svg" type="image/svg+xml">
-  <link rel="manifest" href="../manifest.webmanifest">
   <meta name="theme-color" content="#1a7a49">
-  <link rel="apple-touch-icon" href="../icons/apple-touch-icon.png">
-  <meta name="apple-mobile-web-app-title" content="Five-a-Side">
   <script>
     // Apply the saved theme before first paint so the page never flashes the
     // wrong ground. "auto" stamps nothing and leaves prefers-color-scheme to it.
@@ -46,13 +45,11 @@
     <footer class="foot">
       <span>Five-a-Side</span>
       <span id="stamp"></span>
-      <span style="margin-left:auto"><a href="../about/">about</a> &middot; <a href="./">archive</a></span>
+      <span style="margin-left:auto"><a href="../about/">about</a> &middot; <a href="../archive/">archive</a></span>
     </footer>
   </div>
   <script src="../common.js?v=39adf910"></script>
   <script src="../faces.js?v=1ada5a99"></script>
-  <script src="../digest.js?v=13bf5bfe"></script>
-  <script src="app.js?v=adc2303d"></script>
-  <script src="../telemetry.js"></script>
+  <script src="app.js"></script>
 </body>
 </html>

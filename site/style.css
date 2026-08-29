@@ -365,7 +365,12 @@ tr.me td:first-child { box-shadow: inset 3px 0 0 var(--accent); }
   border: 1px solid var(--line); border-radius: var(--rs);
   background: transparent; color: var(--mute); cursor: pointer;
 }
-.fc[aria-pressed="true"] { background: var(--ink); border-color: var(--ink); color: var(--bg); }
+/* Two states, one look. The chips began as toggles (aria-pressed) and the
+   league strip was later upgraded to a proper tab list (aria-selected) — the
+   right change, but it left those two tabs with no selected state at all,
+   because only the first selector was written here. */
+.fc[aria-pressed="true"],
+.fc[aria-selected="true"] { background: var(--ink); border-color: var(--ink); color: var(--bg); }
 .filters .flabel {
   color: var(--faint); font-family: var(--f-head); font-size: 11px;
   text-transform: uppercase; letter-spacing: 0.09em;
@@ -1109,3 +1114,71 @@ tr.tr-hidden { display: none; }
   position: absolute; width: 1px; height: 1px; margin: -1px;
   padding: 0; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0;
 }
+
+/* ---------- usage: the unlisted fourth page ----------
+   Nothing here is new furniture — the panels, rows and chips are the site's
+   own. What it does add is a stat strip, a proportional bar and a dense
+   timeline row, because "how much" and "when" are questions no other page in
+   Five-a-Side asks. */
+.ustrip {
+  display: flex; flex-wrap: wrap; gap: 10px 30px; align-items: baseline;
+}
+.ustat { display: flex; flex-direction: column; gap: 2px; }
+.ustat b { font-size: 25px; font-weight: 800; letter-spacing: -0.02em; line-height: 1.1; }
+.ustat span {
+  font-family: var(--f-head); font-size: 10px; font-weight: 700;
+  letter-spacing: 0.11em; text-transform: uppercase; color: var(--faint);
+}
+
+/* The caricature at team-sheet size: big enough to recognise at a glance,
+   small enough that five of them are a list rather than a gallery. */
+.urow { align-items: center; }
+.ucapwrap { width: 38px; flex: 0 0 auto; }
+.ucap { width: 38px; height: 38px; display: block; }
+.ucap .face { width: 100%; height: 100%; }
+.uanon {
+  display: flex; align-items: center; justify-content: center;
+  width: 38px; height: 38px; border-radius: 50%;
+  background: var(--raise); border: 1px solid var(--line);
+  color: var(--faint); font-family: var(--f-head); font-weight: 800;
+}
+
+/* Label and count on one line, the track under them. A three-column bar was
+   the first shape and it could not hold "Next match week · the gaffers"
+   without ellipsis; the label deserves the full width more than the bar
+   deserves to start at a common left edge. */
+.ubar { padding: 6px 0 8px; }
+.ubar-top { display: flex; align-items: baseline; gap: 10px; margin-bottom: 4px; }
+.ubar-l {
+  font-family: var(--f-head); font-size: 12.5px; font-weight: 700;
+  flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+}
+.ubar-t { display: block; height: 8px; border-radius: 4px; background: var(--hair); }
+.ubar-t i { display: block; height: 100%; border-radius: 4px; background: var(--accent); }
+.ubar-n {
+  font-size: 12px; color: var(--faint); flex: 0 0 auto;
+  font-variant-numeric: tabular-nums;
+}
+.ubar-sub .ubar-l { font-weight: 600; font-size: 12px; color: var(--mute); }
+.ubar-sub .ubar-t i { background: var(--mute); opacity: 0.55; }
+.usubhead {
+  font-family: var(--f-head); font-size: 10px; font-weight: 700;
+  letter-spacing: 0.11em; text-transform: uppercase; color: var(--faint);
+  margin: 14px 0 2px; padding-top: 10px; border-top: 1px solid var(--hair);
+}
+
+/* Fifty rows want to be scannable, not spacious: tighter than the site's
+   tables, and the clock column is fixed so the eye can run down it. */
+.utable td { padding: 6px 8px; font-size: 13px; }
+.utable tr td:first-child { padding-left: 0; }
+.utime { width: 5.5ch; }
+.uday td {
+  font-family: var(--f-head); font-size: 10px; font-weight: 700;
+  letter-spacing: 0.11em; text-transform: uppercase; color: var(--faint);
+  padding: 14px 0 5px; border-bottom: 1px solid var(--line);
+}
+.utable tr:first-child .uday td, .uday:first-child td { padding-top: 4px; }
+/* A five-column timeline cannot fit a phone, and squeezing it turns every
+   row into four wrapped lines. It scrolls inside its own box instead — the
+   same answer the fixture tables give. */
+.utable { min-width: 560px; }
