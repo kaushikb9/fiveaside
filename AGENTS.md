@@ -59,10 +59,13 @@ delegated listener in `site/common.js`. Keep it that way.
   fixtures), `api/stars.js` is the KV-backed watchlist star — reads are open,
   writes take the gaffer from the session and never from the body — `api/auth.js` is
   invite-code sign-in for the gaffers room, `api/private.js` serves the
-  data that room needs, and `api/telemetry.js` writes one line per page view
-  and per chip tapped and reads them back for the admin alone. One KV
-  namespace (`STARS`) holds all of it, keyed by prefix — `stars:`,
-  `private:`, `invite:`, `throttle:`, `tel:`, `telrate:`.
+  data that room needs, `api/telemetry.js` writes one line per page view and
+  per chip tapped and reads them back for the admin alone, and
+  `api/report.js` takes "report an issue" from the footer and surfaces it on
+  the same page. One KV namespace (`STARS`) holds all of it, keyed by prefix
+  — `stars:`, `private:`, `invite:`, `throttle:`, `tel:`, `telrate:`, `rep:`,
+  `rrate:`. Every counter among those is keyed on a daily hash of the
+  address, never the address itself and never anything the caller picks.
 - **The fourth page is `/usage/`, and it is unlisted on purpose.** Nothing
   links to it, it is not in the nav, the footer or the service worker's
   shell, and it carries `noindex`. `isAdmin()` in `api/auth.js` is the whole
@@ -70,7 +73,9 @@ delegated listener in `site/common.js`. Keep it that way.
   secret. Everyone else — signed out or signed in as one of the other four —
   gets a `404` from the API and a door from the page, which is the same
   answer twice on purpose. `site/telemetry.js` is the collector: one
-  delegated listener, no ids minted, no IP stored anywhere, ninety-day TTL.
+  delegated listener, no ids minted, no IP stored anywhere, ninety-day TTL,
+  and automated traffic dropped server-side so a verification run does not
+  show up as a visitor.
   Do not import it into a room's `app.js` — the rooms do not know it exists,
   and that is what makes it deletable in two lines.
 - `site/` — static, no framework, no build step, no CDNs. `common.js` loads
@@ -139,6 +144,7 @@ node brain/invite.mjs --list     # who has a gaffers code (add --local for dev)
 node brain/test/stars.mjs        # /api/stars auth — stubbed KV, no wrangler
 node brain/test/matches.mjs      # /api/matches — stubbed ESPN, real captured payload
 node brain/test/split-facts.mjs  # the deadline-lock fallback
+node brain/test/ratelimit.mjs    # the caps, and that no key holds an address
 brain/test/smoke.sh https://fiveaside.pages.dev/   # 87 signed in, 77 signed out
 cd site && python3 -m http.server # local preview — /api/* 404s and the page
                                   # degrades honestly, which is worth seeing
@@ -157,6 +163,27 @@ added; `-i` alone is not enough, it only blocks idle sleep. `auto.sh` does it.
   them: `auto.sh` refuses to run unless HEAD is main AND the only modified
   files are its own mechanical data; `deploy.sh` refuses to publish from any
   branch but main without `ALLOW_BRANCH_DEPLOY=1`.
+- **A rate-limit bucket must never include anything the caller chooses.** Every
+  cap here was keyed on `HMAC(day | ip | UA)`. The UA is a header, so a new UA
+  string was a new bucket with a fresh allowance and the limits were decorative
+  — one address could rotate a header and write into KV until it got bored. The
+  address is the only part a caller cannot pick, so it is the only part that may
+  be counted. `rateBucket()` in `auth.js` is the one implementation; use it
+  rather than writing a third. `brain/test/ratelimit.mjs` pins it, and that test
+  fails loudly against the old behaviour (130 rows against a cap of 120).
+- **"No IP is stored" has to be true of the SITE, not just of the telemetry.**
+  `telemetry.js` documented the promise carefully while `auth.js` sat next door
+  keying its sign-in throttle on `throttle:<raw ip>`. Counting is fine; keeping
+  the address is not. Hash it with the day as salt — six characters is plenty to
+  add up within a day and useless tomorrow. The test asserts no key anywhere
+  contains the address.
+- **Keep the test harness out of the analytics.** `smoke.sh` drives a real
+  browser through every room and taps every tab, so one verification run wrote
+  ~30 telemetry events and the deploy check filed a report each time. On launch
+  day that was 76% of all traffic and read exactly like a bot attack. Both
+  endpoints now drop automated traffic on the UA, server-side. Note
+  `navigator.webdriver` is **false** here — browse attaches over CDP to an
+  ordinary Chrome and only the UA gives it away.
 - **Always check WHICH BRANCH a commit landed on.** `git push origin main`
   from a feature branch pushes the unchanged local main and reports success —
   a silent no-op that reads exactly like a successful push. `git status -sb`

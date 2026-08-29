@@ -33,7 +33,7 @@
    GET  ?days=7      -> { events } for the admin; 404 for everybody else.
    ========================================================================= */
 
-import { readSession, isAdmin } from "./auth.js";
+import { readSession, isAdmin, rateBucket, overRate } from "./auth.js";
 
 const TTL = 60 * 60 * 24 * 90; // ninety days, then it forgets by itself
 const KEY_SPACE = 1e13; // comfortably past any ms timestamp this century
@@ -124,18 +124,6 @@ const isAutomated = (ua) =>
   /HeadlessChrome|Puppeteer|Playwright|\bbot\b|crawler|spider|curl\/|wget|python-requests/i
     .test(String(ua || ""));
 
-/* Best-effort, like the sign-in throttle next door: keyed by the same daily
-   hash rather than by the address, because a rate-limit key is still a record
-   of who was here. */
-async function overRate(env, id) {
-  if (!id) return false;
-  const k = "telrate:" + id;
-  const n = Number(await env.STARS.get(k)) || 0;
-  if (n >= RATE_LIMIT) return true;
-  await env.STARS.put(k, String(n + 1), { expirationTtl: RATE_WINDOW });
-  return false;
-}
-
 /* ---------------- write ---------------- */
 
 export async function onRequestPost({ request, env }) {
@@ -154,8 +142,14 @@ export async function onRequestPost({ request, env }) {
 
   if (isAutomated(request.headers.get("user-agent"))) return noContent();
 
+  // TWO different buckets, and the difference is the point. `v` counts
+  // PEOPLE, so it includes the UA: one reader on a phone and a laptop is
+  // honestly two. The rate limit counts REQUESTS, so it must not — a UA is
+  // chosen by the caller, and a bucket the caller can change is not a limit.
+  if (await overRate(env, await rateBucket(request, env), "telrate:", RATE_LIMIT, RATE_WINDOW)) {
+    return noContent();
+  }
   const id = await dailyId(env, request);
-  if (await overRate(env, id)) return noContent();
 
   const session = await readSession(request, env).catch(() => null);
   const cf = request.cf || {};

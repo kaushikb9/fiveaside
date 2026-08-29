@@ -23,7 +23,7 @@
    GET                 -> { reports } for the owner; 404 for everybody else
    ========================================================================= */
 
-import { readSession, isAdmin } from "./auth.js";
+import { readSession, isAdmin, rateBucket, overRate } from "./auth.js";
 
 const TTL = 60 * 60 * 24 * 90;
 const KEY_SPACE = 1e13;
@@ -72,35 +72,6 @@ const isAutomated = (ua) =>
   /HeadlessChrome|Puppeteer|Playwright|\bbot\b|crawler|spider|curl\/|wget|python-requests/i
     .test(String(ua || ""));
 
-/* Who to rate-limit, without keeping an address. A signed-in gaffer is his
-   nickname; everybody else is six characters of HMAC over ip+UA salted with
-   today's date — the same construction /api/telemetry uses, and the same
-   reason: enough to stop a flood today, gone tomorrow. */
-async function bucket(request, env, session) {
-  if (session) return "n:" + session.nick;
-  const ip = request.headers.get("cf-connecting-ip") || "";
-  const ua = request.headers.get("user-agent") || "";
-  if (!ip && !ua) return "anon";
-  const day = new Date().toISOString().slice(0, 10);
-  const key = await crypto.subtle.importKey(
-    "raw", new TextEncoder().encode(env.SESSION_SECRET),
-    { name: "HMAC", hash: "SHA-256" }, false, ["sign"]
-  );
-  const sig = await crypto.subtle.sign(
-    "HMAC", key, new TextEncoder().encode(day + "|" + ip + "|" + ua)
-  );
-  return "v:" + [...new Uint8Array(sig)].slice(0, 3)
-    .map((b) => b.toString(16).padStart(2, "0")).join("");
-}
-
-async function rateLimited(env, id) {
-  const k = "rrate:" + id;
-  const n = Number(await env.STARS.get(k)) || 0;
-  if (n >= RATE_LIMIT) return true;
-  await env.STARS.put(k, String(n + 1), { expirationTtl: RATE_WINDOW });
-  return false;
-}
-
 export async function onRequestPost({ request, env }) {
   if (!env.STARS || !env.SESSION_SECRET) {
     return json({ error: "reports are not configured" }, 503);
@@ -123,11 +94,13 @@ export async function onRequestPost({ request, env }) {
   // the check still proves the endpoint works, but do not file it.
   const automated = isAutomated(request.headers.get("user-agent"));
 
-  const session = await readSession(request, env).catch(() => null);
-  const id = await bucket(request, env, session);
-  if (await rateLimited(env, id)) {
+  // Keyed on the address hash, never the nickname or the UA: both are things
+  // the caller supplies, and a bucket the caller picks is not a limit.
+  if (await overRate(env, await rateBucket(request, env), "rrate:", RATE_LIMIT, RATE_WINDOW)) {
     return json({ error: "that is a lot of reports at once. Give it ten minutes." }, 429);
   }
+
+  const session = await readSession(request, env).catch(() => null);
 
   const now = Date.now();
   const key = "rep:" + String(KEY_SPACE - now).padStart(14, "0") + ":" +

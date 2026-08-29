@@ -226,3 +226,34 @@ Nothing outstanding from the review rounds. The next decisions are build-order
 ones, plus the one parked item above: what replaces the fan voice. The gaffers
 door is no longer blocked — it needs four codes minted and sent, not a
 decision.
+
+---
+
+## 7. Launched — 2026-08-29
+
+Codes are minted and sent; the five are in. What the launch-day audit found and
+what was done about it, so none of it has to be rediscovered:
+
+- **Reports.** "report an issue" sits in the footer of every page. It writes to
+  KV and surfaces on `/usage/`, deliberately NOT a `mailto:` — that publishes
+  KB's address on an open page to anything that scrapes one.
+- **The traffic that looked like a bot attack was the test harness.** One
+  visitor was 76% of launch-day events, in bursts of 30-40 a minute: `smoke.sh`
+  driving a real browser through every room. Both write endpoints now drop
+  automated traffic on the User-Agent, server-side.
+- **The rate limits were decorative** — bucketed on `HMAC(day | ip | UA)`, so
+  rotating a header bought a fresh allowance. Now keyed on the address hash
+  alone, with `brain/test/ratelimit.mjs` pinning it.
+- **`auth.js` was storing raw IPs** as `throttle:<ip>` while `telemetry.js`
+  promised none were kept. Hashed, and the test asserts no key anywhere holds an
+  address.
+- **`robots.txt` and `sitemap.xml` now exist.** `/robots.txt` used to return the
+  index page, so a crawler asking for the rules got HTML and fetched what it
+  liked. `/gaffers/` and `/usage/` are disallowed; they already refuse without a
+  session, this keeps them out of a search result too.
+
+Audited and found sound, for the record: private data is never a static file,
+writes take identity from the cookie and never the body, the admin endpoints
+return 404 rather than 403, invite codes are 60 bits behind a throttle, `?i=`
+is stripped from the URL and cannot leak via `Referer`, and report text — the
+one attacker-controlled string that reaches KB's own page — is escaped.

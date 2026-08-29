@@ -1,0 +1,17 @@
+# Five-a-Side — football and FPL for five friends.
+#
+# /robots.txt used to return the index page, because Pages serves index.html
+# for anything it does not recognise. A crawler asking for the rules got an
+# HTML document, failed to parse it, and fetched whatever it liked.
+#
+# The touchline and the locker room are meant to be readable, so they stay
+# open. The two rooms below are not: /gaffers/ is five people's squads and
+# /usage/ is who turned up. Both already refuse without a session — this only
+# keeps them out of a search result, which is the whole point of the gate.
+
+User-agent: *
+Disallow: /gaffers/
+Disallow: /usage/
+Disallow: /api/
+
+Sitemap: https://fiveaside.pages.dev/sitemap.xml

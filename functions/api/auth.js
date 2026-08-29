@@ -139,24 +139,61 @@ export const isAdmin = (session) => !!session && session.nick === OWNER;
 const cookieHeader = (value, maxAge) =>
   `${COOKIE}=${value}; Path=/; HttpOnly; Secure; SameSite=Lax; Max-Age=${maxAge}`;
 
+/* ---------------- who to count, without keeping an address ----------------
+   Shared by every rate limit on the site, and it exists because the first
+   version of them did not hold.
+
+   The counters used to be keyed on HMAC(day | ip | UA). The UA is chosen by
+   the caller, so a new UA string was a new bucket with a fresh allowance:
+   one address could rotate a header and write into KV without limit. The
+   telemetry cap of 120 and the report cap of 20 were both decorative.
+
+   The address is the part the caller cannot pick, so it is the only part
+   that may be counted. It is still not STORED: the key is six characters of
+   HMAC over the address salted with today's date, which is enough to add up
+   within a day and useless tomorrow. /api/auth used to key this counter on
+   the raw address, which made "no IP is stored" true of the telemetry and
+   not of the site.
+
+   Colliding to one bucket is deliberate. Two friends behind one router share
+   a limit, and for caps this loose that is a better trade than a counter
+   anybody can walk around. */
+export async function rateBucket(request, env) {
+  const ip = request.headers.get("cf-connecting-ip") || "";
+  if (!ip) return null;
+  const day = new Date().toISOString().slice(0, 10);
+  const sig = await hmac(String(env.SESSION_SECRET || "no-secret"), day + "|" + ip);
+  return [...new Uint8Array(sig)].slice(0, 3)
+    .map((b) => b.toString(16).padStart(2, "0")).join("");
+}
+
+/* Counts one bucket against a cap, and records the attempt. Best-effort:
+   KV's minimum TTL is 60s and a lost increment is not worth a 500. */
+export async function overRate(env, id, prefix, limit, window) {
+  if (!id) return false;
+  const k = prefix + id;
+  const n = Number(await env.STARS.get(k)) || 0;
+  if (n >= limit) return true;
+  await env.STARS.put(k, String(n + 1), { expirationTtl: window });
+  return false;
+}
+
 /* ---------------- throttle ----------------
    Sixty bits is not brute-forceable, but an endpoint that will answer a
    guess as fast as you can send one is still worth slowing down. Ten wrong
-   codes from one address buys a ten-minute rest. KV's minimum TTL is 60s;
-   the counter is best-effort and never blocks a correct code that already
-   passed. */
+   codes from one address buys a ten-minute rest, and a correct code that
+   already passed is never blocked. */
 const RATE_LIMIT = 10;
 const RATE_WINDOW = 600;
 
-async function tooManyTries(env, ip) {
-  if (!ip) return false;
-  const n = Number(await env.STARS.get("throttle:" + ip)) || 0;
-  return n >= RATE_LIMIT;
+async function tooManyTries(env, id) {
+  if (!id) return false;
+  return (Number(await env.STARS.get("throttle:" + id)) || 0) >= RATE_LIMIT;
 }
-async function noteFailure(env, ip) {
-  if (!ip) return;
-  const n = (Number(await env.STARS.get("throttle:" + ip)) || 0) + 1;
-  await env.STARS.put("throttle:" + ip, String(n), { expirationTtl: RATE_WINDOW });
+async function noteFailure(env, id) {
+  if (!id) return;
+  const n = (Number(await env.STARS.get("throttle:" + id)) || 0) + 1;
+  await env.STARS.put("throttle:" + id, String(n), { expirationTtl: RATE_WINDOW });
 }
 
 /* ---------------- routes ---------------- */
@@ -175,15 +212,15 @@ export async function onRequestPost({ request, env }) {
   let body;
   try { body = await request.json(); } catch { return json({ error: "body must be JSON" }, 400); }
 
-  const ip = request.headers.get("cf-connecting-ip") || "";
-  if (await tooManyTries(env, ip)) {
+  const id = await rateBucket(request, env);
+  if (await tooManyTries(env, id)) {
     return json({ error: "too many tries", detail: "Wait ten minutes and try again." }, 429);
   }
 
   const code = normalizeCode(body && body.code);
   const invite = code ? await env.STARS.get("invite:" + code, { type: "json" }) : null;
   if (!invite || !invite.nick) {
-    await noteFailure(env, ip);
+    await noteFailure(env, id);
     return json({ error: "no such code" }, 403);
   }
 
