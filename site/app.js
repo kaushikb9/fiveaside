@@ -83,11 +83,14 @@
     '<b class="fx-abbr">' + esc(FA.clubAbbr(t.name, t.short)) + "</b>" +
     (cls === "home" ? D.crest(t.crest) : "") + "</span>";
 
-  /* Names stay clickable — every scorer opens their file. The minute is new:
-     FPL never carried one, ESPN does. */
+  /* Scorers are NOT linked. Six names in a comma-separated run, each with a
+     dotted underline, made a match row look like a bibliography — and the
+     goalscorer line is the densest thing on the page already. Same rule as the
+     digest: a name that is a whole row links, a name inside a run of text does
+     not. The minute is new either way: FPL never carried one, ESPN does. */
   const goals = (list, which) =>
     (list || []).filter((g) => g.side === which).map((g) =>
-      FA.linkPlayers(g.name) +
+      esc(g.name) +
       (g.minute ? ' <span class="gm">' + esc(g.minute) + "</span>" : "") +
       (g.pen ? ' <span class="og">pen</span>' : "") +
       (g.og ? ' <span class="og">og</span>' : "")).join(", ");

@@ -102,6 +102,13 @@
     return '<div class="panel"><h3>' + esc(d.table.competition) + "</h3>" + body + "</div>";
   };
 
+  /* Prose is NOT linkified here, deliberately. FA.linkPlayers scans running
+     text for any known surname and underlines it, which put 21 dotted links
+     into one screen of the front page and turned paragraphs into a minefield.
+     A name that is a whole row of its own — the rumour mill's subject, a
+     scorer, a row in the file — still links, because there the link IS the
+     row. KB, 2026-08-29. */
+
   /* ---------- the week: the primary feed ----------
      Around the top and Elsewhere are secondary by design. A story that leads
      here does not reappear below. */
@@ -137,10 +144,10 @@
       const kind = w.tag === "FPL" ? "FPL" : "Football";
       const short = compact ? preview(w.text) : null;
       const body = short
-        ? linkPlayers(short) +
+        ? esc(short) +
           '<details class="feed-more"><summary>read full note</summary><div class="feed-full">' +
-          linkPlayers(w.text) + "</div></details>"
-        : linkPlayers(w.text);
+          esc(w.text) + "</div></details>"
+        : esc(w.text);
       return '<li data-tag="' + kind + '" data-club="' + esc(w.club || "") + '">' +
         '<span class="wtag ' + (kind === "FPL" ? "fpl" : "") + '">' + esc(kind) + "</span>" +
         "<strong>" + esc(w.kicker) + "</strong> " + body +
@@ -164,7 +171,7 @@
       '<div class="row"><div class="row-main"><div class="row-name">' +
       crest(r.crest) + esc(FA.club(r.club)) +
       (r.line ? '<span class="row-meta">' + esc(r.line) + "</span>" : "") + "</div>" +
-      '<div class="row-sub">' + linkPlayers(r.note) + "</div></div></div>";
+      '<div class="row-sub">' + esc(r.note) + "</div></div></div>";
 
     const left = shown.length
       ? '<div class="panel"><h3>Around the top</h3>' +
