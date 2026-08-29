@@ -16,7 +16,13 @@
   let gwView = null;
   // Live gameweek state, fetched on demand from /api/live. Keyed by element
   // so the pitch can prefer it over the snapshot in gaffers.json.
-  let live = null, liveFor = null, liveBusy = false;
+  /* The live payload has two halves with different owners, and treating it as
+     one thing is what made the panel above the badges blink on every badge
+     click. The fixtures, the status and the gameweek are LEAGUE-WIDE — "2 of
+     10 matches finished" is the same sentence whoever you are looking at.
+     Only the per-player points belong to one gaffer. So `liveWeek` survives a
+     gaffer switch and `liveSquad` does not. */
+  let liveWeek = null, liveSquad = null, liveFor = null, liveBusy = false, liveError = null;
   let session = null;
 
   const byId = {};
@@ -234,6 +240,8 @@
   async function refreshLive() {
     const p = G.people.find((x) => x.nick === who);
     if (!p || !p.entry) return;
+    // Repaints the button as "refreshing…" without disturbing anything above
+    // it: liveWeek is left alone until the new payload actually arrives.
     liveBusy = true; render();
     try {
       /* The gameweek being LOOKED AT, not the current one. The fetch was
@@ -251,13 +259,16 @@
       // Match on name when the proxy does not echo the element id back.
       const byName = {};
       (d.squad || []).forEach((x) => { byName[x.name] = x; });
-      live = { gw: d.gw != null ? d.gw : want, status: d.status, updated: d.updated,
-               fixtures: d.fixtures || [],
-               totals: d.totals || null, byEl: byEl, byName: byName };
+      liveWeek = { gw: d.gw != null ? d.gw : want, status: d.status,
+                   updated: d.updated, fixtures: d.fixtures || [] };
+      liveSquad = { gw: liveWeek.gw, totals: d.totals || null, byEl: byEl, byName: byName };
       liveFor = who;
+      liveError = null;
     } catch (e) {
-      live = { error: e.message };
+      // A failed fetch must not blank a week panel that was already right.
+      liveSquad = null;
       liveFor = who;
+      liveError = e.message;
     }
     liveBusy = false;
     render();
@@ -266,13 +277,16 @@
   /* Live data belongs to ONE gameweek as well as one gaffer. Without the
      gameweek check, stepping back to a settled week painted this week's live
      scores onto it. */
-  /* The fetched live payload, but only if it is for this gaffer AND this
-     gameweek. Named rather than inlined because `live` is shadowed inside
-     pitchHTML by a BOOLEAN (`const live = isLive(gw)`), so testing
-     `live && !live.error` in there silently asks a true/false whether it has
-     an `.error` property and always decides no. */
+  /* The per-player half, but only if it is for this gaffer AND this gameweek.
+     Named rather than inlined: `live` is a local BOOLEAN in half the render
+     functions (`const live = isLive(gw)`), and the module used to hold an
+     object by the same name, so testing `live && !live.error` in there
+     silently asked a true/false whether it had an `.error` property and always
+     decided no. The object is now `liveSquad` and the collision is gone, but
+     go through this function anyway — the gaffer and gameweek checks are the
+     point of it. */
   const liveDataFor = (gw) =>
-    (live && !live.error && liveFor === who && (gw == null || live.gw === gw)) ? live : null;
+    (liveSquad && liveFor === who && (gw == null || liveSquad.gw === gw)) ? liveSquad : null;
 
   const livePlayer = (pk, gw) => {
     const d = liveDataFor(gw);
@@ -317,33 +331,31 @@
   }
 
   function liveHTML() {
-    if (between() && !live) return deadlineHTML();
-    if (!live) {
+    if (between() && !liveWeek) return deadlineHTML();
+    if (!liveWeek) {
       return '<div class="panel"><h3>Gameweek ' + PICKS_GW() + "</h3>" +
         '<p class="note">Squad points below are a snapshot from the last data run.</p>' +
         '<button class="btn-live fc" data-live>' +
         (liveBusy ? "fetching…" : "Fetch live scores") + "</button></div>";
     }
-    if (live.error) {
-      return '<div class="panel"><h3>Gameweek ' + PICKS_GW() + "</h3>" +
-        '<p class="note">Live scores unavailable (' + esc(live.error) + '). The snapshot below still stands.</p>' +
-        '<button class="btn-live fc" data-live>try again</button></div>';
-    }
-    const inPlay = live.fixtures.filter((f) => f.started && !f.finished);
-    const done = live.fixtures.filter((f) => f.finished).length;
+    const inPlay = liveWeek.fixtures.filter((f) => f.started && !f.finished);
+    const done = liveWeek.fixtures.filter((f) => f.finished).length;
     const fx = (f) =>
       '<div class="row"><div class="row-main"><div class="row-name">' +
       esc(f.home) + " " + f.home_score + "&ndash;" + f.away_score + " " + esc(f.away) + "</div>" +
       '<div class="row-sub">' + (f.finished ? "full time" : f.started ? f.minutes + "&prime;" : "not started") +
       "</div></div></div>";
-    const heading = live.status === "live" ? "Live gameweek " + live.gw
-      : live.status === "done" ? "Gameweek " + live.gw + " &mdash; final"
-      : "Gameweek " + live.gw + " &mdash; not started";
+    const heading = liveWeek.status === "live" ? "Live gameweek " + liveWeek.gw
+      : liveWeek.status === "done" ? "Gameweek " + liveWeek.gw + " &mdash; final"
+      : "Gameweek " + liveWeek.gw + " &mdash; not started";
     return '<div class="panel"><h3>' + heading + "</h3>" +
-      '<p class="note">' + done + " of " + live.fixtures.length + " matches finished" +
+      '<p class="note">' + done + " of " + liveWeek.fixtures.length + " matches finished" +
       (inPlay.length ? ", " + inPlay.length + " in play" : "") +
       ". Points on the pitch below are live, including provisional bonus.</p>" +
       (inPlay.length ? '<div class="rows">' + inPlay.map(fx).join("") + "</div>" : "") +
+      // Only surfaced here, under a week panel that still reads correctly.
+      (liveError ? '<p class="note">Could not refresh the squad points (' +
+        esc(liveError) + "). The snapshot below still stands.</p>" : "") +
       '<button class="btn-live fc" data-live style="margin-top:10px">' +
       (liveBusy ? "refreshing…" : "Refresh") + "</button></div>";
   }
@@ -733,10 +745,14 @@
   function wire() {
     document.querySelectorAll("#gbar .gchip").forEach((b) => {
       b.onclick = () => {
-        who = b.dataset.nick; gwView = null; live = null; liveFor = null;
+        who = b.dataset.nick; gwView = null;
+        // Only the per-player half was the previous gaffer's. The fixtures and
+        // the status above are the same for everyone, so they stay put — they
+        // used to be thrown away here, which made the whole live panel blink
+        // through "Fetch live scores" and "refreshing…" on every badge tap.
+        liveSquad = null; liveFor = null; liveError = null;
         render();
-        // The live data was for the previous gaffer, so it was just thrown
-        // away; without this, switching rooms mid-gameweek empties the pitch.
+        // Still refetched, because the points on the pitch ARE his.
         if (inPlay()) refreshLive();
       };
     });
