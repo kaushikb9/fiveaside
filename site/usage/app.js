@@ -201,6 +201,27 @@
 
   /* ---------------- panels ---------------- */
 
+  /* Reports land in the same store as the telemetry and are read here, because
+     a report nobody sees is a report nobody made. Newest first, whoever sent
+     it, and the page they were on when it broke. */
+  function reportsHTML(reports) {
+    if (!reports || !reports.length) {
+      return '<div class="panel"><h3>Reports</h3>' +
+        '<p class="note" style="margin-bottom:0">Nothing reported. Either it all works or ' +
+        "nobody has pressed the link in the footer.</p></div>";
+    }
+    return '<div class="panel"><h3>Reports <span class="tag ghost">' + reports.length +
+      "</span></h3><div class=\"rows\">" +
+      reports.slice(0, 50).map((r) =>
+        '<div class="row"><div class="row-main"><div class="row-name">' +
+        esc(r.w || "somebody signed out") +
+        (r.p ? ' <span class="row-meta">' + esc(r.p) + "</span>" : "") + "</div>" +
+        '<div class="row-sub">' + esc(r.x || "") + "</div></div>" +
+        '<div class="row-side">' + esc(ago(r.t)) + "<br>" + esc(r.d || "") +
+        "</div></div>").join("") + "</div></div>";
+  }
+
+
   function stripHTML(s) {
     const heads = Object.keys(s.todayHeads).length;
     const inToday = Object.keys(s.todayHeads).filter((k) => k.charAt(0) !== "?").length;
@@ -330,6 +351,7 @@
       '<span class="flabel">Last</span>' + tabs + "</div>" +
       stripHTML(s) +
       '<div class="grid2">' + fiveHTML(s) + openedHTML(s) + "</div>" +
+      reportsHTML(payload.reports) +
       timelineHTML(events) +
       (payload.truncated ?
         '<p class="note">More than six thousand events in this stretch; the oldest are not ' +
@@ -358,7 +380,15 @@
     // 404 is the honest answer for both "not signed in" and "signed in, but
     // not KB". The page cannot tell them apart either, and should not.
     if (!r.ok) return renderDoor();
-    render(await r.json());
+    const payload = await r.json();
+    // Reports share the store and the same owner-only gate, so one more call
+    // rather than a second page to remember to open. A failure here costs the
+    // panel, never the page.
+    try {
+      const rr = await fetch("/api/report", { cache: "no-store" });
+      if (rr.ok) payload.reports = (await rr.json()).reports || [];
+    } catch (e) { /* the rest of the page still stands */ }
+    render(payload);
   }
 
   FA.initTheme();

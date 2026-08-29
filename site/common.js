@@ -835,5 +835,80 @@
     });
   }
 
+  /* ---------------- report an issue ----------------
+     Five people have codes now and none of them read the repo. A report has
+     to be one tap from the thing that is wrong, so the link is in the footer
+     of every room and the form opens over the page rather than navigating
+     away from what is broken.
+
+     It sends the path automatically, because "it's broken" plus the page it
+     was broken on is a bug report and "it's broken" is not. */
+  function reportHTML() {
+    return '<div class="rep-card" role="dialog" aria-modal="true" aria-label="Report an issue">' +
+      '<button class="close" data-rep-close>close</button>' +
+      "<h3>Report an issue</h3>" +
+      '<p class="note">What went wrong? The page you are on is sent with it.</p>' +
+      '<form id="repform">' +
+      '<label class="vh" for="reptext">What went wrong</label>' +
+      '<textarea id="reptext" maxlength="1000" rows="5" ' +
+      'placeholder="The pitch is empty on my phone\u2026"></textarea>' +
+      '<div class="rep-actions"><span class="rep-msg" role="status"></span>' +
+      '<button type="submit">Send</button></div></form></div>';
+  }
+
+  function openReport() {
+    let back = document.getElementById("rep-backdrop");
+    if (!back) {
+      back = document.createElement("div");
+      back.className = "backdrop";
+      back.id = "rep-backdrop";
+      document.body.appendChild(back);
+    }
+    back.innerHTML = reportHTML();
+    back.hidden = false;
+    const box = back.querySelector("#reptext");
+    if (box) box.focus();
+
+    const msg = back.querySelector(".rep-msg");
+    back.querySelector("#repform").onsubmit = async (e) => {
+      e.preventDefault();
+      const text = (box.value || "").trim();
+      if (!text) { msg.textContent = "Say what went wrong first."; return; }
+      const btn = back.querySelector('#repform button[type="submit"]');
+      btn.disabled = true;
+      msg.textContent = "Sending\u2026";
+      try {
+        const r = await fetch("/api/report", {
+          method: "POST",
+          headers: { "content-type": "application/json" },
+          body: JSON.stringify({ text: text, path: location.pathname }),
+        });
+        const d = await r.json().catch(() => ({}));
+        if (!r.ok) throw new Error(d.error || "that did not go through");
+        // Somebody typed this out; tell them it landed, then get out of the way.
+        msg.textContent = "Sent \u2014 thank you.";
+        setTimeout(closeReport, 1200);
+      } catch (err) {
+        // Never claim it sent when it did not.
+        msg.textContent = err.message || "That did not go through. Try again.";
+        btn.disabled = false;
+      }
+    };
+  }
+
+  function closeReport() {
+    const back = document.getElementById("rep-backdrop");
+    if (back) { back.hidden = true; back.innerHTML = ""; }
+  }
+
+  document.addEventListener("click", (e) => {
+    const open = e.target.closest("[data-report]");
+    if (open) { e.preventDefault(); openReport(); return; }
+    if (e.target.closest("[data-rep-close]") || e.target.id === "rep-backdrop") closeReport();
+  });
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape") closeReport();
+  });
+
   window.FA = FA;
 })();
