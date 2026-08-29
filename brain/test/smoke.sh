@@ -98,11 +98,11 @@ go ""
 # makes that call ~1.8s against a flat 2s sleep — so this raced and reported a
 # missing river as a broken page. Wait for the thing itself.
 for _ in 1 2 3 4 5 6 7 8 9 10; do
-  [ "$(js 'document.querySelectorAll("#league .fx-day").length > 0')" = "true" ] && break
+  [ "$(js 'document.querySelectorAll("#league .fx-dayhead").length > 0')" = "true" ] && break
   sleep 1
 done
 check "one panel, two tabs" "2" "$(js 'document.querySelectorAll("#league .tabs .fc").length')"
-check "exactly one tab is on" "1" "$(js 'document.querySelectorAll("#league .tabs .fc[aria-pressed=true]").length')"
+check "exactly one tab is on" "1" "$(js 'document.querySelectorAll("#league .tabs .fc[aria-selected=true]").length')"
 check "exactly one pane shown" "1" \
   "$(js 'document.querySelectorAll("#league .tabpane:not([hidden])").length')"
 check "the table is in a tab"  "true" \

@@ -382,7 +382,12 @@
         }
         return;
       }
-      const keep = el.querySelector("button[data-tab][aria-pressed='true']");
+      /* The tabs moved to role="tab" + aria-selected; this line kept looking
+         for aria-pressed and so never matched, which meant every repaint threw
+         the reader back to the default tab instead of leaving them where they
+         were. A live gameweek repaints every 60s, so it would have snapped
+         away from Matches once a minute. */
+      const keep = el.querySelector('button[data-tab][aria-selected="true"]');
       paint(m, firstRun ? defaultTab(m) : (keep ? keep.dataset.tab : defaultTab(m)));
       // Only a live match earns a poll; a finished round is finished.
       const anyLive = (m.days || []).some((d) => (d.matches || []).some((x) => x.status === "LIVE"));
