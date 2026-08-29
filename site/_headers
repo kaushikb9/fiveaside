@@ -7,3 +7,9 @@
 # Never cache anything that depends on who is asking.
 /api/*
   Cache-Control: no-store
+
+# The service worker decides what everything else is allowed to cache, so it
+# must never be stale itself — a rule change or a kill-switch has to reach
+# people on the next load, not next week.
+/sw.js
+  Cache-Control: no-cache

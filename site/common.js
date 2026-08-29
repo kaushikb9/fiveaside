@@ -824,5 +824,16 @@
     el.innerHTML = '<p class="empty">' + esc(msg) + "</p>";
   };
 
+  /* Installable, and it opens without a signal. Registered here because
+     common.js is the one file every page loads.
+
+     Deliberately quiet: a failed registration is not worth a console error on
+     somebody's phone, and the site works identically without it. */
+  if ("serviceWorker" in navigator && location.protocol === "https:") {
+    window.addEventListener("load", () => {
+      navigator.serviceWorker.register("/sw.js").catch(() => {});
+    });
+  }
+
   window.FA = FA;
 })();

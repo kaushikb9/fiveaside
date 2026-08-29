@@ -188,15 +188,67 @@
     return out + "</div>";
   }
 
-  /* Ted, once, on the front page. He writes the headline above it and the
-     verdicts a click away, and until now the only place he was named at full
-     size was three-quarters of the way down the about page. */
+  /* Ted, once, on the front page — and a different line every time you load
+     it. "the assistant manager. He watched all of it." was accurate and said
+     the same thing forever, which is the one thing a personality must not do.
+
+     Written in his register rather than lifted from the show: these can be
+     about THIS league, this mini-league and this week, which a borrowed quote
+     cannot, and nothing here is anybody else's line. */
+  const TED_LINES = [
+    "your mate who watched all of it and still can\u2019t explain offside",
+    "who has seen every minute of this and still calls the pitch a field",
+    "who read forty match reports so you could read one paragraph",
+    "who watched all of it so you don\u2019t have to, and would do it again",
+    "who believes in this squad rather more than the table does",
+    "who has never been asked for his opinion and gives it anyway",
+    "who took notes during a nil-nil and enjoyed himself",
+    "who thinks a goalless draw can still be a lovely afternoon",
+    "who checks the team news before he checks the weather",
+    "who has strong feelings about a left-back you have never heard of",
+    "who would like it noted that he called that one",
+    "who did not call that one, and would like that forgotten",
+    "who is an AI and still gets nervous before kick-off",
+    "who has watched more football this week than is medically advised",
+    "who believes in second halves, mostly against the evidence",
+    "who thinks your captain pick was brave. Brave is a word.",
+    "who has read every injury update and rather wishes he hadn\u2019t",
+    "who is not going to mention the transfer window again. Probably.",
+    "who would run through a wall for this mini-league",
+    "who has never seen a bad game, only games he understood late",
+    "who was wrong last week and has written down why",
+    "who is contractually incapable of a boring verdict",
+    "who watched the whole thing twice, once for the football",
+    "who cannot be talked out of liking a £4.5m goalkeeper",
+    "who has opinions about set pieces and nobody to share them with",
+    "who counts the minutes so you can count the points",
+    "who thinks the table lies until about November",
+    "who is quietly delighted by a well-taken throw-in",
+    "who prepared a chart nobody asked for",
+    "who has a soft spot for the bloke nobody owns",
+    "who considers a clean sheet a personal achievement",
+    "who will defend your differential in front of the whole group",
+    "who spent the international break reading",
+    "who is here every week whether the football is good or not",
+    "who watched the cup tie as well, because somebody had to",
+    "who reckons form is a rumour and fixtures are a fact",
+    "who has made his peace with variance, mostly",
+    "who is the only one here who reads the whole injury table",
+    "who would like you to know the bench also plays football",
+    "who thinks you are due a good week",
+  ];
+
   function coachLineHTML() {
     const face = FA.faceSVG
       ? '<span class="coachface lg">' + FA.faceSVG(FA.COACH) + "</span>" : "";
+    const line = TED_LINES[Math.floor(Math.random() * TED_LINES.length)];
+    // A few lines carry their own full stop because the joke needs one
+    // ("Brave is a word."); the rest get theirs here rather than running
+    // straight into the link.
+    const stopped = /[.!?]$/.test(line) ? line : line + ".";
     return '<p class="coachline">' + face +
-      "<span>Written by <strong>" + esc(FA.COACH) + "</strong>, the assistant manager. " +
-      'He watched all of it. <a href="about/#ted">Who is Ted?</a></span></p>';
+      "<span>Written by <strong>" + esc(FA.COACH) + "</strong>, " + esc(stopped) +
+      ' <a href="about/#ted">Who is Ted?</a></span></p>';
   }
 
   /* ---------- the league panel: table, matches ---------- */
