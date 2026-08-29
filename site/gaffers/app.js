@@ -715,11 +715,26 @@
 
   function wire() {
     document.querySelectorAll("#gbar .gchip").forEach((b) => {
-      b.onclick = () => { who = b.dataset.nick; gwView = null; live = null; liveFor = null; render(); };
+      b.onclick = () => {
+        who = b.dataset.nick; gwView = null; live = null; liveFor = null;
+        render();
+        // The live data was for the previous gaffer, so it was just thrown
+        // away; without this, switching rooms mid-gameweek empties the pitch.
+        if (inPlay()) refreshLive();
+      };
     });
     document.querySelectorAll("[data-live]").forEach((b) => { b.onclick = refreshLive; });
     document.querySelectorAll(".gwnav button[data-gw]").forEach((b) => {
-      b.onclick = () => { if (!b.disabled) { gwView = Number(b.dataset.gw); render(); } };
+      b.onclick = () => {
+        if (b.disabled) return;
+        gwView = Number(b.dataset.gw);
+        render();
+        /* Stepping to a week that has been played is a deliberate act, and it
+           asked a question — what did this score. Answering it with a blank
+           pitch and a button to press is the room making you ask twice. One
+           request per step is not polling; a timer would be. */
+        if (isSettled(gwView) || isLive(gwView)) refreshLive();
+      };
     });
     const so = document.getElementById("signout");
     if (so) so.onclick = async (e) => {
@@ -922,6 +937,16 @@
     FA.initPlayerCards(P.players, F && F.verdicts, who, F && F.signals);
     render();
     FA.stamp(G.generated_at);
+
+    /* Ask for the live scores once, when there is a gameweek actually being
+       played. "No polling" was always the rule and still is — this is one
+       request on load, not a timer — but nobody wants a pitch showing
+       opponent codes while the football is on, and until now the only way to
+       see a score was to know there was a button for it.
+
+       It was invisible before today because the tiles fell back to the
+       player's SEASON total, which looked like a score and was not one. */
+    if (inPlay()) refreshLive();
   }
 
   // A card can be opened from anywhere in this room — the pitch, the file,
