@@ -817,8 +817,6 @@
       '<div class="lineup">' + lineup + "</div>" +
       say +
       (form ? '<div class="door-cta">' + form + "</div>" : "") +
-      '<p class="door-foot"><a href="../">touchline</a> and <a href="../locker/">the locker ' +
-      "room</a> are open to everyone.</p>" +
       "</div></section>";
   }
 
@@ -936,7 +934,7 @@
     await FA.starsReady();
     FA.initPlayerCards(P.players, F && F.verdicts, who, F && F.signals);
     render();
-    FA.stamp(G.generated_at);
+    FA.stamp(G.generated_at, "squads updated");
 
     /* Ask for the live scores once, when there is a gameweek actually being
        played. "No polling" was always the rule and still is — this is one

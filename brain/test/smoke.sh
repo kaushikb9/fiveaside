@@ -66,7 +66,7 @@ BEFORE=$(js 'document.querySelectorAll("ul.feed > li:not([hidden])").length')
 js 'const b=document.querySelector(".filters:not(.tabs) .fc[data-filter=\"FPL\"]"); if(b) b.click(); ""' >/dev/null
 AFTER=$(js 'document.querySelectorAll("ul.feed > li:not([hidden])").length')
 check "FPL filter narrows the feed" "true" "$(js "${AFTER} <= ${BEFORE}")"
-# The week filter is All / League / FPL and nothing else. A club chip per club
+# The week filter is All / Football / FPL and nothing else. A club chip per club
 # mentioned made the bar as long as the feed and different every day.
 check "no club chips in the week filter" "0" "$(js 'document.querySelectorAll(".filters:not(.tabs) .fc[data-filter^=club]").length')"
 check "three chips, and they are the tags" "All Football FPL" "$(js 'Array.from(document.querySelectorAll(".filters:not(.tabs) .fc[data-filter]")).map(function(b){return b.textContent.trim()}).join(" ")')"
@@ -269,7 +269,7 @@ js 'document.querySelector(".fc[data-min=\"10\"]").click(); ""' >/dev/null
 T10=$(js 'document.querySelectorAll("#the-file table tbody tr").length')
 js 'document.querySelector(".fc[data-min=\"0\"]").click(); ""' >/dev/null
 T0=$(js 'document.querySelectorAll("#the-file table tbody tr").length')
-# 14 surnames are shared in a 614-man file — two Palmers, two Wilsons, three
+# 14 surnames are shared in a 622-man file — two Palmers, two Wilsons, three
 # Phillipses. Cards used to be addressed by NAME, so clicking Chelsea's Palmer
 # opened the Ipswich goalkeeper. Every link carries the element id now; the
 # price is the discriminator, since the two Palmers are £9.5m and £4.0m.

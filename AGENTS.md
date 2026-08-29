@@ -246,7 +246,7 @@ added; `-i` alone is not enough, it only blocks idle sleep. `auto.sh` does it.
   `FA.ALLEGIANCE` match on the full name, and shortening a key is how a rule
   silently stops matching.
 - **Player names are not unique, and the card is addressed by id.** Fourteen
-  surnames are shared across the 614 — two Palmers, two Wilsons, three
+  surnames are shared across the 622 — two Palmers, two Wilsons, three
   Phillipses — and two of the collisions are players the five own. A card
   index keyed by name with last-write-wins hands each shared surname to
   whoever sits later in the file, which is reliably the lesser player:
@@ -286,10 +286,11 @@ added; `-i` alone is not enough, it only blocks idle sleep. `auto.sh` does it.
 - The gameweek has two meanings and they differ mid-week: `gameweek` is the
   one being **planned for** (next deadline), `live_gameweek` the one being
   **played**. The pitch follows the second.
-- **Player-card form is Premier League only.** `_recent()` builds it from the
-  FPL API's fixtures, which know about no other competition, so a midweek cup
-  tie leaves a gap the strip cannot show. Logged in ROADMAP §4b; do not
-  describe it as "form" anywhere that implies all competitions.
+- **Player-card form spans the fetched competitions.** `_recent()` merges the
+  FPL league fixtures with the current-season cup and European results from
+  the other sources, and labels each row. `other_apps` remains the separate
+  player-level midweek evidence from team sheets; do not describe either as
+  minutes, which no source provides.
 - **A finished match is not `finished`.** FPL flips that flag only once bonus
   is confirmed, which can be a day later — a 3-0 that is ninety minutes old
   still reads `finished: false`. Use `finished_provisional` or `minutes >= 90`

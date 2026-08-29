@@ -60,9 +60,16 @@
       return d.toLocaleDateString("en-GB", DAY_FMT).toUpperCase();
     }
   };
-  const clock = (iso) => {
+  const clock = (iso, timeZone) => {
     const d = new Date(iso);
-    return isNaN(d.getTime()) ? "" : d.toLocaleTimeString("en-GB", { hour: "2-digit", minute: "2-digit" });
+    if (isNaN(d.getTime())) return "";
+    try {
+      return d.toLocaleTimeString("en-GB", {
+        hour: "2-digit", minute: "2-digit", timeZone,
+      });
+    } catch {
+      return d.toLocaleTimeString("en-GB", { hour: "2-digit", minute: "2-digit" });
+    }
   };
 
   /* ESPN's abbreviations are per-competition and disagree with themselves —
@@ -85,15 +92,15 @@
       (g.pen ? ' <span class="og">pen</span>' : "") +
       (g.og ? ' <span class="og">og</span>' : "")).join(", ");
 
-  function statusHTML(m) {
+  function statusHTML(m, timeZone) {
     if (m.status === "FINISHED") return '<span class="fx-status">FT</span>';
     if (m.status === "LIVE") {
       return '<span class="fx-status live"><i></i>' + esc(m.minute || "LIVE") + "</span>";
     }
-    return '<span class="fx-status">' + esc(clock(m.kickoff)) + "</span>";
+    return '<span class="fx-status">' + esc(clock(m.kickoff, timeZone)) + "</span>";
   }
 
-  function matchHTML(m) {
+  function matchHTML(m, timeZone) {
     const played = m.status !== "SCHEDULED";
     const score = played
       ? '<span class="fx-score">' + esc(m.home.score) + "<em>&ndash;</em>" + esc(m.away.score) + "</span>"
@@ -109,7 +116,7 @@
     const tag = m.comp === "PL" ? "" : '<span class="fx-comp">' + esc(m.comp) + "</span>";
     return '<div class="fx' + (m.status === "LIVE" ? " is-live" : "") + '">' +
       side(m.home, "home") + score + side(m.away, "away") +
-      '<span class="fx-meta">' + statusHTML(m) + tag + "</span>" + scorers + "</div>";
+      '<span class="fx-meta">' + statusHTML(m, timeZone) + tag + "</span>" + scorers + "</div>";
   }
 
   /* Which days open on their own: today, the last day that was played, and
@@ -173,7 +180,7 @@
       const open = OPEN_DAYS.has(d.date);
       out += dayHeadHTML(d, open, m.timezone || "UTC") +
         '<div class="fx-daybody" data-body="' + esc(d.date) + '"' + (open ? "" : " hidden") + ">" +
-        (d.matches || []).map(matchHTML).join("") + "</div>";
+        (d.matches || []).map((x) => matchHTML(x, m.timezone || "UTC")).join("") + "</div>";
     });
     return out + "</div>";
   }
@@ -229,9 +236,13 @@
     const all = m && m.days ? m.days.reduce((acc, x) => acc.concat(x.matches || []), []) : [];
     const live = all.some((x) => x.status === "LIVE");
     const tab = (k, label) =>
-      '<button class="fc" data-tab="' + k + '" aria-pressed="' + String(k === active) + '">' + label + "</button>";
+      '<button class="fc" id="league-tab-' + k + '" data-tab="' + k +
+        '" role="tab" aria-selected="' + String(k === active) +
+        '" aria-controls="league-pane-' + k + '">' + label + "</button>";
     const pane = (k, body) =>
-      '<div class="tabpane" data-pane="' + k + '"' + (k === active ? "" : " hidden") + ">" + body + "</div>";
+      '<div class="tabpane" id="league-pane-' + k + '" data-pane="' + k +
+        '" role="tabpanel" aria-labelledby="league-tab-' + k + '"' +
+        (k === active ? "" : " hidden") + ">" + body + "</div>";
 
     return '<div class="panel" id="league">' +
       '<h3>The league' + (live ? ' <span class="tag hot">live</span>' : "") + "</h3>" +
@@ -282,7 +293,7 @@
       if (!btn) return;
       const k = btn.dataset.tab;
       panel.querySelectorAll("button[data-tab]").forEach((b) =>
-        b.setAttribute("aria-pressed", String(b.dataset.tab === k)));
+        b.setAttribute("aria-selected", String(b.dataset.tab === k)));
       TABS.forEach((t) => {
         const p = panel.querySelector('[data-pane="' + t + '"]');
         if (p) p.hidden = t !== k;
@@ -350,7 +361,7 @@
     };
 
     paint(null, "table");
-    FA.stamp(data.generated_at || (latest.date + "T08:00:00"));
+    FA.stamp(data.generated_at || (latest.date + "T08:00:00"), "editorial updated");
 
     // Fixtures are the one thing on this page that can be wrong by the
     // minute, so they arrive after the page rather than holding it up.

@@ -34,7 +34,7 @@
         '<section class="section"><div class="section-head"><h2>archive</h2></div>' +
         '<div class="panel"><p class="note">Nothing here yet — the only entry written is the ' +
         'current one, and it is on <a href="../">touchline</a>.</p></div></section>';
-      FA.stamp(data.generated_at);
+      FA.stamp(data.generated_at, "editorial updated");
       return;
     }
 
@@ -57,7 +57,7 @@
       });
     });
 
-    FA.stamp(data.generated_at || (entries[0].date + "T08:00:00"));
+    FA.stamp(data.generated_at || (entries[0].date + "T08:00:00"), "editorial updated");
   }
 
   FA.initTheme();

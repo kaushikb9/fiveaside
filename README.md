@@ -68,7 +68,7 @@ uv run ruff check .                                # lint
 node brain/validate.mjs                            # the league database
 node brain/validate-fpl.mjs                        # the judgment layer
 node brain/validate-players.mjs                    # the player file
-brain/test/smoke.sh https://fiveaside.pages.dev/   # 45 checks over the live site
+brain/test/smoke.sh https://fiveaside.pages.dev/   # live room/theme/control smoke suite
 cd site && python3 -m http.server                  # local preview
 ```
 

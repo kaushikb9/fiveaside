@@ -155,11 +155,16 @@
     const all = d.top_teams || d.rivals || [];
     const shown = all.filter((r) => focus.indexOf(r.club) !== -1);
     const dropped = all.filter((r) => focus.indexOf(r.club) === -1).map((r) => r.club);
+    /* The rank-and-points line rides with the club name, not in a side column.
+       As a `.row-side` it was `white-space: nowrap`, so inside a half-width
+       grid track it took 108px off the note and cost 40px of height on every
+       row — 149px against Elsewhere's 109px for the same component, purely
+       because Elsewhere's rows carry no line. */
     const one = (r) =>
       '<div class="row"><div class="row-main"><div class="row-name">' +
-      crest(r.crest) + esc(FA.club(r.club)) + "</div>" +
-      '<div class="row-sub">' + linkPlayers(r.note) + "</div></div>" +
-      (r.line ? '<div class="row-side">' + esc(r.line) + "</div>" : "") + "</div>";
+      crest(r.crest) + esc(FA.club(r.club)) +
+      (r.line ? '<span class="row-meta">' + esc(r.line) + "</span>" : "") + "</div>" +
+      '<div class="row-sub">' + linkPlayers(r.note) + "</div></div></div>";
 
     const left = shown.length
       ? '<div class="panel"><h3>Around the top</h3>' +

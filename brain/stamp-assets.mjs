@@ -1,6 +1,6 @@
 #!/usr/bin/env node
-// Rewrite the ?v= cache-buster on every asset link to a hash of what that
-// asset actually contains. Run by deploy.sh before publishing.
+// Add or rewrite the ?v= cache-buster on every local asset link to a hash of
+// what that asset actually contains. Run by deploy.sh before publishing.
 //
 // Why this exists: the version was a hand-typed integer, so changing app.js
 // without remembering to bump it served the browser a stale script from cache
@@ -38,9 +38,9 @@ let changed = 0;
 
 for (const file of htmlFiles) {
   const before = readFileSync(file, "utf8");
-  // href="../style.css?v=10"  |  src="app.js?v=10"
+  // href="../style.css?v=10"  |  src="app.js"  |  src="app.js?v=10"
   const after = before.replace(
-    /((?:href|src)=")([^"]+?\.(?:css|js))\?v=[^"]*(")/g,
+    /((?:href|src)=")([^"]+?\.(?:css|js))(?:\?v=[^"]*)?(")/g,
     (whole, lead, href, tail) => {
       // Resolve the asset relative to the HTML file that references it.
       const asset = resolve(dirname(file), href);

@@ -281,7 +281,7 @@
       (byPlayer[sig.player] = byPlayer[sig.player] || []).push(sig);
     });
     /* Names are NOT unique — two Palmers, two Wilsons, three Phillipses, 14
-       shared surnames in a 614-man file. Building byName with last-write-wins
+       shared surnames in a 622-man file. Building byName with last-write-wins
        handed each shared name to whoever happened to sit later in the file,
        which is how clicking Cole Palmer opened the Ipswich goalkeeper: same
        surname, lower id, later in the array.
@@ -569,11 +569,17 @@
         if (th.hasAttribute("data-nosort")) return;
         th.classList.add("th-sort");
         th.tabIndex = 0;
+        th.setAttribute("aria-sort", "none");
         const run = () => {
           const dir = th.dataset.dir === "asc" ? "desc" : "asc";
-          [...head.cells].forEach((o) => { delete o.dataset.dir; o.classList.remove("sorted"); });
+          [...head.cells].forEach((o) => {
+            delete o.dataset.dir;
+            o.classList.remove("sorted");
+            if (!o.hasAttribute("data-nosort")) o.setAttribute("aria-sort", "none");
+          });
           th.dataset.dir = dir;
           th.classList.add("sorted");
+          th.setAttribute("aria-sort", dir === "asc" ? "ascending" : "descending");
 
           const rows = [...body.rows];
           // Every cell in the column must look numeric before sorting numerically:
@@ -804,12 +810,12 @@
     (FA.stars.data[gaffer] || []).indexOf(playerId) !== -1;
 
   /* ---------------- shell ---------------- */
-  FA.stamp = function (iso) {
+  FA.stamp = function (iso, label) {
     const el = document.getElementById("stamp");
     if (!el || !iso) return;
     const d = new Date(iso);
     if (isNaN(d.getTime())) return;
-    el.textContent = "updated " +
+    el.textContent = (label || "updated") + " " +
       d.toLocaleDateString("en-GB", { day: "numeric", month: "short" }) + ", " +
       d.toLocaleTimeString("en-GB", { hour: "2-digit", minute: "2-digit" });
   };

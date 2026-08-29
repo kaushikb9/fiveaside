@@ -112,7 +112,7 @@
         CHIPS.map((c) =>
           '<button class="fc" data-f="' + c[0] + '" aria-pressed="' + (c[0] === filter) + '">' +
           esc(c[1]) + "</button>").join("") +
-        '<input class="search" id="fq" placeholder="search name or club…" value="' + esc(query) + '">' +
+        '<input class="search" id="fq" aria-label="Search player name or club" placeholder="search name or club…" value="' + esc(query) + '">' +
       "</div>" +
       '<div class="filters" style="margin-bottom:15px">' +
         '<span class="flabel">Ownership over</span>' +
@@ -240,7 +240,7 @@
 
     FA.initPlayerCards(P.players, F && F.verdicts, FA.ME, F && F.signals);
     render();
-    FA.stamp(P.generated_at);
+    FA.stamp(P.generated_at, "data updated");
   }
 
   FA.initTheme();

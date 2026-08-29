@@ -112,8 +112,8 @@ install({ comps: { "uefa.champions": EURO, "eng.1": EPL }, tableOk: false });
 ({ body } = await call());
 const noTable = body.days.flatMap((d) => d.matches);
 ok("with no club list, PL still shows", noTable.some((m) => m.comp === "PL"));
-ok("with no club list, foreign ties are still let through rather than guessed at",
-  noTable.some((m) => m.home.name === "Bayern Munich"));
+ok("with no club list, foreign ties fail closed",
+  !noTable.some((m) => m.home.name === "Bayern Munich"));
 
 // ---- degrade, never fail ---------------------------------------------------
 install({ comps: Object.fromEntries(

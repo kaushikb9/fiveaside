@@ -111,7 +111,7 @@ replaced wholesale each run, except `log`, which is append-and-settle.
 
 ## 3. What works today
 
-- **touchline** — league table with focus clubs marked by rule, the week feed
+- **touchline** — neutral league table, the week feed
   with one control that narrows it and dims the table together, team watch,
   around the top, elsewhere, rumours, links, and every earlier entry archived.
 - **the gaffers** — a headline computed from the five squads alone, the
@@ -128,8 +128,8 @@ replaced wholesale each run, except `log`, which is append-and-settle.
   know", last five results, next five fixtures, ownership across the five, and
   the verdict with its trigger.
 - **Both brains have run**: five weekly reads, 59 verdicts, today's league page.
-- **`brain/test/smoke.sh <url>`** — 45 checks across every room, both themes,
-  every control, the card seam, the door and phone width. Green.
+- **`brain/test/smoke.sh <url>`** — the live room/theme/control smoke suite,
+  including the card seam, the door and phone width. Green.
 
 ---
 
@@ -163,15 +163,13 @@ all — it lives in KV behind `/api/private`.
 **Left to do:** mint the other four and send them out. Xabi's own code is the
 only one that has to exist for the room to be usable.
 
-### 4b. Form is Premier League only
+### 4b. Form now includes the current season's other competitions
 
-The card's "Last five" comes from the FPL API's fixtures, which know about no
-other competition — a midweek cup tie leaves a gap the strip cannot show.
-Parked by KB on 2026-08-24. Fixing it needs a second fixtures source keyed to
-the same clubs (`espn.py` and `thesportsdb.py` already fetch multi-competition
-data for the digest — **the work is club identity**, since they name clubs
-differently), a competition label per result, and a decision about whether
-"last five" means five of any kind or five league games.
+Completed 2026-08-27. The card's recent-results strip merges the FPL league
+fixtures with current-season cup and European results, labels each competition,
+and keeps player-level team-sheet evidence in the separate **Midweek** section.
+The card still never reports minutes: the available source fields are starts,
+substitutions and appearances.
 
 ### 4c. Everything else
 

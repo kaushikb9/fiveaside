@@ -17,7 +17,7 @@ const gw = bundle.gameweek?.id ?? null;
 
 /* --- the player file: one evidence record per player, every player ---
    `owned_by` is built from the squads, so a deadline lock empties it for all
-   620 players just as it empties the room: every card reads "nobody in the
+   622 players just as it empties the room: every card reads "nobody in the
    five", every owner dot vanishes, and a player under the ownership floor who
    is only in the file BECAUSE one of the five owns him drops out of it
    altogether. Same outage, same answer — carry the last known owners

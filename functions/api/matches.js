@@ -220,9 +220,10 @@ export async function onRequestGet({ request }) {
 
   const isPL = (m) =>
     m.comp === "PL" ||
-    !clubs ||
-    clubs.has(m.home.name.toLowerCase()) ||
-    clubs.has(m.away.name.toLowerCase());
+    Boolean(clubs && (
+      clubs.has(m.home.name.toLowerCase()) ||
+      clubs.has(m.away.name.toLowerCase())
+    ));
 
   const matches = pulls.flat().filter((m) => m.kickoff && isPL(m));
 

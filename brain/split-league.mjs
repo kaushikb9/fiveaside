@@ -31,17 +31,27 @@ if (!league) {
   // without standings is a source outage worth seeing rather than crashing on.
   console.error("split-league: no competition in the bundle carries a table");
 } else {
+  const rows = league.table ?? [];
+  let previous = null;
+  try { previous = JSON.parse(readFileSync("site/data/table.json", "utf8")); } catch { /* first run */ }
+  const sameData = previous &&
+    previous.date === (bundle.date ?? null) &&
+    previous.timezone === (bundle.timezone ?? null) &&
+    previous.competition === (league.name ?? "League table") &&
+    JSON.stringify(previous.rows ?? []) === JSON.stringify(rows);
   writeFileSync(
     "site/data/table.json",
     JSON.stringify(
       {
-        generated_at: new Date().toISOString(),
+        // Do not turn an unchanged hourly facts refresh into a deployment.
+        // The timestamp means "last changed", not "last fetched".
+        generated_at: sameData ? previous.generated_at : new Date().toISOString(),
         date: bundle.date ?? null,
         timezone: bundle.timezone ?? null,
         competition: league.name ?? "League table",
         // Verbatim from the bundle, in source order. No trimming: the reason
         // this file exists is that trimming is what went wrong.
-        rows: league.table ?? [],
+        rows,
       },
       null,
       2

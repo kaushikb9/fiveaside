@@ -33,23 +33,27 @@ FPL_DUE=$([ "$FPL_DATE" = "$(date +%F)" ] || echo yes)
 # offline? try again next hour
 curl -sf --max-time 10 https://fiveaside.pages.dev >/dev/null || exit 0
 
-# The MECHANICAL refresh is cheap and has no LLM in it: prices, points,
-# squads, captaincy and chips, straight from the API to disk. Run it every
-# hour regardless of whether either brain is due, so the pitch and the file
-# are never a day stale just because the editorial was already written today.
-# Deploy only if something actually changed.
-if uv run touchline fpl 2>/dev/null | node brain/split-facts.mjs >/dev/null 2>&1; then
+# The MECHANICAL refresh is cheap and has no LLM in it: standings, prices,
+# points, squads, captaincy and chips, straight from the APIs to disk. Run it
+# every hour regardless of whether either brain is due, so the pitch, table and
+# files are never a day stale just because the editorial was already written
+# today. Deploy only if something actually changed.
+if
+  uv run touchline facts 2>/dev/null | node brain/split-league.mjs >/dev/null 2>&1 &&
+  uv run touchline fpl 2>/dev/null | node brain/split-facts.mjs >/dev/null 2>&1
+then
   if node brain/validate-players.mjs >/dev/null 2>&1 \
-     && ! git diff --quiet -- site/data/players.json site/data/gaffers.json; then
+     && node -e "const t=require('./site/data/table.json'); if(!Array.isArray(t.rows)||!t.rows.length) process.exit(1)" \
+     && ! git diff --quiet -- site/data/players.json site/data/gaffers.json site/data/table.json; then
     echo "[auto] $(date '+%F %T') — mechanical data moved, publishing"
-    git add site/data/players.json site/data/gaffers.json
+    git add site/data/players.json site/data/gaffers.json site/data/table.json
     git commit -qm "data: $(date '+%F %H:%M') mechanical refresh" || true
     git push -q 2>/dev/null || echo "[auto] push failed"
     ./deploy.sh >/dev/null 2>&1 || echo "[auto] deploy failed"
   fi
 else
   echo "[auto] $(date '+%F %T') — facts refresh failed, skipping"
-  git checkout -- site/data/players.json site/data/gaffers.json 2>/dev/null || true
+  git checkout -- site/data/players.json site/data/gaffers.json site/data/table.json 2>/dev/null || true
 fi
 
 
