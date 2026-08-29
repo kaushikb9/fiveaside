@@ -486,6 +486,16 @@ h3 .gname, summary .gname, td .gname, .ghead p .gname {
   opacity: 0.13; pointer-events: none;
 }
 .door > * { position: relative; }
+/* Ted on the door. Bigger than a signature because here he is the whole
+   greeting, and the five below him are what he is introducing. */
+.door-ted { display: block; width: 76px; height: 76px; margin: 2px auto 10px; }
+.door-ted .face { width: 100%; height: 100%; }
+@media (max-width: 480px) { .door-ted { width: 64px; height: 64px; } }
+.door-intro {
+  margin-top: 14px; font-size: 13px; color: var(--faint);
+  font-family: var(--f-head); font-weight: 600; letter-spacing: 0.02em;
+}
+
 .door-k {
   font-family: var(--f-head); font-size: 10px; font-weight: 700; letter-spacing: 0.14em;
   text-transform: uppercase; color: var(--accent); margin-bottom: 8px;

@@ -751,17 +751,23 @@
     // Main's copy, in the door's own layout: the wording is theirs, only the
     // class changes so a note sits inside the lineup panel rather than in a
     // bare card.
+    /* Ted works the door. Every one of these is him talking, because a locked
+       page that says "unauthorised" is a server and a locked page with
+       somebody standing at it is a room. He is warm about it and he still
+       does not let you in. */
     const say = {
-      out: '<p class="door-p">Use the code KB sent you. This device will remember you.</p>',
-      denied: '<p class="door-note" style="color:var(--hot)">That code is not one of ours. ' +
-        "Check for a typo, or ask KB for a new one.</p>",
-      throttled: '<p class="door-note" style="color:var(--hot)">Too many tries from here. ' +
-        "Wait ten minutes, then have another go.</p>",
-      unconfigured: '<p class="door-note" style="color:var(--warn)">Sign-in is not switched ' +
-        "on yet &mdash; the session secret or the store is not bound. Nothing is broken; the " +
-        "door simply has no lock fitted.</p>",
-      error: '<p class="door-note" style="color:var(--hot)">That did not go through. ' +
-        "Try again.</p>",
+      out: '<p class="door-p">Code KB sent you goes in there. I\u2019ll remember this device, ' +
+        "so you only do it once.</p>",
+      denied: '<p class="door-note" style="color:var(--hot)">Not one of ours, that. Have ' +
+        "another look at it &mdash; and if it still says no, that\u2019s a KB problem, not a " +
+        "you problem.</p>",
+      throttled: '<p class="door-note" style="color:var(--hot)">That\u2019s enough guesses for ' +
+        "one go. Ten minutes on the bench, then come back.</p>",
+      unconfigured: '<p class="door-note" style="color:var(--warn)">Slight snag: there\u2019s no ' +
+        "lock on this door yet. Nothing you did &mdash; I just can\u2019t let anybody through " +
+        "until KB fits one.</p>",
+      error: '<p class="door-note" style="color:var(--hot)">That didn\u2019t go through, and I ' +
+        "don\u2019t know why either. Give it another go.</p>",
     }[state] || "";
     // No lock fitted means the box can never open the door; an input nobody
     // can use is worse than no input at all.
@@ -780,12 +786,19 @@
       "<b>" + esc(n) + "</b>" +
       '<span class="lu-club">' + esc(FA.faceClub(n)) + "</span></div>").join("");
 
+    const ted = FA.faceSVG
+      ? '<span class="facewrap door-ted">' + FA.faceSVG(FA.COACH) + "</span>" : "";
+
     return '<section class="section"><div class="section-head"><h2>the gaffers</h2>' +
       '<span class="mute" style="font-size:13px">what we did about it</span></div>' +
       '<div class="door">' +
       '<div class="door-k">Private room &middot; for the five</div>' +
-      "<h3>This room belongs to the five.</h3>" +
-      '<p class="door-p">Five squads, weekly reads, the roast and the mini-league live behind this door.</p>' +
+      ted +
+      "<h3>Now then. I\u2019m Ted.</h3>" +
+      '<p class="door-p">I keep the notes for five people, and you\u2019re one of them or you ' +
+      "aren\u2019t. Behind me: five squads, five weekly reads, a mini-league, and a roast that " +
+      "names names.</p>" +
+      '<p class="door-p door-intro">This lot:</p>' +
       '<div class="lineup">' + lineup + "</div>" +
       say +
       (form ? '<div class="door-cta">' + form + "</div>" : "") +
