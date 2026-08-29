@@ -137,13 +137,25 @@ check "an upcoming match shows a time, not 0-0" "true" \
   "$(js '[...document.querySelectorAll("#league [data-pane=matches] .fx-score.pre")].every(s => !/\d/.test(s.textContent))')"
 check "no attribute leaked into a scorer name" "false" \
   "$(js '/plink|data-player|\">/.test(document.querySelector("#league [data-pane=matches]").innerText)')"
-# The seam that makes a name anywhere on the site open that player's file. Not
-# EVERY scorer can link: a cup tie brings League Two players who are not in the
-# FPL file at all, and inventing a card for them would be worse than plain text.
-# So the check is that the seam works where it can, not that football fits in
-# one data source.
-check "scorer names still open a card" "true" \
-  "$(js '(function(){var l=[...document.querySelectorAll("#league [data-pane=matches] .fx-goals .g")].filter(function(x){return x.textContent.trim().length}); return !l.length || l.some(function(x){return !!x.querySelector("[data-pid]")})})()')"
+# The rule, changed 2026-08-29: a name that is a whole ROW links, a name inside
+# a run of text does not. A goalscorer line is a comma-separated run, so it is
+# plain text — six underlined names made a match row look like a bibliography.
+check "scorer names are plain text" "true" "$(js '(function(){
+  var lines = [...document.querySelectorAll("#league [data-pane=matches] .fx-goals .g")]
+    .filter(function (x) { return x.textContent.trim().length; });
+  if (!lines.length) return true;
+  return lines.every(function (x) { return !x.querySelector("[data-pid], .plink"); });
+})()')"
+# And the seam still exists where the name IS the row, so it was narrowed
+# rather than dropped.
+check "a row-name still opens a card" "true" "$(js '(function(){
+  var a = document.querySelector("#main .rows .row-name .plink");
+  if (!a) return true;
+  a.click();
+  var open = !document.getElementById("fa-backdrop").hidden;
+  FA.closeCard();
+  return open;
+})()')"
 
 echo "== the archive"
 check "home shows one entry only" "0" "$(js 'document.querySelectorAll("#main details.fold").length')"
