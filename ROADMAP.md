@@ -243,7 +243,12 @@ what was done about it, so none of it has to be rediscovered:
   automated traffic on the User-Agent, server-side.
 - **The rate limits were decorative** — bucketed on `HMAC(day | ip | UA)`, so
   rotating a header bought a fresh allowance. Now keyed on the address hash
-  alone, with `brain/test/ratelimit.mjs` pinning it.
+  alone, with `brain/test/ratelimit.mjs` pinning it. Measured against live
+  afterwards, they are a ceiling on *sustained* writing rather than on a burst:
+  KV reads are edge-cached for ~60s, so 25 posts against a cap of 20 all landed
+  and everything a few seconds later was refused. Good enough for what it
+  defends against — somebody filling the usage page with junk over minutes —
+  and deliberately not called a flood defence.
 - **`auth.js` was storing raw IPs** as `throttle:<ip>` while `telemetry.js`
   promised none were kept. Hashed, and the test asserts no key anywhere holds an
   address.

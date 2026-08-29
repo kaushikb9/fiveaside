@@ -171,6 +171,14 @@ added; `-i` alone is not enough, it only blocks idle sleep. `auto.sh` does it.
   be counted. `rateBucket()` in `auth.js` is the one implementation; use it
   rather than writing a third. `brain/test/ratelimit.mjs` pins it, and that test
   fails loudly against the old behaviour (130 rows against a cap of 120).
+  **The caps are a ceiling on sustained writing, not on a burst.** KV reads are
+  edge-cached for at least 60s, so a fast burst reads a stale counter and
+  overshoots: measured live, 25 reports against a cap of 20 all landed and
+  everything a few seconds later was refused. The unit test's store is
+  synchronous and therefore exact — do not read it as a promise about
+  production. A hard cap needs a Durable Object or a Cloudflare rate-limiting
+  rule; neither is worth it here, but do not describe what exists as a flood
+  defence.
 - **"No IP is stored" has to be true of the SITE, not just of the telemetry.**
   `telemetry.js` documented the promise carefully while `auth.js` sat next door
   keying its sign-in throttle on `throttle:<raw ip>`. Counting is fine; keeping

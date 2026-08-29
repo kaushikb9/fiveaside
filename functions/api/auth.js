@@ -167,8 +167,21 @@ export async function rateBucket(request, env) {
     .map((b) => b.toString(16).padStart(2, "0")).join("");
 }
 
-/* Counts one bucket against a cap, and records the attempt. Best-effort:
-   KV's minimum TTL is 60s and a lost increment is not worth a 500. */
+/* Counts one bucket against a cap, and records the attempt.
+
+   HOW LATE THIS IS, MEASURED. KV reads are cached at the edge for at least
+   sixty seconds, so a fast burst reads a stale counter and overshoots before
+   the limit engages: twenty-five reports fired back to back against a cap of
+   twenty all landed, and the twenty-sixth — sent a few seconds later — got
+   its 429 and every one after it stayed blocked. The cap is a ceiling on
+   SUSTAINED writing, not on a burst, and cannot be made tighter with KV
+   alone; a hard cap needs a Durable Object or a Cloudflare rate-limiting
+   rule, neither of which is worth it for five friends.
+
+   That is the honest shape and it is enough for what this defends against:
+   somebody filling KB's usage page with junk over minutes. It is not a
+   defence against a determined flood, and nothing here should be described
+   as one. */
 export async function overRate(env, id, prefix, limit, window) {
   if (!id) return false;
   const k = prefix + id;

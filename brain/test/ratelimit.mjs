@@ -11,6 +11,13 @@
    limit simply never fires, and the only symptom is a usage page filling up
    with junk weeks later.
 
+   The stub store is synchronous, so the caps here are exact. LIVE KV IS NOT:
+   its reads are edge-cached for at least sixty seconds, so a burst overshoots
+   before the limit engages — twenty-five posts against a cap of twenty all
+   landed, and everything after was refused. These tests pin the RULE (which
+   bucket is counted, and that no key holds an address); they do not promise a
+   hard ceiling, and no comment in this repo should claim one.
+
    Real handlers, stubbed KV, no network.
    Usage: node brain/test/ratelimit.mjs
    ========================================================================= */
