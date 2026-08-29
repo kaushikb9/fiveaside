@@ -46,12 +46,29 @@
         || (p.active_chip ? { name: p.active_chip, gw: PICKS_GW() } : null);
       if (!played) return;
       const lead = sorted[0];
+      const chipName = CHIP_NAME[played.name] || played.name;
+      const standing = lead.nick === p.nick
+        ? "top of the five"
+        : (lead.total_points - p.total_points) + " behind " + lead.nick;
+
+      /* A chip played in a gameweek that is STILL BEING PLAYED cannot be
+         reported in the past tense, and its bench cannot be totted up: on
+         2026-08-29 this said a Bench Boost "played" in gameweek 2 had left
+         "nothing left on the bench", when what had actually happened was that
+         one of ten fixtures had kicked off. `bench_points` is 0 because the
+         week has not finished, not because the bench did nothing. */
+      const live = played.gw === PICKS_GW() && inPlay();
+
       cand.push({
-        score: 100, kicker: "Chip played", nick: p.nick,
-        text: p.nick + " played the " + (CHIP_NAME[played.name] || played.name) +
-          " in gameweek " + played.gw + " — " + p.total_points + " points, " +
-          (lead.nick === p.nick ? "top of the five" : (lead.total_points - p.total_points) + " behind " + lead.nick) +
-          ", and " + (p.bench_points === 0 ? "nothing left on the bench" : p.bench_points + " off the bench") + ".",
+        score: 100, kicker: live ? "Chip in play" : "Chip played", nick: p.nick,
+        text: live
+          ? p.nick + " is playing the " + chipName + " in gameweek " + played.gw +
+            (played.name === "bboost" ? ", so all four on the bench count" : "") +
+            " — " + standing + ", with the week still going."
+          : p.nick + " played the " + chipName +
+            " in gameweek " + played.gw + " — " + p.total_points + " points, " +
+            standing + ", and " +
+            (p.bench_points === 0 ? "nothing left on the bench" : p.bench_points + " off the bench") + ".",
         sub: people.filter((x) => !(x.chips || []).length && !x.active_chip).length +
           " of the five still have theirs. First-half chips expire at GW19.",
       });
