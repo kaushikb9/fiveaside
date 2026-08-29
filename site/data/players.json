@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-29T09:47:14.628Z",
+  "generated_at": "2026-08-29T10:40:40.375Z",
   "gameweek": 3,
   "players": [
     {
@@ -459,7 +459,7 @@
       "team": "MUN",
       "pos": "MID",
       "price": 8,
-      "ownership": 34.7,
+      "ownership": 34.6,
       "points": 2,
       "form": "1.0",
       "fixtures": [
@@ -1072,7 +1072,7 @@
       "team": "MCI",
       "pos": "DEF",
       "price": 6.5,
-      "ownership": 20.7,
+      "ownership": 20.6,
       "points": 4,
       "form": "2.0",
       "fixtures": [
@@ -1970,7 +1970,7 @@
       "team": "MUN",
       "pos": "GK",
       "price": 5,
-      "ownership": 15.5,
+      "ownership": 15.4,
       "points": 1,
       "form": "0.5",
       "fixtures": [
@@ -2116,7 +2116,7 @@
       "team": "MCI",
       "pos": "MID",
       "price": 7.6,
-      "ownership": 13.7,
+      "ownership": 13.8,
       "points": 22,
       "form": "11.0",
       "fixtures": [
@@ -3228,7 +3228,7 @@
       "team": "BHA",
       "pos": "DEF",
       "price": 4.6,
-      "ownership": 9.1,
+      "ownership": 9.2,
       "points": 17,
       "form": "8.5",
       "fixtures": [
@@ -4407,7 +4407,7 @@
       "team": "LIV",
       "pos": "MID",
       "price": 7,
-      "ownership": 6.6,
+      "ownership": 6.7,
       "points": 12,
       "form": "6.0",
       "fixtures": [
@@ -5366,7 +5366,7 @@
       "team": "HUL",
       "pos": "DEF",
       "price": 4,
-      "ownership": 4.5,
+      "ownership": 4.6,
       "points": 15,
       "form": "7.5",
       "fixtures": [
@@ -9179,75 +9179,6 @@
       "chance": 100
     },
     {
-      "id": 123,
-      "name": "Hinshelwood",
-      "team": "BHA",
-      "pos": "MID",
-      "price": 6,
-      "ownership": 2.2,
-      "points": 16,
-      "form": "8.0",
-      "fixtures": [
-        {
-          "gw": 3,
-          "opp": "LEE",
-          "home": true,
-          "fdr": 2
-        },
-        {
-          "gw": 4,
-          "opp": "COV",
-          "home": false,
-          "fdr": 2
-        },
-        {
-          "gw": 5,
-          "opp": "ARS",
-          "home": true,
-          "fdr": 4
-        },
-        {
-          "gw": 6,
-          "opp": "SUN",
-          "home": false,
-          "fdr": 3
-        },
-        {
-          "gw": 7,
-          "opp": "CRY",
-          "home": true,
-          "fdr": 3
-        }
-      ],
-      "recent": [
-        {
-          "gw": 1,
-          "date": "2026-08-23",
-          "comp": "PL",
-          "opp": "AVL",
-          "home": true,
-          "gf": 4,
-          "ga": 0,
-          "result": "W"
-        }
-      ],
-      "other_apps": [],
-      "other_next": [
-        {
-          "date": "2026-09-16",
-          "kickoff": "2026-09-16T19:00:00+00:00",
-          "comp": "EFL",
-          "opp": "MUN",
-          "home": false
-        }
-      ],
-      "owned_by": [],
-      "fdr_avg": 2.8,
-      "status": "d",
-      "news": "Unspecified injury - 25% chance of playing",
-      "chance": 25
-    },
-    {
       "id": 295,
       "name": "McBurnie",
       "team": "HUL",
@@ -9636,6 +9567,75 @@
       "fdr_avg": 3.4
     },
     {
+      "id": 123,
+      "name": "Hinshelwood",
+      "team": "BHA",
+      "pos": "MID",
+      "price": 6,
+      "ownership": 2.1,
+      "points": 16,
+      "form": "8.0",
+      "fixtures": [
+        {
+          "gw": 3,
+          "opp": "LEE",
+          "home": true,
+          "fdr": 2
+        },
+        {
+          "gw": 4,
+          "opp": "COV",
+          "home": false,
+          "fdr": 2
+        },
+        {
+          "gw": 5,
+          "opp": "ARS",
+          "home": true,
+          "fdr": 4
+        },
+        {
+          "gw": 6,
+          "opp": "SUN",
+          "home": false,
+          "fdr": 3
+        },
+        {
+          "gw": 7,
+          "opp": "CRY",
+          "home": true,
+          "fdr": 3
+        }
+      ],
+      "recent": [
+        {
+          "gw": 1,
+          "date": "2026-08-23",
+          "comp": "PL",
+          "opp": "AVL",
+          "home": true,
+          "gf": 4,
+          "ga": 0,
+          "result": "W"
+        }
+      ],
+      "other_apps": [],
+      "other_next": [
+        {
+          "date": "2026-09-16",
+          "kickoff": "2026-09-16T19:00:00+00:00",
+          "comp": "EFL",
+          "opp": "MUN",
+          "home": false
+        }
+      ],
+      "owned_by": [],
+      "fdr_avg": 2.8,
+      "status": "d",
+      "news": "Unspecified injury - 25% chance of playing",
+      "chance": 25
+    },
+    {
       "id": 152,
       "name": "Palestra",
       "team": "CHE",
@@ -9789,78 +9789,12 @@
       "fdr_avg": 3.2
     },
     {
-      "id": 371,
-      "name": "Gravenberch",
-      "team": "LIV",
-      "pos": "MID",
-      "price": 6,
-      "ownership": 2,
-      "points": 5,
-      "form": "2.5",
-      "fixtures": [
-        {
-          "gw": 3,
-          "opp": "IPS",
-          "home": false,
-          "fdr": 2
-        },
-        {
-          "gw": 4,
-          "opp": "FUL",
-          "home": true,
-          "fdr": 2
-        },
-        {
-          "gw": 5,
-          "opp": "BOU",
-          "home": false,
-          "fdr": 3
-        },
-        {
-          "gw": 6,
-          "opp": "MCI",
-          "home": true,
-          "fdr": 4
-        },
-        {
-          "gw": 7,
-          "opp": "BRE",
-          "home": false,
-          "fdr": 3
-        }
-      ],
-      "recent": [
-        {
-          "gw": 1,
-          "date": "2026-08-23",
-          "comp": "PL",
-          "opp": "NEW",
-          "home": false,
-          "gf": 2,
-          "ga": 2,
-          "result": "D"
-        }
-      ],
-      "other_apps": [],
-      "other_next": [
-        {
-          "date": "2026-09-16",
-          "kickoff": "2026-09-16T19:00:00+00:00",
-          "comp": "EFL",
-          "opp": "TOT",
-          "home": true
-        }
-      ],
-      "owned_by": [],
-      "fdr_avg": 2.8
-    },
-    {
       "id": 316,
       "name": "Emersonn",
       "team": "IPS",
       "pos": "FWD",
       "price": 5.5,
-      "ownership": 1.9,
+      "ownership": 2,
       "points": 9,
       "form": "4.5",
       "fixtures": [
@@ -9928,6 +9862,72 @@
       ],
       "owned_by": [],
       "fdr_avg": 3.4
+    },
+    {
+      "id": 371,
+      "name": "Gravenberch",
+      "team": "LIV",
+      "pos": "MID",
+      "price": 6,
+      "ownership": 2,
+      "points": 5,
+      "form": "2.5",
+      "fixtures": [
+        {
+          "gw": 3,
+          "opp": "IPS",
+          "home": false,
+          "fdr": 2
+        },
+        {
+          "gw": 4,
+          "opp": "FUL",
+          "home": true,
+          "fdr": 2
+        },
+        {
+          "gw": 5,
+          "opp": "BOU",
+          "home": false,
+          "fdr": 3
+        },
+        {
+          "gw": 6,
+          "opp": "MCI",
+          "home": true,
+          "fdr": 4
+        },
+        {
+          "gw": 7,
+          "opp": "BRE",
+          "home": false,
+          "fdr": 3
+        }
+      ],
+      "recent": [
+        {
+          "gw": 1,
+          "date": "2026-08-23",
+          "comp": "PL",
+          "opp": "NEW",
+          "home": false,
+          "gf": 2,
+          "ga": 2,
+          "result": "D"
+        }
+      ],
+      "other_apps": [],
+      "other_next": [
+        {
+          "date": "2026-09-16",
+          "kickoff": "2026-09-16T19:00:00+00:00",
+          "comp": "EFL",
+          "opp": "TOT",
+          "home": true
+        }
+      ],
+      "owned_by": [],
+      "fdr_avg": 2.8
     },
     {
       "id": 555,
