@@ -14,6 +14,7 @@ const EPL = JSON.parse(readFileSync(new URL("./fixtures/espn-eng1.json", import.
 
 /* The 20 clubs, exactly as the deployed table.json publishes them. */
 const TABLE = {
+  timezone: "Asia/Kolkata",
   rows: [
     "Brighton & Hove Albion", "Arsenal", "Brentford", "Everton", "Hull City",
     "Chelsea", "Ipswich Town", "Manchester City", "Leeds United", "Liverpool",
@@ -67,6 +68,7 @@ ok("every match has both sides named", body.days.every((d) =>
 ok("kickoffs sort within a day", body.days.every((d) =>
   d.matches.every((m, i, a) => i === 0 || a[i - 1].kickoff <= m.kickoff)));
 check("no competition errored", body.errors, []);
+check("the table timezone is carried into the response", body.timezone, "Asia/Kolkata");
 
 const all = body.days.flatMap((d) => d.matches);
 ok("a finished match carries a score",
@@ -126,6 +128,19 @@ install({ comps: { "eng.1": EPL, "uefa.champions": "fail" } });
 ({ body } = await call());
 ok("one dead competition does not take the others with it", body.days.length > 0);
 check("and it is named in errors", body.errors.length, 1);
+
+// ---- local day boundaries --------------------------------------------------
+install({ comps: { "eng.1": { events: [
+  { id: "midnight", date: "2026-08-28T19:00:00Z",
+    status: { type: { name: "STATUS_FINAL" } },
+    competitions: [{ competitors: [
+      { homeAway: "home", score: "1", team: { id: "H", displayName: "Chelsea" } },
+      { homeAway: "away", score: "0", team: { id: "A", displayName: "Arsenal" } }], details: [] }] },
+] } } });
+({ body } = await call());
+check("a 19:00Z fixture is grouped on its Asia/Kolkata calendar day",
+  body.days.find((d) => d.matches.some((m) => m.id === "midnight"))?.date,
+  "2026-08-29");
 
 // ---- an own goal is credited to the side it helped -------------------------
 install({ comps: { "eng.1": { events: [

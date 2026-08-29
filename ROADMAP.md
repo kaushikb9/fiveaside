@@ -118,7 +118,7 @@ replaced wholesale each run, except `log`, which is append-and-settle.
   long-game guard, chips ordered by current rank, the league table, **the
   pitch** (club kits, captain armband, gameweek navigation back to settled
   weeks and forward to fixtures), the weekly read, per-person watchlists with
-  KV-backed stars, the roast slot, what the crowd missed, the chip clock, and
+  KV-backed stars, the roast slot, the chip clock, and
   **live scores on demand**.
 - **the locker room** — fixture runs, then **the file** (gated at >2%
   ownership, never dropping anyone the five own, with the injury room folded
@@ -127,7 +127,7 @@ replaced wholesale each run, except `log`, which is append-and-settle.
 - **The player card** — the game's flag and the editor's notes under "What we
   know", last five results, next five fixtures, ownership across the five, and
   the verdict with its trigger.
-- **Both brains have run**: five weekly reads, 36 verdicts, today's league page.
+- **Both brains have run**: five weekly reads, 59 verdicts, today's league page.
 - **`brain/test/smoke.sh <url>`** — 45 checks across every room, both themes,
   every control, the card seam, the door and phone width. Green.
 
@@ -178,17 +178,12 @@ differently), a competition label per result, and a decision about whether
 1. **`gaffers.json` stores only the current gameweek's picks**, so the pitch's
    back-step pairs this week's squad with that week's points, and says so.
    Fix: store picks per gameweek from `entry/{id}/event/{gw}/picks/`.
-2. **Only 36 verdicts against 609 players.** The prompt asks for 25–50; check
-   each carries a real trigger, not "if he plays badly".
-3. **The roast has never been written** — correctly, because the rule is
-   post-gameweek only and GW1 was unfinished. It should appear after the next
-   settled gameweek.
-4. **The fan voice is gone.** Reddit went fully login-walled on 2026-08-24, so
+2. **The fan voice is gone.** Reddit went fully login-walled on 2026-08-24, so
    "what fans are arguing about" is unsourced. An editorial problem, not
    plumbing — see `brain/sources.md` §2 for what has not been tried.
-5. **The Bus** — the set-and-forget benchmark from the original dossier — was
+3. **The Bus** — the set-and-forget benchmark from the original dossier — was
    never rebuilt after the mockup rounds. Ask before building it.
-6. **Retire `touchline-chelsea`** (its own repo, weekly, backup only) once
+4. **Retire `touchline-chelsea`** (its own repo, weekly, backup only) once
    these rooms have run for a week.
 
 ### 4d. Deferred by decision — do not build unless asked
@@ -205,8 +200,8 @@ From KB's comment exports in `docs/superpowers/comments/`:
 - **Front-door order**: touchline → the gaffers → the locker room.
 - **Theme**: Dugout light, Floodlit dark — one design in two lights, Auto by
   default. Teamsheet archived.
-- **Dropped**: the wagers panel, the captain poll (replaced by *what the crowd
-  missed*, computed), the commons divider, the race, the single "call".
+- **Dropped**: the wagers panel, the captain poll, the commons divider, the
+  race, the single "call", and the crowd-missed panel.
 - **The file** opens on *nailed*, gated at >2%, recalibratable. Revised
   2026-08-27: the *ours* chip is gone entirely — who the five own is what the
   gaffers room is for — and the file opens on the shortest list we are willing

@@ -533,7 +533,7 @@
   }
 
   function watchRow(w) {
-    const r = pool().find((q) => q.name === w.name);
+    const r = pool().find((q) => q.id === w.id);
     const canEdit = r && who === FA.myNick();
     return '<div class="row"><div class="row-main"><div class="row-name">' +
       (r ? '<a class="plink" data-pid="' + r.id + '" data-player="' + esc(w.name) + '">' +
@@ -558,15 +558,15 @@
     const me = person();
     const stars = (FA.stars.data[who] || []);
     const starred = stars.map((id) => byId[id]).filter(Boolean);
-    const starredNames = new Set(starred.map((p) => p.name));
+    const starredIds = new Set(starred.map((p) => p.id));
 
     // Ted's picks for this gaffer and the house list are the same kind
-    // of thing — a recommendation — so they are one list, deduped by name.
+    // of thing — a recommendation — so they are one list, deduped by id.
     const suggested = [];
     const seen = new Set();
     ((me && me.watchlist) || []).concat((F && F.watchlist) || []).forEach((w) => {
-      if (seen.has(w.name) || starredNames.has(w.name)) return;
-      seen.add(w.name);
+      if (seen.has(w.id) || starredIds.has(w.id)) return;
+      seen.add(w.id);
       suggested.push(w);
     });
 
@@ -752,8 +752,7 @@
     // class changes so a note sits inside the lineup panel rather than in a
     // bare card.
     const say = {
-      out: '<p class="door-p">Enter the code KB sent you &mdash; once per device, then it ' +
-        "remembers.</p>",
+      out: '<p class="door-p">Use the code KB sent you. This device will remember you.</p>',
       denied: '<p class="door-note" style="color:var(--hot)">That code is not one of ours. ' +
         "Check for a typo, or ask KB for a new one.</p>",
       throttled: '<p class="door-note" style="color:var(--hot)">Too many tries from here. ' +
@@ -784,10 +783,9 @@
     return '<section class="section"><div class="section-head"><h2>the gaffers</h2>' +
       '<span class="mute" style="font-size:13px">what we did about it</span></div>' +
       '<div class="door">' +
-      '<div class="door-k">Five keys &middot; members only</div>' +
+      '<div class="door-k">Private room &middot; for the five</div>' +
       "<h3>This room belongs to the five.</h3>" +
-      '<p class="door-p">Squads, weekly reads, the roast and the mini-league. It is not ' +
-      "published &mdash; it is fetched, and only for one of these five.</p>" +
+      '<p class="door-p">Five squads, weekly reads, the roast and the mini-league live behind this door.</p>' +
       '<div class="lineup">' + lineup + "</div>" +
       say +
       (form ? '<div class="door-cta">' + form + "</div>" : "") +

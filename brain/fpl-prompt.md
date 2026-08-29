@@ -61,11 +61,10 @@ Write accordingly:
       "nick": "Xabi",
       "week": {
         "worked": "one or two sentences",
-        "didnt": "one or two sentences",
-        "next": "one or two sentences"
+        "didnt": "one or two sentences"
       },
       "watchlist": [
-        { "name": "Palmer", "team": "CHE", "pos": "MID", "price": 9.5,
+        { "id": 154, "name": "Palmer", "team": "CHE", "pos": "MID", "price": 9.5,
           "ownership": "10.6%", "status": "hold", "note": "one honest sentence" }
       ]
     }
@@ -114,8 +113,9 @@ purpose: five people, five different weeks.
   nobody else owns. Read those files before writing; do not guess a squad.
 - Somebody's week will have gone fine and be boring. Say so plainly. Do not
   manufacture a crisis to fill three boxes.
-- **`watchlist`** is per person and short (0–3). The house `watchlist` at the
-  top level is for players the room as a whole is tracking.
+- **`watchlist`** is per person and short (0–3). Each item carries the exact
+  player `id` from `players.json`; names are not unique. The house `watchlist`
+  at the top level is for players the room as a whole is tracking.
 
 ### verdicts — the four words
 

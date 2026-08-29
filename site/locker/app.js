@@ -22,6 +22,7 @@
   let minOwn = 2;
   let filter = "nailed";
   let query = "";
+  let fileLimit = 60;
 
   // A threshold of 0 means EVERYONE, including the 130-odd players nobody owns
   // at all. Using `> 0` there quietly excluded them and made "anyone" a lie.
@@ -71,7 +72,7 @@
     const shown = list
       .sort((a, b) =>
         ((b.owned_by || []).length - (a.owned_by || []).length) || (b.ownership - a.ownership))
-      .slice(0, 60);
+      .slice(0, fileLimit);
 
     const rows = shown.map((p) => {
       const v = verdicts[p.id];
@@ -114,16 +115,22 @@
         '<input class="search" id="fq" placeholder="search name or club…" value="' + esc(query) + '">' +
       "</div>" +
       '<div class="filters" style="margin-bottom:15px">' +
-        '<span class="flabel">Owned by more than</span>' +
+        '<span class="flabel">Ownership over</span>' +
         THRESHOLDS.map((t) =>
           '<button class="fc" data-min="' + t + '" aria-pressed="' + (t === minOwn) + '">' +
           (t === 0 ? "anyone" : t + "%") + '<span class="faint"> &middot; ' + countAt(t) + "</span></button>").join("") +
       "</div>" +
       '<div class="scroll"><table class="sortable"><thead><tr><th>Verdict</th><th>Player</th>' +
-      '<th class="n">£</th><th class="n">Own</th><th class="n">Pts</th><th data-nosort>Next three</th>' +
+      '<th class="n">Price</th><th class="n">Owned</th><th class="n">Points</th><th data-nosort>Next 3</th>' +
       "</tr></thead><tbody>" + (rows || '<tr><td colspan="6" class="faint">Nothing matches.</td></tr>') +
-      "</tbody></table></div>" + FA.fdrKey +
-      '<p class="note" style="margin-top:8px">' + shown.length + " shown &middot; " +
+      "</tbody></table></div>" +
+      (list.length > shown.length
+        ? '<div class="tbl-more-wrap"><button class="tbl-more" data-file-more>Show next ' +
+          Math.min(60, list.length - shown.length) + "</button></div>"
+        : "") + FA.fdrKey +
+      '<p class="note" style="margin-top:8px">' +
+      (shown.length < list.length ? shown.length + " of " + list.length + " shown" : shown.length + " shown") +
+      " &middot; " +
       countAt(minOwn) + " in the file at this threshold, of " + P.players.length +
       // "all 0 the five own are in whatever their ownership" — ungrammatical at
       // any count, and it read as a bug when a deadline lock briefly made the
@@ -165,19 +172,18 @@
   function runsHTML() {
     if (!F || !F.ticker || !F.ticker.rows) return "";
     const rows = F.ticker.rows.slice().sort((a, b) => a.avg - b.avg);
-    const from = F.ticker.from_gw, to = from + F.ticker.gws - 1;
     const block = (title, sub, list, id) =>
       '<div class="panel"><h3>' + esc(title) + "</h3>" +
       '<p class="note">' + esc(sub) + "</p>" +
-      '<div class="scroll"><table class="sortable"><thead><tr><th>Club</th><th class="n">Avg</th>' +
-      '<th data-nosort>GW' + from + "&ndash;" + to + "</th></tr></thead><tbody>" +
+      '<div class="scroll"><table class="sortable"><thead><tr><th>Club</th><th class="n">Difficulty</th>' +
+      '<th data-nosort>Next six</th></tr></thead><tbody>' +
       list.map((r) =>
         "<tr><td><strong>" + esc(r.team) + '</strong></td><td class="n">' + r.avg.toFixed(2) + "</td>" +
         "<td>" + fdrStrip(r.fixtures) + "</td></tr>").join("") +
       "</tbody></table></div></div>";
     return '<div class="grid2">' +
-      block("Kindest runs", "Six gameweeks out, lowest average difficulty first.", rows.slice(0, 6)) +
-      block("Hardest runs", "Where not to buy, however good the last two weeks looked.", rows.slice(-6).reverse()) +
+      block("Kindest runs", "Next six gameweeks, easiest first.", rows.slice(0, 6)) +
+      block("Hardest runs", "Next six gameweeks, hardest first.", rows.slice(-6).reverse()) +
       "</div>";
   }
 
@@ -198,6 +204,7 @@
       b.onclick = () => {
         if (b.dataset.min !== undefined) minOwn = Number(b.dataset.min);
         else filter = b.dataset.f;
+        fileLimit = 60;
         render();
       };
     });
@@ -205,12 +212,17 @@
     if (fq) {
       fq.oninput = (e) => {
         query = e.target.value;
+        fileLimit = 60;
         const pos = e.target.selectionStart;
         render();
         const n = document.getElementById("fq");
         n.focus();
         n.setSelectionRange(pos, pos);
       };
+    }
+    const more = document.querySelector("[data-file-more]");
+    if (more) {
+      more.onclick = () => { fileLimit += 60; render(); };
     }
   }
 

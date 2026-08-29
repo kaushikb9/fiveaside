@@ -196,3 +196,24 @@ def test_team_form_keeps_only_the_last_five():
     form = facts_module._team_form(results)
     assert form["Chelsea"] == "WWWWW"
     assert len(form["Arsenal"]) == 5
+
+
+def test_current_season_form_does_not_reach_back_into_last_season():
+    last_season = _result(
+        "old", datetime(2026, 5, 24, 14, 0, tzinfo=UTC), CHELSEA, ARSENAL, 3, 0
+    )
+    current_season = _result(
+        "new", datetime(2026, 8, 15, 14, 0, tzinfo=UTC), CHELSEA, ARSENAL, 1, 0
+    )
+
+    facts = _bundle(
+        results=[last_season, current_season],
+        standings=[_standing(1, CHELSEA, 3), _standing(2, ARSENAL, 0)],
+    )
+
+    comp = facts["competitions"][0]
+    assert comp["table"][0]["form"] == "W"
+    assert facts["club_form"] == [
+        {"result": "W", "score": "1–0", "opponent": "Arsenal", "at_home": True,
+         "competition": "PL", "date": "2026-08-15", "opponent_crest": "https://crests.football-data.org/57.png"}
+    ]

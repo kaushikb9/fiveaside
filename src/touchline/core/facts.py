@@ -1,6 +1,6 @@
 """Pure assembly of the facts bundle the brain consumes. No I/O, no now()."""
 
-from datetime import UTC, datetime, timedelta
+from datetime import UTC, date, datetime, timedelta
 from zoneinfo import ZoneInfo
 
 from touchline.config import ClubConfig, TouchlineConfig
@@ -13,6 +13,27 @@ UPCOMING_LIMIT = 5
 NON_CLUB_ROW_CAP = 20
 FORM_CLUBS_LIMIT = 5
 FORM_LIMIT = 5
+
+
+def _season_start(today: date) -> date:
+    """Return the football season's 1 July boundary for a local date."""
+    return date(today.year if today.month >= 7 else today.year - 1, 7, 1)
+
+
+def _current_season_results(
+    results: list[Result], tz: ZoneInfo, season_start: date, today: date
+) -> list[Result]:
+    """Keep completed results in the current season and not beyond today.
+
+    The match feeds carry a rolling window, so an August run can still contain
+    May's last-season fixtures. Those are valid results but they are not form
+    beside a current-season league table.
+    """
+    return [
+        r
+        for r in results
+        if season_start <= _local(r.kickoff, tz).date() <= today
+    ]
 
 
 def _local(dt: datetime, tz: ZoneInfo) -> datetime:
@@ -150,6 +171,7 @@ def _focus_clubs(
     config: TouchlineConfig,
     tz: ZoneInfo,
     today,
+    season_start: date,
 ) -> list[dict]:
     """Per-club shape for the clubs the page always covers.
 
@@ -165,7 +187,7 @@ def _focus_clubs(
     results: list[Result] = []
     fixtures: list[Fixture] = []
     for _code, matches, standings in comp_data:
-        results.extend(matches.results)
+        results.extend(_current_season_results(matches.results, tz, season_start, today))
         fixtures.extend(matches.fixtures)
         for s in standings.standings:
             standings_by_name.setdefault(s.team.name.lower(), s)
@@ -240,6 +262,7 @@ def build_facts(
     """Assemble the JSON-ready facts bundle for `now`'s calendar day in the owner's timezone."""
     tz = ZoneInfo(config.timezone)
     today = _local(now, tz).date()
+    season_start = _season_start(today)
     yesterday = today - timedelta(days=1)
     club = config.club
 
@@ -248,7 +271,8 @@ def build_facts(
     all_results: list[Result] = []
 
     for code, matches, standings in comp_data:
-        all_results.extend(matches.results)
+        current_results = _current_season_results(matches.results, tz, season_start, today)
+        all_results.extend(current_results)
         club_row = next((s for s in standings.standings if _is_club(s.team, club)), None)
 
         competitions.append(
@@ -269,7 +293,7 @@ def build_facts(
                         if _local(f.kickoff, tz).date() == today
                     ]
                 ),
-                "table": _table_rows(standings.standings, _team_form(matches.results)),
+                "table": _table_rows(standings.standings, _team_form(current_results)),
                 "club_position": (
                     {"pos": club_row.position, "points": club_row.points, "played": club_row.played}
                     if club_row is not None
@@ -307,5 +331,5 @@ def build_facts(
         "competitions": competitions,
         "club_form": _club_form(all_results, club, tz),
         "club_upcoming": club_upcoming,
-        "focus": _focus_clubs(comp_data, config, tz, today),
+        "focus": _focus_clubs(comp_data, config, tz, today, season_start),
     }

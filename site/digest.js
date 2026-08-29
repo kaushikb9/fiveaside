@@ -105,8 +105,19 @@
   /* ---------- the week: the primary feed ----------
      Around the top and Elsewhere are secondary by design. A story that leads
      here does not reappear below. */
-  D.weekHTML = function (d) {
+  const FEED_PREVIEW_WORDS = 42;
+  const words = (text) => text.trim().split(/\s+/).filter(Boolean);
+  const preview = (text) => {
+    const all = words(text);
+    if (all.length <= FEED_PREVIEW_WORDS) return null;
+    const firstSentence = text.match(/^(.+?[.!?])(?:\s|$)/)?.[1];
+    if (firstSentence && words(firstSentence).length <= 60) return firstSentence;
+    return all.slice(0, FEED_PREVIEW_WORDS).join(" ") + "…";
+  };
+
+  D.weekHTML = function (d, opts) {
     if (!d.week || !d.week.length) return "";
+    const compact = !!(opts && opts.compact);
     /* Three chips and no more. A club chip per club mentioned that week made
        the bar as long as the feed and different every day, which is not a
        control so much as a second index. What it filters is the KIND of
@@ -115,15 +126,26 @@
     const bar = d.week.some((w) => w.tag)
       ? '<div class="filters" role="group" aria-label="Filter the week">' +
         '<button class="fc" data-filter="all" aria-pressed="true">All</button>' +
-        '<button class="fc" data-filter="PL" aria-pressed="false">League</button>' +
+        '<button class="fc" data-filter="Football" aria-pressed="false">Football</button>' +
         '<button class="fc" data-filter="FPL" aria-pressed="false">FPL</button>' +
         "</div>"
       : "";
-    const items = d.week.map((w) =>
-      '<li data-tag="' + esc(w.tag || "PL") + '" data-club="' + esc(w.club || "") + '">' +
-      '<span class="wtag ' + (w.tag === "FPL" ? "fpl" : "") + '">' + esc(w.tag || "PL") + "</span>" +
-      "<strong>" + esc(w.kicker) + "</strong> " + linkPlayers(w.text) +
-      (w.club ? '<span class="clubchip">' + esc(FA.club(w.club)) + "</span>" : "") + "</li>").join("");
+    const items = d.week.map((w) => {
+      // `PL` is the legacy name for the football feed. Keep accepting it in
+      // historical digests, but never expose it as if it meant Premier League:
+      // the current feed also contains European football.
+      const kind = w.tag === "FPL" ? "FPL" : "Football";
+      const short = compact ? preview(w.text) : null;
+      const body = short
+        ? linkPlayers(short) +
+          '<details class="feed-more"><summary>read full note</summary><div class="feed-full">' +
+          linkPlayers(w.text) + "</div></details>"
+        : linkPlayers(w.text);
+      return '<li data-tag="' + kind + '" data-club="' + esc(w.club || "") + '">' +
+        '<span class="wtag ' + (kind === "FPL" ? "fpl" : "") + '">' + esc(kind) + "</span>" +
+        "<strong>" + esc(w.kicker) + "</strong> " + body +
+        (w.club ? '<span class="clubchip">' + esc(FA.club(w.club)) + "</span>" : "") + "</li>";
+    }).join("");
     return '<div class="panel"><h3>This week</h3>' +
       bar + '<ul class="feed">' + items + "</ul></div>";
   };

@@ -40,10 +40,25 @@
      announces itself without being opened. */
 
   const DAY_FMT = { weekday: "short", day: "numeric", month: "short" };
-  const dayLabel = (ymd) => {
-    // Noon UTC, so a timezone shift can never move the label to the day before.
+  const dateInZone = (date, timeZone) => {
+    try {
+      const parts = new Intl.DateTimeFormat("en-CA", {
+        timeZone, year: "numeric", month: "2-digit", day: "2-digit",
+      }).formatToParts(date);
+      const values = Object.fromEntries(parts.map((p) => [p.type, p.value]));
+      return values.year + "-" + values.month + "-" + values.day;
+    } catch {
+      return date.toISOString().slice(0, 10);
+    }
+  };
+  const dayLabel = (ymd, timeZone) => {
     const d = new Date(ymd + "T12:00:00Z");
-    return isNaN(d.getTime()) ? ymd : d.toLocaleDateString("en-GB", DAY_FMT).toUpperCase();
+    if (isNaN(d.getTime())) return ymd;
+    try {
+      return d.toLocaleDateString("en-GB", { ...DAY_FMT, timeZone }).toUpperCase();
+    } catch {
+      return d.toLocaleDateString("en-GB", DAY_FMT).toUpperCase();
+    }
   };
   const clock = (iso) => {
     const d = new Date(iso);
@@ -103,7 +118,7 @@
      anything, OPEN_DAYS holds what THEY chose and the sixty-second live
      repaint honours it rather than springing the list back to the default. */
   function defaultOpenDays(m) {
-    const today = new Date().toISOString().slice(0, 10);
+    const today = dateInZone(new Date(), m.timezone || "UTC");
     const open = new Set();
     let lastPlayed = null;
     (m.days || []).forEach((d) => {
@@ -125,13 +140,13 @@
   // paint() on purpose — see defaultOpenDays.
   let OPEN_DAYS = null;
 
-  function dayHeadHTML(d, open) {
+  function dayHeadHTML(d, open, timeZone) {
     const ms = d.matches || [];
     const comps = ms.reduce((a, x) => (a.indexOf(x.comp) === -1 ? a.concat(x.comp) : a), []);
     const live = ms.some((x) => x.status === "LIVE");
     return '<button class="fx-dayhead" data-day="' + esc(d.date) + '" aria-expanded="' + String(open) + '">' +
       '<span class="fx-caret" aria-hidden="true">&#9654;</span>' +
-      '<span class="fx-dayname">' + esc(dayLabel(d.date)) + "</span>" +
+      '<span class="fx-dayname">' + esc(dayLabel(d.date, timeZone)) + "</span>" +
       '<span class="fx-daycount">' + ms.length + (ms.length === 1 ? " match" : " matches") + "</span>" +
       '<span class="fx-daycomps">' +
       comps.map((c) => '<span class="fx-comp' + (live ? " live" : "") + '">' + esc(c) + "</span>").join("") +
@@ -147,7 +162,7 @@
         (m.errors && m.errors.length ? " (" + esc(m.errors.join(", ")) + ")" : "") + ".</p>";
     }
     if (!OPEN_DAYS) OPEN_DAYS = defaultOpenDays(m);
-    const today = new Date().toISOString().slice(0, 10);
+    const today = dateInZone(new Date(), m.timezone || "UTC");
     const allOpen = m.days.every((d) => OPEN_DAYS.has(d.date));
     let out = '<div class="fx-tools"><button class="fx-more" data-days="all">' +
       (allOpen ? "Collapse all" : "Expand all") + "</button></div>" +
@@ -156,7 +171,7 @@
     m.days.forEach((d) => {
       if (!ruled && d.date >= today) { out += '<div class="fx-today"><span>today</span></div>'; ruled = true; }
       const open = OPEN_DAYS.has(d.date);
-      out += dayHeadHTML(d, open) +
+      out += dayHeadHTML(d, open, m.timezone || "UTC") +
         '<div class="fx-daybody" data-body="' + esc(d.date) + '"' + (open ? "" : " hidden") + ">" +
         (d.matches || []).map(matchHTML).join("") + "</div>";
     });
@@ -316,7 +331,7 @@
       // he wrote, rather than a panel about himself.
       coachLineHTML() +
       leagueHTML(latest, gw, m, active) +
-      D.weekHTML(latest) + D.aroundHTML(latest, gw) +
+      D.weekHTML(latest, { compact: true }) + D.aroundHTML(latest, gw) +
       D.rumoursHTML(latest) + D.linksHTML(latest) +
       (entries.length > 1
         ? '<p class="note" style="margin-top:16px">' + (entries.length - 1) +

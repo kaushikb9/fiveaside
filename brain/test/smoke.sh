@@ -69,7 +69,7 @@ check "FPL filter narrows the feed" "true" "$(js "${AFTER} <= ${BEFORE}")"
 # The week filter is All / League / FPL and nothing else. A club chip per club
 # mentioned made the bar as long as the feed and different every day.
 check "no club chips in the week filter" "0" "$(js 'document.querySelectorAll(".filters:not(.tabs) .fc[data-filter^=club]").length')"
-check "three chips, and they are the tags" "All League FPL" "$(js 'Array.from(document.querySelectorAll(".filters:not(.tabs) .fc[data-filter]")).map(function(b){return b.textContent.trim()}).join(" ")')"
+check "three chips, and they are the tags" "All Football FPL" "$(js 'Array.from(document.querySelectorAll(".filters:not(.tabs) .fc[data-filter]")).map(function(b){return b.textContent.trim()}).join(" ")')"
 # Neutral: the table tells you who is top before it tells you who it is for.
 check "no club is bolded in the table" "0" "$(js 'document.querySelectorAll("#league tr.focus").length')"
 check "no allegiance paragraph"        "true" "$(js '!/clubs this page follows/i.test(document.getElementById("league").textContent)')"

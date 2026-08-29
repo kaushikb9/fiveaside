@@ -37,6 +37,7 @@ if (!league) {
       {
         generated_at: new Date().toISOString(),
         date: bundle.date ?? null,
+        timezone: bundle.timezone ?? null,
         competition: league.name ?? "League table",
         // Verbatim from the bundle, in source order. No trimming: the reason
         // this file exists is that trimming is what went wrong.

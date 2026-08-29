@@ -60,8 +60,8 @@ for (const [i, d] of data.digests.entries()) {
     if (!isNonEmptyStr(item?.kicker) || !isNonEmptyStr(item?.text))
       fail(`${where}: every 'week' item needs non-empty kicker and text`);
     // The feed is filterable, so items say which world they belong to.
-    if (item.tag !== undefined && !["PL", "FPL"].includes(item.tag))
-      fail(`${where}: week item 'tag' must be "PL" or "FPL" when present`);
+    if (item.tag !== undefined && !["PL", "Football", "FPL"].includes(item.tag))
+      fail(`${where}: week item 'tag' must be "Football" or "FPL" when present`);
     if (item.club !== undefined && !isNonEmptyStr(item.club))
       fail(`${where}: week item 'club' must be a non-empty string when present`);
   }

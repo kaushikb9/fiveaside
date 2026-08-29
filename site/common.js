@@ -204,12 +204,12 @@
     }).join("") + "</span>";
   };
 
-  FA.fdrKey = '<div class="fdr-key">' +
-    '<span><span class="sw" style="background:var(--fdr1)"></span>1 kind</span>' +
-    '<span><span class="sw" style="background:var(--fdr2)"></span>2</span>' +
-    '<span><span class="sw" style="background:var(--fdr3)"></span>3</span>' +
-    '<span><span class="sw" style="background:var(--fdr4)"></span>4</span>' +
-    '<span><span class="sw" style="background:var(--fdr5)"></span>5 brutal</span></div>';
+  FA.fdrKey = '<div class="fdr-key" aria-label="Fixture difficulty: 1 easiest, 5 hardest">' +
+    '<span><span class="sw" style="background:var(--fdr1)"></span>1 easiest</span>' +
+    '<span><span class="sw" style="background:var(--fdr2)"></span>2 easy</span>' +
+    '<span><span class="sw" style="background:var(--fdr3)"></span>3 mixed</span>' +
+    '<span><span class="sw" style="background:var(--fdr4)"></span>4 hard</span>' +
+    '<span><span class="sw" style="background:var(--fdr5)"></span>5 hardest</span></div>';
 
   /* ---------------- club kits ----------------
      [body, sleeve, detail]. Drawn, never fetched: no external images, works
@@ -304,7 +304,8 @@
       el.className = "backdrop";
       el.id = "fa-backdrop";
       el.hidden = true;
-      el.innerHTML = '<div class="pcard" id="fa-pcard" role="dialog" aria-modal="true" aria-label="Player file"></div>';
+      el.innerHTML = '<div class="pcard" id="fa-pcard" role="dialog" aria-modal="true" ' +
+        'aria-labelledby="fa-pcard-title"></div>';
       document.body.appendChild(el);
     }
 
@@ -316,30 +317,53 @@
     FA.starsReady();
     FA.sessionReady();
 
-    document.addEventListener("click", (e) => {
-      const star = e.target.closest("[data-cardstar]");
-      if (star) {
-        e.preventDefault();
-        const id = Number(star.dataset.cardstar);
-        star.disabled = true;
-        FA.toggleStar(id).then((on) => {
-          star.disabled = false;
-          if (on === null) return; // signed out between render and click
-          const p = CARD_INDEX.byId ? CARD_INDEX.byId[id] : null;
-          if (p) repaintStar(p);
-        });
-        return;
-      }
-      const link = e.target.closest("[data-player],[data-pid]");
-      if (link) {
-        e.preventDefault();
-        // An id if the emitter had one, the name only as a last resort.
-        FA.openCard(link.dataset.pid || link.dataset.player);
-        return;
-      }
-      if (e.target.closest("[data-fa-close]") || e.target.id === "fa-backdrop") FA.closeCard();
-    });
-    document.addEventListener("keydown", (e) => { if (e.key === "Escape") FA.closeCard(); });
+    if (document.body.dataset.faCardsWired !== "true") {
+      document.body.dataset.faCardsWired = "true";
+      document.addEventListener("click", (e) => {
+        const star = e.target.closest("[data-cardstar]");
+        if (star) {
+          e.preventDefault();
+          const id = Number(star.dataset.cardstar);
+          star.disabled = true;
+          FA.toggleStar(id).then((on) => {
+            star.disabled = false;
+            if (on === null) return; // signed out between render and click
+            const p = CARD_INDEX.byId ? CARD_INDEX.byId[id] : null;
+            if (p) repaintStar(p);
+          });
+          return;
+        }
+        const link = e.target.closest("[data-player],[data-pid]");
+        if (link) {
+          e.preventDefault();
+          // An id if the emitter had one, the name only as a last resort.
+          FA.openCard(link.dataset.pid || link.dataset.player);
+          return;
+        }
+        if (e.target.closest("[data-fa-close]") || e.target.id === "fa-backdrop") FA.closeCard();
+      });
+      document.addEventListener("keydown", (e) => {
+        const backdrop = document.getElementById("fa-backdrop");
+        if (!backdrop || backdrop.hidden) return;
+        if (e.key === "Escape") {
+          FA.closeCard();
+          return;
+        }
+        if (e.key !== "Tab") return;
+        const focusable = [...backdrop.querySelectorAll(
+          "button:not([disabled]), a[href], input, select, textarea, [tabindex]:not([tabindex='-1'])"
+        )];
+        if (!focusable.length) return;
+        const first = focusable[0], last = focusable[focusable.length - 1];
+        if (e.shiftKey && document.activeElement === first) {
+          e.preventDefault();
+          last.focus();
+        } else if (!e.shiftKey && document.activeElement === last) {
+          e.preventDefault();
+          first.focus();
+        }
+      });
+    }
   };
 
   /* Wrap known player names in prose so they open the card. Long names first,
@@ -445,10 +469,15 @@
     return '<div class="sect coach">' + face + esc(FA.COACH) + "\u2019s verdict</div>";
   }
 
+  let cardReturnFocus = null;
+
   FA.openCard = function (ref) {
     if (!CARD_INDEX) return;
     const p = CARD_INDEX.byId[ref] || CARD_INDEX.byName[ref];
     if (!p) return;
+    if (!cardReturnFocus && document.activeElement instanceof HTMLElement) {
+      cardReturnFocus = document.activeElement;
+    }
     const v = CARD_INDEX.verdicts[p.id];
     const me = CARD_INDEX.me;
     // A cup start between two league games is the thing that gets a player
@@ -470,21 +499,22 @@
 
     document.getElementById("fa-pcard").innerHTML =
       '<button class="close" data-fa-close>close</button>' +
-      "<h3>" + esc(p.name) + " " + (v ? FA.vdChip(v) : "") + mwPill + "</h3>" +
+      '<h3 id="fa-pcard-title">' + esc(p.name) + " " + (v ? FA.vdChip(v) : "") + mwPill + "</h3>" +
       '<div class="meta">' + esc(p.pos) + " &middot; " + esc(p.team) + " &middot; &pound;" +
         p.price.toFixed(1) + "m" + (p.penalties ? ' &middot; <span class="pill">penalties</span>' : "") + "</div>" +
 
       '<div class="stats">' +
         '<div class="stat"><b>' + p.points + "</b><span>points</span></div>" +
         '<div class="stat"><b>' + p.ownership + "%</b><span>owned</span></div>" +
-        '<div class="stat"><b>' + esc(p.form) + "</b><span>form</span></div>" +
-        '<div class="stat"><b>' + (p.fdr_avg == null ? "&mdash;" : p.fdr_avg) + "</b><span>avg fdr</span></div>" +
+        '<div class="stat"><b>' + esc(p.form) + "</b><span>recent PPG</span></div>" +
+        '<div class="stat"><b>' + (p.fdr_avg == null ? "&mdash;" : p.fdr_avg) + "</b><span>avg difficulty</span></div>" +
       "</div>" +
       newsHTML(p) +
-      '<div class="sect">Last five</div>' + FA.formRun(p.recent) +
+      '<div class="sect">' + ((p.recent || []).length === 5 ? "Last five league matches" : "Recent league matches") +
+        "</div>" + FA.formRun(p.recent) +
       '<div class="sect">Next five</div>' + FA.fdrStrip(p.fixtures) +
       FA.midweekHTML(p) +
-      '<div class="sect">Owned in the five</div><div class="ownfaces">' + owners + "</div>" +
+      '<div class="sect">Who owns him</div><div class="ownfaces">' + owners + "</div>" +
       '<div id="fa-star" data-for="' + p.id + '">' + starButtonHTML(p) + "</div>" +
       (v
         ? coachSect() + '<p class="why">' + esc(v.why) + "</p>" +
@@ -492,6 +522,8 @@
         : coachSect() + '<p class="why faint">No verdict written yet &mdash; evidence only.</p>');
 
     document.getElementById("fa-backdrop").hidden = false;
+    document.body.classList.add("card-open");
+    document.querySelector("#fa-pcard [data-fa-close]")?.focus();
     // Both facts the star needs travel over the network, and a card can open
     // before either lands. Paint again when they do rather than hold the
     // whole card back on a fetch.
@@ -501,6 +533,9 @@
   FA.closeCard = function () {
     const b = document.getElementById("fa-backdrop");
     if (b) b.hidden = true;
+    document.body.classList.remove("card-open");
+    if (cardReturnFocus && typeof cardReturnFocus.focus === "function") cardReturnFocus.focus();
+    cardReturnFocus = null;
   };
 
   /* ---------------- sortable tables ----------------

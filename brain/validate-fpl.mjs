@@ -88,6 +88,7 @@ if (data.generated_at !== undefined && !isStr(data.generated_at)) {
 // honest: one shared watchlist rendered under whoever was selected implied
 // five people had made five sets of decisions when only one had.
 function checkWatchItem(where, w) {
+  if (!Number.isInteger(w?.id) || w.id < 1) fail(`${where}.id must be a positive player id`);
   for (const k of ["name", "team", "pos", "status", "note"]) {
     if (!isStr(w?.[k])) fail(`${where}.${k} must be a non-empty string`);
   }
@@ -116,8 +117,8 @@ if (data.people !== undefined) {
       for (const k of ["worked", "didnt"]) {
         if (!isStr(p.week[k])) fail(`${where}.week.${k} must be a non-empty string`);
       }
-      if (p.week.next !== undefined && !isStr(p.week.next))
-        fail(`${where}.week.next must be a non-empty string when present`);
+      if (p.week.next !== undefined)
+        fail(`${where}.week.next is retired — decisions belong in 'big'`);
     }
 
     // The Big Decision. One or two calls, and short, for the same reason the

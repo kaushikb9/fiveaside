@@ -83,7 +83,7 @@ Schema:
   },
   "headline": "one line that captures the day",
   "week": [
-    { "kicker": "Two-nil to start.", "text": "One or two sentences of what happened and why it matters." }
+    { "tag": "Football", "kicker": "Two-nil to start.", "text": "One or two sentences of what happened and why it matters." }
   ],
   "today": "prose: what's on and why it matters, with an honest take",
   "wider": [
@@ -217,13 +217,15 @@ Rules:
   or run short — the moment its remaining items would just retell the day's
   news in a different shape. Three sections with distinct material beat
   five that echo each other.
-- `week` (REQUIRED, 5–8 items): the league's last ~7 days as one feed —
+- `week` (REQUIRED, 3–5 items): the league's last ~7 days as one feed —
   results, transfers, injuries, managers, whatever actually mattered. Kicker
-  ≤ 6 punchy words ending with a period; text 1–2 sentences.
-  - Each item carries a `tag`: **`"PL"`** for football, **`"FPL"`** for items
-    that matter mainly to fantasy managers (a price rise, a returning starter,
-    a fixture swing). Roughly one in three should be FPL — the readers play,
-    but they are football fans first.
+  ≤ 6 punchy words ending with a period; text 1–2 sentences and preferably
+  under 55 words. Write fewer items when the week is quiet.
+  - Each item carries a `tag`: **`"Football"`** for football stories, **`"FPL"`**
+    for items that matter mainly to fantasy managers (a price rise, a returning
+    starter, a fixture swing). `"PL"` is accepted only for legacy entries.
+    Roughly one in three should be FPL — the readers play, but they are football
+    fans first.
   - Each item may carry a `club` (the club it is about, matching a table
     `team` name) — the page uses it to filter. Omit it for league-wide items.
   - **Do not privilege one club.** If three of five items are about the same

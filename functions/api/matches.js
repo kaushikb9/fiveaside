@@ -12,7 +12,7 @@
    forward, every competition a PL club can be in, grouped by day.
 
    GET /api/matches
-     -> { updated, window: {from, to}, days: [DAY], errors: [string] }
+     -> { updated, timezone, window: {from, to}, days: [DAY], errors: [string] }
         DAY   = { date: "2026-08-23", matches: [MATCH] }
         MATCH = { id, comp, comp_name, kickoff, status, minute,
                   home: SIDE, away: SIDE, scorers: [GOAL] }
@@ -52,6 +52,32 @@ const DONE = new Set([
 
 const ymd = (d) => `${d.getUTCFullYear()}${String(d.getUTCMonth() + 1).padStart(2, "0")}${String(d.getUTCDate()).padStart(2, "0")}`;
 const iso = (d) => d.toISOString().slice(0, 10);
+
+function safeTimeZone(value) {
+  if (typeof value !== "string" || !value) return "UTC";
+  try {
+    new Intl.DateTimeFormat("en-US", { timeZone: value }).format();
+    return value;
+  } catch {
+    return "UTC";
+  }
+}
+
+function dateInZone(date, timeZone) {
+  try {
+    const parts = new Intl.DateTimeFormat("en-CA", {
+      timeZone,
+      year: "numeric",
+      month: "2-digit",
+      day: "2-digit",
+    }).formatToParts(date);
+    const values = Object.fromEntries(parts.map((p) => [p.type, p.value]));
+    return `${values.year}-${values.month}-${values.day}`;
+  } catch {
+    // A bad or unavailable timezone must not take the fixture tab down.
+    return iso(date);
+  }
+}
 
 /* ESPN's bot rules are the wrong way round, and it cost a deploy to find out.
    Measured against the live API on 2026-08-27:
@@ -159,9 +185,12 @@ async function premierLeagueClubs(request) {
     if (!res.ok) throw new Error(String(res.status));
     const t = await res.json();
     const names = (t.rows || []).map((r) => r.team).filter(Boolean);
-    if (names.length) return new Set(names.map((n) => n.toLowerCase()));
+    return {
+      clubs: names.length ? new Set(names.map((n) => n.toLowerCase())) : null,
+      timeZone: safeTimeZone(t.timezone),
+    };
   } catch { /* fall through */ }
-  return null;
+  return { clubs: null, timeZone: "UTC" };
 }
 
 export async function onRequestGet({ request }) {
@@ -170,7 +199,8 @@ export async function onRequestGet({ request }) {
   const to = new Date(now.getTime() + DAYS_FORWARD * 864e5);
   const window = `${ymd(from)}-${ymd(to)}`;
 
-  const clubs = await premierLeagueClubs(request);
+  const league = await premierLeagueClubs(request);
+  const { clubs, timeZone } = league;
   const errors = [];
 
   const pulls = await Promise.all(
@@ -196,10 +226,12 @@ export async function onRequestGet({ request }) {
 
   const matches = pulls.flat().filter((m) => m.kickoff && isPL(m));
 
-  // Grouped by local date, days ascending, matches within a day by kickoff.
+  // Grouped by the configured local date, days ascending, matches within a day
+  // by kickoff. ESPN's timestamps are UTC; using toISOString() here would put
+  // a late evening fixture on the previous local day in Asia/Kolkata.
   const byDay = new Map();
   for (const m of matches) {
-    const key = iso(new Date(m.kickoff));
+    const key = dateInZone(new Date(m.kickoff), timeZone);
     if (!byDay.has(key)) byDay.set(key, []);
     byDay.get(key).push(m);
   }
@@ -211,7 +243,13 @@ export async function onRequestGet({ request }) {
     }));
 
   return Response.json(
-    { updated: now.toISOString(), window: { from: iso(from), to: iso(to) }, days, errors },
+    {
+      updated: now.toISOString(),
+      timezone: timeZone,
+      window: { from: dateInZone(from, timeZone), to: dateInZone(to, timeZone) },
+      days,
+      errors,
+    },
     { headers: { "cache-control": "public, max-age=60" } },
   );
 }

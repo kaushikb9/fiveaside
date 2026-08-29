@@ -112,7 +112,7 @@ described to the brain in `prompt.md`.
 ## Commands
 
 ```sh
-uv run pytest -q                 # 101 tests — keep green
+uv run pytest -q                 # 124 tests — keep green
 uv run ruff check .              # lint (line-length 100)
 node brain/validate.mjs          # digests.json
 node brain/validate-fpl.mjs      # fpl.json — judgment layer
