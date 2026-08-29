@@ -56,6 +56,22 @@ function deviceOf(ua) {
   return "Other";
 }
 
+/* ---------------- not a person ----------------
+   The deploy check posts a real report to prove the endpoint answers, and it
+   then sits at the top of /usage/ pretending to be feedback. Same reason as
+   the telemetry next door: KB should see the five, not the test harness.
+
+   Checked on the UA rather than navigator.webdriver, which is FALSE here —
+   browse attaches over CDP to an ordinary Chrome and only the UA gives it
+   away. Server-side rather than in the page, so it cannot be defeated by a
+   cached script, and dropped rather than tagged: an event nobody wants to see
+   is not worth a KV write. This is noise control, not a security control —
+   anything determined can send any UA it likes, and lying its way OUT of the
+   analytics is not an attack worth defending against. */
+const isAutomated = (ua) =>
+  /HeadlessChrome|Puppeteer|Playwright|\bbot\b|crawler|spider|curl\/|wget|python-requests/i
+    .test(String(ua || ""));
+
 /* Who to rate-limit, without keeping an address. A signed-in gaffer is his
    nickname; everybody else is six characters of HMAC over ip+UA salted with
    today's date — the same construction /api/telemetry uses, and the same
@@ -103,6 +119,10 @@ export async function onRequestPost({ request, env }) {
     return json({ error: "that is longer than " + MAX_TEXT + " characters" }, 400);
   }
 
+  // A verification run is not somebody with a problem. Answer it honestly so
+  // the check still proves the endpoint works, but do not file it.
+  const automated = isAutomated(request.headers.get("user-agent"));
+
   const session = await readSession(request, env).catch(() => null);
   const id = await bucket(request, env, session);
   if (await rateLimited(env, id)) {
@@ -124,7 +144,7 @@ export async function onRequestPost({ request, env }) {
   };
 
   // Unlike telemetry, this one reports failure: somebody is waiting on it.
-  await env.STARS.put(key, "", { expirationTtl: TTL, metadata: report });
+  if (!automated) await env.STARS.put(key, "", { expirationTtl: TTL, metadata: report });
   return json({ ok: true });
 }
 

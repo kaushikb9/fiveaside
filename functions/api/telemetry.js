@@ -107,6 +107,23 @@ async function dailyId(env, request) {
     .map((b) => b.toString(16).padStart(2, "0")).join("");
 }
 
+/* ---------------- not a person ----------------
+   smoke.sh drives a real browser through every room and taps every tab, so a
+   single verification run wrote ~30 views and buried the five friends it was
+   meant to count: on launch day one headless visitor was 76% of the traffic
+   and looked exactly like a bot to the one person reading the page.
+
+   Checked on the UA rather than navigator.webdriver, which is FALSE here —
+   browse attaches over CDP to an ordinary Chrome and only the UA gives it
+   away. Server-side rather than in the page, so it cannot be defeated by a
+   cached script, and dropped rather than tagged: an event nobody wants to see
+   is not worth a KV write. This is noise control, not a security control —
+   anything determined can send any UA it likes, and lying its way OUT of the
+   analytics is not an attack worth defending against. */
+const isAutomated = (ua) =>
+  /HeadlessChrome|Puppeteer|Playwright|\bbot\b|crawler|spider|curl\/|wget|python-requests/i
+    .test(String(ua || ""));
+
 /* Best-effort, like the sign-in throttle next door: keyed by the same daily
    hash rather than by the address, because a rate-limit key is still a record
    of who was here. */
@@ -134,6 +151,8 @@ export async function onRequestPost({ request, env }) {
   if (!e || !p) return noContent();
   const s = e === "tab" ? cleanLabel(body.s) : null;
   if (e === "tab" && !s) return noContent();
+
+  if (isAutomated(request.headers.get("user-agent"))) return noContent();
 
   const id = await dailyId(env, request);
   if (await overRate(env, id)) return noContent();
