@@ -12,7 +12,7 @@ produces pixels.** Work on one side of a boundary without leaking into
 another.
 
 Its own palette on purpose (Dugout in daylight, Floodlit at night — one
-design in two lights), but the shared **structure** — see `../design-system/`
+design in two lights), but the shared **structure** — see `../brain/design-system/`
 for the token contract and the cross-app invariants.
 
 ## Map
