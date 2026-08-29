@@ -58,9 +58,21 @@ delegated listener in `site/common.js`. Keep it that way.
   match-week tabs (this gameweek's scores and goalscorers, next gameweek's
   fixtures), `api/stars.js` is the KV-backed watchlist star — reads are open,
   writes take the gaffer from the session and never from the body — `api/auth.js` is
-  invite-code sign-in for the gaffers room, and `api/private.js` serves the
-  data that room needs. One KV namespace (`STARS`) holds all of it, keyed by
-  prefix — `stars:`, `private:`, `invite:`, `throttle:`.
+  invite-code sign-in for the gaffers room, `api/private.js` serves the
+  data that room needs, and `api/telemetry.js` writes one line per page view
+  and per chip tapped and reads them back for the admin alone. One KV
+  namespace (`STARS`) holds all of it, keyed by prefix — `stars:`,
+  `private:`, `invite:`, `throttle:`, `tel:`, `telrate:`.
+- **The fourth page is `/usage/`, and it is unlisted on purpose.** Nothing
+  links to it, it is not in the nav, the footer or the service worker's
+  shell, and it carries `noindex`. `isAdmin()` in `api/auth.js` is the whole
+  gate: KB's own invite code doubles as the admin key, so there is no second
+  secret. Everyone else — signed out or signed in as one of the other four —
+  gets a `404` from the API and a door from the page, which is the same
+  answer twice on purpose. `site/telemetry.js` is the collector: one
+  delegated listener, no ids minted, no IP stored anywhere, ninety-day TTL.
+  Do not import it into a room's `app.js` — the rooms do not know it exists,
+  and that is what makes it deletable in two lines.
 - `site/` — static, no framework, no build step, no CDNs. `common.js` loads
   first on every page and holds everything that must behave identically in
   all three rooms: theme, nicknames, kits, the focus-club rule, the player

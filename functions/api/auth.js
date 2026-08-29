@@ -126,6 +126,16 @@ export async function readSession(request, env) {
   return { nick: invite.nick, code: claims.c };
 }
 
+/* ---------------- who owns the place ----------------
+   KB's own invite code doubles as the admin key: there is no second secret to
+   mint, carry or lose, and revoking his code revokes the admin with it. The
+   nick is the one in touchline.config.json marked `owner: true`, hardcoded
+   here the same way stars.js hardcodes the five — a Pages Function cannot
+   read the config file, and a fifth name appearing is a bigger event than an
+   edit to a constant. */
+const OWNER = "Xabi";
+export const isAdmin = (session) => !!session && session.nick === OWNER;
+
 const cookieHeader = (value, maxAge) =>
   `${COOKIE}=${value}; Path=/; HttpOnly; Secure; SameSite=Lax; Max-Age=${maxAge}`;
 
