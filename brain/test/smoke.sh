@@ -4,6 +4,10 @@
 set -uo pipefail
 B="$HOME/.claude/skills/gstack/browse/dist/browse"
 BASE="${1:?usage: smoke.sh <base-url>}"
+# Every room is joined on as "gaffers/", so a base without a trailing slash
+# silently builds "https://host.devgaffers/" and reports 43 failures that look
+# like the site is broken. Normalise rather than trust the caller.
+BASE="${BASE%/}/"
 PASS=0; FAIL=0
 
 check() { # check <name> <expected> <actual>
