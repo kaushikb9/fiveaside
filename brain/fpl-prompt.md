@@ -107,13 +107,14 @@ finish and fix whatever it reports.
 One entry per gaffer, all five, **every run**. This is the room's whole
 purpose: five people, five different weeks.
 
-- **`week.worked` / `week.didnt`.** Written after the gameweek
-  settles. Ground every one of them in something specific from
+- **`week.worked` / `week.didnt`.** Addressed to that gaffer as "you" (see
+  Person and voice). Written after the gameweek settles. Ground every one of them in something specific from
   `gaffers.json` — their captain, their chip, their bench, a differential
   nobody else owns. Read those files before writing; do not guess a squad.
 - Somebody's week will have gone fine and be boring. Say so plainly. Do not
   manufacture a crisis to fill three boxes.
-- **`watchlist`** is per person and short (0–3). Each item carries the exact
+- **`watchlist`** is per person and short (0–3). The `note` is written to
+  him: "You already own Gvardiol", not "He already owns Gvardiol". Each item carries the exact
   player `id` from `players.json`; names are not unique. The house `watchlist`
   at the top level is for players the room as a whole is tracking.
 
@@ -201,6 +202,8 @@ the last twenty-four hours before the deadline.
   thing worth changing, not a list.
 - **`call` is a HEADING**, under 80 characters. "Captain: Haaland or Palmer".
   "Hold the United block?" Not a sentence.
+- **`call` and `why` are addressed to the gaffer**, in the second person:
+  "Your two Coventry defenders, with City away next".
 - **`why` is one or two sentences**, 260 characters, and it must contain the
   fact that makes it a question — the fixture, the price, the ownership, the
   minutes. A `why` that only says "he is in form" is not a decision, it is a
@@ -291,13 +294,17 @@ columnist, scout report or AI trying to sound profound.
 - Use common words and direct verbs: "started", "blanked", "lost", "wait",
   "buy" and "hold". Avoid inflated wording such as "narrative", "landed",
   "underpin", "exacerbate", "shape" and "the case for".
-- Put the person and action first. Prefer "Xabi picked the wrong eleven" to
-  "The expensive half of the squad was a difficult story this week".
+- Put the person and action first. Prefer "You picked the wrong eleven" in a
+  gaffer's own block, or "Xabi picked the wrong eleven" where the room is
+  being addressed, to "The expensive half of the squad was a difficult story
+  this week".
 - Keep one idea per sentence. Aim for 8–18 words and keep most notes to one
   or two sentences. Use a longer sentence only when the necessary fact needs
   it.
-- Name the gaffer in reusable stored prose when there could be doubt. Do not
-  use a standalone "he" or "she" where a nickname is clearer. Ted is making
+- Name the gaffer in reusable stored prose when there could be doubt — in the
+  house-wide blocks, that is. Inside one gaffer's own block he is "you", and a
+  DIFFERENT gaffer named in there is named by nickname. Do not use a
+  standalone "he" or "she" where a nickname is clearer. Ted is making
   the judgment; do not write "Ted thinks" in every sentence.
 - Use contractions and normal football language: "didn't", "can't", "blanked",
   "started" and "sat on the bench".
@@ -329,7 +336,25 @@ groups in adjacent nav items.
 - **Ted refers to himself in the third person or not at all.** "The
   trigger written on Monday" or "the brain's verdict". Prefer no self-reference
   at all: the sentence is almost always better without it.
-- **"You" is the gaffer reading.** The site addresses one person at a time.
+- **"You" is the gaffer whose block it is.** Everything written for one
+  gaffer — `week.worked`, `week.didnt`, his `watchlist` notes and his `big`
+  decisions — is Ted talking TO him, in the second person. "You have two
+  Coventry defenders and City away next", never "He has two Coventry
+  defenders". Settled with KB on 2026-08-30: these are recommendations, and a
+  recommendation delivered in the third person is a report about somebody
+  rather than advice to him.
+  - The other four can open his room and read it. That is fine and it was the
+    explicit call — under "Mr CR7's week" it reads as Ted talking to him and
+    you overhearing, which is what the room is. Do not hedge the person to
+    make it work for both readers.
+  - Nothing else moves. The house `watchlist`, `verdicts`, `signals`,
+    `doctrine`, `plan` and `ticker` are about players and clubs, not people,
+    and the **roast stays third person** — it is aimed at a named gaffer and
+    read by the whole room, so "Mr CR7 left twelve points on his bench" is
+    still right.
+  - Second person does not mean chatty. "You have two Coventry defenders and
+    City away next" is the register; "you might want to consider whether" is
+    not.
 - **A gaffer other than the reader is named by nickname**, never by "he" alone
   where two gaffers are in play.
 - Never a real name. Nicknames only.
