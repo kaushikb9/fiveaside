@@ -389,12 +389,19 @@
        There is no per-gameweek, per-player figure in the snapshot at all
        (ROADMAP 4c.1), so when the live feed has not been fetched the honest
        answer is the fixture, not a number that is wrong. */
+    /* A player who has not kicked a ball has not scored 0 — he has a fixture.
+       Showing the zero reads as a verdict on a match that has not happened, so
+       the tile keeps the opponent, with (H)/(A) for where it is played, until
+       there are minutes behind the number. */
+    const hasPlayed = Boolean(lv && (lv.played || lv.minutes || lv.points));
     let bar = "&mdash;", cls = "";
-    if (lv) {
+    if (hasPlayed) {
       bar = lv.points * (mult > 1 ? mult : 1) + (mult > 1 ? " &times;" + mult : "");
     } else if (fx) {
-      bar = (fx.home ? "" : "@") + esc(fx.opp);
+      bar = esc(fx.opp) + (fx.home ? " (H)" : " (A)");
       cls = " f" + fx.fdr;
+    } else if (lv) {
+      bar = lv.points * (mult > 1 ? mult : 1) + (mult > 1 ? " &times;" + mult : "");
     }
     return '<div class="pp">' +
       (pk.captain ? '<span class="arm" title="Captain">C</span>' : "") +
@@ -804,8 +811,8 @@
        somebody standing at it is a room. He is warm about it and he still
        does not let you in. */
     const say = {
-      out: '<p class="door-p">Code KB sent you goes in there. I\u2019ll remember this device, ' +
-        "so you only do it once.</p>",
+      out: '<p class="door-p">Enter your invite code once and I\u2019ll remember this ' +
+        "device.</p>",
       denied: '<p class="door-note" style="color:var(--hot)">Not one of ours, that. Have ' +
         "another look at it &mdash; and if it still says no, that\u2019s a KB problem, not a " +
         "you problem.</p>",
@@ -846,7 +853,6 @@
       '<p class="door-p">I keep the notes for five people, and you\u2019re one of them or you ' +
       "aren\u2019t. Behind me: five squads, five weekly reads, a mini-league, and a roast that " +
       "names names.</p>" +
-      '<p class="door-p door-intro">This lot:</p>' +
       '<div class="lineup">' + lineup + "</div>" +
       say +
       (form ? '<div class="door-cta">' + form + "</div>" : "") +
