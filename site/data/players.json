@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-30T01:56:00.495Z",
+  "generated_at": "2026-08-30T02:57:40.959Z",
   "gameweek": 3,
   "players": [
     {
@@ -3260,7 +3260,7 @@
       "team": "BHA",
       "pos": "DEF",
       "price": 4.6,
-      "ownership": 9.9,
+      "ownership": 10,
       "points": 17,
       "form": "8.5",
       "fixtures": [
@@ -3666,7 +3666,7 @@
       "team": "MUN",
       "pos": "MID",
       "price": 8,
-      "ownership": 9.1,
+      "ownership": 9,
       "points": 2,
       "form": "1.0",
       "fixtures": [
@@ -19655,6 +19655,98 @@
       "chance": 75
     },
     {
+      "id": 593,
+      "name": "Dedić",
+      "team": "NEW",
+      "pos": "DEF",
+      "price": 4.5,
+      "ownership": 0.6,
+      "points": 12,
+      "form": "6.0",
+      "fixtures": [
+        {
+          "gw": 3,
+          "opp": "BOU",
+          "home": true,
+          "fdr": 3
+        },
+        {
+          "gw": 4,
+          "opp": "LEE",
+          "home": false,
+          "fdr": 3
+        },
+        {
+          "gw": 5,
+          "opp": "HUL",
+          "home": true,
+          "fdr": 2
+        },
+        {
+          "gw": 6,
+          "opp": "COV",
+          "home": false,
+          "fdr": 2
+        },
+        {
+          "gw": 7,
+          "opp": "AVL",
+          "home": true,
+          "fdr": 3
+        }
+      ],
+      "recent": [
+        {
+          "gw": 1,
+          "date": "2026-08-23",
+          "comp": "PL",
+          "opp": "LIV",
+          "home": true,
+          "gf": 2,
+          "ga": 2,
+          "result": "D"
+        },
+        {
+          "date": "2026-08-26",
+          "comp": "EFL",
+          "opp": "West Bromwich Albion",
+          "home": true,
+          "gf": 3,
+          "ga": 2,
+          "result": "W"
+        },
+        {
+          "gw": 2,
+          "date": "2026-08-29",
+          "comp": "PL",
+          "opp": "TOT",
+          "home": false,
+          "gf": 2,
+          "ga": 0,
+          "result": "W"
+        }
+      ],
+      "other_apps": [
+        {
+          "date": "2026-08-26",
+          "comp": "EFL",
+          "opp": "West Bromwich Albion",
+          "started": true
+        }
+      ],
+      "other_next": [
+        {
+          "date": "2026-09-08",
+          "kickoff": "2026-09-08T19:00:00+00:00",
+          "comp": "EFL",
+          "opp": "Millwall",
+          "home": false
+        }
+      ],
+      "owned_by": [],
+      "fdr_avg": 2.6
+    },
+    {
       "id": 308,
       "name": "Furlong",
       "team": "IPS",
@@ -20789,98 +20881,6 @@
       ],
       "owned_by": [],
       "fdr_avg": 3.4
-    },
-    {
-      "id": 593,
-      "name": "Dedić",
-      "team": "NEW",
-      "pos": "DEF",
-      "price": 4.5,
-      "ownership": 0.5,
-      "points": 12,
-      "form": "6.0",
-      "fixtures": [
-        {
-          "gw": 3,
-          "opp": "BOU",
-          "home": true,
-          "fdr": 3
-        },
-        {
-          "gw": 4,
-          "opp": "LEE",
-          "home": false,
-          "fdr": 3
-        },
-        {
-          "gw": 5,
-          "opp": "HUL",
-          "home": true,
-          "fdr": 2
-        },
-        {
-          "gw": 6,
-          "opp": "COV",
-          "home": false,
-          "fdr": 2
-        },
-        {
-          "gw": 7,
-          "opp": "AVL",
-          "home": true,
-          "fdr": 3
-        }
-      ],
-      "recent": [
-        {
-          "gw": 1,
-          "date": "2026-08-23",
-          "comp": "PL",
-          "opp": "LIV",
-          "home": true,
-          "gf": 2,
-          "ga": 2,
-          "result": "D"
-        },
-        {
-          "date": "2026-08-26",
-          "comp": "EFL",
-          "opp": "West Bromwich Albion",
-          "home": true,
-          "gf": 3,
-          "ga": 2,
-          "result": "W"
-        },
-        {
-          "gw": 2,
-          "date": "2026-08-29",
-          "comp": "PL",
-          "opp": "TOT",
-          "home": false,
-          "gf": 2,
-          "ga": 0,
-          "result": "W"
-        }
-      ],
-      "other_apps": [
-        {
-          "date": "2026-08-26",
-          "comp": "EFL",
-          "opp": "West Bromwich Albion",
-          "started": true
-        }
-      ],
-      "other_next": [
-        {
-          "date": "2026-09-08",
-          "kickoff": "2026-09-08T19:00:00+00:00",
-          "comp": "EFL",
-          "opp": "Millwall",
-          "home": false
-        }
-      ],
-      "owned_by": [],
-      "fdr_avg": 2.6
     },
     {
       "id": 167,
