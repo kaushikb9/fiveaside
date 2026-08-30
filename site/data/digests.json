@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-28T02:10:08.982Z",
+  "generated_at": "2026-08-30T02:32:39.268Z",
   "digests": [
     {
       "date": "2026-07-25",
@@ -7149,6 +7149,232 @@
           "to": "Valencia",
           "heat": "smoke",
           "note": "Valencia are pushing, according to BBC Sport's gossip round-up. Paper talk until a name attaches to it."
+        }
+      ]
+    },
+    {
+      "date": "2026-08-30",
+      "headline": "Chelsea change goalkeeper, Liverpool spend £123m, and the window shuts on Tuesday",
+      "week": [
+        {
+          "tag": "Football",
+          "club": "Liverpool",
+          "kicker": "Barcola agreed at Anfield.",
+          "text": "Ornstein has Liverpool agreeing a deal worth up to £123m with PSG for Bradley Barcola, with a medical expected within a day. They have taken two points from two games and drew 2–2 at home to Forest on Saturday, so the winger is not the only thing that needs fixing."
+        },
+        {
+          "tag": "Football",
+          "club": "Tottenham Hotspur",
+          "kicker": "Spurs bottom, no goals scored.",
+          "text": "Newcastle won 2–0 at Tottenham through Anthony Elanga and Yoane Wissa, and thousands left early. Played two, lost two, nothing scored, twentieth — after more than £300m spent this summer. Roberto De Zerbi said he was not angry and the result was unfair."
+        },
+        {
+          "tag": "FPL",
+          "club": "Chelsea",
+          "kicker": "New keeper, and Sánchez is out.",
+          "text": "Chelsea paid Aston Villa £7.5m for Emiliano Martínez and dropped Robert Sánchez after his part in the 3–2 win at Fulham. Brighton visit Stamford Bridge tonight. A keeper who was priced as a punt three days ago is now a starter with a Chelsea home fixture list behind him."
+        },
+        {
+          "tag": "Football",
+          "club": "Everton",
+          "kicker": "Everton fans fight a sale.",
+          "text": "Nottingham Forest have bid £40m for the 19-year-old Harrison Armstrong, who played the full 90 in Saturday’s 1–1 at Bournemouth. Travelling supporters sang that there would be a riot if he goes. David Moyes called it a club decision and said supporters are not always wrong."
+        },
+        {
+          "tag": "FPL",
+          "club": "Crystal Palace",
+          "kicker": "Palace lose their best full-back.",
+          "text": "Forest have agreed a deal worth at least £22m for Daniel Muñoz, reuniting him with Oliver Glasner, and he has permission for a medical. Palace have no points and the worst goal difference in the league. Anan Khalaili is expected to take the shirt."
+        }
+      ],
+      "table": {
+        "competition": "Premier League",
+        "rows": [
+          {
+            "pos": 1,
+            "team": "Manchester City",
+            "crest": "https://a.espncdn.com/i/teamlogos/soccer/500/382.png",
+            "played": 2,
+            "points": 6,
+            "focus": true
+          },
+          {
+            "pos": 2,
+            "team": "Hull City",
+            "crest": "https://a.espncdn.com/i/teamlogos/soccer/500/306.png",
+            "played": 2,
+            "points": 6
+          },
+          {
+            "pos": 3,
+            "team": "Newcastle United",
+            "crest": "https://a.espncdn.com/i/teamlogos/soccer/500/361.png",
+            "played": 2,
+            "points": 4
+          },
+          {
+            "pos": 4,
+            "team": "Everton",
+            "crest": "https://a.espncdn.com/i/teamlogos/soccer/500/368.png",
+            "played": 2,
+            "points": 4
+          },
+          {
+            "pos": 5,
+            "team": "Brighton & Hove Albion",
+            "crest": "https://a.espncdn.com/i/teamlogos/soccer/500/331.png",
+            "played": 1,
+            "points": 3
+          },
+          {
+            "pos": 6,
+            "team": "Arsenal",
+            "crest": "https://a.espncdn.com/i/teamlogos/soccer/500/359.png",
+            "played": 1,
+            "points": 3,
+            "focus": true
+          },
+          {
+            "pos": 8,
+            "team": "Chelsea",
+            "crest": "https://a.espncdn.com/i/teamlogos/soccer/500/363.png",
+            "played": 1,
+            "points": 3,
+            "focus": true
+          },
+          {
+            "pos": 11,
+            "team": "Liverpool",
+            "crest": "https://a.espncdn.com/i/teamlogos/soccer/500/364.png",
+            "played": 2,
+            "points": 2,
+            "focus": true
+          },
+          {
+            "pos": 16,
+            "team": "Manchester United",
+            "crest": "https://a.espncdn.com/i/teamlogos/soccer/500/360.png",
+            "played": 1,
+            "points": 0,
+            "focus": true
+          }
+        ]
+      },
+      "wider": [
+        {
+          "title": "Coventry 0-1 Hull: 'Not bad for the worst team in Premier League history'",
+          "url": "https://www.bbc.co.uk/sport/football/articles/c7v4ezerjrgo",
+          "hook": "Hull were written off as the worst side ever promoted, and they have beaten Manchester United and Coventry in the first two weeks. Oli McBurnie enjoys that here, and does not pretend to be above it.",
+          "source": "BBC Sport",
+          "image": "https://ichef.bbci.co.uk/ace/branded_sport/1200/cpsprodpb/72c3/live/0f61d3e0-a3df-11f1-a291-b542ee92de7c.jpg"
+        },
+        {
+          "title": "Amin Nabizada sparkles for Watford as draw puts pressure on West Ham’s Nuno",
+          "url": "https://www.theguardian.com/football/2026/aug/29/watford-west-ham-championship-match-report",
+          "hook": "West Ham broke the Championship transfer record after going down and are three games in without a win. Their own fans sang that Nuno Espírito Santo was getting sacked in the morning. A useful reminder of what the drop actually looks like from inside.",
+          "source": "The Guardian Football",
+          "image": "https://i.guim.co.uk/img/media/7d60b2f454edc32411f88ced65056344b49f88e9/208_0_2696_2157/master/2696.jpg?width=1200&height=630&quality=85&auto=format&fit=crop&precrop=40:21,offset-x50,offset-y0&overlay-align=bottom%2Cleft&overlay-width=100p&overlay-base64=L2ltZy9zdGF0aWMvb3ZlcmxheXMvdGctZGVmYXVsdC5wbmc&enable=upscale&s=292e0e31ffbb7fdf2e68d68930d5ece3"
+        }
+      ],
+      "read": {
+        "title": "No country for old men: Premier League grind is why managers are getting younger",
+        "url": "https://www.theguardian.com/football/2026/aug/29/premier-league-managers-young-old-football-coaches",
+        "hook": "The man in the dugout is now usually in his forties and rarely lasts long enough to be anything else. A calm piece on why the job has stopped being something you grow into, on a weekend when two managers were already being sung at by their own supporters.",
+        "source": "The Guardian Football",
+        "image": "https://i.guim.co.uk/img/media/243ada131ef1f1d40e5aad009cea5d1505d69cd2/0_0_5000_4000/master/5000.jpg?width=1200&height=630&quality=85&auto=format&fit=crop&precrop=40:21,offset-x50,offset-y0&overlay-align=bottom%2Cleft&overlay-width=100p&overlay-base64=L2ltZy9zdGF0aWMvb3ZlcmxheXMvdGctb3BpbmlvbnMucG5n&enable=upscale&s=43572016bbfcae3e9b168514d2f090d1"
+      },
+      "top_teams": [
+        {
+          "club": "Chelsea",
+          "crest": "https://a.espncdn.com/i/teamlogos/soccer/500/363.png",
+          "line": "#8 · 3 pts · plays today · PL",
+          "note": "Enzo Fernández wants to leave and has reportedly agreed personal terms with Manchester City, per Romano, which is gossip-tier sourcing on a first-team midfielder with two days of window left. Brighton tonight, and Xabi Alonso has to pick a midfield around it."
+        },
+        {
+          "club": "Arsenal",
+          "crest": "https://a.espncdn.com/i/teamlogos/soccer/500/359.png",
+          "line": "#6 · 3 pts · PL",
+          "note": "Julián Álvarez has spoken to Mikel Arteta and Atlético Madrid have given him a deadline to decide, having left him out of their squad on Saturday. Arsenal go to Villa Park on Monday night either way."
+        },
+        {
+          "club": "Manchester City",
+          "crest": "https://a.espncdn.com/i/teamlogos/soccer/500/382.png",
+          "line": "#1 · 6 pts · PL",
+          "note": "City made formal contact with Liverpool on Saturday evening about Cody Gakpo, and the BBC reports City are where he would rather go. Top of the table with six points and still buying on the last weekend of the window."
+        },
+        {
+          "club": "Manchester United",
+          "crest": "https://a.espncdn.com/i/teamlogos/soccer/500/360.png",
+          "line": "#16 · 0 pts · plays today · PL",
+          "note": "Michael Carrick called the criticism of his players lazy and defended Bruno Fernandes as captain. Ipswich come to Old Trafford tonight with United on no points after losing at Hull."
+        },
+        {
+          "club": "Liverpool",
+          "crest": "https://a.espncdn.com/i/teamlogos/soccer/500/364.png",
+          "line": "#11 · 2 pts · PL",
+          "note": "Andoni Iraola is still waiting for a first win and spent Saturday angry at the fourth official, whose board went up late and delayed his substitutions in the build-up to Forest’s penalty. Alexander Isak has one goal in two and does not look settled yet."
+        }
+      ],
+      "elsewhere": [
+        {
+          "club": "Newcastle United",
+          "crest": "https://a.espncdn.com/i/teamlogos/soccer/500/361.png",
+          "note": "Third, four points, and coping fine without Sandro Tonali. Napoli now want Nick Woltemade on loan, which is the sort of enquiry a club in form can afford to ignore."
+        },
+        {
+          "club": "Sunderland",
+          "crest": "https://a.espncdn.com/i/teamlogos/soccer/500/366.png",
+          "note": "No points and Fulham at home tonight, and they are shopping like a side that knows it: Jack Grealish wanted on loan from City, a fee close for Marseille’s Igor Paixão, and a look at Levante’s Karl Etta Eyong."
+        },
+        {
+          "club": "Hull City",
+          "crest": "https://a.espncdn.com/i/teamlogos/soccer/500/306.png",
+          "note": "Second in the table and about to make a thirteenth signing of the summer — Jean-Matteo Bahoya, the Frankfurt winger who holds the Bundesliga speed record, has permission for a medical."
+        }
+      ],
+      "rumours": [
+        {
+          "player": "Honest Ahanor",
+          "from": "Atalanta",
+          "to": "Chelsea",
+          "fee": "£40m",
+          "heat": "close",
+          "note": "The Athletic reports an agreement reached for the 18-year-old defender, who can play left-back or centre-back."
+        },
+        {
+          "player": "Lamine Camara",
+          "from": "AS Monaco",
+          "to": "Chelsea",
+          "heat": "talks",
+          "note": "Still the name attached to the Enzo Fernández contingency. Monaco say they want to keep him but would listen to an incredible offer."
+        },
+        {
+          "player": "Rafael Leão",
+          "from": "AC Milan",
+          "to": "Aston Villa",
+          "heat": "talks",
+          "note": "Ornstein has Milan accepting a €45m package from Galatasaray while Villa push for a loan instead. Two very different offers on the same desk with two days left."
+        },
+        {
+          "player": "Alejandro Balde",
+          "from": "Barcelona",
+          "to": "Manchester United",
+          "heat": "talks",
+          "note": "Romano says the left-back move is possible if Barcelona sign a replacement first. Romano-only, so treat the timeline loosely."
+        },
+        {
+          "player": "Ismaila Sarr",
+          "from": "Crystal Palace",
+          "to": "Liverpool",
+          "heat": "smoke",
+          "note": "Liverpool want another forward in before they let one go, and the Sun has Sarr keen. Brighton’s Yankuba Minteh is on the same list."
+        },
+        {
+          "player": "Amad Diallo",
+          "from": "Manchester United",
+          "to": "Aston Villa",
+          "heat": "smoke",
+          "note": "A French outlet reports an offer made, carried in the BBC gossip column. United have not said a word about it."
         }
       ]
     }
