@@ -371,6 +371,23 @@
   const isLive = (gw) => gw === PICKS_GW() && inPlay();
   const fixtureFor = (r, gw) => (r && r.fixtures ? r.fixtures.find((f) => f.gw === gw) : null) || null;
 
+  /* players.json only carries fixtures from the CURRENT gameweek forward, so
+     for the week being played there is no fixture in the snapshot at all —
+     which is why an unplayed tile fell back to the live feed's 0. The live
+     payload knows the week's fixtures; match on the club and the tile can say
+     who he is playing instead. No FDR comes back with them, so the band stays
+     neutral. */
+  const liveFixtureFor = (pk, gw) => {
+    // The live feed's club beats the snapshot's: a player who moved between
+    // the two is playing for whoever the feed says he plays for.
+    const lv = livePlayer(pk, gw);
+    const team = (lv && lv.team) || pk.team;
+    if (!liveWeek || liveWeek.gw !== gw || !team) return null;
+    const f = (liveWeek.fixtures || []).find((x) => x.home === team || x.away === team);
+    return f ? { opp: f.home === team ? f.away : f.home, home: f.home === team,
+                 finished: f.finished, started: f.started } : null;
+  };
+
   function pitchPlayer(pk, gw) {
     const r = rec(pk.element);
     const fx = fixtureFor(r, gw);
@@ -389,19 +406,26 @@
        There is no per-gameweek, per-player figure in the snapshot at all
        (ROADMAP 4c.1), so when the live feed has not been fetched the honest
        answer is the fixture, not a number that is wrong. */
-    /* A player who has not kicked a ball has not scored 0 — he has a fixture.
-       Showing the zero reads as a verdict on a match that has not happened, so
-       the tile keeps the opponent, with (H)/(A) for where it is played, until
-       there are minutes behind the number. */
-    const hasPlayed = Boolean(lv && (lv.played || lv.minutes || lv.points));
+    /* A player whose match has not been played has not scored 0 — he has a
+       fixture. The zero reads as a verdict on football that has not happened,
+       so until his match is over the tile shows who he is playing and whether
+       it is (H)ome or (A)way. Once the whistle has gone the 0 is the truth,
+       even for a man who never came on. */
+    const lfx = liveFixtureFor(pk, gw);
+    const played = Boolean(lv && (lv.played || lv.minutes));
+    const over = lfx ? lfx.finished : isSettled(gw);
+    const points = () =>
+      lv.points * (mult > 1 ? mult : 1) + (mult > 1 ? " &times;" + mult : "");
     let bar = "&mdash;", cls = "";
-    if (hasPlayed) {
-      bar = lv.points * (mult > 1 ? mult : 1) + (mult > 1 ? " &times;" + mult : "");
+    if (lv && (played || over)) {
+      bar = points();
     } else if (fx) {
       bar = esc(fx.opp) + (fx.home ? " (H)" : " (A)");
       cls = " f" + fx.fdr;
+    } else if (lfx) {
+      bar = esc(lfx.opp) + (lfx.home ? " (H)" : " (A)");
     } else if (lv) {
-      bar = lv.points * (mult > 1 ? mult : 1) + (mult > 1 ? " &times;" + mult : "");
+      bar = points();
     }
     return '<div class="pp">' +
       (pk.captain ? '<span class="arm" title="Captain">C</span>' : "") +
