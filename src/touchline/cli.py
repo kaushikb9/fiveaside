@@ -114,11 +114,11 @@ def main(argv: list[str] | None = None) -> int:
     sub = parser.add_subparsers(dest="command")
     facts = sub.add_parser("facts", help="Print the structured facts bundle as JSON.")
     facts.add_argument(
-        "--config", default="touchline.config.json", help="Path to touchline.config.json"
+        "--config", default="fiveaside.config.json", help="Path to fiveaside.config.json"
     )
     fpl = sub.add_parser("fpl", help="Print the FPL facts bundle as JSON.")
     fpl.add_argument(
-        "--config", default="touchline.config.json", help="Path to touchline.config.json"
+        "--config", default="fiveaside.config.json", help="Path to fiveaside.config.json"
     )
 
     args = parser.parse_args(argv)

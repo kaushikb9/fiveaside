@@ -26,7 +26,7 @@ Any player's name, in any room, opens their file — that join is what makes it
 one product rather than three tabs.
 
 ```
-touchline.config.json   club, competitions, timezone, feeds, voice, the five
+fiveaside.config.json   club, competitions, timezone, feeds, voice, the five
 src/touchline/          facts CLI: `touchline facts` and `touchline fpl`
 brain/                  two prompts, three validators, the curate scripts
 functions/              Pages Functions: FPL proxy, stars, auth, private data
@@ -91,7 +91,7 @@ someone a debugging round.
 ## Self-hosting
 
 The machine is generic; only the config is ours. Fork it, put your own club
-and competitions in `touchline.config.json`, pick a data source
+and competitions in `fiveaside.config.json`, pick a data source
 (`espn+thesportsdb` needs no API key), install
 [Claude Code](https://claude.com/claude-code), `uv` and `node`, then
 `npx wrangler login` and `./deploy.sh`.

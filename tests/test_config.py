@@ -17,7 +17,7 @@ EXAMPLE = {
 
 
 def test_load_config_roundtrip(tmp_path):
-    path = tmp_path / "touchline.config.json"
+    path = tmp_path / "fiveaside.config.json"
     path.write_text(json.dumps(EXAMPLE), encoding="utf-8")
     cfg = load_config(path)
     assert cfg.club.name == "Chelsea"
@@ -30,7 +30,7 @@ def test_load_config_roundtrip(tmp_path):
 
 
 def test_defaults_are_optional(tmp_path):
-    path = tmp_path / "touchline.config.json"
+    path = tmp_path / "fiveaside.config.json"
     path.write_text(
         json.dumps({"club": {"name": "Chelsea", "code": "CHE"}, "competitions": ["PL"]}),
         encoding="utf-8",
@@ -48,12 +48,12 @@ def test_empty_competitions_rejected():
 
 
 def test_repo_config_is_valid():
-    cfg = load_config("touchline.config.json")
+    cfg = load_config("fiveaside.config.json")
     assert cfg.competitions
 
 
 def test_source_defaults_to_espn(tmp_path):
-    path = tmp_path / "touchline.config.json"
+    path = tmp_path / "fiveaside.config.json"
     path.write_text(
         json.dumps({"club": {"name": "Chelsea", "code": "CHE"}, "competitions": ["PL"]}),
         encoding="utf-8",

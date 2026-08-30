@@ -129,7 +129,7 @@ export async function readSession(request, env) {
 /* ---------------- who owns the place ----------------
    KB's own invite code doubles as the admin key: there is no second secret to
    mint, carry or lose, and revoking his code revokes the admin with it. The
-   nick is the one in touchline.config.json marked `owner: true`, hardcoded
+   nick is the one in fiveaside.config.json marked `owner: true`, hardcoded
    here the same way stars.js hardcodes the five — a Pages Function cannot
    read the config file, and a fifth name appearing is a bigger event than an
    edit to a constant. */

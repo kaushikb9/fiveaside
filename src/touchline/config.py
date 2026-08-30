@@ -1,4 +1,4 @@
-"""Owner preferences: loading touchline.config.json."""
+"""Owner preferences: loading fiveaside.config.json."""
 
 from pathlib import Path
 from typing import Literal
@@ -63,5 +63,5 @@ class TouchlineConfig(BaseModel, frozen=True):
     fpl: FPLConfig = Field(default_factory=FPLConfig)
 
 
-def load_config(path: str | Path = "touchline.config.json") -> TouchlineConfig:
+def load_config(path: str | Path = "fiveaside.config.json") -> TouchlineConfig:
     return TouchlineConfig.model_validate_json(Path(path).read_text(encoding="utf-8"))

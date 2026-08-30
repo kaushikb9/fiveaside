@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # launchd wrapper: safe to run every hour — does nothing unless a digest is
-# actually due. Installed via brain/com.kb.touchline.plist (see README).
+# actually due. Installed via brain/com.kb.fiveaside.plist (see README).
 set -euo pipefail
 # launchd has a bare PATH; claude/node/npx/uv live here
 export PATH="$HOME/.local/bin:/opt/homebrew/bin:/usr/local/bin:/usr/bin:/bin"

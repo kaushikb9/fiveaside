@@ -3,19 +3,19 @@
 <plist version="1.0">
 <dict>
   <key>Label</key>
-  <string>com.kb.touchline</string>
+  <string>com.kb.fiveaside</string>
   <key>ProgramArguments</key>
   <array>
     <string>/bin/bash</string>
-    <string>/Users/YOURNAME/Code/touchline/brain/auto.sh</string>
+    <string>/Users/YOURNAME/Code/fiveaside/brain/auto.sh</string>
   </array>
   <key>StartInterval</key>
   <integer>3600</integer>
   <key>RunAtLoad</key>
   <true/>
   <key>StandardOutPath</key>
-  <string>/Users/YOURNAME/Code/touchline/brain/auto.log</string>
+  <string>/Users/YOURNAME/Code/fiveaside/brain/auto.log</string>
   <key>StandardErrorPath</key>
-  <string>/Users/YOURNAME/Code/touchline/brain/auto.log</string>
+  <string>/Users/YOURNAME/Code/fiveaside/brain/auto.log</string>
 </dict>
 </plist>

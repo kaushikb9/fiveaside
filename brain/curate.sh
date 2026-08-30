@@ -11,7 +11,7 @@ if [[ ! "$TODAY" =~ ^[0-9]{4}-[0-9]{2}-[0-9]{2}$ ]]; then
   echo "could not extract a valid 'date' from the facts bundle" >&2
   exit 1
 fi
-CONFIG="$(cat touchline.config.json)"
+CONFIG="$(cat fiveaside.config.json)"
 
 claude -p "$(cat brain/prompt.md)
 

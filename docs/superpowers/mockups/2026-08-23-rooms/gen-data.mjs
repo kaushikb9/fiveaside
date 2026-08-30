@@ -2,7 +2,7 @@
 import { readFileSync, writeFileSync } from "node:fs";
 
 const P = JSON.parse(readFileSync("site/data/players.json", "utf8"));
-const CFG = JSON.parse(readFileSync("touchline.config.json", "utf8"));
+const CFG = JSON.parse(readFileSync("fiveaside.config.json", "utf8"));
 const G = JSON.parse(readFileSync("site/data/gaffers.json", "utf8"));
 const F = JSON.parse(readFileSync("site/data/fpl.json", "utf8"));
 

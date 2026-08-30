@@ -115,7 +115,7 @@ class TheSportsDBClient:
     def fetch_matches(self, competition: str = "FRIENDLIES") -> SourceResult:
         if not self.team_id:
             error = (
-                "thesportsdb team id missing: set club.thesportsdb_id in touchline.config.json"
+                "thesportsdb team id missing: set club.thesportsdb_id in fiveaside.config.json"
             )
             return SourceResult(ok=False, fixtures=[], results=[], error=error)
         if competition not in _LEAGUE_TO_CODE.values():

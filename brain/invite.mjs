@@ -24,7 +24,7 @@ const LOCAL = args.includes("--local");
 const rest = args.filter((a) => a !== "--local");
 const SITE = LOCAL ? "http://localhost:8787" : "https://fiveaside.pages.dev";
 
-const NICKS = JSON.parse(readFileSync("touchline.config.json", "utf8")).fpl.people.map((p) => p.nick);
+const NICKS = JSON.parse(readFileSync("fiveaside.config.json", "utf8")).fpl.people.map((p) => p.nick);
 
 const wrangler = (...a) =>
   execFileSync("npx", ["wrangler", "kv", ...a, "--namespace-id", KV, LOCAL ? "--local" : "--remote"],

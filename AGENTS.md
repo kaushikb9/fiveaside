@@ -33,7 +33,7 @@ delegated listener in `site/common.js`. Keep it that way.
 - `src/touchline/` — the facts CLI. `uv run touchline facts` builds the
   digest bundle, `uv run touchline fpl` the FPL one. Pure core
   (`core/facts.py`, `core/fpl.py` — no I/O, injected `now`), source clients
-  behind protocols. Owner preferences in `touchline.config.json`; never
+  behind protocols. Owner preferences in `fiveaside.config.json`; never
   hardcode a club, competition or timezone.
 - `brain/` — two editors, same discipline. `curate.sh` + `prompt.md` write
   `digests.json`; `curate-fpl.sh` + `fpl-prompt.md` write `fpl.json`.
@@ -434,7 +434,7 @@ gaffers room says the door has no lock fitted rather than showing a dead
 button.
 
 **Scheduling.** `brain/auto.sh` fires hourly via launchd
-(`com.kb.touchline.plist`). It pulls with autostash and a timeout, then:
+(`com.kb.fiveaside.plist`). It pulls with autostash and a timeout, then:
 
 1. refreshes the **mechanical** data every hour (prices, points, squads,
    chips — no LLM), publishing only if something moved;

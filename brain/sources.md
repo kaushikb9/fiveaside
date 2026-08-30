@@ -2,7 +2,7 @@
 
 1. **Facts bundle** (provided in the task message — output of
    `uv run touchline facts`): ground truth for scores, fixtures, tables,
-   form. Served by the source selected in `touchline.config.json` (`source`: ESPN by default; api-football or football-data.org selectable).
+   form. Served by the source selected in `fiveaside.config.json` (`source`: ESPN by default; api-football or football-data.org selectable).
 2. **Reddit is DEAD to this pipeline as of 2026-08-24.** Every subreddit RSS
    feed — r/soccer and all five club subs — now returns Reddit's "Welcome to
    Reddit" login HTML rather than entries. The `.json` endpoints have 403'd

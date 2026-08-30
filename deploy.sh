@@ -18,7 +18,7 @@ if [ "$BRANCH" != "main" ] && [ "${ALLOW_BRANCH_DEPLOY:-}" != "1" ]; then
   exit 1
 fi
 
-cp touchline.config.json site/data/config.json
+cp fiveaside.config.json site/data/config.json
 
 # Cache-bust from content, not from memory. A hand-typed ?v= was forgotten
 # once and served a stale app.js against fresh markup — the page rendered,

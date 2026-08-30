@@ -48,7 +48,7 @@ def test_main_without_command_prints_help_and_exits_2(capsys):
 
 
 def test_main_facts_uses_config_path(tmp_path, capsys, monkeypatch):
-    config_path = tmp_path / "touchline.config.json"
+    config_path = tmp_path / "fiveaside.config.json"
     config_path.write_text(
         json.dumps({"club": {"name": "Chelsea", "code": "CHE"}, "competitions": ["PL"]}),
         encoding="utf-8",
@@ -89,7 +89,7 @@ def test_layered_source_built_with_club_team_id():
 
 
 def test_main_fpl_prints_bundle(tmp_path, capsys, monkeypatch):
-    config_path = tmp_path / "touchline.config.json"
+    config_path = tmp_path / "fiveaside.config.json"
     config_path.write_text(
         json.dumps({"club": {"name": "Chelsea", "code": "CHE"}, "competitions": ["PL"]}),
         encoding="utf-8",
@@ -107,7 +107,7 @@ def test_main_fpl_prints_bundle(tmp_path, capsys, monkeypatch):
 
 
 def test_main_facts_instantiates_configured_source(tmp_path, capsys, monkeypatch):
-    config_path = tmp_path / "touchline.config.json"
+    config_path = tmp_path / "fiveaside.config.json"
     config_path.write_text(
         json.dumps(
             {"club": {"name": "Chelsea", "code": "CHE"}, "competitions": ["PL"], "source": "espn"}
