@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-02T02:28:40.912Z",
+  "generated_at": "2026-09-02T04:06:43.691Z",
   "gameweek": 3,
   "players": [
     {
@@ -579,7 +579,7 @@
       "team": "MUN",
       "pos": "MID",
       "price": 8,
-      "ownership": 30.6,
+      "ownership": 30.5,
       "points": 13,
       "form": "6.5",
       "fixtures": [
@@ -957,7 +957,7 @@
       "team": "MCI",
       "pos": "MID",
       "price": 7.7,
-      "ownership": 24,
+      "ownership": 24.1,
       "points": 22,
       "form": "11.0",
       "fixtures": [
@@ -1319,7 +1319,7 @@
       "team": "TOT",
       "pos": "GK",
       "price": 4.5,
-      "ownership": 20.5,
+      "ownership": 20.4,
       "points": 3,
       "form": "1.5",
       "fixtures": [
@@ -1867,7 +1867,7 @@
       "team": "MCI",
       "pos": "DEF",
       "price": 5.6,
-      "ownership": 17.4,
+      "ownership": 17.5,
       "points": 14,
       "form": "7.0",
       "fixtures": [
@@ -2052,7 +2052,7 @@
       "team": "LIV",
       "pos": "FWD",
       "price": 9,
-      "ownership": 16.3,
+      "ownership": 16.4,
       "points": 10,
       "form": "5.0",
       "fixtures": [
@@ -2868,7 +2868,7 @@
       "team": "BRE",
       "pos": "MID",
       "price": 5.7,
-      "ownership": 12.5,
+      "ownership": 12.6,
       "points": 18,
       "form": "9.0",
       "fixtures": [
@@ -29192,6 +29192,91 @@
       "fdr_avg": 3
     },
     {
+      "id": 625,
+      "name": "Cairns",
+      "team": "LEE",
+      "pos": "GK",
+      "price": 4,
+      "ownership": 0.2,
+      "points": 0,
+      "form": "0.0",
+      "fixtures": [
+        {
+          "gw": 3,
+          "opp": "BHA",
+          "home": false,
+          "fdr": 3
+        },
+        {
+          "gw": 4,
+          "opp": "NEW",
+          "home": true,
+          "fdr": 2
+        },
+        {
+          "gw": 5,
+          "opp": "CRY",
+          "home": true,
+          "fdr": 3
+        },
+        {
+          "gw": 6,
+          "opp": "ARS",
+          "home": false,
+          "fdr": 5
+        },
+        {
+          "gw": 7,
+          "opp": "MUN",
+          "home": true,
+          "fdr": 4
+        }
+      ],
+      "recent": [
+        {
+          "gw": 1,
+          "date": "2026-08-22",
+          "comp": "PL",
+          "opp": "NFO",
+          "home": false,
+          "gf": 1,
+          "ga": 0,
+          "result": "W"
+        },
+        {
+          "date": "2026-08-25",
+          "comp": "EFL",
+          "opp": "NFO",
+          "home": false,
+          "gf": 2,
+          "ga": 0,
+          "result": "W"
+        },
+        {
+          "gw": 2,
+          "date": "2026-08-30",
+          "comp": "PL",
+          "opp": "BRE",
+          "home": true,
+          "gf": 1,
+          "ga": 1,
+          "result": "D"
+        }
+      ],
+      "other_apps": [],
+      "other_next": [
+        {
+          "date": "2026-09-09",
+          "kickoff": "2026-09-09T19:00:00+00:00",
+          "comp": "EFL",
+          "opp": "CHE",
+          "home": false
+        }
+      ],
+      "owned_by": [],
+      "fdr_avg": 3.4
+    },
+    {
       "id": 583,
       "name": "Chavarria",
       "team": "CHE",
@@ -35160,91 +35245,6 @@
       ],
       "owned_by": [],
       "fdr_avg": 3
-    },
-    {
-      "id": 625,
-      "name": "Cairns",
-      "team": "LEE",
-      "pos": "GK",
-      "price": 4,
-      "ownership": 0.1,
-      "points": 0,
-      "form": "0.0",
-      "fixtures": [
-        {
-          "gw": 3,
-          "opp": "BHA",
-          "home": false,
-          "fdr": 3
-        },
-        {
-          "gw": 4,
-          "opp": "NEW",
-          "home": true,
-          "fdr": 2
-        },
-        {
-          "gw": 5,
-          "opp": "CRY",
-          "home": true,
-          "fdr": 3
-        },
-        {
-          "gw": 6,
-          "opp": "ARS",
-          "home": false,
-          "fdr": 5
-        },
-        {
-          "gw": 7,
-          "opp": "MUN",
-          "home": true,
-          "fdr": 4
-        }
-      ],
-      "recent": [
-        {
-          "gw": 1,
-          "date": "2026-08-22",
-          "comp": "PL",
-          "opp": "NFO",
-          "home": false,
-          "gf": 1,
-          "ga": 0,
-          "result": "W"
-        },
-        {
-          "date": "2026-08-25",
-          "comp": "EFL",
-          "opp": "NFO",
-          "home": false,
-          "gf": 2,
-          "ga": 0,
-          "result": "W"
-        },
-        {
-          "gw": 2,
-          "date": "2026-08-30",
-          "comp": "PL",
-          "opp": "BRE",
-          "home": true,
-          "gf": 1,
-          "ga": 1,
-          "result": "D"
-        }
-      ],
-      "other_apps": [],
-      "other_next": [
-        {
-          "date": "2026-09-09",
-          "kickoff": "2026-09-09T19:00:00+00:00",
-          "comp": "EFL",
-          "opp": "CHE",
-          "home": false
-        }
-      ],
-      "owned_by": [],
-      "fdr_avg": 3.4
     },
     {
       "id": 143,
