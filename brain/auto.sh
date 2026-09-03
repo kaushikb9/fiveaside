@@ -75,13 +75,57 @@ then
     git add site/data/players.json site/data/gaffers.json site/data/table.json
     git commit -qm "data: $(date '+%F %H:%M') mechanical refresh" || true
     git push -q 2>/dev/null || echo "[auto] push failed"
-    ./deploy.sh >/dev/null 2>&1 || echo "[auto] deploy failed"
+    ./deploy.sh >/tmp/fiveaside-deploy.log 2>&1 \
+      || { echo "[auto] deploy failed"; tail -5 /tmp/fiveaside-deploy.log | sed 's/^/[auto]   /'; }
   fi
 else
   echo "[auto] $(date '+%F %T') — facts refresh failed, skipping"
   git checkout -- site/data/players.json site/data/gaffers.json site/data/table.json 2>/dev/null || true
 fi
 
+
+# ---------------------------------------------------------------- freshness
+# On 2026-08-30 wrangler's OAuth token expired. Every hourly run after that
+# curated, committed and pushed correctly, then failed at the deploy — and
+# said so only as "[auto] deploy failed" in this log, where nobody was
+# reading. The live site sat four days stale, still telling the room that
+# gameweek 2 was being played, until a human noticed and asked.
+#
+# So the last word of every run is not "did the deploy command exit 0" but
+# "is the site serving what is on disk". That catches any deploy path that
+# fails quietly, not just the one that did.
+check_live_fresh() {
+  local stale
+  stale=$(node -e '
+    const files = ["table", "digests", "fpl"];
+    // Two hourly runs of slack: a refresh that lands while a deploy is still
+    // uploading is normal, and must not cry wolf.
+    const SLACK_MS = 2 * 60 * 60 * 1000;
+    (async () => {
+      const bad = [];
+      for (const f of files) {
+        let local;
+        try { local = require("./site/data/" + f + ".json").generated_at; } catch (e) {}
+        if (!local) continue;
+        let live;
+        try {
+          const r = await fetch("https://fiveaside.pages.dev/data/" + f + ".json");
+          live = (await r.json()).generated_at;
+        } catch (e) { bad.push(f + " unreachable"); continue; }
+        const behind = Date.parse(local) - Date.parse(live);
+        // Negated so an unparseable date (NaN) reports rather than passes.
+        if (!(behind < SLACK_MS)) {
+          bad.push(f + " " + Math.round(behind / 3600000) + "h behind");
+        }
+      }
+      process.stdout.write(bad.join(", "));
+    })();
+  ' 2>/dev/null) || stale="freshness check itself failed"
+  [ -n "$stale" ] || return 0
+  echo "[auto] $(date '+%F %T') — LIVE SITE IS STALE: $stale"
+  osascript -e "display notification \"$stale\" with title \"Five-a-Side is stale\" subtitle \"the site is not serving what is on disk\"" 2>/dev/null || true
+}
+trap check_live_fresh EXIT
 
 # Nothing editorial left to do today — the hourly refresh above has already
 # run, which is the point of it being above this line.
