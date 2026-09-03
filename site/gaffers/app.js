@@ -216,17 +216,29 @@
      real evidence — how much of the table is still matchday-one noise — and
      retires itself once there is enough football to argue from. */
   const SETTLED_FROM_GW = 6;
-  function longGameHTML() {
+  /* It used to be a panel of its own, sitting beside the live panel and
+     repeating its heading — "It is gameweek 2" next to "Live gameweek 2".
+     Reported on 2026-08-30 and already an invariant: never pad a section to
+     look full. It is a footnote inside the one gameweek widget now.
+
+     Two sentences went with the panel. "Separated by N points, which is one
+     captain and a late goal" was written when the gap was single digits and
+     was claiming a 91-point gap was one captain; and "N players have scored
+     anything at all" counted the whole game's player pool while reading as
+     though it counted the five. Neither is missed: the gap is the entire
+     point of the table directly below. */
+  function caveatHTML() {
     const gw = focusGW();
     if (!gw || gw >= SETTLED_FROM_GW) return "";
-    const played = pool().filter((p) => p.points > 0).length;
-    const spread = G.people.map((p) => p.total_points).sort((a, b) => a - b);
-    const gap = spread[spread.length - 1] - spread[0];
-    return '<div class="panel" style="border-left:4px solid var(--warn)">' +
-      "<h3>It is gameweek " + gw + "</h3>" +
-      '<p class="note" style="margin-bottom:0">We are separated by ' + gap +
-      " points, which is one captain and a late goal, and " + played +
-      " players have scored anything at all. Nothing here is evidence yet.</p></div>";
+    const weeks = gw - 1;
+    return '<div class="gw-caveat">' +
+      '<svg width="13" height="13" viewBox="0 0 16 16" fill="none" stroke="currentColor" ' +
+      'stroke-width="1.7" aria-hidden="true">' +
+      '<circle cx="8" cy="8" r="6.4"></circle>' +
+      '<path d="M8 4.8v3.6M8 11.1h.01" stroke-linecap="round"></path></svg><span>' +
+      (weeks <= 0 ? "The season has not started."
+        : weeks === 1 ? "One gameweek in." : weeks + " gameweeks in.") +
+      " The table is still mostly noise &mdash; nothing here is evidence yet.</span></div>";
   }
 
   /* ---------------- how the room addresses you ----------------
@@ -346,49 +358,146 @@
       "these are still the teams &mdash; they refresh on their own once it lifts.</p></div>";
   }
 
-  function deadlineHTML() {
-    const p = G.people.find((x) => x.nick === who);
-    const moves = p && p.transfers_made != null
-      ? p.transfers_made + " transfer" + (p.transfers_made === 1 ? "" : "s") +
-        (p.transfers_cost ? " at &minus;" + p.transfers_cost : "") + " in gameweek " + PICKS_GW()
-      : null;
-    return '<div class="panel" style="border-left:4px solid var(--accent)">' +
-      "<h3>Next deadline</h3>" +
-      '<p class="note">' + deadlineLine() + "</p>" +
-      '<p class="note" style="margin-bottom:0">' + whom(true) + ": &pound;" +
-      (p && p.bank != null ? p.bank.toFixed(1) : "?") + "m in the bank, squad worth &pound;" +
-      (p && p.value != null ? p.value.toFixed(1) : "?") + "m" +
-      (moves ? " &middot; " + moves : "") + ".</p></div>";
+  /* ---------------- one gameweek widget ----------------
+     There used to be two panels side by side here, and the comment above the
+     grid2 that held them admitted they answered the same question: how much
+     of this gameweek is real yet. Xabi reported it on 2026-08-30 — "these 2
+     sections are redundant when a gameweek is live ... can become one single
+     smart widget basis where we are in the gameweek" — and it was already an
+     invariant. This is that widget, full width, in four states.
+
+     The state is read from two places and they are not interchangeable. The
+     SNAPSHOT knows which gameweek is current and whether FPL has marked it
+     finished; only the LIVE FEED, fetched on demand, knows how many of its
+     matches have actually been played. So the phase is as precise as what has
+     been fetched, and never more: before a fetch, a current gameweek is "in
+     play" or "final" and no further. */
+
+  const PHASE = {
+    live: { cls: "live", label: "In play" },
+    locked: { cls: "locked", label: "Locked" },
+    final: { cls: "final", label: "Final" },
+  };
+
+  function phaseNow() {
+    if (between()) {
+      // "Locks Fri" reads faster than "Between weeks" and says the same
+      // thing. deadline_local is pre-formatted "Fri 04 Sep, 23:00" in the
+      // owner's zone, so the weekday is its first word.
+      const day = (G.deadline_local || "").split(/[\s,]+/)[0];
+      return { cls: "between", label: day ? "Locks " + day : "Between weeks" };
+    }
+    if (liveWeek) {
+      if (liveWeek.status === "live") return PHASE.live;
+      if (liveWeek.status === "done") return PHASE.final;
+      return PHASE.locked;
+    }
+    return G.live_gameweek && G.live_gameweek.finished ? PHASE.final : PHASE.live;
   }
 
-  function liveHTML() {
-    if (between() && !liveWeek) return deadlineHTML();
-    if (!liveWeek) {
-      return '<div class="panel"><h3>Gameweek ' + PICKS_GW() + "</h3>" +
-        '<p class="note">Squad points below are a snapshot from the last data run.</p>' +
-        '<button class="btn-live fc" data-live>' +
-        (liveBusy ? "fetching…" : "Fetch live scores") + "</button></div>";
+  /* One pip per fixture — six done, two in play, two to come reads at a
+     glance in a way the sentence underneath cannot. Only ever drawn from real
+     fixtures, so there are no pips until the feed has been fetched. */
+  function pipsHTML() {
+    if (!liveWeek || !liveWeek.fixtures || !liveWeek.fixtures.length) return "";
+    return '<div class="pips" aria-hidden="true">' +
+      liveWeek.fixtures.map((f) =>
+        '<span class="pip' + (f.finished ? " done" : f.started ? " live" : "") + '"></span>'
+      ).join("") + "</div>";
+  }
+
+  function factsHTML(items) {
+    const rows = items.filter(Boolean);
+    if (!rows.length) return "";
+    return '<div class="gw-facts">' + rows.map((f) => '<span class="fact">' + f + "</span>").join("") + "</div>";
+  }
+
+  function gameweekHTML() {
+    const p = G.people.find((x) => x.nick === who);
+    const ph = phaseNow();
+    const gw = between() ? NEXT_GW() : PICKS_GW();
+    const money = (v) => "&pound;" + (v == null ? "?" : v.toFixed(1)) + "m";
+
+    let line = "";
+    let facts = [];
+    let scores = "";
+    let button = "";
+
+    if (between()) {
+      line = "Gameweek " + PICKS_GW() + " is final. " + deadlineLine();
+      // Bank and squad value are decisions you can still act on, so they
+      // belong to the window where acting is possible.
+      facts = [
+        whom(true) + " &middot; <b>" + money(p && p.bank) + "</b> in the bank",
+        "squad worth <b>" + money(p && p.value) + "</b>",
+        p && p.transfers_made != null
+          ? "<b>" + p.transfers_made + "</b> transfer" + (p.transfers_made === 1 ? "" : "s") +
+            " made" + (p.transfers_cost ? " at &minus;" + p.transfers_cost : "")
+          : null,
+      ];
+    } else if (!liveWeek) {
+      line = "Squad points below are a snapshot from the last data run.";
+      button = '<button class="btn-live fc" data-live>' +
+        (liveBusy ? "fetching&hellip;" : "Fetch live scores") + "</button>";
+    } else {
+      const playing = liveWeek.fixtures.filter((f) => f.started && !f.finished);
+      const done = liveWeek.fixtures.filter((f) => f.finished).length;
+      const total = liveWeek.fixtures.length;
+      if (ph === PHASE.locked) {
+        line = "Teams are in. Nothing has kicked off yet.";
+        // The deadline has gone, so bank and value cannot be acted on. What
+        // still tells you something is what was spent getting here.
+        facts = [
+          p && p.transfers_made != null
+            ? "<b>" + p.transfers_made + "</b> transfer" + (p.transfers_made === 1 ? "" : "s") +
+              " made" + (p.transfers_cost ? " at &minus;" + p.transfers_cost : "")
+            : null,
+          p && p.active_chip ? esc(CHIP_NAME[p.active_chip] || p.active_chip) + " played" : null,
+        ];
+      } else {
+        /* "provisional bonus" is only true while the football is on. FPL
+           does not flip a gameweek to finished until bonus is confirmed, so
+           once it has, saying provisional is wrong. */
+        line = ph === PHASE.final
+          ? "All " + total + " matches finished, bonus confirmed."
+          : done + " of " + total + " matches finished" +
+            (playing.length ? ", " + playing.length + " in play" : "") +
+            ". Points on the pitch below are live, including provisional bonus.";
+        /* No facts row while the football is still being played. `gw_points`
+           and `bench_points` are the SNAPSHOT's, taken at the last data run,
+           and printing them beside live scores states a stale number as if it
+           were the current one — the same mistake the captaincy headline made
+           with season totals. Once the week is done they are true again, and
+           until then the pitch below is already showing the live total. */
+        facts = ph === PHASE.final ? [
+          p && p.gw_points != null ? "<b>" + p.gw_points + "</b> points this week" : null,
+          p && p.bench_points != null
+            ? "<b>" + p.bench_points + "</b> left on the bench" : null,
+        ] : [];
+      }
+      scores = playing.length
+        ? '<div class="rows">' + playing.map((f) =>
+            '<div class="row"><div class="scoreline"><span class="t">' +
+            esc(f.home) + " " + f.home_score + "&ndash;" + f.away_score + " " + esc(f.away) +
+            '</span><span class="m">' + f.minutes + "&prime;</span></div></div>").join("") + "</div>"
+        : "";
+      button = '<button class="btn-live fc" data-live>' +
+        (liveBusy ? "refreshing&hellip;" : "Refresh") + "</button>";
     }
-    const inPlay = liveWeek.fixtures.filter((f) => f.started && !f.finished);
-    const done = liveWeek.fixtures.filter((f) => f.finished).length;
-    const fx = (f) =>
-      '<div class="row"><div class="row-main"><div class="row-name">' +
-      esc(f.home) + " " + f.home_score + "&ndash;" + f.away_score + " " + esc(f.away) + "</div>" +
-      '<div class="row-sub">' + (f.finished ? "full time" : f.started ? f.minutes + "&prime;" : "not started") +
-      "</div></div></div>";
-    const heading = liveWeek.status === "live" ? "Live gameweek " + liveWeek.gw
-      : liveWeek.status === "done" ? "Gameweek " + liveWeek.gw + " &mdash; final"
-      : "Gameweek " + liveWeek.gw + " &mdash; not started";
-    return '<div class="panel"><h3>' + heading + "</h3>" +
-      '<p class="note">' + done + " of " + liveWeek.fixtures.length + " matches finished" +
-      (inPlay.length ? ", " + inPlay.length + " in play" : "") +
-      ". Points on the pitch below are live, including provisional bonus.</p>" +
-      (inPlay.length ? '<div class="rows">' + inPlay.map(fx).join("") + "</div>" : "") +
-      // Only surfaced here, under a week panel that still reads correctly.
+
+    return '<div class="panel gw-panel">' +
+      '<div class="gw-head"><h3>Gameweek ' + gw + "</h3>" +
+      '<span class="phase ' + ph.cls + '">' + esc(ph.label) + "</span></div>" +
+      pipsHTML() +
+      '<p class="note">' + line + "</p>" +
+      scores +
+      factsHTML(facts) +
+      // Only surfaced here, under a widget that still reads correctly.
       (liveError ? '<p class="note">Could not refresh the squad points (' +
         esc(liveError) + "). The snapshot below still stands.</p>" : "") +
-      '<button class="btn-live fc" data-live style="margin-top:10px">' +
-      (liveBusy ? "refreshing…" : "Refresh") + "</button></div>";
+      caveatHTML() +
+      button +
+      "</div>";
   }
 
   /* ---------------- the pitch ---------------- */
@@ -786,9 +895,8 @@
           ' &middot; <a href="#" id="signout">sign out</a></span>'
         : "") + "</div>" +
       headlineHTML() +
-      // Two short status panels that answer the same question — how much of
-      // this gameweek is real yet — so they sit on one row.
-      '<div class="grid2">' + longGameHTML() + liveHTML() + "</div>" +
+      // One widget, full width: where we are in the week, answered once.
+      gameweekHTML() +
       barHTML() + fiveHTML() +
       // Squad first, then the read about it. You look at the team, then at
       // what someone made of it.

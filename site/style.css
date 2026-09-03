@@ -825,6 +825,63 @@ h3.withcoach .coachface { width: 22px; height: 22px; }
 .btn-live { font-weight: 700; }
 .btn-live[disabled] { opacity: 0.5; cursor: default; }
 
+/* ---- the gameweek widget ----
+   One panel answering "where are we in the week", where two panels used to
+   sit in a grid2 repeating each other's heading. The phase chip is the only
+   place any of these colours carries meaning: red is being played, blue is
+   the window to act in, amber is locked, green is done. */
+.gw-panel .note { margin-bottom: 0; }
+.gw-head { display: flex; align-items: baseline; gap: 10px; flex-wrap: wrap; margin-bottom: 4px; }
+.gw-head h3 { font-size: 16px; }
+.phase {
+  font-size: 11px; font-weight: 700; letter-spacing: 0.07em; text-transform: uppercase;
+  padding: 2px 8px; border-radius: 99px; border: 1px solid;
+}
+.phase.live { color: var(--hot); border-color: color-mix(in srgb, var(--hot) 45%, transparent); background: color-mix(in srgb, var(--hot) 10%, transparent); }
+.phase.between { color: var(--accent); border-color: color-mix(in srgb, var(--accent) 45%, transparent); background: color-mix(in srgb, var(--accent) 9%, transparent); }
+/* Locked is FILLED, not tinted, and that is not decoration. Floodlit sets
+   --accent and --warn to the same amber, so a tinted "Locked" and a tinted
+   "Locks Fri" are the same chip in the dark theme while meaning opposite
+   things — the window is open, or it has shut. Form separates them where
+   hue cannot. The dark ink is a literal because the ground is var(--warn)
+   in BOTH themes and both are mid-amber, the same trade `.tag.hot` makes. */
+.phase.locked { color: #1a1206; border-color: var(--warn); background: var(--warn); }
+.phase.final { color: var(--ok); border-color: color-mix(in srgb, var(--ok) 45%, transparent); background: color-mix(in srgb, var(--ok) 10%, transparent); }
+
+/* One pip per fixture. Six done, two in play, two to come is a shape, and a
+   shape is read in less time than the sentence under it. */
+.pips { display: flex; gap: 4px; margin: 10px 0; }
+.pip { height: 6px; flex: 1; border-radius: 99px; background: var(--hair); }
+.pip.done { background: var(--grass); }
+.pip.live { background: var(--hot); animation: pip-breathe 2.4s ease-in-out infinite; }
+@keyframes pip-breathe { 0%, 100% { opacity: 1; } 50% { opacity: 0.45; } }
+
+.gw-facts {
+  display: flex; flex-wrap: wrap; gap: 4px 18px;
+  margin-top: 11px; padding-top: 11px; border-top: 1px solid var(--hair);
+}
+.gw-facts .fact { font-size: 13px; color: var(--mute); }
+.gw-facts .fact b { font-family: var(--f-num); font-variant-numeric: tabular-nums; color: var(--ink); font-weight: 700; }
+
+/* The long-game warning, which used to be a panel of its own. Quieter, but
+   it is the same warning and it still retires itself at SETTLED_FROM_GW. */
+.gw-caveat {
+  margin-top: 11px; padding-top: 10px; border-top: 1px solid var(--hair);
+  font-size: 12.5px; color: var(--warn);
+  display: flex; gap: 8px; align-items: flex-start;
+}
+.gw-caveat svg { flex: 0 0 auto; margin-top: 3px; }
+
+/* The button used to carry an inline margin-top from the JS that built it.
+   It belongs here, so every phase that renders one gets the same gap. */
+.gw-panel .btn-live { margin-top: 12px; }
+
+.scoreline { display: flex; justify-content: space-between; gap: 12px; font-size: 13.5px; }
+.scoreline .t { font-weight: 600; }
+.scoreline .m { font-family: var(--f-num); color: var(--hot); font-size: 12.5px; }
+
+@media (prefers-reduced-motion: reduce) { .pip.live { animation: none; } }
+
 /* On a phone the wrap and pitch padding leave ~330px, and four players at
    78px plus gaps come to exactly that — so a 4-man midfield wrapped to
    3 + 1 and stopped reading as a formation. Trim the tile so four fit. */
