@@ -114,12 +114,28 @@
      here does not reappear below. */
   const FEED_PREVIEW_WORDS = 42;
   const words = (text) => text.trim().split(/\s+/).filter(Boolean);
-  const preview = (text) => {
+  /* Where to cut a long note, as a HEAD that is shown and a REST that is
+     folded away. It used to return the head alone and the fold carried the
+     whole note, so opening it re-read you the sentence you had just read —
+     which is what "this week has redundant info wherever it says read full"
+     was reporting. A fold should add what you have not seen. */
+  const splitNote = (text) => {
     const all = words(text);
     if (all.length <= FEED_PREVIEW_WORDS) return null;
     const firstSentence = text.match(/^(.+?[.!?])(?:\s|$)/)?.[1];
-    if (firstSentence && words(firstSentence).length <= 60) return firstSentence;
-    return all.slice(0, FEED_PREVIEW_WORDS).join(" ") + "…";
+    if (firstSentence && words(firstSentence).length <= 60) {
+      return { head: firstSentence, rest: text.slice(firstSentence.length).trim() };
+    }
+    /* No usable sentence break, so cut on a word boundary — but find it in the
+       ORIGINAL string rather than re-joining a split(), so the rest resumes
+       exactly as it was written instead of with the spacing a join() invents. */
+    let cut = 0, seen = 0, m;
+    const re = /\S+/g;
+    while (seen < FEED_PREVIEW_WORDS && (m = re.exec(text)) !== null) {
+      seen += 1;
+      cut = m.index + m[0].length;
+    }
+    return { head: text.slice(0, cut) + "…", rest: text.slice(cut).trim() };
   };
 
   D.weekHTML = function (d, opts) {
@@ -142,11 +158,14 @@
       // historical digests, but never expose it as if it meant Premier League:
       // the current feed also contains European football.
       const kind = w.tag === "FPL" ? "FPL" : "Football";
-      const short = compact ? preview(w.text) : null;
-      const body = short
-        ? esc(short) +
-          '<details class="feed-more"><summary>read full note</summary><div class="feed-full">' +
-          esc(w.text) + "</div></details>"
+      // `rest` can only be empty if the note was all one long sentence, and
+      // then there is nothing to fold: show it whole rather than offer a fold
+      // that opens onto nothing.
+      const cut = compact ? splitNote(w.text) : null;
+      const body = cut && cut.rest
+        ? esc(cut.head) +
+          '<details class="feed-more"><summary>read the rest</summary><div class="feed-full">' +
+          esc(cut.rest) + "</div></details>"
         : esc(w.text);
       return '<li data-tag="' + kind + '" data-club="' + esc(w.club || "") + '">' +
         '<span class="wtag ' + (kind === "FPL" ? "fpl" : "") + '">' + esc(kind) + "</span>" +
