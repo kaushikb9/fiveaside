@@ -29,6 +29,12 @@
   const pool = () => P.players;
   const rec = (id) => byId[id];
 
+  /* The room is written, not tabulated: a count inside a sentence is a word.
+     It matters most in the captaincy headline, where a digit count sat beside
+     a digit score and the two were indistinguishable. Only the counts a
+     five-man league can produce are needed. */
+  const NUM = ["nobody", "one", "two", "three", "four", "five"];
+
   const CHIP_NAME = {
     bboost: "Bench Boost", "3xc": "Triple Captain",
     freehit: "Free Hit", wildcard: "Wildcard",
@@ -86,18 +92,43 @@
       if (c) (caps[c.name] = caps[c.name] || []).push(p.nick);
     });
     const split = Object.keys(caps).map((n) => [n, caps[n]]).sort((a, b) => b[1].length - a[1].length);
+    /* This headline is about ONE gameweek, so it needs a one-gameweek number.
+       It used to double `points`, which is the player's SEASON total — the
+       same mistake the pitch tiles made and the same one the comment above
+       `points()` describes. It printed "captained B.Fernandes for 4" on the
+       Saturday of gameweek 2, because his season stood at 2. Nobody could
+       read it, because it did not mean anything.
+
+       `gw_points` is the fix, and `gw_points_for` says which gameweek it is
+       for. When that is not the gameweek these picks belong to, there is no
+       honest number to print, so the headline stands down rather than
+       doubling the wrong week. */
+    const gwPts = (name) => {
+      if (P.gw_points_for == null || P.gw_points_for !== PICKS_GW()) return null;
+      const q = pool().find((x) => x.name === name);
+      return q && q.gw_points != null ? q.gw_points : null;
+    };
     if (split.length > 1) {
       const top = split[0];
-      const others = split.slice(1).map((s) => ({
-        n: s[0], who: s[1], pts: (pool().find((q) => q.name === s[0]) || {}).points || 0,
-      })).sort((a, b) => b.pts - a.pts)[0];
-      const topPts = (pool().find((q) => q.name === top[0]) || {}).points || 0;
-      cand.push({
-        score: 70 + Math.abs(topPts - others.pts) * 3, kicker: "Captaincy split",
-        text: top[1].length + " of the five captained " + top[0] + " for " + topPts * 2 + "; " +
-          others.who.join(" and ") + " went " + others.n + " for " + others.pts * 2 + ".",
-        sub: "A " + Math.abs(topPts - others.pts) * 2 + "-point swing on one decision.",
-      });
+      const topPts = gwPts(top[0]);
+      const others = split.slice(1).map((s) => ({ n: s[0], who: s[1], pts: gwPts(s[0]) }))
+        .sort((a, b) => (b.pts || 0) - (a.pts || 0))[0];
+      if (topPts != null && others.pts != null) {
+        // Doubled, because a captain scores double — and said out loud, since
+        // an undoubled and a doubled figure look identical on the page.
+        const mine = others.pts * 2, theirs = topPts * 2;
+        const swing = Math.abs(mine - theirs);
+        const ahead = mine >= theirs;
+        cand.push({
+          score: 70 + swing * 1.5, kicker: "Captaincy split",
+          text: others.who.join(" and ") + " " + (others.who.length > 1 ? "are" : "is") + " " +
+            swing + " point" + (swing === 1 ? "" : "s") + " " + (ahead ? "up" : "down") +
+            " on one decision: " + others.n + " doubled to " + mine +
+            ", while the other " + NUM[top[1].length] + " doubled " + top[0] + " to " + theirs + ".",
+          sub: NUM[top[1].length].charAt(0).toUpperCase() + NUM[top[1].length].slice(1) +
+            " of the five went the same way.",
+        });
+      }
     }
 
     const worst = people.filter((p) => !(p.chips || []).length && !p.active_chip)

@@ -44,6 +44,12 @@ writeFileSync(
     {
       generated_at: stamp,
       gameweek: gw,
+      // Which gameweek every record's `gw_points` is for. `gameweek` above is
+      // the one being PLANNED for; these points belong to the one being
+      // played, and a reader that confuses them reports the wrong week's
+      // score. Null when no gameweek is live, which is a reason to say
+      // nothing rather than to print a zero.
+      gw_points_for: bundle.live_gameweek?.id ?? null,
       players: carryForwardOwners(bundle.player_file ?? []),
     },
     null,

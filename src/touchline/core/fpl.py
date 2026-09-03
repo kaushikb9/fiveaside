@@ -506,7 +506,11 @@ def _player_file(
             "pos": POS_NAME.get(e.element_type, str(e.element_type)),
             "price": e.now_cost / 10,
             "ownership": _ownership(e),
+            # `points` is the SEASON total. Anything reporting on a single
+            # gameweek wants `gw_points`, and the file says which gameweek
+            # that is in `gw_points_for` — see ROADMAP 4c.1.
             "points": e.total_points,
+            "gw_points": e.event_points,
             "form": e.form,
             "fixtures": upcoming,
             "recent": recent_by_team.get(team, []),

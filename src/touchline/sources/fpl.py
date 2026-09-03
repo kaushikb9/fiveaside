@@ -43,6 +43,10 @@ class FPLElement(BaseModel, frozen=True):
     chance_of_playing_next_round: int | None = None
     form: str = ""
     total_points: int = 0
+    # Points in the gameweek that is CURRENTLY being played — not the season.
+    # The two are the same number only in gameweek 1, which is what hid the
+    # captaincy bug for a fortnight.
+    event_points: int = 0
     penalties_order: int | None = None  # 1 = first-choice taker
 
 

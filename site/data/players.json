@@ -1,6 +1,7 @@
 {
-  "generated_at": "2026-09-03T02:47:55.516Z",
+  "generated_at": "2026-09-03T02:54:40.639Z",
   "gameweek": 3,
+  "gw_points_for": 2,
   "players": [
     {
       "id": 411,
@@ -10,6 +11,7 @@
       "price": 15.5,
       "ownership": 70.9,
       "points": 15,
+      "gw_points": 13,
       "form": "7.5",
       "fixtures": [
         {
@@ -107,6 +109,7 @@
       "price": 7.7,
       "ownership": 69.8,
       "points": 20,
+      "gw_points": 9,
       "form": "10.0",
       "fixtures": [
         {
@@ -205,6 +208,7 @@
       "price": 12,
       "ownership": 48.6,
       "points": 25,
+      "gw_points": 23,
       "form": "12.5",
       "fixtures": [
         {
@@ -301,6 +305,7 @@
       "price": 5.6,
       "ownership": 43.6,
       "points": 20,
+      "gw_points": 11,
       "form": "10.0",
       "fixtures": [
         {
@@ -396,6 +401,7 @@
       "price": 7,
       "ownership": 41.5,
       "points": 12,
+      "gw_points": 4,
       "form": "6.0",
       "fixtures": [
         {
@@ -491,6 +497,7 @@
       "price": 6,
       "ownership": 37.8,
       "points": 12,
+      "gw_points": 6,
       "form": "6.0",
       "fixtures": [
         {
@@ -581,6 +588,7 @@
       "price": 8,
       "ownership": 29.8,
       "points": 13,
+      "gw_points": 11,
       "form": "6.5",
       "fixtures": [
         {
@@ -675,6 +683,7 @@
       "price": 6,
       "ownership": 26.5,
       "points": 9,
+      "gw_points": 8,
       "form": "4.5",
       "fixtures": [
         {
@@ -773,6 +782,7 @@
       "price": 8,
       "ownership": 26.4,
       "points": 13,
+      "gw_points": 8,
       "form": "6.5",
       "fixtures": [
         {
@@ -863,6 +873,7 @@
       "price": 7.7,
       "ownership": 25.8,
       "points": 22,
+      "gw_points": 14,
       "form": "11.0",
       "fixtures": [
         {
@@ -953,6 +964,7 @@
       "price": 7.5,
       "ownership": 24.9,
       "points": 13,
+      "gw_points": 5,
       "form": "6.5",
       "fixtures": [
         {
@@ -1049,6 +1061,7 @@
       "price": 6.5,
       "ownership": 21.8,
       "points": 6,
+      "gw_points": 0,
       "form": "3.0",
       "fixtures": [
         {
@@ -1142,6 +1155,7 @@
       "price": 4.5,
       "ownership": 21.6,
       "points": 6,
+      "gw_points": 0,
       "form": "3.0",
       "fixtures": [
         {
@@ -1229,6 +1243,7 @@
       "price": 8.5,
       "ownership": 20.6,
       "points": 7,
+      "gw_points": 5,
       "form": "3.5",
       "fixtures": [
         {
@@ -1321,6 +1336,7 @@
       "price": 4.5,
       "ownership": 20,
       "points": 3,
+      "gw_points": 1,
       "form": "1.5",
       "fixtures": [
         {
@@ -1417,6 +1433,7 @@
       "price": 6.5,
       "ownership": 19.1,
       "points": 4,
+      "gw_points": 2,
       "form": "2.0",
       "fixtures": [
         {
@@ -1507,6 +1524,7 @@
       "price": 6,
       "ownership": 18.9,
       "points": 12,
+      "gw_points": 2,
       "form": "6.0",
       "fixtures": [
         {
@@ -1597,6 +1615,7 @@
       "price": 9.6,
       "ownership": 18.3,
       "points": 20,
+      "gw_points": 7,
       "form": "10.0",
       "fixtures": [
         {
@@ -1691,6 +1710,7 @@
       "price": 4,
       "ownership": 18.2,
       "points": 0,
+      "gw_points": 0,
       "form": "0.0",
       "fixtures": [
         {
@@ -1779,6 +1799,7 @@
       "price": 5.6,
       "ownership": 17.9,
       "points": 14,
+      "gw_points": 5,
       "form": "7.0",
       "fixtures": [
         {
@@ -1871,6 +1892,7 @@
       "price": 6.5,
       "ownership": 17.9,
       "points": 3,
+      "gw_points": 1,
       "form": "1.5",
       "fixtures": [
         {
@@ -1961,6 +1983,7 @@
       "price": 4.5,
       "ownership": 16.7,
       "points": 3,
+      "gw_points": 2,
       "form": "1.5",
       "fixtures": [
         {
@@ -2054,6 +2077,7 @@
       "price": 9,
       "ownership": 16.5,
       "points": 10,
+      "gw_points": 8,
       "form": "5.0",
       "fixtures": [
         {
@@ -2144,6 +2168,7 @@
       "price": 4,
       "ownership": 15.9,
       "points": 4,
+      "gw_points": 2,
       "form": "2.0",
       "fixtures": [
         {
@@ -2233,6 +2258,7 @@
       "price": 5,
       "ownership": 15,
       "points": 5,
+      "gw_points": 4,
       "form": "2.5",
       "fixtures": [
         {
@@ -2326,6 +2352,7 @@
       "price": 4.7,
       "ownership": 14.9,
       "points": 17,
+      "gw_points": 0,
       "form": "8.5",
       "fixtures": [
         {
@@ -2411,6 +2438,7 @@
       "price": 7.5,
       "ownership": 14.9,
       "points": 8,
+      "gw_points": 5,
       "form": "4.0",
       "fixtures": [
         {
@@ -2501,6 +2529,7 @@
       "price": 5.5,
       "ownership": 14.6,
       "points": 15,
+      "gw_points": 13,
       "form": "7.5",
       "fixtures": [
         {
@@ -2589,6 +2618,7 @@
       "price": 8,
       "ownership": 14.4,
       "points": 2,
+      "gw_points": 2,
       "form": "1.0",
       "fixtures": [
         {
@@ -2682,6 +2712,7 @@
       "price": 5,
       "ownership": 14,
       "points": 3,
+      "gw_points": 2,
       "form": "1.5",
       "fixtures": [
         {
@@ -2774,6 +2805,7 @@
       "price": 6,
       "ownership": 13.6,
       "points": 13,
+      "gw_points": 4,
       "form": "6.5",
       "fixtures": [
         {
@@ -2867,6 +2899,7 @@
       "price": 5.7,
       "ownership": 13.3,
       "points": 18,
+      "gw_points": 4,
       "form": "9.0",
       "fixtures": [
         {
@@ -2959,6 +2992,7 @@
       "price": 5.5,
       "ownership": 12,
       "points": 1,
+      "gw_points": 1,
       "form": "0.5",
       "fixtures": [
         {
@@ -3052,6 +3086,7 @@
       "price": 4,
       "ownership": 12,
       "points": 3,
+      "gw_points": 2,
       "form": "1.5",
       "fixtures": [
         {
@@ -3139,6 +3174,7 @@
       "price": 6.1,
       "ownership": 11.6,
       "points": 12,
+      "gw_points": 8,
       "form": "6.0",
       "fixtures": [
         {
@@ -3231,6 +3267,7 @@
       "price": 6.6,
       "ownership": 11.3,
       "points": 14,
+      "gw_points": 3,
       "form": "7.0",
       "fixtures": [
         {
@@ -3321,6 +3358,7 @@
       "price": 9.5,
       "ownership": 10.6,
       "points": 20,
+      "gw_points": 11,
       "form": "10.0",
       "fixtures": [
         {
@@ -3412,6 +3450,7 @@
       "price": 4.4,
       "ownership": 10.5,
       "points": 1,
+      "gw_points": 1,
       "form": "0.5",
       "fixtures": [
         {
@@ -3504,6 +3543,7 @@
       "price": 6,
       "ownership": 10.4,
       "points": 18,
+      "gw_points": 12,
       "form": "9.0",
       "fixtures": [
         {
@@ -3596,6 +3636,7 @@
       "price": 5.9,
       "ownership": 10.1,
       "points": 4,
+      "gw_points": 2,
       "form": "2.0",
       "fixtures": [
         {
@@ -3686,6 +3727,7 @@
       "price": 7.5,
       "ownership": 10.1,
       "points": 6,
+      "gw_points": 4,
       "form": "3.0",
       "fixtures": [
         {
@@ -3776,6 +3818,7 @@
       "price": 4.5,
       "ownership": 9.7,
       "points": 0,
+      "gw_points": 0,
       "form": "0.0",
       "fixtures": [
         {
@@ -3868,6 +3911,7 @@
       "price": 7.9,
       "ownership": 9.4,
       "points": 15,
+      "gw_points": 13,
       "form": "7.5",
       "fixtures": [
         {
@@ -3947,6 +3991,7 @@
       "price": 4.6,
       "ownership": 9.3,
       "points": 15,
+      "gw_points": 2,
       "form": "7.5",
       "fixtures": [
         {
@@ -4039,6 +4084,7 @@
       "price": 5.5,
       "ownership": 8.8,
       "points": 10,
+      "gw_points": 3,
       "form": "5.0",
       "fixtures": [
         {
@@ -4131,6 +4177,7 @@
       "price": 5.1,
       "ownership": 8.6,
       "points": 14,
+      "gw_points": 11,
       "form": "7.0",
       "fixtures": [
         {
@@ -4223,6 +4270,7 @@
       "price": 5.5,
       "ownership": 8.5,
       "points": 1,
+      "gw_points": 1,
       "form": "0.5",
       "fixtures": [
         {
@@ -4315,6 +4363,7 @@
       "price": 6,
       "ownership": 8.5,
       "points": 7,
+      "gw_points": 1,
       "form": "3.5",
       "fixtures": [
         {
@@ -4407,6 +4456,7 @@
       "price": 5,
       "ownership": 8.4,
       "points": 8,
+      "gw_points": 6,
       "form": "4.0",
       "fixtures": [
         {
@@ -4491,6 +4541,7 @@
       "price": 4,
       "ownership": 8.4,
       "points": 11,
+      "gw_points": 8,
       "form": "5.5",
       "fixtures": [
         {
@@ -4585,6 +4636,7 @@
       "price": 6.1,
       "ownership": 8.3,
       "points": 17,
+      "gw_points": 8,
       "form": "8.5",
       "fixtures": [
         {
@@ -4677,6 +4729,7 @@
       "price": 8,
       "ownership": 8.2,
       "points": 11,
+      "gw_points": 9,
       "form": "5.5",
       "fixtures": [
         {
@@ -4767,6 +4820,7 @@
       "price": 7,
       "ownership": 8.1,
       "points": 17,
+      "gw_points": 5,
       "form": "8.5",
       "fixtures": [
         {
@@ -4857,6 +4911,7 @@
       "price": 4.1,
       "ownership": 8,
       "points": 20,
+      "gw_points": 6,
       "form": "10.0",
       "fixtures": [
         {
@@ -4943,6 +4998,7 @@
       "price": 5.5,
       "ownership": 8,
       "points": 3,
+      "gw_points": 0,
       "form": "1.5",
       "fixtures": [
         {
@@ -5033,6 +5089,7 @@
       "price": 4.9,
       "ownership": 7.8,
       "points": 2,
+      "gw_points": 1,
       "form": "1.0",
       "fixtures": [
         {
@@ -5125,6 +5182,7 @@
       "price": 5,
       "ownership": 7.2,
       "points": 9,
+      "gw_points": 2,
       "form": "4.5",
       "fixtures": [
         {
@@ -5210,6 +5268,7 @@
       "price": 5.5,
       "ownership": 7.2,
       "points": 18,
+      "gw_points": 7,
       "form": "9.0",
       "fixtures": [
         {
@@ -5301,6 +5360,7 @@
       "price": 4.5,
       "ownership": 7.1,
       "points": 1,
+      "gw_points": 2,
       "form": "0.5",
       "fixtures": [
         {
@@ -5393,6 +5453,7 @@
       "price": 7.5,
       "ownership": 7,
       "points": 8,
+      "gw_points": 2,
       "form": "4.0",
       "fixtures": [
         {
@@ -5485,6 +5546,7 @@
       "price": 4.6,
       "ownership": 7,
       "points": 20,
+      "gw_points": 10,
       "form": "10.0",
       "fixtures": [
         {
@@ -5570,6 +5632,7 @@
       "price": 5.4,
       "ownership": 6.8,
       "points": 0,
+      "gw_points": 0,
       "form": "0.0",
       "fixtures": [
         {
@@ -5647,6 +5710,7 @@
       "price": 4.5,
       "ownership": 6.7,
       "points": 0,
+      "gw_points": 0,
       "form": "0.0",
       "fixtures": [
         {
@@ -5732,6 +5796,7 @@
       "price": 5.9,
       "ownership": 6.5,
       "points": 5,
+      "gw_points": 3,
       "form": "2.5",
       "fixtures": [
         {
@@ -5824,6 +5889,7 @@
       "price": 5.9,
       "ownership": 5.9,
       "points": 3,
+      "gw_points": 0,
       "form": "1.5",
       "fixtures": [
         {
@@ -5909,6 +5975,7 @@
       "price": 4.5,
       "ownership": 5.6,
       "points": 8,
+      "gw_points": 6,
       "form": "4.0",
       "fixtures": [
         {
@@ -6002,6 +6069,7 @@
       "price": 4,
       "ownership": 5.4,
       "points": 16,
+      "gw_points": 1,
       "form": "8.0",
       "fixtures": [
         {
@@ -6088,6 +6156,7 @@
       "price": 6.4,
       "ownership": 5.3,
       "points": 5,
+      "gw_points": 3,
       "form": "2.5",
       "fixtures": [
         {
@@ -6179,6 +6248,7 @@
       "price": 7.3,
       "ownership": 5.2,
       "points": 0,
+      "gw_points": 0,
       "form": "0.0",
       "fixtures": [
         {
@@ -6269,6 +6339,7 @@
       "price": 7.8,
       "ownership": 5.2,
       "points": 0,
+      "gw_points": 0,
       "form": "0.0",
       "fixtures": [
         {
@@ -6362,6 +6433,7 @@
       "price": 4,
       "ownership": 5.1,
       "points": 8,
+      "gw_points": 6,
       "form": "4.0",
       "fixtures": [
         {
@@ -6454,6 +6526,7 @@
       "price": 7,
       "ownership": 5.1,
       "points": 10,
+      "gw_points": 9,
       "form": "5.0",
       "fixtures": [
         {
@@ -6544,6 +6617,7 @@
       "price": 5.5,
       "ownership": 5,
       "points": 12,
+      "gw_points": 6,
       "form": "6.0",
       "fixtures": [
         {
@@ -6636,6 +6710,7 @@
       "price": 5,
       "ownership": 5,
       "points": 12,
+      "gw_points": 3,
       "form": "6.0",
       "fixtures": [
         {
@@ -6728,6 +6803,7 @@
       "price": 4.5,
       "ownership": 4.9,
       "points": 11,
+      "gw_points": 3,
       "form": "5.5",
       "fixtures": [
         {
@@ -6815,6 +6891,7 @@
       "price": 4.5,
       "ownership": 4.8,
       "points": 1,
+      "gw_points": 0,
       "form": "0.5",
       "fixtures": [
         {
@@ -6905,6 +6982,7 @@
       "price": 6,
       "ownership": 4.6,
       "points": 8,
+      "gw_points": 2,
       "form": "4.0",
       "fixtures": [
         {
@@ -6998,6 +7076,7 @@
       "price": 4.5,
       "ownership": 4.6,
       "points": 8,
+      "gw_points": 2,
       "form": "4.0",
       "fixtures": [
         {
@@ -7090,6 +7169,7 @@
       "price": 5.5,
       "ownership": 4.6,
       "points": 15,
+      "gw_points": 6,
       "form": "7.5",
       "fixtures": [
         {
@@ -7180,6 +7260,7 @@
       "price": 5,
       "ownership": 4.5,
       "points": 11,
+      "gw_points": 5,
       "form": "5.5",
       "fixtures": [
         {
@@ -7263,6 +7344,7 @@
       "price": 5.5,
       "ownership": 4.4,
       "points": 10,
+      "gw_points": 2,
       "form": "5.0",
       "fixtures": [
         {
@@ -7355,6 +7437,7 @@
       "price": 6.5,
       "ownership": 4.4,
       "points": 13,
+      "gw_points": 2,
       "form": "6.5",
       "fixtures": [
         {
@@ -7447,6 +7530,7 @@
       "price": 4,
       "ownership": 4.4,
       "points": 17,
+      "gw_points": 9,
       "form": "8.5",
       "fixtures": [
         {
@@ -7532,6 +7616,7 @@
       "price": 5,
       "ownership": 4.4,
       "points": 2,
+      "gw_points": 2,
       "form": "1.0",
       "fixtures": [
         {
@@ -7617,6 +7702,7 @@
       "price": 6.4,
       "ownership": 4.4,
       "points": 4,
+      "gw_points": 1,
       "form": "2.0",
       "fixtures": [
         {
@@ -7711,6 +7797,7 @@
       "price": 5,
       "ownership": 4.3,
       "points": 8,
+      "gw_points": 8,
       "form": "4.0",
       "fixtures": [
         {
@@ -7803,6 +7890,7 @@
       "price": 4,
       "ownership": 4.3,
       "points": 0,
+      "gw_points": 0,
       "form": "0.0",
       "fixtures": [
         {
@@ -7888,6 +7976,7 @@
       "price": 4,
       "ownership": 4.2,
       "points": 0,
+      "gw_points": 0,
       "form": "0.0",
       "fixtures": [
         {
@@ -7971,6 +8060,7 @@
       "price": 6,
       "ownership": 4,
       "points": 13,
+      "gw_points": 10,
       "form": "6.5",
       "fixtures": [
         {
@@ -8065,6 +8155,7 @@
       "price": 5.5,
       "ownership": 3.9,
       "points": 5,
+      "gw_points": 4,
       "form": "2.5",
       "fixtures": [
         {
@@ -8155,6 +8246,7 @@
       "price": 5.5,
       "ownership": 3.8,
       "points": 2,
+      "gw_points": 0,
       "form": "1.0",
       "fixtures": [
         {
@@ -8245,6 +8337,7 @@
       "price": 5,
       "ownership": 3.8,
       "points": 0,
+      "gw_points": 0,
       "form": "0.0",
       "fixtures": [
         {
@@ -8338,6 +8431,7 @@
       "price": 6.9,
       "ownership": 3.5,
       "points": 1,
+      "gw_points": 0,
       "form": "0.5",
       "fixtures": [
         {
@@ -8428,6 +8522,7 @@
       "price": 5,
       "ownership": 3.5,
       "points": 7,
+      "gw_points": 6,
       "form": "3.5",
       "fixtures": [
         {
@@ -8518,6 +8613,7 @@
       "price": 4,
       "ownership": 3.4,
       "points": 0,
+      "gw_points": 0,
       "form": "0.0",
       "fixtures": [
         {
@@ -8608,6 +8704,7 @@
       "price": 4.5,
       "ownership": 3.4,
       "points": 5,
+      "gw_points": 3,
       "form": "2.5",
       "fixtures": [
         {
@@ -8700,6 +8797,7 @@
       "price": 4.5,
       "ownership": 3.4,
       "points": 5,
+      "gw_points": 2,
       "form": "2.5",
       "fixtures": [
         {
@@ -8785,6 +8883,7 @@
       "price": 5,
       "ownership": 3.3,
       "points": 10,
+      "gw_points": 4,
       "form": "5.0",
       "fixtures": [
         {
@@ -8877,6 +8976,7 @@
       "price": 4,
       "ownership": 3.3,
       "points": 4,
+      "gw_points": 0,
       "form": "2.0",
       "fixtures": [
         {
@@ -8969,6 +9069,7 @@
       "price": 4.5,
       "ownership": 3.2,
       "points": 5,
+      "gw_points": 0,
       "form": "2.5",
       "fixtures": [
         {
@@ -9053,6 +9154,7 @@
       "price": 6,
       "ownership": 3.2,
       "points": 9,
+      "gw_points": 5,
       "form": "4.5",
       "fixtures": [
         {
@@ -9143,6 +9245,7 @@
       "price": 5.9,
       "ownership": 3.2,
       "points": 3,
+      "gw_points": 1,
       "form": "1.5",
       "fixtures": [
         {
@@ -9227,6 +9330,7 @@
       "price": 4.5,
       "ownership": 3.2,
       "points": 1,
+      "gw_points": 0,
       "form": "0.5",
       "fixtures": [
         {
@@ -9319,6 +9423,7 @@
       "price": 5.5,
       "ownership": 3.1,
       "points": 1,
+      "gw_points": 1,
       "form": "0.5",
       "fixtures": [
         {
@@ -9409,6 +9514,7 @@
       "price": 5.5,
       "ownership": 3.1,
       "points": 1,
+      "gw_points": 1,
       "form": "0.5",
       "fixtures": [
         {
@@ -9501,6 +9607,7 @@
       "price": 4.5,
       "ownership": 3.1,
       "points": 5,
+      "gw_points": 3,
       "form": "2.5",
       "fixtures": [
         {
@@ -9586,6 +9693,7 @@
       "price": 4,
       "ownership": 3.1,
       "points": 1,
+      "gw_points": 0,
       "form": "0.5",
       "fixtures": [
         {
@@ -9676,6 +9784,7 @@
       "price": 5.4,
       "ownership": 3.1,
       "points": 4,
+      "gw_points": 2,
       "form": "2.0",
       "fixtures": [
         {
@@ -9761,6 +9870,7 @@
       "price": 6.4,
       "ownership": 2.9,
       "points": 2,
+      "gw_points": 0,
       "form": "1.0",
       "fixtures": [
         {
@@ -9855,6 +9965,7 @@
       "price": 4.5,
       "ownership": 2.9,
       "points": 7,
+      "gw_points": 1,
       "form": "3.5",
       "fixtures": [
         {
@@ -9950,6 +10061,7 @@
       "price": 6,
       "ownership": 2.8,
       "points": 17,
+      "gw_points": 4,
       "form": "8.5",
       "fixtures": [
         {
@@ -10042,6 +10154,7 @@
       "price": 5,
       "ownership": 2.6,
       "points": 4,
+      "gw_points": 3,
       "form": "2.0",
       "fixtures": [
         {
@@ -10133,6 +10246,7 @@
       "price": 5.5,
       "ownership": 2.5,
       "points": 2,
+      "gw_points": 1,
       "form": "1.0",
       "fixtures": [
         {
@@ -10223,6 +10337,7 @@
       "price": 5.5,
       "ownership": 2.4,
       "points": 9,
+      "gw_points": 9,
       "form": "4.5",
       "fixtures": [
         {
@@ -10314,6 +10429,7 @@
       "price": 6.5,
       "ownership": 2.4,
       "points": 4,
+      "gw_points": 2,
       "form": "2.0",
       "fixtures": [
         {
@@ -10404,6 +10520,7 @@
       "price": 5,
       "ownership": 2.4,
       "points": 6,
+      "gw_points": 0,
       "form": "3.0",
       "fixtures": [
         {
@@ -10487,6 +10604,7 @@
       "price": 6,
       "ownership": 2.3,
       "points": 11,
+      "gw_points": 1,
       "form": "5.5",
       "fixtures": [
         {
@@ -10577,6 +10695,7 @@
       "price": 5.4,
       "ownership": 2.2,
       "points": 1,
+      "gw_points": 0,
       "form": "0.5",
       "fixtures": [
         {
@@ -10667,6 +10786,7 @@
       "price": 6.8,
       "ownership": 2.2,
       "points": 1,
+      "gw_points": 1,
       "form": "0.5",
       "fixtures": [
         {
@@ -10758,6 +10878,7 @@
       "price": 5.5,
       "ownership": 2.2,
       "points": 9,
+      "gw_points": 3,
       "form": "4.5",
       "fixtures": [
         {
@@ -10850,6 +10971,7 @@
       "price": 5,
       "ownership": 2.2,
       "points": 3,
+      "gw_points": 2,
       "form": "1.5",
       "fixtures": [
         {
@@ -10940,6 +11062,7 @@
       "price": 4.5,
       "ownership": 2.2,
       "points": 12,
+      "gw_points": 11,
       "form": "6.0",
       "fixtures": [
         {
@@ -11032,6 +11155,7 @@
       "price": 5.4,
       "ownership": 2.1,
       "points": 1,
+      "gw_points": 1,
       "form": "0.5",
       "fixtures": [
         {
@@ -11120,6 +11244,7 @@
       "price": 5.5,
       "ownership": 2.1,
       "points": 6,
+      "gw_points": 1,
       "form": "3.0",
       "fixtures": [
         {
@@ -11206,6 +11331,7 @@
       "price": 4,
       "ownership": 2.1,
       "points": 1,
+      "gw_points": 0,
       "form": "0.5",
       "fixtures": [
         {
@@ -11298,6 +11424,7 @@
       "price": 5.9,
       "ownership": 2.1,
       "points": 6,
+      "gw_points": 4,
       "form": "3.0",
       "fixtures": [
         {
@@ -11389,6 +11516,7 @@
       "price": 4.4,
       "ownership": 2,
       "points": 0,
+      "gw_points": 0,
       "form": "0.0",
       "fixtures": [
         {
@@ -11473,6 +11601,7 @@
       "price": 7,
       "ownership": 2,
       "points": 2,
+      "gw_points": 2,
       "form": "1.0",
       "fixtures": [
         {
@@ -11558,6 +11687,7 @@
       "price": 5.9,
       "ownership": 2,
       "points": 2,
+      "gw_points": 0,
       "form": "1.0",
       "fixtures": [
         {
@@ -11643,6 +11773,7 @@
       "price": 5,
       "ownership": 2,
       "points": 9,
+      "gw_points": 6,
       "form": "4.5",
       "fixtures": [
         {
@@ -11735,6 +11866,7 @@
       "price": 5.4,
       "ownership": 1.9,
       "points": 2,
+      "gw_points": 1,
       "form": "1.0",
       "fixtures": [
         {
@@ -11823,6 +11955,7 @@
       "price": 5.5,
       "ownership": 1.9,
       "points": 16,
+      "gw_points": 6,
       "form": "8.0",
       "fixtures": [
         {
@@ -11915,6 +12048,7 @@
       "price": 4.5,
       "ownership": 1.9,
       "points": 0,
+      "gw_points": 0,
       "form": "0.0",
       "fixtures": [
         {
@@ -12003,6 +12137,7 @@
       "price": 6,
       "ownership": 1.9,
       "points": 14,
+      "gw_points": 12,
       "form": "7.0",
       "fixtures": [
         {
@@ -12093,6 +12228,7 @@
       "price": 5.5,
       "ownership": 1.8,
       "points": 10,
+      "gw_points": 4,
       "form": "5.0",
       "fixtures": [
         {
@@ -12178,6 +12314,7 @@
       "price": 5,
       "ownership": 1.8,
       "points": 3,
+      "gw_points": 1,
       "form": "1.5",
       "fixtures": [
         {
@@ -12269,6 +12406,7 @@
       "price": 4,
       "ownership": 1.8,
       "points": 0,
+      "gw_points": 0,
       "form": "0.0",
       "fixtures": [
         {
@@ -12359,6 +12497,7 @@
       "price": 5.5,
       "ownership": 1.8,
       "points": 4,
+      "gw_points": 2,
       "form": "2.0",
       "fixtures": [
         {
@@ -12449,6 +12588,7 @@
       "price": 4,
       "ownership": 1.7,
       "points": 0,
+      "gw_points": 0,
       "form": "0.0",
       "fixtures": [
         {
@@ -12539,6 +12679,7 @@
       "price": 6,
       "ownership": 1.7,
       "points": 6,
+      "gw_points": 1,
       "form": "3.0",
       "fixtures": [
         {
@@ -12629,6 +12770,7 @@
       "price": 5.5,
       "ownership": 1.7,
       "points": 5,
+      "gw_points": 3,
       "form": "2.5",
       "fixtures": [
         {
@@ -12713,6 +12855,7 @@
       "price": 4.5,
       "ownership": 1.7,
       "points": 10,
+      "gw_points": 4,
       "form": "5.0",
       "fixtures": [
         {
@@ -12805,6 +12948,7 @@
       "price": 5.5,
       "ownership": 1.6,
       "points": 10,
+      "gw_points": 1,
       "form": "5.0",
       "fixtures": [
         {
@@ -12893,6 +13037,7 @@
       "price": 5.5,
       "ownership": 1.6,
       "points": 4,
+      "gw_points": 2,
       "form": "2.0",
       "fixtures": [
         {
@@ -12983,6 +13128,7 @@
       "price": 5.5,
       "ownership": 1.6,
       "points": 5,
+      "gw_points": 1,
       "form": "2.5",
       "fixtures": [
         {
@@ -13068,6 +13214,7 @@
       "price": 7,
       "ownership": 1.6,
       "points": 3,
+      "gw_points": 2,
       "form": "1.5",
       "fixtures": [
         {
@@ -13158,6 +13305,7 @@
       "price": 4.5,
       "ownership": 1.6,
       "points": 3,
+      "gw_points": 2,
       "form": "1.5",
       "fixtures": [
         {
@@ -13243,6 +13391,7 @@
       "price": 4.9,
       "ownership": 1.6,
       "points": 2,
+      "gw_points": 0,
       "form": "1.0",
       "fixtures": [
         {
@@ -13331,6 +13480,7 @@
       "price": 7,
       "ownership": 1.6,
       "points": 2,
+      "gw_points": 1,
       "form": "1.0",
       "fixtures": [
         {
@@ -13422,6 +13572,7 @@
       "price": 4,
       "ownership": 1.5,
       "points": 0,
+      "gw_points": 0,
       "form": "0.0",
       "fixtures": [
         {
@@ -13510,6 +13661,7 @@
       "price": 6.4,
       "ownership": 1.5,
       "points": 2,
+      "gw_points": 1,
       "form": "1.0",
       "fixtures": [
         {
@@ -13600,6 +13752,7 @@
       "price": 6,
       "ownership": 1.5,
       "points": 16,
+      "gw_points": 0,
       "form": "8.0",
       "fixtures": [
         {
@@ -13686,6 +13839,7 @@
       "price": 5.5,
       "ownership": 1.5,
       "points": 3,
+      "gw_points": 2,
       "form": "1.5",
       "fixtures": [
         {
@@ -13776,6 +13930,7 @@
       "price": 5.4,
       "ownership": 1.5,
       "points": 0,
+      "gw_points": 0,
       "form": "0.0",
       "fixtures": [
         {
@@ -13864,6 +14019,7 @@
       "price": 4,
       "ownership": 1.5,
       "points": 0,
+      "gw_points": 0,
       "form": "0.0",
       "fixtures": [
         {
@@ -13956,6 +14112,7 @@
       "price": 4.5,
       "ownership": 1.5,
       "points": 9,
+      "gw_points": 8,
       "form": "4.5",
       "fixtures": [
         {
@@ -14039,6 +14196,7 @@
       "price": 4.5,
       "ownership": 1.5,
       "points": 0,
+      "gw_points": 0,
       "form": "0.0",
       "fixtures": [
         {
@@ -14117,6 +14275,7 @@
       "price": 4.5,
       "ownership": 1.4,
       "points": 12,
+      "gw_points": 2,
       "form": "6.0",
       "fixtures": [
         {
@@ -14209,6 +14368,7 @@
       "price": 6.3,
       "ownership": 1.4,
       "points": 0,
+      "gw_points": 0,
       "form": "0.0",
       "fixtures": [
         {
@@ -14302,6 +14462,7 @@
       "price": 5,
       "ownership": 1.4,
       "points": 3,
+      "gw_points": 1,
       "form": "1.5",
       "fixtures": [
         {
@@ -14386,6 +14547,7 @@
       "price": 5,
       "ownership": 1.3,
       "points": 1,
+      "gw_points": 1,
       "form": "0.5",
       "fixtures": [
         {
@@ -14471,6 +14633,7 @@
       "price": 5.9,
       "ownership": 1.3,
       "points": 3,
+      "gw_points": 2,
       "form": "1.5",
       "fixtures": [
         {
@@ -14563,6 +14726,7 @@
       "price": 4,
       "ownership": 1.3,
       "points": 1,
+      "gw_points": -1,
       "form": "0.5",
       "fixtures": [
         {
@@ -14650,6 +14814,7 @@
       "price": 5,
       "ownership": 1.3,
       "points": 1,
+      "gw_points": 1,
       "form": "0.5",
       "fixtures": [
         {
@@ -14741,6 +14906,7 @@
       "price": 4.5,
       "ownership": 1.3,
       "points": 2,
+      "gw_points": 1,
       "form": "1.0",
       "fixtures": [
         {
@@ -14833,6 +14999,7 @@
       "price": 6.5,
       "ownership": 1.3,
       "points": 8,
+      "gw_points": 7,
       "form": "4.0",
       "fixtures": [
         {
@@ -14925,6 +15092,7 @@
       "price": 4.5,
       "ownership": 1.3,
       "points": 0,
+      "gw_points": 0,
       "form": "0.0",
       "fixtures": [
         {
@@ -15017,6 +15185,7 @@
       "price": 5.9,
       "ownership": 1.3,
       "points": 1,
+      "gw_points": 0,
       "form": "0.5",
       "fixtures": [
         {
@@ -15101,6 +15270,7 @@
       "price": 5.5,
       "ownership": 1.2,
       "points": 7,
+      "gw_points": 2,
       "form": "3.5",
       "fixtures": [
         {
@@ -15193,6 +15363,7 @@
       "price": 4.9,
       "ownership": 1.2,
       "points": 0,
+      "gw_points": 0,
       "form": "0.0",
       "fixtures": [
         {
@@ -15281,6 +15452,7 @@
       "price": 4.5,
       "ownership": 1.2,
       "points": 5,
+      "gw_points": -1,
       "form": "2.5",
       "fixtures": [
         {
@@ -15364,6 +15536,7 @@
       "price": 5,
       "ownership": 1.2,
       "points": 2,
+      "gw_points": 1,
       "form": "1.0",
       "fixtures": [
         {
@@ -15456,6 +15629,7 @@
       "price": 5.4,
       "ownership": 1.2,
       "points": 1,
+      "gw_points": 0,
       "form": "0.5",
       "fixtures": [
         {
@@ -15546,6 +15720,7 @@
       "price": 4,
       "ownership": 1.2,
       "points": 0,
+      "gw_points": 0,
       "form": "0.0",
       "fixtures": [
         {
@@ -15638,6 +15813,7 @@
       "price": 6.5,
       "ownership": 1.2,
       "points": 10,
+      "gw_points": 6,
       "form": "5.0",
       "fixtures": [
         {
@@ -15728,6 +15904,7 @@
       "price": 4.5,
       "ownership": 1.2,
       "points": 0,
+      "gw_points": 0,
       "form": "0.0",
       "fixtures": [
         {
@@ -15818,6 +15995,7 @@
       "price": 5.9,
       "ownership": 1.2,
       "points": 4,
+      "gw_points": 4,
       "form": "2.0",
       "fixtures": [
         {
@@ -15914,6 +16092,7 @@
       "price": 6,
       "ownership": 1.1,
       "points": 5,
+      "gw_points": 3,
       "form": "2.5",
       "fixtures": [
         {
@@ -16006,6 +16185,7 @@
       "price": 6,
       "ownership": 1.1,
       "points": 4,
+      "gw_points": 2,
       "form": "2.0",
       "fixtures": [
         {
@@ -16097,6 +16277,7 @@
       "price": 4.5,
       "ownership": 1.1,
       "points": 0,
+      "gw_points": 0,
       "form": "0.0",
       "fixtures": [
         {
@@ -16182,6 +16363,7 @@
       "price": 4,
       "ownership": 1.1,
       "points": 12,
+      "gw_points": 6,
       "form": "6.0",
       "fixtures": [
         {
@@ -16267,6 +16449,7 @@
       "price": 5,
       "ownership": 1.1,
       "points": 8,
+      "gw_points": 7,
       "form": "4.0",
       "fixtures": [
         {
@@ -16352,6 +16535,7 @@
       "price": 4.9,
       "ownership": 1.1,
       "points": 0,
+      "gw_points": 0,
       "form": "0.0",
       "fixtures": [
         {
@@ -16444,6 +16628,7 @@
       "price": 6,
       "ownership": 1.1,
       "points": 6,
+      "gw_points": 3,
       "form": "3.0",
       "fixtures": [
         {
@@ -16534,6 +16719,7 @@
       "price": 5.5,
       "ownership": 1.1,
       "points": 5,
+      "gw_points": 4,
       "form": "2.5",
       "fixtures": [
         {
@@ -16624,6 +16810,7 @@
       "price": 6,
       "ownership": 1.1,
       "points": 1,
+      "gw_points": 0,
       "form": "0.5",
       "fixtures": [
         {
@@ -16717,6 +16904,7 @@
       "price": 5,
       "ownership": 1.1,
       "points": 0,
+      "gw_points": 0,
       "form": "0.0",
       "fixtures": [
         {
@@ -16802,6 +16990,7 @@
       "price": 4.5,
       "ownership": 1.1,
       "points": 3,
+      "gw_points": 2,
       "form": "1.5",
       "fixtures": [
         {
@@ -16887,6 +17076,7 @@
       "price": 5.9,
       "ownership": 1.1,
       "points": 2,
+      "gw_points": 1,
       "form": "1.0",
       "fixtures": [
         {
@@ -16980,6 +17170,7 @@
       "price": 5,
       "ownership": 1.1,
       "points": 2,
+      "gw_points": 2,
       "form": "1.0",
       "fixtures": [
         {
@@ -17070,6 +17261,7 @@
       "price": 4,
       "ownership": 1.1,
       "points": 0,
+      "gw_points": 0,
       "form": "0.0",
       "fixtures": [
         {
@@ -17160,6 +17352,7 @@
       "price": 4,
       "ownership": 1,
       "points": 0,
+      "gw_points": 0,
       "form": "0.0",
       "fixtures": [
         {
@@ -17245,6 +17438,7 @@
       "price": 4,
       "ownership": 1,
       "points": 0,
+      "gw_points": 0,
       "form": "0.0",
       "fixtures": [
         {
@@ -17337,6 +17531,7 @@
       "price": 7.4,
       "ownership": 1,
       "points": 0,
+      "gw_points": 0,
       "form": "0.0",
       "fixtures": [
         {
@@ -17430,6 +17625,7 @@
       "price": 5.5,
       "ownership": 1,
       "points": 9,
+      "gw_points": 8,
       "form": "4.5",
       "fixtures": [
         {
@@ -17520,6 +17716,7 @@
       "price": 4,
       "ownership": 1,
       "points": 2,
+      "gw_points": 1,
       "form": "1.0",
       "fixtures": [
         {
@@ -17612,6 +17809,7 @@
       "price": 5,
       "ownership": 1,
       "points": 2,
+      "gw_points": 1,
       "form": "1.0",
       "fixtures": [
         {
@@ -17704,6 +17902,7 @@
       "price": 5,
       "ownership": 0.9,
       "points": 6,
+      "gw_points": 5,
       "form": "3.0",
       "fixtures": [
         {
@@ -17796,6 +17995,7 @@
       "price": 5,
       "ownership": 0.9,
       "points": 11,
+      "gw_points": 1,
       "form": "5.5",
       "fixtures": [
         {
@@ -17881,6 +18081,7 @@
       "price": 6.4,
       "ownership": 0.9,
       "points": 1,
+      "gw_points": 0,
       "form": "0.5",
       "fixtures": [
         {
@@ -17973,6 +18174,7 @@
       "price": 4.5,
       "ownership": 0.9,
       "points": 4,
+      "gw_points": 2,
       "form": "2.0",
       "fixtures": [
         {
@@ -18063,6 +18265,7 @@
       "price": 5.5,
       "ownership": 0.9,
       "points": 5,
+      "gw_points": 4,
       "form": "2.5",
       "fixtures": [
         {
@@ -18153,6 +18356,7 @@
       "price": 5.5,
       "ownership": 0.9,
       "points": 4,
+      "gw_points": 2,
       "form": "2.0",
       "fixtures": [
         {
@@ -18238,6 +18442,7 @@
       "price": 4.5,
       "ownership": 0.9,
       "points": 0,
+      "gw_points": 0,
       "form": "0.0",
       "fixtures": [
         {
@@ -18323,6 +18528,7 @@
       "price": 6.5,
       "ownership": 0.9,
       "points": 4,
+      "gw_points": 1,
       "form": "2.0",
       "fixtures": [
         {
@@ -18415,6 +18621,7 @@
       "price": 5,
       "ownership": 0.9,
       "points": 2,
+      "gw_points": 0,
       "form": "1.0",
       "fixtures": [
         {
@@ -18500,6 +18707,7 @@
       "price": 5.9,
       "ownership": 0.9,
       "points": 0,
+      "gw_points": 0,
       "form": "0.0",
       "fixtures": [
         {
@@ -18593,6 +18801,7 @@
       "price": 5.5,
       "ownership": 0.9,
       "points": 6,
+      "gw_points": 2,
       "form": "3.0",
       "fixtures": [
         {
@@ -18684,6 +18893,7 @@
       "price": 4,
       "ownership": 0.8,
       "points": 2,
+      "gw_points": 1,
       "form": "1.0",
       "fixtures": [
         {
@@ -18776,6 +18986,7 @@
       "price": 4.9,
       "ownership": 0.8,
       "points": 3,
+      "gw_points": 1,
       "form": "1.5",
       "fixtures": [
         {
@@ -18866,6 +19077,7 @@
       "price": 8,
       "ownership": 0.8,
       "points": 0,
+      "gw_points": 0,
       "form": "0.0",
       "fixtures": [
         {
@@ -18956,6 +19168,7 @@
       "price": 4.5,
       "ownership": 0.8,
       "points": 2,
+      "gw_points": 2,
       "form": "1.0",
       "fixtures": [
         {
@@ -19048,6 +19261,7 @@
       "price": 5,
       "ownership": 0.8,
       "points": 9,
+      "gw_points": 6,
       "form": "4.5",
       "fixtures": [
         {
@@ -19140,6 +19354,7 @@
       "price": 4.5,
       "ownership": 0.8,
       "points": 12,
+      "gw_points": 6,
       "form": "6.0",
       "fixtures": [
         {
@@ -19225,6 +19440,7 @@
       "price": 4,
       "ownership": 0.8,
       "points": 3,
+      "gw_points": 2,
       "form": "1.5",
       "fixtures": [
         {
@@ -19310,6 +19526,7 @@
       "price": 5.9,
       "ownership": 0.8,
       "points": 1,
+      "gw_points": 1,
       "form": "0.5",
       "fixtures": [
         {
@@ -19400,6 +19617,7 @@
       "price": 5.5,
       "ownership": 0.8,
       "points": 5,
+      "gw_points": 0,
       "form": "2.5",
       "fixtures": [
         {
@@ -19486,6 +19704,7 @@
       "price": 4.5,
       "ownership": 0.8,
       "points": 1,
+      "gw_points": 1,
       "form": "0.5",
       "fixtures": [
         {
@@ -19576,6 +19795,7 @@
       "price": 6.5,
       "ownership": 0.8,
       "points": 2,
+      "gw_points": 2,
       "form": "1.0",
       "fixtures": [
         {
@@ -19666,6 +19886,7 @@
       "price": 5.9,
       "ownership": 0.8,
       "points": 3,
+      "gw_points": 1,
       "form": "1.5",
       "fixtures": [
         {
@@ -19756,6 +19977,7 @@
       "price": 6.5,
       "ownership": 0.8,
       "points": 0,
+      "gw_points": 0,
       "form": "0.0",
       "fixtures": [
         {
@@ -19851,6 +20073,7 @@
       "price": 5,
       "ownership": 0.8,
       "points": 3,
+      "gw_points": 1,
       "form": "1.5",
       "fixtures": [
         {
@@ -19943,6 +20166,7 @@
       "price": 5.4,
       "ownership": 0.8,
       "points": 2,
+      "gw_points": 1,
       "form": "1.0",
       "fixtures": [
         {
@@ -20033,6 +20257,7 @@
       "price": 5.5,
       "ownership": 0.7,
       "points": 4,
+      "gw_points": 1,
       "form": "2.0",
       "fixtures": [
         {
@@ -20125,6 +20350,7 @@
       "price": 5.5,
       "ownership": 0.7,
       "points": 3,
+      "gw_points": 2,
       "form": "1.5",
       "fixtures": [
         {
@@ -20217,6 +20443,7 @@
       "price": 4.5,
       "ownership": 0.7,
       "points": 0,
+      "gw_points": 0,
       "form": "0.0",
       "fixtures": [
         {
@@ -20307,6 +20534,7 @@
       "price": 5.5,
       "ownership": 0.7,
       "points": 1,
+      "gw_points": 1,
       "form": "0.5",
       "fixtures": [
         {
@@ -20384,6 +20612,7 @@
       "price": 5.5,
       "ownership": 0.7,
       "points": 10,
+      "gw_points": 5,
       "form": "5.0",
       "fixtures": [
         {
@@ -20470,6 +20699,7 @@
       "price": 5.5,
       "ownership": 0.7,
       "points": 9,
+      "gw_points": 2,
       "form": "4.5",
       "fixtures": [
         {
@@ -20555,6 +20785,7 @@
       "price": 5.5,
       "ownership": 0.7,
       "points": 6,
+      "gw_points": 3,
       "form": "3.0",
       "fixtures": [
         {
@@ -20645,6 +20876,7 @@
       "price": 6.4,
       "ownership": 0.7,
       "points": 1,
+      "gw_points": 0,
       "form": "0.5",
       "fixtures": [
         {
@@ -20733,6 +20965,7 @@
       "price": 4.5,
       "ownership": 0.7,
       "points": 2,
+      "gw_points": 1,
       "form": "1.0",
       "fixtures": [
         {
@@ -20823,6 +21056,7 @@
       "price": 4.5,
       "ownership": 0.7,
       "points": 0,
+      "gw_points": 0,
       "form": "0.0",
       "fixtures": [
         {
@@ -20908,6 +21142,7 @@
       "price": 5,
       "ownership": 0.7,
       "points": 3,
+      "gw_points": 0,
       "form": "1.5",
       "fixtures": [
         {
@@ -20998,6 +21233,7 @@
       "price": 5.8,
       "ownership": 0.6,
       "points": 0,
+      "gw_points": 0,
       "form": "0.0",
       "fixtures": [
         {
@@ -21091,6 +21327,7 @@
       "price": 5.4,
       "ownership": 0.6,
       "points": 0,
+      "gw_points": 0,
       "form": "0.0",
       "fixtures": [
         {
@@ -21183,6 +21420,7 @@
       "price": 5,
       "ownership": 0.6,
       "points": 8,
+      "gw_points": 5,
       "form": "4.0",
       "fixtures": [
         {
@@ -21275,6 +21513,7 @@
       "price": 4,
       "ownership": 0.6,
       "points": 6,
+      "gw_points": 0,
       "form": "3.0",
       "fixtures": [
         {
@@ -21363,6 +21602,7 @@
       "price": 4.5,
       "ownership": 0.6,
       "points": 2,
+      "gw_points": 0,
       "form": "1.0",
       "fixtures": [
         {
@@ -21451,6 +21691,7 @@
       "price": 5.5,
       "ownership": 0.6,
       "points": 0,
+      "gw_points": 0,
       "form": "0.0",
       "fixtures": [
         {
@@ -21535,6 +21776,7 @@
       "price": 4,
       "ownership": 0.6,
       "points": 1,
+      "gw_points": 1,
       "form": "0.5",
       "fixtures": [
         {
@@ -21627,6 +21869,7 @@
       "price": 4.5,
       "ownership": 0.6,
       "points": 5,
+      "gw_points": 4,
       "form": "2.5",
       "fixtures": [
         {
@@ -21719,6 +21962,7 @@
       "price": 4,
       "ownership": 0.6,
       "points": 2,
+      "gw_points": 1,
       "form": "1.0",
       "fixtures": [
         {
@@ -21811,6 +22055,7 @@
       "price": 4.9,
       "ownership": 0.6,
       "points": 2,
+      "gw_points": 0,
       "form": "1.0",
       "fixtures": [
         {
@@ -21891,6 +22136,7 @@
       "price": 5,
       "ownership": 0.6,
       "points": 10,
+      "gw_points": 1,
       "form": "5.0",
       "fixtures": [
         {
@@ -21983,6 +22229,7 @@
       "price": 4,
       "ownership": 0.6,
       "points": 0,
+      "gw_points": 0,
       "form": "0.0",
       "fixtures": [
         {
@@ -22075,6 +22322,7 @@
       "price": 4,
       "ownership": 0.6,
       "points": 0,
+      "gw_points": 0,
       "form": "0.0",
       "fixtures": [
         {
@@ -22170,6 +22418,7 @@
       "price": 5.5,
       "ownership": 0.6,
       "points": 12,
+      "gw_points": 9,
       "form": "6.0",
       "fixtures": [
         {
@@ -22254,6 +22503,7 @@
       "price": 5.9,
       "ownership": 0.6,
       "points": 4,
+      "gw_points": 0,
       "form": "2.0",
       "fixtures": [
         {
@@ -22342,6 +22592,7 @@
       "price": 4.5,
       "ownership": 0.6,
       "points": 4,
+      "gw_points": 2,
       "form": "2.0",
       "fixtures": [
         {
@@ -22427,6 +22678,7 @@
       "price": 4.9,
       "ownership": 0.6,
       "points": 1,
+      "gw_points": 1,
       "form": "0.5",
       "fixtures": [
         {
@@ -22517,6 +22769,7 @@
       "price": 4.5,
       "ownership": 0.5,
       "points": 0,
+      "gw_points": 0,
       "form": "0.0",
       "fixtures": [
         {
@@ -22605,6 +22858,7 @@
       "price": 5.5,
       "ownership": 0.5,
       "points": 2,
+      "gw_points": 0,
       "form": "1.0",
       "fixtures": [
         {
@@ -22691,6 +22945,7 @@
       "price": 4.5,
       "ownership": 0.5,
       "points": 8,
+      "gw_points": 2,
       "form": "4.0",
       "fixtures": [
         {
@@ -22783,6 +23038,7 @@
       "price": 4,
       "ownership": 0.5,
       "points": 0,
+      "gw_points": 0,
       "form": "0.0",
       "fixtures": [
         {
@@ -22868,6 +23124,7 @@
       "price": 5.5,
       "ownership": 0.5,
       "points": 4,
+      "gw_points": 3,
       "form": "2.0",
       "fixtures": [
         {
@@ -22960,6 +23217,7 @@
       "price": 5.9,
       "ownership": 0.5,
       "points": 2,
+      "gw_points": 1,
       "form": "1.0",
       "fixtures": [
         {
@@ -23050,6 +23308,7 @@
       "price": 5.9,
       "ownership": 0.5,
       "points": 2,
+      "gw_points": 1,
       "form": "1.0",
       "fixtures": [
         {
@@ -23140,6 +23399,7 @@
       "price": 5.5,
       "ownership": 0.5,
       "points": 1,
+      "gw_points": 0,
       "form": "0.5",
       "fixtures": [
         {
@@ -23232,6 +23492,7 @@
       "price": 5.5,
       "ownership": 0.5,
       "points": 3,
+      "gw_points": 2,
       "form": "1.5",
       "fixtures": [
         {
@@ -23322,6 +23583,7 @@
       "price": 5.5,
       "ownership": 0.5,
       "points": 4,
+      "gw_points": 4,
       "form": "2.0",
       "fixtures": [
         {
@@ -23414,6 +23676,7 @@
       "price": 4.5,
       "ownership": 0.5,
       "points": 0,
+      "gw_points": 0,
       "form": "0.0",
       "fixtures": [
         {
@@ -23502,6 +23765,7 @@
       "price": 6,
       "ownership": 0.5,
       "points": 3,
+      "gw_points": 2,
       "form": "1.5",
       "fixtures": [
         {
@@ -23592,6 +23856,7 @@
       "price": 5,
       "ownership": 0.5,
       "points": 7,
+      "gw_points": 0,
       "form": "3.5",
       "fixtures": [
         {
@@ -23675,6 +23940,7 @@
       "price": 5.4,
       "ownership": 0.5,
       "points": 0,
+      "gw_points": 0,
       "form": "0.0",
       "fixtures": [
         {
@@ -23765,6 +24031,7 @@
       "price": 4.5,
       "ownership": 0.4,
       "points": 4,
+      "gw_points": 1,
       "form": "2.0",
       "fixtures": [
         {
@@ -23857,6 +24124,7 @@
       "price": 5,
       "ownership": 0.4,
       "points": 1,
+      "gw_points": 0,
       "form": "0.5",
       "fixtures": [
         {
@@ -23948,6 +24216,7 @@
       "price": 5,
       "ownership": 0.4,
       "points": 10,
+      "gw_points": 2,
       "form": "5.0",
       "fixtures": [
         {
@@ -24040,6 +24309,7 @@
       "price": 5,
       "ownership": 0.4,
       "points": 4,
+      "gw_points": 2,
       "form": "2.0",
       "fixtures": [
         {
@@ -24125,6 +24395,7 @@
       "price": 4.5,
       "ownership": 0.4,
       "points": 0,
+      "gw_points": 0,
       "form": "0.0",
       "fixtures": [
         {
@@ -24217,6 +24488,7 @@
       "price": 4.5,
       "ownership": 0.4,
       "points": 1,
+      "gw_points": 0,
       "form": "0.5",
       "fixtures": [
         {
@@ -24307,6 +24579,7 @@
       "price": 5.5,
       "ownership": 0.4,
       "points": 6,
+      "gw_points": 5,
       "form": "3.0",
       "fixtures": [
         {
@@ -24390,6 +24663,7 @@
       "price": 5,
       "ownership": 0.4,
       "points": 0,
+      "gw_points": 0,
       "form": "0.0",
       "fixtures": [
         {
@@ -24478,6 +24752,7 @@
       "price": 4.5,
       "ownership": 0.4,
       "points": 0,
+      "gw_points": 0,
       "form": "0.0",
       "fixtures": [
         {
@@ -24563,6 +24838,7 @@
       "price": 4.5,
       "ownership": 0.4,
       "points": 1,
+      "gw_points": 0,
       "form": "0.5",
       "fixtures": [
         {
@@ -24653,6 +24929,7 @@
       "price": 4.9,
       "ownership": 0.4,
       "points": 0,
+      "gw_points": 0,
       "form": "0.0",
       "fixtures": [
         {
@@ -24738,6 +25015,7 @@
       "price": 4.5,
       "ownership": 0.4,
       "points": 2,
+      "gw_points": 2,
       "form": "1.0",
       "fixtures": [
         {
@@ -24828,6 +25106,7 @@
       "price": 4.5,
       "ownership": 0.4,
       "points": 7,
+      "gw_points": 6,
       "form": "3.5",
       "fixtures": [
         {
@@ -24918,6 +25197,7 @@
       "price": 4.5,
       "ownership": 0.4,
       "points": 2,
+      "gw_points": 1,
       "form": "1.0",
       "fixtures": [
         {
@@ -25010,6 +25290,7 @@
       "price": 5,
       "ownership": 0.4,
       "points": 6,
+      "gw_points": 4,
       "form": "3.0",
       "fixtures": [
         {
@@ -25100,6 +25381,7 @@
       "price": 5.9,
       "ownership": 0.4,
       "points": 4,
+      "gw_points": 2,
       "form": "2.0",
       "fixtures": [
         {
@@ -25192,6 +25474,7 @@
       "price": 4.5,
       "ownership": 0.4,
       "points": 2,
+      "gw_points": 1,
       "form": "1.0",
       "fixtures": [
         {
@@ -25284,6 +25567,7 @@
       "price": 4.5,
       "ownership": 0.4,
       "points": 0,
+      "gw_points": 0,
       "form": "0.0",
       "fixtures": [
         {
@@ -25376,6 +25660,7 @@
       "price": 5,
       "ownership": 0.4,
       "points": 9,
+      "gw_points": 3,
       "form": "4.5",
       "fixtures": [
         {
@@ -25468,6 +25753,7 @@
       "price": 5.5,
       "ownership": 0.4,
       "points": 2,
+      "gw_points": 1,
       "form": "1.0",
       "fixtures": [
         {
@@ -25560,6 +25846,7 @@
       "price": 4.5,
       "ownership": 0.4,
       "points": 0,
+      "gw_points": 0,
       "form": "0.0",
       "fixtures": [
         {
@@ -25645,6 +25932,7 @@
       "price": 5,
       "ownership": 0.3,
       "points": 4,
+      "gw_points": 2,
       "form": "2.0",
       "fixtures": [
         {
@@ -25735,6 +26023,7 @@
       "price": 5.5,
       "ownership": 0.3,
       "points": 5,
+      "gw_points": 3,
       "form": "2.5",
       "fixtures": [
         {
@@ -25827,6 +26116,7 @@
       "price": 4.5,
       "ownership": 0.3,
       "points": 5,
+      "gw_points": -1,
       "form": "2.5",
       "fixtures": [
         {
@@ -25910,6 +26200,7 @@
       "price": 4.9,
       "ownership": 0.3,
       "points": 1,
+      "gw_points": 0,
       "form": "0.5",
       "fixtures": [
         {
@@ -26000,6 +26291,7 @@
       "price": 5.5,
       "ownership": 0.3,
       "points": 7,
+      "gw_points": 0,
       "form": "3.5",
       "fixtures": [
         {
@@ -26093,6 +26385,7 @@
       "price": 6,
       "ownership": 0.3,
       "points": 1,
+      "gw_points": 1,
       "form": "0.5",
       "fixtures": [
         {
@@ -26176,6 +26469,7 @@
       "price": 4.5,
       "ownership": 0.3,
       "points": 0,
+      "gw_points": 0,
       "form": "0.0",
       "fixtures": [
         {
@@ -26264,6 +26558,7 @@
       "price": 4.5,
       "ownership": 0.3,
       "points": 0,
+      "gw_points": 0,
       "form": "0.0",
       "fixtures": [
         {
@@ -26354,6 +26649,7 @@
       "price": 5.9,
       "ownership": 0.3,
       "points": 0,
+      "gw_points": 0,
       "form": "0.0",
       "fixtures": [
         {
@@ -26447,6 +26743,7 @@
       "price": 5.5,
       "ownership": 0.3,
       "points": 5,
+      "gw_points": 2,
       "form": "2.5",
       "fixtures": [
         {
@@ -26539,6 +26836,7 @@
       "price": 5,
       "ownership": 0.3,
       "points": 1,
+      "gw_points": 1,
       "form": "0.5",
       "fixtures": [
         {
@@ -26631,6 +26929,7 @@
       "price": 5,
       "ownership": 0.3,
       "points": 5,
+      "gw_points": 2,
       "form": "2.5",
       "fixtures": [
         {
@@ -26721,6 +27020,7 @@
       "price": 5,
       "ownership": 0.3,
       "points": 4,
+      "gw_points": 2,
       "form": "2.0",
       "fixtures": [
         {
@@ -26812,6 +27112,7 @@
       "price": 4.5,
       "ownership": 0.3,
       "points": 0,
+      "gw_points": 2,
       "form": "0.0",
       "fixtures": [
         {
@@ -26902,6 +27203,7 @@
       "price": 5.5,
       "ownership": 0.3,
       "points": 0,
+      "gw_points": 0,
       "form": "0.0",
       "fixtures": [
         {
@@ -26995,6 +27297,7 @@
       "price": 6.4,
       "ownership": 0.3,
       "points": 1,
+      "gw_points": 0,
       "form": "0.5",
       "fixtures": [
         {
@@ -27085,6 +27388,7 @@
       "price": 5.5,
       "ownership": 0.3,
       "points": 4,
+      "gw_points": 2,
       "form": "2.0",
       "fixtures": [
         {
@@ -27177,6 +27481,7 @@
       "price": 4.5,
       "ownership": 0.3,
       "points": 7,
+      "gw_points": 6,
       "form": "3.5",
       "fixtures": [
         {
@@ -27268,6 +27573,7 @@
       "price": 5.9,
       "ownership": 0.3,
       "points": 3,
+      "gw_points": 2,
       "form": "1.5",
       "fixtures": [
         {
@@ -27360,6 +27666,7 @@
       "price": 4.5,
       "ownership": 0.3,
       "points": 0,
+      "gw_points": 0,
       "form": "0.0",
       "fixtures": [
         {
@@ -27443,6 +27750,7 @@
       "price": 5,
       "ownership": 0.3,
       "points": 5,
+      "gw_points": 3,
       "form": "2.5",
       "fixtures": [
         {
@@ -27533,6 +27841,7 @@
       "price": 4,
       "ownership": 0.3,
       "points": 0,
+      "gw_points": 0,
       "form": "0.0",
       "fixtures": [
         {
@@ -27618,6 +27927,7 @@
       "price": 4.5,
       "ownership": 0.3,
       "points": 0,
+      "gw_points": 0,
       "form": "0.0",
       "fixtures": [
         {
@@ -27703,6 +28013,7 @@
       "price": 5.5,
       "ownership": 0.3,
       "points": 1,
+      "gw_points": 1,
       "form": "0.5",
       "fixtures": [
         {
@@ -27795,6 +28106,7 @@
       "price": 4,
       "ownership": 0.3,
       "points": 0,
+      "gw_points": 0,
       "form": "0.0",
       "fixtures": [
         {
@@ -27886,6 +28198,7 @@
       "price": 4,
       "ownership": 0.3,
       "points": 0,
+      "gw_points": 0,
       "form": "0.0",
       "fixtures": [
         {
@@ -27974,6 +28287,7 @@
       "price": 4.5,
       "ownership": 0.3,
       "points": 0,
+      "gw_points": 0,
       "form": "0.0",
       "fixtures": [
         {
@@ -28062,6 +28376,7 @@
       "price": 4.5,
       "ownership": 0.3,
       "points": 2,
+      "gw_points": 1,
       "form": "1.0",
       "fixtures": [
         {
@@ -28152,6 +28467,7 @@
       "price": 4.5,
       "ownership": 0.3,
       "points": 0,
+      "gw_points": 0,
       "form": "0.0",
       "fixtures": [
         {
@@ -28244,6 +28560,7 @@
       "price": 4,
       "ownership": 0.2,
       "points": 0,
+      "gw_points": 0,
       "form": "0.0",
       "fixtures": [
         {
@@ -28324,6 +28641,7 @@
       "price": 5,
       "ownership": 0.2,
       "points": 2,
+      "gw_points": 1,
       "form": "1.0",
       "fixtures": [
         {
@@ -28415,6 +28733,7 @@
       "price": 4.5,
       "ownership": 0.2,
       "points": 0,
+      "gw_points": 0,
       "form": "0.0",
       "fixtures": [
         {
@@ -28505,6 +28824,7 @@
       "price": 4,
       "ownership": 0.2,
       "points": 0,
+      "gw_points": 0,
       "form": "0.0",
       "fixtures": [
         {
@@ -28595,6 +28915,7 @@
       "price": 6,
       "ownership": 0.2,
       "points": 3,
+      "gw_points": 2,
       "form": "1.5",
       "fixtures": [
         {
@@ -28687,6 +29008,7 @@
       "price": 4,
       "ownership": 0.2,
       "points": 0,
+      "gw_points": 0,
       "form": "0.0",
       "fixtures": [
         {
@@ -28782,6 +29104,7 @@
       "price": 5,
       "ownership": 0.2,
       "points": 0,
+      "gw_points": 0,
       "form": "0.0",
       "fixtures": [
         {
@@ -28875,6 +29198,7 @@
       "price": 4.5,
       "ownership": 0.2,
       "points": 0,
+      "gw_points": 0,
       "form": "0.0",
       "fixtures": [
         {
@@ -28965,6 +29289,7 @@
       "price": 5.5,
       "ownership": 0.2,
       "points": 3,
+      "gw_points": 2,
       "form": "1.5",
       "fixtures": [
         {
@@ -29057,6 +29382,7 @@
       "price": 4,
       "ownership": 0.2,
       "points": 0,
+      "gw_points": 0,
       "form": "0.0",
       "fixtures": [
         {
@@ -29149,6 +29475,7 @@
       "price": 5.5,
       "ownership": 0.2,
       "points": 1,
+      "gw_points": 0,
       "form": "0.5",
       "fixtures": [
         {
@@ -29241,6 +29568,7 @@
       "price": 4,
       "ownership": 0.2,
       "points": 0,
+      "gw_points": 0,
       "form": "0.0",
       "fixtures": [
         {
@@ -29321,6 +29649,7 @@
       "price": 4.5,
       "ownership": 0.2,
       "points": 0,
+      "gw_points": 0,
       "form": "0.0",
       "fixtures": [
         {
@@ -29409,6 +29738,7 @@
       "price": 4,
       "ownership": 0.2,
       "points": 0,
+      "gw_points": 0,
       "form": "0.0",
       "fixtures": [
         {
@@ -29494,6 +29824,7 @@
       "price": 5,
       "ownership": 0.2,
       "points": 2,
+      "gw_points": 1,
       "form": "1.0",
       "fixtures": [
         {
@@ -29586,6 +29917,7 @@
       "price": 5,
       "ownership": 0.2,
       "points": 6,
+      "gw_points": 3,
       "form": "3.0",
       "fixtures": [
         {
@@ -29676,6 +30008,7 @@
       "price": 4.5,
       "ownership": 0.2,
       "points": 0,
+      "gw_points": 0,
       "form": "0.0",
       "fixtures": [
         {
@@ -29764,6 +30097,7 @@
       "price": 5,
       "ownership": 0.2,
       "points": 0,
+      "gw_points": 0,
       "form": "0.0",
       "fixtures": [
         {
@@ -29854,6 +30188,7 @@
       "price": 4,
       "ownership": 0.2,
       "points": 0,
+      "gw_points": 0,
       "form": "0.0",
       "fixtures": [
         {
@@ -29944,6 +30279,7 @@
       "price": 4,
       "ownership": 0.2,
       "points": 0,
+      "gw_points": 0,
       "form": "0.0",
       "fixtures": [
         {
@@ -30037,6 +30373,7 @@
       "price": 5,
       "ownership": 0.2,
       "points": 0,
+      "gw_points": 0,
       "form": "0.0",
       "fixtures": [
         {
@@ -30127,6 +30464,7 @@
       "price": 5.5,
       "ownership": 0.2,
       "points": 6,
+      "gw_points": 4,
       "form": "3.0",
       "fixtures": [
         {
@@ -30212,6 +30550,7 @@
       "price": 5.4,
       "ownership": 0.2,
       "points": 0,
+      "gw_points": 0,
       "form": "0.0",
       "fixtures": [
         {
@@ -30297,6 +30636,7 @@
       "price": 5,
       "ownership": 0.2,
       "points": 4,
+      "gw_points": 2,
       "form": "2.0",
       "fixtures": [
         {
@@ -30389,6 +30729,7 @@
       "price": 6.5,
       "ownership": 0.2,
       "points": 1,
+      "gw_points": 0,
       "form": "0.5",
       "fixtures": [
         {
@@ -30475,6 +30816,7 @@
       "price": 5,
       "ownership": 0.2,
       "points": 4,
+      "gw_points": 2,
       "form": "2.0",
       "fixtures": [
         {
@@ -30560,6 +30902,7 @@
       "price": 5.5,
       "ownership": 0.2,
       "points": 4,
+      "gw_points": 1,
       "form": "2.0",
       "fixtures": [
         {
@@ -30646,6 +30989,7 @@
       "price": 4.5,
       "ownership": 0.2,
       "points": 1,
+      "gw_points": 1,
       "form": "0.5",
       "fixtures": [
         {
@@ -30738,6 +31082,7 @@
       "price": 5.9,
       "ownership": 0.2,
       "points": 1,
+      "gw_points": 1,
       "form": "0.5",
       "fixtures": [
         {
@@ -30823,6 +31168,7 @@
       "price": 4.5,
       "ownership": 0.2,
       "points": 2,
+      "gw_points": 1,
       "form": "1.0",
       "fixtures": [
         {
@@ -30900,6 +31246,7 @@
       "price": 5.5,
       "ownership": 0.2,
       "points": 6,
+      "gw_points": 0,
       "form": "3.0",
       "fixtures": [
         {
@@ -30988,6 +31335,7 @@
       "price": 7.4,
       "ownership": 0.2,
       "points": 0,
+      "gw_points": 0,
       "form": "0.0",
       "fixtures": [
         {
@@ -31082,6 +31430,7 @@
       "price": 5,
       "ownership": 0.2,
       "points": 8,
+      "gw_points": 7,
       "form": "4.0",
       "fixtures": [
         {
@@ -31174,6 +31523,7 @@
       "price": 4.5,
       "ownership": 0.2,
       "points": 1,
+      "gw_points": 0,
       "form": "0.5",
       "fixtures": [
         {
@@ -31264,6 +31614,7 @@
       "price": 6.3,
       "ownership": 0.2,
       "points": 0,
+      "gw_points": 0,
       "form": "0.0",
       "fixtures": [
         {
@@ -31354,6 +31705,7 @@
       "price": 4,
       "ownership": 0.2,
       "points": 0,
+      "gw_points": 0,
       "form": "0.0",
       "fixtures": [
         {
@@ -31447,6 +31799,7 @@
       "price": 4.5,
       "ownership": 0.2,
       "points": 0,
+      "gw_points": 0,
       "form": "0.0",
       "fixtures": [
         {
@@ -31537,6 +31890,7 @@
       "price": 4,
       "ownership": 0.2,
       "points": 0,
+      "gw_points": 0,
       "form": "0.0",
       "fixtures": [
         {
@@ -31625,6 +31979,7 @@
       "price": 5,
       "ownership": 0.2,
       "points": 3,
+      "gw_points": 1,
       "form": "1.5",
       "fixtures": [
         {
@@ -31717,6 +32072,7 @@
       "price": 4.5,
       "ownership": 0.2,
       "points": 0,
+      "gw_points": 0,
       "form": "0.0",
       "fixtures": [
         {
@@ -31807,6 +32163,7 @@
       "price": 5.5,
       "ownership": 0.2,
       "points": 2,
+      "gw_points": 2,
       "form": "1.0",
       "fixtures": [
         {
@@ -31892,6 +32249,7 @@
       "price": 4,
       "ownership": 0.2,
       "points": 0,
+      "gw_points": 0,
       "form": "0.0",
       "fixtures": [
         {
@@ -31985,6 +32343,7 @@
       "price": 4,
       "ownership": 0.2,
       "points": 0,
+      "gw_points": 0,
       "form": "0.0",
       "fixtures": [
         {
@@ -32062,6 +32421,7 @@
       "price": 4.9,
       "ownership": 0.2,
       "points": 0,
+      "gw_points": 0,
       "form": "0.0",
       "fixtures": [
         {
@@ -32150,6 +32510,7 @@
       "price": 5.5,
       "ownership": 0.2,
       "points": 3,
+      "gw_points": 1,
       "form": "1.5",
       "fixtures": [
         {
@@ -32242,6 +32603,7 @@
       "price": 4,
       "ownership": 0.2,
       "points": 0,
+      "gw_points": 0,
       "form": "0.0",
       "fixtures": [
         {
@@ -32332,6 +32694,7 @@
       "price": 6,
       "ownership": 0.2,
       "points": 0,
+      "gw_points": 0,
       "form": "0.0",
       "fixtures": [
         {
@@ -32425,6 +32788,7 @@
       "price": 4.5,
       "ownership": 0.2,
       "points": 0,
+      "gw_points": 0,
       "form": "0.0",
       "fixtures": [
         {
@@ -32515,6 +32879,7 @@
       "price": 4.5,
       "ownership": 0.2,
       "points": 0,
+      "gw_points": 0,
       "form": "0.0",
       "fixtures": [
         {
@@ -32607,6 +32972,7 @@
       "price": 5,
       "ownership": 0.2,
       "points": 1,
+      "gw_points": 0,
       "form": "0.5",
       "fixtures": [
         {
@@ -32693,6 +33059,7 @@
       "price": 5,
       "ownership": 0.2,
       "points": 0,
+      "gw_points": 0,
       "form": "0.0",
       "fixtures": [
         {
@@ -32777,6 +33144,7 @@
       "price": 5.4,
       "ownership": 0.2,
       "points": 1,
+      "gw_points": 0,
       "form": "0.5",
       "fixtures": [
         {
@@ -32867,6 +33235,7 @@
       "price": 4.9,
       "ownership": 0.2,
       "points": 1,
+      "gw_points": 1,
       "form": "0.5",
       "fixtures": [
         {
@@ -32959,6 +33328,7 @@
       "price": 4.5,
       "ownership": 0.2,
       "points": 0,
+      "gw_points": 0,
       "form": "0.0",
       "fixtures": [
         {
@@ -33051,6 +33421,7 @@
       "price": 4.5,
       "ownership": 0.2,
       "points": 0,
+      "gw_points": 0,
       "form": "0.0",
       "fixtures": [
         {
@@ -33136,6 +33507,7 @@
       "price": 5.9,
       "ownership": 0.2,
       "points": 1,
+      "gw_points": 1,
       "form": "0.5",
       "fixtures": [
         {
@@ -33228,6 +33600,7 @@
       "price": 4.5,
       "ownership": 0.2,
       "points": 0,
+      "gw_points": 0,
       "form": "0.0",
       "fixtures": [
         {
@@ -33316,6 +33689,7 @@
       "price": 5.5,
       "ownership": 0.2,
       "points": 6,
+      "gw_points": 5,
       "form": "3.0",
       "fixtures": [
         {
@@ -33406,6 +33780,7 @@
       "price": 5,
       "ownership": 0.2,
       "points": 4,
+      "gw_points": 3,
       "form": "2.0",
       "fixtures": [
         {
@@ -33498,6 +33873,7 @@
       "price": 4,
       "ownership": 0.1,
       "points": 0,
+      "gw_points": 0,
       "form": "0.0",
       "fixtures": [
         {
@@ -33586,6 +33962,7 @@
       "price": 5.5,
       "ownership": 0.1,
       "points": 1,
+      "gw_points": 1,
       "form": "0.5",
       "fixtures": [
         {
@@ -33677,6 +34054,7 @@
       "price": 5,
       "ownership": 0.1,
       "points": 0,
+      "gw_points": 0,
       "form": "0.0",
       "fixtures": [
         {
@@ -33765,6 +34143,7 @@
       "price": 5,
       "ownership": 0.1,
       "points": 1,
+      "gw_points": 0,
       "form": "0.5",
       "fixtures": [
         {
@@ -33857,6 +34236,7 @@
       "price": 5,
       "ownership": 0.1,
       "points": 1,
+      "gw_points": 1,
       "form": "0.5",
       "fixtures": [
         {
@@ -33950,6 +34330,7 @@
       "price": 5,
       "ownership": 0.1,
       "points": 0,
+      "gw_points": 0,
       "form": "0.0",
       "fixtures": [
         {
@@ -34040,6 +34421,7 @@
       "price": 5.4,
       "ownership": 0.1,
       "points": 0,
+      "gw_points": 0,
       "form": "0.0",
       "fixtures": [
         {
@@ -34130,6 +34512,7 @@
       "price": 5,
       "ownership": 0.1,
       "points": 1,
+      "gw_points": 0,
       "form": "0.5",
       "fixtures": [
         {
@@ -34215,6 +34598,7 @@
       "price": 5.5,
       "ownership": 0.1,
       "points": 1,
+      "gw_points": 1,
       "form": "0.5",
       "fixtures": [
         {
@@ -34307,6 +34691,7 @@
       "price": 4.5,
       "ownership": 0.1,
       "points": 0,
+      "gw_points": 0,
       "form": "0.0",
       "fixtures": [
         {
@@ -34384,6 +34769,7 @@
       "price": 4.5,
       "ownership": 0.1,
       "points": 0,
+      "gw_points": 0,
       "form": "0.0",
       "fixtures": [
         {
@@ -34474,6 +34860,7 @@
       "price": 4,
       "ownership": 0.1,
       "points": 0,
+      "gw_points": 0,
       "form": "0.0",
       "fixtures": [
         {
@@ -34566,6 +34953,7 @@
       "price": 5,
       "ownership": 0.1,
       "points": 1,
+      "gw_points": 0,
       "form": "0.5",
       "fixtures": [
         {
@@ -34656,6 +35044,7 @@
       "price": 5.5,
       "ownership": 0.1,
       "points": 1,
+      "gw_points": 1,
       "form": "1.0",
       "fixtures": [
         {
@@ -34746,6 +35135,7 @@
       "price": 4,
       "ownership": 0.1,
       "points": 1,
+      "gw_points": 1,
       "form": "1.0",
       "fixtures": [
         {
@@ -34836,6 +35226,7 @@
       "price": 5,
       "ownership": 0.1,
       "points": 1,
+      "gw_points": 1,
       "form": "0.5",
       "fixtures": [
         {
@@ -34927,6 +35318,7 @@
       "price": 4.5,
       "ownership": 0.1,
       "points": 0,
+      "gw_points": 0,
       "form": "0.0",
       "fixtures": [
         {
@@ -35015,6 +35407,7 @@
       "price": 4,
       "ownership": 0.1,
       "points": 0,
+      "gw_points": 0,
       "form": "0.0",
       "fixtures": [
         {
@@ -35100,6 +35493,7 @@
       "price": 5.5,
       "ownership": 0.1,
       "points": 0,
+      "gw_points": 0,
       "form": "0.0",
       "fixtures": [
         {
@@ -35188,6 +35582,7 @@
       "price": 5,
       "ownership": 0.1,
       "points": 2,
+      "gw_points": 1,
       "form": "1.0",
       "fixtures": [
         {
@@ -35280,6 +35675,7 @@
       "price": 5,
       "ownership": 0.1,
       "points": 0,
+      "gw_points": 0,
       "form": "0.0",
       "fixtures": [
         {
@@ -35372,6 +35768,7 @@
       "price": 5.4,
       "ownership": 0.1,
       "points": 0,
+      "gw_points": 0,
       "form": "0.0",
       "fixtures": [
         {
@@ -35465,6 +35862,7 @@
       "price": 4.5,
       "ownership": 0.1,
       "points": 0,
+      "gw_points": 0,
       "form": "0.0",
       "fixtures": [
         {
@@ -35550,6 +35948,7 @@
       "price": 4,
       "ownership": 0.1,
       "points": 0,
+      "gw_points": 0,
       "form": "0.0",
       "fixtures": [
         {
@@ -35645,6 +36044,7 @@
       "price": 5.5,
       "ownership": 0.1,
       "points": 5,
+      "gw_points": 4,
       "form": "2.5",
       "fixtures": [
         {
@@ -35739,6 +36139,7 @@
       "price": 4.5,
       "ownership": 0.1,
       "points": 0,
+      "gw_points": 0,
       "form": "0.0",
       "fixtures": [
         {
@@ -35832,6 +36233,7 @@
       "price": 4.5,
       "ownership": 0.1,
       "points": 0,
+      "gw_points": 0,
       "form": "0.0",
       "fixtures": [
         {
@@ -35917,6 +36319,7 @@
       "price": 4.5,
       "ownership": 0.1,
       "points": 1,
+      "gw_points": 1,
       "form": "0.5",
       "fixtures": [
         {
@@ -36007,6 +36410,7 @@
       "price": 5,
       "ownership": 0.1,
       "points": 1,
+      "gw_points": 1,
       "form": "0.5",
       "fixtures": [
         {
@@ -36091,6 +36495,7 @@
       "price": 4.9,
       "ownership": 0.1,
       "points": 0,
+      "gw_points": 0,
       "form": "0.0",
       "fixtures": [
         {
@@ -36181,6 +36586,7 @@
       "price": 5.4,
       "ownership": 0.1,
       "points": 0,
+      "gw_points": 0,
       "form": "0.0",
       "fixtures": [
         {
@@ -36271,6 +36677,7 @@
       "price": 4.5,
       "ownership": 0.1,
       "points": 0,
+      "gw_points": 0,
       "form": "0.0",
       "fixtures": [
         {
@@ -36361,6 +36768,7 @@
       "price": 4,
       "ownership": 0.1,
       "points": 2,
+      "gw_points": 1,
       "form": "1.0",
       "fixtures": [
         {
@@ -36456,6 +36864,7 @@
       "price": 7.5,
       "ownership": 0.1,
       "points": 0,
+      "gw_points": 0,
       "form": "0.0",
       "fixtures": [
         {
@@ -36549,6 +36958,7 @@
       "price": 4.5,
       "ownership": 0.1,
       "points": 0,
+      "gw_points": 0,
       "form": "0.0",
       "fixtures": [
         {
@@ -36639,6 +37049,7 @@
       "price": 5.4,
       "ownership": 0.1,
       "points": 0,
+      "gw_points": 0,
       "form": "0.0",
       "fixtures": [
         {
@@ -36732,6 +37143,7 @@
       "price": 5,
       "ownership": 0.1,
       "points": 0,
+      "gw_points": 0,
       "form": "0.0",
       "fixtures": [
         {
@@ -36818,6 +37230,7 @@
       "price": 5,
       "ownership": 0.1,
       "points": 0,
+      "gw_points": 0,
       "form": "0.0",
       "fixtures": [
         {
@@ -36909,6 +37322,7 @@
       "price": 5,
       "ownership": 0.1,
       "points": 0,
+      "gw_points": 0,
       "form": "0.0",
       "fixtures": [
         {
@@ -36997,6 +37411,7 @@
       "price": 5,
       "ownership": 0.1,
       "points": 0,
+      "gw_points": 0,
       "form": "0.0",
       "fixtures": [
         {
@@ -37083,6 +37498,7 @@
       "price": 5,
       "ownership": 0.1,
       "points": 1,
+      "gw_points": 0,
       "form": "0.5",
       "fixtures": [
         {
@@ -37173,6 +37589,7 @@
       "price": 6,
       "ownership": 0.1,
       "points": 2,
+      "gw_points": 1,
       "form": "1.0",
       "fixtures": [
         {
@@ -37266,6 +37683,7 @@
       "price": 5.5,
       "ownership": 0.1,
       "points": 2,
+      "gw_points": 1,
       "form": "1.0",
       "fixtures": [
         {
@@ -37358,6 +37776,7 @@
       "price": 4,
       "ownership": 0.1,
       "points": 0,
+      "gw_points": 0,
       "form": "0.0",
       "fixtures": [
         {
@@ -37451,6 +37870,7 @@
       "price": 4.5,
       "ownership": 0.1,
       "points": 2,
+      "gw_points": 1,
       "form": "1.0",
       "fixtures": [
         {
@@ -37543,6 +37963,7 @@
       "price": 5,
       "ownership": 0.1,
       "points": 0,
+      "gw_points": 0,
       "form": "0.0",
       "fixtures": [
         {
@@ -37631,6 +38052,7 @@
       "price": 5,
       "ownership": 0.1,
       "points": 0,
+      "gw_points": 0,
       "form": "0.0",
       "fixtures": [
         {
@@ -37716,6 +38138,7 @@
       "price": 4,
       "ownership": 0.1,
       "points": 0,
+      "gw_points": 0,
       "form": "0.0",
       "fixtures": [
         {
@@ -37804,6 +38227,7 @@
       "price": 5.4,
       "ownership": 0.1,
       "points": 0,
+      "gw_points": 0,
       "form": "0.0",
       "fixtures": [
         {
@@ -37891,6 +38315,7 @@
       "price": 4.5,
       "ownership": 0.1,
       "points": 0,
+      "gw_points": 0,
       "form": "0.0",
       "fixtures": [
         {
@@ -37977,6 +38402,7 @@
       "price": 5.9,
       "ownership": 0.1,
       "points": 1,
+      "gw_points": 1,
       "form": "0.5",
       "fixtures": [
         {
@@ -38069,6 +38495,7 @@
       "price": 6.5,
       "ownership": 0.1,
       "points": 0,
+      "gw_points": 0,
       "form": "0.0",
       "fixtures": [
         {
@@ -38162,6 +38589,7 @@
       "price": 5,
       "ownership": 0.1,
       "points": 1,
+      "gw_points": 1,
       "form": "0.5",
       "fixtures": [
         {
@@ -38254,6 +38682,7 @@
       "price": 5,
       "ownership": 0.1,
       "points": 1,
+      "gw_points": 0,
       "form": "0.5",
       "fixtures": [
         {
@@ -38344,6 +38773,7 @@
       "price": 4.5,
       "ownership": 0.1,
       "points": 0,
+      "gw_points": 0,
       "form": "0.0",
       "fixtures": [
         {
@@ -38421,6 +38851,7 @@
       "price": 5.9,
       "ownership": 0.1,
       "points": 2,
+      "gw_points": 1,
       "form": "1.0",
       "fixtures": [
         {
@@ -38513,6 +38944,7 @@
       "price": 4,
       "ownership": 0.1,
       "points": 0,
+      "gw_points": 0,
       "form": "0.0",
       "fixtures": [
         {
@@ -38598,6 +39030,7 @@
       "price": 5,
       "ownership": 0.1,
       "points": 3,
+      "gw_points": 2,
       "form": "1.5",
       "fixtures": [
         {
@@ -38688,6 +39121,7 @@
       "price": 5.5,
       "ownership": 0.1,
       "points": 2,
+      "gw_points": 1,
       "form": "1.0",
       "fixtures": [
         {
@@ -38778,6 +39212,7 @@
       "price": 6.5,
       "ownership": 0.1,
       "points": 1,
+      "gw_points": 1,
       "form": "0.5",
       "fixtures": [
         {
@@ -38864,6 +39299,7 @@
       "price": 5.5,
       "ownership": 0.1,
       "points": 6,
+      "gw_points": 3,
       "form": "3.0",
       "fixtures": [
         {
@@ -38957,6 +39393,7 @@
       "price": 5,
       "ownership": 0.1,
       "points": 1,
+      "gw_points": 0,
       "form": "0.5",
       "fixtures": [
         {
@@ -39047,6 +39484,7 @@
       "price": 4.9,
       "ownership": 0.1,
       "points": 0,
+      "gw_points": 0,
       "form": "0.0",
       "fixtures": [
         {
@@ -39137,6 +39575,7 @@
       "price": 4,
       "ownership": 0.1,
       "points": 0,
+      "gw_points": 0,
       "form": "0.0",
       "fixtures": [
         {
@@ -39222,6 +39661,7 @@
       "price": 5,
       "ownership": 0.1,
       "points": 1,
+      "gw_points": 0,
       "form": "0.5",
       "fixtures": [
         {
@@ -39314,6 +39754,7 @@
       "price": 4,
       "ownership": 0.1,
       "points": 0,
+      "gw_points": 0,
       "form": "0.0",
       "fixtures": [
         {
@@ -39404,6 +39845,7 @@
       "price": 5,
       "ownership": 0.1,
       "points": 6,
+      "gw_points": 1,
       "form": "3.0",
       "fixtures": [
         {
@@ -39489,6 +39931,7 @@
       "price": 4.5,
       "ownership": 0.1,
       "points": 0,
+      "gw_points": 0,
       "form": "0.0",
       "fixtures": [
         {
@@ -39579,6 +40022,7 @@
       "price": 4.5,
       "ownership": 0.1,
       "points": 1,
+      "gw_points": 0,
       "form": "0.5",
       "fixtures": [
         {
@@ -39669,6 +40113,7 @@
       "price": 4.9,
       "ownership": 0.1,
       "points": 0,
+      "gw_points": 0,
       "form": "0.0",
       "fixtures": [
         {
@@ -39759,6 +40204,7 @@
       "price": 5.9,
       "ownership": 0.1,
       "points": 0,
+      "gw_points": 0,
       "form": "0.0",
       "fixtures": [
         {
@@ -39852,6 +40298,7 @@
       "price": 5.5,
       "ownership": 0.1,
       "points": 1,
+      "gw_points": 1,
       "form": "0.5",
       "fixtures": [
         {
@@ -39945,6 +40392,7 @@
       "price": 4.5,
       "ownership": 0.1,
       "points": 0,
+      "gw_points": 0,
       "form": "0.0",
       "fixtures": [
         {
@@ -40033,6 +40481,7 @@
       "price": 4.5,
       "ownership": 0.1,
       "points": 1,
+      "gw_points": 1,
       "form": "1.0",
       "fixtures": [
         {
@@ -40123,6 +40572,7 @@
       "price": 5.5,
       "ownership": 0.1,
       "points": 5,
+      "gw_points": 2,
       "form": "2.5",
       "fixtures": [
         {
@@ -40200,6 +40650,7 @@
       "price": 4,
       "ownership": 0.1,
       "points": 0,
+      "gw_points": 0,
       "form": "0.0",
       "fixtures": [
         {
@@ -40285,6 +40736,7 @@
       "price": 4,
       "ownership": 0.1,
       "points": 1,
+      "gw_points": 0,
       "form": "0.5",
       "fixtures": [
         {
@@ -40377,6 +40829,7 @@
       "price": 5.5,
       "ownership": 0.1,
       "points": 3,
+      "gw_points": 1,
       "form": "1.5",
       "fixtures": [
         {
@@ -40467,6 +40920,7 @@
       "price": 5,
       "ownership": 0.1,
       "points": 6,
+      "gw_points": 6,
       "form": "3.0",
       "fixtures": [
         {
@@ -40562,6 +41016,7 @@
       "price": 4.4,
       "ownership": 0.1,
       "points": 1,
+      "gw_points": 1,
       "form": "0.5",
       "fixtures": [
         {
@@ -40652,6 +41107,7 @@
       "price": 5.4,
       "ownership": 0.1,
       "points": 0,
+      "gw_points": 0,
       "form": "0.0",
       "fixtures": [
         {
@@ -40737,6 +41193,7 @@
       "price": 5,
       "ownership": 0.1,
       "points": 8,
+      "gw_points": 3,
       "form": "4.0",
       "fixtures": [
         {
@@ -40827,6 +41284,7 @@
       "price": 4.9,
       "ownership": 0.1,
       "points": 0,
+      "gw_points": 0,
       "form": "0.0",
       "fixtures": [
         {
@@ -40915,6 +41373,7 @@
       "price": 5,
       "ownership": 0.1,
       "points": 6,
+      "gw_points": 2,
       "form": "3.0",
       "fixtures": [
         {
@@ -41007,6 +41466,7 @@
       "price": 5.5,
       "ownership": 0.1,
       "points": 0,
+      "gw_points": 0,
       "form": "0.0",
       "fixtures": [
         {
@@ -41090,6 +41550,7 @@
       "price": 5,
       "ownership": 0.1,
       "points": 2,
+      "gw_points": 0,
       "form": "1.0",
       "fixtures": [
         {
@@ -41175,6 +41636,7 @@
       "price": 4,
       "ownership": 0.1,
       "points": 0,
+      "gw_points": 0,
       "form": "0.0",
       "fixtures": [
         {
@@ -41268,6 +41730,7 @@
       "price": 4.5,
       "ownership": 0.1,
       "points": 0,
+      "gw_points": 0,
       "form": "0.0",
       "fixtures": [
         {
@@ -41360,6 +41823,7 @@
       "price": 5.4,
       "ownership": 0.1,
       "points": 0,
+      "gw_points": 0,
       "form": "0.0",
       "fixtures": [
         {
@@ -41448,6 +41912,7 @@
       "price": 4.5,
       "ownership": 0.1,
       "points": 1,
+      "gw_points": 1,
       "form": "0.5",
       "fixtures": [
         {
@@ -41533,6 +41998,7 @@
       "price": 5,
       "ownership": 0.1,
       "points": 0,
+      "gw_points": 0,
       "form": "0.0",
       "fixtures": [
         {
@@ -41621,6 +42087,7 @@
       "price": 4,
       "ownership": 0.1,
       "points": 0,
+      "gw_points": 0,
       "form": "0.0",
       "fixtures": [
         {
@@ -41714,6 +42181,7 @@
       "price": 5,
       "ownership": 0.1,
       "points": 2,
+      "gw_points": 1,
       "form": "1.0",
       "fixtures": [
         {
@@ -41804,6 +42272,7 @@
       "price": 6,
       "ownership": 0.1,
       "points": 1,
+      "gw_points": 1,
       "form": "0.5",
       "fixtures": [
         {
@@ -41895,6 +42364,7 @@
       "price": 5,
       "ownership": 0.1,
       "points": 0,
+      "gw_points": 0,
       "form": "0.0",
       "fixtures": [
         {
@@ -41983,6 +42453,7 @@
       "price": 4,
       "ownership": 0.1,
       "points": 0,
+      "gw_points": 0,
       "form": "0.0",
       "fixtures": [
         {
@@ -42068,6 +42539,7 @@
       "price": 5,
       "ownership": 0.1,
       "points": 4,
+      "gw_points": 3,
       "form": "2.0",
       "fixtures": [
         {
@@ -42161,6 +42633,7 @@
       "price": 4.5,
       "ownership": 0.1,
       "points": 1,
+      "gw_points": 0,
       "form": "0.5",
       "fixtures": [
         {
@@ -42251,6 +42724,7 @@
       "price": 5,
       "ownership": 0.1,
       "points": 5,
+      "gw_points": 2,
       "form": "2.5",
       "fixtures": [
         {
@@ -42343,6 +42817,7 @@
       "price": 4.9,
       "ownership": 0.1,
       "points": 1,
+      "gw_points": 1,
       "form": "0.5",
       "fixtures": [
         {
@@ -42435,6 +42910,7 @@
       "price": 5,
       "ownership": 0.1,
       "points": 5,
+      "gw_points": 4,
       "form": "2.5",
       "fixtures": [
         {
@@ -42519,6 +42995,7 @@
       "price": 4.5,
       "ownership": 0.1,
       "points": 2,
+      "gw_points": 1,
       "form": "1.0",
       "fixtures": [
         {
@@ -42609,6 +43086,7 @@
       "price": 5,
       "ownership": 0.1,
       "points": 2,
+      "gw_points": 1,
       "form": "1.0",
       "fixtures": [
         {
@@ -42701,6 +43179,7 @@
       "price": 5,
       "ownership": 0.1,
       "points": 3,
+      "gw_points": 0,
       "form": "1.5",
       "fixtures": [
         {
@@ -42793,6 +43272,7 @@
       "price": 5,
       "ownership": 0.1,
       "points": 0,
+      "gw_points": 0,
       "form": "0.0",
       "fixtures": [
         {
@@ -42876,6 +43356,7 @@
       "price": 5.5,
       "ownership": 0.1,
       "points": 3,
+      "gw_points": 1,
       "form": "1.5",
       "fixtures": [
         {
@@ -42961,6 +43442,7 @@
       "price": 5.5,
       "ownership": 0.1,
       "points": 2,
+      "gw_points": 1,
       "form": "1.0",
       "fixtures": [
         {
@@ -43053,6 +43535,7 @@
       "price": 5,
       "ownership": 0.1,
       "points": 1,
+      "gw_points": 1,
       "form": "0.5",
       "fixtures": [
         {
@@ -43143,6 +43626,7 @@
       "price": 4.5,
       "ownership": 0.1,
       "points": 0,
+      "gw_points": 0,
       "form": "0.0",
       "fixtures": [
         {
@@ -43235,6 +43719,7 @@
       "price": 4.9,
       "ownership": 0.1,
       "points": 0,
+      "gw_points": 0,
       "form": "0.0",
       "fixtures": [
         {
@@ -43323,6 +43808,7 @@
       "price": 4.5,
       "ownership": 0.1,
       "points": 1,
+      "gw_points": 1,
       "form": "1.0",
       "fixtures": [
         {
@@ -43413,6 +43899,7 @@
       "price": 4.5,
       "ownership": 0.1,
       "points": 0,
+      "gw_points": 0,
       "form": "0.0",
       "fixtures": [
         {
@@ -43505,6 +43992,7 @@
       "price": 4,
       "ownership": 0.1,
       "points": 0,
+      "gw_points": 0,
       "form": "0.0",
       "fixtures": [
         {
@@ -43593,6 +44081,7 @@
       "price": 5.4,
       "ownership": 0.1,
       "points": 0,
+      "gw_points": 0,
       "form": "0.0",
       "fixtures": [
         {
@@ -43682,6 +44171,7 @@
       "price": 5,
       "ownership": 0.1,
       "points": 1,
+      "gw_points": 0,
       "form": "0.5",
       "fixtures": [
         {
@@ -43765,6 +44255,7 @@
       "price": 4.5,
       "ownership": 0.1,
       "points": 0,
+      "gw_points": 0,
       "form": "0.0",
       "fixtures": [
         {
@@ -43853,6 +44344,7 @@
       "price": 4,
       "ownership": 0.1,
       "points": 0,
+      "gw_points": 0,
       "form": "0.0",
       "fixtures": [
         {
@@ -43938,6 +44430,7 @@
       "price": 4.9,
       "ownership": 0,
       "points": 0,
+      "gw_points": 0,
       "form": "0.0",
       "fixtures": [
         {
@@ -44031,6 +44524,7 @@
       "price": 4.9,
       "ownership": 0,
       "points": 0,
+      "gw_points": 0,
       "form": "0.0",
       "fixtures": [
         {
@@ -44124,6 +44618,7 @@
       "price": 4.5,
       "ownership": 0,
       "points": 0,
+      "gw_points": 0,
       "form": "0.0",
       "fixtures": [
         {
@@ -44209,6 +44704,7 @@
       "price": 4.5,
       "ownership": 0,
       "points": 0,
+      "gw_points": 0,
       "form": "0.0",
       "fixtures": [
         {
@@ -44299,6 +44795,7 @@
       "price": 5,
       "ownership": 0,
       "points": 0,
+      "gw_points": 0,
       "form": "0.0",
       "fixtures": [
         {
@@ -44384,6 +44881,7 @@
       "price": 6,
       "ownership": 0,
       "points": 0,
+      "gw_points": 0,
       "form": "0.0",
       "fixtures": [
         {
@@ -44474,6 +44972,7 @@
       "price": 5,
       "ownership": 0,
       "points": 0,
+      "gw_points": 0,
       "form": "0.0",
       "fixtures": [
         {
@@ -44567,6 +45066,7 @@
       "price": 5,
       "ownership": 0,
       "points": 1,
+      "gw_points": 0,
       "form": "0.5",
       "fixtures": [
         {
@@ -44657,6 +45157,7 @@
       "price": 5.5,
       "ownership": 0,
       "points": 0,
+      "gw_points": 0,
       "form": "0.0",
       "fixtures": [
         {
@@ -44740,6 +45241,7 @@
       "price": 5,
       "ownership": 0,
       "points": 0,
+      "gw_points": 0,
       "form": "0.0",
       "fixtures": [
         {
@@ -44825,6 +45327,7 @@
       "price": 4.5,
       "ownership": 0,
       "points": 0,
+      "gw_points": 0,
       "form": "0.0",
       "fixtures": [
         {
@@ -44911,6 +45414,7 @@
       "price": 4.5,
       "ownership": 0,
       "points": 0,
+      "gw_points": 0,
       "form": "0.0",
       "fixtures": [
         {
@@ -44999,6 +45503,7 @@
       "price": 5,
       "ownership": 0,
       "points": 0,
+      "gw_points": 0,
       "form": "0.0",
       "fixtures": [
         {
@@ -45084,6 +45589,7 @@
       "price": 5,
       "ownership": 0,
       "points": 0,
+      "gw_points": 0,
       "form": "0.0",
       "fixtures": [
         {
@@ -45177,6 +45683,7 @@
       "price": 5.5,
       "ownership": 0,
       "points": 0,
+      "gw_points": 0,
       "form": "0.0",
       "fixtures": [
         {
@@ -45257,6 +45764,7 @@
       "price": 4.5,
       "ownership": 0,
       "points": 0,
+      "gw_points": 0,
       "form": "0.0",
       "fixtures": [
         {
@@ -45342,6 +45850,7 @@
       "price": 4.5,
       "ownership": 0,
       "points": 0,
+      "gw_points": 0,
       "form": "0.0",
       "fixtures": [
         {
@@ -45430,6 +45939,7 @@
       "price": 4.5,
       "ownership": 0,
       "points": 0,
+      "gw_points": 0,
       "form": "0.0",
       "fixtures": [
         {
@@ -45523,6 +46033,7 @@
       "price": 4.5,
       "ownership": 0,
       "points": 0,
+      "gw_points": 0,
       "form": "0.0",
       "fixtures": [
         {
@@ -45613,6 +46124,7 @@
       "price": 4.5,
       "ownership": 0,
       "points": 0,
+      "gw_points": 0,
       "form": "0.0",
       "fixtures": [
         {
@@ -45701,6 +46213,7 @@
       "price": 5,
       "ownership": 0,
       "points": 0,
+      "gw_points": 0,
       "form": "0.0",
       "fixtures": [
         {
@@ -45794,6 +46307,7 @@
       "price": 4,
       "ownership": 0,
       "points": 0,
+      "gw_points": 0,
       "form": "0.0",
       "fixtures": [
         {
@@ -45882,6 +46396,7 @@
       "price": 5,
       "ownership": 0,
       "points": 0,
+      "gw_points": 0,
       "form": "0.0",
       "fixtures": [
         {
@@ -45968,6 +46483,7 @@
       "price": 5,
       "ownership": 0,
       "points": 0,
+      "gw_points": 0,
       "form": "0.0",
       "fixtures": [
         {
@@ -46056,6 +46572,7 @@
       "price": 4.5,
       "ownership": 0,
       "points": 0,
+      "gw_points": 0,
       "form": "0.0",
       "fixtures": [
         {
@@ -46144,6 +46661,7 @@
       "price": 5.5,
       "ownership": 0,
       "points": 0,
+      "gw_points": 0,
       "form": "0.0",
       "fixtures": [
         {
@@ -46237,6 +46755,7 @@
       "price": 5,
       "ownership": 0,
       "points": 0,
+      "gw_points": 0,
       "form": "0.0",
       "fixtures": [
         {
@@ -46325,6 +46844,7 @@
       "price": 4.5,
       "ownership": 0,
       "points": 0,
+      "gw_points": 0,
       "form": "0.0",
       "fixtures": [
         {
@@ -46418,6 +46938,7 @@
       "price": 4,
       "ownership": 0,
       "points": 0,
+      "gw_points": 0,
       "form": "0.0",
       "fixtures": [
         {
@@ -46506,6 +47027,7 @@
       "price": 5,
       "ownership": 0,
       "points": 0,
+      "gw_points": 0,
       "form": "0.0",
       "fixtures": [
         {
@@ -46592,6 +47114,7 @@
       "price": 4.4,
       "ownership": 0,
       "points": 1,
+      "gw_points": 0,
       "form": "0.5",
       "fixtures": [
         {
@@ -46685,6 +47208,7 @@
       "price": 4.5,
       "ownership": 0,
       "points": 0,
+      "gw_points": 0,
       "form": "0.0",
       "fixtures": [
         {
@@ -46775,6 +47299,7 @@
       "price": 5,
       "ownership": 0,
       "points": 1,
+      "gw_points": 1,
       "form": "1.0",
       "fixtures": [
         {
@@ -46860,6 +47385,7 @@
       "price": 5,
       "ownership": 0,
       "points": 1,
+      "gw_points": 1,
       "form": "0.5",
       "fixtures": [
         {
@@ -46951,6 +47477,7 @@
       "price": 5,
       "ownership": 0,
       "points": 0,
+      "gw_points": 0,
       "form": "0.0",
       "fixtures": [
         {
@@ -47044,6 +47571,7 @@
       "price": 4.5,
       "ownership": 0,
       "points": 0,
+      "gw_points": 0,
       "form": "0.0",
       "fixtures": [
         {
@@ -47127,6 +47655,7 @@
       "price": 4.5,
       "ownership": 0,
       "points": 1,
+      "gw_points": 0,
       "form": "0.5",
       "fixtures": [
         {
@@ -47210,6 +47739,7 @@
       "price": 5,
       "ownership": 0,
       "points": 0,
+      "gw_points": 0,
       "form": "0.0",
       "fixtures": [
         {
@@ -47296,6 +47826,7 @@
       "price": 4.5,
       "ownership": 0,
       "points": 0,
+      "gw_points": 0,
       "form": "0.0",
       "fixtures": [
         {
@@ -47389,6 +47920,7 @@
       "price": 4.5,
       "ownership": 0,
       "points": 0,
+      "gw_points": 0,
       "form": "0.0",
       "fixtures": [
         {
@@ -47480,6 +48012,7 @@
       "price": 5,
       "ownership": 0,
       "points": 0,
+      "gw_points": 0,
       "form": "0.0",
       "fixtures": [
         {
@@ -47565,6 +48098,7 @@
       "price": 5,
       "ownership": 0,
       "points": 0,
+      "gw_points": 0,
       "form": "0.0",
       "fixtures": [
         {
@@ -47658,6 +48192,7 @@
       "price": 5,
       "ownership": 0,
       "points": 0,
+      "gw_points": 0,
       "form": "0.0",
       "fixtures": [
         {
@@ -47751,6 +48286,7 @@
       "price": 4.5,
       "ownership": 0,
       "points": 0,
+      "gw_points": 0,
       "form": "0.0",
       "fixtures": [
         {
@@ -47841,6 +48377,7 @@
       "price": 5.4,
       "ownership": 0,
       "points": 0,
+      "gw_points": 0,
       "form": "0.0",
       "fixtures": [
         {
@@ -47933,6 +48470,7 @@
       "price": 4.9,
       "ownership": 0,
       "points": 0,
+      "gw_points": 0,
       "form": "0.0",
       "fixtures": [
         {
@@ -48025,6 +48563,7 @@
       "price": 4.9,
       "ownership": 0,
       "points": 0,
+      "gw_points": 0,
       "form": "0.0",
       "fixtures": [
         {
@@ -48115,6 +48654,7 @@
       "price": 4.5,
       "ownership": 0,
       "points": 1,
+      "gw_points": 1,
       "form": "0.5",
       "fixtures": [
         {
@@ -48207,6 +48747,7 @@
       "price": 5.5,
       "ownership": 0,
       "points": 0,
+      "gw_points": 0,
       "form": "0.0",
       "fixtures": [
         {
@@ -48300,6 +48841,7 @@
       "price": 5,
       "ownership": 0,
       "points": 0,
+      "gw_points": 0,
       "form": "0.0",
       "fixtures": [
         {
@@ -48393,6 +48935,7 @@
       "price": 5,
       "ownership": 0,
       "points": 0,
+      "gw_points": 0,
       "form": "0.0",
       "fixtures": [
         {
@@ -48479,6 +49022,7 @@
       "price": 6,
       "ownership": 0,
       "points": 0,
+      "gw_points": 0,
       "form": "0.0",
       "fixtures": [
         {
@@ -48564,6 +49108,7 @@
       "price": 5.5,
       "ownership": 0,
       "points": 0,
+      "gw_points": 0,
       "form": "0.0",
       "fixtures": [
         {
@@ -48649,6 +49194,7 @@
       "price": 5.5,
       "ownership": 0,
       "points": 0,
+      "gw_points": 0,
       "form": "0.0",
       "fixtures": [
         {
@@ -48739,6 +49285,7 @@
       "price": 4,
       "ownership": 0,
       "points": 0,
+      "gw_points": 0,
       "form": "0.0",
       "fixtures": [
         {
@@ -48832,6 +49379,7 @@
       "price": 5.5,
       "ownership": 0,
       "points": 0,
+      "gw_points": 0,
       "form": "0.0",
       "fixtures": [
         {
@@ -48925,6 +49473,7 @@
       "price": 5,
       "ownership": 0,
       "points": 0,
+      "gw_points": 0,
       "form": "0.0",
       "fixtures": [
         {
@@ -49013,6 +49562,7 @@
       "price": 4.5,
       "ownership": 0,
       "points": 0,
+      "gw_points": 0,
       "form": "0.0",
       "fixtures": [
         {
@@ -49098,6 +49648,7 @@
       "price": 5.9,
       "ownership": 0,
       "points": 0,
+      "gw_points": 0,
       "form": "0.0",
       "fixtures": [
         {
@@ -49190,6 +49741,7 @@
       "price": 5,
       "ownership": 0,
       "points": 0,
+      "gw_points": 0,
       "form": "0.0",
       "fixtures": [
         {
@@ -49278,6 +49830,7 @@
       "price": 5.5,
       "ownership": 0,
       "points": -2,
+      "gw_points": 0,
       "form": "-1.0",
       "fixtures": [
         {
@@ -49371,6 +49924,7 @@
       "price": 5,
       "ownership": 0,
       "points": 0,
+      "gw_points": 0,
       "form": "0.0",
       "fixtures": [
         {
@@ -49464,6 +50018,7 @@
       "price": 6,
       "ownership": 0,
       "points": 0,
+      "gw_points": 0,
       "form": "0.0",
       "fixtures": [
         {
@@ -49554,6 +50109,7 @@
       "price": 5,
       "ownership": 0,
       "points": 1,
+      "gw_points": 1,
       "form": "0.5",
       "fixtures": [
         {
@@ -49646,6 +50202,7 @@
       "price": 5,
       "ownership": 0,
       "points": 1,
+      "gw_points": 1,
       "form": "0.5",
       "fixtures": [
         {
@@ -49736,6 +50293,7 @@
       "price": 5,
       "ownership": 0,
       "points": 0,
+      "gw_points": 0,
       "form": "0.0",
       "fixtures": [
         {
@@ -49824,6 +50382,7 @@
       "price": 4.5,
       "ownership": 0,
       "points": 0,
+      "gw_points": 0,
       "form": "0.0",
       "fixtures": [
         {
@@ -49910,6 +50469,7 @@
       "price": 5.5,
       "ownership": 0,
       "points": 2,
+      "gw_points": 1,
       "form": "1.0",
       "fixtures": [
         {
@@ -50000,6 +50560,7 @@
       "price": 4.5,
       "ownership": 0,
       "points": 0,
+      "gw_points": 0,
       "form": "0.0",
       "fixtures": [
         {
@@ -50088,6 +50649,7 @@
       "price": 4.5,
       "ownership": 0,
       "points": 0,
+      "gw_points": 0,
       "form": "0.0",
       "fixtures": [
         {
@@ -50171,6 +50733,7 @@
       "price": 5,
       "ownership": 0,
       "points": 0,
+      "gw_points": 0,
       "form": "0.0",
       "fixtures": [
         {
@@ -50259,6 +50822,7 @@
       "price": 4.5,
       "ownership": 0,
       "points": 0,
+      "gw_points": 0,
       "form": "0.0",
       "fixtures": [
         {
@@ -50349,6 +50913,7 @@
       "price": 5,
       "ownership": 0,
       "points": 0,
+      "gw_points": 0,
       "form": "0.0",
       "fixtures": [
         {
@@ -50437,6 +51002,7 @@
       "price": 4,
       "ownership": 0,
       "points": 0,
+      "gw_points": 0,
       "form": "0.0",
       "fixtures": [
         {
@@ -50530,6 +51096,7 @@
       "price": 4.5,
       "ownership": 0,
       "points": 0,
+      "gw_points": 0,
       "form": "0.0",
       "fixtures": [
         {
@@ -50616,6 +51183,7 @@
       "price": 4.5,
       "ownership": 0,
       "points": 0,
+      "gw_points": 0,
       "form": "0.0",
       "fixtures": [
         {
@@ -50711,6 +51279,7 @@
       "price": 5,
       "ownership": 0,
       "points": 0,
+      "gw_points": 0,
       "form": "0.0",
       "fixtures": [
         {
@@ -50804,6 +51373,7 @@
       "price": 5,
       "ownership": 0,
       "points": 1,
+      "gw_points": 1,
       "form": "0.5",
       "fixtures": [
         {
@@ -50890,6 +51460,7 @@
       "price": 4.5,
       "ownership": 0,
       "points": 0,
+      "gw_points": 0,
       "form": "0.0",
       "fixtures": [
         {
@@ -50980,6 +51551,7 @@
       "price": 4.5,
       "ownership": 0,
       "points": 0,
+      "gw_points": 0,
       "form": "0.0",
       "fixtures": [
         {
@@ -51073,6 +51645,7 @@
       "price": 4.5,
       "ownership": 0,
       "points": 3,
+      "gw_points": 0,
       "form": "1.5",
       "fixtures": [
         {
@@ -51158,6 +51731,7 @@
       "price": 5,
       "ownership": 0,
       "points": 0,
+      "gw_points": 0,
       "form": "0.0",
       "fixtures": [
         {
@@ -51248,6 +51822,7 @@
       "price": 5,
       "ownership": 0,
       "points": 0,
+      "gw_points": 0,
       "form": "0.0",
       "fixtures": [
         {
@@ -51338,6 +51913,7 @@
       "price": 4,
       "ownership": 0,
       "points": 0,
+      "gw_points": 0,
       "form": "0.0",
       "fixtures": [
         {
@@ -51426,6 +52002,7 @@
       "price": 4.5,
       "ownership": 0,
       "points": 0,
+      "gw_points": 0,
       "form": "0.0",
       "fixtures": [
         {
@@ -51518,6 +52095,7 @@
       "price": 4,
       "ownership": 0,
       "points": 0,
+      "gw_points": 0,
       "form": "0.0",
       "fixtures": [
         {
@@ -51611,6 +52189,7 @@
       "price": 4.5,
       "ownership": 0,
       "points": 0,
+      "gw_points": 0,
       "form": "0.0",
       "fixtures": [
         {
@@ -51696,6 +52275,7 @@
       "price": 5,
       "ownership": 0,
       "points": 0,
+      "gw_points": 0,
       "form": "0.0",
       "fixtures": [
         {
@@ -51786,6 +52366,7 @@
       "price": 5.4,
       "ownership": 0,
       "points": 0,
+      "gw_points": 0,
       "form": "0.0",
       "fixtures": [
         {
@@ -51874,6 +52455,7 @@
       "price": 5,
       "ownership": 0,
       "points": 0,
+      "gw_points": 0,
       "form": "0.0",
       "fixtures": [
         {
@@ -51962,6 +52544,7 @@
       "price": 5.5,
       "ownership": 0,
       "points": 1,
+      "gw_points": 0,
       "form": "0.5",
       "fixtures": [
         {
@@ -52046,6 +52629,7 @@
       "price": 5,
       "ownership": 0,
       "points": 0,
+      "gw_points": 0,
       "form": "0.0",
       "fixtures": [
         {
@@ -52134,6 +52718,7 @@
       "price": 4,
       "ownership": 0,
       "points": 0,
+      "gw_points": 0,
       "form": "0.0",
       "fixtures": [
         {
@@ -52222,6 +52807,7 @@
       "price": 5.4,
       "ownership": 0,
       "points": 2,
+      "gw_points": 1,
       "form": "1.0",
       "fixtures": [
         {
@@ -52314,6 +52900,7 @@
       "price": 4.5,
       "ownership": 0,
       "points": 0,
+      "gw_points": 0,
       "form": "0.0",
       "fixtures": [
         {
@@ -52399,6 +52986,7 @@
       "price": 5,
       "ownership": 0,
       "points": 1,
+      "gw_points": 0,
       "form": "0.5",
       "fixtures": [
         {
@@ -52489,6 +53077,7 @@
       "price": 6.5,
       "ownership": 0,
       "points": 0,
+      "gw_points": 0,
       "form": "0.0",
       "fixtures": [
         {
@@ -52577,6 +53166,7 @@
       "price": 5,
       "ownership": 0,
       "points": 0,
+      "gw_points": 0,
       "form": "0.0",
       "fixtures": [
         {
@@ -52662,6 +53252,7 @@
       "price": 4,
       "ownership": 0,
       "points": 0,
+      "gw_points": 0,
       "form": "0.0",
       "fixtures": [
         {
@@ -52754,6 +53345,7 @@
       "price": 4,
       "ownership": 0,
       "points": 0,
+      "gw_points": 0,
       "form": "0.0",
       "fixtures": [
         {
@@ -52847,6 +53439,7 @@
       "price": 4.9,
       "ownership": 0,
       "points": 0,
+      "gw_points": 0,
       "form": "0.0",
       "fixtures": [
         {
@@ -52935,6 +53528,7 @@
       "price": 4,
       "ownership": 0,
       "points": 0,
+      "gw_points": 0,
       "form": "0.0",
       "fixtures": [
         {
@@ -53023,6 +53617,7 @@
       "price": 4.9,
       "ownership": 0,
       "points": 0,
+      "gw_points": 0,
       "form": "0.0",
       "fixtures": [
         {
@@ -53113,6 +53708,7 @@
       "price": 4.5,
       "ownership": 0,
       "points": 0,
+      "gw_points": 0,
       "form": "0.0",
       "fixtures": [
         {
@@ -53201,6 +53797,7 @@
       "price": 4.5,
       "ownership": 0,
       "points": 0,
+      "gw_points": 0,
       "form": "0.0",
       "fixtures": [
         {
@@ -53286,6 +53883,7 @@
       "price": 5,
       "ownership": 0,
       "points": 0,
+      "gw_points": 0,
       "form": "0.0",
       "fixtures": [
         {
@@ -53374,6 +53972,7 @@
       "price": 4.5,
       "ownership": 0,
       "points": 0,
+      "gw_points": 0,
       "form": "0.0",
       "fixtures": [
         {
@@ -53462,6 +54061,7 @@
       "price": 5,
       "ownership": 0,
       "points": 0,
+      "gw_points": 0,
       "form": "0.0",
       "fixtures": [
         {
@@ -53550,6 +54150,7 @@
       "price": 6,
       "ownership": 0,
       "points": 0,
+      "gw_points": 0,
       "form": "0.0",
       "fixtures": [
         {
@@ -53640,6 +54241,7 @@
       "price": 4.9,
       "ownership": 0,
       "points": 0,
+      "gw_points": 0,
       "form": "0.0",
       "fixtures": [
         {
@@ -53725,6 +54327,7 @@
       "price": 5,
       "ownership": 0,
       "points": 0,
+      "gw_points": 0,
       "form": "0.0",
       "fixtures": [
         {
@@ -53815,6 +54418,7 @@
       "price": 4.5,
       "ownership": 0,
       "points": 0,
+      "gw_points": 0,
       "form": "0.0",
       "fixtures": [
         {
@@ -53906,6 +54510,7 @@
       "price": 5,
       "ownership": 0,
       "points": 0,
+      "gw_points": 0,
       "form": "0.0",
       "fixtures": [
         {
@@ -53994,6 +54599,7 @@
       "price": 5,
       "ownership": 0,
       "points": 0,
+      "gw_points": 0,
       "form": "0.0",
       "fixtures": [
         {
@@ -54087,6 +54693,7 @@
       "price": 5.9,
       "ownership": 0,
       "points": 0,
+      "gw_points": 0,
       "form": "0.0",
       "fixtures": [
         {
@@ -54173,6 +54780,7 @@
       "price": 6,
       "ownership": 0,
       "points": 0,
+      "gw_points": 0,
       "form": "0.0",
       "fixtures": [
         {
@@ -54259,6 +54867,7 @@
       "price": 4.9,
       "ownership": 0,
       "points": 0,
+      "gw_points": 0,
       "form": "0.0",
       "fixtures": [
         {
@@ -54352,6 +54961,7 @@
       "price": 5,
       "ownership": 0,
       "points": 0,
+      "gw_points": 0,
       "form": "0.0",
       "fixtures": [
         {
@@ -54432,6 +55042,7 @@
       "price": 5,
       "ownership": 0,
       "points": 1,
+      "gw_points": 1,
       "form": "0.5",
       "fixtures": [
         {
@@ -54525,6 +55136,7 @@
       "price": 5.5,
       "ownership": 0,
       "points": 0,
+      "gw_points": 0,
       "form": "0.0",
       "fixtures": [
         {
@@ -54618,6 +55230,7 @@
       "price": 5,
       "ownership": 0,
       "points": 0,
+      "gw_points": 0,
       "form": "0.0",
       "fixtures": [
         {
@@ -54703,6 +55316,7 @@
       "price": 5,
       "ownership": 0,
       "points": 1,
+      "gw_points": 1,
       "form": "0.5",
       "fixtures": [
         {
@@ -54793,6 +55407,7 @@
       "price": 5.5,
       "ownership": 0,
       "points": 0,
+      "gw_points": 0,
       "form": "0.0",
       "fixtures": [
         {
@@ -54886,6 +55501,7 @@
       "price": 4.5,
       "ownership": 0,
       "points": 2,
+      "gw_points": 1,
       "form": "1.0",
       "fixtures": [
         {
@@ -54970,6 +55586,7 @@
       "price": 4,
       "ownership": 0,
       "points": 0,
+      "gw_points": 0,
       "form": "0.0",
       "fixtures": [
         {
@@ -55055,6 +55672,7 @@
       "price": 5.4,
       "ownership": 0,
       "points": 0,
+      "gw_points": 0,
       "form": "0.0",
       "fixtures": [
         {
@@ -55148,6 +55766,7 @@
       "price": 5,
       "ownership": 0,
       "points": 1,
+      "gw_points": 1,
       "form": "0.5",
       "fixtures": [
         {
@@ -55238,6 +55857,7 @@
       "price": 5.5,
       "ownership": 0,
       "points": 0,
+      "gw_points": 0,
       "form": "0.0",
       "fixtures": [
         {
@@ -55326,6 +55946,7 @@
       "price": 4.9,
       "ownership": 0,
       "points": 0,
+      "gw_points": 0,
       "form": "0.0",
       "fixtures": [
         {
@@ -55414,6 +56035,7 @@
       "price": 5,
       "ownership": 0,
       "points": 0,
+      "gw_points": 0,
       "form": "0.0",
       "fixtures": [
         {
@@ -55507,6 +56129,7 @@
       "price": 5,
       "ownership": 0,
       "points": 2,
+      "gw_points": 1,
       "form": "1.0",
       "fixtures": [
         {
@@ -55590,6 +56213,7 @@
       "price": 5.5,
       "ownership": 0,
       "points": 0,
+      "gw_points": 0,
       "form": "0.0",
       "fixtures": [
         {
@@ -55680,6 +56304,7 @@
       "price": 5,
       "ownership": 0,
       "points": 1,
+      "gw_points": 1,
       "form": "1.0",
       "fixtures": [
         {
@@ -55765,6 +56390,7 @@
       "price": 4.5,
       "ownership": 0,
       "points": 0,
+      "gw_points": 0,
       "form": "0.0",
       "fixtures": [
         {
@@ -55860,6 +56486,7 @@
       "price": 4,
       "ownership": 0,
       "points": 0,
+      "gw_points": 0,
       "form": "0.0",
       "fixtures": [
         {
@@ -55953,6 +56580,7 @@
       "price": 5,
       "ownership": 0,
       "points": 0,
+      "gw_points": 0,
       "form": "0.0",
       "fixtures": [
         {
@@ -56046,6 +56674,7 @@
       "price": 4.5,
       "ownership": 0,
       "points": 0,
+      "gw_points": 0,
       "form": "0.0",
       "fixtures": [
         {
@@ -56134,6 +56763,7 @@
       "price": 5.4,
       "ownership": 0,
       "points": 1,
+      "gw_points": 0,
       "form": "0.5",
       "fixtures": [
         {
@@ -56220,6 +56850,7 @@
       "price": 6,
       "ownership": 0,
       "points": 0,
+      "gw_points": 0,
       "form": "0.0",
       "fixtures": [
         {
@@ -56313,6 +56944,7 @@
       "price": 6.5,
       "ownership": 0,
       "points": 0,
+      "gw_points": 0,
       "form": "0.0",
       "fixtures": [
         {
@@ -56406,6 +57038,7 @@
       "price": 5,
       "ownership": 0,
       "points": 0,
+      "gw_points": 0,
       "form": "0.0",
       "fixtures": [
         {
@@ -56496,6 +57129,7 @@
       "price": 4.5,
       "ownership": 0,
       "points": 0,
+      "gw_points": 0,
       "form": "0.0",
       "fixtures": [
         {
@@ -56576,6 +57210,7 @@
       "price": 4.5,
       "ownership": 0,
       "points": 0,
+      "gw_points": 0,
       "form": "0.0",
       "fixtures": [
         {
@@ -56669,6 +57304,7 @@
       "price": 4.5,
       "ownership": 0,
       "points": 0,
+      "gw_points": 0,
       "form": "0.0",
       "fixtures": [
         {
@@ -56762,6 +57398,7 @@
       "price": 5,
       "ownership": 0,
       "points": 0,
+      "gw_points": 0,
       "form": "0.0",
       "fixtures": [
         {
@@ -56850,6 +57487,7 @@
       "price": 4.5,
       "ownership": 0,
       "points": 0,
+      "gw_points": 0,
       "form": "0.0",
       "fixtures": [
         {
@@ -56938,6 +57576,7 @@
       "price": 5.5,
       "ownership": 0,
       "points": 0,
+      "gw_points": 0,
       "form": "0.0",
       "fixtures": [
         {
@@ -57023,6 +57662,7 @@
       "price": 5,
       "ownership": 0,
       "points": 0,
+      "gw_points": 0,
       "form": "0.0",
       "fixtures": [
         {
@@ -57113,6 +57753,7 @@
       "price": 5,
       "ownership": 0,
       "points": 0,
+      "gw_points": 0,
       "form": "0.0",
       "fixtures": [
         {
@@ -57198,6 +57839,7 @@
       "price": 5.5,
       "ownership": 0,
       "points": 0,
+      "gw_points": 0,
       "form": "0.0",
       "fixtures": [
         {
@@ -57284,6 +57926,7 @@
       "price": 5,
       "ownership": 0,
       "points": 1,
+      "gw_points": 0,
       "form": "0.5",
       "fixtures": [
         {
@@ -57374,6 +58017,7 @@
       "price": 5,
       "ownership": 0,
       "points": 0,
+      "gw_points": 0,
       "form": "0.0",
       "fixtures": [
         {
@@ -57467,6 +58111,7 @@
       "price": 5,
       "ownership": 0,
       "points": 0,
+      "gw_points": 0,
       "form": "0.0",
       "fixtures": [
         {
@@ -57560,6 +58205,7 @@
       "price": 4.5,
       "ownership": 0,
       "points": 0,
+      "gw_points": 0,
       "form": "0.0",
       "fixtures": [
         {
@@ -57648,6 +58294,7 @@
       "price": 5,
       "ownership": 0,
       "points": 0,
+      "gw_points": 0,
       "form": "0.0",
       "fixtures": [
         {
@@ -57733,6 +58380,7 @@
       "price": 4.5,
       "ownership": 0,
       "points": 1,
+      "gw_points": 1,
       "form": "0.5",
       "fixtures": [
         {
@@ -57823,6 +58471,7 @@
       "price": 5,
       "ownership": 0,
       "points": 0,
+      "gw_points": 0,
       "form": "0.0",
       "fixtures": [
         {
@@ -57909,6 +58558,7 @@
       "price": 6,
       "ownership": 0,
       "points": 0,
+      "gw_points": 0,
       "form": "0.0",
       "fixtures": [
         {
@@ -57997,6 +58647,7 @@
       "price": 5,
       "ownership": 0,
       "points": 0,
+      "gw_points": 0,
       "form": "0.0",
       "fixtures": [
         {
@@ -58082,6 +58733,7 @@
       "price": 5,
       "ownership": 0,
       "points": 0,
+      "gw_points": 0,
       "form": "0.0",
       "fixtures": [
         {
