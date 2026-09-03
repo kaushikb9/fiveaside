@@ -1,20 +1,20 @@
 {
-  "generated_at": "2026-09-02T08:55:08.286Z",
+  "generated_at": "2026-09-03T04:04:48.196Z",
   "people": [
     {
       "nick": "Xabi",
       "week": {
         "worked": "The armband was right. You put it on B.Fernandes and he scored a hat-trick, and Mbeumo got the fifth in the same game — the whole reason you carry two United midfielders.",
-        "didnt": "You scored 106 and went nowhere, still fifth of eleven. Tzolis was taken off at half-time at Villa Park and Kerkez has one point in two, so two of your outfield picks are doing nothing while the room banks the same captain you had."
+        "didnt": "You scored 106 and went nowhere, still fifth of eleven. Kerkez has one point in two and Tzolis was hooked at half-time at Villa Park, so two of your outfield picks are doing nothing while the room banks the same captain you had."
       },
       "big": [
         {
-          "call": "Tzolis or Eze, with Arsenal at home to Chelsea",
-          "why": "Tzolis was hooked at half-time at Villa Park and Eze came on and made the goal. Eze is £6.4m against your £6.5m, so the swap costs nothing, and Arsenal host your own club in GW3."
+          "call": "Captain: B.Fernandes at Everton, or Haaland at home",
+          "why": "You have had the armband on B.Fernandes and he is away at Everton. Haaland is at home to Coventry, who have lost both and not scored, and he is now City's only first-team striker. Four of the five will pick the same man; only one of them is at home."
         },
         {
-          "call": "Kerkez at £5.5m, doing nothing",
-          "why": "One point in two and taken off on 71 minutes at Anfield. Liverpool spent £123m on a winger this week and nothing on the defence, so the competition is not going away and neither is the price."
+          "call": "Kerkez: the seat is fine, the clean sheet is not",
+          "why": "Liverpool signed no left-back and Iraola worked with him at Bournemouth, so he keeps the shirt. But Liverpool have conceded twice in both league games with Leoni, Bradley and Gomez all out. You bought a defender at £5.5m for clean sheets that are not coming."
         }
       ],
       "watchlist": [
@@ -24,19 +24,19 @@
           "team": "CHE",
           "pos": "MID",
           "price": 9.6,
-          "ownership": "18.2%",
+          "ownership": "18.3%",
           "status": "rising",
-          "note": "Your club's best player, and you still do not own him. He has scored in both games and the price has moved twice since the brain first said so."
+          "note": "Your club's best player, and you still do not own him. Two goals in two, the penalties, and the price has moved twice since the brain first said so."
         },
         {
-          "id": 14,
-          "name": "Eze",
+          "id": 15,
+          "name": "Ødegaard",
           "team": "ARS",
           "pos": "MID",
-          "price": 6.4,
-          "ownership": "1.5%",
-          "status": "new",
-          "note": "He replaced Tzolis at half-time at Villa Park and set up the winner. Same money as the man you already have."
+          "price": 6.6,
+          "ownership": "11.3%",
+          "status": "hold",
+          "note": "You own Calafiori and Tzolis at the Emirates. The £6.6m midfielder outscoring both of them is the one you skipped."
         }
       ]
     },
@@ -49,7 +49,11 @@
       "big": [
         {
           "call": "Two Coventry defenders at the Etihad",
-          "why": "van Ewijk and Thomas are both on your bench and Coventry go to Man City in GW3, the hardest fixture on the ticker at 5. That is £8.0m of your squad you cannot start."
+          "why": "van Ewijk and Thomas are both on your bench and Coventry go to Man City in GW3, the hardest fixture on the ticker at 5. That is £8.0m of your squad you cannot start, and the Bench Boost that made them useful is gone."
+        },
+        {
+          "call": "Captain with the room, not against it",
+          "why": "You lead by twenty-nine with no chip left. The other four will nearly all put the armband on B.Fernandes or Haaland. Matching them turns your lead into a fixed number of weeks; a differential captain is the only thing that can hand it back."
         }
       ],
       "watchlist": [
@@ -59,22 +63,22 @@
           "team": "NEW",
           "pos": "DEF",
           "price": 5.1,
-          "ownership": "7.9%",
+          "ownership": "8.6%",
           "status": "rising",
-          "note": "Fourteen points at £5.1m, and Newcastle have the kindest six-game run in the game. You own nobody there."
+          "note": "Fourteen points at £5.1m, Burn out until mid-September, and Newcastle have the kindest six-game run in the game. You own nobody there."
         }
       ]
     },
     {
       "nick": "Mr CR7",
       "week": {
-        "worked": "Gvardiol is yours alone in this room and he has fourteen points. The captain was right too, so you matched Le Professeur's week without owning his squad.",
+        "worked": "Gvardiol is yours alone in this room and he has fourteen points. City now say O'Reilly is moving into midfield, so the left-back shirt you bought is the one he keeps.",
         "didnt": "Twelve points on your bench, second week running. Calvert-Lewin scored the Leeds equaliser while sitting on it, and Ndiaye is a Manchester City player now."
       },
       "big": [
         {
           "call": "Ndiaye plays for Man City — replace him",
-          "why": "You bought Everton's main creator. He left for £65m on deadline day and joins a City forward line that already has Cherki, Foden and Semenyo in it. £6.0m of your eleven is now somebody else's squad player."
+          "why": "You bought Everton's main creator. City call him squad depth, the number ten is shared between Foden and Cherki, and Semenyo is the back-up striker. £6.0m of your eleven is now somebody else's fourth choice."
         },
         {
           "call": "Calvert-Lewin on your bench again",
@@ -90,7 +94,7 @@
           "price": 6.5,
           "ownership": "4.4%",
           "status": "rising",
-          "note": "Everton have sold Ndiaye, Iroegbunam and Beto in a week. He is the creator left standing, at £6.5m."
+          "note": "Everton sold Ndiaye, Iroegbunam and Beto in a week and then lost Balogun. He is the creator left standing, at £6.5m."
         },
         {
           "id": 454,
@@ -98,7 +102,7 @@
           "team": "NEW",
           "pos": "MID",
           "price": 6.1,
-          "ownership": "7.6%",
+          "ownership": "8.3%",
           "status": "rising",
           "note": "Seventeen points at £6.1m in front of the best fixture run on the ticker. A straight swap for the man who left Everton."
         }
@@ -113,11 +117,11 @@
       "big": [
         {
           "call": "Aït-Nouri has not played a minute all season",
-          "why": "Man Utd tried to loan him on deadline day and City refused. He is third-choice left-back behind Gvardiol and O'Reilly and has been an unused substitute in all three games. With £0.9m banked that is £6.3m to spend."
+          "why": "City refused to loan him to United and called him third choice behind Gvardiol and O'Reilly, and City now say they are well stocked at left-back. Unused substitute in all three games. With £0.9m banked that is £6.3m to spend."
         },
         {
-          "call": "Captain: João Pedro at Arsenal, or Haaland at home",
-          "why": "You had the armband on João Pedro and Chelsea now go to the Emirates, the hardest fixture on the ticker at 5. Haaland is at home to Coventry, who have lost both and have not scored a goal."
+          "call": "Captain: Haaland at home, or João Pedro at the Emirates",
+          "why": "You had the armband on João Pedro and Chelsea now go to Arsenal, the hardest fixture on the ticker at 5. Haaland is at home to Coventry, who have lost both and scored nothing. Last of eleven is not the place to be brave."
         }
       ],
       "watchlist": [
@@ -127,7 +131,7 @@
           "team": "NEW",
           "pos": "DEF",
           "price": 5.1,
-          "ownership": "7.9%",
+          "ownership": "8.6%",
           "status": "rising",
           "note": "If the Aït-Nouri slot goes, this is what £5.1m buys: a defender who plays, with the kindest run in the game in front of him."
         },
@@ -137,9 +141,9 @@
           "team": "ARS",
           "pos": "MID",
           "price": 6.6,
-          "ownership": "11.5%",
+          "ownership": "11.3%",
           "status": "hold",
-          "note": "You own two Arsenal defenders and the Arsenal forward. The £6.6m midfielder who outscores all three is still going spare."
+          "note": "You own Mosquera and Havertz at Arsenal. The £6.6m midfielder who outscores both is still going spare."
         }
       ]
     },
@@ -147,16 +151,16 @@
       "nick": "Le Professeur",
       "week": {
         "worked": "107 points without spending a chip, and you are second. That is the same week Mr CR7 had and it took a Bench Boost to beat it.",
-        "didnt": "Sixteen points on your bench, the most in the room. Groß scored at Stamford Bridge while sitting on it, Konsa came on as a substitute at Villa Park rather than starting, and Ndiaye now plays for Manchester City."
+        "didnt": "Sixteen points on your bench, the most in the room. Groß scored at Stamford Bridge while sitting on it, Konsa came on as a substitute rather than starting, and Ndiaye now plays for Manchester City."
       },
       "big": [
         {
           "call": "Your £6.0m Everton midfielder plays for Man City",
-          "why": "Ndiaye left for £65m on deadline day. He keeps his price and loses his job — City already have Cherki, Foden and Semenyo for that shirt, and you have £0.5m in the bank to fix it with."
+          "why": "Ndiaye left for £65m on deadline day. He keeps his price and loses his job — City describe him as squad depth behind Cherki, Foden and Semenyo, and you have £0.5m in the bank to fix it with."
         },
         {
-          "call": "Cash and Konsa: one point each",
-          "why": "Villa have lost both and spent £76m on Mbaye and Harwood-Bellis, with Wan-Bissaka making his debut at right-back on 78 minutes. Konsa came off the bench for Arsenal rather than starting. Two defenders, two gameweeks, two points."
+          "call": "Do not sell Konsa this week",
+          "why": "The brain sacked him on Monday for coming off the bench. Arsenal signed him because Saliba and Timber are injured, both are still out, and Mosquera came off hurt at Villa Park with Konsa replacing him. At £4.4m he may be starting against Chelsea."
         }
       ],
       "watchlist": [
@@ -168,7 +172,7 @@
           "price": 5.5,
           "ownership": "7.2%",
           "status": "rising",
-          "note": "Eighteen points at £5.5m in the defence you already back twice. You own the club and none of the players scoring for it."
+          "note": "Eighteen points at £5.5m in the only defence yet to concede a league goal. You own the club and none of the players scoring for it."
         },
         {
           "id": 367,
@@ -176,9 +180,9 @@
           "team": "LIV",
           "pos": "MID",
           "price": 7,
-          "ownership": "7.8%",
-          "status": "hold",
-          "note": "City bid £80m and Liverpool said no, so he stays. Seventeen points at £7.0m — but Barcola cost £123m and plays in his position."
+          "ownership": "8.1%",
+          "status": "cooling",
+          "note": "City bid £80m and Liverpool said no, so he stays. But Barcola cost £123m and could make his debut at Ipswich on Friday, in his position."
         }
       ]
     }
@@ -190,49 +194,9 @@
       "team": "CHE",
       "pos": "MID",
       "price": 9.6,
-      "ownership": "18.2%",
+      "ownership": "18.3%",
       "status": "rising",
-      "note": "Two goals in two, penalties, and a Chelsea side that sold Enzo Fernández and failed to replace him. Nobody in the room owns him."
-    },
-    {
-      "id": 399,
-      "name": "Cherki",
-      "team": "MCI",
-      "pos": "MID",
-      "price": 7.7,
-      "ownership": "24.1%",
-      "status": "cooling",
-      "note": "Still the most points of any midfielder in the game. Also still at a club that signed Enzo Fernández for £125m and Ndiaye for £65m on the same night."
-    },
-    {
-      "id": 249,
-      "name": "Barry",
-      "team": "EVE",
-      "pos": "FWD",
-      "price": 5.5,
-      "ownership": "4.2%",
-      "status": "rising",
-      "note": "Everton sold Beto and the Balogun deal collapsed after the player walked away. He is the only senior striker at the club, at £5.5m."
-    },
-    {
-      "id": 367,
-      "name": "Gakpo",
-      "team": "LIV",
-      "pos": "MID",
-      "price": 7,
-      "ownership": "7.8%",
-      "status": "new",
-      "note": "The move died with the window: City offered £80m and Liverpool refused. Seventeen points at £7.0m, with Ipswich away and Fulham at home next."
-    },
-    {
-      "id": 454,
-      "name": "Elanga",
-      "team": "NEW",
-      "pos": "MID",
-      "price": 6.1,
-      "ownership": "7.6%",
-      "status": "rising",
-      "note": "Newcastle have the kindest six games on the ticker and he has seventeen points at £6.1m. Not one of the five owns a Newcastle player."
+      "note": "Two goals in two, penalties, and a Chelsea side that sold Enzo Fernández and never replaced him. Nobody in the room owns him."
     },
     {
       "id": 15,
@@ -240,9 +204,49 @@
       "team": "ARS",
       "pos": "MID",
       "price": 6.6,
-      "ownership": "11.5%",
+      "ownership": "11.3%",
       "status": "hold",
       "note": "Four of the five own an Arsenal defender and none owns the Arsenal player outscoring them, at £6.6m, with Chelsea at the Emirates."
+    },
+    {
+      "id": 399,
+      "name": "Cherki",
+      "team": "MCI",
+      "pos": "MID",
+      "price": 7.7,
+      "ownership": "25.8%",
+      "status": "cooling",
+      "note": "Still the most points of any midfielder in the game. Also sharing the number ten with Foden at a club that now has two established players in almost every position."
+    },
+    {
+      "id": 454,
+      "name": "Elanga",
+      "team": "NEW",
+      "pos": "MID",
+      "price": 6.1,
+      "ownership": "8.3%",
+      "status": "rising",
+      "note": "Newcastle have the kindest six games on the ticker and he has seventeen points at £6.1m. Not one of the five owns a Newcastle player."
+    },
+    {
+      "id": 449,
+      "name": "Hall",
+      "team": "NEW",
+      "pos": "DEF",
+      "price": 5.1,
+      "ownership": "8.6%",
+      "status": "rising",
+      "note": "The cheapest attacking defender at a settled club, and Burn is not back until mid-September. Same fixture run, £1.0m cheaper than the midfielder above."
+    },
+    {
+      "id": 249,
+      "name": "Barry",
+      "team": "EVE",
+      "pos": "FWD",
+      "price": 5.5,
+      "ownership": "4.4%",
+      "status": "rising",
+      "note": "Monaco say Balogun pulled out over the handling of his medical. Beto is sold, nobody arrived, and he is the only senior striker at the club at £5.5m."
     },
     {
       "id": 279,
@@ -250,9 +254,9 @@
       "team": "HUL",
       "pos": "DEF",
       "price": 4.1,
-      "ownership": "7.3%",
-      "status": "cooling",
-      "note": "Twenty points at the cheapest defender price in the game, and then Hull signed six players on deadline day including a £12m right-back."
+      "ownership": "8.1%",
+      "status": "hold",
+      "note": "Twenty points at the cheapest defender price in the game, and unflagged again for Villa at home. Hull signed six players on deadline day, so buy him rather than the back four."
     }
   ],
   "verdicts": [
@@ -276,9 +280,9 @@
       "id": 423,
       "name": "Shaw",
       "verdict": "solid",
-      "moved": "up",
-      "why": "The trigger was a left-back arriving before the deadline. United tried for Aït-Nouri on the last day, City refused, and nobody else came.",
-      "trigger": "A cheap defender who never misses is worth £4.5m until he misses. Two games out of the eleven ends it."
+      "moved": "held",
+      "why": "Half of Monday's upgrade was right and half was not. United signed no left-back, so the shirt is his until January — but Mazraoui came on for him against Ipswich and the club accept he cannot play sixty games at 31.",
+      "trigger": "Mazraoui starting a league game at left-back. That is the difference between a cheap defender who never misses and a rotation slot."
     },
     {
       "id": 418,
@@ -301,7 +305,7 @@
       "name": "Palmer",
       "verdict": "nailed",
       "moved": "held",
-      "why": "Twenty points in two games, the penalties, and Chelsea have now sold Enzo Fernández and failed to sign a replacement.",
+      "why": "Twenty points in two games, the penalties, and Chelsea sold Enzo Fernández without signing a replacement.",
       "trigger": "Two games spent wide rather than at ten, or the calf flag returning."
     },
     {
@@ -309,56 +313,32 @@
       "name": "João Pedro",
       "verdict": "nailed",
       "moved": "held",
-      "why": "The reference point in Chelsea's attack, with 69.9% of the game on him, and Arsenal away next.",
+      "why": "The reference point in Chelsea's attack, owned by all five, and Arsenal away next.",
       "trigger": "Two Chelsea games without a shot in the box. At that ownership he becomes the risk rather than the floor."
     },
     {
       "id": 40,
       "name": "Rogers",
       "verdict": "solid",
-      "moved": "up",
-      "why": "Three starts from three since the £117m move, and Chelsea have now sold Enzo Fernández, Mudryk, Guiu and Washington without replacing any of them.",
+      "moved": "held",
+      "why": "Three starts from three since the £117m move, and Arsenal wanted him at £80m before Chelsea paid more.",
       "trigger": "A week wide right or on the bench. The Camara deal collapsing makes that less likely, not more."
-    },
-    {
-      "id": 156,
-      "name": "Neto",
-      "verdict": "solid",
-      "moved": "up",
-      "why": "The trigger was the window shutting with him still at Chelsea. It did, and four attacking midfielders left around him.",
-      "trigger": "Two starts without a return. At 1.3% ownership a starting Chelsea forward is a real differential; a rotating one is not."
     },
     {
       "id": 28,
       "name": "Martinez",
       "verdict": "watch",
       "moved": "held",
-      "why": "Chelsea have gone eighteen games without a clean sheet and Sánchez has now gone to Como on loan, so the shirt is his alone.",
+      "why": "Chelsea have gone eighteen games without a clean sheet and Sánchez is at Como on loan, so the shirt is his alone.",
       "trigger": "One clean sheet. Until that comes he is a goalkeeper bought for save points at a club that concedes."
-    },
-    {
-      "id": 155,
-      "name": "Enzo",
-      "verdict": "sack",
-      "moved": "down",
-      "why": "Settled by the transfer, not the football: £125m to Manchester City on deadline day.",
-      "trigger": "Nothing. He is a City player and the trigger written on Monday fired exactly as written."
     },
     {
       "id": 159,
       "name": "Caicedo",
-      "verdict": "sack",
-      "moved": "held",
-      "why": "Left the pitch in tears after eleven minutes as a substitute, and Chelsea's replacement midfielder never arrived.",
+      "verdict": "watch",
+      "moved": "up",
+      "why": "The 75% flag replaced the injury. He left the pitch in tears after eleven minutes and is now listed as a doubt rather than out, with Chelsea's replacement midfielder never arriving.",
       "trigger": "A league start. The Camara collapse means the minutes are there the moment he is fit."
-    },
-    {
-      "id": 200,
-      "name": "Lacroix",
-      "verdict": "sack",
-      "moved": "held",
-      "why": "Settled last week. A back three that has conceded five in two goes to the Emirates next.",
-      "trigger": "Two clean sheets in three. Nothing shorter than that reopens it."
     },
     {
       "id": 8,
@@ -372,24 +352,24 @@
       "id": 12,
       "name": "Saka",
       "verdict": "nailed",
-      "moved": "up",
-      "why": "Scored the only goal at Villa Park and Arsenal have won all three. Penalties, £9.5m, and 10.5% ownership.",
+      "moved": "held",
+      "why": "Scored the only goal at Villa Park and Arsenal have won all three. Penalties at £9.5m, and Martinelli is on his way to Al-Hilal.",
       "trigger": "The recurring hamstring, or the returns moving to whoever Arsenal eventually buy up front."
     },
     {
       "id": 26,
       "name": "Havertz",
       "verdict": "solid",
-      "moved": "up",
-      "why": "The trigger was the window shutting with no forward arriving. Arsenal sold Jesus to Barcelona and Vieira to Hamburg and signed nobody, so he and Gyökeres are the whole forward line.",
+      "moved": "held",
+      "why": "Arsenal chased Vinícius Jr, Rogers and Álvarez and got none of them, then agreed to sell Martinelli for around £60m. He and Gyökeres are the whole forward line.",
       "trigger": "Gyökeres taking the shirt outright. Two games on the bench and £7.5m is a sack."
     },
     {
       "id": 25,
       "name": "Gyökeres",
       "verdict": "watch",
-      "moved": "new",
-      "why": "Zero points in two and £7.3m, but Arsenal are down to two senior forwards and Chelsea come to the Emirates.",
+      "moved": "held",
+      "why": "Zero points in two at £7.3m, but he scored 21 in his first season and Arsenal are down to two senior forwards.",
       "trigger": "A start and a goal in the next two. A £7.3m striker who has not scored by GW5 is not a striker."
     },
     {
@@ -404,7 +384,7 @@
       "id": 10,
       "name": "White",
       "verdict": "solid",
-      "moved": "up",
+      "moved": "held",
       "why": "Eighteen points at £5.5m and a clean sheet at Villa Park, in the only defence in the league yet to concede a league goal.",
       "trigger": "Timber and Saliba returning and the back four settling without him."
     },
@@ -412,31 +392,31 @@
       "id": 11,
       "name": "Mosquera",
       "verdict": "watch",
-      "moved": "down",
-      "why": "Twelve points deputising, then came off injured in the second half at Villa Park with Konsa on in his place.",
-      "trigger": "A fitness flag, or Konsa starting the next one. Either ends a pick whose whole case was the seat."
+      "moved": "held",
+      "why": "Twelve points deputising, then came off injured at Villa Park with Konsa on in his place. No flag has appeared in the player file, which is the only reason this is not a sack.",
+      "trigger": "A flag before Friday, or Konsa named ahead of him against Chelsea. Either ends a pick whose whole case was the seat."
     },
     {
       "id": 31,
       "name": "Konsa",
-      "verdict": "sack",
-      "moved": "down",
-      "why": "The trigger was being named in the eleven at Villa Park. He came off the bench instead, and he has one point in two gameweeks.",
-      "trigger": "Settled by the team sheet. A start at centre-back reopens it and nothing else does."
+      "verdict": "watch",
+      "moved": "up",
+      "why": "Monday's sack was written on one substitute appearance and it was too quick. Arsenal paid £55m for him because Saliba and Timber are injured, both are still out, and the man in front of him limped off at Villa Park.",
+      "trigger": "Chelsea's visit. He starts and this goes to solid; Mosquera or Gabriel plays the whole game and £4.4m stays a bench slot."
     },
     {
       "id": 557,
       "name": "Tzolis",
-      "verdict": "sack",
-      "moved": "down",
-      "why": "Rated four out of ten at Villa Park, taken off at half-time, and the substitute who replaced him made the winning goal.",
-      "trigger": "Settled. £6.5m for a winger hooked at the break, with Eze £0.1m cheaper and in front of him."
+      "verdict": "watch",
+      "moved": "up",
+      "why": "Reversing Monday's sack, which graded a £34m winger on forty-five bad minutes. He impressed in the Community Shield win over City and on the opening day against Coventry, and Arsenal have just sold both of their other left-sided forwards.",
+      "trigger": "A second half-time substitution, or Eze starting ahead of him against Chelsea. Then it is a sack and it stays one."
     },
     {
       "id": 14,
       "name": "Eze",
       "verdict": "watch",
-      "moved": "new",
+      "moved": "held",
       "why": "Came on at half-time at Villa Park and played the big part in Saka's goal, at £6.4m and 1.5% ownership.",
       "trigger": "A start in GW3. If Arteta gives him the shirt this is the cheapest way into Arsenal's attack."
     },
@@ -445,87 +425,103 @@
       "name": "Haaland",
       "verdict": "nailed",
       "moved": "held",
-      "why": "Owned by all five, and Coventry come to the Etihad having lost both and scored nothing.",
-      "trigger": "A serious injury, or three weeks of City creating past him rather than through him."
+      "why": "Owned by all five, at home to Coventry, and now City's only first-team striker after Marmoush went to Spurs and Mubama went on loan.",
+      "trigger": "A serious injury. City spent a record £458m and did not buy a back-up, so there is no version of this where he plays less."
+    },
+    {
+      "id": 391,
+      "name": "Gvardiol",
+      "verdict": "nailed",
+      "moved": "up",
+      "why": "The trigger was O'Reilly reclaiming the left side. City say the opposite — well stocked at left-back, so O'Reilly moves into his natural midfield position to cover the Nico González gap.",
+      "trigger": "Doku back from 5 September pushing City wider and O'Reilly back to defence. Nothing on the record points that way now."
     },
     {
       "id": 399,
       "name": "Cherki",
       "verdict": "watch",
-      "moved": "down",
-      "why": "Still the highest-scoring midfielder in the game, and still owned by none of the five — but City signed Enzo Fernández for £125m and Ndiaye for £65m in one night.",
-      "trigger": "The first City team sheet after the break. He starts and he is a buy; he does not and £7.7m is a lottery ticket."
-    },
-    {
-      "id": 391,
-      "name": "Gvardiol",
-      "verdict": "solid",
       "moved": "held",
-      "why": "The one City defender you can name in advance, and deadline day confirmed it — City refused to let Aït-Nouri leave and called him third choice behind Gvardiol and O'Reilly.",
-      "trigger": "O'Reilly reclaiming the left side once Doku is back."
+      "why": "Still the highest-scoring midfielder in the game, and still owned by none of the five. City now have two established players in almost every position and Maresca has a selection dilemma every week.",
+      "trigger": "Two starts in a row at number ten. He shares that shirt with Foden and has never reached ten Premier League goals in a season."
     },
     {
       "id": 397,
       "name": "Semenyo",
       "verdict": "watch",
       "moved": "held",
-      "why": "One assist all season at £8.5m, and City have just spent £190m on two more attacking players.",
+      "why": "One assist all season at £8.5m — but he is the only City attacker to hit double figures in the league in the last two seasons, and the club see him as the cover at number nine.",
       "trigger": "A goal against Coventry at home. If it does not come in that fixture, £8.5m is a sack."
+    },
+    {
+      "id": 237,
+      "name": "Ndiaye",
+      "verdict": "sack",
+      "moved": "held",
+      "why": "Settled by the transfer and confirmed by the club: City signed him for versatility and squad depth, behind Cherki and Foden at ten and Semenyo at nine.",
+      "trigger": "Settled. Two of the five own him and both should be spending the £6.0m elsewhere."
+    },
+    {
+      "id": 400,
+      "name": "Doku",
+      "verdict": "watch",
+      "moved": "down",
+      "why": "The calf keeps him out until 5 September, which is after Friday's deadline. He also misses the Coventry game at home, the softest fixture City have.",
+      "trigger": "A start after the break. He has never reached ten Premier League goals either, and City have four players for two attacking shirts."
     },
     {
       "id": 392,
       "name": "Aït-Nouri",
       "verdict": "sack",
       "moved": "held",
-      "why": "Man Utd tried to loan him on deadline day and City said no. Unused substitute in all three games, no minutes, third-choice left-back.",
+      "why": "City refused United's deadline-day loan and now say they are well stocked at left-back. Unused substitute in all three games.",
       "trigger": "A start. Until then this is a squad place doing no work whatever."
+    },
+    {
+      "id": 387,
+      "name": "O'Reilly",
+      "verdict": "watch",
+      "moved": "new",
+      "why": "Four points at £6.5m, and City have just said he will play more in midfield rather than at left-back to cover the Nico González gap.",
+      "trigger": "Two starts in the midfield box or diamond. A £6.5m defender playing central midfield loses the clean sheet and keeps the price."
     },
     {
       "id": 367,
       "name": "Gakpo",
-      "verdict": "solid",
-      "moved": "up",
-      "why": "The trigger was the window shutting with him at Liverpool. City offered £80m and were turned down, so seventeen points at £7.0m stay where they are.",
-      "trigger": "Barcola taking his flank. £123m does not sit on a bench for long, and Liverpool bought him to start."
+      "verdict": "watch",
+      "moved": "down",
+      "why": "City's £80m was turned down so he stays, but Barcola cost £123m and may make his debut at Ipswich on Friday in his position.",
+      "trigger": "Barcola starting on the left. Seventeen points at £7.0m are real; the shirt is the question and it gets answered this week."
     },
     {
       "id": 368,
       "name": "Szoboszlai",
-      "verdict": "solid",
-      "moved": "held",
-      "why": "Penalties at £7.0m and owned by three of the five, in a side that has drawn both.",
-      "trigger": "A shift to right-back, which Iraola still has an obvious hole at."
+      "verdict": "watch",
+      "moved": "down",
+      "why": "The trigger was a shift to right-back. Bradley is out with a knee injury, Frimpong has not convinced, Liverpool failed to loan Gusto, and the club now name Szoboszlai as one of the players who can fill in there.",
+      "trigger": "One game at right-back. Three of the five own him at £7.0m for penalties he does not take from full-back."
     },
     {
       "id": 358,
       "name": "Kerkez",
-      "verdict": "sack",
-      "moved": "held",
-      "why": "Taken off on 71 minutes at Anfield, one point in two, and Liverpool spent £123m on a winger rather than fixing the defence.",
-      "trigger": "Ninety minutes twice with a clean sheet. Nothing less."
-    },
-    {
-      "id": 237,
-      "name": "Ndiaye",
-      "verdict": "sack",
-      "moved": "down",
-      "why": "The trigger was the deadline passing with him at Everton. He left for Manchester City for £65m instead, into a forward line that already has Cherki, Foden and Semenyo.",
-      "trigger": "Settled. Two of the five own him and both should be spending the £6.0m elsewhere."
+      "verdict": "watch",
+      "moved": "up",
+      "why": "Monday's sack was about the seat and the seat was never the problem — Liverpool signed no left-back and Iraola worked with him at Bournemouth. The problem is that Liverpool have conceded twice in both league games.",
+      "trigger": "A clean sheet at Ipswich or against Fulham. Two soft fixtures in a row without one and £5.5m is a sack for the right reason."
     },
     {
       "id": 249,
       "name": "Barry",
       "verdict": "solid",
-      "moved": "up",
-      "why": "The trigger was Richarlison arriving to take his shirt. Nobody arrived — Beto was sold, the Balogun deal collapsed after the player walked away, and he is the only senior striker at the club at £5.5m.",
+      "moved": "held",
+      "why": "The trigger was a striker arriving to take his shirt. Monaco say Balogun pulled out over the handling of his medical, Beto is sold, and he is the only senior striker at the club at £5.5m.",
       "trigger": "Everton signing a forward when the window reopens, or two blanks against United and Spurs."
     },
     {
       "id": 236,
       "name": "Dewsbury-Hall",
       "verdict": "solid",
-      "moved": "up",
-      "why": "Thirteen points at £6.5m, and Everton have just sold Ndiaye, Iroegbunam and Patterson in a single day.",
+      "moved": "held",
+      "why": "Thirteen points at £6.5m, and Everton have sold Ndiaye, Iroegbunam and Patterson and lost Balogun inside four days.",
       "trigger": "Grealish taking the creative burden instead. That is one team sheet away and worth watching before it costs anything."
     },
     {
@@ -533,7 +529,7 @@
       "name": "Tarkowski",
       "verdict": "solid",
       "moved": "held",
-      "why": "Everton's captain, on set pieces, eighteen points, and still the saleable name nobody bid for.",
+      "why": "Everton's captain, on set pieces, eighteen points, and United at home in GW3.",
       "trigger": "Two games without a header or a clean sheet. Then this is a set-piece bet rather than a defender."
     },
     {
@@ -548,7 +544,7 @@
       "id": 464,
       "name": "Wissa",
       "verdict": "solid",
-      "moved": "up",
+      "moved": "held",
       "why": "Scored at Spurs and the competition left — Woltemade has gone to Juventus on loan, so the shirt is his at £6.1m.",
       "trigger": "Fernandez-Pardo being played centrally, or two blanks in the easiest run in the league."
     },
@@ -556,9 +552,9 @@
       "id": 449,
       "name": "Hall",
       "verdict": "solid",
-      "moved": "new",
-      "why": "Fourteen points at £5.1m in a side with the softest six games on the ticker, and Burn is out until mid-September.",
-      "trigger": "Burn returning and the left side going back. Until then this is the cheapest attacking defender at a settled club."
+      "moved": "held",
+      "why": "Fourteen points at £5.1m in a side with the softest six games on the ticker, and United wanted him all summer before deciding the fee was too big.",
+      "trigger": "Burn returning around 14 September and the left side going back. Until then this is the cheapest attacking defender at a settled club."
     },
     {
       "id": 496,
@@ -588,7 +584,7 @@
       "id": 124,
       "name": "Groß",
       "verdict": "solid",
-      "moved": "up",
+      "moved": "held",
       "why": "Crossed for one and headed in another at Stamford Bridge, on penalties at £5.5m. All three owners had him on the bench.",
       "trigger": "A start in the room's elevens, or two weeks without a return. At 33 the minutes are the question, not the quality."
     },
@@ -598,7 +594,7 @@
       "verdict": "solid",
       "moved": "held",
       "why": "Scored again, started again, and two of his four owners in this room still have him on a bench.",
-      "trigger": "Losing the penalties, or Leeds changing the shape around him after the six deadline-day arrivals elsewhere."
+      "trigger": "Losing the penalties, or Leeds changing the shape around him."
     },
     {
       "id": 94,
@@ -612,24 +608,24 @@
       "id": 565,
       "name": "M.Sangaré",
       "verdict": "solid",
-      "moved": "new",
-      "why": "Eighteen points at £5.7m and 12.6% ownership, which is the best value in the midfield and was declined here on debut.",
+      "moved": "held",
+      "why": "Eighteen points at £5.7m and 13.3% ownership, which is the best value in the midfield and was declined here on debut.",
       "trigger": "Two blanks. A midfielder scoring at this price is the cheapest way to fill an eleven and D13 says stop declining them."
     },
     {
       "id": 279,
       "name": "Ajayi",
-      "verdict": "watch",
-      "moved": "down",
-      "why": "Twenty points from two clean sheets at £4.1m, and then Hull signed six players on deadline day and sold Drameh, who had played all three games.",
-      "trigger": "The GW3 team sheet against Villa. He starts and this goes back to solid; he does not and it is over."
+      "verdict": "solid",
+      "moved": "up",
+      "why": "The trigger was the GW3 team sheet, and the flag came off first: he is unflagged at 100% for Villa at home after twenty points from two clean sheets at £4.1m.",
+      "trigger": "Norton-Cuffy or one of the other five deadline-day arrivals taking his place. Buy the man, not the back four."
     },
     {
       "id": 572,
       "name": "Tzolakis",
       "verdict": "solid",
       "moved": "held",
-      "why": "Twenty points from two clean sheets at £4.5m, behind a side that defends its box for ninety minutes on purpose.",
+      "why": "Twenty points from two clean sheets at £4.6m, behind a side that defends its box for ninety minutes on purpose.",
       "trigger": "Hull conceding in both of the next two. Eighteen summer signings have not touched the goalkeeper."
     },
     {
@@ -655,153 +651,216 @@
       "moved": "held",
       "why": "Villa have lost both, spent £76m on Mbaye and Harwood-Bellis, and gave Wan-Bissaka his debut at right-back on 78 minutes.",
       "trigger": "Two clean sheets in three with him playing all of them. Nothing shorter."
+    },
+    {
+      "id": 260,
+      "name": "Wilson",
+      "verdict": "watch",
+      "moved": "held",
+      "why": "Four points in two at £6.4m, and Leeds go to Brighton with Calvert-Lewin taking the goals and the penalties.",
+      "trigger": "A return at Brighton. A £6.4m midfielder who is neither the scorer nor the taker is the wrong Leeds player."
     }
   ],
   "signals": [
     {
-      "tag": "squad",
-      "team": "EVE",
-      "player": "Ndiaye",
-      "text": "Completed a deadline-day move to Manchester City worth up to £65m, signing a five-year contract. \"I've worked my whole life for an opportunity like this.\" He becomes City's eighth summer arrival.",
-      "source": "BBC Sport",
-      "action": "two of the five own him at £6.0m as an Everton player. He is now behind Cherki, Foden and Semenyo — replace him before Friday",
-      "url": "https://www.bbc.co.uk/sport/football/articles/c3wj1qw5x04o"
-    },
-    {
       "tag": "rotation",
       "team": "MCI",
-      "player": "Aït-Nouri",
-      "text": "Man Utd failed in an 11th-hour deadline-day move to sign him on loan; City would only accept a loan with an obligation to buy. \"Ait-Nouri has been on the bench for all three Manchester City games so far, he is yet to make an appearance and is third on the list of left-backs available to Enzo Maresca, behind Josko Gvardiol and Nico O'Reilly.\"",
+      "text": "City finished a £458m squad overhaul, a Premier League record for a summer window. \"Maresca now has the luxury of calling upon two established players in almost every position\" and \"will now have a selection dilemma each game as he possesses an embarrassment of riches to choose from.\" The number ten \"has been shared between Foden and Cherki\".",
       "source": "BBC Sport",
-      "action": "the gaffer at the bottom of the five is carrying a squad slot that has produced nothing and is now confirmed third choice",
-      "url": "https://www.bbc.co.uk/sport/football/articles/cwyzn5n015go"
+      "action": "do not buy a City attacker before Friday. Cherki, Foden, Semenyo and Ndiaye are four players for two shirts, and the first team sheet after the break is the only thing that settles it",
+      "url": "https://www.bbc.co.uk/sport/football/articles/cpq02z298p7o"
     },
     {
-      "tag": "rotation",
-      "team": "ARS",
-      "player": "Tzolis",
-      "text": "Rated 4/10 at Villa Park: \"A disappointing night for the winger who worked hard but lacked quality when going forward. Taken off at half-time.\" Eze replaced him and \"played a big part in Saka's goal\".",
-      "source": "BBC Sport",
-      "action": "two of the five own him at £6.5m. Eze is £6.4m and made the winner in 45 minutes",
-      "url": "https://www.bbc.co.uk/sport/football/articles/cpwlxkynjvno"
-    },
-    {
-      "tag": "injury",
-      "team": "ARS",
-      "player": "Mosquera",
-      "text": "\"The 22-year-old produced a solid performance next to the more experienced Gabriel. Had to come off with an injury in the second half.\" Konsa came on in his place.",
-      "source": "BBC Sport",
-      "action": "he is unflagged in the player file for now. If a flag appears before Friday the pick is a bench slot, not a defender",
-      "url": "https://www.bbc.co.uk/sport/football/articles/cpwlxkynjvno"
-    },
-    {
-      "tag": "news",
-      "team": "ARS",
-      "player": "Calafiori",
-      "text": "Rated 8/10 at Villa Park: \"Picked up his usual adventurous positions when Arsenal were going forward and provided the assist for Saka's goal.\"",
-      "source": "BBC Sport",
-      "action": "four of the five own him and Arsenal have not conceded a league goal. Nothing to do",
-      "url": "https://www.bbc.co.uk/sport/football/articles/cpwlxkynjvno"
-    },
-    {
-      "tag": "squad",
-      "team": "ARS",
-      "player": "Havertz",
-      "text": "Arsenal sold Gabriel Jesus to Barcelona for £8.6m and Fábio Vieira to Hamburg, after agreeing a deal for Martinelli, and did not sign a forward before the deadline.",
-      "source": "BBC Sport / The Guardian",
-      "action": "the trigger written last week was the window shutting with no striker arriving. It fired — he and Gyökeres are the forward line",
-      "url": "https://www.bbc.co.uk/sport/football/articles/cvgyxyxplkvo"
-    },
-    {
-      "tag": "squad",
+      "tag": "shape",
       "team": "LIV",
-      "player": "Gakpo",
-      "text": "Liverpool signed Barcola from PSG in a deal worth up to £123m and \"expect Gakpo to stay after City offer £80m\", having rejected the weekend bid.",
-      "source": "The Guardian",
-      "action": "the sack written last week is reversed — he stays at £7.0m with seventeen points. The new question is Barcola's flank",
-      "url": "https://www.theguardian.com/football/2026/aug/31/liverpool-confirm-bradley-barcola-signing-psg"
-    },
-    {
-      "tag": "squad",
-      "team": "EVE",
-      "player": "Barry",
-      "text": "Everton's move for Balogun collapsed after the player decided against it, having already sold Beto to Fiorentina. They also explored Zirkzee and Abraham \"but were unable to convince either to join\", and signed Grealish on loan instead.",
+      "text": "\"Liverpool conceded twice in both league games so far and Iraola will be worried by how easily his side have been cut open.\" Leoni and Bradley are out long term, Gomez was hurt in pre-season, and Araújo arrived on loan as \"a stop-gap for now\".",
       "source": "BBC Sport",
-      "action": "the trigger was a striker arriving to take his shirt. Nobody did, and he is £5.5m at 4.2% ownership",
-      "url": "https://www.bbc.co.uk/sport/football/articles/c780e6q84l4o"
+      "action": "Liverpool defenders are not clean-sheet buys this week despite Ipswich away and Fulham at home. Wait for one clean sheet before paying £5.5m upwards for that back line",
+      "url": "https://www.bbc.co.uk/sport/football/articles/cx2zg85eyrqo"
     },
     {
-      "tag": "squad",
+      "tag": "minutes",
       "team": "MUN",
-      "player": "Shaw",
-      "text": "United \"failed in a shock deadline day move\" for Aït-Nouri after opting against Balde and Salinas, and signed no left-back before the window shut.",
+      "text": "United signed no left-back after failing to land Aït-Nouri, Hall, Balde and Salinas. \"Effectively that is Shaw as first-choice left-back, with Noussair Mazraoui as back-up\", and \"it is widely accepted 31-year-old Shaw will not be able to play repeatedly in a new campaign that could stretch beyond 60 games.\"",
       "source": "BBC Sport",
-      "action": "the downgrade written last Wednesday is reversed. Two of the five hold him at £4.5m and the seat is safe until January",
-      "url": "https://www.bbc.co.uk/sport/football/articles/cwyzn5n015go"
+      "action": "the cheap United left-back is a starter with managed minutes, not a nailed one. Two of the five hold him at £4.5m and should expect a rested week before January",
+      "url": "https://www.bbc.co.uk/sport/football/articles/cj9x212829vo"
     },
     {
       "tag": "squad",
-      "team": "MCI",
-      "text": "Signed Enzo Fernández from Chelsea for a joint-British record £125m and Ndiaye from Everton for up to £65m on the same night. Fernández is City's eighth summer arrival, after Elliot Anderson, Rulli, Bouaddi, Elias, Monga, Charles and Wamser.",
+      "team": "ARS",
+      "text": "Arsenal chased Vinícius Jr, Rogers, Barcola and Álvarez and signed none of them. Konsa arrived for £55m and \"was brought in because of the injuries to William Saliba and Jurrien Timber\", bringing the senior defenders to eight, while Martinelli is close to a £60m move to Al-Hilal.",
       "source": "BBC Sport",
-      "action": "City's attacking midfield is now oversubscribed. Cherki, Foden and Semenyo are all minutes risks from GW3 — wait for the first team sheet after the break before buying any of them",
-      "url": "https://www.bbc.co.uk/sport/football/articles/cr7deg1ze03o"
-    },
-    {
-      "tag": "squad",
-      "team": "CHE",
-      "text": "Sold Enzo Fernández, Mudryk and Tosin Adarabioyo to Tottenham, Guiu to Leipzig, Essugo and Washington to Strasbourg, and loaned Sánchez to Como — then the £47.1m replacement for Camara collapsed after the window shut. \"Chelsea were left furious when the club say they were informed by Monaco in writing that a deal for Camara would not go ahead.\"",
-      "source": "BBC Sport",
-      "action": "the minutes of Palmer, Rogers, Neto and Caicedo are safer than they were on Friday, and Martinez is the only goalkeeper left",
-      "url": "https://www.bbc.co.uk/sport/football/articles/ce8emxm7xmzo"
+      "action": "the Arsenal defence is a rotation, not a back four, with Chelsea visiting. Own the ones with the goals in front of them rather than the ones with the seat",
+      "url": "https://www.bbc.co.uk/sport/football/articles/c783x812dk5o"
     },
     {
       "tag": "squad",
       "team": "EVE",
-      "text": "Sold Ndiaye to City for £65m, Iroegbunam to Hull for £22m, Beto to Fiorentina and Patterson to Torino, then lost Balogun on deadline night. Grealish arrived on a season-long loan and Maitland-Niles on a free.",
+      "text": "Everton sold Ndiaye, Iroegbunam, Beto and Patterson, then lost Balogun on deadline night — Monaco claim he \"pulled out of the Everton move over the handling of his medical\". Grealish arrived on loan and Nørgaard from Arsenal.",
       "source": "BBC Sport / The Guardian",
-      "action": "Everton go to GW3 with one senior striker. Barry and Dewsbury-Hall inherit the goals and the creation; Tarkowski's set-piece threat is unchanged",
-      "url": "https://www.bbc.co.uk/sport/football/articles/c780e6q84l4o"
+      "action": "Everton go into GW3 with one senior striker and United at home. Barry and Dewsbury-Hall inherit the goals and the creation at £5.5m and £6.5m",
+      "url": "https://www.theguardian.com/football/2026/sep/02/deadline-day-shambles-leaves-everton-and-david-moyes-fighting-the-odds-again"
     },
     {
       "tag": "squad",
       "team": "HUL",
-      "text": "Signed six players on deadline day — Iroegbunam £22m, Norton-Cuffy £12m from Genoa at right-back, Mouzakitis £13m, Ansah, Vaz on loan and Sorba Thomas — and sold Cody Drameh to Genoa, \"who has featured in all three of Hull's games this season\". Eighteen signings this summer.",
+      "text": "Hull signed six players on deadline day — Iroegbunam £22m, Norton-Cuffy £12m at right-back, Mouzakitis £13m, Ansah, Vaz on loan and Sorba Thomas — and sold Cody Drameh, \"who has featured in all three of Hull's games this season\". Eighteen signings this summer.",
       "source": "BBC Sport",
-      "action": "the £4.0m Hull defence that has kept two clean sheets is not guaranteed to be the same back four on Friday. Do not buy the whole unit blind",
+      "action": "the £4.0m Hull defence that kept two clean sheets is not guaranteed to be the same back four on Friday. Buy one of them, not the unit",
       "url": "https://www.bbc.co.uk/sport/football/articles/cje8x575v51o"
-    },
-    {
-      "tag": "squad",
-      "team": "ARS",
-      "text": "Sold Jesus to Barcelona for £8.6m, Vieira to Hamburg for £8.6m and loaned Nwaneri to Dortmund, after agreeing to sell Martinelli. Álvarez did not arrive and no striker was signed.",
-      "source": "The Guardian / BBC Sport",
-      "action": "Havertz and Gyökeres are the entire forward line, with Chelsea at the Emirates in GW3. One of them starts every week now",
-      "url": "https://www.theguardian.com/football/2026/aug/31/arsenal-julian-alvarez-gabriel-martinelli-jesus-transfers"
     },
     {
       "tag": "shape",
       "team": "TOT",
-      "text": "Bottom of the table with no goals scored in two games after losing 2-0 at home to Newcastle, having spent more than £300m in the summer. \"Only three home league wins from their past 23 matches.\" De Zerbi: \"We can improve in the defensive phases but today was an unfair result.\"",
+      "text": "Bottom of the table with no goals in two games after losing 2-0 at home to Newcastle, having spent more than £300m in the summer. \"Only three home league wins from their past 23 matches.\"",
       "source": "BBC Sport",
       "action": "three of the five own Kinsky at £4.5m as a clean-sheet bet on a side that has kept none. Forest away is not the week it starts",
       "url": "https://www.bbc.co.uk/sport/football/articles/clyqn158n5jo"
     },
     {
-      "tag": "squad",
-      "team": "LIV",
-      "text": "Signed Barcola from PSG for an initial £106m rising to £123m and Brughmans for £30m, loaned Elliott to Valencia, and rejected City's £80m for Gakpo. \"Iraola has prioritised signing wingers this summer.\"",
-      "source": "The Guardian",
-      "action": "the Liverpool attack is settled but crowded. Gakpo keeps his place this week; the man who cost £106m will not sit long",
-      "url": "https://www.theguardian.com/football/2026/aug/31/liverpool-confirm-bradley-barcola-signing-psg"
+      "tag": "rotation",
+      "team": "MCI",
+      "player": "Gvardiol",
+      "text": "\"With the side well stocked at left-back, it is felt that Nico O'Reilly will play more in his natural midfield position to ease the Gonzalez gap.\" City also refused to loan Aït-Nouri to United, calling Gvardiol and O'Reilly the two ahead of him.",
+      "source": "BBC Sport",
+      "action": "the left-back shirt is his. The trigger written last week was O'Reilly taking it back and the club have said the opposite",
+      "url": "https://www.bbc.co.uk/sport/football/articles/cpq02z298p7o"
+    },
+    {
+      "tag": "rotation",
+      "team": "MCI",
+      "player": "O'Reilly",
+      "text": "City are \"well stocked at left-back\", so \"it is felt that Nico O'Reilly will play more in his natural midfield position to ease the Gonzalez gap\". He flanked Cherki in the diamond against Crystal Palace.",
+      "source": "BBC Sport",
+      "action": "a £6.5m defender who is being moved into midfield keeps the price and loses the clean sheet. Not a buy at that price in that role",
+      "url": "https://www.bbc.co.uk/sport/football/articles/cpq02z298p7o"
+    },
+    {
+      "tag": "rotation",
+      "team": "MCI",
+      "player": "Cherki",
+      "text": "\"The last midfield spot, the number 10 position, has been shared between Foden and Cherki.\" Of City's forward and attacking-midfield options, \"Semenyo is the only one to get into double figures in the Premier League in the last couple of seasons\" — Cherki, Doku and Ndiaye never have.",
+      "source": "BBC Sport",
+      "action": "the highest-scoring midfielder in the game is in a straight rotation with Foden. Wait for the first team sheet after the break",
+      "url": "https://www.bbc.co.uk/sport/football/articles/cpq02z298p7o"
+    },
+    {
+      "tag": "rotation",
+      "team": "MCI",
+      "player": "Semenyo",
+      "text": "\"Semenyo operates mainly from the right flank but is seen as an option at number nine, having played in the position during some cup games last season.\" He is also the only City attacker to reach double figures in the league in the last two seasons.",
+      "source": "BBC Sport",
+      "action": "the £8.5m that has produced one assist is now the back-up striker to a man who never rests. Hold rather than sell before Coventry at home",
+      "url": "https://www.bbc.co.uk/sport/football/articles/cpq02z298p7o"
+    },
+    {
+      "tag": "injury",
+      "team": "MCI",
+      "player": "Doku",
+      "text": "Listed in the player file with a calf injury and expected back on 5 September, the day after the GW3 deadline.",
+      "source": "FPL player file",
+      "action": "he misses Coventry at home, the softest fixture City have. Nobody in the room owns him and nobody should buy him this week",
+      "url": "https://www.bbc.co.uk/sport/football/articles/cpq02z298p7o"
     },
     {
       "tag": "squad",
-      "team": "NEW",
-      "text": "Signed Fernandez-Pardo from Lille for £51.4m and loaned Woltemade to Juventus, having won 2-0 at Spurs with goals from Elanga and Wissa.",
+      "team": "MCI",
+      "player": "Haaland",
+      "text": "\"Despite the positives around the recent window, Haaland is now City's only first-team striker.\" Marmoush joined Tottenham and Mubama went to Southampton on loan; \"City believe they have enough flexibility from within their options to have not directly replaced Marmoush.\"",
       "source": "BBC Sport",
-      "action": "Wissa is the striker and Elanga has the flank, in front of the kindest six-game run on the ticker. Nobody in the room owns either",
-      "url": "https://www.bbc.co.uk/sport/football/articles/c5ylv97mn58o"
+      "action": "no back-up means no rest weeks, and Coventry at home on Friday. All five own him and none of them should be looking for a reason not to captain him",
+      "url": "https://www.bbc.co.uk/sport/football/articles/cpq02z298p7o"
+    },
+    {
+      "tag": "squad",
+      "team": "MCI",
+      "player": "Ndiaye",
+      "text": "City describe the £65m signing as someone who \"adds greater versatility and squad depth\" and can play at number nine. He has never reached double figures in a Premier League season.",
+      "source": "BBC Sport",
+      "action": "two of the five still own him at £6.0m as an Everton player. Squad depth at a club with two established players in every position is not a starting midfielder",
+      "url": "https://www.bbc.co.uk/sport/football/articles/cpq02z298p7o"
+    },
+    {
+      "tag": "minutes",
+      "team": "MUN",
+      "player": "Shaw",
+      "text": "\"Luke Shaw is their only senior orthodox left-back. He started all 38 Premier League games last season.\" But United accept he \"will not be able to play repeatedly in a new campaign that could stretch beyond 60 games\", and against Ipswich \"Mazraoui was coming on for Shaw\".",
+      "source": "BBC Sport",
+      "action": "the seat is safe until January and the ninety minutes are not. Keep him as the cheap defender, not as a nailed one",
+      "url": "https://www.bbc.co.uk/sport/football/articles/cj9x212829vo"
+    },
+    {
+      "tag": "rotation",
+      "team": "LIV",
+      "player": "Szoboszlai",
+      "text": "\"On the right, Jeremie Frimpong has struggled to convince so far and Liverpool reportedly failed in an attempt to bring Malo Gusto on loan from Chelsea on deadline day... Araujo can also play at right-back and so can Dominik Szoboszlai, if needed.\"",
+      "source": "BBC Sport",
+      "action": "three of the five own him at £7.0m for the penalties. A midfielder filling in at right-back does not take them",
+      "url": "https://www.bbc.co.uk/sport/football/articles/cx2zg85eyrqo"
+    },
+    {
+      "tag": "rotation",
+      "team": "LIV",
+      "player": "Kerkez",
+      "text": "\"Milos Kerkez has had an underwhelming start to the campaign at left-back but the hope is that he can peak under Iraola, whom he worked with previously at Bournemouth.\" Liverpool signed no left-back.",
+      "source": "BBC Sport",
+      "action": "the shirt is not the problem, the clean sheets are. Hold him through Ipswich away and Fulham at home and judge him on those two",
+      "url": "https://www.bbc.co.uk/sport/football/articles/cx2zg85eyrqo"
+    },
+    {
+      "tag": "rotation",
+      "team": "LIV",
+      "player": "Gakpo",
+      "text": "\"Liverpool fans could see their first glimpse of 24-year-old Barcola on Friday when Iraola's side travel to Ipswich.\" Liverpool rejected City's £80m for Gakpo because \"they were unable to get a replacement\".",
+      "source": "BBC Sport",
+      "action": "seventeen points at £7.0m, with the £123m signing in his position starting the same week. Do not buy him before that team sheet",
+      "url": "https://www.bbc.co.uk/sport/football/articles/cx2zg85eyrqo"
+    },
+    {
+      "tag": "injury",
+      "team": "ARS",
+      "player": "Konsa",
+      "text": "Signed for £55m and \"brought in because of the injuries to William Saliba and Jurrien Timber\", who are both still listed with no return date. He came on for Mosquera at Villa Park when Mosquera went off injured.",
+      "source": "BBC Sport",
+      "action": "the sack written on Monday was too quick. Hold him at £4.4m until the Chelsea team sheet is up",
+      "url": "https://www.bbc.co.uk/sport/football/articles/c783x812dk5o"
+    },
+    {
+      "tag": "injury",
+      "team": "ARS",
+      "player": "Mosquera",
+      "text": "\"The 22-year-old produced a solid performance next to the more experienced Gabriel. Had to come off with an injury in the second half.\" Konsa replaced him. No flag has appeared in the player file since.",
+      "source": "BBC Sport",
+      "action": "he is unflagged going into Friday, so this is a start-or-nothing pick. If a flag appears the slot is a bench place, not a defender",
+      "url": "https://www.bbc.co.uk/sport/football/articles/cpwlxkynjvno"
+    },
+    {
+      "tag": "news",
+      "team": "ARS",
+      "player": "Tzolis",
+      "text": "Signed from Club Brugge for £34m. He \"struggled in the win but has already impressed in the Community Shield victory over Manchester City and the opening day Premier League win over Coventry\". Arsenal have sold Trossard and agreed to sell Martinelli, their other two left-sided forwards.",
+      "source": "BBC Sport",
+      "action": "the sack written on Monday graded him on forty-five minutes. Two of the five own him at £6.5m and the right move this week is to wait for the team sheet",
+      "url": "https://www.bbc.co.uk/sport/football/articles/c783x812dk5o"
+    },
+    {
+      "tag": "squad",
+      "team": "ARS",
+      "player": "Havertz",
+      "text": "Arsenal \"went into this window with interest in Morgan Rogers, Bradley Barcola, Julian Alvarez and Vinicius Jr\" and signed none of them. Martinelli is close to a £60m move to Al-Hilal and Trossard has gone to Beşiktaş.",
+      "source": "BBC Sport",
+      "action": "he and Gyökeres are the whole forward line with Chelsea at the Emirates. One of them starts every week now",
+      "url": "https://www.bbc.co.uk/sport/football/articles/c783x812dk5o"
+    },
+    {
+      "tag": "squad",
+      "team": "EVE",
+      "player": "Barry",
+      "text": "Monaco claim Balogun \"pulled out of the Everton move over the handling of his medical\", four days after Everton accepted Forest's £35m for Armstrong and sold Beto to Fiorentina.",
+      "source": "The Guardian",
+      "action": "the trigger was a striker arriving to take his shirt. Nobody did, and he is £5.5m at 4.4% ownership with United at home",
+      "url": "https://www.theguardian.com/football/2026/sep/02/deadline-day-shambles-leaves-everton-and-david-moyes-fighting-the-odds-again"
     }
   ],
   "doctrine": [
@@ -908,16 +967,23 @@
       "text": "A player sold inside the league is not gone, he is relocated — and the price on his card does not move for a week. Ndiaye is worth £6.0m in two of these squads this morning and is fourth in the queue at his new club. Read the new shirt, not the old fee.",
       "established": "GW3",
       "grade": "observation",
+      "status": "standing"
+    },
+    {
+      "id": "D16",
+      "text": "A verdict written on forty-five minutes is a mood. Three sacks were reversed today — a £34m winger hooked at half-time, a £55m defender who came on as a substitute, and a left-back whose seat was never in question. All three were graded on one incident and none of the three facts survived a day of reading. Wait for the second data point when the first one is a substitution.",
+      "established": "GW3",
+      "grade": "observation",
       "status": "new"
     }
   ],
   "roast": {
-    "text": "Le Professeur's Bench Boost returned six points in Gameweek 1, and this week, with no chip to play, his bench scored sixteen. Somewhere in there is a man reading his own team sheet and picking, at exactly the wrong moment, the four players he trusts least.",
+    "text": "The Special One is last of eleven with Aït-Nouri on his bench, a left-back who has not played a minute of football this season. Every week he reads down fifteen names, finds the one man guaranteed not to play, and keeps him.",
     "by": "settles GW3",
-    "target": "Le Professeur"
+    "target": "The Special One"
   },
   "plan": {
-    "outlook": "The window shut on Tuesday night and Friday's deadline is the first this season where a team can be picked with the squads known. That was the whole argument for waiting, and it paid for the four who did nothing: two of the five went to bed owning an Everton midfielder and woke up owning a Manchester City substitute. Sir Fergie leads by twenty-nine after a Bench Boost that caught all fifteen of his players starting, and his chip is now spent while the other four still hold theirs. Le Professeur and Mr CR7 both scored 107 and both have the Ndiaye problem to solve. The Special One is last of eleven and carrying a left-back who has not played a minute. Arsenal host Chelsea in GW3, which decides the week for everyone here: four own Calafiori, all five own João Pedro, and nobody owns Palmer."
+    "outlook": "Friday is the first deadline of the season where every team sheet is knowable, and the reading has changed three of the room's calls rather than confirming them. City say they are well stocked at left-back and moving O'Reilly into midfield, which makes Gvardiol the safest defender any of the five own. Liverpool have conceded twice in both games and now name Szoboszlai as right-back cover, which is a problem for the three who own him. Arsenal host Chelsea with Saliba and Timber out and Mosquera limping off, so the £4.4m defender the brain sacked on Monday may start. Sir Fergie leads by twenty-nine with his chip spent; Le Professeur and Mr CR7 both have £6.0m sitting in a Manchester City squad player; and The Special One is last of eleven carrying a man who has not played."
   },
   "chips": {
     "rows": [
@@ -1859,6 +1925,12 @@
       "gw": 3,
       "date": "2026-09-02",
       "call": "First run with the window shut. Recommended the room's first transfers of the season: Ndiaye out for Mr CR7 and Le Professeur after his £65m move to Manchester City, and Aït-Nouri out for The Special One on City calling him third-choice left-back. Reversed three sacks that deadline day settled the other way — Gakpo stays after Liverpool rejected £80m, Shaw keeps his seat after United failed to sign a left-back, and Barry becomes Everton's only striker after the Balogun deal collapsed. Sacked Tzolis on a 4/10 and a half-time substitution, and Konsa on coming off the bench rather than starting. Cooled Cherki, Foden and Semenyo on City signing two more attackers, and cooled the whole Hull back four on six deadline-day arrivals and the sale of a defender who had played all three games. Promoted D9 to doctrine on the evidence it just produced, retired D6 into D14, and minted D15 on players sold inside the league.",
+      "verdict": "open"
+    },
+    {
+      "gw": 3,
+      "date": "2026-09-03",
+      "call": "Deadline eve. Reversed three of Monday's own sacks after reading the window post-mortems: Tzolis (graded on forty-five minutes; impressed in the Community Shield and on the opening day), Konsa (signed because Saliba and Timber are injured, and the man ahead of him limped off), and Kerkez (Liverpool signed no left-back and Iraola knows him from Bournemouth). Upgraded Gvardiol to nailed on City saying O'Reilly moves into midfield — the exact opposite of the trigger written last week. Downgraded Szoboszlai on Liverpool naming him as right-back cover, and Gakpo on Barcola's likely debut at Ipswich. Upgraded Ajayi on the flag coming off. Recommended captaincy calls rather than transfers for three of the five, and minted D16: a verdict written on forty-five minutes is a mood.",
       "verdict": "open"
     }
   ]
