@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-04T13:55:56.898Z",
+  "generated_at": "2026-09-04T14:56:55.869Z",
   "gameweek": 3,
   "deadline_utc": "2026-09-04T17:30:00Z",
   "deadline_local": "Fri 04 Sep, 23:00",
@@ -714,7 +714,7 @@
       "entered": true,
       "total_points": 109,
       "gw_points": 61,
-      "overall_rank": 7286715,
+      "overall_rank": 7286714,
       "bank": 0.9,
       "value": 100.1,
       "transfers_made": 1,
@@ -748,7 +748,7 @@
           "team": "ARS",
           "pos": "DEF",
           "price": 5.5,
-          "status": null,
+          "status": "d",
           "captain": false,
           "vice": false,
           "multiplier": 1
