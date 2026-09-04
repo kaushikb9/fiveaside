@@ -1,332 +1,188 @@
 {
-  "generated_at": "2026-09-03T15:51:06.902Z",
-  "date": "2026-09-03",
+  "generated_at": "2026-09-04T03:30:17.722Z",
+  "date": "2026-09-04",
   "timezone": "Asia/Kolkata",
-  "competition": "UEFA Champions League",
+  "competition": "English Premier League",
   "rows": [
     {
       "pos": 1,
-      "team": "AEK Athens",
-      "played": 0,
-      "points": 0,
-      "gd": 0,
-      "crest": "https://a.espncdn.com/i/teamlogos/soccer/500/887.png",
-      "form": ""
+      "team": "Manchester City",
+      "played": 2,
+      "points": 6,
+      "gd": 4,
+      "crest": "https://a.espncdn.com/i/teamlogos/soccer/500/382.png",
+      "form": "WW"
     },
     {
       "pos": 2,
       "team": "Arsenal",
-      "played": 0,
-      "points": 0,
-      "gd": 0,
+      "played": 2,
+      "points": 6,
+      "gd": 4,
       "crest": "https://a.espncdn.com/i/teamlogos/soccer/500/359.png",
-      "form": ""
+      "form": "WW"
     },
     {
       "pos": 3,
-      "team": "Aston Villa",
-      "played": 0,
-      "points": 0,
-      "gd": 0,
-      "crest": "https://a.espncdn.com/i/teamlogos/soccer/500/362.png",
-      "form": ""
+      "team": "Hull City",
+      "played": 2,
+      "points": 6,
+      "gd": 3,
+      "crest": "https://a.espncdn.com/i/teamlogos/soccer/500/306.png",
+      "form": "WW"
     },
     {
       "pos": 4,
-      "team": "Atlético Madrid",
-      "played": 0,
-      "points": 0,
-      "gd": 0,
-      "crest": "https://a.espncdn.com/i/teamlogos/soccer/500/1068.png",
-      "form": ""
+      "team": "Chelsea",
+      "played": 2,
+      "points": 6,
+      "gd": 2,
+      "crest": "https://a.espncdn.com/i/teamlogos/soccer/500/363.png",
+      "form": "WWW"
     },
     {
       "pos": 5,
-      "team": "Barcelona",
-      "played": 0,
-      "points": 0,
-      "gd": 0,
-      "crest": "https://a.espncdn.com/i/teamlogos/soccer/500/83.png",
-      "form": ""
+      "team": "Brentford",
+      "played": 2,
+      "points": 4,
+      "gd": 3,
+      "crest": "https://a.espncdn.com/i/teamlogos/soccer/500/337.png",
+      "form": "WD"
     },
     {
       "pos": 6,
-      "team": "Bayern Munich",
-      "played": 0,
-      "points": 0,
-      "gd": 0,
-      "crest": "https://a.espncdn.com/i/teamlogos/soccer/500/132.png",
-      "form": ""
+      "team": "Newcastle United",
+      "played": 2,
+      "points": 4,
+      "gd": 2,
+      "crest": "https://a.espncdn.com/i/teamlogos/soccer/500/361.png",
+      "form": "DW"
     },
     {
       "pos": 7,
-      "team": "Bodo/Glimt",
-      "played": 0,
-      "points": 0,
-      "gd": 0,
-      "crest": "https://a.espncdn.com/i/teamlogos/soccer/500/2980.png",
-      "form": ""
+      "team": "Everton",
+      "played": 2,
+      "points": 4,
+      "gd": 2,
+      "crest": "https://a.espncdn.com/i/teamlogos/soccer/500/368.png",
+      "form": "WD"
     },
     {
       "pos": 8,
-      "team": "Borussia Dortmund",
-      "played": 0,
-      "points": 0,
-      "gd": 0,
-      "crest": "https://a.espncdn.com/i/teamlogos/soccer/500/124.png",
-      "form": ""
+      "team": "Leeds United",
+      "played": 2,
+      "points": 4,
+      "gd": 1,
+      "crest": "https://a.espncdn.com/i/teamlogos/soccer/500/357.png",
+      "form": "WD"
     },
     {
       "pos": 9,
-      "team": "Club Brugge",
-      "played": 0,
-      "points": 0,
-      "gd": 0,
-      "crest": "https://a.espncdn.com/i/teamlogos/soccer/500/570.png",
-      "form": ""
+      "team": "Brighton & Hove Albion",
+      "played": 2,
+      "points": 3,
+      "gd": 3,
+      "crest": "https://a.espncdn.com/i/teamlogos/soccer/500/331.png",
+      "form": "WL"
     },
     {
       "pos": 10,
-      "team": "Como",
-      "played": 0,
-      "points": 0,
-      "gd": 0,
-      "crest": "https://a.espncdn.com/i/teamlogos/soccer/500/2572.png",
-      "form": ""
+      "team": "Manchester United",
+      "played": 2,
+      "points": 3,
+      "gd": 1,
+      "crest": "https://a.espncdn.com/i/teamlogos/soccer/500/360.png",
+      "form": "LW"
     },
     {
       "pos": 11,
-      "team": "Fenerbahce",
-      "played": 0,
-      "points": 0,
+      "team": "Sunderland",
+      "played": 2,
+      "points": 3,
       "gd": 0,
-      "crest": "https://a.espncdn.com/i/teamlogos/soccer/500/436.png",
-      "form": ""
+      "crest": "https://a.espncdn.com/i/teamlogos/soccer/500/366.png",
+      "form": "LW"
     },
     {
       "pos": 12,
-      "team": "Feyenoord Rotterdam",
-      "played": 0,
-      "points": 0,
-      "gd": 0,
-      "crest": "https://a.espncdn.com/i/teamlogos/soccer/500/142.png",
-      "form": ""
+      "team": "Ipswich Town",
+      "played": 2,
+      "points": 3,
+      "gd": -2,
+      "crest": "https://a.espncdn.com/i/teamlogos/soccer/500/373.png",
+      "form": "WL"
     },
     {
       "pos": 13,
-      "team": "Galatasaray",
-      "played": 0,
-      "points": 0,
+      "team": "Liverpool",
+      "played": 2,
+      "points": 2,
       "gd": 0,
-      "crest": "https://a.espncdn.com/i/teamlogos/soccer/500/432.png",
-      "form": ""
+      "crest": "https://a.espncdn.com/i/teamlogos/soccer/500/364.png",
+      "form": "DD"
     },
     {
       "pos": 14,
-      "team": "Internazionale",
-      "played": 0,
-      "points": 0,
-      "gd": 0,
-      "crest": "https://a.espncdn.com/i/teamlogos/soccer/500/110.png",
-      "form": ""
+      "team": "AFC Bournemouth",
+      "played": 2,
+      "points": 1,
+      "gd": -1,
+      "crest": "https://a.espncdn.com/i/teamlogos/soccer/500/349.png",
+      "form": "LD"
     },
     {
       "pos": 15,
-      "team": "LASK Linz",
-      "played": 0,
-      "points": 0,
-      "gd": 0,
-      "crest": "https://a.espncdn.com/i/teamlogos/soccer/500/4411.png",
-      "form": ""
+      "team": "Nottingham Forest",
+      "played": 2,
+      "points": 1,
+      "gd": -1,
+      "crest": "https://a.espncdn.com/i/teamlogos/soccer/500/393.png",
+      "form": "LD"
     },
     {
       "pos": 16,
-      "team": "Lens",
-      "played": 0,
+      "team": "Fulham",
+      "played": 2,
       "points": 0,
-      "gd": 0,
-      "crest": "https://a.espncdn.com/i/teamlogos/soccer/500/175.png",
-      "form": ""
+      "gd": -2,
+      "crest": "https://a.espncdn.com/i/teamlogos/soccer/500/370.png",
+      "form": "LL"
     },
     {
       "pos": 17,
-      "team": "Lille",
-      "played": 0,
+      "team": "Coventry City",
+      "played": 2,
       "points": 0,
-      "gd": 0,
-      "crest": "https://a.espncdn.com/i/teamlogos/soccer/500/166.png",
-      "form": ""
+      "gd": -4,
+      "crest": "https://a.espncdn.com/i/teamlogos/soccer/500/388.png",
+      "form": "LL"
     },
     {
       "pos": 18,
-      "team": "Liverpool",
-      "played": 0,
+      "team": "Crystal Palace",
+      "played": 2,
       "points": 0,
-      "gd": 0,
-      "crest": "https://a.espncdn.com/i/teamlogos/soccer/500/364.png",
-      "form": ""
+      "gd": -5,
+      "crest": "https://a.espncdn.com/i/teamlogos/soccer/500/384.png",
+      "form": "LL"
     },
     {
       "pos": 19,
-      "team": "Manchester City",
-      "played": 0,
+      "team": "Aston Villa",
+      "played": 2,
       "points": 0,
-      "gd": 0,
-      "crest": "https://a.espncdn.com/i/teamlogos/soccer/500/382.png",
-      "form": ""
+      "gd": -5,
+      "crest": "https://a.espncdn.com/i/teamlogos/soccer/500/362.png",
+      "form": "LL"
     },
     {
       "pos": 20,
-      "team": "Manchester United",
-      "played": 0,
+      "team": "Tottenham Hotspur",
+      "played": 2,
       "points": 0,
-      "gd": 0,
-      "crest": "https://a.espncdn.com/i/teamlogos/soccer/500/360.png",
-      "form": ""
-    },
-    {
-      "pos": 21,
-      "team": "Napoli",
-      "played": 0,
-      "points": 0,
-      "gd": 0,
-      "crest": "https://a.espncdn.com/i/teamlogos/soccer/500/114.png",
-      "form": ""
-    },
-    {
-      "pos": 22,
-      "team": "PSV Eindhoven",
-      "played": 0,
-      "points": 0,
-      "gd": 0,
-      "crest": "https://a.espncdn.com/i/teamlogos/soccer/500/148.png",
-      "form": ""
-    },
-    {
-      "pos": 23,
-      "team": "Paris Saint-Germain",
-      "played": 0,
-      "points": 0,
-      "gd": 0,
-      "crest": "https://a.espncdn.com/i/teamlogos/soccer/500/160.png",
-      "form": ""
-    },
-    {
-      "pos": 24,
-      "team": "FC Porto",
-      "played": 0,
-      "points": 0,
-      "gd": 0,
-      "crest": "https://a.espncdn.com/i/teamlogos/soccer/500/437.png",
-      "form": ""
-    },
-    {
-      "pos": 25,
-      "team": "RB Leipzig",
-      "played": 0,
-      "points": 0,
-      "gd": 0,
-      "crest": "https://a.espncdn.com/i/teamlogos/soccer/500/11420.png",
-      "form": ""
-    },
-    {
-      "pos": 26,
-      "team": "Real Betis",
-      "played": 0,
-      "points": 0,
-      "gd": 0,
-      "crest": "https://a.espncdn.com/i/teamlogos/soccer/500/244.png",
-      "form": ""
-    },
-    {
-      "pos": 27,
-      "team": "Real Madrid",
-      "played": 0,
-      "points": 0,
-      "gd": 0,
-      "crest": "https://a.espncdn.com/i/teamlogos/soccer/500/86.png",
-      "form": ""
-    },
-    {
-      "pos": 28,
-      "team": "AS Roma",
-      "played": 0,
-      "points": 0,
-      "gd": 0,
-      "crest": "https://a.espncdn.com/i/teamlogos/soccer/500/104.png",
-      "form": ""
-    },
-    {
-      "pos": 29,
-      "team": "Sabah FK",
-      "played": 0,
-      "points": 0,
-      "gd": 0,
-      "crest": "https://a.espncdn.com/i/teamlogos/soccer/500/21922.png",
-      "form": ""
-    },
-    {
-      "pos": 30,
-      "team": "Shakhtar Donetsk",
-      "played": 0,
-      "points": 0,
-      "gd": 0,
-      "crest": "https://a.espncdn.com/i/teamlogos/soccer/500/493.png",
-      "form": ""
-    },
-    {
-      "pos": 31,
-      "team": "Slavia Prague",
-      "played": 0,
-      "points": 0,
-      "gd": 0,
-      "crest": "https://a.espncdn.com/i/teamlogos/soccer/500/494.png",
-      "form": ""
-    },
-    {
-      "pos": 32,
-      "team": "Slovan Bratislava",
-      "played": 0,
-      "points": 0,
-      "gd": 0,
-      "crest": "https://a.espncdn.com/i/teamlogos/soccer/500/521.png",
-      "form": ""
-    },
-    {
-      "pos": 33,
-      "team": "Sporting CP",
-      "played": 0,
-      "points": 0,
-      "gd": 0,
-      "crest": "https://a.espncdn.com/i/teamlogos/soccer/500/2250.png",
-      "form": ""
-    },
-    {
-      "pos": 34,
-      "team": "VfB Stuttgart",
-      "played": 0,
-      "points": 0,
-      "gd": 0,
-      "crest": "https://a.espncdn.com/i/teamlogos/soccer/500/134.png",
-      "form": ""
-    },
-    {
-      "pos": 35,
-      "team": "Viking FK",
-      "played": 0,
-      "points": 0,
-      "gd": 0,
-      "crest": "https://a.espncdn.com/i/teamlogos/soccer/500/510.png",
-      "form": ""
-    },
-    {
-      "pos": 36,
-      "team": "Villarreal",
-      "played": 0,
-      "points": 0,
-      "gd": 0,
-      "crest": "https://a.espncdn.com/i/teamlogos/soccer/500/102.png",
-      "form": ""
+      "gd": -5,
+      "crest": "https://a.espncdn.com/i/teamlogos/soccer/500/367.png",
+      "form": "LL"
     }
   ]
 }
