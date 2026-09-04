@@ -113,6 +113,18 @@
      Around the top and Elsewhere are secondary by design. A story that leads
      here does not reappear below. */
   const FEED_PREVIEW_WORDS = 42;
+  /* A fold has to be worth the interruption. At 42 words, 88 of the 149 notes
+     in the archive folded, and the median one hid 26 words — so the feed was
+     dangling an uppercase READ THE REST mid-sentence to save you two lines,
+     and eleven of them revealed fewer than ten words. "These are not big
+     enough to be folded into read more", 2026-09-04, and the numbers agree.
+
+     Two conditions now, not one. The note has to be genuinely long, AND the
+     part being hidden has to be worth a control of its own. That fires on 14
+     of the 149 — the ones hiding 30 to 65 words — and leaves every ordinary
+     note whole and readable in one pass. */
+  const FEED_FOLD_MIN_TOTAL = 70;
+  const FEED_FOLD_MIN_REST = 30;
   const words = (text) => text.trim().split(/\s+/).filter(Boolean);
   /* Where to cut a long note, as a HEAD that is shown and a REST that is
      folded away. It used to return the head alone and the fold carried the
@@ -121,7 +133,7 @@
      was reporting. A fold should add what you have not seen. */
   const splitNote = (text) => {
     const all = words(text);
-    if (all.length <= FEED_PREVIEW_WORDS) return null;
+    if (all.length <= FEED_FOLD_MIN_TOTAL) return null;
     const firstSentence = text.match(/^(.+?[.!?])(?:\s|$)/)?.[1];
     if (firstSentence && words(firstSentence).length <= 60) {
       return { head: firstSentence, rest: text.slice(firstSentence.length).trim() };
@@ -137,6 +149,11 @@
     }
     return { head: text.slice(0, cut) + "…", rest: text.slice(cut).trim() };
   };
+
+  /* Only a cut that hides enough to be worth opening. A note can clear the
+     length bar and still have a long first sentence, leaving a stub behind
+     it — that is the dangling control this is here to prevent. */
+  const foldable = (cut) => Boolean(cut && words(cut.rest).length >= FEED_FOLD_MIN_REST);
 
   D.weekHTML = function (d, opts) {
     if (!d.week || !d.week.length) return "";
@@ -158,11 +175,8 @@
       // historical digests, but never expose it as if it meant Premier League:
       // the current feed also contains European football.
       const kind = w.tag === "FPL" ? "FPL" : "Football";
-      // `rest` can only be empty if the note was all one long sentence, and
-      // then there is nothing to fold: show it whole rather than offer a fold
-      // that opens onto nothing.
       const cut = compact ? splitNote(w.text) : null;
-      const body = cut && cut.rest
+      const body = foldable(cut)
         ? esc(cut.head) +
           '<details class="feed-more"><summary>read the rest</summary><div class="feed-full">' +
           esc(cut.rest) + "</div></details>"
