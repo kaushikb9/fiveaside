@@ -36,7 +36,7 @@ const flag = (name, dflt) => {
 const MODEL = flag("--model", "sonnet");
 const ALL = args.includes("--all");
 const DRY = args.includes("--dry");
-const ROUNDS = 2;
+const ROUNDS = 3;
 
 if (!path) {
   console.error("usage: node brain/plain.mjs <site/data/fpl.json | site/data/digests.json> [--model sonnet] [--all] [--dry]");
