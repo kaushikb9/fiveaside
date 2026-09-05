@@ -33,7 +33,7 @@ $FACTS
 NEWS BUNDLE (pre-fetched just now from the feeds in brain/sources.md — headline,
 standfirst, opening paragraphs, published time, source; wires carry headlines
 only). Start here. Fetch a page only to verify a claim you will print or to
-follow a lead this bundle raises; do not re-crawl the feeds. If `errors` is
+follow a lead this bundle raises; do not re-crawl the feeds. If \`errors\` is
 non-empty, say plainly that a source was unavailable.
 $NEWS" \
   --allowedTools "WebSearch,WebFetch,Read,Edit,Write,Bash(node:*),Bash(curl:*)" \
