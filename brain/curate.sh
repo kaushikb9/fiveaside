@@ -13,7 +13,12 @@ if [[ ! "$TODAY" =~ ^[0-9]{4}-[0-9]{2}-[0-9]{2}$ ]]; then
 fi
 CONFIG="$(cat fiveaside.config.json)"
 
-claude -p "$(cat brain/prompt.md)
+# News is fetched here, mechanically, so the brain reads instead of crawls
+# (brain/news.mjs — profiled 2026-09-05: hand-crawling cost most of the run).
+# A dead feed lands in the bundle's `errors`; the run goes on without it.
+NEWS="$(node brain/news.mjs 2>/dev/null || echo '{"feeds":[],"errors":[{"error":"news.mjs failed"}]}')"
+
+caffeinate -i claude -p "$(cat brain/prompt.md)
 
 ---
 
@@ -23,8 +28,16 @@ OWNER CONFIG:
 $CONFIG
 
 FACTS BUNDLE (ground truth — output of 'touchline facts'):
-$FACTS" \
+$FACTS
+
+NEWS BUNDLE (pre-fetched just now from the feeds in brain/sources.md — headline,
+standfirst, opening paragraphs, published time, source; wires carry headlines
+only). Start here. Fetch a page only to verify a claim you will print or to
+follow a lead this bundle raises; do not re-crawl the feeds. If `errors` is
+non-empty, say plainly that a source was unavailable.
+$NEWS" \
   --allowedTools "WebSearch,WebFetch,Read,Edit,Write,Bash(node:*),Bash(curl:*)" \
+  --strict-mcp-config \
   --permission-mode acceptEdits
 
 if git diff --quiet -- site/data/digests.json; then
