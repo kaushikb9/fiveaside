@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-05T06:41:16.478Z",
+  "generated_at": "2026-09-05T07:42:29.070Z",
   "gameweek": 4,
   "gw_points_for": 3,
   "players": [
@@ -400,7 +400,7 @@
       "team": "LIV",
       "pos": "MID",
       "price": 7,
-      "ownership": 41.1,
+      "ownership": 41,
       "points": 15,
       "gw_points": 3,
       "form": "5.0",
@@ -2088,7 +2088,7 @@
       "team": "LIV",
       "pos": "FWD",
       "price": 9,
-      "ownership": 16.5,
+      "ownership": 16.6,
       "points": 23,
       "gw_points": 13,
       "form": "7.7",
@@ -4043,6 +4043,95 @@
       "fdr_avg": 2.8
     },
     {
+      "id": 279,
+      "name": "Ajayi",
+      "team": "HUL",
+      "pos": "DEF",
+      "price": 4.1,
+      "ownership": 9.4,
+      "points": 20,
+      "gw_points": 0,
+      "form": "6.7",
+      "fixtures": [
+        {
+          "gw": 4,
+          "opp": "CHE",
+          "home": false,
+          "fdr": 4
+        },
+        {
+          "gw": 5,
+          "opp": "NEW",
+          "home": false,
+          "fdr": 3
+        },
+        {
+          "gw": 6,
+          "opp": "EVE",
+          "home": true,
+          "fdr": 3
+        },
+        {
+          "gw": 7,
+          "opp": "FUL",
+          "home": false,
+          "fdr": 3
+        },
+        {
+          "gw": 8,
+          "opp": "BRE",
+          "home": true,
+          "fdr": 3
+        }
+      ],
+      "recent": [
+        {
+          "gw": 1,
+          "date": "2026-08-22",
+          "comp": "PL",
+          "opp": "MUN",
+          "home": true,
+          "gf": 2,
+          "ga": 0,
+          "result": "W"
+        },
+        {
+          "date": "2026-08-25",
+          "comp": "EFL",
+          "opp": "Stoke City",
+          "home": false,
+          "gf": 1,
+          "ga": 1,
+          "result": "D"
+        },
+        {
+          "gw": 2,
+          "date": "2026-08-29",
+          "comp": "PL",
+          "opp": "COV",
+          "home": false,
+          "gf": 1,
+          "ga": 0,
+          "result": "W"
+        }
+      ],
+      "other_apps": [],
+      "other_next": [
+        {
+          "date": "2026-09-08",
+          "kickoff": "2026-09-08T18:45:00+00:00",
+          "comp": "EFL",
+          "opp": "SUN",
+          "home": false
+        }
+      ],
+      "owned_by": [
+        "Mr CR7"
+      ],
+      "fdr_avg": 3.2,
+      "chance": 100
+    },
+    {
       "id": 480,
       "name": "Gibbs-White",
       "team": "NFO",
@@ -4216,95 +4305,6 @@
       "fdr_avg": 2.6
     },
     {
-      "id": 279,
-      "name": "Ajayi",
-      "team": "HUL",
-      "pos": "DEF",
-      "price": 4.1,
-      "ownership": 9.3,
-      "points": 20,
-      "gw_points": 0,
-      "form": "6.7",
-      "fixtures": [
-        {
-          "gw": 4,
-          "opp": "CHE",
-          "home": false,
-          "fdr": 4
-        },
-        {
-          "gw": 5,
-          "opp": "NEW",
-          "home": false,
-          "fdr": 3
-        },
-        {
-          "gw": 6,
-          "opp": "EVE",
-          "home": true,
-          "fdr": 3
-        },
-        {
-          "gw": 7,
-          "opp": "FUL",
-          "home": false,
-          "fdr": 3
-        },
-        {
-          "gw": 8,
-          "opp": "BRE",
-          "home": true,
-          "fdr": 3
-        }
-      ],
-      "recent": [
-        {
-          "gw": 1,
-          "date": "2026-08-22",
-          "comp": "PL",
-          "opp": "MUN",
-          "home": true,
-          "gf": 2,
-          "ga": 0,
-          "result": "W"
-        },
-        {
-          "date": "2026-08-25",
-          "comp": "EFL",
-          "opp": "Stoke City",
-          "home": false,
-          "gf": 1,
-          "ga": 1,
-          "result": "D"
-        },
-        {
-          "gw": 2,
-          "date": "2026-08-29",
-          "comp": "PL",
-          "opp": "COV",
-          "home": false,
-          "gf": 1,
-          "ga": 0,
-          "result": "W"
-        }
-      ],
-      "other_apps": [],
-      "other_next": [
-        {
-          "date": "2026-09-08",
-          "kickoff": "2026-09-08T18:45:00+00:00",
-          "comp": "EFL",
-          "opp": "SUN",
-          "home": false
-        }
-      ],
-      "owned_by": [
-        "Mr CR7"
-      ],
-      "fdr_avg": 3.2,
-      "chance": 100
-    },
-    {
       "id": 552,
       "name": "Brobbey",
       "team": "SUN",
@@ -4401,7 +4401,7 @@
       "team": "LIV",
       "pos": "MID",
       "price": 7.1,
-      "ownership": 9,
+      "ownership": 9.1,
       "points": 28,
       "gw_points": 11,
       "form": "9.3",
@@ -6496,7 +6496,7 @@
       "team": "HUL",
       "pos": "DEF",
       "price": 4,
-      "ownership": 5.1,
+      "ownership": 5.2,
       "points": 17,
       "gw_points": 0,
       "form": "5.7",
