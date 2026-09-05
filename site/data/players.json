@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-05T07:42:29.070Z",
+  "generated_at": "2026-09-05T08:43:27.905Z",
   "gameweek": 4,
   "gw_points_for": 3,
   "players": [
@@ -694,7 +694,7 @@
       "team": "MUN",
       "pos": "MID",
       "price": 7.9,
-      "ownership": 26.9,
+      "ownership": 26.8,
       "points": 13,
       "gw_points": 0,
       "form": "4.3",
@@ -1896,6 +1896,92 @@
       "fdr_avg": 3.2
     },
     {
+      "id": 115,
+      "name": "De Cuyper",
+      "team": "BHA",
+      "pos": "DEF",
+      "price": 4.7,
+      "ownership": 17.4,
+      "points": 17,
+      "gw_points": 0,
+      "form": "5.7",
+      "fixtures": [
+        {
+          "gw": 4,
+          "opp": "COV",
+          "home": false,
+          "fdr": 2
+        },
+        {
+          "gw": 5,
+          "opp": "ARS",
+          "home": true,
+          "fdr": 4
+        },
+        {
+          "gw": 6,
+          "opp": "SUN",
+          "home": false,
+          "fdr": 3
+        },
+        {
+          "gw": 7,
+          "opp": "CRY",
+          "home": true,
+          "fdr": 3
+        },
+        {
+          "gw": 8,
+          "opp": "LIV",
+          "home": false,
+          "fdr": 4
+        }
+      ],
+      "recent": [
+        {
+          "gw": 1,
+          "date": "2026-08-23",
+          "comp": "PL",
+          "opp": "AVL",
+          "home": true,
+          "gf": 4,
+          "ga": 0,
+          "result": "W"
+        },
+        {
+          "gw": 2,
+          "date": "2026-08-30",
+          "comp": "PL",
+          "opp": "CHE",
+          "home": false,
+          "gf": 3,
+          "ga": 4,
+          "result": "L"
+        }
+      ],
+      "other_apps": [],
+      "other_next": [
+        {
+          "date": "2026-09-16",
+          "kickoff": "2026-09-16T19:00:00+00:00",
+          "comp": "EFL",
+          "opp": "MUN",
+          "home": false
+        },
+        {
+          "date": "2026-10-15",
+          "kickoff": "2026-10-15T19:00:00+00:00",
+          "comp": "UECL",
+          "opp": "Kauno Zalgiris",
+          "home": true
+        }
+      ],
+      "owned_by": [
+        "The Special One"
+      ],
+      "fdr_avg": 3.2
+    },
+    {
       "id": 356,
       "name": "Virgil",
       "team": "LIV",
@@ -1995,92 +2081,6 @@
       ],
       "owned_by": [],
       "fdr_avg": 2.8
-    },
-    {
-      "id": 115,
-      "name": "De Cuyper",
-      "team": "BHA",
-      "pos": "DEF",
-      "price": 4.7,
-      "ownership": 17.3,
-      "points": 17,
-      "gw_points": 0,
-      "form": "5.7",
-      "fixtures": [
-        {
-          "gw": 4,
-          "opp": "COV",
-          "home": false,
-          "fdr": 2
-        },
-        {
-          "gw": 5,
-          "opp": "ARS",
-          "home": true,
-          "fdr": 4
-        },
-        {
-          "gw": 6,
-          "opp": "SUN",
-          "home": false,
-          "fdr": 3
-        },
-        {
-          "gw": 7,
-          "opp": "CRY",
-          "home": true,
-          "fdr": 3
-        },
-        {
-          "gw": 8,
-          "opp": "LIV",
-          "home": false,
-          "fdr": 4
-        }
-      ],
-      "recent": [
-        {
-          "gw": 1,
-          "date": "2026-08-23",
-          "comp": "PL",
-          "opp": "AVL",
-          "home": true,
-          "gf": 4,
-          "ga": 0,
-          "result": "W"
-        },
-        {
-          "gw": 2,
-          "date": "2026-08-30",
-          "comp": "PL",
-          "opp": "CHE",
-          "home": false,
-          "gf": 3,
-          "ga": 4,
-          "result": "L"
-        }
-      ],
-      "other_apps": [],
-      "other_next": [
-        {
-          "date": "2026-09-16",
-          "kickoff": "2026-09-16T19:00:00+00:00",
-          "comp": "EFL",
-          "opp": "MUN",
-          "home": false
-        },
-        {
-          "date": "2026-10-15",
-          "kickoff": "2026-10-15T19:00:00+00:00",
-          "comp": "UECL",
-          "opp": "Kauno Zalgiris",
-          "home": true
-        }
-      ],
-      "owned_by": [
-        "The Special One"
-      ],
-      "fdr_avg": 3.2
     },
     {
       "id": 379,
@@ -3025,7 +3025,7 @@
       "team": "COV",
       "pos": "DEF",
       "price": 4,
-      "ownership": 11.8,
+      "ownership": 11.7,
       "points": 3,
       "gw_points": 0,
       "form": "1.0",
