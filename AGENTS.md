@@ -134,6 +134,8 @@ uv run ruff check .              # lint (line-length 100)
 node brain/validate.mjs          # digests.json
 node brain/validate-fpl.mjs      # fpl.json — judgment layer
 node brain/validate-players.mjs  # players.json — the player file
+node brain/lint-prose.mjs site/data/fpl.json        # prose report: dashes, "X, not Y", banned words
+node brain/plain.mjs site/data/fpl.json --dry       # the copy editor, without writing
 uv run touchline facts | node brain/split-league.mjs >/dev/null   # rewrite site/data/table.json
 node --check site/common.js site/digest.js site/app.js site/archive/app.js \
              site/gaffers/app.js site/locker/app.js functions/api/*.js brain/*.mjs
@@ -210,6 +212,24 @@ added; `-i` alone is not enough, it only blocks idle sleep. `auto.sh` does it.
   words "Our verdict" and broke the moment the voice audit renamed the heading.
   Match the element and a keyword, so a rewrite of the prose does not read as a
   regression.
+- **Prose is linted, and a second model is the copy editor. Settled
+  2026-09-05.** Both prompts carried a "Plain language" section from
+  2026-08-29 and the output still read like the big model doing a reveal: a
+  dash every hundred words, "X is a floor, not an asset", a twist sentence
+  closing every note, "is a mood" as a verdict. (KB: "Opus 5 garbage"; the HN
+  thread of 2026-09 on the same tics is the reference.) A rule a model can
+  ignore is not a rule, so `brain/lint-prose.mjs` now fails the file on the
+  patterns — no dashes or semicolons, no "X, not Y", a banned-phrase list,
+  digits from 13 up, 35-word sentences — and both validators run it on the
+  prose the brain wrote THIS run (digest entries from `LINT_FROM`, every
+  current-state field of `fpl.json`, only open `log` entries). Between brain
+  and validator, `brain/plain.mjs` sends the failing fields, and only those,
+  to a small model (Sonnet by default) with the same section as its rules and
+  the lint as the referee, and writes back what passes. Facts never reach it:
+  the field maps in `lint-prose.mjs` name the prose, and the prompt says keep
+  every number. Keep the lint high-precision — one false positive blocks the
+  day's page until the next hourly retry — and add a new tic there first, in
+  the prompt second.
 - **Person and voice, settled 2026-08-28.** "We" and "our" mean THE FIVE,
   never the brain and never the page — the audit that set this found "we"
   meaning two different groups in adjacent nav items ("the gaffers, what we

@@ -285,44 +285,67 @@ not need to be sold anything. No hype, no exclamation marks, no "must-own".
 Numbers earn their place by changing a decision. If a sentence would read the
 same about any player in any week, cut it.
 
-## Plain language
+## Plain language — the lint enforces it
 
-The room is read on a phone by five friends. Ted should sound like a smart
-friend who has checked the numbers and is speaking plainly — not like a
-columnist, scout report or AI trying to sound profound.
+`brain/lint-prose.mjs` runs inside `validate-fpl.mjs` on every prose field you
+write this run. The file FAILS on any of the following, exactly as it fails
+on a schema error, and you fix it in the same session. Write to pass it the
+first time. Added 2026-09-05, after a week of output that still read like a
+model doing a reveal despite the previous version of this section.
 
-- Use common words and direct verbs: "started", "blanked", "lost", "wait",
-  "buy" and "hold". Avoid inflated wording such as "narrative", "landed",
-  "underpin", "exacerbate", "shape" and "the case for".
-- Put the person and action first. Prefer "You picked the wrong eleven" in a
-  gaffer's own block, or "Xabi picked the wrong eleven" where the room is
-  being addressed, to "The expensive half of the squad was a difficult story
-  this week".
-- Keep one idea per sentence. Aim for 8–18 words and keep most notes to one
-  or two sentences. Use a longer sentence only when the necessary fact needs
-  it.
-- Name the gaffer in reusable stored prose when there could be doubt — in the
-  house-wide blocks, that is. Inside one gaffer's own block he is "you", and a
-  DIFFERENT gaffer named in there is named by nickname. Do not use a
-  standalone "he" or "she" where a nickname is clearer. Ted is making
-  the judgment; do not write "Ted thinks" in every sentence.
-- Use contractions and normal football language: "didn't", "can't", "blanked",
-  "started" and "sat on the bench".
-- Cut scaffolding such as "the key takeaway", "what matters is", "the real
-  question", "this is a reminder that", "at this stage" and "moving forward".
-  Start with the fact or the opinion.
-- Avoid semicolons and long chains of clauses. One em dash is the maximum in
-  a note, and a full stop is usually better.
-- Humour comes from the decision, not from fancy language. Keep it warm and
-  dry; never use hype, melodrama or fake certainty.
-- Read the page aloud. If a sentence sounds like a magazine column, make it
-  shorter and plainer. If it repeats a number already visible on the page,
-  delete it.
+Hard failures:
 
-These rules apply to prose fields only. Never change prices, points, squads,
-picks, captaincy, chips, ownership, fixtures, IDs, tags, URLs or any other
-structured fact to improve the wording. The `ticker` remains copied through
-unchanged as required below.
+- **No dashes.** Not "—", not " – ". A dash is where two sentences were
+  glued together to sound like one thought. Write two sentences.
+- **No semicolons.** A full stop.
+- **No "X, not Y".** "A cup tie is a team sheet, not a fixture." "The seat is
+  the asset." "A floor, not an asset." "Is a mood." Say the true thing and
+  stop. The reader does not need the wrong version knocked down first.
+- **Banned words and phrases:** quietly, genuinely, honestly, narrative,
+  load-bearing, the real/only question, the tell, the exact opposite, which
+  is exactly, at this stage, moving forward, in other words, worth noting,
+  the key takeaway, here we go. The full list is in `brain/lint-prose.mjs`.
+- **Digits for numbers from 13 up.** "29 points", not "twenty-nine points".
+  This is a page about numbers.
+- **35 words is the ceiling for a sentence.** 8 to 18 is the target.
+
+What the lint cannot catch, and you must:
+
+- **No reveal.** Do not end a note with a short sentence that reframes the
+  one before it. "Somewhere in that team sheet is a man who looked at a City
+  defender and decided it was too risky." "That is £6.0m of your eleven doing
+  nothing." "He is now the only man in the room whose best idea is behind
+  him." The fact is the note. If the last sentence adds no fact, delete it. The roast is
+  the one exception: its second sentence is allowed the turn, and the dash and
+  semicolon rules still apply to it.
+- **No verdict-by-metaphor.** Seat, floor, ceiling, asset, countdown, tax,
+  insurance, accident. Say what happens: "he starts every week", "he has not
+  kept a clean sheet", "you paid £5.5m for a defender who concedes".
+- **Common words, direct verbs.** Lost, started, missed, blanked, needs,
+  looks good. Subject and action first. Contractions where a friend would use
+  them.
+- **One idea per sentence.** Most notes are one or two sentences. If a
+  sentence repeats a number the page already shows, delete it.
+- **Cut scaffolding.** "The key takeaway", "what matters is", "this is a
+  reminder that". Start with the fact or the opinion.
+
+Before and after, from the 2026-09-04 files:
+
+- "Kerkez: the seat is fine, the clean sheet is not" →
+  "Kerkez starts, but Liverpool keep conceding"
+- "A verdict written on forty-five minutes is a mood." →
+  "Don't grade a player on 45 minutes."
+- "Everton away on Sunday is the first read on which of those two was the
+  accident." → "Everton away on Sunday will show which of those results was
+  the fluke."
+- "Bloom's model rates him and so does the eye; the only question is what
+  Brighton eventually sell him for." → "Bloom's model rates him and so does
+  the eye. Brighton will sell him on for more."
+- "You are paying £5.5m for clean sheets that have not come." → keep. It is
+  a fact with a price on it, and it is the kind of sentence this page is for.
+
+These rules apply to prose fields only. Never change prices, points, squads, picks, captaincy, chips, ownership, fixtures, IDs, tags, URLs or any other
+structured fact to make a sentence pass the lint.
 
 ## Person and voice — the rule for every word that reaches a reader
 

@@ -57,6 +57,10 @@ node -e '
 # digests.json — otherwise the invalid entry sits in the working tree with
 # today's date, auto.sh reads it, concludes today is done, and the day's
 # digest silently never happens.
+# The copy editor: a small model rewrites only the sentences that fail
+# brain/lint-prose.mjs, keeping every fact. The validator below is the referee.
+node brain/plain.mjs site/data/digests.json || echo "plain pass failed — validating what the brain wrote"
+
 node brain/validate.mjs site/data/digests.json \
   || { echo "digests.json failed validation — NOT committing";
        cp site/data/digests.json "brain/scratch/rejected-$TODAY.json";

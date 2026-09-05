@@ -2,6 +2,7 @@
 // Validate site/data/digests.json: parse, per-entry schema, no duplicate dates.
 // Usage: node brain/validate.mjs [path]   (exit 0 ok / exit 1 invalid)
 import { readFileSync } from "node:fs";
+import { lintFields, digestProseFields, LINT_FROM } from "./lint-prose.mjs";
 
 const path = process.argv[2] ?? "site/data/digests.json";
 const fail = (msg) => {
@@ -232,6 +233,23 @@ for (const [i, d] of data.digests.entries()) {
       if (e.crest !== undefined && e.crest !== null && typeof e.crest !== "string")
         fail(`${ewhere}: 'crest' must be a string or null when present`);
     }
+  }
+}
+
+// ---------------------------------------------------------------- prose
+// Added 2026-09-05. Entries from that date on are held to brain/lint-prose.mjs:
+// no dashes, no semicolons, no "X, not Y", no banned phrases, digits for
+// numbers, 35-word sentences. Older entries are append-only history and are
+// left as written. Every failure is printed before the exit so the brain can
+// fix them in one pass rather than one per run.
+{
+  const pairs = data.digests
+    .filter((d) => d.date >= LINT_FROM)
+    .flatMap((d) => digestProseFields(d, `entry ${d.date}`));
+  const { errors } = lintFields(pairs);
+  if (errors.length) {
+    for (const e of errors) console.error(`  prose: ${e.where}: ${e.msg}`);
+    fail(`${errors.length} prose failure${errors.length > 1 ? "s" : ""} — see brain/prompt.md "Plain language"`);
   }
 }
 

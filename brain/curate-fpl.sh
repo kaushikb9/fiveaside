@@ -67,6 +67,10 @@ node -e '
 node brain/validate-players.mjs site/data/players.json \
   || { echo "players.json failed validation — NOT committing"; git checkout -- site/data/players.json; exit 1; }
 
+# The copy editor: a small model rewrites only the sentences that fail
+# brain/lint-prose.mjs, keeping every fact. The validator below is the referee.
+node brain/plain.mjs site/data/fpl.json || echo "plain pass failed — validating what the brain wrote"
+
 node brain/validate-fpl.mjs site/data/fpl.json \
   || { echo "fpl.json failed validation — NOT committing";
        cp site/data/fpl.json "brain/scratch/rejected-fpl-$TODAY.json";

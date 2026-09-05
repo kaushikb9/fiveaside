@@ -24,6 +24,7 @@
 // prompt, this validator and the renderer is the recurring bug class here.
 
 import { readFileSync } from "node:fs";
+import { lintFields, fplProseFields } from "./lint-prose.mjs";
 
 // The Big Decision's caps, declared before the people loop that reads them:
 // a const used above its declaration is a crash the moment the field is
@@ -309,6 +310,18 @@ if (data.log !== undefined) {
     if (!dateRe.test(e.date ?? "")) fail(`${where}.date must be YYYY-MM-DD`);
     if (!isStr(e.call)) fail(`${where}.call must be a non-empty string`);
     if (!OUTCOMES.includes(e.verdict)) fail(`${where}.verdict must be one of ${OUTCOMES.join(", ")}`);
+  }
+}
+
+// ---------------------------------------------------------------- prose
+// Added 2026-09-05. Every current-state prose field is Ted's to rewrite each
+// run, so all of it is held to brain/lint-prose.mjs; settled log entries are
+// frozen and skipped. All failures print before the exit so one pass fixes them.
+{
+  const { errors } = lintFields(fplProseFields(data));
+  if (errors.length) {
+    for (const e of errors) console.error(`  prose: ${e.where}: ${e.msg}`);
+    fail(`${errors.length} prose failure${errors.length > 1 ? "s" : ""} — see brain/fpl-prompt.md "Plain language"`);
   }
 }
 
