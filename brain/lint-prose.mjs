@@ -86,6 +86,10 @@ const NUMBER_WORDS =
 const CONTRAST =
   /\b(is|are|was|were|be|becomes|remains|stays)( a| an| the| one| your| his)? [^.,;:]{1,45}, (not|never) (a |an |the |one |your |his )?[^.,;:]{1,45}[.,;]/i;
 
+// The same shape as a sentence tail: "…when, not if." "…last, not first."
+// Every hit in the corpus on 2026-09-05 was the tic, none was a plain "not".
+const CONTRAST_TAIL = /[a-z]+, (not|never) (a |an |the |one )?[a-z-]+( [a-z-]+)?[.!?](\s|$)/i;
+
 function stripQuotes(text) {
   // A manager's quote may carry a dash or a semicolon; that is his, not Ted's.
   return text.replace(/"[^"]*"/g, '""').replace(/“[^”]*”/g, "“”");
@@ -110,7 +114,7 @@ export function lintProse(raw) {
   const semis = (text.match(/;/g) || []).length;
   if (semis) errors.push(`${semis} semicolon${semis > 1 ? "s" : ""} — a full stop is better`);
 
-  const m = text.match(CONTRAST);
+  const m = text.match(CONTRAST) || text.match(CONTRAST_TAIL);
   if (m) errors.push(`"X, not Y" contrast: "${m[0].trim()}" — say what it is and stop`);
 
   for (const re of BANNED) {
