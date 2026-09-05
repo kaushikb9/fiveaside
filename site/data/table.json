@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-09-04T03:30:17.722Z",
-  "date": "2026-09-04",
+  "generated_at": "2026-09-05T04:28:13.662Z",
+  "date": "2026-09-05",
   "timezone": "Asia/Kolkata",
   "competition": "English Premier League",
   "rows": [
@@ -42,6 +42,15 @@
     },
     {
       "pos": 5,
+      "team": "Liverpool",
+      "played": 3,
+      "points": 5,
+      "gd": 2,
+      "crest": "https://a.espncdn.com/i/teamlogos/soccer/500/364.png",
+      "form": "DDW"
+    },
+    {
+      "pos": 6,
       "team": "Brentford",
       "played": 2,
       "points": 4,
@@ -50,7 +59,7 @@
       "form": "WD"
     },
     {
-      "pos": 6,
+      "pos": 7,
       "team": "Newcastle United",
       "played": 2,
       "points": 4,
@@ -59,7 +68,7 @@
       "form": "DW"
     },
     {
-      "pos": 7,
+      "pos": 8,
       "team": "Everton",
       "played": 2,
       "points": 4,
@@ -68,7 +77,7 @@
       "form": "WD"
     },
     {
-      "pos": 8,
+      "pos": 9,
       "team": "Leeds United",
       "played": 2,
       "points": 4,
@@ -77,7 +86,7 @@
       "form": "WD"
     },
     {
-      "pos": 9,
+      "pos": 10,
       "team": "Brighton & Hove Albion",
       "played": 2,
       "points": 3,
@@ -86,7 +95,7 @@
       "form": "WL"
     },
     {
-      "pos": 10,
+      "pos": 11,
       "team": "Manchester United",
       "played": 2,
       "points": 3,
@@ -95,7 +104,7 @@
       "form": "LW"
     },
     {
-      "pos": 11,
+      "pos": 12,
       "team": "Sunderland",
       "played": 2,
       "points": 3,
@@ -104,22 +113,13 @@
       "form": "LW"
     },
     {
-      "pos": 12,
-      "team": "Ipswich Town",
-      "played": 2,
-      "points": 3,
-      "gd": -2,
-      "crest": "https://a.espncdn.com/i/teamlogos/soccer/500/373.png",
-      "form": "WL"
-    },
-    {
       "pos": 13,
-      "team": "Liverpool",
-      "played": 2,
-      "points": 2,
-      "gd": 0,
-      "crest": "https://a.espncdn.com/i/teamlogos/soccer/500/364.png",
-      "form": "DD"
+      "team": "Ipswich Town",
+      "played": 3,
+      "points": 3,
+      "gd": -4,
+      "crest": "https://a.espncdn.com/i/teamlogos/soccer/500/373.png",
+      "form": "WLL"
     },
     {
       "pos": 14,
