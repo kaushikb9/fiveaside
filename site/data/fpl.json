@@ -2509,5 +2509,233 @@
       "call": "Sunday of GW3, seven fixtures played. Saturday settled a dozen triggers. Cherki went up to solid on a second start, Guéhi on a return to centre-back, Kinsky on Spurs' first clean sheet, and E.Le Fée on the penalty at Brentford. Hume went to sack once Danso made his debut. Ndiaye came back from sack to watch after starting at the Etihad five days after both owners sold him, and D18 records the miss. Semenyo's trigger asked for a goal and he produced the assist, so he holds at watch. Verbruggen's clean-sheet trigger did not fire. Opened O'Reilly on the warm-up injury, Enzo Fernández and Foden on the City team sheet, Mendy, Ballard, Van de Ven, N.Williams, Suzuki, Mitchell, Scott, Tavernier, King, Bogle and Barnes. Retired D5 on Hull's third clean sheet. Rewrote the Team radar for Porto, the cup ties and the derby week. No transfer recommended before Sunday's two games.",
       "verdict": "open"
     }
-  ]
+  ],
+  "ted": {
+    "gw": 3,
+    "written": "2026-09-04",
+    "picks": [
+      {
+        "id": 572,
+        "name": "Tzolakis",
+        "role": "start",
+        "captain": false,
+        "vice": false
+      },
+      {
+        "id": 391,
+        "name": "Gvardiol",
+        "role": "start",
+        "captain": false,
+        "vice": false
+      },
+      {
+        "id": 279,
+        "name": "Ajayi",
+        "role": "start",
+        "captain": false,
+        "vice": false
+      },
+      {
+        "id": 586,
+        "name": "Mendy",
+        "role": "start",
+        "captain": false,
+        "vice": false
+      },
+      {
+        "id": 449,
+        "name": "Hall",
+        "role": "start",
+        "captain": false,
+        "vice": false
+      },
+      {
+        "id": 426,
+        "name": "B.Fernandes",
+        "role": "start",
+        "captain": false,
+        "vice": true
+      },
+      {
+        "id": 399,
+        "name": "Cherki",
+        "role": "start",
+        "captain": false,
+        "vice": false
+      },
+      {
+        "id": 367,
+        "name": "Gakpo",
+        "role": "start",
+        "captain": false,
+        "vice": false
+      },
+      {
+        "id": 565,
+        "name": "M.Sangaré",
+        "role": "start",
+        "captain": false,
+        "vice": false
+      },
+      {
+        "id": 411,
+        "name": "Haaland",
+        "role": "start",
+        "captain": true,
+        "vice": false
+      },
+      {
+        "id": 379,
+        "name": "Isak",
+        "role": "start",
+        "captain": false,
+        "vice": false
+      },
+      {
+        "id": 111,
+        "name": "Steele",
+        "role": "bench",
+        "captain": false,
+        "vice": false
+      },
+      {
+        "id": 88,
+        "name": "Kayode",
+        "role": "bench",
+        "captain": false,
+        "vice": false
+      },
+      {
+        "id": 127,
+        "name": "Gomez",
+        "role": "bench",
+        "captain": false,
+        "vice": false
+      },
+      {
+        "id": 249,
+        "name": "Barry",
+        "role": "bench",
+        "captain": false,
+        "vice": false
+      }
+    ],
+    "why": [
+      {
+        "id": 572,
+        "name": "Tzolakis",
+        "text": "Only The Special One has him. Hull have kept two clean sheets from two, and Villa arrive on Saturday having scored no goals in two games. A £4.6m keeper at home to a side that has not scored is the start of this team."
+      },
+      {
+        "id": 279,
+        "name": "Ajayi",
+        "text": "Mr CR7 owns him and the other four don't. Two clean sheets and 20 points at £4.1m. Villa at home is the fixture that keeps him in, and the price is what lets Isak and Fernandes fit in the same side."
+      },
+      {
+        "id": 586,
+        "name": "Mendy",
+        "text": "None of you own him. Two clean sheets and 16 points at £4.0m beside Ajayi. Two Hull defenders and the keeper is three from one club against a Villa attack with no goals this season. That bet is taken on purpose."
+      },
+      {
+        "id": 391,
+        "name": "Gvardiol",
+        "text": "Mr CR7 and The Special One hold him. City host Coventry, who have lost both games without scoring, and Gvardiol has 14 points from two. The clean sheet is the likeliest in the round and he is the City defender who pushes forward."
+      },
+      {
+        "id": 449,
+        "name": "Hall",
+        "text": "None of you own him. Newcastle beat Spurs 2-0 last week with a clean sheet and Hall has 14 points from two games. Bournemouth come to St James' Park having scored once in each of their two games."
+      },
+      {
+        "id": 367,
+        "name": "Gakpo",
+        "text": "Only The Special One has him. 17 points from two games at £7.1m, and Liverpool go to Ipswich, who let in five at Old Trafford last Saturday. He is cheaper than Szoboszlai's owners would expect and has outscored him."
+      },
+      {
+        "id": 565,
+        "name": "M.Sangaré",
+        "text": "None of you own him. 18 points from two at £5.7m, with Brentford beating Spurs 3-0 and drawing at Leeds. Sunderland at home is the third fixture in a row where Brentford should have the ball."
+      },
+      {
+        "id": 379,
+        "name": "Isak",
+        "text": "None of you own him. £9.0m and 10 points from two draws, both with Liverpool scoring twice. Ipswich conceded five to United a week ago. He takes the third forward slot over João Pedro because of who each of them plays."
+      },
+      {
+        "id": 249,
+        "name": "Barry",
+        "text": "None of you own him. First off the bench, £5.6m, on Everton's penalties, and at home to a United defence that shipped two at Hull. He plays if one of the front two drops out."
+      },
+      {
+        "id": 88,
+        "name": "Kayode",
+        "text": "None of you own him. 15 points from two at £4.6m and the first defender off the bench. He covers Hall if Newcastle rest anyone before Bournemouth."
+      },
+      {
+        "id": 127,
+        "name": "Gomez",
+        "text": "None of you own him. A £5.0m Brighton midfielder with 11 points who plays. He is the fifth midfielder and the cover, nothing more."
+      },
+      {
+        "id": 111,
+        "name": "Steele",
+        "text": "None of you own him and he does not play. He is the £4.0m that lets Tzolakis start, and a ghost manager with no transfers does not need a second keeper who plays."
+      }
+    ],
+    "left_out": {
+      "id": 165,
+      "name": "João Pedro",
+      "text": "All five of you own him and he is the most captained man in the game. This week Chelsea go to Arsenal, who have not conceded in two games. Isak costs £1.3m more and plays Ipswich. Ted leaves him out for one week and for that reason only."
+    },
+    "watchlist": [
+      {
+        "id": 154,
+        "name": "Palmer",
+        "team": "CHE",
+        "pos": "MID",
+        "price": 9.6,
+        "ownership": "20.2%",
+        "status": "hold",
+        "note": "None of you own him. 20 points from two and on Chelsea's penalties. Arsenal away kept him out of this squad. Hull at home next week gets him in."
+      },
+      {
+        "id": 12,
+        "name": "Saka",
+        "team": "ARS",
+        "pos": "MID",
+        "price": 9.5,
+        "ownership": "11.2%",
+        "status": "hold",
+        "note": "None of you own him. Chelsea have conceded five goals in two games, and Saka has 20 points and the penalties. He lost the slot to Gakpo on price. A Chelsea defence that leaks again on Saturday puts him in."
+      },
+      {
+        "id": 388,
+        "name": "Guéhi",
+        "team": "MCI",
+        "pos": "DEF",
+        "price": 6,
+        "ownership": "18.7%",
+        "status": "hold",
+        "note": "None of you own him. He would be in the side this week but for the three-per-club rule at City. Gvardiol got the slot because he goes forward more."
+      }
+    ],
+    "first_draft": "2026-09-04",
+    "first_names": [
+      "Tzolakis",
+      "Gvardiol",
+      "Ajayi",
+      "Mendy",
+      "Hall",
+      "B.Fernandes",
+      "Cherki",
+      "Gakpo",
+      "M.Sangaré",
+      "Haaland",
+      "Isak",
+      "Steele",
+      "Kayode",
+      "Gomez",
+      "Barry"
+    ]
+  }
 }
