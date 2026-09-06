@@ -152,6 +152,7 @@ node brain/test/matches.mjs      # /api/matches — stubbed ESPN, real captured 
 node brain/test/split-facts.mjs  # the deadline-lock fallback
 node brain/test/ratelimit.mjs    # the caps, and that no key holds an address
 node brain/test/ted.mjs          # Ted's clock, the freeze, the squad law
+./brain/curate-ted.sh 3 2026-09-04 [--no-deploy]   # Ted's fifteen on demand: only `ted`, as of a date, settled as a draft
 brain/test/smoke.sh https://fiveaside.pages.dev/   # 88 signed in, 77 signed out
 cd site && python3 -m http.server # local preview — /api/* 404s and the page
                                   # degrades honestly, which is worth seeing

@@ -53,8 +53,11 @@ const names = (t) => (t?.picks ?? []).map((p) => p.name);
 //  rebuilding  only `rebuild` (the note on the week just gone); the fifteen
 //              stay last week's
 //  live/frozen nothing — the previous section is restored whole
-export function settleTed(before, after, g, now = Date.now()) {
-  const { phase, gw } = tedPhase(g, now);
+export function settleTed(before, after, g, now = Date.now(), force = null) {
+  // `force` is for a deliberate out-of-band pick — brain/curate-ted.sh —
+  // where the phase is stated by the person running it, not read from the
+  // clock. Everything else about the settle still applies.
+  const { phase, gw } = force || tedPhase(g, now);
   const prev = before?.ted ?? null;
   const next = after?.ted ?? null;
   if (phase === "live" || phase === "frozen") {
@@ -105,12 +108,15 @@ if (isMain) {
     const afterPath = rest[1] ?? "site/data/fpl.json";
     if (!beforePath) { console.error("usage: node brain/ted.mjs settle <before.json> [after.json]"); process.exit(2); }
     const before = read(beforePath), after = read(afterPath);
-    const r = settleTed(before, after, g, at);
+    const fp = rest.includes("--phase") ? rest[rest.indexOf("--phase") + 1] : null;
+    const fgw = rest.includes("--gw") ? Number(rest[rest.indexOf("--gw") + 1]) : null;
+    const force = fp ? { phase: fp, gw: fgw ?? g.gameweek } : null;
+    const r = settleTed(before, after, g, at, force);
     if (r.ted) after.ted = r.ted; else delete after.ted;
     writeFileSync(afterPath, JSON.stringify(after, null, 2) + "\n");
     console.error(`ted: ${r.phase} — ${r.note}`);
   } else {
-    console.error("usage: node brain/ted.mjs phase [--at ISO] | settle <before.json> [after.json]");
+    console.error("usage: node brain/ted.mjs phase [--at ISO] | settle <before.json> [after.json] [--phase draft --gw N]");
     process.exit(2);
   }
 }
