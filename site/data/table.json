@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-06T16:17:30.672Z",
+  "generated_at": "2026-09-06T17:31:31.104Z",
   "date": "2026-09-06",
   "timezone": "Asia/Kolkata",
   "competition": "English Premier League",
@@ -15,6 +15,15 @@
     },
     {
       "pos": 2,
+      "team": "Arsenal",
+      "played": 3,
+      "points": 9,
+      "gd": 5,
+      "crest": "https://a.espncdn.com/i/teamlogos/soccer/500/359.png",
+      "form": "WW"
+    },
+    {
+      "pos": 3,
       "team": "Hull City",
       "played": 3,
       "points": 7,
@@ -23,20 +32,11 @@
       "form": "WWD"
     },
     {
-      "pos": 3,
-      "team": "Arsenal",
-      "played": 2,
-      "points": 6,
-      "gd": 4,
-      "crest": "https://a.espncdn.com/i/teamlogos/soccer/500/359.png",
-      "form": "WW"
-    },
-    {
       "pos": 4,
       "team": "Chelsea",
-      "played": 2,
+      "played": 3,
       "points": 6,
-      "gd": 2,
+      "gd": 1,
       "crest": "https://a.espncdn.com/i/teamlogos/soccer/500/363.png",
       "form": "WWW"
     },
