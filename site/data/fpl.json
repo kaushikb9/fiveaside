@@ -1,20 +1,20 @@
 {
-  "generated_at": "2026-09-05T10:52:24.522Z",
+  "generated_at": "2026-09-06T04:43:17.676Z",
   "people": [
     {
       "nick": "Xabi",
       "week": {
-        "worked": "The armband was right. You put it on B.Fernandes and he scored a hat-trick, and Mbeumo got the fifth in the same game. Before Friday's deadline you sold Mbeumo and Tzolis for Elanga and Cherki, both of them on the house list.",
-        "didnt": "You scored 106 and stayed fifth of 11. Kerkez had one point in two before Friday's clean sheet at Ipswich, and Tzolis was hooked at half-time at Villa Park, so you sold him. You also left the vice-captaincy on Elanga instead of B.Fernandes."
+        "worked": "Haaland gave you 18 as captain and Kerkez kept a clean sheet at Ipswich, the one his trigger asked for. Cherki started beside Enzo Fernández and hit the post.",
+        "didnt": "Elanga's first week in your side was 1 point, and Calvert-Lewin was put through twice at Brighton and scored neither. Five of your eleven play today, so the week is half written."
       },
       "big": [
         {
           "call": "Captain: Haaland at Old Trafford or B.Fernandes at home to City",
-          "why": "Both are yours. Haaland goes to United, the hardest fixture on his run at 4, three days after a Champions League trip to Porto. B.Fernandes has a hat-trick behind him and City at home. João Pedro at home to Hull is the third option."
+          "why": "You own both and the derby is GW4. Haaland has scored in all three games and plays Porto away on the Tuesday before. B.Fernandes has three, all in one afternoon, and takes the penalties."
         },
         {
-          "call": "Vice-captain: Elanga or B.Fernandes",
-          "why": "You left the vice on Elanga at the GW3 deadline. If Haaland is pulled at Old Trafford, the doubled score goes to a £6.1m Newcastle midfielder at Leeds instead of B.Fernandes at home to City. Moving it costs nothing."
+          "call": "Palmer before Hull come to Stamford Bridge",
+          "why": "Chelsea's next two are Hull at home and Brentford away. You have £0.7m in the bank, so he costs you B.Fernandes or a hit, in the week United host City."
         }
       ],
       "watchlist": [
@@ -24,9 +24,9 @@
           "team": "CHE",
           "pos": "MID",
           "price": 9.6,
-          "ownership": "19.4%",
+          "ownership": "20%",
           "status": "rising",
-          "note": "Your club's best player, and you still do not own him. 20 points in two, the penalties, and Hull at home next, then Brentford away."
+          "note": "Chelsea host Hull next week. You own two Chelsea players and he is neither of them. Read the Emirates first."
         },
         {
           "id": 379,
@@ -34,26 +34,26 @@
           "team": "LIV",
           "pos": "FWD",
           "price": 9,
-          "ownership": "16.6%",
+          "ownership": "17.4%",
           "status": "new",
-          "note": "Two goals in nine minutes at Ipswich and three in three games. You own Calvert-Lewin at £6.0m in that slot. Fulham at home is Isak's next one."
+          "note": "Three goals in two games at £9.0m and none of the five own him. You have Calvert-Lewin in that slot and he missed two one-on-ones at Brighton."
         }
       ]
     },
     {
       "nick": "Sir Fergie",
       "week": {
-        "worked": "You played the Bench Boost in an ordinary week and all 15 of your players started. 151 points, and you lead the five by 29.",
-        "didnt": "Nothing went wrong, so take the cost instead. The chip is spent and the other four hold theirs. Then on Friday you captained Haaland with the rest of the room and benched Calvert-Lewin again, with Leeds at Brighton."
+        "worked": "Haaland gave you 18 as captain and Szoboszlai drove Liverpool's win from midfield. Your bench cost you nothing on Saturday.",
+        "didnt": "You moved Groß into your eleven after his goal at Stamford Bridge and he put a six-yard chance over the bar for 1 point. Calafiori, B.Fernandes and João Pedro play today."
       },
       "big": [
         {
-          "call": "Captain: with the room or against it",
-          "why": "You lead by 29 with no chip left. The other four will split between Haaland at Old Trafford and B.Fernandes at home to City. Match the majority and the lead holds. Pick the other one and it moves, in either direction."
+          "call": "Captain with the lead: Haaland away or B.Fernandes at home",
+          "why": "All five captained Haaland this week and he scored. Next week he goes to Old Trafford and you own the man who plays against him. If you match the room your lead can only shrink."
         },
         {
-          "call": "van Ewijk and Thomas: Brighton at home, 18 games without a clean sheet",
-          "why": "Coventry have the kindest run on the ticker at 2.33 and both your Coventry defenders sit on the bench. Lampard's side has not kept a clean sheet in 18 matches. That is £8.0m in two defenders you never start."
+          "call": "Calvert-Lewin off the bench for Leeds v Newcastle",
+          "why": "He was put through twice at Brighton and missed both, but Leeds created 2.5 xG and host Newcastle at Elland Road next. It costs no transfer to fix."
         }
       ],
       "watchlist": [
@@ -63,48 +63,87 @@
           "team": "NEW",
           "pos": "DEF",
           "price": 5.1,
-          "ownership": "9.8%",
+          "ownership": "10.3%",
           "status": "rising",
-          "note": "14 points at £5.1m, Burn out until mid-September, and Newcastle have the kindest run after Coventry. You own nobody there, and Elanga is already in two of the other squads."
+          "note": "He made the Barnes goal from left-back against Bournemouth. You own two Coventry defenders you never start and no Newcastle player."
         },
         {
-          "id": 367,
-          "name": "Gakpo",
+          "id": 579,
+          "name": "Araujo",
           "team": "LIV",
-          "pos": "MID",
-          "price": 7.1,
-          "ownership": "9.2%",
-          "status": "rising",
-          "note": "28 points at £7.1m after two assists on Friday, with Barcola coming off the bench behind him. Schade to Gakpo is £1.1m and you have £0.8m."
+          "pos": "DEF",
+          "price": 5.4,
+          "ownership": "2.2%",
+          "status": "new",
+          "note": "Debut at right-back on Friday, a clean sheet and bonus points. Two more starts and he is a £5.4m route into Liverpool's defence."
         }
       ]
     },
     {
       "nick": "Mr CR7",
       "week": {
-        "worked": "Gvardiol has 14 points, and City are expected to play him in a back four with Guéhi against a Coventry side that has not scored. On Friday you sold Ndiaye, bought Elanga and Ajayi, and moved Calvert-Lewin into your eleven. All three were on Thursday's list.",
-        "didnt": "12 points on your bench, second week running, and Calvert-Lewin scored the Leeds equaliser while sitting on it. You fixed that on Friday and then benched Calafiori, who has 20 points and Chelsea at home, behind Hume, who is not in the predicted Sunderland XI."
+        "worked": "Gvardiol kept a clean sheet with the bonus, Kinsky kept Spurs' first of the season at Forest, and Ajayi has now not conceded in three games. You lead the room among those who held their chips.",
+        "didnt": "E.Le Fée scored the penalty at Brentford on your bench while Hume gave you 1 on the day Danso made his Sunderland debut. Calafiori is on your bench again for Arsenal v Chelsea."
       },
       "big": [
         {
-          "call": "Hume or Calafiori: one of them is on the wrong side of your bench",
-          "why": "Sunderland host Arsenal in GW4, so it is the same match. Calafiori has 20 points and you benched him for Hume, who was left out of Sports Mole's predicted Sunderland XI this weekend. Saturday's team sheet tells you which one starts."
+          "call": "Calafiori on your bench, again?",
+          "why": "Arsenal go to Sunderland, Ajayi goes to Stamford Bridge and Hume hosts Arsenal with Danso now in the side. You own a 20-point defender and start two cheaper ones in front of him."
         },
         {
-          "call": "Captain: Haaland at Old Trafford or B.Fernandes at home to City",
-          "why": "Haaland goes to United three days after a Champions League trip to Porto. B.Fernandes has a hat-trick behind him and City at home. You have both, and João Pedro at home to Hull is the quiet third option."
+          "call": "Captain: Haaland or B.Fernandes in the derby",
+          "why": "You own both. Haaland goes to Old Trafford three days after Porto away and has scored in every game. B.Fernandes is at home and takes the penalties."
         }
       ],
       "watchlist": [
         {
-          "id": 31,
-          "name": "Konsa",
-          "team": "ARS",
-          "pos": "DEF",
-          "price": 4.4,
-          "ownership": "11.3%",
+          "id": 236,
+          "name": "Dewsbury-Hall",
+          "team": "EVE",
+          "pos": "MID",
+          "price": 6.5,
+          "ownership": "4.4%",
+          "status": "hold",
+          "note": "Everton host United today. Moyes says the squad is short, and the creation left at the club runs through him."
+        },
+        {
+          "id": 542,
+          "name": "E.Le Fée",
+          "team": "SUN",
+          "pos": "MID",
+          "price": 5.9,
+          "ownership": "5.6%",
+          "status": "hold",
+          "note": "He took and scored the penalty at Brentford. You own him and benched him behind Hume. Arsenal at home next, so read the Sunderland team sheet before promoting him."
+        }
+      ]
+    },
+    {
+      "nick": "The Special One",
+      "week": {
+        "worked": "The Wildcard leads the room's gameweek by a distance, with three players to come. Gakpo made both Isak goals, Tzolakis and Egan kept a third clean sheet, and Gvardiol and Jacquet added two more.",
+        "didnt": "Raya sits on your bench at £6.0m behind a £4.6m Hull goalkeeper. Tzolakis kept a clean sheet, so it cost nothing on Saturday. Arsenal play Chelsea at 4.30 and Raya's points go nowhere."
+      },
+      "big": [
+        {
+          "call": "Raya off the bench: Hull go to Chelsea, Arsenal go to Sunderland",
+          "why": "Tzolakis and Egan both play at Stamford Bridge next week. Arsenal have not conceded in three games this season, Community Shield included, and Raya sits behind a £4.6m keeper on your bench."
+        },
+        {
+          "call": "Captain: Haaland or B.Fernandes at Old Trafford",
+          "why": "You are last of the five and you own both. Haaland goes to Old Trafford three days after Porto away. B.Fernandes is at home and takes the penalties."
+        }
+      ],
+      "watchlist": [
+        {
+          "id": 154,
+          "name": "Palmer",
+          "team": "CHE",
+          "pos": "MID",
+          "price": 9.6,
+          "ownership": "20%",
           "status": "rising",
-          "note": "£0.1m cheaper than Hume, expected to start for Arsenal on Sunday with Mosquera flagged, and Arsenal go to Sunderland in GW4. If Hume is dropped this is the swap."
+          "note": "You wildcarded without your own club's penalty taker. Chelsea host Hull next week and he has 20 points in two games."
         },
         {
           "id": 379,
@@ -112,55 +151,26 @@
           "team": "LIV",
           "pos": "FWD",
           "price": 9,
-          "ownership": "16.6%",
+          "ownership": "17.4%",
           "status": "new",
-          "note": "Three goals in three, two of them inside nine minutes on Friday. You have no bank, so this is a note for when Calvert-Lewin next blanks."
-        }
-      ]
-    },
-    {
-      "nick": "The Special One",
-      "week": {
-        "worked": "De Cuyper has 17 points at £4.7m and you kept him through the Wildcard. Then you played the Wildcard itself from last place, 12 changes, and Gakpo and Jacquet gave you 16 points on Friday night, the most in the room before Saturday's games.",
-        "didnt": "61 points and last of 11. You were the one gaffer without B.Fernandes on the day he scored three, Tzolis was taken off at half-time, and Aït-Nouri had not played a minute. All three are gone now, and so is your Wildcard."
-      },
-      "big": [
-        {
-          "call": "Goalkeeper: Raya at Sunderland or Tzolakis at Stamford Bridge",
-          "why": "You have £10.6m in goalkeepers and one of them sits every week. Hull go to Chelsea, who have scored 12 in two games. Arsenal go to Sunderland having conceded none in three. In GW4 the £6.0m one is the starter."
-        },
-        {
-          "call": "Captain: Haaland at Old Trafford or B.Fernandes at home to City",
-          "why": "You own both now. Haaland goes to United three days after Porto away in the Champions League. B.Fernandes has a hat-trick behind him and City at home. You are last of 11 and cannot afford the wrong one twice."
-        }
-      ],
-      "watchlist": [
-        {
-          "id": 449,
-          "name": "Hall",
-          "team": "NEW",
-          "pos": "DEF",
-          "price": 5.1,
-          "ownership": "9.8%",
-          "status": "hold",
-          "note": "You have no bank and one free transfer next week. If De Cuyper keeps playing as a winger, £5.1m for a left-back who defends in front of the kindest run after Coventry is the move."
+          "note": "You own his supplier. Isak has five goals in three games at £9.0m and Liverpool host Fulham next."
         }
       ]
     },
     {
       "nick": "Le Professeur",
       "week": {
-        "worked": "107 points without spending a chip, the same week Mr CR7 had. It took a Bench Boost to beat it. You sold Ndiaye on Friday.",
-        "didnt": "16 points on your bench, the most in the room. Groß scored at Stamford Bridge while sitting on it, and you now start him. You sold Konsa and Ndiaye for Egan and Tzolis, and Konsa is in every predicted Arsenal XI for Sunday while Rogers, at £7.5m, sits on your bench."
+        "worked": "Egan kept a third clean sheet at £4.0m and Haaland gave you 18 as captain. Szoboszlai played in midfield at Ipswich, so your £7.0m did what it was bought for.",
+        "didnt": "Kinsky kept a clean sheet on your bench behind Verbruggen, who conceded to Leeds' first chance. Cash kept one at Hull on your bench too. Rogers sits behind Tzolis for Arsenal v Chelsea."
       },
       "big": [
         {
-          "call": "Rogers or Tzolis: your £7.5m midfielder is on the bench",
-          "why": "Chelsea host Hull in GW4, the kindest fixture on Rogers's run at 2. Arsenal go to Sunderland at 3. Tzolis was taken off at half-time at Villa Park and Eze came on for him. You start the £6.5m and bench the £7.5m."
+          "call": "Rogers off your bench: Chelsea host Hull",
+          "why": "You bench a £7.5m midfielder who has started all three Chelsea games, and start Tzolis, who was hooked at half-time last week. Chelsea's next two are Hull at home and Brentford away."
         },
         {
-          "call": "Captain: Haaland at Old Trafford or B.Fernandes at home to City",
-          "why": "Haaland goes to United three days after a Champions League trip to Porto. B.Fernandes has a hat-trick behind him and City at home. Both are yours, and João Pedro at home to Hull is the third option."
+          "call": "Kinsky or Verbruggen: Everton at home, or Coventry away",
+          "why": "Kinsky kept Spurs' first clean sheet at Forest and hosts Everton. Verbruggen goes to a Coventry side without a top-flight goal since 2001. You own both and one sits on the bench."
         }
       ],
       "watchlist": [
@@ -170,19 +180,19 @@
           "team": "ARS",
           "pos": "DEF",
           "price": 5.5,
-          "ownership": "7.6%",
+          "ownership": "7.7%",
           "status": "rising",
-          "note": "18 points at £5.5m in the only defence yet to concede a league goal, expected at right-back again on Sunday. The Special One bought him on Friday. You own the club and none of the players scoring for it."
+          "note": "You own Calafiori and Tzolis and you do not own the Arsenal defender with 18 points. Mosquera is flagged for today and Sunderland away is next."
         },
         {
-          "id": 31,
-          "name": "Konsa",
+          "id": 15,
+          "name": "Ødegaard",
           "team": "ARS",
-          "pos": "DEF",
-          "price": 4.4,
-          "ownership": "11.3%",
+          "pos": "MID",
+          "price": 6.6,
+          "ownership": "11.1%",
           "status": "hold",
-          "note": "You sold him on Friday at £4.4m. Every predicted Arsenal XI for Sunday has him starting with Mosquera flagged. Do not buy him back this week. Watch whether he keeps the shirt when Mosquera is fit."
+          "note": "14 points at £6.6m and nobody in the room owns him. If Tzolis loses the left to Eze today, this is where the Arsenal money goes."
         }
       ]
     }
@@ -194,9 +204,9 @@
       "team": "CHE",
       "pos": "MID",
       "price": 9.6,
-      "ownership": "19.4%",
+      "ownership": "20%",
       "status": "rising",
-      "note": "20 points in two, the penalties, and Chelsea sold Enzo Fernández without replacing him. Hull at home next. Nobody in the room owns him."
+      "note": "20 points in two, the penalties, Hull at home next. Nobody in the room owns him and two of the five support the club. Arsenal away at 4.30 is the test."
     },
     {
       "id": 379,
@@ -204,9 +214,9 @@
       "team": "LIV",
       "pos": "FWD",
       "price": 9,
-      "ownership": "16.6%",
+      "ownership": "17.4%",
       "status": "new",
-      "note": "Three goals in three, two of them inside nine minutes at Ipswich. Iraola took him off on 64 with the game won. Nobody in the room owns him at £9.0m."
+      "note": "Three goals in two games and Iraola says he will produce the numbers if he is fit. £9.0m, and none of the five own him."
     },
     {
       "id": 367,
@@ -214,9 +224,39 @@
       "team": "LIV",
       "pos": "MID",
       "price": 7.1,
-      "ownership": "9.2%",
+      "ownership": "10.3%",
       "status": "rising",
-      "note": "Two assists on Friday, 28 points at £7.1m, and Barcola came off the bench behind him. One of the five owns him."
+      "note": "Two assists at Ipswich and the £123m winger came on for Muñoz, so the left flank is his. One of the five owns him."
+    },
+    {
+      "id": 449,
+      "name": "Hall",
+      "team": "NEW",
+      "pos": "DEF",
+      "price": 5.1,
+      "ownership": "10.3%",
+      "status": "rising",
+      "note": "Made the Barnes goal from left-back with Burn out until mid-September. Leeds away next. None of the five own a Newcastle defender."
+    },
+    {
+      "id": 579,
+      "name": "Araujo",
+      "team": "LIV",
+      "pos": "DEF",
+      "price": 5.4,
+      "ownership": "2.2%",
+      "status": "new",
+      "note": "Right-back on his league debut, ahead of Frimpong, with bonus points in Liverpool's first clean sheet. £5.4m, and the shirt needs two more starts."
+    },
+    {
+      "id": 69,
+      "name": "Scott",
+      "team": "BOU",
+      "pos": "MID",
+      "price": 6,
+      "ownership": "2.6%",
+      "status": "new",
+      "note": "24 points in three games at £6.0m, and Rose says he is proud he is a Bournemouth player. Brentford at home next. Nobody in the room owns him."
     },
     {
       "id": 15,
@@ -226,17 +266,7 @@
       "price": 6.6,
       "ownership": "11.1%",
       "status": "hold",
-      "note": "Four of the five own an Arsenal defender and none owns the £6.6m midfielder outscoring them. Chelsea at the Emirates on Sunday."
-    },
-    {
-      "id": 449,
-      "name": "Hall",
-      "team": "NEW",
-      "pos": "DEF",
-      "price": 5.1,
-      "ownership": "9.8%",
-      "status": "rising",
-      "note": "The cheapest attacking defender at a settled club, and Burn is out until mid-September. Newcastle have faced more shots than anyone, so buy him for the attacking returns."
+      "note": "Four of the five own an Arsenal defender and none owns the £6.6m midfielder who outscores them. Chelsea at home today, Sunderland away next."
     },
     {
       "id": 31,
@@ -244,19 +274,9 @@
       "team": "ARS",
       "pos": "DEF",
       "price": 4.4,
-      "ownership": "11.3%",
+      "ownership": "11.4%",
       "status": "rising",
-      "note": "£55m of centre-back at £4.4m, expected to make his full debut on Sunday with Mosquera flagged and Saliba out for months. One of the five sold him on Friday."
-    },
-    {
-      "id": 579,
-      "name": "Araujo",
-      "team": "LIV",
-      "pos": "DEF",
-      "price": 5.4,
-      "ownership": "2.1%",
-      "status": "new",
-      "note": "Debuted at right-back on Friday, kept a clean sheet and took bonus. Liverpool were said to have no right-back. At £5.4m and 2.1% he is the cheap way into a defence with Fulham at home next."
+      "note": "Nobody in the room owns him now. Mosquera has a 75% flag, Saliba is out for months, and Chelsea visit at 4.30 today."
     }
   ],
   "verdicts": [
@@ -265,95 +285,95 @@
       "name": "B.Fernandes",
       "verdict": "nailed",
       "moved": "held",
-      "why": "A hat-trick at Old Trafford, penalties, and all five own him. Everton away, then City at home.",
-      "trigger": "Two quiet weeks with United losing. At £12.0m the price only works while he is the whole team."
+      "why": "A hat-trick, the penalties, and all five own him. Carrick says United have five games in 16 days and he plays every one of them. Everton away at 2pm.",
+      "trigger": "Two quiet weeks with United losing. At £12.0m the price only works while he is the whole attack."
     },
     {
       "id": 427,
       "name": "Mbeumo",
       "verdict": "solid",
       "moved": "held",
-      "why": "Got the fifth against Ipswich and held his flank. Nobody in the room owns him now after two sold him on Friday.",
-      "trigger": "Rashford keeping the left and the returns concentrating there. Two blanks and £8.0m is the wrong United winger."
+      "why": "Got the fifth against Ipswich and held his flank all afternoon. Everton away today.",
+      "trigger": "Rashford keeping the left and the returns concentrating there. Two blanks and £7.9m is the wrong United winger."
     },
     {
       "id": 423,
       "name": "Shaw",
-      "verdict": "watch",
-      "moved": "down",
-      "why": "Substituted on 73 minutes against Ipswich with muscle tightness and named for a late hamstring test at Everton. Sports Mole expects him to start, with Dorgu the cover.",
-      "trigger": "He starts at Everton and this goes back to solid. He misses it, or Dorgu starts a league game at left-back, and £4.5m is a rotation slot."
+      "verdict": "solid",
+      "moved": "held",
+      "why": "United signed no left-back, so the shirt is his. Carrick says rotation is inevitable with five games in 16 days, and Mazraoui is the back-up.",
+      "trigger": "Mazraoui starting a league game at left-back. That is the difference between a cheap defender who never misses and a rotation slot."
     },
     {
       "id": 418,
       "name": "Maguire",
       "verdict": "solid",
       "moved": "held",
-      "why": "Scored off a deflection and was the steady one in a defence that could have folded. De Ligt is likely to miss Everton, so his place is safer still.",
-      "trigger": "Losing his place when United's other centre-backs are fit. The goal is a bonus."
+      "why": "Scored off a deflection and was the steady one in a defence that could have folded. Everton away today and City at home next.",
+      "trigger": "Losing his place when United's other centre-backs are fit. He starts every week until then."
+    },
+    {
+      "id": 412,
+      "name": "Lammens",
+      "verdict": "solid",
+      "moved": "held",
+      "why": "Kept United in the Ipswich game with first-half saves and was the calm one in a panicked defence.",
+      "trigger": "Two more weeks conceding twice. You are paying £5.0m for a goalkeeper who saves shots and never keeps a clean sheet."
     },
     {
       "id": 432,
       "name": "Mainoo",
       "verdict": "watch",
-      "moved": "new",
-      "why": "Started ahead of Andrey Santos against Ipswich, won possession 10 times, more than anyone in the gameweek, and Carrick called him immense. Baleba is out for a couple more weeks.",
-      "trigger": "Baleba fit and starting. £5.5m for a United midfielder who plays every week is a buy. £5.5m for one who plays until the £70m man is fit is a trap."
+      "moved": "held",
+      "why": "Carrick called his Ipswich performance immense and Baleba is out until mid-September, so the shirt is his for now at £5.5m.",
+      "trigger": "Two starts once Baleba is fit. Until then this is a cheap midfielder in a rotation Carrick has already promised."
     },
     {
       "id": 154,
       "name": "Palmer",
       "verdict": "nailed",
       "moved": "held",
-      "why": "20 points in two games, the penalties, and Chelsea sold Enzo Fernández without signing a replacement. One goal from 50 for the club.",
-      "trigger": "Two games spent wide rather than at ten, or the calf flag returning."
+      "why": "20 points in two games, the penalties, and Chelsea sold Enzo Fernández without replacing him. Arsenal away at 4.30, then Hull at home.",
+      "trigger": "Two games spent wide of the number ten, or the calf flag returning."
     },
     {
       "id": 165,
       "name": "João Pedro",
       "verdict": "nailed",
       "moved": "held",
-      "why": "Owned by all five, and Sports Mole notes he could be the second player ever to score and assist in each of his first three games of a season. Arsenal away is the hardest fixture on the ticker.",
-      "trigger": "Two Chelsea games without a shot in the box. At 71% he becomes the risk in every squad at once."
+      "why": "Owned by all five and the reference point in Chelsea's attack. The Emirates today is the hardest fixture on the ticker.",
+      "trigger": "Two Chelsea games without a shot in the box. At that ownership he is the risk."
     },
     {
       "id": 40,
       "name": "Rogers",
       "verdict": "solid",
       "moved": "held",
-      "why": "Three starts from three since the £117m move, and Arsenal wanted him at £80m before Chelsea paid more. One of his three owners has him on the bench this week.",
-      "trigger": "A week wide right or on the bench. The Camara deal collapsing makes that less likely."
+      "why": "Three starts from three since the £117m move, and Arsenal stopped at £80m for him. Two of his three owners in the room start him today, and Le Professeur benches him.",
+      "trigger": "A week wide right or on the bench. Nothing Alonso has said points that way."
     },
     {
       "id": 28,
       "name": "Martinez",
       "verdict": "watch",
       "moved": "held",
-      "why": "Chelsea have gone 18 games without a clean sheet, have conceded five in two, and go to the Emirates with two stand-ins in midfield.",
-      "trigger": "One clean sheet. Until it comes he is a goalkeeper bought for save points at a club that concedes."
+      "why": "Chelsea have conceded five in two, have not kept a clean sheet in 18 games, and go to the Emirates today.",
+      "trigger": "One clean sheet. Hull at home next week is the first fixture where it is likely."
     },
     {
       "id": 159,
       "name": "Caicedo",
       "verdict": "watch",
       "moved": "held",
-      "why": "Came on against Brighton and lasted under 20 minutes before going off again. Alonso called the change precautionary. Sports Mole lists him as a major doubt for Sunday.",
+      "why": "Flagged at 75% and Chelsea expect him back for Hull at home, which is the week after the Emirates.",
       "trigger": "A league start. Chelsea never replaced him and the shirt is waiting."
-    },
-    {
-      "id": 142,
-      "name": "James",
-      "verdict": "watch",
-      "moved": "new",
-      "why": "Alonso says he will get a lot of minutes as a first midfielder and could become one of the best in the world there. He is listed as a defender at £5.5m in a side that has not kept a clean sheet in 18 games.",
-      "trigger": "A clean sheet, or a goal. A defender in midfield gets defender points for a goal, so the case needs Chelsea to stop conceding."
     },
     {
       "id": 8,
       "name": "Calafiori",
       "verdict": "nailed",
       "moved": "held",
-      "why": "20 points at £5.7m, the assist for Saka's winner at Villa Park, and a clean sheet with it. Four of the five own him and one has him on the bench this week.",
+      "why": "20 points at £5.7m, and Arteta says Arsenal can play with him stepping up more from left-back now the wingers have gone. Four of the five own him and Mr CR7 benches him today.",
       "trigger": "The knee trouble that follows him around, or Arsenal's European calendar producing real rotation."
     },
     {
@@ -361,31 +381,15 @@
       "name": "Saka",
       "verdict": "nailed",
       "moved": "held",
-      "why": "The only goal at Villa Park, penalties at £9.5m, and Arsenal have sold all three of the wide forwards who were competing with him.",
-      "trigger": "The recurring hamstring, or Arsenal buying a forward in January and the returns moving centrally."
-    },
-    {
-      "id": 26,
-      "name": "Havertz",
-      "verdict": "solid",
-      "moved": "held",
-      "why": "Predicted to lead the line against Chelsea with Martinelli, Trossard and Jesus all sold. He and Gyökeres are the entire senior forward line.",
-      "trigger": "Gyökeres taking the shirt outright. Two games on the bench and £7.5m is a sack."
-    },
-    {
-      "id": 25,
-      "name": "Gyökeres",
-      "verdict": "watch",
-      "moved": "held",
-      "why": "Zero points in two at £7.3m, but he scored 21 in his first season and Arsenal are down to two senior forwards.",
-      "trigger": "A start and a goal in the next two. A £7.3m striker who has not scored by GW5 is not a striker."
+      "why": "The only goal at Villa Park, penalties at £9.5m, and Arsenal sold all three wide forwards who competed with him.",
+      "trigger": "The recurring hamstring, or a January forward moving the returns centrally."
     },
     {
       "id": 15,
       "name": "Ødegaard",
       "verdict": "solid",
       "moved": "held",
-      "why": "14 points at £6.6m and a fortnight of nobody in the room owning him.",
+      "why": "14 points at £6.6m and nobody in the room owns him. Arteta's plan for the season leans on him, Saka and Havertz staying fit.",
       "trigger": "A repeat of last season's injury record, or the returns concentrating in Saka alone."
     },
     {
@@ -393,199 +397,231 @@
       "name": "White",
       "verdict": "solid",
       "moved": "held",
-      "why": "18 points at £5.5m in the only defence yet to concede a league goal. Timber is back in full training but Sports Mole has him on the bench at best on Sunday.",
-      "trigger": "Timber starting a league game at right-back. He is one week closer than he was on Thursday."
+      "why": "18 points at £5.5m in a defence that has not conceded a league goal, and Mosquera carries a 75% flag for today.",
+      "trigger": "Timber getting past grass work and Saliba returning, which is not this side of the international break."
     },
     {
       "id": 11,
       "name": "Mosquera",
       "verdict": "watch",
-      "moved": "down",
-      "why": "The flag arrived on Saturday morning, 75%, two days after he missed Thursday's open training. Every predicted Arsenal XI for Sunday has Konsa in his place. Nobody in the room owns him now.",
-      "trigger": "A start against Chelsea puts this back to solid. A second missed game and Konsa has the shirt through the international break."
+      "moved": "held",
+      "why": "The flag arrived on Saturday morning, two days after he missed open training. 75% for Chelsea, and nobody in the room owns him since The Special One's wildcard.",
+      "trigger": "A start today. If Konsa is named ahead of him this is a sack until Arteta says otherwise."
     },
     {
       "id": 31,
       "name": "Konsa",
       "verdict": "watch",
-      "moved": "up",
-      "why": "Expected to make his full Arsenal debut against Chelsea with Mosquera flagged and Saliba out for months. £4.4m, and one of the five sold him on Friday.",
-      "trigger": "Chelsea's visit. He starts and keeps a clean sheet and this goes to solid. Mosquera plays and £4.4m stays a bench place."
+      "moved": "held",
+      "why": "Saliba is out for months, Mosquera is flagged, and the man signed to cover them is £4.4m. Le Professeur sold him on Friday instead of promoting him.",
+      "trigger": "A start against Chelsea today. He starts and this goes to solid."
+    },
+    {
+      "id": 1,
+      "name": "Raya",
+      "verdict": "solid",
+      "moved": "held",
+      "why": "Arsenal have won three from three this season without conceding, Community Shield included. His one owner in the room has him on the bench behind a Hull goalkeeper who has also kept three.",
+      "trigger": "Two goals conceded in a week. Chelsea today is the first attack that can test the number."
     },
     {
       "id": 557,
       "name": "Tzolis",
       "verdict": "watch",
       "moved": "held",
-      "why": "Predicted to start against Chelsea on the left after Arsenal sold both other left-sided forwards. Le Professeur bought him on Friday.",
-      "trigger": "A second half-time substitution, or Eze starting ahead of him. Then it is a sack and it stays one."
+      "why": "The Guardian calls him Arsenal's most natural option on the left after four forwards went, and the club believe Eze can do the job too.",
+      "trigger": "A second half-time substitution, or Eze starting ahead of him against Chelsea today. Then it is a sack."
     },
     {
       "id": 14,
       "name": "Eze",
       "verdict": "watch",
       "moved": "held",
-      "why": "He set up Saka's winner after coming on at half time. Sports Mole has him on the bench again against Chelsea behind Tzolis.",
-      "trigger": "A start against Chelsea. If Arteta gives him the shirt in that fixture the price is wrong by a long way."
+      "why": "Arsenal believe he can replace Martinelli on the left, and he set up Saka's winner off the bench. £6.4m at 1.4% is the cheap way into the champions' attack.",
+      "trigger": "A start against Chelsea today. Give Arteta that team sheet and the price is wrong by a long way."
+    },
+    {
+      "id": 26,
+      "name": "Havertz",
+      "verdict": "solid",
+      "moved": "held",
+      "why": "Trossard, Martinelli, Jesus and Nwaneri have all gone, so he and Gyökeres are the whole senior forward line.",
+      "trigger": "Gyökeres taking the shirt outright. Two games on the bench and £7.5m is a sack."
+    },
+    {
+      "id": 25,
+      "name": "Gyökeres",
+      "verdict": "watch",
+      "moved": "held",
+      "why": "Zero points in two at £7.3m, but he scored 21 last season and Arsenal are down to two senior forwards.",
+      "trigger": "A start and a goal in the next two. A £7.3m striker without a goal by GW5 is a sack."
     },
     {
       "id": 452,
       "name": "Bruno G.",
       "verdict": "watch",
       "moved": "held",
-      "why": "Flagged at 75% with a knock after missing Thursday's training. Sports Mole expects Lewis-Skelly and Rice in the pivot on Sunday.",
+      "why": "Flagged at 75% with a knock, one Arsenal appearance, and Merino and Zubimendi came off the bench at Villa Park ahead of anyone else.",
       "trigger": "A start against Chelsea. Until then £6.8m buys a player nobody has seen finish a week fit."
-    },
-    {
-      "id": 1,
-      "name": "Raya",
-      "verdict": "solid",
-      "moved": "new",
-      "why": "Three clean sheets from three at £6.0m. The Special One bought him on Friday and put him on the bench behind Tzolakis.",
-      "trigger": "Two goals conceded in a game. Until then the question is which of his owner's two goalkeepers plays."
     },
     {
       "id": 411,
       "name": "Haaland",
       "verdict": "nailed",
       "moved": "held",
-      "why": "All five captained him for Coventry at home, a side that has not scored this season. City's only striker after Marmoush left.",
-      "trigger": "A serious injury. City spent a record fee and did not buy a back-up, so there is no version of this where he plays less."
+      "why": "Three goals in three games and his 300th in club football, from a Semenyo cross. All five captained him and all five got 18. Porto on Tuesday, then Old Trafford.",
+      "trigger": "A serious injury. City bought no back-up, so there is no version of this where he plays less."
     },
     {
       "id": 391,
       "name": "Gvardiol",
       "verdict": "nailed",
       "moved": "held",
-      "why": "Predicted to start at left-back in a back four with Guéhi against Coventry. Two of the five own him now.",
+      "why": "Clean sheet, bonus, and Maresca said the space on the left against Coventry was for him, with Ndiaye told to stay higher. Both his owners in the room start him.",
       "trigger": "Doku back and City going wider with O'Reilly restored to defence. Nothing said this week points that way."
-    },
-    {
-      "id": 388,
-      "name": "Guéhi",
-      "verdict": "watch",
-      "moved": "up",
-      "why": "Sports Mole's predicted XI has him back at centre-back beside Dias, with Anderson and Bouaddi in the pivot and O'Reilly out of the side. Coventry have not scored.",
-      "trigger": "Two league starts in midfield. A defender who never stands in the back four cannot keep a clean sheet, whatever the shirt says."
     },
     {
       "id": 399,
       "name": "Cherki",
-      "verdict": "watch",
-      "moved": "held",
-      "why": "Still the highest-scoring midfielder in the game, and three of the five bought him this week. Predicted at ten again behind Haaland.",
-      "trigger": "Two starts in a row at number ten. He has never reached ten Premier League goals in a season, and Enzo Fernández is now in the building."
+      "verdict": "solid",
+      "moved": "up",
+      "why": "Started for the second week running, beside Enzo Fernández as one of two number eights, and hit the post. The trigger was two starts in a row and it has fired.",
+      "trigger": "A bench at Old Trafford after Porto on Tuesday. Foden was the one left out on Saturday."
     },
     {
       "id": 397,
       "name": "Semenyo",
       "verdict": "watch",
       "moved": "held",
-      "why": "One assist all season at £8.5m. Sports Mole expects him to keep the flank ahead of Ndiaye against Coventry.",
-      "trigger": "A goal against Coventry at home. If it does not come in that fixture, £8.5m is a sack."
+      "why": "The trigger asked for a goal against Coventry. He got the assist for Haaland's winner and 6 points instead, from the right wing.",
+      "trigger": "A blank at Old Trafford. One assist in three at £8.4m and Ndiaye now shares the wide roles with him."
+    },
+    {
+      "id": 388,
+      "name": "Guéhi",
+      "verdict": "solid",
+      "moved": "up",
+      "why": "Back at centre-back against Coventry, a clean sheet and the bonus. The Guardian's report has him at centre-back. Nobody in the room owns him.",
+      "trigger": "Two league starts in midfield again. That is where a defender keeps no clean sheets."
+    },
+    {
+      "id": 387,
+      "name": "O'Reilly",
+      "verdict": "watch",
+      "moved": "new",
+      "why": "Felt his back in the warm-up on Saturday and Enzo Fernández took his place. Maresca says it is not serious and the file has him at 75%.",
+      "trigger": "Named in the derby squad. If he misses Porto and the derby, 17.8% of the game is holding a £6.5m absentee."
+    },
+    {
+      "id": 155,
+      "name": "Enzo",
+      "verdict": "watch",
+      "moved": "new",
+      "why": "Started on debut at number eight after O'Reilly's warm-up injury, made the goal with a pass to Semenyo, and came off for Bouaddi on 76. £6.9m at 3.3%.",
+      "trigger": "Two more starts once O'Reilly is fit. Maresca said he was on the bench only because he arrived days ago."
     },
     {
       "id": 237,
       "name": "Ndiaye",
-      "verdict": "sack",
+      "verdict": "watch",
+      "moved": "up",
+      "why": "Sacked on Monday as squad depth. He started at the Etihad on Saturday, attempted more dribbles than anyone, and Maresca spent the press conference explaining what he did wrong.",
+      "trigger": "Doku fit and starting on the left. Doku's return date in the file was 5 September."
+    },
+    {
+      "id": 398,
+      "name": "Foden",
+      "verdict": "watch",
+      "moved": "new",
+      "why": "On the bench against Coventry while Ndiaye started on debut. One point.",
+      "trigger": "A start in the derby. Until then £7.0m for a substitute at his own club."
+    },
+    {
+      "id": 379,
+      "name": "Isak",
+      "verdict": "solid",
       "moved": "held",
-      "why": "City signed him for depth, behind Cherki and Foden at ten and Semenyo and Foden wide. Both of his owners in the room sold him on Friday.",
-      "trigger": "Settled. Nobody here owns him and nobody should."
+      "why": "Two goals inside ten minutes at Ipswich, three in two games, and Iraola says he will produce the numbers if he is fit. £9.0m and none of the five own him.",
+      "trigger": "A week of managed minutes. He came off on 64 with the game won and Liverpool have Atlético on Wednesday."
+    },
+    {
+      "id": 367,
+      "name": "Gakpo",
+      "verdict": "solid",
+      "moved": "held",
+      "why": "Thursday's trigger was Barcola starting on the left. Barcola started on the bench, Gakpo set up both goals and got a 9 from the BBC.",
+      "trigger": "Barcola starting ahead of him against Fulham. 28 points at £7.1m are real, and the shirt is his until a team sheet changes it."
     },
     {
       "id": 627,
       "name": "Barcola",
       "verdict": "watch",
       "moved": "held",
-      "why": "Came on for Muñoz on 64 minutes at Ipswich. Iraola said he had not played a minute since the World Cup and had to be careful.",
-      "trigger": "Two starts on the left. At £8.0m he needs the shirt, and the first team sheet has not given it to him yet."
-    },
-    {
-      "id": 379,
-      "name": "Isak",
-      "verdict": "solid",
-      "moved": "new",
-      "why": "Two goals inside nine minutes at Ipswich, three in three, and Iraola took him off on 64 with the game won. 23 points at £9.0m and nobody in the room owns him.",
-      "trigger": "Two games without a shot on target. Fulham at home is the next read, then Bournemouth away."
-    },
-    {
-      "id": 367,
-      "name": "Gakpo",
-      "verdict": "solid",
-      "moved": "up",
-      "why": "Friday's trigger was Barcola starting on the left. Barcola started on the bench and Gakpo made both goals, then moved to centre-forward when Isak came off. 28 points at £7.1m.",
-      "trigger": "Barcola's first start on the left with Gakpo on the bench. Iraola says he values him, and Friday looked like it."
+      "why": "On the bench at Ipswich, on for Muñoz on 64, a 5 from the BBC. £123m does not buy the shirt by itself.",
+      "trigger": "Two starts on the left. At £8.0m he needs the shirt, and the first team sheet went the other way."
     },
     {
       "id": 368,
       "name": "Szoboszlai",
       "verdict": "solid",
-      "moved": "up",
-      "why": "Thursday's trigger was a game at right-back. Araujo debuted there instead and Szoboszlai drove Liverpool's midfield. Three of the five own him.",
-      "trigger": "One game at right-back. A full-back does not take spot kicks, and the penalties are the case at £7.0m."
+      "moved": "held",
+      "why": "Played in midfield at Ipswich with Araujo at right-back, drove the game, and the BBC's man at Portman Road wrote that Iraola should never use him at right-back.",
+      "trigger": "One game at right-back. Three of the five own him at £7.0m for the penalties and the runs from midfield."
     },
     {
       "id": 358,
       "name": "Kerkez",
       "verdict": "solid",
-      "moved": "up",
-      "why": "Thursday's trigger was a clean sheet at Ipswich or against Fulham, and it came on Friday. He started, was troubled once by Fatawu's pace, and was never in real difficulty.",
-      "trigger": "Two goals conceded at home to Fulham. Then the clean sheet was Ipswich's finishing and £5.5m is back to watch."
+      "moved": "held",
+      "why": "The trigger was a clean sheet at Ipswich or against Fulham. It came at Ipswich, with 90 minutes and a 6 from the BBC.",
+      "trigger": "Conceding twice against Fulham at home. Then the Ipswich sheet was the promoted side and the price is the problem again."
     },
     {
       "id": 362,
       "name": "Jacquet",
       "verdict": "solid",
-      "moved": "new",
-      "why": "Clean sheet beside Van Dijk at Ipswich, 9 points at £5.0m, and the BBC called him a very fine acquisition. One of the five bought him on the wildcard.",
-      "trigger": "Dropped for Konaté or two goals conceded at Anfield. A £5.0m centre-back who starts every week is the price to own."
+      "moved": "held",
+      "why": "Started beside Van Dijk in Liverpool's first clean sheet, and the BBC calls him a very fine acquisition. £5.0m at 2.6%, owned by The Special One.",
+      "trigger": "Losing the place to Konaté when he is fit, or two games conceding twice."
     },
     {
       "id": 579,
       "name": "Araujo",
       "verdict": "watch",
-      "moved": "new",
-      "why": "Made his debut at right-back at Ipswich and was rated seven for it. The club that failed to sign a right-back had one in the squad.",
-      "trigger": "Frimpong back in the shirt. Two starts and a £5.4m right-back at a club that keeps the ball becomes a buy."
-    },
-    {
-      "id": 249,
-      "name": "Barry",
-      "verdict": "solid",
       "moved": "held",
-      "why": "Everton's only senior striker after Beto left and the Balogun deal collapsed, at £5.5m, with United at home.",
-      "trigger": "Everton signing a free agent forward, or two blanks against United and Spurs."
+      "why": "Right-back on his league debut, ahead of Frimpong, with bonus points and a 7 from the BBC. Liverpool failed to sign a right-back and this is who they had.",
+      "trigger": "Two more starts there. At £5.4m he is a buy the moment the shirt is his."
     },
     {
-      "id": 236,
-      "name": "Dewsbury-Hall",
+      "id": 357,
+      "name": "Frimpong",
+      "verdict": "sack",
+      "moved": "held",
+      "why": "Unused substitute at Ipswich while a centre-back made his debut at right-back.",
+      "trigger": "A league start. Until then £5.4m is a bench place."
+    },
+    {
+      "id": 366,
+      "name": "Wirtz",
       "verdict": "watch",
-      "moved": "down",
-      "why": "Grealish is back on loan from City and Sports Mole says an immediate return to the XI is not out of the question. The creative share is no longer his alone.",
-      "trigger": "Grealish starting and taking the set pieces. Then £6.5m is the second creator at a club with one striker."
-    },
-    {
-      "id": 229,
-      "name": "Tarkowski",
-      "verdict": "solid",
       "moved": "held",
-      "why": "Everton's captain on set pieces, 18 points, and United visiting a ground that will spend the afternoon shouting at its own directors' box.",
-      "trigger": "Two games without a header or a clean sheet. Then this is a set-piece bet."
+      "why": "Busy but lightweight at Ipswich, in the BBC's words, and 9 points from three games at £7.4m.",
+      "trigger": "A goal or an assist against Fulham. The Guardian says the internal competition is after his spot if not."
     },
     {
       "id": 454,
       "name": "Elanga",
       "verdict": "solid",
       "moved": "held",
-      "why": "Opened the scoring at Spurs, 17 points at £6.1m, and Jaissle says Fernandez-Pardo will be eased in from the bench. Two of the five bought him this week.",
-      "trigger": "Fernandez-Pardo starting on his flank. That is the only thing that ends this."
+      "why": "Started on the right against Bournemouth and his flick-on made Willock's chance, but 1 point. Fernandez-Pardo made his debut at number ten, behind Wissa and away from Elanga's flank.",
+      "trigger": "Fernandez-Pardo moving wide. He was used at ten on Saturday, so the flank is still Elanga's."
     },
     {
       "id": 464,
       "name": "Wissa",
       "verdict": "solid",
       "moved": "held",
-      "why": "Scored at Spurs, Woltemade has gone to Juventus on loan, and Osula is out. The shirt is his at £6.1m.",
+      "why": "Started as the lone striker against Bournemouth and crossed for Willock's near miss, but 1 point. Fernandez-Pardo came on behind him, so the shirt is his.",
       "trigger": "Fernandez-Pardo being played centrally, or two blanks in the easiest run in the league."
     },
     {
@@ -593,23 +629,95 @@
       "name": "Hall",
       "verdict": "solid",
       "moved": "held",
-      "why": "14 points at £5.1m in the side with the softest run after Coventry. No team has faced more shots than Newcastle this season, so the returns are at the other end.",
-      "trigger": "Burn returning around 14 September and the left side going back. Until then this is the cheapest attacking defender at a settled club."
+      "why": "Made the Barnes goal from left-back with the pass the Guardian called intelligent. Burn is out until mid-September and none of the five own him.",
+      "trigger": "Burn returning around 14 September and the left side going back. Until then he is the cheapest attacking defender at a settled club."
+    },
+    {
+      "id": 453,
+      "name": "Barnes",
+      "verdict": "watch",
+      "moved": "new",
+      "why": "Cut in from the left and curled in the goal that started the comeback. 17 points at £6.0m and 1.4% own him.",
+      "trigger": "A second goal in the next two. The Guardian called him frustrating until the moment he scored, and Fernandez-Pardo cost £51m to play near him."
+    },
+    {
+      "id": 593,
+      "name": "Dedić",
+      "verdict": "watch",
+      "moved": "held",
+      "why": "Started at right-back against Bournemouth with Livramento on the bench, and Newcastle conceded two goals Jaissle called slapstick. 1 point at £4.5m.",
+      "trigger": "Livramento fit and starting. A £4.5m defender who keeps the shirt through that is a buy."
+    },
+    {
+      "id": 572,
+      "name": "Tzolakis",
+      "verdict": "solid",
+      "moved": "held",
+      "why": "Three clean sheets in three at £4.6m, and Hull have had 29% of the ball. Villa managed one shot on target and he saved it.",
+      "trigger": "Hull conceding in both of the next two. Stamford Bridge is the first real test."
+    },
+    {
+      "id": 279,
+      "name": "Ajayi",
+      "verdict": "solid",
+      "moved": "held",
+      "why": "Part of a back three that has not been breached, and Egan says the shape dates from the play-offs. Mr CR7 bought him this week.",
+      "trigger": "Norton-Cuffy starting at right-back. Jakirovic says the cup tie on Tuesday is where the new arrivals get minutes."
+    },
+    {
+      "id": 277,
+      "name": "Egan",
+      "verdict": "solid",
+      "moved": "held",
+      "why": "Three clean sheets at £4.0m, and he says the back three has worked together since the play-offs. Two of the five own him.",
+      "trigger": "Being dropped for one of the six new arrivals. Jakirovic says loyalty counts, so it needs a bad result first."
+    },
+    {
+      "id": 586,
+      "name": "Mendy",
+      "verdict": "solid",
+      "moved": "new",
+      "why": "The third man in the back three with 24 points at £4.0m and 5.7% ownership. Nobody in the room owns him.",
+      "trigger": "Same as the other two. A goal conceded at Stamford Bridge tells you nothing. Two conceded at home to Everton does."
+    },
+    {
+      "id": 542,
+      "name": "E.Le Fée",
+      "verdict": "solid",
+      "moved": "up",
+      "why": "Took and scored the penalty at Brentford, after missing a Panenka there in January. 8 points on Mr CR7's bench.",
+      "trigger": "Two blanks with Sunderland scoring. If the goals come from elsewhere, £5.9m buys a passer who does not shoot."
+    },
+    {
+      "id": 534,
+      "name": "Hume",
+      "verdict": "sack",
+      "moved": "down",
+      "why": "Danso made his debut in Sunderland's defence at Brentford, which was the trigger written on Thursday. Hume scored 1 and Mr CR7 started him.",
+      "trigger": "A start and a clean sheet with Danso and Fofana both fit. Arsenal at home next is not the week."
+    },
+    {
+      "id": 532,
+      "name": "Ballard",
+      "verdict": "solid",
+      "moved": "new",
+      "why": "Kept his place beside the debutant Danso, had a volley ruled out for Danso's offside, and finished with 4 points. Sir Fergie starts him.",
+      "trigger": "Losing the shirt to Fofana. Danso came in on Saturday and Ballard kept his place."
     },
     {
       "id": 109,
       "name": "Verbruggen",
       "verdict": "watch",
       "moved": "held",
-      "why": "Three of the five start him against Leeds. Brighton are missing six, including Wieffer at right-back, and Leeds are improvising at centre-back without Rodon.",
-      "trigger": "A clean sheet against Leeds. A £4.5m goalkeeper is bought for this fixture, and both defences are makeshift."
+      "why": "Conceded to Leeds' first chance and then watched Leeds hit the bar and have a goal ruled out for inches. Three of the five start him.",
+      "trigger": "A clean sheet at Coventry next week. Coventry have not scored a top-flight goal since 2001, so it is the fixture he is bought for."
     },
     {
       "id": 115,
       "name": "De Cuyper",
       "verdict": "watch",
       "moved": "held",
-      "why": "17 points at £4.7m, and Sports Mole's predicted XI has him in the attacking three again with Kadioglu at left-back.",
+      "why": "His corner made the Vuskovic equaliser. 4 points on The Special One's bench, still in the advanced role.",
       "trigger": "A return to left-back and a clean sheet. £4.7m for a makeshift winger is the wrong position at the wrong price."
     },
     {
@@ -617,274 +725,685 @@
       "name": "Groß",
       "verdict": "solid",
       "moved": "held",
-      "why": "Crossed for one and headed in another at Stamford Bridge, on penalties at £5.5m. Both owners in the room now start him.",
-      "trigger": "Two weeks without a return. At 33 the minutes are the question."
+      "why": "Put a six-yard chance over the bar against Leeds and finished with 1 point. Both of his owners in the room started him.",
+      "trigger": "Two weeks without a return. This is one. At 33 the minutes are the question."
     },
     {
       "id": 346,
       "name": "Calvert-Lewin",
       "verdict": "solid",
       "moved": "held",
-      "why": "Scored again, started again, and Nmecha came on to play beside him rather than replace him. All five own him and one benches him.",
-      "trigger": "Losing the penalties, or Leeds changing the shape around him."
+      "why": "Put through twice in the first half at Brighton, dragged one wide and had the other stopped on the line by Dunk. 1 point, on four elevens and Sir Fergie's bench.",
+      "trigger": "Losing the penalties, or Leeds changing the shape around him. Newcastle at home next."
     },
     {
-      "id": 260,
-      "name": "Wilson",
+      "id": 330,
+      "name": "Bogle",
       "verdict": "watch",
-      "moved": "held",
-      "why": "Four points in two at £6.4m, and Leeds go to Brighton with Calvert-Lewin taking the goals and the penalties. Bahoya now competes for his place.",
-      "trigger": "A return at Brighton. A £6.4m midfielder who is neither the scorer nor the taker is the wrong Leeds player."
+      "moved": "new",
+      "why": "A tap-in and 14 points at Brighton, 22 for the season at £4.5m. 0.7% of the game own him.",
+      "trigger": "A second return in the next two. One haul from a right-back is one match."
     },
     {
       "id": 94,
       "name": "Schade",
       "verdict": "solid",
       "moved": "held",
-      "why": "Scored at Elland Road at £6.0m and Brentford have never lost a league game he has scored in. The squad is unchanged for Sunderland.",
+      "why": "2 points at home to Sunderland after Andrews changed three at half-time. The Guardian says Sangaré found it harder against Xhaka and Sadiki.",
       "trigger": "Thiago rediscovering the shirt, or two blanks in a side that has drawn twice."
+    },
+    {
+      "id": 87,
+      "name": "Ajer",
+      "verdict": "solid",
+      "moved": "held",
+      "why": "Kept his place while Collins went off with a calf strain and Kayode was hooked at half-time. 2 points.",
+      "trigger": "Two games conceding twice. Collins is flagged at 75% and Schuster impressed in his place."
     },
     {
       "id": 565,
       "name": "M.Sangaré",
       "verdict": "solid",
       "moved": "held",
-      "why": "18 points at £5.7m, which is the best value in the midfield, and Brentford have kept five clean sheets at the Gtech this year.",
+      "why": "18 points at £5.7m, and the Guardian says he found life harder against Xhaka than against Spurs. Nobody in the room owns him.",
       "trigger": "Two blanks. A midfielder scoring at this price is the cheapest way to fill an eleven."
-    },
-    {
-      "id": 87,
-      "name": "Ajer",
-      "verdict": "solid",
-      "moved": "new",
-      "why": "Owned by Sir Fergie, 11 points at £4.5m, and Brentford have kept five league clean sheets at home in 2026. Sunderland visit with two debutants.",
-      "trigger": "Losing the shirt to a new centre-back, or two goals conceded at the Gtech."
-    },
-    {
-      "id": 279,
-      "name": "Ajayi",
-      "verdict": "solid",
-      "moved": "held",
-      "why": "Predicted to start in the back three against a Villa side that is the only team in the league without a shot on target. Mr CR7 bought him on Friday.",
-      "trigger": "Norton-Cuffy starting ahead of him. The six arrivals are still a squad competing for places."
-    },
-    {
-      "id": 277,
-      "name": "Egan",
-      "verdict": "solid",
-      "moved": "new",
-      "why": "17 points at £4.0m, two clean sheets, and predicted to keep his place in the back three against Villa. Two of the five bought him this week.",
-      "trigger": "Hull conceding twice at home to Villa, or one of the six deadline-day signings taking a centre-back shirt."
-    },
-    {
-      "id": 572,
-      "name": "Tzolakis",
-      "verdict": "solid",
-      "moved": "held",
-      "why": "20 points from two clean sheets at £4.6m, and 18 summer signings have not touched the goalkeeper. Villa have had no shot on target this season.",
-      "trigger": "Hull conceding in both of the next two. Villa at home is the first honest test of the shape."
-    },
-    {
-      "id": 534,
-      "name": "Hume",
-      "verdict": "watch",
-      "moved": "down",
-      "why": "Sports Mole's predicted Sunderland XI has Meunier and Reinildo at full-back and no Hume, with Danso and Fofana in line for debuts. Two of the five own him and one starts him.",
-      "trigger": "Left out at Brentford and this is a sack. He starts and keeps his place through Danso's arrival and it goes back to solid."
-    },
-    {
-      "id": 532,
-      "name": "Ballard",
-      "verdict": "solid",
-      "moved": "new",
-      "why": "Sir Fergie's third defender, 8 points at £5.0m, and predicted to keep his place at centre-back beside Mukiele with Danso arriving.",
-      "trigger": "Danso taking his shirt. Two starts beside the new man and this is settled."
-    },
-    {
-      "id": 542,
-      "name": "E.Le Fée",
-      "verdict": "watch",
-      "moved": "held",
-      "why": "Predicted to start at Brentford, but Sunderland won without him producing anything and Fofana has arrived to take shots.",
-      "trigger": "A return in the next two, or the money goes to a midfielder who takes shots."
-    },
-    {
-      "id": 32,
-      "name": "Cash",
-      "verdict": "sack",
-      "moved": "held",
-      "why": "Villa have lost both and are the only team without a shot on target this season. Predicted to start at Hull, which does not change the price.",
-      "trigger": "Two clean sheets in three with him playing all of them. Nothing shorter."
     },
     {
       "id": 496,
       "name": "Kinsky",
-      "verdict": "watch",
-      "moved": "held",
-      "why": "Owned by two of the five at a club that is bottom, has not scored in two, and has left its top scorer out of the squad. Forest have won their last four against Spurs.",
-      "trigger": "Reassess at GW7 once players are settled and fixtures are softer. Until then this is a bench goalkeeper."
+      "verdict": "solid",
+      "moved": "up",
+      "why": "Spurs' first clean sheet of the season at Forest, without a shot on target against. Everton at home next, and Mr CR7 starts him.",
+      "trigger": "Two goals conceded in a week. De Zerbi's plan is 60 minutes for Savio and Udogie, so the shape will change late in games."
+    },
+    {
+      "id": 503,
+      "name": "Van de Ven",
+      "verdict": "solid",
+      "moved": "new",
+      "why": "9 points at Forest with the clean sheet and the bonus, at £5.0m. 3.7% of the game own him.",
+      "trigger": "Two games conceding twice. Spurs' defence looked settled on Saturday and their attack did not."
     },
     {
       "id": 527,
       "name": "Richarlison",
       "verdict": "sack",
       "moved": "held",
-      "why": "Spurs left him out of their Premier League squad entirely, and De Zerbi says he decided everything himself. He cannot be selected before January.",
+      "why": "Left out of Spurs' 25-man squad. De Zerbi says he decided everything alone and cannot be registered again until January.",
       "trigger": "Settled. A player outside the registered squad is an empty slot."
     },
     {
-      "id": 480,
-      "name": "Gibbs-White",
+      "id": 469,
+      "name": "N.Williams",
       "verdict": "solid",
       "moved": "new",
-      "why": "17 league goal involvements in 2026, second only to B.Fernandes, on penalties, with Spurs at home. Nobody in the room owns him at £7.9m.",
-      "trigger": "Two blanks, or Forest's midfield changing shape around him under Glasner."
+      "why": "A clean sheet, bonus, and the goal VAR took off him for handball. 15 points at £5.0m.",
+      "trigger": "Two games conceding twice. Villa away next, and Villa have one shot on target this season."
     },
     {
-      "id": 173,
-      "name": "Thomas",
+      "id": 167,
+      "name": "Delap",
       "verdict": "watch",
-      "moved": "down",
-      "why": "11 points at £4.0m, but Coventry have not scored this season and Lampard's side has not kept a clean sheet in 18 matches. On Sir Fergie's bench for the Etihad.",
-      "trigger": "A clean sheet at home to Brighton in GW4, the kindest fixture on the ticker. Without it £4.0m is a bench slot."
+      "moved": "held",
+      "why": "Forest had two shots on target against Spurs and neither was his. 2 points at £5.5m.",
+      "trigger": "A start and a goal in the next two. Two starts and he replaces Igor Jesus as the Forest forward to own."
+    },
+    {
+      "id": 32,
+      "name": "Cash",
+      "verdict": "sack",
+      "moved": "held",
+      "why": "Villa kept their first clean sheet at Hull and Cash got 6 points on Le Professeur's bench. Villa have one shot on target in three games.",
+      "trigger": "Two clean sheets in three with him playing all of them. This is one of the two."
+    },
+    {
+      "id": 597,
+      "name": "Suzuki",
+      "verdict": "watch",
+      "moved": "new",
+      "why": "Saved from Cho late on for a clean sheet and 10 points at Hull. £5.0m and 1.2% own him.",
+      "trigger": "A second clean sheet at home to Forest. Villa's defence has 10 new faces around it and one result."
+    },
+    {
+      "id": 204,
+      "name": "Mitchell",
+      "verdict": "watch",
+      "moved": "new",
+      "why": "Two goals at Fulham, the second in a fall while García missed the ball. 15 points at £4.5m and 4.9% own him.",
+      "trigger": "Any return in the next two. Two goals from a left-back is one afternoon and Palace conceded twice."
+    },
+    {
+      "id": 69,
+      "name": "Scott",
+      "verdict": "solid",
+      "moved": "new",
+      "why": "24 points in three games at £6.0m, and Rose says he is proud he is a Bournemouth player. Nobody in the room owns him.",
+      "trigger": "A blank at home to Brentford. 24 points at 2.6% ownership is the room's blind spot."
+    },
+    {
+      "id": 68,
+      "name": "Tavernier",
+      "verdict": "watch",
+      "moved": "new",
+      "why": "Scored the opener at Newcastle, 21 points at £6.0m. 2.6% own him.",
+      "trigger": "Two blanks. Scott is the one who makes the chances and Tavernier is the one who finishes them."
+    },
+    {
+      "id": 268,
+      "name": "King",
+      "verdict": "watch",
+      "moved": "new",
+      "why": "A deflected goal and the dummy that made Fulham's second, in front of Tuchel. 19 points at £5.5m.",
+      "trigger": "A return at Anfield next week. Fulham have conceded seven in three, so his side will chase games."
+    },
+    {
+      "id": 249,
+      "name": "Barry",
+      "verdict": "solid",
+      "moved": "held",
+      "why": "Moyes says the squad is short and Everton have one senior striker. United at home today at £5.6m.",
+      "trigger": "Two blanks against United and Spurs."
+    },
+    {
+      "id": 236,
+      "name": "Dewsbury-Hall",
+      "verdict": "solid",
+      "moved": "held",
+      "why": "13 points at £6.5m, and Everton sold Ndiaye, Beto, Iroegbunam and Patterson in a week. The creation runs through him.",
+      "trigger": "Grealish taking the creative burden instead. One team sheet away and worth watching before it costs anything."
+    },
+    {
+      "id": 229,
+      "name": "Tarkowski",
+      "verdict": "solid",
+      "moved": "held",
+      "why": "Everton's captain on set pieces, 18 points, and United visit a ground that will spend the afternoon shouting at its own directors' box.",
+      "trigger": "Two games without a header or a clean sheet. Then this is a set-piece bet."
     }
   ],
   "signals": [
     {
-      "tag": "injury",
-      "team": "ARS",
-      "text": "Mosquera's flag arrived on Saturday morning at 75%, two days after he missed Thursday's open training. Bruno Guimarães is flagged with a knock. Timber is back in full training but bench at best. Rice trained and is expected to start.",
-      "source": "Sports Mole",
-      "action": "Konsa is the Arsenal defender to expect on Sunday in place of Mosquera. White and Calafiori keep their places. Nobody in the room needs to move a defender before this one.",
-      "url": "https://www.sportsmole.co.uk/football/arsenal/preview/arsenal-vs-chelsea-prediction-team-news-lineups_604458.html"
-    },
-    {
-      "tag": "injury",
-      "team": "CHE",
-      "text": "Caicedo lasted under 20 minutes as a substitute against Brighton and is a major doubt for the Emirates. Henderson and Palestra are out until around the Hull game. Gusto and Lavia are expected in midfield, with James possibly in for Neto.",
-      "source": "Sports Mole",
-      "action": "Chelsea go to Arsenal with two stand-ins in central midfield and 18 games without a clean sheet. Their defenders and Martinez are not clean-sheet buys this week. Palmer, Rogers and João Pedro are unaffected.",
-      "url": "https://www.sportsmole.co.uk/football/chelsea/injury-news/injuries-and-suspensions/caicedo-palestra-henderson-latest-chelsea-injury-suspension-list-vs-arsenal_604422.html"
-    },
-    {
       "tag": "shape",
       "team": "MCI",
-      "text": "Sports Mole's predicted XI for Coventry has Guéhi back at centre-back beside Dias, Gvardiol at left-back, Nunes fit to compete with Khusanov at right-back, and Anderson and Bouaddi in the pivot. Enzo Fernández is ready for a full debut. Doku remains out. Ndiaye is available but Semenyo and Foden are expected wide.",
-      "source": "Sports Mole",
-      "action": "Gvardiol and Guéhi both in the back four is the version that keeps a clean sheet against a side that has not scored. O'Reilly is out of that eleven. Ndiaye is behind two wingers, so sell him if you own him.",
-      "url": "https://www.sportsmole.co.uk/football/man-city/preview/man-city-vs-coventry-prediction-team-news-lineups_604324.html"
-    },
-    {
-      "tag": "minutes",
-      "team": "NEW",
-      "text": "Jaissle says £51m Fernandez-Pardo will be eased in as a substitute, so Elanga, Wissa and Barnes continue. Burn, Livramento, Joelinton and Osula are all out. No team has faced more shots this season than Newcastle, 44 in two games.",
-      "source": "Sports Mole",
-      "action": "Elanga and Wissa keep their shirts against Bournemouth. Newcastle's attackers are the buy in front of the kindest run after Coventry. Their defenders are not, until the shot count comes down.",
-      "url": "https://www.sportsmole.co.uk/football/newcastle-united/preview/newcastle-vs-bournemouth-prediction-team-news-lineups_604329.html"
-    },
-    {
-      "tag": "injury",
-      "team": "BHA",
-      "text": "Hinshelwood, Minteh, Mitoma, Wieffer, Tzimas and Ferguson are all out, with Rutter and Ayari only possible. Costinha may make his first start at right-back for Wieffer, and the predicted XI has De Cuyper in the attacking three again with Kadioglu at left-back.",
-      "source": "Sports Mole",
-      "action": "Two makeshift sides meet. Verbruggen's three owners start him anyway, because Leeds are improvising at centre-back too. De Cuyper is a winger this week, so do not expect defender returns from him.",
-      "url": "https://www.sportsmole.co.uk/football/brighton-and-hove-albion/preview/brighton-vs-leeds-prediction-team-news-lineups_604333.html"
-    },
-    {
-      "tag": "injury",
-      "team": "LEE",
-      "text": "Farke: Rodon has a hamstring injury and \"will be out for, at the moment, an assessment of eight to 10 weeks\". Elvedi may get his first league start beside Bijol and Muharemovic, Gruev is back in training, Gudmundsson is a doubt, and Bard and Bahoya could debut. Nmecha came on to play alongside Calvert-Lewin last week.",
-      "source": "Leeds United / Sports Mole",
-      "action": "Do not buy a Leeds defender before the international break. Calvert-Lewin stays the Leeds player to own, and he is on a bench in this room with Brighton missing six.",
-      "url": "https://www.leedsunited.com/en/news/preview-brighton-and-hove-albion-vs-leeds-united-2026"
+      "text": "O'Reilly hurt his back in the warm-up and Enzo Fernández started at number eight beside Cherki, with Semenyo and Ndiaye behind Haaland. Guéhi was at centre-back and Maresca said the space on the left was for Gvardiol. Bouaddi came on for Fernández on 76. Porto away on Tuesday, then the derby.",
+      "source": "The Guardian / BBC Sport",
+      "action": "Haaland and Gvardiol are the City picks for Old Trafford. Cherki has started twice running and Foden is the one on the bench. Read the Porto team sheet on Tuesday before trusting either wide player",
+      "url": "https://www.theguardian.com/football/2026/sep/05/manchester-city-coventry-city-premier-league-match-report"
     },
     {
       "tag": "rotation",
       "team": "HUL",
-      "text": "Butland, Zambrano, Matazo, Gyabi and Hughes are out and Crooks will be assessed. The predicted XI keeps the back three of Ajayi, Egan and Mendy, with Norton-Cuffy and Coyle competing at wing-back and Iroegbunam and Mouzakitis contenders in midfield. Villa are the only Premier League side without a shot on target this season.",
-      "source": "Sports Mole",
-      "action": "The back three that kept two clean sheets is expected to start against a side yet to hit the target. The £4.0m Hull defenders are buys, and three of the five now own one.",
-      "url": "https://www.sportsmole.co.uk/football/hull-city/preview/hull-city-vs-aston-villa-prediction-team-news-lineups_604337.html"
+      "text": "Three clean sheets from the same back three, Egan, Ajayi and Mendy, and Jakirovic says he knows the core of his team. He will use Tuesday's cup tie against Sunderland to give minutes to the arrivals who had no pre-season.",
+      "source": "BBC Sport / The Guardian",
+      "action": "Tzolakis, Egan, Ajayi and Mendy go to Stamford Bridge as they are. Tuesday's cup eleven is the fringe getting minutes and says nothing about the league side",
+      "url": "https://www.bbc.co.uk/sport/football/articles/cy8zd574yzyo"
     },
     {
-      "tag": "squad",
-      "team": "SUN",
-      "text": "Danso and Fofana are both in line for debuts at Brentford. Diarra is out for six to eight weeks with a thigh injury. Sports Mole's predicted XI has Meunier, Mukiele, Ballard and Reinildo across the back and no Hume.",
-      "source": "Sports Mole",
-      "action": "Check the Sunderland team sheet before 3pm if you start Hume, and two of the five own him. Ballard is expected to keep his place. Le Fée is expected to start.",
-      "url": "https://www.sportsmole.co.uk/football/brentford/preview/brentford-vs-sunderland-prediction-team-news-lineups_604351.html"
-    },
-    {
-      "tag": "doubt",
+      "tag": "rotation",
       "team": "MUN",
-      "player": "Shaw",
-      "text": "Substituted on 73 minutes against Ipswich with muscle tightness and faces a late fitness test on a hamstring before Everton. Sports Mole reports no major concern and expects him to start in an unchanged back four.",
-      "source": "Sports Mole",
-      "action": "Check the team sheet at Everton. Dorgu is the cover if he misses it.",
-      "url": "https://www.sportsmole.co.uk/football/man-utd/preview/everton-vs-man-utd-prediction-team-news-lineups_604449.html"
-    },
-    {
-      "tag": "news",
-      "team": "EVE",
-      "player": "Dewsbury-Hall",
-      "text": "Grealish is back at Everton on loan from City and Sports Mole says an immediate return to the first XI is not out of the question. The predicted XI has both of them behind Barry with Johnson on the right.",
-      "source": "Sports Mole",
-      "action": "Hold if you own him. The creative share is now split, so watch who takes the set pieces on Sunday.",
-      "url": "https://www.sportsmole.co.uk/football/man-utd/preview/everton-vs-man-utd-prediction-team-news-lineups_604449.html"
+      "text": "Carrick says rotation is inevitable in midfield: United have five games in 16 days from Everton away, and no spare midweek until Christmas if they progress in the cup. Baleba is flagged until 19 September in the player file.",
+      "source": "BBC Sport",
+      "action": "B.Fernandes plays every one of them. Shaw, Maguire and the cheap midfielders are the ones to check before City visit on Saturday",
+      "url": "https://www.bbc.co.uk/sport/football/articles/c4gq2v5m5gpo"
     },
     {
       "tag": "injury",
       "team": "ARS",
-      "player": "Mosquera",
-      "text": "Flagged at 75% on Saturday morning after missing Thursday's open training. Sports Mole says he has not been ruled out but expects Konsa to make his full debut in his place.",
-      "source": "Sports Mole",
-      "action": "Nobody in the room owns him now. Konsa is the one to watch on Sunday.",
-      "url": "https://www.sportsmole.co.uk/football/arsenal/predicted-lineups/will-rice-mosquera-make-it-predicted-arsenal-xi-vs-chelsea_604462.html"
+      "text": "Mosquera carries a 75% flag and Bruno Guimarães a knock at the same figure, two days after both missed open training. Timber is at 25% and Saliba has no return date. Arteta says Arsenal can play with Calafiori stepping up more from left-back.",
+      "source": "The Guardian / player file",
+      "action": "Read the 4.30 team sheet. Konsa at £4.4m if he is named, and Tzolis against Eze on the left decides Le Professeur's bench",
+      "url": "https://www.theguardian.com/football/2026/sep/05/premier-league-arsenal-transfers-reverse-bucket-list-mikel-arteta-channels-arsene-wenger-defence-window"
     },
     {
-      "tag": "doubt",
-      "team": "CHE",
-      "player": "Caicedo",
-      "text": "Came on against Brighton and was withdrawn again inside 20 minutes. Alonso called it precautionary. Sports Mole lists him as a major doubt with a possible return against Arsenal.",
-      "source": "Sports Mole",
-      "action": "Not a buy this week. The Hull game on 12 September is the first realistic start.",
-      "url": "https://www.sportsmole.co.uk/football/chelsea/injury-news/injuries-and-suspensions/caicedo-palestra-henderson-latest-chelsea-injury-suspension-list-vs-arsenal_604422.html"
+      "tag": "shape",
+      "team": "NEW",
+      "text": "Fernandez-Pardo made his debut at number ten behind Wissa, and Ramsey scored the equaliser off the bench. Newcastle conceded twice from what Jaissle called slapstick defending, with Botman the one the Guardian singled out. Millwall in the cup on Tuesday.",
+      "source": "The Guardian",
+      "action": "Hall, Barnes and Elanga are the Newcastle picks for Elland Road. The clean sheet is a bad bet while the centre-backs play like that",
+      "url": "https://www.theguardian.com/football/2026/sep/05/newcastle-bournemouth-premier-league-match-report"
+    },
+    {
+      "tag": "injury",
+      "team": "BRE",
+      "text": "Collins went off with a calf strain in the first half and is flagged at 75%. Andrews changed three at half-time, with Hickey replacing Kayode, and says the squad will keep evolving game by game.",
+      "source": "The Guardian / player file",
+      "action": "Kayode was hooked at half-time and Collins is a doubt for Bournemouth away. Ajer kept his place and is the Brentford defender to hold. Do not buy the other two this week",
+      "url": "https://www.theguardian.com/football/2026/sep/05/brentford-sunderland-premier-league-match-report"
+    },
+    {
+      "tag": "squad",
+      "team": "SUN",
+      "text": "Danso made his debut in the back line at Brentford, Ballard kept his place, and Le Fée took and scored the penalty. Isidor won it as a substitute. Arsenal at home next.",
+      "source": "The Guardian",
+      "action": "Le Fée takes Sunderland's penalties. Hume's place is the question with Danso in, and no Sunderland defender is a clean-sheet pick against Arsenal",
+      "url": "https://www.theguardian.com/football/2026/sep/05/brentford-sunderland-premier-league-match-report"
+    },
+    {
+      "tag": "shape",
+      "team": "TOT",
+      "text": "First clean sheet of the season at Forest, without a shot on target conceded, and still no league goal in three games. De Zerbi says Savio and Udogie were on 60-minute plans on medical advice and that he needs time to build the team.",
+      "source": "BBC Sport / The Guardian",
+      "action": "Kinsky and Van de Ven are buys for Everton at home. Wait for a Spurs forward to score before paying for one",
+      "url": "https://www.bbc.co.uk/sport/football/articles/c2e03wdw47jo"
+    },
+    {
+      "tag": "news",
+      "team": "MCI",
+      "player": "Haaland",
+      "text": "Third goal in three games, his 300th in club football, headed from Semenyo's cross. All five captained him and all five got 18.",
+      "source": "The Guardian",
+      "action": "the derby is the GW4 captaincy question for the whole room, and B.Fernandes is the alternative all five own",
+      "url": "https://www.theguardian.com/football/2026/sep/05/manchester-city-coventry-city-premier-league-match-report"
+    },
+    {
+      "tag": "shape",
+      "team": "MCI",
+      "player": "Gvardiol",
+      "text": "Maresca on Ndiaye: \"We need him in the last third so he can be a little bit more higher. That space was more for Josko Gvardiol.\" Clean sheet and bonus against Coventry.",
+      "source": "BBC Sport",
+      "action": "the left-back shirt is his and the manager wants him in the final third. Both his owners in the room start him",
+      "url": "https://www.bbc.co.uk/sport/football/articles/cp3kql8g1vyo"
     },
     {
       "tag": "minutes",
-      "team": "LIV",
-      "player": "Barcola",
-      "text": "Came on for Muñoz on 64 minutes at Ipswich for a 26-minute debut. Iraola: \"He hadn't played a single minute since the World Cup so we had to be careful.\"",
+      "team": "MCI",
+      "player": "Cherki",
+      "text": "Started for the second week running, as one of two number eights beside Enzo Fernández, and hit the post. Porto on Tuesday.",
       "source": "The Guardian",
-      "action": "Wait for a start. Gakpo moved to centre-forward when he came on, so the two can play together.",
+      "action": "three of the five own him and the two-starts trigger has fired. Read the Porto team sheet before the derby",
+      "url": "https://www.theguardian.com/football/2026/sep/05/manchester-city-coventry-city-premier-league-match-report"
+    },
+    {
+      "tag": "news",
+      "team": "MCI",
+      "player": "Semenyo",
+      "text": "Crossed for Haaland's winner from the right after a pass from Fernández. 6 points.",
+      "source": "The Guardian",
+      "action": "the trigger asked for a goal at home to Coventry and he produced the assist. Held at watch. A blank at Old Trafford and £8.4m is a sack",
+      "url": "https://www.theguardian.com/football/2026/sep/05/manchester-city-coventry-city-premier-league-match-report"
+    },
+    {
+      "tag": "shape",
+      "team": "MCI",
+      "player": "Guéhi",
+      "text": "Back at centre-back against Coventry, with a clean sheet and the bonus. The Guardian's report has him at centre-back and Maresca talked about the shape from him on the ball.",
+      "source": "BBC Sport",
+      "action": "the midfield experiment looks over. £6.0m for a City centre-back who starts is a buy, and nobody in the room owns him",
+      "url": "https://www.bbc.co.uk/sport/football/articles/cp3kql8g1vyo"
+    },
+    {
+      "tag": "injury",
+      "team": "MCI",
+      "player": "O'Reilly",
+      "text": "Maresca: \"Nico felt something in his back – not serious.\" Hurt in the warm-up on Saturday, and the file has him at 75%.",
+      "source": "The Guardian / player file",
+      "action": "17.8% of the game own him. Wait for the Porto team sheet before doing anything",
+      "url": "https://www.theguardian.com/football/2026/sep/05/manchester-city-coventry-city-premier-league-match-report"
+    },
+    {
+      "tag": "minutes",
+      "team": "MCI",
+      "player": "Enzo",
+      "text": "Started on debut after O'Reilly's warm-up injury, played the pass that made the goal, and came off for Bouaddi on 76. Maresca said he was on the bench only because he arrived days ago.",
+      "source": "BBC Sport / The Guardian",
+      "action": "£6.9m at 3.3%. Two more starts once O'Reilly is fit and he is the cheapest way into City's midfield",
+      "url": "https://www.bbc.co.uk/sport/football/articles/cp3kql8g1vyo"
+    },
+    {
+      "tag": "minutes",
+      "team": "MCI",
+      "player": "Ndiaye",
+      "text": "Started on debut against Coventry, attempted eight dribbles, and Maresca said he spent most of the game moving the wrong way. Both his owners in the room sold him on Monday.",
+      "source": "BBC Sport",
+      "action": "sacked as squad depth on Monday and started on Saturday. The verdict moves back to watch, and the trigger is Doku fit",
+      "url": "https://www.bbc.co.uk/sport/football/articles/cp3kql8g1vyo"
+    },
+    {
+      "tag": "rotation",
+      "team": "MCI",
+      "player": "Foden",
+      "text": "On the bench against Coventry while Ndiaye started on debut. 1 point.",
+      "source": "The Guardian",
+      "action": "£7.0m for a substitute at his own club. Wait for a derby start",
+      "url": "https://www.theguardian.com/football/2026/sep/05/manchester-city-coventry-city-premier-league-match-report"
+    },
+    {
+      "tag": "news",
+      "team": "LIV",
+      "player": "Isak",
+      "text": "Two goals by the tenth minute at Ipswich, a third disallowed for offside, and a substitution on 64 with the game won. Iraola: \"If Alex is fit and is available, he will produce the numbers.\"",
+      "source": "The Guardian / BBC Sport",
+      "action": "£9.0m and none of the five own him. Fulham at home next, with Atlético on the Wednesday, so expect his minutes to be managed and his place to be safe",
       "url": "https://www.theguardian.com/football/2026/sep/04/ipswich-liverpool-premier-league-match-report"
     },
     {
       "tag": "news",
       "team": "LIV",
-      "player": "Szoboszlai",
-      "text": "Played central midfield at Ipswich while Araujo made his debut at right-back. The BBC rated him seven and wrote that Iraola should never use him at right-back.",
+      "player": "Gakpo",
+      "text": "Two assists for Isak inside ten minutes at Ipswich and a 9 from the BBC. Van Dijk: \"Cody was outstanding.\"",
+      "source": "BBC Sport / The Guardian",
+      "action": "the Barcola trigger fired the other way. He started, the £123m man came off the bench, and 28 points at £7.1m is the best value midfielder in the game this week",
+      "url": "https://www.theguardian.com/football/2026/sep/04/ipswich-liverpool-premier-league-match-report"
+    },
+    {
+      "tag": "rotation",
+      "team": "LIV",
+      "player": "Barcola",
+      "text": "Named on the bench at Ipswich and brought on for Muñoz on 64 minutes. The BBC gave him a 5.",
       "source": "BBC Sport",
-      "action": "The right-back worry has a name now, and it is Araujo. Hold at £7.0m.",
+      "action": "the shirt is Gakpo's until a team sheet says otherwise. £8.0m for a substitute is a wait",
       "url": "https://www.bbc.co.uk/sport/football/articles/c5y5g5vq00lo"
     },
     {
       "tag": "minutes",
       "team": "LIV",
-      "player": "Isak",
-      "text": "Two goals inside nine minutes at Ipswich and a third ruled out for offside, then substituted on 64 with the game won. Iraola: \"If Alex is fit and is available, he will produce the numbers.\"",
+      "player": "Kerkez",
+      "text": "90 minutes at Ipswich in Liverpool's first clean sheet of the season. The BBC: \"Occasionally troubled by Fatawu's pace but never in huge difficulties.\"",
+      "source": "BBC Sport",
+      "action": "the trigger written on Thursday was a clean sheet at Ipswich or against Fulham, and it came. Xabi holds at £5.5m and Fulham at home is the second test",
+      "url": "https://www.bbc.co.uk/sport/football/articles/c5y5g5vq00lo"
+    },
+    {
+      "tag": "rotation",
+      "team": "LIV",
+      "player": "Szoboszlai",
+      "text": "Played in central midfield at Ipswich with Araujo at right-back. The BBC: \"Iraola should never use him at right-back.\"",
+      "source": "BBC Sport",
+      "action": "the right-back risk did not fire. Three of the five own him and all three start him",
+      "url": "https://www.bbc.co.uk/sport/football/articles/c5y5g5vq00lo"
+    },
+    {
+      "tag": "minutes",
+      "team": "LIV",
+      "player": "Araujo",
+      "text": "Premier League debut at right-back, ahead of Frimpong, with bonus points and a 7 from the BBC.",
+      "source": "BBC Sport",
+      "action": "£5.4m at 2.2%, and two more starts make him the cheapest way into a Liverpool defence that has just kept a clean sheet",
+      "url": "https://www.bbc.co.uk/sport/football/articles/c5y5g5vq00lo"
+    },
+    {
+      "tag": "minutes",
+      "team": "LIV",
+      "player": "Jacquet",
+      "text": "Started beside Van Dijk in the clean sheet at Ipswich. The BBC: \"Continues to look a very fine acquisition.\"",
+      "source": "BBC Sport",
+      "action": "The Special One bought him on the wildcard at £5.0m and Fulham at home is next. Hold",
+      "url": "https://www.bbc.co.uk/sport/football/articles/c5y5g5vq00lo"
+    },
+    {
+      "tag": "news",
+      "team": "NEW",
+      "player": "Hall",
+      "text": "Played the pass for Barnes's goal from left-back. Burn is out until mid-September.",
       "source": "The Guardian",
-      "action": "Early substitutions in won games are the price of owning him. Fulham at home is next.",
-      "url": "https://www.theguardian.com/football/2026/sep/04/ipswich-liverpool-premier-league-match-report"
+      "action": "the cheapest attacking defender at a settled club, Leeds away next, and nobody in the room owns him",
+      "url": "https://www.theguardian.com/football/2026/sep/05/newcastle-bournemouth-premier-league-match-report"
+    },
+    {
+      "tag": "news",
+      "team": "NEW",
+      "player": "Barnes",
+      "text": "Cut inside from the left and curled the goal that started the comeback from 2-0 down. 12 points at £6.0m.",
+      "source": "The Guardian",
+      "action": "1.4% own him. One goal is one goal, and Fernandez-Pardo cost £51m to play near him. Watch",
+      "url": "https://www.theguardian.com/football/2026/sep/05/newcastle-bournemouth-premier-league-match-report"
+    },
+    {
+      "tag": "minutes",
+      "team": "NEW",
+      "player": "Elanga",
+      "text": "Started on the right and his flick-on made Willock's chance from Wissa's cross. 1 point. Fernandez-Pardo made his debut at number ten.",
+      "source": "The Guardian",
+      "action": "the flank is his. Two of the five own him and both start him. Leeds away next",
+      "url": "https://www.theguardian.com/football/2026/sep/05/newcastle-bournemouth-premier-league-match-report"
+    },
+    {
+      "tag": "minutes",
+      "team": "NEW",
+      "player": "Wissa",
+      "text": "Started as the lone striker, crossed for Willock's near miss, and had Fernandez-Pardo brought on behind him. 1 point.",
+      "source": "The Guardian",
+      "action": "the shirt is his at £6.2m and Leeds away is next. Nobody in the room owns a Newcastle forward",
+      "url": "https://www.theguardian.com/football/2026/sep/05/newcastle-bournemouth-premier-league-match-report"
+    },
+    {
+      "tag": "news",
+      "team": "HUL",
+      "player": "Tzolakis",
+      "text": "Three clean sheets in three. Villa's one shot on target this season was Hemmings's in the 13th minute and he saved it. Chelsea away next.",
+      "source": "The Guardian",
+      "action": "The Special One starts him ahead of Raya. Saturday was fine. Stamford Bridge is the week to swap",
+      "url": "https://www.theguardian.com/football/2026/sep/05/hull-city-aston-villa-premier-league-match-report"
+    },
+    {
+      "tag": "rotation",
+      "team": "HUL",
+      "player": "Ajayi",
+      "text": "Egan on the back three: \"It probably started in the play-offs when we moved to that shape.\" Jakirovic will use Tuesday's cup tie to give the new arrivals minutes.",
+      "source": "BBC Sport",
+      "action": "the cheapest defender in the game with 25 points, and Mr CR7 bought him this week. Chelsea away is the fixture to think about",
+      "url": "https://www.bbc.co.uk/sport/football/articles/cy8zd574yzyo"
+    },
+    {
+      "tag": "news",
+      "team": "HUL",
+      "player": "Egan",
+      "text": "\"We've got a lot of lads who want to work together, defend for each other, and so far, so good.\" Third clean sheet at £4.0m.",
+      "source": "BBC Sport",
+      "action": "two of the five own him and both start him. Hold through Stamford Bridge",
+      "url": "https://www.bbc.co.uk/sport/football/articles/cy8zd574yzyo"
+    },
+    {
+      "tag": "news",
+      "team": "HUL",
+      "player": "Mendy",
+      "text": "The third man in the back three Egan describes, with 24 points at £4.0m. 5.7% own him and nobody in the room does.",
+      "source": "BBC Sport",
+      "action": "the same call as Egan and Ajayi at the same price. One of the three is enough per squad",
+      "url": "https://www.bbc.co.uk/sport/football/articles/cy8zd574yzyo"
+    },
+    {
+      "tag": "setpieces",
+      "team": "SUN",
+      "player": "E.Le Fée",
+      "text": "Took and scored the penalty at Brentford with eight minutes left, after missing a Panenka there in January. 8 points on Mr CR7's bench.",
+      "source": "The Guardian",
+      "action": "he takes Sunderland's penalties. Arsenal at home next, so the bench is the right place this week",
+      "url": "https://www.theguardian.com/football/2026/sep/05/brentford-sunderland-premier-league-match-report"
+    },
+    {
+      "tag": "rotation",
+      "team": "SUN",
+      "player": "Hume",
+      "text": "Danso made his Sunderland debut in defence at Brentford. Hume finished with 1 point.",
+      "source": "The Guardian",
+      "action": "the trigger was Danso or Fofana in the back four, and Danso is. Sack. Mr CR7 starts him and Xabi benches him",
+      "url": "https://www.theguardian.com/football/2026/sep/05/brentford-sunderland-premier-league-match-report"
+    },
+    {
+      "tag": "news",
+      "team": "SUN",
+      "player": "Ballard",
+      "text": "Kept his place beside the debutant Danso and had a volley ruled out for Danso's offside. 4 points.",
+      "source": "The Guardian",
+      "action": "Sir Fergie's cheap defender kept the shirt through the signing. Arsenal at home next is a bench week",
+      "url": "https://www.theguardian.com/football/2026/sep/05/brentford-sunderland-premier-league-match-report"
+    },
+    {
+      "tag": "injury",
+      "team": "BRE",
+      "player": "Collins",
+      "text": "Off with a calf strain in the first half against Sunderland. Schuster replaced him and impressed. Flagged at 75%.",
+      "source": "The Guardian / player file",
+      "action": "2.1% own him. Nobody in the room does. Wait",
+      "url": "https://www.theguardian.com/football/2026/sep/05/brentford-sunderland-premier-league-match-report"
+    },
+    {
+      "tag": "news",
+      "team": "TOT",
+      "player": "Kinsky",
+      "text": "First clean sheet of the season at Forest, without a shot on target conceded. Everton at home next.",
+      "source": "The Guardian",
+      "action": "Mr CR7 starts him and Le Professeur benches him behind Verbruggen. Everton at home is the better of the two goalkeeper fixtures in Le Professeur's squad",
+      "url": "https://www.theguardian.com/football/2026/sep/05/nottingham-forest-tottenham-premier-league-match-report"
+    },
+    {
+      "tag": "news",
+      "team": "TOT",
+      "player": "Van de Ven",
+      "text": "Clean sheet and bonus at Forest, 9 points at £5.0m. De Zerbi says his side defended very well.",
+      "source": "BBC Sport",
+      "action": "3.7% own him. The cheapest way into a Spurs defence that just kept its first clean sheet, with Everton at home next",
+      "url": "https://www.bbc.co.uk/sport/football/articles/c2e03wdw47jo"
+    },
+    {
+      "tag": "news",
+      "team": "BHA",
+      "player": "Verbruggen",
+      "text": "Conceded to Leeds' first chance, then saw Tanaka hit the bar and have a goal ruled out for inches. 3 points.",
+      "source": "The Guardian",
+      "action": "the trigger was a clean sheet against Leeds and it did not come. Coventry away next is the fixture he is bought for",
+      "url": "https://www.theguardian.com/football/2026/sep/05/brighton-leeds-premier-league-match-report"
+    },
+    {
+      "tag": "setpieces",
+      "team": "BHA",
+      "player": "De Cuyper",
+      "text": "His corner made the Vuskovic equaliser. 4 points on The Special One's bench.",
+      "source": "The Guardian",
+      "action": "he is in the advanced role at £4.7m. Hold on the bench",
+      "url": "https://www.theguardian.com/football/2026/sep/05/brighton-leeds-premier-league-match-report"
+    },
+    {
+      "tag": "news",
+      "team": "BHA",
+      "player": "Groß",
+      "text": "Put a six-yard chance over the bar against Leeds and finished with 1 point.",
+      "source": "The Guardian",
+      "action": "one blank. Both his owners in the room started him and should not panic on one week",
+      "url": "https://www.theguardian.com/football/2026/sep/05/brighton-leeds-premier-league-match-report"
     },
     {
       "tag": "news",
       "team": "LEE",
       "player": "Calvert-Lewin",
-      "text": "Nmecha came on to play alongside him against Brentford and assisted his equaliser. Leeds note he has played back-to-back full 90s and scored against Brighton, Newcastle and Palace last season, his next three opponents.",
-      "source": "Leeds United",
-      "action": "Start him. One of his five owners in the room has him on the bench at Brighton.",
-      "url": "https://www.leedsunited.com/en/news/preview-brighton-and-hove-albion-vs-leeds-united-2026"
+      "text": "Put through twice in the first half at Brighton, dragged one wide and had the other stopped on the line by Dunk. His header made the Bogle goal. 1 point.",
+      "source": "The Guardian",
+      "action": "all five own him and four started him. Newcastle at home next, and the chances are coming",
+      "url": "https://www.theguardian.com/football/2026/sep/05/brighton-leeds-premier-league-match-report"
+    },
+    {
+      "tag": "news",
+      "team": "LEE",
+      "player": "Bogle",
+      "text": "Tapped in from a yard after 15 minutes at Brighton. 14 points, and 22 for the season at £4.5m.",
+      "source": "The Guardian",
+      "action": "0.7% own him. One haul is one match. Watch for Newcastle at home",
+      "url": "https://www.theguardian.com/football/2026/sep/05/brighton-leeds-premier-league-match-report"
+    },
+    {
+      "tag": "news",
+      "team": "CRY",
+      "player": "Mitchell",
+      "text": "Two goals at Fulham, the second while falling over as García missed the ball. 15 points at £4.5m.",
+      "source": "The Guardian",
+      "action": "4.9% own him. Palace conceded twice, so this is two goals and no clean sheet. Ipswich at home next",
+      "url": "https://www.theguardian.com/football/2026/sep/05/fulham-crystal-palace-premier-league-match-report"
+    },
+    {
+      "tag": "news",
+      "team": "BOU",
+      "player": "Scott",
+      "text": "Rose: \"I love Alex. I'm so proud and happy he's a Bournemouth player.\" 24 points in three games at £6.0m.",
+      "source": "The Guardian",
+      "action": "nobody in the room owns him. Brentford at home next, and he is the £6.0m midfielder the room has missed",
+      "url": "https://www.theguardian.com/football/2026/sep/05/newcastle-bournemouth-premier-league-match-report"
+    },
+    {
+      "tag": "news",
+      "team": "AVL",
+      "player": "Cash",
+      "text": "Villa's first clean sheet, at Hull, and 6 points on Le Professeur's bench.",
+      "source": "The Guardian",
+      "action": "one clean sheet of the two his trigger asks for. Forest at home next",
+      "url": "https://www.theguardian.com/football/2026/sep/05/hull-city-aston-villa-premier-league-match-report"
+    },
+    {
+      "tag": "injury",
+      "team": "ARS",
+      "player": "Mosquera",
+      "text": "75% flag with an unspecified injury, two days after missing open training. He came off at Villa Park with Konsa replacing him.",
+      "source": "The Guardian / player file",
+      "action": "nobody in the room owns him. Check the 4.30 team sheet and expect Konsa if he is missing",
+      "url": "https://www.theguardian.com/football/2026/sep/05/premier-league-arsenal-transfers-reverse-bucket-list-mikel-arteta-channels-arsene-wenger-defence-window"
+    },
+    {
+      "tag": "rotation",
+      "team": "ARS",
+      "player": "Konsa",
+      "text": "Signed because Saliba and Timber are hurt, and the man ahead of him carries a 75% flag. Le Professeur sold him on Friday.",
+      "source": "The Guardian / player file",
+      "action": "£4.4m for a centre-back who may start against Chelsea at 4.30. Nobody in the room owns him",
+      "url": "https://www.theguardian.com/football/2026/sep/05/premier-league-arsenal-transfers-reverse-bucket-list-mikel-arteta-channels-arsene-wenger-defence-window"
+    },
+    {
+      "tag": "shape",
+      "team": "ARS",
+      "player": "Calafiori",
+      "text": "Arteta says Arsenal can play in a different way now, with Calafiori stepping up more from left-back, as part of covering for four forwards sold.",
+      "source": "The Guardian",
+      "action": "more attacking involvement for a £5.7m defender with 20 points. Four of the five own him and Mr CR7 benches him today",
+      "url": "https://www.theguardian.com/football/2026/sep/05/premier-league-arsenal-transfers-reverse-bucket-list-mikel-arteta-channels-arsene-wenger-defence-window"
+    },
+    {
+      "tag": "rotation",
+      "team": "ARS",
+      "player": "Tzolis",
+      "text": "The Guardian calls him Arsenal's most natural option on the left after four forwards left. The club also believe Eze can do the job.",
+      "source": "The Guardian",
+      "action": "Le Professeur starts him ahead of Rogers. The 4.30 team sheet says whether that was right",
+      "url": "https://www.theguardian.com/football/2026/sep/05/premier-league-arsenal-transfers-reverse-bucket-list-mikel-arteta-channels-arsene-wenger-defence-window"
+    },
+    {
+      "tag": "rotation",
+      "team": "ARS",
+      "player": "Eze",
+      "text": "\"There is the belief at Arsenal that Eze can in essence replace Martinelli on the left, albeit he is a different kind of player.\"",
+      "source": "The Guardian",
+      "action": "£6.4m at 1.4%. A start against Chelsea and the price is wrong by a long way",
+      "url": "https://www.theguardian.com/football/2026/sep/05/premier-league-arsenal-transfers-reverse-bucket-list-mikel-arteta-channels-arsene-wenger-defence-window"
+    },
+    {
+      "tag": "news",
+      "team": "ARS",
+      "player": "Raya",
+      "text": "Arsenal have won three from three this season, Community Shield included, without conceding a goal.",
+      "source": "The Guardian",
+      "action": "The Special One benched him on the wildcard behind a Hull goalkeeper who has also kept three. Arsenal go to Sunderland next while Hull go to Chelsea",
+      "url": "https://www.theguardian.com/football/2026/sep/05/premier-league-arsenal-transfers-reverse-bucket-list-mikel-arteta-channels-arsene-wenger-defence-window"
+    },
+    {
+      "tag": "injury",
+      "team": "ARS",
+      "player": "Bruno G.",
+      "text": "Flagged at 75% with a knock. Arteta brought Merino, Zubimendi, Guimarães, Eze and Konsa off the bench at Villa Park.",
+      "source": "The Guardian / player file",
+      "action": "nobody in the room owns him and nobody should buy him this week",
+      "url": "https://www.theguardian.com/football/2026/sep/05/premier-league-arsenal-transfers-reverse-bucket-list-mikel-arteta-channels-arsene-wenger-defence-window"
+    },
+    {
+      "tag": "rotation",
+      "team": "MUN",
+      "player": "Mainoo",
+      "text": "Carrick called his performance against Ipswich immense. Baleba is flagged until 19 September.",
+      "source": "BBC Sport",
+      "action": "£5.5m at 1.1% and the shirt is his while Baleba is out. Watch the derby team sheet before buying",
+      "url": "https://www.bbc.co.uk/sport/football/articles/c4gq2v5m5gpo"
+    },
+    {
+      "tag": "minutes",
+      "team": "MUN",
+      "player": "Shaw",
+      "text": "Carrick: \"We're not just putting a squad together for one game on Sunday.\" Five games in 16 days from Everton away, and Mazraoui is the back-up left-back.",
+      "source": "BBC Sport",
+      "action": "the place is safe and the minutes are not guaranteed. A cheap defender who might get rotated in the cup weeks",
+      "url": "https://www.bbc.co.uk/sport/football/articles/c4gq2v5m5gpo"
+    },
+    {
+      "tag": "squad",
+      "team": "TOT",
+      "player": "Richarlison",
+      "text": "De Zerbi: \"It was not my decision. Richarlison, he decided everything alone.\" He is out of the 25-man squad until January.",
+      "source": "BBC Sport",
+      "action": "sell or ignore. A player outside the squad list is an empty shirt at £5.9m",
+      "url": "https://www.bbc.co.uk/sport/football/articles/c79038z3q4yo"
+    },
+    {
+      "tag": "squad",
+      "team": "EVE",
+      "player": "Barry",
+      "text": "Moyes: \"We're going to need extra from them because we're short.\" Beto is sold and the Balogun deal collapsed, so he is the one senior striker. United at home at 2pm.",
+      "source": "The Guardian",
+      "action": "the trigger was a striker arriving to take his shirt and nobody did. £5.6m",
+      "url": "https://www.theguardian.com/football/2026/sep/04/david-moyes-reveals-never-spoken-everton-owner-dan-friedkin-defiant-after-transfer-blows"
+    },
+    {
+      "tag": "squad",
+      "team": "EVE",
+      "player": "Dewsbury-Hall",
+      "text": "Everton sold Ndiaye, Beto, Iroegbunam and Patterson and Moyes says the squad is short. He is the creator left standing at £6.5m.",
+      "source": "The Guardian",
+      "action": "United at home today, then Spurs away. Mr CR7 has him on his list and should keep him there",
+      "url": "https://www.theguardian.com/football/2026/sep/04/david-moyes-reveals-never-spoken-everton-owner-dan-friedkin-defiant-after-transfer-blows"
+    },
+    {
+      "tag": "rotation",
+      "team": "NFO",
+      "player": "Delap",
+      "text": "Forest had two shots on target against Spurs, Gibbs-White's and McAtee's. 2 points.",
+      "source": "The Guardian",
+      "action": "£5.5m at 0.8%. Villa away next. Two starts and a goal before he replaces Igor Jesus as the Forest forward to own",
+      "url": "https://www.theguardian.com/football/2026/sep/05/nottingham-forest-tottenham-premier-league-match-report"
     }
   ],
   "doctrine": [
@@ -921,7 +1440,7 @@
       "text": "A cheap-defender haul only tells you about one match. Before buying points that already happened, check the player is still fit and still first choice.",
       "established": "GW1",
       "grade": "observation",
-      "status": "under review"
+      "status": "retired"
     },
     {
       "id": "D6",
@@ -967,14 +1486,14 @@
     },
     {
       "id": "D12",
-      "text": "A room that agrees has no protection against being wrong together. Not one of the five captained Haaland this week. The three who did in GW1 all moved off him. He scored twice at Palace before any of their captains had kicked a ball. Check what the room has agreed on, not only what it argues about.",
+      "text": "A room that agrees has no protection against being wrong together. Not one of the five captained Haaland this week. The three who did in GW1 all moved off him. He scored twice at Palace before any of their captains had kicked a ball. Check what the room has agreed on, not only what it argues about. A week later all five captained him against Coventry. The room moves together in both directions. He scored against Coventry and all five got 18. Agreement was right this time and it gave nobody an edge.",
       "established": "GW2",
       "grade": "observation",
       "status": "standing"
     },
     {
       "id": "D13",
-      "text": "Grade a rule by what it cost. Do not grade it by how sensible it sounded. D5 declined the £4.0m Hull defenders after one haul because they were flagged and it was one match. Two weeks on Hull have six points, two clean sheets, and the two best-scoring £4.0m defenders in the game. A rule that only ever says no stops being useful.",
+      "text": "Grade a rule by what it cost. Do not grade it by how sensible it sounded. D5 declined the £4.0m Hull defenders after one haul because they were flagged and it was one match. Two weeks on Hull have six points, two clean sheets, and the two best-scoring £4.0m defenders in the game. A rule that only ever says no stops being useful. Three weeks on it is three clean sheets, and D5 is retired.",
       "established": "GW2",
       "grade": "observation",
       "status": "standing"
@@ -1002,7 +1521,14 @@
     },
     {
       "id": "D17",
-      "text": "The injury flag moves last, after the news is already out. Arsenal's centre-back missed Thursday's open training with Chelsea to come and carries no flag in the player file. The £75m midfielder beside him missed it too. A squad that is picked on Friday afternoon is reported on Thursday night and flagged on Saturday morning. Read the training ground first, then the file.",
+      "text": "The injury flag moves last, after the news is already out. Arsenal's centre-back missed Thursday's open training with Chelsea to come and carries no flag in the player file. The £75m midfielder beside him missed it too. A squad that is picked on Friday afternoon is reported on Thursday night and flagged on Saturday morning. Read the training ground first, then the file. It held on Saturday morning: the flag arrived two days after the training report, at 75%.",
+      "established": "GW3",
+      "grade": "observation",
+      "status": "standing"
+    },
+    {
+      "id": "D18",
+      "text": "A verdict of squad depth needs a team sheet. Ndiaye was sacked on Monday as fourth in the queue at City and started his first game there on Saturday. D15 said read the new shirt. The page wrote the verdict before the shirt existed.",
       "established": "GW3",
       "grade": "observation",
       "status": "new"
@@ -1010,24 +1536,24 @@
   ],
   "roast": {
     "text": "Sir Fergie played his Bench Boost in a plain single gameweek, all 15 of his players started, and it won him the week and a 29-point lead. He spent the one chip that rewards having no idea who to bench on the one week he had no idea who to bench.",
-    "by": "settles GW3",
+    "by": "settles GW2",
     "target": "Sir Fergie"
   },
   "plan": {
-    "outlook": "Saturday, one fixture into GW3. Friday night at Ipswich settled three of Thursday's triggers the right way. Kerkez kept a clean sheet, Gakpo made both goals with Barcola on the bench, and Szoboszlai played in midfield while Araujo debuted at right-back. All five captained Haaland at home to a Coventry side that has not scored. The Special One played his Wildcard from last place with 12 changes and had 16 points from Friday night alone. Sunday decides the rest: Mosquera is flagged and Konsa is expected to start at the Emirates, Chelsea arrive with two stand-ins in midfield, and Shaw has a hamstring test at Everton. The GW4 deadline is a week away, so nobody needs a transfer before the derby is read."
+    "outlook": "Sunday of GW3, with Arsenal v Chelsea and Everton v United to come. Saturday belonged to The Special One's Wildcard, which leads the room's week by some distance with three players left to play. All five captained Haaland and he scored, so the armband separated nobody. Hull kept a third clean sheet and four Hull picks across three squads paid. Today, four of the five own Calafiori, all five own João Pedro and B.Fernandes, Mr CR7 benches the Arsenal defender and Le Professeur benches Rogers. The GW4 deadline is Saturday 12 September and the fixture is the Manchester derby, so the captaincy question for the room is Haaland away or B.Fernandes at home."
   },
   "chips": {
     "rows": [
       {
         "code": "WC1",
         "name": "Wildcard",
-        "window": "The Special One played his in GW3. For the other four, GW6 to GW8 is the first honest window, once three settled line-ups exist",
+        "window": "played by The Special One in GW3, the first week after the window shut. For the other four, GW6 to 8 is the next sensible window, once real data exists",
         "expires": "GW19"
       },
       {
         "code": "FH1",
         "name": "Free Hit",
-        "window": "hold for a blank gameweek; none scheduled yet",
+        "window": "hold for a blank gameweek. None is scheduled yet",
         "expires": "GW19"
       },
       {
@@ -1043,7 +1569,7 @@
         "expires": "GW19"
       }
     ],
-    "note": "First-half chips die at the GW19 deadline (2 Jan). Three of the five have now spent one. Le Professeur's Bench Boost returned six points in GW1, Sir Fergie's returned 151 and the lead, and The Special One played his Wildcard in GW3 from last place with 12 changes. Two of the five have played nothing. The window is shut and the squads stop moving under the chip now, so the four who hold a Wildcard should read three settled line-ups before GW6."
+    "note": "First-half chips die at the GW19 deadline on 2 January. Three have been played in three weeks. Le Professeur's Bench Boost returned six points in GW1. Sir Fergie's returned the best week anyone has had, and the lead, in GW2. The Special One's Wildcard came in GW3 and is winning the week with three players to come. Xabi and Mr CR7 hold all four of theirs."
   },
   "ticker": {
     "from_gw": 4,
@@ -1974,6 +2500,18 @@
       "gw": 3,
       "date": "2026-09-05",
       "call": "Saturday, one fixture into GW3. Friday night at Ipswich settled three of Thursday's triggers the right way. Kerkez kept the clean sheet his trigger asked for, Gakpo made both goals with Barcola on the bench, and Szoboszlai played in midfield while Araujo debuted at right-back. Upgraded all three to solid and opened Isak, Jacquet and Araujo. Read the deadline. All five captained Haaland and The Special One played his Wildcard from last place with 12 changes. Mr CR7 sold Ndiaye and started Calvert-Lewin as recommended. Le Professeur sold Konsa the day before every predicted Arsenal XI named him. Downgraded Shaw on a hamstring fitness test, Hume on a predicted Sunderland XI without him, and Dewsbury-Hall on Grealish's return. Downgraded Mosquera again as the flag arrived on Saturday morning, two days after the training report, which is D17 holding once. Rewrote the Team radar for the Saturday and Sunday team sheets. No transfer recommended. The GW4 deadline is a week away and Sunday's derby decides four Arsenal and Chelsea calls.",
+      "verdict": "open"
+    },
+    {
+      "gw": 3,
+      "date": "2026-09-05",
+      "call": "Saturday of GW3, one match in. Friday night settled three Liverpool triggers the right way. Gakpo started and made both goals while Barcola came off the bench, so Gakpo goes up to solid. Kerkez kept the clean sheet his trigger asked for and goes up. Szoboszlai played in midfield with Araujo on debut at right-back and goes up. Opened Isak, Jacquet, Araujo, Wirtz, Frimpong, Diop, Dedić, Egan, Raya, Mainoo and Delap. Downgraded Mosquera again once the 75% flag arrived, two days after the training report, which is D17 holding. Noted that all five captained Haaland a week after none did, and added it to D12. Read the Newcastle team sheet: Hornicek in goal, Hall and Elanga starting, Fernandez-Pardo on the bench. Recorded The Special One's Wildcard at 16 points after one match, with Raya on the bench behind Tzolakis, and Le Professeur selling Konsa the day before Mosquera was flagged. Set the GW4 question for the whole room as the derby captaincy. No roast: the gameweek is live.",
+      "verdict": "open"
+    },
+    {
+      "gw": 3,
+      "date": "2026-09-06",
+      "call": "Sunday of GW3, seven fixtures played. Saturday settled a dozen triggers. Cherki went up to solid on a second start, Guéhi on a return to centre-back, Kinsky on Spurs' first clean sheet, and E.Le Fée on the penalty at Brentford. Hume went to sack once Danso made his debut. Ndiaye came back from sack to watch after starting at the Etihad five days after both owners sold him, and D18 records the miss. Semenyo's trigger asked for a goal and he produced the assist, so he holds at watch. Verbruggen's clean-sheet trigger did not fire. Opened O'Reilly on the warm-up injury, Enzo Fernández and Foden on the City team sheet, Mendy, Ballard, Van de Ven, N.Williams, Suzuki, Mitchell, Scott, Tavernier, King, Bogle and Barnes. Retired D5 on Hull's third clean sheet. Rewrote the Team radar for Porto, the cup ties and the derby week. No transfer recommended before Sunday's two games.",
       "verdict": "open"
     }
   ]
