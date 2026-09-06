@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-05T05:37:15.044Z",
+  "generated_at": "2026-09-06T04:30:22.790Z",
   "digests": [
     {
       "date": "2026-07-25",
@@ -8277,6 +8277,167 @@
           "club": "AFC Bournemouth",
           "crest": "https://a.espncdn.com/i/teamlogos/soccer/500/349.png",
           "note": "Bournemouth conceded a 92nd-minute winner to City and a 91st-minute equaliser to Everton. That's 3 points given away after the 90th minute. Newcastle away at 17:00 is the next test of seeing a game out."
+        }
+      ]
+    },
+    {
+      "date": "2026-09-06",
+      "headline": "Arsenal v Chelsea at 9pm, and Hull sit second above both of them",
+      "week": [
+        {
+          "tag": "Football",
+          "club": "Manchester City",
+          "kicker": "Haaland's 300th, from Fernández's pass.",
+          "text": "Nico O'Reilly hurt his back in the warm-up, so Enzo Fernández started against Coventry days after signing and played the pass behind the defence for Semenyo's cross. Haaland headed it in for his 300th club goal, City won 1-0, and Donnarumma needed two late saves to keep it that way."
+        },
+        {
+          "tag": "Football",
+          "club": "Nottingham Forest",
+          "kicker": "VAR rubbed out Forest's winner.",
+          "text": "Neco Williams headed in on the goalline against Spurs and VAR ruled he'd handled it. Glasner watched five or six angles and says the officials were guessing on a call that was meant to need a high bar. Spurs went the whole game without a shot on target and have no league goal in three, their worst start since 1974-75."
+        },
+        {
+          "tag": "FPL",
+          "club": "Fulham",
+          "kicker": "Fulham have conceded 7 in three.",
+          "text": "Palace came from behind twice at Craven Cottage and won 3-2, Tyrick Mitchell scoring both equalisers and Chilwell the winner off the bench. Fulham had 25 shots and 65% of the ball and lost anyway. Leave their defenders alone. Mitchell is the Palace defender to look at."
+        },
+        {
+          "tag": "Football",
+          "club": "AFC Bournemouth",
+          "kicker": "Bournemouth lost another lead.",
+          "text": "Two up at Newcastle after 35 minutes with 17 shots on target to two, and it finished 2-2 when Jacob Ramsey scored in the 88th. Rose has seen his side give up a lead in every league game so far. Alex Scott made both goals and Rose says he loves him."
+        }
+      ],
+      "table": {
+        "competition": "Premier League",
+        "rows": [
+          {
+            "pos": 1,
+            "team": "Manchester City",
+            "crest": "https://a.espncdn.com/i/teamlogos/soccer/500/382.png",
+            "played": 3,
+            "points": 9,
+            "focus": true
+          },
+          {
+            "pos": 2,
+            "team": "Hull City",
+            "crest": "https://a.espncdn.com/i/teamlogos/soccer/500/306.png",
+            "played": 3,
+            "points": 7
+          },
+          {
+            "pos": 3,
+            "team": "Arsenal",
+            "crest": "https://a.espncdn.com/i/teamlogos/soccer/500/359.png",
+            "played": 2,
+            "points": 6,
+            "focus": true
+          },
+          {
+            "pos": 4,
+            "team": "Chelsea",
+            "crest": "https://a.espncdn.com/i/teamlogos/soccer/500/363.png",
+            "played": 2,
+            "points": 6,
+            "focus": true
+          },
+          {
+            "pos": 5,
+            "team": "Brentford",
+            "crest": "https://a.espncdn.com/i/teamlogos/soccer/500/337.png",
+            "played": 3,
+            "points": 5
+          },
+          {
+            "pos": 6,
+            "team": "Liverpool",
+            "crest": "https://a.espncdn.com/i/teamlogos/soccer/500/364.png",
+            "played": 3,
+            "points": 5,
+            "focus": true
+          },
+          {
+            "pos": 12,
+            "team": "Manchester United",
+            "crest": "https://a.espncdn.com/i/teamlogos/soccer/500/360.png",
+            "played": 2,
+            "points": 3,
+            "focus": true
+          }
+        ]
+      },
+      "wider": [
+        {
+          "title": "'That's a sackable performance' - what next for Martin at Leicester?",
+          "url": "https://www.bbc.co.uk/sport/football/articles/clyqvjjq923o",
+          "hook": "Leicester lost 4-0 at home to Oxford, their heaviest defeat in the third tier in 142 years, with five starters under 23. Russell Martin has one win from five league games and a club that is up for sale. Matt Piper's line on BBC Radio Leicester: \"I don't think the manager should get sacked tonight, but that is a sackable performance.\"",
+          "source": "BBC Football",
+          "image": "https://ichef.bbci.co.uk/ace/branded_sport/1200/cpsprodpb/b357/live/1b21c120-a954-11f1-adf0-6d46cbf5ba37.jpg"
+        },
+        {
+          "title": "European football: Martínez seals thrilling comeback for unbeaten Inter",
+          "url": "https://www.theguardian.com/football/2026/sep/05/european-football-ethan-nwaneri-dortmund-hoffenheim-athletic-bilbao-atletico-madrid-inter-napoli",
+          "hook": "Inter were 2-0 down to Napoli after 53 minutes and won 3-2 with Lautaro Martínez in the 91st. Bayern drew 0-0 at Schalke with Kane on the bench, and Ethan Nwaneri's deflected shot won it for Dortmund on his loan debut.",
+          "source": "The Guardian Football",
+          "image": "https://i.guim.co.uk/img/media/d0234d6a5f61a727130af6c5f356be08c2053ea2/74_0_2561_2049/master/2561.jpg?width=1200&height=630&quality=85&auto=format&fit=crop&precrop=40:21,offset-x50,offset-y0&overlay-align=bottom%2Cleft&overlay-width=100p&overlay-base64=L2ltZy9zdGF0aWMvb3ZlcmxheXMvdGctZGVmYXVsdC5wbmc&enable=upscale&s=6f33bba2a9259eee0573085c7f832714"
+        }
+      ],
+      "read": {
+        "title": "Arteta v Alonso, part one: a desire for control and the theory behind the chaos",
+        "url": "https://www.theguardian.com/football/2026/sep/05/mikel-arteta-xabi-alonso-chelsea-arsenal",
+        "hook": "Alonso's Leverkusen won the league with 62% of the ball. Chelsea beat Fulham with 38% and Brighton with 26%. Jonathan Wilson on why the chaos is probably expediency, and why tonight may turn into a midfield slog decided by the two front lines.",
+        "source": "The Guardian Football",
+        "image": "https://i.guim.co.uk/img/media/f07ed745601dddcee2e7150b33e2b0f95d70996e/0_0_5000_4000/master/5000.jpg?width=1200&height=630&quality=85&auto=format&fit=crop&precrop=40:21,offset-x50,offset-y0&overlay-align=bottom%2Cleft&overlay-width=100p&overlay-base64=L2ltZy9zdGF0aWMvb3ZlcmxheXMvdGctb3BpbmlvbnMucG5n&enable=upscale&s=101010abf0c3bcfcfa5826acb06d964a"
+      },
+      "top_teams": [
+        {
+          "club": "Chelsea",
+          "crest": "https://a.espncdn.com/i/teamlogos/soccer/500/363.png",
+          "line": "#4 · 6 pts · PL",
+          "note": "Arsenal away at 9pm. Caicedo has a knee problem and Alonso hasn't yet started Valentín Barco, so the midfield in front of the back three is thin. The cup competitions' match feeds returned no data in today's bundle, so there is nothing here on Wednesday's Leeds tie beyond the fixture."
+        },
+        {
+          "club": "Arsenal",
+          "crest": "https://a.espncdn.com/i/teamlogos/soccer/500/359.png",
+          "line": "#3 · 6 pts · PL",
+          "note": "Chelsea at home at 9pm, and Arsenal haven't conceded this season, the Community Shield included. Arteta says the squad is better equipped than in May and told fans to remember the reverse bucket list, the things they already have."
+        },
+        {
+          "club": "Manchester City",
+          "crest": "https://a.espncdn.com/i/teamlogos/soccer/500/382.png",
+          "line": "#1 · 9 pts · PL",
+          "note": "Elliot Anderson completed 143 of 155 passes against Coventry, four more than the whole Coventry team managed, and was man of the match. Porto away in the Champions League on Tuesday night."
+        },
+        {
+          "club": "Manchester United",
+          "crest": "https://a.espncdn.com/i/teamlogos/soccer/500/360.png",
+          "line": "#12 · 3 pts · PL",
+          "note": "Everton away at 6.30pm. United spent £148m this summer, less than promoted Ipswich, and Carrick says the group is stronger than the one that finished third in May and can compete for trophies."
+        },
+        {
+          "club": "Liverpool",
+          "crest": "https://a.espncdn.com/i/teamlogos/soccer/500/364.png",
+          "line": "#6 · 5 pts · PL",
+          "note": "Atlético Madrid at Anfield on Tuesday night in the Champions League. Football Insider says Liverpool will go back in for Palace's Ismaïla Sarr in January after failing to get him on deadline day."
+        }
+      ],
+      "elsewhere": [
+        {
+          "club": "Hull City",
+          "crest": "https://a.espncdn.com/i/teamlogos/soccer/500/306.png",
+          "note": "Three clean sheets in three after promotion. Only Charlton in 1998-99 and Huddersfield in 2017-18 had done that, and Hull did it with 29% possession, the lowest in the league. Jakirovic's target is 38 to 40 points and he signed a two-year extension on Friday."
+        },
+        {
+          "club": "Coventry City",
+          "crest": "https://a.espncdn.com/i/teamlogos/soccer/500/388.png",
+          "note": "Coventry's last top-flight goal was Mustapha Hadji's at Villa Park on 5 May 2001. Three games back in the league, three defeats, no goal, and Lampard says they didn't deserve to lose at City."
+        },
+        {
+          "club": "Leeds United",
+          "crest": "https://a.espncdn.com/i/teamlogos/soccer/500/357.png",
+          "note": "Leeds led at Brighton through Bogle, their first goal there in nine visits going back to 2012, and had 2.5 xG to Brighton's 0.1 after an hour. Then Brighton had 17 shots after half-time and it ended 1-1. Leeds are unbeaten after three."
         }
       ]
     }
