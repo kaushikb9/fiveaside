@@ -1,34 +1,34 @@
 {
-  "generated_at": "2026-09-05T15:08:24.573Z",
-  "date": "2026-09-05",
+  "generated_at": "2026-09-06T04:24:33.754Z",
+  "date": "2026-09-06",
   "timezone": "Asia/Kolkata",
   "competition": "English Premier League",
   "rows": [
     {
       "pos": 1,
       "team": "Manchester City",
-      "played": 2,
-      "points": 6,
-      "gd": 4,
+      "played": 3,
+      "points": 9,
+      "gd": 5,
       "crest": "https://a.espncdn.com/i/teamlogos/soccer/500/382.png",
-      "form": "WW"
+      "form": "WWW"
     },
     {
       "pos": 2,
+      "team": "Hull City",
+      "played": 3,
+      "points": 7,
+      "gd": 3,
+      "crest": "https://a.espncdn.com/i/teamlogos/soccer/500/306.png",
+      "form": "WWD"
+    },
+    {
+      "pos": 3,
       "team": "Arsenal",
       "played": 2,
       "points": 6,
       "gd": 4,
       "crest": "https://a.espncdn.com/i/teamlogos/soccer/500/359.png",
-      "form": "WW"
-    },
-    {
-      "pos": 3,
-      "team": "Hull City",
-      "played": 2,
-      "points": 6,
-      "gd": 3,
-      "crest": "https://a.espncdn.com/i/teamlogos/soccer/500/306.png",
       "form": "WW"
     },
     {
@@ -42,6 +42,15 @@
     },
     {
       "pos": 5,
+      "team": "Brentford",
+      "played": 3,
+      "points": 5,
+      "gd": 3,
+      "crest": "https://a.espncdn.com/i/teamlogos/soccer/500/337.png",
+      "form": "WDD"
+    },
+    {
+      "pos": 6,
       "team": "Liverpool",
       "played": 3,
       "points": 5,
@@ -50,7 +59,7 @@
       "form": "DDW"
     },
     {
-      "pos": 6,
+      "pos": 7,
       "team": "Newcastle United",
       "played": 3,
       "points": 5,
@@ -59,16 +68,25 @@
       "form": "DWD"
     },
     {
-      "pos": 7,
-      "team": "Brentford",
-      "played": 2,
-      "points": 4,
-      "gd": 3,
-      "crest": "https://a.espncdn.com/i/teamlogos/soccer/500/337.png",
-      "form": "WD"
+      "pos": 8,
+      "team": "Leeds United",
+      "played": 3,
+      "points": 5,
+      "gd": 1,
+      "crest": "https://a.espncdn.com/i/teamlogos/soccer/500/357.png",
+      "form": "WDD"
     },
     {
-      "pos": 8,
+      "pos": 9,
+      "team": "Brighton & Hove Albion",
+      "played": 3,
+      "points": 4,
+      "gd": 3,
+      "crest": "https://a.espncdn.com/i/teamlogos/soccer/500/331.png",
+      "form": "WLD"
+    },
+    {
+      "pos": 10,
       "team": "Everton",
       "played": 2,
       "points": 4,
@@ -77,25 +95,16 @@
       "form": "WD"
     },
     {
-      "pos": 9,
-      "team": "Leeds United",
-      "played": 2,
-      "points": 4,
-      "gd": 1,
-      "crest": "https://a.espncdn.com/i/teamlogos/soccer/500/357.png",
-      "form": "WD"
-    },
-    {
-      "pos": 10,
-      "team": "Brighton & Hove Albion",
-      "played": 2,
-      "points": 3,
-      "gd": 3,
-      "crest": "https://a.espncdn.com/i/teamlogos/soccer/500/331.png",
-      "form": "WL"
-    },
-    {
       "pos": 11,
+      "team": "Sunderland",
+      "played": 3,
+      "points": 4,
+      "gd": 0,
+      "crest": "https://a.espncdn.com/i/teamlogos/soccer/500/366.png",
+      "form": "LWD"
+    },
+    {
+      "pos": 12,
       "team": "Manchester United",
       "played": 2,
       "points": 3,
@@ -104,16 +113,16 @@
       "form": "LW"
     },
     {
-      "pos": 12,
-      "team": "Sunderland",
-      "played": 2,
+      "pos": 13,
+      "team": "Crystal Palace",
+      "played": 3,
       "points": 3,
-      "gd": 0,
-      "crest": "https://a.espncdn.com/i/teamlogos/soccer/500/366.png",
-      "form": "LW"
+      "gd": -4,
+      "crest": "https://a.espncdn.com/i/teamlogos/soccer/500/384.png",
+      "form": "LLW"
     },
     {
-      "pos": 13,
+      "pos": 14,
       "team": "Ipswich Town",
       "played": 3,
       "points": 3,
@@ -122,7 +131,7 @@
       "form": "WLL"
     },
     {
-      "pos": 14,
+      "pos": 15,
       "team": "AFC Bournemouth",
       "played": 3,
       "points": 2,
@@ -131,58 +140,49 @@
       "form": "LDD"
     },
     {
-      "pos": 15,
+      "pos": 16,
       "team": "Nottingham Forest",
-      "played": 2,
-      "points": 1,
+      "played": 3,
+      "points": 2,
       "gd": -1,
       "crest": "https://a.espncdn.com/i/teamlogos/soccer/500/393.png",
-      "form": "LD"
-    },
-    {
-      "pos": 16,
-      "team": "Fulham",
-      "played": 2,
-      "points": 0,
-      "gd": -2,
-      "crest": "https://a.espncdn.com/i/teamlogos/soccer/500/370.png",
-      "form": "LL"
+      "form": "LDD"
     },
     {
       "pos": 17,
-      "team": "Coventry City",
-      "played": 2,
-      "points": 0,
-      "gd": -4,
-      "crest": "https://a.espncdn.com/i/teamlogos/soccer/500/388.png",
-      "form": "LL"
+      "team": "Aston Villa",
+      "played": 3,
+      "points": 1,
+      "gd": -5,
+      "crest": "https://a.espncdn.com/i/teamlogos/soccer/500/362.png",
+      "form": "LLD"
     },
     {
       "pos": 18,
-      "team": "Crystal Palace",
-      "played": 2,
-      "points": 0,
+      "team": "Tottenham Hotspur",
+      "played": 3,
+      "points": 1,
       "gd": -5,
-      "crest": "https://a.espncdn.com/i/teamlogos/soccer/500/384.png",
-      "form": "LL"
+      "crest": "https://a.espncdn.com/i/teamlogos/soccer/500/367.png",
+      "form": "LLD"
     },
     {
       "pos": 19,
-      "team": "Aston Villa",
-      "played": 2,
+      "team": "Fulham",
+      "played": 3,
       "points": 0,
-      "gd": -5,
-      "crest": "https://a.espncdn.com/i/teamlogos/soccer/500/362.png",
-      "form": "LL"
+      "gd": -3,
+      "crest": "https://a.espncdn.com/i/teamlogos/soccer/500/370.png",
+      "form": "LLL"
     },
     {
       "pos": 20,
-      "team": "Tottenham Hotspur",
-      "played": 2,
+      "team": "Coventry City",
+      "played": 3,
       "points": 0,
       "gd": -5,
-      "crest": "https://a.espncdn.com/i/teamlogos/soccer/500/367.png",
-      "form": "LL"
+      "crest": "https://a.espncdn.com/i/teamlogos/soccer/500/388.png",
+      "form": "LLL"
     }
   ]
 }
