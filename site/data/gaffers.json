@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-06T04:31:00.934Z",
+  "generated_at": "2026-09-06T11:01:00.657Z",
   "gameweek": 4,
   "deadline_utc": "2026-09-12T12:30:00Z",
   "deadline_local": "Sat 12 Sep, 18:00",
@@ -16,7 +16,7 @@
       "entered": true,
       "total_points": 187,
       "gw_points": 31,
-      "overall_rank": 2172550,
+      "overall_rank": 2172549,
       "bank": 0.7,
       "value": 100.4,
       "transfers_made": 2,
@@ -483,7 +483,7 @@
       "entered": true,
       "total_points": 208,
       "gw_points": 43,
-      "overall_rank": 640801,
+      "overall_rank": 640802,
       "bank": 0,
       "value": 100.6,
       "transfers_made": 2,
@@ -714,7 +714,7 @@
       "entered": true,
       "total_points": 167,
       "gw_points": 58,
-      "overall_rank": 4537596,
+      "overall_rank": 4537590,
       "bank": 0,
       "value": 100.4,
       "transfers_made": 0,
@@ -950,7 +950,7 @@
       "entered": true,
       "total_points": 203,
       "gw_points": 32,
-      "overall_rank": 891710,
+      "overall_rank": 891711,
       "bank": 0.4,
       "value": 100.3,
       "transfers_made": 2,
@@ -1204,6 +1204,15 @@
       },
       {
         "rank": 3,
+        "name": "Vabby_Blues",
+        "entry": 5255110,
+        "total": 208,
+        "event_total": 53,
+        "is_owner": false,
+        "is_gaffer": false
+      },
+      {
+        "rank": 3,
         "name": "Yogesh11",
         "entry": 522356,
         "total": 208,
@@ -1211,15 +1220,6 @@
         "is_owner": false,
         "nick": "Mr CR7",
         "is_gaffer": true
-      },
-      {
-        "rank": 3,
-        "name": "Vabby_Blues",
-        "entry": 5255110,
-        "total": 208,
-        "event_total": 53,
-        "is_owner": false,
-        "is_gaffer": false
       },
       {
         "rank": 5,
