@@ -26,11 +26,19 @@ FACTS="$(cat brain/scratch/facts-fpl.json)"
 # A dead feed lands in the bundle's `errors`; the run goes on without it.
 NEWS="$(node brain/news.mjs 2>/dev/null || echo '{"feeds":[],"errors":[{"error":"news.mjs failed"}]}')"
 
+# Ted's phase, from the clock split-facts just wrote into gaffers.json. The
+# brain is told; brain/ted.mjs settle enforces it afterwards, because "do not
+# touch this section" is an instruction and the settle is a diff.
+TED_PHASE="$(node brain/ted.mjs phase)"
+cp site/data/fpl.json brain/scratch/fpl-before.json
+
 caffeinate -i claude -p "$(cat brain/fpl-prompt.md)
 
 ---
 
 FPL MODE: today is $TODAY. Update site/data/fpl.json per the file contract.
+
+TED PHASE: $TED_PHASE
 
 OWNER CONFIG:
 $CONFIG
@@ -66,6 +74,12 @@ node -e '
 # generated_at, so auto.sh would conclude today is done and never retry.
 node brain/validate-players.mjs site/data/players.json \
   || { echo "players.json failed validation — NOT committing"; git checkout -- site/data/players.json; exit 1; }
+
+# Ted's section is settled against the phase: out-of-phase writes are put
+# back to what they were, and a draft gets its in/out list against the run
+# before. Before the copy editor, so it never polishes a paragraph that is
+# about to be discarded.
+node brain/ted.mjs settle brain/scratch/fpl-before.json site/data/fpl.json
 
 # The copy editor: a small model rewrites only the sentences that fail
 # brain/lint-prose.mjs, keeping every fact. The validator below is the referee.

@@ -198,7 +198,12 @@ export function fplProseFields(data) {
     add(`signals[${i}].action`, s, "action");
   }
   for (const [i, d] of (data.doctrine ?? []).entries()) add(`doctrine[${i}] (${d?.id ?? "?"}).text`, d, "text");
-  if (data.roast) add("roast.text", data.roast, "text");
+  if (data.ted) {
+    for (const [i, w] of (data.ted.why ?? []).entries()) add(`ted.why[${i}] (${w?.name ?? "?"}).text`, w, "text");
+    add("ted.left_out.text", data.ted.left_out, "text");
+    add("ted.rebuild", data.ted, "rebuild");
+    for (const [i, s] of (data.ted.watchlist ?? []).entries()) add(`ted.watchlist[${i}].note`, s, "note");
+  }
   if (data.plan) add("plan.outlook", data.plan, "outlook");
   if (data.chips) add("chips.note", data.chips, "note");
   // log is append-and-settle: a settled entry is frozen, so only open ones are Ted's to fix.

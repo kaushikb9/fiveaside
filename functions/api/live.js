@@ -5,8 +5,12 @@
 // read-only, whitelisted proxy that also does the joining server-side, so the
 // page makes ONE request instead of fifteen.
 //
-// GET /api/live?gw=2[&entry=7149204][&league=391164]
-//   -> { gw, status, updated, fixtures[], squad[], totals, league[] }
+// GET /api/live?gw=2[&entry=7149204][&league=391164][&elements=1,2,3]
+//   -> { gw, status, updated, fixtures[], squad[], totals, league[], elements{} }
+//
+// `elements` is for a squad that has no FPL entry — Ted's fifteen, which
+// exist only in fpl.json — and returns the same per-player figures keyed by
+// element id. Fifteen ids at most; it is a squad, not a scraper.
 //
 // Everything degrades: a dead sub-fetch drops its section, never the response.
 
@@ -35,6 +39,8 @@ export async function onRequestGet({ request }) {
   const gw = int(url.searchParams.get("gw"), 38);
   const entryId = int(url.searchParams.get("entry"), 99999999);
   const leagueId = int(url.searchParams.get("league"), 99999999);
+  const elementIds = (url.searchParams.get("elements") || "")
+    .split(",").map((v) => int(v, 9999)).filter(Boolean).slice(0, 15);
   if (!gw) return new Response("bad request: gw must be 1-38", { status: 400 });
 
   let bootstrap;
@@ -122,6 +128,27 @@ export async function onRequestGet({ request }) {
       body.totals = { starters, bench, hits, net: starters - hits };
     } catch {
       /* no picks for this gameweek yet — the page simply shows no squad */
+    }
+  }
+
+  if (elementIds.length) {
+    body.elements = {};
+    for (const id of elementIds) {
+      const el = elements[id];
+      if (!el) continue;
+      const st = stats[id] || {};
+      const bonus = provisional[id] || 0;
+      body.elements[id] = {
+        name: el.web_name,
+        team: teams[el.team],
+        pos: POS[el.element_type],
+        minutes: st.minutes || 0,
+        points: (st.total_points || 0) + bonus,
+        provisional_bonus: bonus,
+        goals: st.goals_scored || 0,
+        assists: st.assists || 0,
+        played: Boolean(st.minutes),
+      };
     }
   }
 

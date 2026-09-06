@@ -181,8 +181,9 @@ if [ "$GATED" = "true" ]; then
 else
 
 echo "== gaffers: chips, gameweek, star"
-check "five gaffer chips" "5" "$(js 'document.querySelectorAll("#gbar .gchip").length')"
-check "every chip carries a face" "5" "$(js 'document.querySelectorAll("#gbar .gchip .face").length')"
+check "five gaffer chips and Ted" "6" "$(js 'document.querySelectorAll("#gbar .gchip").length')"
+check "every chip carries a face" "6" "$(js 'document.querySelectorAll("#gbar .gchip .face").length')"
+check "Ted is the ghost chip" "true" "$(js 'const t=document.querySelector("#gbar .gchip[data-nick=Ted]"); !!t && t.classList.contains("ghost") && !/pts/.test(t.textContent)')"
 # The nick is quoted because it has a space in it, and it is the CURRENT nick:
 # this branch never ran until the door worked, so it still named Arsene, who was
 # renamed to Le Professeur on 2026-08-24 and frozen.

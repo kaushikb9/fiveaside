@@ -37,6 +37,10 @@ delegated listener in `site/common.js`. Keep it that way.
   hardcode a club, competition or timezone.
 - `brain/` — two editors, same discipline. `curate.sh` + `prompt.md` write
   `digests.json`; `curate-fpl.sh` + `fpl-prompt.md` write `fpl.json`.
+  `ted.mjs` is the ghost manager's clock and freeze: `phase` says which of
+  live / rebuilding / draft / frozen the week is in, `settle` runs after the
+  brain and puts `fpl.json.ted` back to what it was whenever the phase does
+  not allow a rewrite (see "Ted's fifteen" below).
   `split-league.mjs` sits between the facts CLI and the digest prompt and
   writes `site/data/table.json` — the full standings with real form —
   straight to disk; the brain never sees the table as its job.
@@ -147,7 +151,8 @@ node brain/test/stars.mjs        # /api/stars auth — stubbed KV, no wrangler
 node brain/test/matches.mjs      # /api/matches — stubbed ESPN, real captured payload
 node brain/test/split-facts.mjs  # the deadline-lock fallback
 node brain/test/ratelimit.mjs    # the caps, and that no key holds an address
-brain/test/smoke.sh https://fiveaside.pages.dev/   # 87 signed in, 77 signed out
+node brain/test/ted.mjs          # Ted's clock, the freeze, the squad law
+brain/test/smoke.sh https://fiveaside.pages.dev/   # 88 signed in, 77 signed out
 cd site && python3 -m http.server # local preview — /api/* 404s and the page
                                   # degrades honestly, which is worth seeing
 ```
@@ -230,6 +235,25 @@ added; `-i` alone is not enough, it only blocks idle sleep. `auto.sh` does it.
   every number. Keep the lint high-precision — one false positive blocks the
   day's page until the next hourly retry — and add a new tic there first, in
   the prompt second.
+- **Ted's fifteen, and the roast that it replaced (2026-09-06).** Ted is the
+  sixth chip in the gaffers room: a fresh fifteen every gameweek, picked from
+  scratch under the five's rules, never entered, never in the league, no
+  season total. `fpl.json.ted` holds ids only (`picks`, `why`, `left_out`,
+  `watchlist`, `rebuild`); price, club, position, fixtures and owners are
+  joined from `players.json` when the page draws, and the validator checks
+  the squad law against that file. His week has four states, read from two
+  instants `split-facts.mjs` derives from the deadline and
+  `fiveaside.config.json` → `fpl.ted` (draft opens 96h before, freezes 3h
+  before): **live** shows scores via `/api/live?elements=`, **rebuilding**
+  keeps last week's team up with a note and no lineup for next week,
+  **draft** lets every daily brain run change the fifteen and shows what
+  moved since the first draft, **frozen** locks it. `tedPhase()` exists
+  twice on purpose — `brain/ted.mjs` and `site/gaffers/app.js` — change
+  both; `brain/test/ted.mjs` pins the node one. "Why they're here" only
+  covers the men most of the five are NOT holding; that panel took the
+  roast's slot, and the roast is retired and rejected by the validator —
+  KB: "it's not working out". Mockup that set all of this:
+  `docs/superpowers/mockups/2026-09-06-ted-ghost.html`.
 - **Person and voice, settled 2026-08-28.** "We" and "our" mean THE FIVE,
   never the brain and never the page — the audit that set this found "we"
   meaning two different groups in adjacent nav items ("the gaffers, what we

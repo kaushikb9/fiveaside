@@ -118,7 +118,8 @@ replaced wholesale each run, except `log`, which is append-and-settle.
   long-game guard, chips ordered by current rank, the league table, **the
   pitch** (club kits, captain armband, gameweek navigation back to settled
   weeks and forward to fixtures), the weekly read, per-person watchlists with
-  KV-backed stars, the roast slot, the chip clock, and
+  KV-backed stars, **Ted's fifteen** (the ghost manager's own squad, in four
+  states, where the roast used to be — retired 2026-09-06), the chip clock, and
   **live scores on demand**.
 - **the locker room** — fixture runs, then **the file** (gated at >2%
   ownership, never dropping anyone the five own, with the injury room folded

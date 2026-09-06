@@ -79,6 +79,11 @@ for (const dead of [
     fail(`'${dead}' was removed from the schema on 2026-08-23 — the renderer does not read it`);
   }
 }
+// The roast was retired on 2026-09-06 — KB's call: "it's not working out".
+// Its slot in the room went to Ted's own fifteen (see `ted` below).
+if (data.roast !== undefined) {
+  fail("'roast' was retired on 2026-09-06 — the renderer does not read it; Ted's fifteen took the slot");
+}
 
 if (data.generated_at !== undefined && !isStr(data.generated_at)) {
   fail("'generated_at' must be a non-empty ISO string when present");
@@ -122,8 +127,8 @@ if (data.people !== undefined) {
         fail(`${where}.week.next is retired — decisions belong in 'big'`);
     }
 
-    // The Big Decision. One or two calls, and short, for the same reason the
-    // roast is capped: a decision that needs a paragraph has not been made.
+    // The Big Decision. One or two calls, and short: a decision that needs a
+    // paragraph has not been made.
     // The page only shows these in the last day before the deadline.
     if (p.big !== undefined) {
       if (!Array.isArray(p.big)) fail(`${where}.big must be an array`);
@@ -270,26 +275,126 @@ if (data.doctrine !== undefined) {
   }
 }
 
-const ROAST_MAX = 300;
+// ---------------------------------------------------------------- ted
+// The ghost manager. A fresh fifteen every gameweek, picked from scratch —
+// no transfers, no chips, never in the league. Ids only: price, position,
+// club and fixtures are joined from players.json at render time, so a value
+// the API could supply never sits here. Legality is checked against that
+// file when it is beside this one: fifteen men, 2-5-5-3, three per club at
+// most, £100.0m, an eleven that is a formation, one captain and one vice
+// among the starters.
+const TED_BUDGET = 100.0;
+const TED_QUOTA = { GK: 2, DEF: 5, MID: 5, FWD: 3 };
+const TED_XI = { GK: [1, 1], DEF: [3, 5], MID: [2, 5], FWD: [1, 3] };
+const TED_WHY_MAX = 320;
+const TED_REBUILD_MAX = 480;
 
-// ---------------------------------------------------------------- roast
-// Rules, agreed with the owner: post-gameweek only, never daily; always about
-// a decision someone actually made, with the fact attached; never the same
-// person twice running; and it roasts the machine too.
-if (data.roast !== undefined) {
-  const r = data.roast;
-  if (!isObj(r)) fail("'roast' must be an object");
-  if (!isStr(r.text)) fail("roast.text must be a non-empty string");
-  // Two sentences, hard. The GW1 roast ran to 880 characters and four jokes;
-  // a roast that needs a paragraph has become an essay about someone's bench.
-  // KB's call, 2026-08-27. The cap is enforced here rather than trusted to the
-  // prompt because "be brief" is the first instruction any model drops.
-  if (isStr(r.text) && r.text.length > ROAST_MAX) {
-    fail(`roast.text is ${r.text.length} characters; the limit is ${ROAST_MAX} (two sentences)`);
+if (data.ted !== undefined && data.ted !== null) {
+  const t = data.ted;
+  if (!isObj(t)) fail("'ted' must be an object");
+  if (!Number.isInteger(t.gw) || t.gw < 1 || t.gw > 38) fail("ted.gw must be a gameweek number");
+  for (const k of ["written", "first_draft"]) {
+    if (t[k] !== undefined && t[k] !== null && !dateRe.test(t[k])) fail(`ted.${k} must be YYYY-MM-DD`);
   }
-  if (r.by !== undefined && !isStr(r.by)) fail("roast.by must be a non-empty string when present");
-  if (r.target !== undefined && !NICKS.includes(r.target)) {
-    fail(`roast.target must be one of ${NICKS.join(", ")} when present`);
+  if (t.rebuild !== undefined) {
+    if (!isStr(t.rebuild)) fail("ted.rebuild must be a non-empty string when present");
+    if (t.rebuild.length > TED_REBUILD_MAX)
+      fail(`ted.rebuild is ${t.rebuild.length} characters; ${TED_REBUILD_MAX} is the limit — two or three sentences`);
+  }
+  if (t.picks !== undefined) {
+    if (!Array.isArray(t.picks)) fail("ted.picks must be an array");
+    if (t.picks.length !== 15) fail(`ted.picks has ${t.picks.length} players; a squad is 15`);
+    const ids = new Set();
+    let caps = 0, vices = 0;
+    for (const [i, p] of t.picks.entries()) {
+      const where = `ted.picks[${i}] (${p?.name ?? "?"})`;
+      if (!Number.isInteger(p?.id) || p.id < 1) fail(`${where}.id must be a positive player id`);
+      if (ids.has(p.id)) fail(`${where}: duplicate id`);
+      ids.add(p.id);
+      if (!isStr(p.name)) fail(`${where}.name must be a non-empty string`);
+      if (!["start", "bench"].includes(p.role)) fail(`${where}.role must be start or bench`);
+      if (p.captain === true) { caps++; if (p.role !== "start") fail(`${where}: the captain must start`); }
+      if (p.vice === true) { vices++; if (p.role !== "start") fail(`${where}: the vice-captain must start`); }
+      if (p.captain === true && p.vice === true) fail(`${where}: captain and vice are two men`);
+      for (const k of ["price", "team", "pos", "points", "ownership"]) {
+        if (p[k] !== undefined) fail(`${where}.${k}: copied from the API — players.json has it, this file must not`);
+      }
+    }
+    if (caps !== 1) fail(`ted.picks: ${caps} captains; exactly one`);
+    if (vices !== 1) fail(`ted.picks: ${vices} vice-captains; exactly one`);
+    const starters = t.picks.filter((p) => p.role === "start");
+    if (starters.length !== 11) fail(`ted.picks: ${starters.length} starters; an eleven is eleven`);
+
+    // Legality against the player file, when it is where it should be.
+    let players = null;
+    try {
+      const pf = path.replace(/fpl\.json$/, "players.json");
+      players = JSON.parse(readFileSync(pf, "utf8")).players ?? null;
+    } catch { players = null; }
+    if (players) {
+      const byId = new Map(players.map((p) => [p.id, p]));
+      let cost = 0;
+      const perPos = { GK: 0, DEF: 0, MID: 0, FWD: 0 };
+      const xiPos = { GK: 0, DEF: 0, MID: 0, FWD: 0 };
+      const perClub = {};
+      for (const p of t.picks) {
+        const r = byId.get(p.id);
+        if (!r) fail(`ted.picks (${p.name}): id ${p.id} is not in players.json`);
+        if (r.name !== p.name) fail(`ted.picks: id ${p.id} is ${r.name} in players.json, not ${p.name}`);
+        cost += r.price ?? 0;
+        perPos[r.pos] = (perPos[r.pos] ?? 0) + 1;
+        if (p.role === "start") xiPos[r.pos] = (xiPos[r.pos] ?? 0) + 1;
+        perClub[r.team] = (perClub[r.team] ?? 0) + 1;
+      }
+      if (cost > TED_BUDGET + 1e-9) fail(`ted.picks cost £${cost.toFixed(1)}m; the budget is £${TED_BUDGET.toFixed(1)}m`);
+      for (const [pos, n] of Object.entries(TED_QUOTA)) {
+        if (perPos[pos] !== n) fail(`ted.picks: ${perPos[pos] ?? 0} ${pos}; a squad carries ${n}`);
+      }
+      for (const [pos, [lo, hi]] of Object.entries(TED_XI)) {
+        if ((xiPos[pos] ?? 0) < lo || (xiPos[pos] ?? 0) > hi)
+          fail(`ted.picks: ${xiPos[pos] ?? 0} ${pos} starting; a formation has ${lo}-${hi}`);
+      }
+      for (const [club, n] of Object.entries(perClub)) {
+        if (n > 3) fail(`ted.picks: ${n} from ${club}; three per club is the limit`);
+      }
+    }
+    if (!Array.isArray(t.why) || !t.why.length) fail("ted.why must be a non-empty array when picks are written");
+  }
+  if (t.why !== undefined) {
+    if (!Array.isArray(t.why)) fail("ted.why must be an array");
+    const pickIds = new Set((t.picks ?? []).map((p) => p.id));
+    for (const [i, w] of t.why.entries()) {
+      const where = `ted.why[${i}] (${w?.name ?? "?"})`;
+      if (!Number.isInteger(w?.id)) fail(`${where}.id must be a player id`);
+      if (!pickIds.has(w.id)) fail(`${where}: not one of the fifteen — 'why' explains players in the side`);
+      if (!isStr(w.name)) fail(`${where}.name must be a non-empty string`);
+      if (!isStr(w.text)) fail(`${where}.text must be a non-empty string`);
+      if (w.text.length > TED_WHY_MAX) fail(`${where}.text is ${w.text.length} characters; ${TED_WHY_MAX} is the limit`);
+    }
+  }
+  if (t.left_out !== undefined && t.left_out !== null) {
+    const l = t.left_out;
+    if (!isObj(l)) fail("ted.left_out must be an object");
+    if (!Number.isInteger(l.id)) fail("ted.left_out.id must be a player id");
+    if (!isStr(l.name)) fail("ted.left_out.name must be a non-empty string");
+    if (!isStr(l.text)) fail("ted.left_out.text must be a non-empty string");
+    if (l.text.length > TED_WHY_MAX) fail(`ted.left_out.text is ${l.text.length} characters; ${TED_WHY_MAX} is the limit`);
+    if ((t.picks ?? []).some((p) => p.id === l.id)) fail("ted.left_out names a man who is in the fifteen");
+  }
+  if (t.watchlist !== undefined) {
+    if (!Array.isArray(t.watchlist)) fail("ted.watchlist must be an array");
+    t.watchlist.forEach((w, j) => checkWatchItem(`ted.watchlist[${j}]`, w));
+    const pickIds = new Set((t.picks ?? []).map((p) => p.id));
+    for (const w of t.watchlist) {
+      if (pickIds.has(w.id)) fail(`ted.watchlist (${w.name}): he is in the fifteen — the watchlist is who is NOT`);
+    }
+  }
+  if (t.changes !== undefined) {
+    const c = t.changes;
+    if (!isObj(c)) fail("ted.changes must be an object");
+    for (const k of ["in", "out"]) {
+      if (!Array.isArray(c[k]) || !c[k].every(isStr)) fail(`ted.changes.${k} must be an array of names`);
+    }
   }
 }
 
@@ -330,5 +435,6 @@ const people = (data.people ?? []).length;
 const withWeek = (data.people ?? []).filter((p) => p.week).length;
 console.log(
   `fpl.json OK — ${sections} sections, ${people} people (${withWeek} with a week written), ` +
-  `${(data.verdicts ?? []).length} verdicts, ${(data.log ?? []).length} log entries`
+  `${(data.verdicts ?? []).length} verdicts, ${(data.log ?? []).length} log entries` +
+  (data.ted ? `, Ted GW${data.ted.gw}${data.ted.picks ? " (" + data.ted.picks.length + " picked)" : " (no team)"}` : "")
 );

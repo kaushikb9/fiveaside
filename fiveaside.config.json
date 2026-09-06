@@ -45,6 +45,10 @@
       391164
     ],
     "horizon_gws": 6,
+    "ted": {
+      "draft_opens_hours_before_deadline": 96,
+      "freeze_hours_before_deadline": 3
+    },
     "people": [
       {
         "nick": "Xabi",

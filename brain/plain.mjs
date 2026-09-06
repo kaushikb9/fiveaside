@@ -91,7 +91,7 @@ rule above. Keep every fact, number, name, price and claim exactly as it is:
 add nothing, drop nothing, and do not change who the text is addressed to.
 Fields under "people[..] (Nick)" that are ".week.", ".big" or ".watchlist" are
 Ted talking to that gaffer as "you". "big[].call" fields are headings under 80
-characters. "roast.text" keeps its two-sentence joke and its target.
+characters. "ted.*" fields are Ted explaining his own fifteen to the five as "you".
 "log[].call" fields stay a diary of the calls made, in plain sentences.
 
 Return ONLY a JSON object with the same keys and the rewritten strings as

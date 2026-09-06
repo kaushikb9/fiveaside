@@ -8,7 +8,7 @@
 // records and five squads through an LLM costs six figures of tokens per run
 // to copy numbers verbatim, and invites transcription errors on the way. So
 // they go straight to disk; the brain gets the compact remainder and spends
-// its budget on judgment (verdicts, the weekly reads, the roast).
+// its budget on judgment (verdicts, the weekly reads, Ted's own fifteen).
 import { readFileSync, writeFileSync } from "node:fs";
 
 const bundle = JSON.parse(readFileSync(0, "utf8"));
@@ -57,6 +57,19 @@ writeFileSync(
   ) + "\n"
 );
 
+function tedClock(deadlineUtc) {
+  let cfg = {};
+  try { cfg = JSON.parse(readFileSync("fiveaside.config.json", "utf8")).fpl?.ted ?? {}; } catch {}
+  const open = cfg.draft_opens_hours_before_deadline ?? 96;
+  const freeze = cfg.freeze_hours_before_deadline ?? 3;
+  const t = deadlineUtc ? Date.parse(deadlineUtc) : NaN;
+  if (Number.isNaN(t)) return null;
+  return {
+    draft_opens_utc: new Date(t - open * 3600000).toISOString(),
+    freeze_utc: new Date(t - freeze * 3600000).toISOString(),
+  };
+}
+
 // --- the gaffers: five squads and their standings, by nickname ---
 // The league carries every entry, but the five are the product; the page shows
 // them compressed and expands to the rest on request.
@@ -71,6 +84,11 @@ const gaffers = {
   deadline_utc: bundle.gameweek?.deadline_utc ?? null,
   deadline_local: bundle.gameweek?.deadline_local ?? null,
   live_gameweek: bundle.live_gameweek ?? null,
+  // Ted's clock, derived once here from the deadline and the owner config so
+  // the site and the brain read the same two instants rather than each
+  // doing the arithmetic: the draft opens this many hours before the
+  // deadline and the team sheet freezes this many hours before it.
+  ted: tedClock(bundle.gameweek?.deadline_utc ?? null),
   people: (bundle.squads ?? []).map((s) => {
     const row = (league?.rows ?? []).find((r) => r.nick === s.nick) ?? null;
     return {

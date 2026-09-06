@@ -5,7 +5,14 @@
 
    Mechanical facts (squads, picks, points, chips) come from gaffers.json and
    are never written by Ted. Judgment (the weekly read, the watchlist
-   notes, the roast) comes from fpl.json and is always marked as judgment.
+   notes, Ted's own fifteen) comes from fpl.json and is always marked as
+   judgment.
+
+   Ted is the sixth chip. A ghost manager: a fresh fifteen every gameweek,
+   picked from scratch, never entered, never in the league. His view has a
+   pitch, and in place of the weekly read he explains the men most of the
+   five are not holding. See tedHTML(). Retired the same day, 2026-09-06:
+   the roast.
    ========================================================================= */
 (function () {
   "use strict";
@@ -249,6 +256,7 @@
      adjacent lines. These two helpers are the rule, and every heading that
      names a gaffer goes through them. */
   const isMe = () => who === FA.myNick();
+  const isTed = () => who === FA.COACH;
   // "Your squad" / "Mr CR7's squad"
   const whose = (Cap) => (isMe() ? (Cap ? "Your" : "your") : gname(who) + "’s");
   // "You" / "Mr CR7"
@@ -272,6 +280,14 @@
       '<span class="gteam">' + esc(p.team_name) + "</span>" +
       '<span class="gpts">' + p.total_points + " pts &middot; " +
         (p.league_rank == null ? "&mdash;" : "#" + p.league_rank) + "</span></span></button>").join("") +
+      // The ghost. Dashed, no points, no rank: he is not in the league and
+      // never will be, and the chip says so rather than showing a dash where
+      // a rank would go.
+      '<button class="gchip ghost" data-nick="' + esc(FA.COACH) + '" aria-pressed="' + isTed() + '">' +
+      '<span class="gface">' + FA.faceSVG(FA.COACH) + "</span>" +
+      '<span class="gmeta"><b>' + esc(FA.COACH) + "</b>" +
+      '<span class="gteam">ghost manager</span>' +
+      '<span class="gpts">fresh XI weekly</span></span></button>' +
       "</div>";
   }
 
@@ -281,6 +297,7 @@
      API (which sends no CORS headers) and returns per-player points with
      provisional bonus. Fetched only when asked for — no polling. */
   async function refreshLive() {
+    if (isTed()) return refreshTedLive();
     const p = G.people.find((x) => x.nick === who);
     if (!p || !p.entry) return;
     // Repaints the button as "refreshing…" without disturbing anything above
@@ -427,7 +444,7 @@
       line = "Gameweek " + PICKS_GW() + " is final. " + deadlineLine();
       // Bank and squad value are decisions you can still act on, so they
       // belong to the window where acting is possible.
-      facts = [
+      facts = !p ? [] : [
         whom(true) + " &middot; <b>" + money(p && p.bank) + "</b> in the bank",
         "squad worth <b>" + money(p && p.value) + "</b>",
         p && p.transfers_made != null
@@ -824,21 +841,219 @@
       "</div></div>";
   }
 
-  /* ---------------- roast + chips ---------------- */
-  function roastHTML() {
-    if (!F || !F.roast || !F.roast.text) return "";
-    // The note used to print the rules back at the reader. A roast that needs
-    // its terms and conditions above it is not landing.
-    const face = FA.faceSVG
-      ? '<span class="coachface">' + FA.faceSVG(FA.COACH) + "</span>" : "";
-    return '<div class="panel"><h3 class="withcoach">' + face + "The roast</h3>" +
-
-      '<div class="roast"><p>' + gname(F.roast.text) + "</p>" +
-      // It was signed "settles GW1" — a timestamp, not an author.
-      '<div class="by">' + esc(FA.COACH) +
-      (F.roast.by ? " &middot; " + esc(F.roast.by) : "") + "</div></div></div>";
+  /* ---------------- Ted's fifteen ----------------
+     The ghost manager's own squad. Ids come from fpl.json; everything else
+     about a player is joined from players.json here, so the file never
+     carries a price or a fixture it could have copied. His week has four
+     states, read from the two instants split-facts.mjs writes into
+     gaffers.json (`ted.draft_opens_utc`, `ted.freeze_utc`) and from whether a
+     gameweek is being played. brain/ted.mjs is the same function for the
+     brain's side — change both. */
+  function tedPhase() {
+    const now = Date.now();
+    if (inPlay()) return "live";
+    const t = G.ted || {};
+    const opens = t.draft_opens_utc ? Date.parse(t.draft_opens_utc) : NaN;
+    const freeze = t.freeze_utc ? Date.parse(t.freeze_utc) : NaN;
+    if (isNaN(opens) || isNaN(freeze)) return "rebuilding";
+    if (now < opens) return "rebuilding";
+    if (now < freeze) return "draft";
+    return "frozen";
   }
 
+  const ted = () => (F && F.ted) || null;
+  // Ted's picks in the shape pitchPlayer() reads, joined to the player file.
+  function tedPicks() {
+    const t = ted();
+    if (!t || !t.picks) return [];
+    return t.picks.map((p) => {
+      const r = rec(p.id) || {};
+      return { element: p.id, name: p.name, team: r.team, pos: r.pos, role: p.role,
+               captain: Boolean(p.captain), vice: Boolean(p.vice),
+               multiplier: p.role === "bench" ? 0 : p.captain ? 2 : 1 };
+    });
+  }
+
+  async function refreshTedLive() {
+    const picks = tedPicks();
+    if (!picks.length) return;
+    liveBusy = true; render();
+    try {
+      // His fifteen belong to ONE gameweek, the one in the file — not the one
+      // the room is focused on, which between weeks is the next one.
+      const want = ted().gw;
+      const ids = picks.map((x) => x.element).join(",");
+      const r = await fetch("/api/live?gw=" + want + "&elements=" + ids, { cache: "no-store" });
+      if (!r.ok) throw new Error("HTTP " + r.status);
+      const d = await r.json();
+      liveWeek = { gw: d.gw != null ? d.gw : want, status: d.status,
+                   updated: d.updated, fixtures: d.fixtures || [] };
+      liveSquad = { gw: liveWeek.gw, totals: null, byEl: d.elements || {}, byName: {} };
+      liveFor = who;
+      liveError = null;
+    } catch (e) {
+      liveSquad = null; liveFor = who; liveError = e.message;
+    }
+    liveBusy = false;
+    render();
+  }
+
+  /* Since-when, in words. The instants are UTC and the deadline the page
+     already shows is in the owner's zone, so this says "in two days" rather
+     than printing a third clock. */
+  function inWords(iso) {
+    const t = iso ? Date.parse(iso) : NaN;
+    if (isNaN(t)) return null;
+    const h = (t - Date.now()) / 3600000;
+    if (h <= 0) return "now";
+    if (h < 1) return "in " + Math.max(1, Math.round(h * 60)) + " minutes";
+    if (h < 36) return "in " + Math.round(h) + " hour" + (Math.round(h) === 1 ? "" : "s");
+    const d = Math.round(h / 24);
+    return "in " + d + " day" + (d === 1 ? "" : "s");
+  }
+
+  // "2026-09-08" -> "Tue 8 Sep": the draft's date is a day of the week to
+  // anyone reading it, not an ISO string.
+  function dayName(ymd) {
+    const d = new Date(ymd + "T12:00:00Z");
+    return isNaN(d.getTime()) ? ymd
+      : d.toLocaleDateString("en-GB", { weekday: "short", day: "numeric", month: "short", timeZone: "UTC" });
+  }
+
+  function tedPitchHTML(ph) {
+    const t = ted();
+    const picks = tedPicks();
+    const gw = t.gw;
+    const xi = picks.filter((x) => x.role !== "bench");
+    const bench = picks.filter((x) => x.role === "bench");
+    const rows = ["GK", "DEF", "MID", "FWD"].map((pos) => xi.filter((x) => x.pos === pos));
+    const shape = rows.slice(1).map((r) => r.length).join("-");
+    const cost = picks.reduce((n, x) => n + ((rec(x.element) || {}).price || 0), 0);
+    const live = ph === "live", settled = ph === "rebuilding";
+
+    const liveHere = Boolean(liveDataFor(gw));
+    const scored = (list) => list.reduce((n, x) => {
+      const lv = livePlayer(x, gw);
+      const m = x.multiplier > 1 ? x.multiplier : 1;
+      return n + (lv ? lv.points : 0) * m;
+    }, 0);
+    const fixtures = xi.map((x) => fixtureFor(rec(x.element), gw)).filter(Boolean);
+    const avgFdr = fixtures.length
+      ? (fixtures.reduce((n, f) => n + f.fdr, 0) / fixtures.length).toFixed(2) : null;
+
+    const total = liveHere
+      ? "<strong>" + scored(xi) + "</strong> pts on the pitch &middot; <strong>" + scored(bench) + "</strong> on the bench"
+      : (live || settled)
+        ? ""
+        : avgFdr !== null ? "average difficulty <strong>" + avgFdr + "</strong>" : "";
+
+    const money = "<b>&pound;" + cost.toFixed(1) + "m</b> of &pound;100.0m";
+    const line = live
+        ? "<span>Gameweek <b>" + gw + "</b> &middot; his fifteen, scoring live</span><span>" + money + "</span>"
+      : settled
+        ? "<span>Gameweek <b>" + gw + "</b> is done &middot; this was the fifteen</span><span>" + money + "</span>"
+      : ph === "draft"
+        ? "<span>Gameweek <b>" + gw + "</b> &middot; <b>draft</b>, freezes " +
+          (inWords(G.ted && G.ted.freeze_utc) || "before the deadline") + "</span><span>" + money + "</span>"
+        : "<span>Gameweek <b>" + gw + "</b> &middot; <b>team sheet in</b>, frozen until the week is played</span><span>" + money + "</span>";
+
+    const c = t.changes;
+    const diff = ph === "draft" && c && (c.in.length || c.out.length)
+      ? '<div class="diff"><span>since ' + (c.since ? esc(dayName(c.since)) : "the first draft") + ":</span>" +
+        c.in.map((n) => '<span><i class="in">in</i> ' + esc(n) + "</span>").join("") +
+        c.out.map((n) => '<span><i class="out">out</i> ' + esc(n) + "</span>").join("") + "</div>"
+      : "";
+
+    const state = live ? '<span class="gwstate live">in play</span>'
+      : settled ? '<span class="gwstate">settled</span>'
+      : ph === "draft" ? '<span class="gwstate">draft</span>' : '<span class="gwstate">frozen</span>';
+
+    return '<div class="panel"><h3>' + esc(FA.COACH) + "&rsquo;s " + esc(shape) + "</h3>" +
+      '<div class="tedline">' + line + "<span>picked from scratch, no transfers, no chips</span></div>" + diff +
+      '<div class="gwnav"><span class="gwlabel">Gameweek ' + gw + "</span>" + state +
+      '<span class="gwtotal">' + total + "</span></div>" +
+      '<div class="pitchwrap"><div class="pitch">' +
+      '<div class="chalk"><i class="box"></i><i class="box6"></i><i class="half"></i><i class="circle"></i></div>' +
+      rows.map((r) => '<div class="prow">' + r.map((x) => pitchPlayer(x, gw)).join("") + "</div>").join("") +
+      "</div>" +
+      '<div class="benchlabel">Bench</div>' +
+      '<div class="benchrow">' + bench.map((x) => pitchPlayer(x, gw)).join("") + "</div></div>" +
+      ((live || settled) && !liveHere && !liveBusy
+        ? '<button class="btn-live fc" data-live style="margin-top:12px">Fetch the scores</button>' : "") +
+      "</div>";
+  }
+
+  /* The panel that took the roast's slot. Only the men most of the five are
+     NOT holding get a line — the four everybody owns need no defending — and
+     each row shows who does hold him, so "none of you" reads at a glance. */
+  function tedWhyHTML() {
+    const t = ted();
+    const rows = (t.why || []).map((w) => {
+      const r = rec(w.id) || {};
+      const by = r.owned_by || [];
+      const n = by.length;
+      return '<div class="whyrow">' + FA.kitSVG(r.team, r.pos === "GK") + "<div>" +
+        '<div class="whyhead"><a class="plink" data-pid="' + w.id + '" data-player="' + esc(w.name) + '">' +
+        esc(w.name) + "</a>" +
+        '<span class="meta">' + esc(r.team || "") + " &middot; " + esc(r.pos || "") +
+        (r.price != null ? " &middot; &pound;" + r.price.toFixed(1) + "m" : "") +
+        (r.ownership != null ? " &middot; " + r.ownership + "%" : "") + "</span>" +
+        '<span class="owned' + (n === 0 ? " none" : "") + '" title="' + n + ' of the five own him">' +
+        FA.ownerDots(by, FA.myNick()) + (n === 0 ? "none of you" : NUM[n] + " of you") + "</span>" +
+        "</div><p>" + gname(w.text) + "</p></div></div>";
+    }).join("");
+    const l = t.left_out;
+    const left = l && l.text
+      ? '<div class="leftout"><h4>Left out &middot; <a class="plink" data-pid="' + l.id +
+        '" data-player="' + esc(l.name) + '">' + esc(l.name) + "</a></h4><p>" + gname(l.text) + "</p></div>"
+      : "";
+    if (!rows && !left) return "";
+    return '<div class="panel"><h3>Why they&rsquo;re here</h3>' +
+      '<p class="note">The ones most of you are not holding.</p>' + rows + left + "</div>";
+  }
+
+  function tedRebuildHTML(ph) {
+    const t = ted();
+    const opens = inWords(G.ted && G.ted.draft_opens_utc);
+    const next = NEXT_GW();
+    let body;
+    if (ph === "rebuilding") {
+      body = (t && t.rebuild ? "<p>" + gname(t.rebuild) + "</p>" : "") +
+        "<p>The fifteen goes in the bin every week, all of it. A first draft for gameweek " + next +
+        " appears once the window opens" + (opens && opens !== "now" ? " " + esc(opens) : "") +
+        ", changes through the week, and freezes " +
+        (G.ted && G.ted.freeze_utc ? "three hours before" : "before") + " the deadline.</p>";
+    } else if (ph === "live") {
+      body = "<p>No fifteen for this gameweek. A first draft for gameweek " + next +
+        " appears once the week is played and the window opens.</p>";
+    } else {
+      // draft or frozen, and nothing written for the gameweek being planned
+      body = "<p>No team sheet for gameweek " + next + " yet" +
+        (ph === "draft" ? " &mdash; the first draft lands with the next run." : ".") + "</p>";
+    }
+    return '<div class="panel"><h3>' + esc(FA.COACH) + " is rebuilding</h3>" +
+      '<div class="rebuild">' + body + "</div></div>";
+  }
+
+  function tedWatchHTML() {
+    const t = ted();
+    const list = (t && t.watchlist) || [];
+    if (!list.length) return "";
+    return '<div class="panel"><h3>' + esc(FA.COACH) + "&rsquo;s watchlist</h3>" +
+      '<p class="note">Not in this week&rsquo;s side. What gets them in.</p>' +
+      '<div class="rows">' + list.map(watchRow).join("") + "</div></div>";
+  }
+
+  function tedHTML() {
+    const ph = tedPhase();
+    const t = ted();
+    const has = Boolean(t && t.picks && t.picks.length);
+    const forNow = ph === "live" ? PICKS_GW() : ph === "rebuilding" ? PICKS_GW() : NEXT_GW();
+    const team = has && t.gw === forNow;
+    if (ph === "live") return (team ? tedPitchHTML(ph) : tedRebuildHTML(ph)) + tedWatchHTML();
+    if (ph === "rebuilding") return (team ? tedPitchHTML(ph) : "") + tedRebuildHTML(ph) + tedWatchHTML();
+    return (team ? tedPitchHTML(ph) + tedWhyHTML() : tedRebuildHTML(ph)) + tedWatchHTML();
+  }
 
   function fiveHTML() {
     // The mini-league comes from the same FPL endpoints as the squads, so a
@@ -900,7 +1115,9 @@
       barHTML() + fiveHTML() +
       // Squad first, then the read about it. You look at the team, then at
       // what someone made of it.
-      staleHTML() + pitchHTML() + weekHTML() + watchHTML() + bigHTML() + roastHTML() +
+      (isTed()
+        ? tedHTML()
+        : staleHTML() + pitchHTML() + weekHTML() + watchHTML() + bigHTML()) +
       "</section>";
     wire();
     FA.wireSortable($("#main"));
@@ -1014,8 +1231,8 @@
       ted +
       "<h3>Now then. I\u2019m Ted.</h3>" +
       '<p class="door-p">I keep the notes for five people, and you\u2019re one of them or you ' +
-      "aren\u2019t. Behind me: five squads, five weekly reads, a mini-league, and a roast that " +
-      "names names.</p>" +
+      "aren\u2019t. Behind me: five squads, five weekly reads, a mini-league, and a sixth " +
+      "team I pick myself every week and never enter.</p>" +
       '<div class="lineup">' + lineup + "</div>" +
       say +
       (form ? '<div class="door-cta">' + form + "</div>" : "") +

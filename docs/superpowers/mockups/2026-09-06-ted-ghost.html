@@ -1,3 +1,6 @@
+<meta charset="utf-8">
+<title>Ted's Ghost XI</title>
+<style>
 /* Five-a-Side — one stylesheet, three rooms.
    =========================================================================
    The design is one identity in two lights, signed off 2026-08-23:
@@ -452,28 +455,21 @@ h3 .gname, summary .gname, td .gname, .ghead p .gname {
 /* ---------- gaffers: chips ----------
    Five face cards, not five text chips: the portrait is the thing you aim
    at, the numbers are what you read once you have. */
-/* Six across on one row — the five and Ted — each chip taking an equal
-   share and its team name truncating rather than pushing the row over. The
-   sixth chip is what made the old wrapping row overflow (KB, 2026-09-06). */
-.gbar { display: flex; gap: 6px; flex-wrap: nowrap; margin-bottom: 14px; }
+.gbar { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 14px; }
 .gchip {
-  display: flex; align-items: center; gap: 7px; flex: 1 1 0; min-width: 0;
-  padding: 6px 10px 6px 6px; border: 1px solid var(--line); border-radius: 999px;
-  background: var(--card); cursor: pointer; text-align: left;
+  display: flex; align-items: center; gap: 9px;
+  padding: 7px 13px 7px 8px; border: 1px solid var(--line); border-radius: 999px;
+  background: var(--card); cursor: pointer; min-width: 132px; text-align: left;
   color: var(--ink); font-family: var(--f-head); box-shadow: var(--shadow);
 }
-.gchip .gface { display: block; width: 32px; height: 32px; line-height: 0; flex: 0 0 auto; }
-/* The ghost: dashed until chosen, and never a number on it. */
-.gchip.ghost { border-style: dashed; }
-.gchip.ghost .gteam { font-style: italic; }
-.gchip.ghost[aria-pressed="true"] { border-style: solid; }
+.gchip .gface { display: block; width: 38px; height: 38px; line-height: 0; flex: 0 0 auto; }
 .gchip .gmeta { display: flex; flex-direction: column; gap: 1px; min-width: 0; }
-.gchip b { font-size: 12.5px; font-weight: 700; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.gchip b { font-size: 13.5px; font-weight: 700; white-space: nowrap; }
 .gchip .gteam {
   font-size: 10.5px; color: var(--faint); font-family: var(--f-head); font-weight: 600;
   overflow: hidden; text-overflow: ellipsis; max-width: 132px; white-space: nowrap;
 }
-.gchip .gpts { font-size: 10.5px; color: var(--faint); font-family: var(--f-num); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.gchip .gpts { font-size: 11px; color: var(--faint); font-family: var(--f-num); }
 .gchip[aria-pressed="true"] { background: var(--accent); border-color: var(--accent); color: var(--on-accent); }
 .gchip[aria-pressed="true"] .gteam, .gchip[aria-pressed="true"] .gpts { color: inherit; opacity: 0.85; }
 /* On the accent fill the tinted disc disappears; give the face its own ring. */
@@ -533,11 +529,11 @@ h3 .gname, summary .gname, td .gname, .ghead p .gname {
 .door-cta { display: flex; justify-content: center; margin-top: 18px; min-height: 44px; }
 .door-foot { font-size: 13px; color: var(--mute); margin: 16px 0 0; }
 /* The code box itself is styled further down, under "the code box". */
-/* On a phone six in a row is six slivers. A three-by-two grid keeps the
-   chips readable and puts Ted at the end of the second row, where a sixth
-   man belongs. */
-@media (max-width: 720px) {
-  .gbar { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 7px; }
+/* On a phone the chips wrapped into a ragged two-column stagger. A grid
+   gives two even columns and lets the fifth sit alone under them, which
+   reads as a team sheet rather than as a layout accident. */
+@media (max-width: 620px) {
+  .gbar { display: grid; grid-template-columns: 1fr 1fr; gap: 7px; }
   .gchip { min-width: 0; padding-right: 10px; }
   .gchip .gteam { max-width: 100%; }
   .gchip .gface { width: 34px; height: 34px; }
@@ -668,30 +664,23 @@ h3 .gname, summary .gname, td .gname, .ghead p .gname {
 .wk.next { border-left-color: var(--accent); } .wk.next h4 { color: var(--accent); }
 .wk p { margin: 0; font-size: 14px; line-height: 1.5; }
 
-/* ---------- Ted's fifteen ----------
-   The panel that took the roast's slot (retired 2026-09-06). A row per man
-   most of the five are not holding: kit, name, the facts the player file
-   knows, who does hold him, and one paragraph of why. */
-.tedline { display: flex; gap: 14px; flex-wrap: wrap; font-size: 13px; color: var(--mute); margin: 0 0 10px; }
-.tedline b { color: var(--ink); }
-.diff { display: flex; flex-wrap: wrap; gap: 6px 14px; font-size: 12.5px; color: var(--mute); margin: 0 0 10px; }
-.diff i { font-style: normal; font-weight: 700; }
-.diff i.in { color: var(--ok); } .diff i.out { color: var(--hot); }
-.whyrow { display: grid; grid-template-columns: 46px 1fr; gap: 12px; padding: 10px 0; border-top: 1px solid var(--hair); align-items: start; }
-.whyrow:first-of-type { border-top: 0; }
-.whyrow .kit { width: 40px; height: 40px; display: block; }
-.whyhead { display: flex; align-items: baseline; gap: 8px; flex-wrap: wrap; margin-bottom: 3px; }
-.whyhead .plink { font-weight: 700; }
-.whyhead .meta { font-family: var(--f-num); font-size: 11.5px; color: var(--faint); }
-.whyrow p { margin: 0; font-size: 14px; line-height: 1.5; }
-.owned { display: inline-flex; align-items: center; gap: 4px; font-size: 11px; color: var(--faint); margin-left: auto; white-space: nowrap; }
-.owned.none { color: var(--hot); }
-.leftout { border-left: 3px solid var(--warn); padding: 10px 12px; margin: 12px 0 0; background: var(--raise); border-radius: var(--rs); font-size: 14px; }
-.leftout h4 { margin: 0 0 4px; font-size: 11px; text-transform: uppercase; letter-spacing: 0.06em; color: var(--warn); }
-.leftout p { margin: 0; line-height: 1.5; }
-.rebuild { padding: 4px 0 0; }
-.rebuild p { margin: 0 0 8px; font-size: 14.5px; line-height: 1.55; max-width: 72ch; }
-.rebuild p:last-child { margin-bottom: 0; }
+/* ---------- the roast ----------
+   The roast used to be the only 16px regular-weight paragraph on the site,
+   which read as text pasted in from somewhere else. It now takes the same
+   type as .ghead p — the page's established "this is a statement" setting —
+   so the joke sits in the page instead of on top of it. KB, 2026-08-28. */
+.roast {
+  border: 1px dashed var(--hot); border-radius: var(--r);
+  padding: 18px 20px; background: var(--raise);
+}
+.roast p {
+  margin: 0; font-family: var(--f-head); font-size: 17px; font-weight: 700;
+  line-height: 1.5; letter-spacing: -0.015em; max-width: 88ch;
+}
+.roast .by {
+  margin-top: 11px; font-family: var(--f-head); font-size: 10.5px;
+  letter-spacing: 0.1em; text-transform: uppercase; color: var(--faint);
+}
 
 /* ---------- collapsible ---------- */
 details.fold {
@@ -1273,3 +1262,744 @@ tr.tr-hidden { display: none; }
    row into four wrapped lines. It scrolls inside its own box instead — the
    same answer the fixture tables give. */
 .utable { min-width: 560px; }
+/* ---- mockup-only additions ---- */
+.mock-note { background: var(--raise); border: 1px solid var(--line); border-radius: var(--r); padding: 12px 16px; margin: 0 0 16px; font-size: 13.5px; color: var(--mute); }
+.mock-note b { color: var(--ink); }
+.mock-note ul { margin: 6px 0 0; padding-left: 18px; }
+.mock-note li { margin: 2px 0; }
+.gbar { flex-wrap: nowrap; gap: 6px; }
+.gchip { flex: 1 1 0; min-width: 0; padding: 6px 10px 6px 6px; gap: 7px; }
+.gchip .gface { width: 32px; height: 32px; }
+.gchip b { font-size: 12.5px; overflow: hidden; text-overflow: ellipsis; }
+.gchip .gteam, .gchip .gpts { font-size: 10.5px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; max-width: 100%; }
+@media (max-width: 720px) { .gbar { display: grid; grid-template-columns: 1fr 1fr 1fr; } }
+.mock-phase { display:flex; gap:6px; flex-wrap:wrap; align-items:center; margin: 0 0 14px; font-size: 12px; color: var(--faint); }
+.mock-phase button { font: inherit; font-size: 12px; padding: 4px 10px; border-radius: 999px; border: 1px solid var(--line); background: var(--card); color: var(--ink); cursor: pointer; }
+.mock-phase button[aria-pressed="true"] { background: var(--ink); color: var(--bg); border-color: var(--ink); }
+.rebuild { padding: 14px 0 4px; }
+.rebuild p { margin: 0 0 8px; font-size: 14.5px; line-height: 1.55; }
+.rebuild .clock { display:flex; gap: 0; margin-top: 10px; font-size: 11.5px; color: var(--faint); }
+.rebuild .clock span { flex:1; padding: 6px 8px; border-top: 3px solid var(--line); }
+.rebuild .clock span.now { border-top-color: var(--accent); color: var(--ink); font-weight: 700; }
+.rebuild .clock b { display:block; font-weight: 600; color: var(--mute); }
+.rebuild .clock span.now b { color: var(--accent); }
+.diff { display:flex; flex-wrap: wrap; gap: 6px 14px; font-size: 12.5px; color: var(--mute); margin: 0 0 10px; }
+.diff i { font-style: normal; font-weight: 700; } .diff i.in { color: var(--ok); } .diff i.out { color: var(--hot); }
+.gchip.ghost { border-style: dashed; }
+.gchip.ghost .gteam { font-style: italic; }
+.gchip.ghost[aria-pressed="true"] { border-style: solid; }
+.whyrow { display: grid; grid-template-columns: 46px 1fr; gap: 12px; padding: 10px 0; border-top: 1px solid var(--hair); align-items: start; }
+.whyrow:first-of-type { border-top: 0; }
+.whyrow .kit { width: 40px; height: 40px; display: block; }
+.whyhead { display: flex; align-items: baseline; gap: 8px; flex-wrap: wrap; margin-bottom: 3px; }
+.whyhead a { font-weight: 700; color: var(--ink); cursor: pointer; }
+.whyhead .meta { font-family: var(--f-num); font-size: 11.5px; color: var(--faint); }
+.whyrow p { margin: 0; font-size: 14px; line-height: 1.5; }
+.owned { display: inline-flex; align-items: center; gap: 4px; font-size: 11px; color: var(--faint); margin-left: auto; }
+.owned i { display: inline-block; width: 8px; height: 8px; border-radius: 50%; border: 1px solid var(--faint); }
+.owned i.on { background: var(--accent); border-color: var(--accent); }
+.owned.none { color: var(--hot); } .owned.none i { border-color: var(--hot); }
+.nohaaland { border-left: 3px solid var(--warn); padding: 10px 12px; margin: 12px 0 0; background: var(--raise); border-radius: var(--rs); font-size: 14px; }
+.nohaaland h4 { margin: 0 0 4px; font-size: 12px; text-transform: uppercase; letter-spacing: .04em; color: var(--warn); }
+.nohaaland p { margin: 0; line-height: 1.5; }
+.tedline { display:flex; gap:14px; flex-wrap:wrap; font-size:13px; color:var(--mute); margin: 0 0 10px; }
+.tedline b { color: var(--ink); }
+</style>
+<div class="wrap">
+  <header class="mast">
+    <div class="mast-top">
+      <span class="brand">Five<em>&middot;</em>a<em>&middot;</em>Side</span>
+      <div class="themectl" id="themectl"><button data-t="auto">Auto</button><button data-t="light">Light</button><button data-t="dark">Dark</button></div>
+    </div>
+    <nav class="rooms">
+      <a href="#">touchline<span class="rn">what happened</span></a>
+      <a href="#" aria-current="page">the gaffers<span class="rn">what we did about it</span></a>
+      <a href="#">the locker room<span class="rn">what Ted knows</span></a>
+    </nav>
+  </header>
+  <main id="main"></main>
+  <footer class="foot"><span>Five-a-Side</span><span>mockup &middot; GW4 data from 2026-09-06</span></footer>
+</div>
+<script>
+(function(){ "use strict";
+  const FA = {}; window.FA = FA;
+  FA.esc = (s) => String(s ?? "").replace(/[&<>"']/g, (c) => ({ "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;" })[c]);
+  FA.NICKS = ["Xabi","Sir Fergie","Mr CR7","The Special One","Le Professeur"];
+  FA.INITIALS = {"Xabi":"X","Sir Fergie":"SF","Mr CR7":"C7","The Special One":"SO","Le Professeur":"LP"};
+  FA.initial = (n) => FA.INITIALS[n] || n.charAt(0);
+  const esc = FA.esc;
+  /* ---------------- club kits ----------------
+     [body, sleeve, detail]. Drawn, never fetched: no external images, works
+     offline, and one shape tints for every club. */
+  const KITS = {
+    ARS: ["#EF0107", "#FFFFFF", "plain"], AVL: ["#670E36", "#95BFE5", "plain"],
+    BHA: ["#0057B8", "#FFFFFF", "stripe"], BOU: ["#DA291C", "#000000", "stripe"],
+    BRE: ["#E30613", "#FFFFFF", "stripe"], CHE: ["#034694", "#034694", "plain"],
+    COV: ["#78D0F3", "#FFFFFF", "plain"], CRY: ["#1B458F", "#C4122E", "stripe"],
+    EVE: ["#003399", "#FFFFFF", "plain"], FUL: ["#FFFFFF", "#000000", "plain"],
+    HUL: ["#F5A12D", "#000000", "stripe"], IPS: ["#3A64A3", "#FFFFFF", "plain"],
+    LEE: ["#FFFFFF", "#1D428A", "plain"], LIV: ["#C8102E", "#C8102E", "plain"],
+    MCI: ["#6CABDD", "#FFFFFF", "plain"], MUN: ["#DA291C", "#000000", "plain"],
+    NEW: ["#241F20", "#FFFFFF", "stripe"], NFO: ["#DD0000", "#FFFFFF", "plain"],
+    SUN: ["#EB172B", "#FFFFFF", "stripe"], TOT: ["#FFFFFF", "#132257", "plain"],
+  };
+  const GK_KIT = ["#2FBF71", "#116B3C", "plain"];
+
+  FA.kitSVG = function (team, isGK) {
+    const kit = (isGK ? GK_KIT : KITS[team]) || ["#8A9295", "#5F6A6E", "plain"];
+    const body = kit[0], sleeve = kit[1], detail = kit[2];
+
+    // One closed path for the whole garment. The previous version drew the
+    // sleeves as separate wedges nearly as wide as the torso, sticking out
+    // sideways — at 46px that reads as a paper aeroplane, not a shirt. Here
+    // the torso is the widest thing (24 of 44 units) and the sleeves hang
+    // DOWN from the shoulder rather than out from it.
+    const shirt =
+      "M22 9 L26 6 a6 5 0 0 0 12 0 L42 9 " +   // shoulders, with a collar scoop
+      "L53 16 L48 28 L44 25.5 " +               // right sleeve: out, down, back in
+      "L44 57 L20 57 L20 25.5 " +               // torso
+      "L16 28 L11 16 Z";                        // left sleeve
+
+    // Stripes live inside the torso only, clipped so they never bleed onto a
+    // sleeve — that was the other thing making the old mark look wrong.
+    const cid = "t" + (isGK ? "gk" : team);
+    const stripes = detail === "stripe"
+      ? '<clipPath id="' + cid + '"><path d="M20 9 h24 v48 h-24 Z"/></clipPath>' +
+        '<g clip-path="url(#' + cid + ')">' +
+        [25, 34].map((x) =>
+          '<rect x="' + x + '" y="6" width="5" height="52" fill="' + sleeve + '" opacity=".95"/>').join("") +
+        "</g>"
+      : "";
+
+    return '<svg class="kit" viewBox="0 0 64 64" role="img" aria-label="' + esc(team) + ' kit">' +
+      '<path d="' + shirt + '" fill="' + body + '"/>' + stripes +
+      '<path d="' + shirt + '" fill="none" stroke="rgba(0,0,0,.34)" stroke-width="1.4" stroke-linejoin="round"/>' +
+      '<path d="M26 6 a6 5 0 0 0 12 0" fill="none" stroke="rgba(0,0,0,.34)" stroke-width="1.4"/>' +
+      "</svg>";
+  };
+})();
+</script>
+<script>
+/* the five, drawn — caricatures of the managers and players we borrowed our
+   names from.
+   =========================================================================
+   Inline SVG, no external images, same rule as the kits in common.js: one
+   frame, five sets of parameters, tinted per club.
+
+   These are CARICATURES, not portraits, and the proportions are deliberately
+   wrong: the head takes well over half the frame, the shoulders are a
+   suggestion, and each face gets one feature blown out of all proportion —
+   Fergie's nose and the rage behind it, the Professeur's zip pulled up over
+   his mouth, the Special One's eyebrow halfway to his hairline, CR7 caught
+   mid-celebration with a wink, and a beard on Xabi that has reached the
+   badge. A likeness that is merely accurate reads as a stock avatar; the
+   exaggeration is what makes it one of us.
+
+   Every face is drawn in a 64x64 box on the same skeleton (backdrop, coat,
+   neck, head, ears, hair, eyes, nose, mouth) so they read as one set. Only
+   the tells differ.
+
+   Real names never appear here, in markup or in a title attribute: these are
+   caricatures of the FOOTBALL people the five are named after, which is a
+   different thing from the five themselves.
+   ========================================================================= */
+(function () {
+  "use strict";
+  const esc = FA.esc;
+
+  /* Club tints for the backdrop disc. Kept a shade off the kit colours in
+     common.js so a face never fights the kit drawn next to it. */
+  const TINT = { CHE: "#1E5AA8", MUN: "#C8321F", ARS: "#D8232A" };
+
+  /* A face may bring its own skull. Sharing one ellipse across all five was
+     the reason the first set read as five men in different wigs: the shape of
+     the head carries more likeness than any feature sitting on it. Fergie is
+     the one that needed it — narrow at the temples, heavy through the jaw,
+     broad chin. The other four are fine on the default. */
+  const HEAD_JOWLY = '<path d="M17.2 26 C17.2 14.8 23.6 8.6 32 8.6 ' +
+    "C40.4 8.6 46.8 14.8 46.8 26 C46.8 30 48.4 34.8 47.4 38.8 " +
+    "C46.2 43.6 40.4 47 32 47 C23.6 47 17.8 43.6 16.6 38.8 " +
+    'C15.6 34.8 17.2 30 17.2 26 Z"/>';
+  const EARS_JOWLY = '<ellipse cx="16.6" cy="30" rx="2.7" ry="3.9"/>' +
+    '<ellipse cx="47.4" cy="30" rx="2.7" ry="3.9"/>';
+
+  const FACES = {
+    "Xabi": {
+      clubName: "Chelsea", club: "CHE", skin: "#CF9468", shade: "#B07749",
+      hair: "#1C150E", coat: "#0B3F86", collar: "#FFFFFF", style: "xabi",
+    },
+    "Sir Fergie": {
+      clubName: "Man Utd", club: "MUN", skin: "#E9A184", shade: "#C87F60",
+      hair: "#DEDBD4", coat: "#2A2E35", collar: "#B01C10", style: "fergie",
+      head: HEAD_JOWLY, ears: EARS_JOWLY,
+    },
+    "Mr CR7": {
+      clubName: "Man Utd", club: "MUN", skin: "#C08652", shade: "#9E6A3A",
+      hair: "#171008", coat: "#C8321F", collar: "#FFFFFF", style: "cr7",
+    },
+    "The Special One": {
+      clubName: "Chelsea", club: "CHE", skin: "#D3A17A", shade: "#B0805A",
+      hair: "#9BA1A8", coat: "#171A21", collar: "#3E4650", style: "mourinho",
+    },
+    "Le Professeur": {
+      clubName: "Arsenal", club: "ARS", skin: "#DDB194", shade: "#BC8E70",
+      hair: "#A29C93", coat: "#17253F", collar: "#D8232A", style: "wenger",
+    },
+    /* The assistant manager, and the only face here who is not one of the
+       five. No club, so the backdrop falls through to neutral grey — he works
+       for all of them and supports none of them. */
+    "Ted": {
+      clubName: "assistant manager", club: "STAFF", skin: "#E4B08C", shade: "#C08C68",
+      hair: "#8A6A46", coat: "#2F3A4A", collar: "#D9DEE5", style: "ted",
+    },
+  };
+
+  /* ---- the shared skeleton ---------------------------------------------
+     The head is 32 units across in a 64 box — half the frame wide and more
+     than half of it tall — and the shoulders are cut down to match. That
+     ratio is the whole trick. Coordinates are fixed on purpose: sliding an
+     eye 2px per face is how a set stops looking like a set. */
+  const HEAD = '<ellipse cx="32" cy="27" rx="16" ry="18" />';
+  const EAR_L = '<ellipse cx="15.8" cy="29.5" rx="2.8" ry="4" />';
+  const EAR_R = '<ellipse cx="48.2" cy="29.5" rx="2.8" ry="4" />';
+
+  const NECK = '<path d="M28.6 41 h6.8 v12 h-6.8 Z" />';
+  const COAT = "M10.5 64 C12.6 56 19.4 51.8 25.6 50.6 L32 55.6 L38.4 50.6 " +
+    "C44.6 51.8 51.4 56 53.5 64 Z";
+  const COLLAR = "M25.6 50.6 L32 55.6 L38.4 50.6 L36.2 49.5 L32 53 L27.8 49.5 Z";
+
+  const EYE_L = 25.6, EYE_R = 38.4, EYE_Y = 27;
+  function eyes(o) {
+    const c = (o && o.color) || "#241F1A";
+    const r = (o && o.r) || 2.2;
+    const shut = (x) =>
+      '<path d="M' + (x - 3) + " " + EYE_Y + ' q3 -3 6 0" stroke="' + c +
+      '" stroke-width="2" fill="none" stroke-linecap="round"/>';
+    const open = (x) =>
+      '<ellipse cx="' + x + '" cy="' + EYE_Y + '" rx="' + r + '" ry="' + (r + 0.3) +
+      '" fill="' + c + '"/>';
+    return ((o && o.wink) === "left" ? shut(EYE_L) : open(EYE_L)) +
+      ((o && o.wink) === "right" ? shut(EYE_R) : open(EYE_R));
+  }
+
+  /* An eye with the crease above it. A bare dot reads as a sticker; the
+     crease is what makes it sit in a socket. */
+  const deepEye = (x, y, r, f) =>
+    '<ellipse cx="' + x + '" cy="' + y + '" rx="' + r + '" ry="' + (r + 0.3) +
+    '" fill="#241F1A"/>' +
+    '<path d="M' + (x - r - 1.4) + " " + (y - r - 0.6) + " q" + (r + 1.4) + " -1.8 " +
+    ((r + 1.4) * 2) + ' 0" stroke="' + f.shade + '" stroke-width="1.1" fill="none" ' +
+    'stroke-linecap="round" opacity=".55"/>';
+
+  /* The two creases from the nose to the mouth corners, and the two where a
+     heavy jaw folds. Four short lines, and they do more ageing than anything
+     else available at this size. */
+  const folds = (f) =>
+    '<g stroke="' + f.shade + '" stroke-width="1.3" fill="none" opacity=".42" ' +
+    'stroke-linecap="round">' +
+    '<path d="M27.4 35.4 q-2.2 5.4 -0.8 7.8"/>' +
+    '<path d="M36.6 35.4 q2.2 5.4 0.8 7.8"/></g>';
+  const jowls = (f) =>
+    '<g stroke="' + f.shade + '" stroke-width="1.2" fill="none" opacity=".38" ' +
+    'stroke-linecap="round">' +
+    '<path d="M20.4 37.6 q1.4 5 4.6 7.2"/><path d="M43.6 37.6 q-1.4 5 -4.6 7.2"/></g>';
+
+  /* A nose has to read as a nose before it reads as a red one. Bridge, an
+     outlined bulb, a red wash over it, two nostrils — in that order. The
+     first version was a red sphere, which reads as a clown, not a manager. */
+  const bigNose = (f, cy, w, red) =>
+    '<path d="M32 26.4 L' + (32 - w * 0.3) + " " + (cy - 1.6) + '" stroke="' + f.shade +
+    '" stroke-width="1.5" fill="none" stroke-linecap="round" opacity=".75"/>' +
+    '<path d="M' + (32 - w) + " " + (cy - 1.4) + " q-1.2 " + (w * 1.1) + " " + w + " " +
+    (w * 1.15) + " q" + w + " 0.6 " + w + " -" + (w * 1.15) + '" fill="' + f.skin +
+    '" stroke="' + f.shade + '" stroke-width="1.2" stroke-linejoin="round"/>' +
+    '<path d="M' + (32 - w) + " " + (cy - 1.4) + " q-1.2 " + (w * 1.1) + " " + w + " " +
+    (w * 1.15) + " q" + w + " 0.6 " + w + " -" + (w * 1.15) + '" fill="#B8402B" ' +
+    'opacity="' + (red === undefined ? 0.42 : red) + '"/>' +
+    '<g fill="' + f.shade + '" opacity=".7">' +
+    '<ellipse cx="' + (32 - w * 0.52) + '" cy="' + (cy + w * 0.72) + '" rx="1.2" ry="0.85"/>' +
+    '<ellipse cx="' + (32 + w * 0.52) + '" cy="' + (cy + w * 0.72) + '" rx="1.2" ry="0.85"/></g>';
+
+  /* Blotching, not rouge and not sunburn: one warm wash over the whole face,
+     then two patches wide enough that they do not read as two red circles. */
+  const blotch = (uid, o) =>
+    '<g fill="#B8402B" clip-path="url(#' + uid + 'h)">' +
+    '<rect x="14" y="8" width="36" height="40" opacity="' + (o * 0.5) + '"/>' +
+    '<ellipse cx="21.4" cy="36.4" rx="7.4" ry="4.6" opacity="' + (o * 0.42) + '"/>' +
+    '<ellipse cx="42.6" cy="36.4" rx="7.4" ry="4.6" opacity="' + (o * 0.42) + '"/></g>';
+
+  /* Each style returns the layers that sit ABOVE the bare head: hair first,
+     then brows, eyes, nose, mouth, then the tell. */
+  const STYLE = {
+    /* Jowls, folds, and a jaw locked mid-chew. The likeness is in the skull
+       before it is in the nose: narrow at the temples, heavy at the jaw. */
+    fergie: (f, uid) =>
+      blotch(uid, 0.36) +
+      // silver, gone at the crown, with the volume where it really sits —
+      // in two tufts over the ears
+      '<path d="M15.4 31.4 C14.4 20.6 18.4 10.6 25.8 8.4 C28.6 7.6 35.4 7.6 38.2 8.4 ' +
+      "C45.6 10.6 49.6 20.6 48.6 31.4 C48 32.6 46.2 32.6 45.6 31.4 " +
+      "C45.2 25 44 21.2 42 19.4 C39 16.8 36 17.4 32 17.4 C28 17.4 25 16.8 22 19.4 " +
+      "C20 21.2 18.8 25 18.4 31.4 C17.8 32.6 16 32.6 15.4 31.4 Z\" fill=\"" +
+      f.hair + '"/>' +
+      '<path d="M15.8 27.4 q3.4 1.6 3.2 8.2 q-3 0.8 -4.2 -1.6 Z" fill="' + f.hair + '"/>' +
+      '<path d="M48.2 27.4 q-3.4 1.6 -3.2 8.2 q3 0.8 4.2 -1.6 Z" fill="' + f.hair + '"/>' +
+      '<path d="M20.6 22.4 L29.4 25.2" stroke="#C6C0B6" stroke-width="2.5" ' +
+      'stroke-linecap="round"/>' +
+      '<path d="M43.4 22.4 L34.6 25.2" stroke="#C6C0B6" stroke-width="2.5" ' +
+      'stroke-linecap="round"/>' +
+      deepEye(25.8, 28, 1.9, f) + deepEye(38.2, 28, 1.9, f) +
+      bigNose(f, 34.6, 3.6) + jowls(f) + folds(f) +
+      // mid-chew: off-centre, one corner open, and it has always been so
+      '<path d="M25.4 41.6 C28.4 40.4 36 40.8 38.8 42.6 C36 45.6 27.8 45.2 25.4 41.6 Z" ' +
+      'fill="#6E3226"/>' +
+      '<path d="M27 41.8 C29.6 41.2 34.8 41.4 37 42.4 Z" fill="#FFFFFF" opacity=".85"/>' +
+      '<path d="M26.6 46.4 q5.4 1.6 10.8 -0.4" stroke="' + f.shade + '" ' +
+      'stroke-width="1" fill="none" opacity=".35"/>',
+
+    /* The moustache does the whole job — take it off and this is nobody. So
+       it is drawn wide, thick and slightly lopsided, and everything else
+       stays out of its way: a neat side part, brows up rather than down, and
+       the only open smile on the site. Four scowling managers and one man
+       pleased to be here. */
+    ted: (f) =>
+      // side part, short, combed across
+      '<path d="M15.6 30 C14.8 19.4 20 9.2 32 9.2 C43.6 9.2 49.2 19.6 48.4 30 ' +
+      "C47.6 23.4 46.4 19.8 44.2 18 C41.4 15.8 37.4 17.4 32.6 17.4 " +
+      "C27 17.4 22.4 16.4 19.8 19 C18 20.8 16.8 24.4 16.4 30 Z\" fill=\"" +
+      f.hair + '"/>' +
+      // the part itself, a single lighter stroke off-centre
+      '<path d="M24.4 12.4 q3.6 3.4 3 8.2" stroke="#A98459" stroke-width="1.5" ' +
+      'fill="none" stroke-linecap="round" opacity=".9"/>' +
+      // brows raised, not knitted
+      '<g stroke="' + f.hair + '" stroke-width="1.9" fill="none" stroke-linecap="round">' +
+      '<path d="M23.4 24.2 q2.8 -1.8 5.6 -0.6"/>' +
+      '<path d="M40.6 24.2 q-2.8 -1.8 -5.6 -0.6"/></g>' +
+      deepEye(26.4, 28.2, 1.8, f) + deepEye(37.6, 28.2, 1.8, f) +
+      // crow's feet, because the smile is real
+      '<g stroke="' + f.shade + '" stroke-width="0.9" fill="none" opacity=".4" ' +
+      'stroke-linecap="round">' +
+      '<path d="M22.2 29.4 l-2 -1"/><path d="M22 31 l-2.2 0.4"/>' +
+      '<path d="M41.8 29.4 l2 -1"/><path d="M42 31 l2.2 0.4"/></g>' +
+      bigNose(f, 33.4, 3, 0.14) +
+      // THE MOUSTACHE
+      '<path d="M22.6 38.4 C25.4 35.8 29.2 35.6 32 36.6 C34.8 35.6 38.6 35.8 41.4 38.4 ' +
+      "C41.8 41.2 38.6 42.6 35.4 41.6 C33.8 41 32.8 40.4 32 39.6 " +
+      "C31.2 40.4 30.2 41 28.6 41.6 C25.4 42.6 22.2 41.2 22.6 38.4 Z\" fill=\"" +
+      f.hair + '"/>' +
+      '<path d="M24.6 38 C27 36.6 29.6 36.8 31.4 37.6" stroke="#A98459" ' +
+      'stroke-width="0.9" fill="none" stroke-linecap="round" opacity=".55"/>' +
+      // the smile under it, teeth showing, corners up
+      '<path d="M26 44 C28.8 46.6 35.2 46.6 38 44 C36.4 47.8 27.6 47.8 26 44 Z" ' +
+      'fill="#6E3226"/>' +
+      '<path d="M27.6 44.4 C30 45.2 34 45.2 36.4 44.4 Z" fill="#FFFFFF" opacity=".9"/>',
+
+    /* The zip. It has come up over his mouth and he is going to argue
+       through it anyway. */
+    wenger: (f, uid) =>
+      '<path d="M15 32.6 C14.2 21.8 19.4 8.6 32 8.6 C44.4 8.6 49.8 22.4 49 32.6 ' +
+      "C48.4 24.6 47.2 19.6 44.8 17.6 C42.2 15.4 38.6 16.4 34.4 18 " +
+      "C28.6 20.2 18.4 23.4 15 32.6 Z\" fill=\"" + f.hair + '"/>' +
+      '<path d="M19.6 21.6 q4 -1.8 7 -0.2" stroke="#8E857C" stroke-width="1.9" ' +
+      'stroke-linecap="round" fill="none"/>' +
+      '<path d="M37.4 21.4 q3 -1.6 7 0.2" stroke="#8E857C" stroke-width="1.9" ' +
+      'stroke-linecap="round" fill="none"/>' +
+      eyes({ r: 2.1 }) +
+      // the glasses, sized for a man who reads the fixture list at arm's length
+      '<g fill="none" stroke="#3A3F45" stroke-width="1.5">' +
+      '<rect x="18.4" y="22.6" width="12" height="9.4" rx="3" fill="#FFFFFF" ' +
+      'fill-opacity=".18"/>' +
+      '<rect x="33.6" y="22.6" width="12" height="9.4" rx="3" fill="#FFFFFF" ' +
+      'fill-opacity=".18"/>' +
+      '<path d="M30.4 26.4 h3.2"/><path d="M18.4 25.6 L14.4 27.6"/>' +
+      '<path d="M45.6 25.6 L49.6 27.6"/></g>' +
+      // the nose that arrives before the argument does
+      '<path d="M32.4 32 L29.4 42.4 q2.8 1.8 5.4 0.2" stroke="' + f.shade + '" ' +
+      'stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" fill="none"/>' +
+      // THE TELL: the puffer collar, zipped clean over the mouth
+      '<path d="M14 64 C14 51.6 21.6 45 32 45 C42.4 45 50 51.6 50 64 Z" ' +
+      'fill="' + f.coat + '"/>' +
+      '<g stroke="#FFFFFF" stroke-opacity=".12" stroke-width="1.3" fill="none">' +
+      '<path d="M16 52 q16 -6 32 0"/><path d="M14.6 58 q17.4 -6 34.8 0"/></g>' +
+      '<path d="M32 44.6 V64" stroke="' + f.collar + '" stroke-width="2.4"/>' +
+      '<path d="M32 46.4 v4" stroke="#DFE1E4" stroke-width="1.4" stroke-linecap="round"/>' +
+      '<circle cx="32" cy="46" r="2" fill="#DFE1E4"/>',
+
+    /* One eyebrow has left for the hairline and is not coming back. */
+    mourinho: (f, uid) =>
+      '<path d="M15 27.4 C14.2 14.6 21.8 8 32 8 C42.2 8 49.8 14.6 49 27.4 ' +
+      "C47.8 18.4 45 14.2 39.4 13 C36.8 15.6 34.2 17.4 32 18.6 " +
+      "C29.8 17.4 27.2 15.6 24.6 13 C19 14.2 16.2 18.4 15 27.4 Z\" " +
+      'fill="' + f.hair + '"/>' +
+      // stubble, clipped to the head so it stops at the jaw
+      '<ellipse cx="32" cy="43" rx="14.4" ry="9.6" fill="#4A4F55" opacity=".26" ' +
+      'clip-path="url(#' + uid + 'h)"/>' +
+      // the level one, for contrast
+      '<path d="M20.6 23.4 q4.4 -1.6 8 0.2" stroke="#6C7075" stroke-width="1.9" ' +
+      'stroke-linecap="round" fill="none"/>' +
+      // and the one that goes up, though the hand is the headline now
+      '<path d="M35.4 21.8 q4.6 -3 9 -0.4" stroke="#6C7075" stroke-width="2.1" ' +
+      'stroke-linecap="round" fill="none"/>' +
+      eyes({ r: 2.1 }) +
+      '<path d="M32.2 30.4 L30.6 36.6 q2.2 1.4 4.2 0.2" stroke="' + f.shade + '" ' +
+      'stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" fill="none"/>' +
+      // the smirk: one end up, one end nowhere
+      '<path d="M24.6 41.4 q5 2.6 10.6 -2.4" stroke="#7A4E3E" stroke-width="2" ' +
+      'stroke-linecap="round" fill="none"/>',
+
+    /* Mid-celebration, and winking at someone behind the camera. */
+    cr7: (f, uid) =>
+      // the bit that takes the longest in the morning
+      '<path d="M19.4 15.6 C22.4 4.6 37.4 0.6 46 6.6 C47.6 7.6 47.4 8.8 45.4 8.6 ' +
+      "C36.4 7.8 26 10.2 19.4 15.6 Z\" fill=\"" + f.hair + '"/>' +
+      '<path d="M16.2 25 C16.2 12 23.6 6.4 32 6.4 C41 6.4 47.8 12.2 47.6 24.2 ' +
+      "C46.4 19.4 44.8 16.6 42.2 15 C37.8 17.4 25.6 17.4 21.2 15 " +
+      "C18.8 16.6 17.4 19.8 16.2 25 Z\" fill=\"" + f.hair + '"/>' +
+      '<path d="M20.6 22.6 q4.6 -1.6 8.2 0.2" stroke="#2A2018" stroke-width="1.9" ' +
+      'stroke-linecap="round" fill="none"/>' +
+      '<path d="M35.4 22.8 q4 -1.8 8.2 0" stroke="#2A2018" stroke-width="1.9" ' +
+      'stroke-linecap="round" fill="none"/>' +
+      eyes({ r: 2.2, wink: "right" }) +
+      '<path d="M32 30.4 L30.8 35.4 q2 1.2 3.8 0" stroke="' + f.shade + '" ' +
+      'stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" fill="none"/>' +
+      // siuuu
+      '<ellipse cx="32" cy="38.8" rx="4.2" ry="4.8" fill="#7A3A2E"/>' +
+      '<path d="M28 36.8 q4 -2.2 8 0 q-4 1.5 -8 0 Z" fill="#FFFFFF"/>' +
+      '<ellipse cx="32" cy="42.2" rx="2.4" ry="1.2" fill="#C1584A"/>',
+
+    /* The beard has reached the badge and shows no sign of stopping. */
+    xabi: (f, uid) =>
+      '<path d="M16 26 C16 13 22.6 7.4 32 7.4 C41.4 7.4 48 13 48 26 ' +
+      "C46.4 19.6 44.8 17 42.4 15.8 C38 18 26 18 21.6 15.8 " +
+      "C19.2 17 17.6 19.6 16 26 Z\" fill=\"" + f.hair + '"/>' +
+      // the beard: down past the jaw and onto the shirt
+      '<path d="M17 30.4 C17.2 35.8 18.4 42.2 21.6 47.4 C25 52.6 29.2 54.8 32 54.8 ' +
+      "C34.8 54.8 39 52.6 42.4 47.4 C45.6 42.2 46.8 35.8 47 30.4 " +
+      "C45.6 36 42.4 38.4 37.6 39 C34.2 39.4 29.8 39.4 26.4 39 " +
+      "C21.6 38.4 18.4 36 17 30.4 Z\" fill=\"" + f.hair + '"/>' +
+      '<path d="M20.4 22.6 q4.6 -1.8 8.2 0" stroke="#120C06" stroke-width="2" ' +
+      'stroke-linecap="round" fill="none"/>' +
+      '<path d="M35.4 22.6 q4.6 -1.8 8.2 0" stroke="#120C06" stroke-width="2" ' +
+      'stroke-linecap="round" fill="none"/>' +
+      eyes({ r: 2.2 }) +
+      '<path d="M32 30.4 L30.8 35.6 q2 1.2 3.8 0" stroke="' + f.shade + '" ' +
+      'stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" fill="none"/>' +
+      // moustache over a level mouth — no verdict, ever
+      '<path d="M25.6 38.8 q6.4 -2.2 12.8 0 q-3.2 3 -6.4 3 q-3.2 0 -6.4 -3 Z" ' +
+      'fill="' + f.hair + '"/>' +
+      '<path d="M28.6 43.4 h6.8" stroke="#7A4A38" stroke-width="1.6" ' +
+      'stroke-linecap="round" opacity=".7"/>',
+  };
+
+  /* Coat trim, drawn after the coat so it sits on top of it. The Professeur
+     has none: his coat is drawn with his face, because the zip is the joke. */
+  const TRIM = {
+    // a club-coloured tie under a dark suit
+    fergie: (f) => '<path d="' + COLLAR + '" fill="#E8E6E0"/>' +
+      '<path d="M32 55.6 L29.8 58 L32 64 L34.2 58 Z" fill="' + f.collar + '"/>',
+    wenger: () => "",
+    // overcoat lapels
+    mourinho: (f) => '<path d="M25.6 50.6 L32 55.6 L27.6 64 L20.6 64 Z" fill="' +
+      f.collar + '"/>' +
+      '<path d="M38.4 50.6 L32 55.6 L36.4 64 L43.4 64 Z" fill="' + f.collar + '"/>',
+    // kit collar and the chain
+    cr7: (f) => '<path d="' + COLLAR + '" fill="' + f.collar + '"/>' +
+      '<path d="M27.6 54.6 q4.4 5.2 8.8 0" stroke="#E8B84B" stroke-width="1.6" ' +
+      'fill="none" stroke-linecap="round"/>',
+    // plain white collar, nothing to prove
+    xabi: (f) => '<path d="' + COLLAR + '" fill="' + f.collar + '"/>',
+    // a tracksuit, zipped: the only person here dressed to run a session
+    ted: (f) => '<path d="' + COLLAR + '" fill="' + f.collar + '"/>' +
+      '<path d="M32 55.6 V64" stroke="' + f.collar + '" stroke-width="2.2"/>' +
+      '<path d="M32 56.4 V64" stroke="#8D95A1" stroke-width="0.8"/>',
+  };
+
+  /* Props, drawn last. Only one face has one: three fingers, held up,
+     unhurried, at somebody else's crowd. The forearm has to be drawn before
+     the hand or the hand reads as a thumbprint stuck to the shoulder. */
+  const PROP = {
+    // A whistle on a cord. Every other face is identified by a feature; his
+    // job needs saying too, and a whistle says assistant manager faster than
+    // any amount of tracksuit.
+    ted: () =>
+      '<path d="M24.4 52.4 C26.6 58.6 37.4 58.6 39.6 52.4" stroke="#C8CDD4" ' +
+      'stroke-width="1.1" fill="none" stroke-linecap="round"/>' +
+      '<path d="M29.6 57.4 h5.6 a1.5 1.5 0 0 1 1.5 1.5 v2.2 a1.5 1.5 0 0 1 -1.5 1.5 ' +
+      'h-5.6 a1.5 1.5 0 0 1 -1.5 -1.5 v-2.2 a1.5 1.5 0 0 1 1.5 -1.5 Z" fill="#D8DDE3" ' +
+      'stroke="#8D95A1" stroke-width="0.6"/>' +
+      '<circle cx="34.6" cy="60" r="0.8" fill="#8D95A1"/>',
+    mourinho: (f) =>
+      '<path d="M44 64 L55 64 L53 48 L43 50 Z" fill="' + f.coat + '"/>' +
+      '<path d="M43 50 L53 48 L53.6 52 L43.6 54 Z" fill="#FFFFFF" fill-opacity=".16"/>' +
+      '<path d="M45.4 52 q6 -1 8.4 0.6 v6 q-4.4 1.4 -8.4 -0.4 Z" fill="' + f.skin + '"/>' +
+      '<g stroke="' + f.skin + '" stroke-width="3.2" stroke-linecap="round">' +
+      '<path d="M47.4 51.6 V42.6"/><path d="M51 51.8 V41.4"/>' +
+      '<path d="M54.4 52.6 V44"/></g>' +
+      '<g stroke="' + f.shade + '" stroke-width="0.8" opacity=".45">' +
+      '<path d="M49.2 46 v5"/><path d="M52.7 46 v5"/></g>',
+  };
+
+  /* ---- the drawing -------------------------------------------------------
+     `uid` must be unique per rendered face: two of the styles clip to a path
+     that lives in this SVG's own defs, and duplicate ids on one page make the
+     second face clip against the first. */
+  let seq = 0;
+
+  FA.faceOf = (nick) => FACES[nick] || null;
+  // Through FA.club so the door spells a club the way the rest of the site does.
+  FA.faceClub = (nick) => FA.club((FACES[nick] || {}).clubName || "");
+  FA.FACE_NICKS = Object.keys(FACES);
+
+  /* The five are frozen and live in several files at once. This one is the
+     only place they are DRAWN, so it says so out loud rather than quietly
+     showing an initial where a face belongs. */
+  FA.NICKS.forEach((n) => {
+    if (!FACES[n]) console.warn("faces.js: no caricature for " + n);
+  });
+
+  FA.faceSVG = function (nick, opts) {
+    const f = FACES[nick];
+    const o = opts || {};
+    if (!f) {
+      // An unknown nickname still gets a mark rather than a hole.
+      return '<svg class="face" viewBox="0 0 64 64" role="img" aria-label="' +
+        esc(nick || "unknown") + '"><circle cx="32" cy="32" r="31" fill="var(--raise)" ' +
+        'stroke="var(--line)"/><text x="32" y="40" text-anchor="middle" font-size="22" ' +
+        'font-weight="700" fill="var(--faint)">' + esc(FA.initial(nick || "?")) +
+        "</text></svg>";
+    }
+    const uid = "fa" + (++seq);
+    const tint = TINT[f.club] || "#6B7280";
+    // A face may bring its own skull and ears; most sit on the shared pair.
+    const head = f.head || HEAD;
+    const ears = f.ears || (EAR_L + EAR_R);
+    const flat = o.flat === true;   // no disc — for a face inside a tight chip
+    const dim = o.dim === true;     // not you, or not yet signed in
+
+    return '<svg class="face' + (dim ? " dim" : "") + '" viewBox="0 0 64 64" ' +
+      'role="img" aria-label="' + esc(nick) + '">' +
+      "<defs>" +
+      '<clipPath id="' + uid + 'd"><circle cx="32" cy="32" r="31"/></clipPath>' +
+      '<clipPath id="' + uid + 'h">' + head + "</clipPath>" +
+      '<linearGradient id="' + uid + 'g" x1="0" y1="0" x2="0" y2="1">' +
+      '<stop offset="0" stop-color="' + tint + '" stop-opacity=".26"/>' +
+      '<stop offset="1" stop-color="' + tint + '" stop-opacity=".08"/>' +
+      "</linearGradient></defs>" +
+      (flat ? "" : '<circle cx="32" cy="32" r="31" fill="url(#' + uid + 'g)"/>') +
+      '<g clip-path="url(#' + uid + 'd)">' +
+      // shoulders, then collar trim, then the person
+      '<path d="' + COAT + '" fill="' + f.coat + '"/>' +
+      (TRIM[f.style] ? TRIM[f.style](f) : "") +
+      '<g fill="' + f.shade + '">' + NECK + "</g>" +
+      '<g fill="' + f.skin + '">' + ears + head + "</g>" +
+      STYLE[f.style](f, uid) +
+      (PROP[f.style] ? PROP[f.style](f) : "") +
+      "</g>" +
+      (flat ? "" : '<circle cx="32" cy="32" r="30.4" fill="none" stroke="' + tint +
+        '" stroke-opacity=".38" stroke-width="1.2"/>') +
+      "</svg>";
+  };
+})();
+</script>
+<script>
+(function(){ "use strict";
+  const esc = FA.esc, face = FA.faceSVG, kit = FA.kitSVG;
+  const FIVE = [
+    { nick:"Sir Fergie", team:"Fergie Time FC", pts:238, rank:1 },
+    { nick:"Mr CR7", team:"Siuuu United", pts:210, rank:4 },
+    { nick:"Le Professeur", team:"Invincibles Reborn", pts:207, rank:5 },
+    { nick:"Xabi", team:"Wabi Sabi Xabi", pts:193, rank:7 },
+    { nick:"The Special One", team:"Park The Bus", pts:169, rank:9 },
+  ];
+  /* Ted's fresh XI for GW4. owned = how many of the five hold him this week. */
+  const TED = {
+    gw:4, locks:"Sat 12 Sep, 18:00", spent:99.5,
+    xi:[
+      { name:"Sels", team:"NFO", pos:"GK", price:5.0, fx:"AVL (A)", fdr:4, owned:0 },
+      { name:"Gabriel", team:"ARS", pos:"DEF", price:8.0, fx:"SUN (A)", fdr:3, owned:0 },
+      { name:"Guéhi", team:"MCI", pos:"DEF", price:6.0, fx:"MUN (A)", fdr:4, owned:0 },
+      { name:"Tarkowski", team:"EVE", pos:"DEF", price:6.0, fx:"TOT (A)", fdr:3, owned:0 },
+      { name:"Muñoz", team:"NFO", pos:"DEF", price:5.4, fx:"AVL (A)", fdr:4, owned:0 },
+      { name:"Palmer", team:"CHE", pos:"MID", price:9.6, fx:"HUL (H)", fdr:2, owned:0, captain:true },
+      { name:"Mbeumo", team:"MUN", pos:"MID", price:7.9, fx:"MCI (H)", fdr:4, owned:0 },
+      { name:"Gakpo", team:"LIV", pos:"MID", price:7.1, fx:"FUL (H)", fdr:2, owned:1 },
+      { name:"Wirtz", team:"LIV", pos:"MID", price:7.4, fx:"FUL (H)", fdr:2, owned:0 },
+      { name:"Isak", team:"LIV", pos:"FWD", price:9.0, fx:"FUL (H)", fdr:2, owned:0, vice:true },
+      { name:"Mateta", team:"CRY", pos:"FWD", price:6.4, fx:"IPS (H)", fdr:2, owned:0 },
+    ],
+    bench:[
+      { name:"Palmer", team:"IPS", pos:"GK", price:4.0, fx:"CRY (A)", fdr:3, owned:0 },
+      { name:"Rodon", team:"LEE", pos:"DEF", price:4.4, fx:"NEW (H)", fdr:2, owned:0 },
+      { name:"Rice", team:"ARS", pos:"MID", price:7.4, fx:"SUN (A)", fdr:3, owned:0 },
+      { name:"Wood", team:"NFO", pos:"FWD", price:5.9, fx:"AVL (A)", fdr:4, owned:0 },
+    ],
+    /* Only the players the five are NOT holding get a line. Gakpo is one of
+       five so he gets none; the four everybody owns are not here at all. */
+    why:[
+      { name:"Palmer", team:"CHE", pos:"MID", price:9.6, own:"20%", owned:0,
+        text:"Twenty points in two, the penalties, and Hull at Stamford Bridge next. Two of you support the club and none of you own him, which is the strangest fact in the room. He wears the armband." },
+      { name:"Isak", team:"LIV", pos:"FWD", price:9.0, own:"18%", owned:0,
+        text:"Three goals in two games at £9.0m, Fulham at home, and Iraola says the numbers will come if he is fit. Four of you are paying £7.5m for Calvert-Lewin in that slot." },
+      { name:"Mbeumo", team:"MUN", pos:"MID", price:7.9, own:"26%", owned:0,
+        text:"Twenty-one points already and the derby at Old Trafford. All five of you own B.Fernandes and nobody owns the man he keeps finding." },
+      { name:"Guéhi", team:"MCI", pos:"DEF", price:6.0, own:"19%", owned:0,
+        text:"Twenty points from three, the same back line as Gvardiol, and £0.4m dearer. Two of you own Gvardiol. The clean sheet is shared; the goals are not." },
+      { name:"Wirtz", team:"LIV", pos:"MID", price:7.4, own:"9%", owned:0,
+        text:"Nine points is a slow start for £123m, and he is still on every set piece Liverpool take. Fulham at home is where a slow start ends." },
+      { name:"Mateta", team:"CRY", pos:"FWD", price:6.4, own:"2%", owned:0,
+        text:"Ipswich at home, the penalties, and the cheapest starting striker who is actually a starter. He is here so that Isak and Palmer can be." },
+      { name:"Sels", team:"NFO", pos:"GK", price:5.0, own:"1%", owned:0,
+        text:"Nine points and the most saves in the league. Villa away is hard, and a keeper who is busy scores anyway." },
+    ],
+    absent:{ name:"Haaland", text:"All five of you have him and all five have the armband on him. Old Trafford, then Porto on the Tuesday. I would rather spend his £15.5m on Isak, Mateta and the change than tell you what you already know." },
+    watch:[
+      { name:"Semenyo", team:"MCI", pos:"MID", price:8.4, own:"19%", status:"watch", text:"Thirteen points and the derby away. If he starts ahead of Cherki on Saturday he is in next week's side, and Cherki is in three of yours." },
+      { name:"Cunha", team:"MUN", pos:"MID", price:7.9, own:"8%", status:"new", text:"Fourteen points and nobody in the room owns him. I chose Mbeumo this week; the derby decides which of them I keep." },
+      { name:"Watkins", team:"AVL", pos:"FWD", price:7.8, own:"4%", status:"watch", text:"No points from three, and Forest at home. One goal and he is cheaper than anything you are playing up front." },
+    ],
+  };
+  let who = "Ted";
+  /* Ted's week has four states, and the mock lets you step through them. */
+  const PHASES = [
+    { id:"live", label:"Matches on", when:"Sat 6 Sep, 16:40" },
+    { id:"done", label:"Just finished", when:"Sun 6 Sep, 20:10" },
+    { id:"draft", label:"Midweek tinkering", when:"Wed 9 Sep" },
+    { id:"frozen", label:"Deadline day", when:"Sat 12 Sep, 15:00" },
+  ];
+  let phase = "live";
+  /* GW3 points for the fifteen. Illustrative: Ted's GW3 side is the same
+     names so the states can be compared on one squad. */
+  const PTS = { Sels:3, Gabriel:6, "Guéhi":8, Tarkowski:2, "Muñoz":1, Palmer:13, Mbeumo:7, Gakpo:9, Wirtz:2, Isak:8, Mateta:2, Rodon:6, Rice:3, Wood:1 };
+  const DONE = { Sels:true, Gabriel:true, "Guéhi":true, Tarkowski:true, Palmer:true, Mbeumo:true, Gakpo:true, Isak:true, Rice:true };
+  function phaseHTML() {
+    return '<div class="mock-phase">mock only, step through Ted\u2019s week: ' + PHASES.map((p) =>
+      '<button data-phase="' + p.id + '" aria-pressed="' + (p.id === phase) + '">' + esc(p.label) + '</button>').join("") + '</div>';
+  }
+
+  function barHTML() {
+    const chips = FIVE.map((p) =>
+      '<button class="gchip" data-nick="' + esc(p.nick) + '" aria-pressed="' + (p.nick === who) + '">' +
+      '<span class="gface">' + face(p.nick) + '</span><span class="gmeta"><b>' + esc(p.nick) + '</b>' +
+      '<span class="gteam">' + esc(p.team) + '</span><span class="gpts">' + p.pts + ' pts &middot; #' + p.rank + '</span></span></button>').join("");
+    const ted = '<button class="gchip ghost" data-nick="Ted" aria-pressed="' + (who === "Ted") + '">' +
+      '<span class="gface">' + face("Ted") + '</span><span class="gmeta"><b>Ted</b>' +
+      '<span class="gteam">ghost manager</span><span class="gpts">fresh XI &middot; not in the league</span></span></button>';
+    return '<div class="gbar" id="gbar">' + chips + ted + '</div>';
+  }
+
+  function tile(p) {
+    return '<div class="pp">' +
+      (p.captain ? '<span class="arm" title="Captain">C</span>' : "") +
+      (p.vice ? '<span class="arm v" title="Vice-captain">V</span>' : "") +
+      kit(p.team, p.pos === "GK") +
+      '<a class="nb" data-player="' + esc(p.name) + '">' + esc(p.name) + '</a>' +
+      (phase === "live" || phase === "done"
+        ? (function(){ const over = phase === "done" || DONE[p.name]; const n = PTS[p.name] || 0; const m = p.captain ? 2 : 1;
+            return over ? '<div class="vb">' + (n * m) + (m > 1 ? ' &times;2' : '') + '</div>'
+                        : '<div class="vb f' + p.fdr + '">' + esc(p.fx) + '</div>'; })()
+        : '<div class="vb f' + p.fdr + '">' + esc(p.fx) + '</div>') + '</div>';
+  }
+
+  function pitchHTML() {
+    const rows = ["GK","DEF","MID","FWD"].map((pos) => TED.xi.filter((x) => x.pos === pos));
+    const shape = rows.slice(1).map((r) => r.length).join("-");
+    const xiPts = TED.xi.reduce((n, p) => n + (PTS[p.name] || 0) * (p.captain ? 2 : 1), 0);
+    const line = phase === "live"
+        ? '<span>Gameweek <b>3</b> &middot; 6 of 10 matches finished, 2 in play</span><span>points below are live, including provisional bonus</span>'
+      : phase === "done"
+        ? '<span>Gameweek <b>3</b> is final</span><span>picked from scratch, no transfers, no chips</span>'
+      : phase === "draft"
+        ? '<span>Gameweek <b>4</b> &middot; <b>draft</b>, changes until Sat 15:00</span><span><b>&pound;' + TED.spent.toFixed(1) + 'm</b> of &pound;100.0m</span>'
+        : '<span>Gameweek <b>4</b> &middot; <b>team sheet in</b> Sat 15:00, three hours before the deadline</span><span><b>&pound;' + TED.spent.toFixed(1) + 'm</b> of &pound;100.0m</span>';
+    const state = phase === "live" ? '<span class="gwstate live">in play</span>'
+      : phase === "done" ? '<span class="gwstate">settled</span>'
+      : phase === "draft" ? '<span class="gwstate">draft</span>' : '<span class="gwstate">frozen</span>';
+    const total = (phase === "live" || phase === "done")
+      ? '<strong>' + xiPts + '</strong> pts on the pitch &middot; <strong>' + TED.bench.reduce((n, p) => n + (PTS[p.name] || 0), 0) + '</strong> on the bench'
+      : 'average difficulty <strong>2.91</strong>';
+    const diff = phase === "draft"
+      ? '<div class="diff"><span>since Tuesday:</span><span><i class="in">in</i> Wirtz</span><span><i class="out">out</i> Saka</span><span><i class="in">in</i> Mateta</span><span><i class="out">out</i> Haaland</span></div>' : '';
+    return '<div class="panel"><h3>Ted&rsquo;s ' + shape + '</h3>' +
+      '<div class="tedline">' + line + '</div>' + diff +
+      '<div class="gwnav"><button disabled aria-label="Previous gameweek">&larr;</button><span class="gwlabel">Gameweek ' + (phase === "live" || phase === "done" ? 3 : 4) + '</span>' +
+      '<button disabled aria-label="Next gameweek">&rarr;</button>' + state +
+      '<span class="gwtotal">' + total + '</span></div>' +
+      '<div class="pitchwrap"><div class="pitch">' +
+      '<div class="chalk"><i class="box"></i><i class="box6"></i><i class="half"></i><i class="circle"></i></div>' +
+      rows.map((r) => '<div class="prow">' + r.map(tile).join("") + '</div>').join("") +
+      '</div><div class="benchlabel">Bench</div><div class="benchrow">' + TED.bench.map(tile).join("") + '</div></div></div>';
+  }
+
+  function ownedDots(n) {
+    return '<span class="owned' + (n === 0 ? " none" : "") + '" title="' + n + ' of the five own him">' +
+      [0,1,2,3,4].map((i) => '<i class="' + (i < n ? "on" : "") + '"></i>').join("") +
+      ' ' + (n === 0 ? "none of you" : n + " of you") + '</span>';
+  }
+
+  function whyHTML() {
+    return '<div class="panel"><h3>Why they&rsquo;re here</h3>' +
+      '<p class="note">The ones most of you are not holding. Everyone you all own needs no defending.</p>' +
+      TED.why.map((p) =>
+        '<div class="whyrow">' + kit(p.team, p.pos === "GK") + '<div>' +
+        '<div class="whyhead"><a data-player="' + esc(p.name) + '">' + esc(p.name) + '</a>' +
+        '<span class="meta">' + esc(p.team) + ' &middot; ' + esc(p.pos) + ' &middot; &pound;' + p.price.toFixed(1) + 'm &middot; ' + esc(p.own) + '</span>' +
+        ownedDots(p.owned) + '</div><p>' + esc(p.text) + '</p></div></div>').join("") +
+      '<div class="nohaaland"><h4>Left out &middot; ' + esc(TED.absent.name) + '</h4><p>' + esc(TED.absent.text) + '</p></div>' +
+      '</div>';
+  }
+
+  function watchHTML() {
+    return '<div class="panel"><h3>Ted&rsquo;s watchlist</h3>' +
+      '<p class="note">Not in this week&rsquo;s side. What gets them in.</p>' +
+      TED.watch.map((p) =>
+        '<div class="row"><div class="row-main"><div class="row-name">' +
+        '<a class="plink" data-player="' + esc(p.name) + '">' + esc(p.name) + '</a> ' +
+        '<span class="tag">' + esc(p.status) + '</span>' +
+        '<span class="row-meta" style="font-family:var(--f-num);font-size:11.5px;color:var(--faint);margin-left:8px">' +
+        esc(p.team) + ' &middot; ' + esc(p.pos) + ' &middot; &pound;' + p.price.toFixed(1) + 'm &middot; ' + esc(p.own) + '</span></div>' +
+        '<p style="margin:4px 0 0;font-size:14px;line-height:1.5">' + esc(p.text) + '</p></div></div>').join("") +
+      '</div>';
+  }
+
+  function rebuildHTML() {
+    return '<div class="panel"><h3>Ted is rebuilding</h3><div class="rebuild">' +
+      '<p>Gameweek 3 is done and the fifteen goes in the bin, all of it, every week. Palmer with the armband was the call that carried it; Wirtz and Mu&ntilde;oz were not.</p>' +
+      '<p>A first draft for Gameweek 4 appears Tuesday, once the injury news and the press conferences are in. It changes through the week and freezes Saturday at 15:00, three hours before the deadline.</p>' +
+      '<div class="clock"><span class="now"><b>Sun&ndash;Mon</b>thinking</span><span><b>Tue</b>first draft</span><span><b>Wed&ndash;Fri</b>tinkering</span><span><b>Sat 15:00</b>team sheet in</span><span><b>Sat 18:00</b>deadline</span></div>' +
+      '</div></div>';
+  }
+
+  function xabiHTML() {
+    return '<div class="panel"><h3>Xabi&rsquo;s 3-4-3</h3><p class="empty" style="padding:12px 0">Unchanged from today: the pitch, the weekly read (What worked / What didn&rsquo;t), the watchlist and The Big Decision. The only thing gone from this view is the roast panel that sat under it.</p></div>';
+  }
+
+  function render() {
+    document.getElementById("main").innerHTML =
+      '<div class="mock-note"><b>Mockup.</b> Three changes to the gaffers room, nothing else moves.' +
+      '<ul><li>Ted joins the chip bar as a sixth face, dashed, with no points and no rank. He is not in the league and never will be.</li>' +
+      '<li>His view has a pitch, a fresh fifteen every gameweek, and in place of What worked / What didn&rsquo;t he explains the players most of you are not holding. His own watchlist sits under it.</li>' +
+      '<li>The roast panel is gone from every view.</li><li>Ted&rsquo;s week has four states: scores while matches are on, a rebuilding note once the week settles, a draft that changes midweek, and a frozen team sheet three hours before the deadline.</li></ul></div>' +
+      phaseHTML() +
+      '<section class="section"><div class="section-head"><h2>the gaffers</h2></div>' +
+      barHTML() +
+      (who === "Ted"
+        ? (phase === "live" ? pitchHTML() + watchHTML()
+          : phase === "done" ? pitchHTML() + rebuildHTML() + watchHTML()
+          : pitchHTML() + whyHTML() + watchHTML())
+        : xabiHTML()) +
+      '</section>';
+    document.querySelectorAll(".mock-phase button").forEach((b) => b.addEventListener("click", () => { phase = b.dataset.phase; who = "Ted"; render(); }));
+    document.querySelectorAll("#gbar .gchip").forEach((b) => b.addEventListener("click", () => {
+      who = b.dataset.nick === "Ted" ? "Ted" : "Xabi"; render();
+    }));
+  }
+  render();
+
+  const tc = document.getElementById("themectl");
+  const setT = (t) => { if (t === "auto") document.documentElement.removeAttribute("data-theme"); else document.documentElement.setAttribute("data-theme", t);
+    tc.querySelectorAll("button").forEach((b) => b.setAttribute("aria-pressed", b.dataset.t === t)); try { localStorage.setItem("mock-theme", t); } catch (e) {} };
+  tc.addEventListener("click", (e) => { const b = e.target.closest("button"); if (b) setT(b.dataset.t); });
+  let saved = "auto"; try { saved = localStorage.getItem("mock-theme") || "auto"; } catch (e) {}
+  setT(saved);
+})();
+</script>
