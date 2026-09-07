@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-07T02:29:09.916Z",
+  "generated_at": "2026-09-07T02:35:44.580Z",
   "gameweek": 4,
   "gw_points_for": 3,
   "players": [
@@ -2297,110 +2297,6 @@
       "fdr_avg": 2.8
     },
     {
-      "id": 387,
-      "name": "O'Reilly",
-      "team": "MCI",
-      "pos": "DEF",
-      "price": 6.5,
-      "ownership": 16.5,
-      "points": 4,
-      "gw_points": 0,
-      "form": "1.3",
-      "fixtures": [
-        {
-          "gw": 4,
-          "opp": "MUN",
-          "home": false,
-          "fdr": 4
-        },
-        {
-          "gw": 5,
-          "opp": "SUN",
-          "home": true,
-          "fdr": 2
-        },
-        {
-          "gw": 6,
-          "opp": "LIV",
-          "home": false,
-          "fdr": 4
-        },
-        {
-          "gw": 7,
-          "opp": "IPS",
-          "home": true,
-          "fdr": 2
-        },
-        {
-          "gw": 8,
-          "opp": "AVL",
-          "home": false,
-          "fdr": 4
-        }
-      ],
-      "recent": [
-        {
-          "gw": 1,
-          "date": "2026-08-23",
-          "comp": "PL",
-          "opp": "BOU",
-          "home": true,
-          "gf": 2,
-          "ga": 1,
-          "result": "W"
-        },
-        {
-          "gw": 2,
-          "date": "2026-08-28",
-          "comp": "PL",
-          "opp": "CRY",
-          "home": false,
-          "gf": 4,
-          "ga": 1,
-          "result": "W"
-        },
-        {
-          "gw": 3,
-          "date": "2026-09-05",
-          "comp": "PL",
-          "opp": "COV",
-          "home": true,
-          "gf": 1,
-          "ga": 0,
-          "result": "W"
-        }
-      ],
-      "other_apps": [],
-      "other_next": [
-        {
-          "date": "2026-09-08",
-          "kickoff": "2026-09-08T19:00:00+00:00",
-          "comp": "CL",
-          "opp": "FC Porto",
-          "home": false
-        },
-        {
-          "date": "2026-09-17",
-          "kickoff": "2026-09-17T18:30:00+00:00",
-          "comp": "EFL",
-          "opp": "Norwich City",
-          "home": true
-        },
-        {
-          "date": "2026-10-14",
-          "kickoff": "2026-10-14T19:00:00+00:00",
-          "comp": "CL",
-          "opp": "Paris Saint-Germain",
-          "home": true
-        }
-      ],
-      "owned_by": [],
-      "fdr_avg": 3.2,
-      "status": "d",
-      "news": "Back injury - 75% chance of playing",
-      "chance": 75
-    },
-    {
       "id": 464,
       "name": "Wissa",
       "team": "NEW",
@@ -2502,6 +2398,110 @@
       ],
       "owned_by": [],
       "fdr_avg": 2.6
+    },
+    {
+      "id": 387,
+      "name": "O'Reilly",
+      "team": "MCI",
+      "pos": "DEF",
+      "price": 6.5,
+      "ownership": 16.4,
+      "points": 4,
+      "gw_points": 0,
+      "form": "1.3",
+      "fixtures": [
+        {
+          "gw": 4,
+          "opp": "MUN",
+          "home": false,
+          "fdr": 4
+        },
+        {
+          "gw": 5,
+          "opp": "SUN",
+          "home": true,
+          "fdr": 2
+        },
+        {
+          "gw": 6,
+          "opp": "LIV",
+          "home": false,
+          "fdr": 4
+        },
+        {
+          "gw": 7,
+          "opp": "IPS",
+          "home": true,
+          "fdr": 2
+        },
+        {
+          "gw": 8,
+          "opp": "AVL",
+          "home": false,
+          "fdr": 4
+        }
+      ],
+      "recent": [
+        {
+          "gw": 1,
+          "date": "2026-08-23",
+          "comp": "PL",
+          "opp": "BOU",
+          "home": true,
+          "gf": 2,
+          "ga": 1,
+          "result": "W"
+        },
+        {
+          "gw": 2,
+          "date": "2026-08-28",
+          "comp": "PL",
+          "opp": "CRY",
+          "home": false,
+          "gf": 4,
+          "ga": 1,
+          "result": "W"
+        },
+        {
+          "gw": 3,
+          "date": "2026-09-05",
+          "comp": "PL",
+          "opp": "COV",
+          "home": true,
+          "gf": 1,
+          "ga": 0,
+          "result": "W"
+        }
+      ],
+      "other_apps": [],
+      "other_next": [
+        {
+          "date": "2026-09-08",
+          "kickoff": "2026-09-08T19:00:00+00:00",
+          "comp": "CL",
+          "opp": "FC Porto",
+          "home": false
+        },
+        {
+          "date": "2026-09-17",
+          "kickoff": "2026-09-17T18:30:00+00:00",
+          "comp": "EFL",
+          "opp": "Norwich City",
+          "home": true
+        },
+        {
+          "date": "2026-10-14",
+          "kickoff": "2026-10-14T19:00:00+00:00",
+          "comp": "CL",
+          "opp": "Paris Saint-Germain",
+          "home": true
+        }
+      ],
+      "owned_by": [],
+      "fdr_avg": 3.2,
+      "status": "d",
+      "news": "Back injury - 75% chance of playing",
+      "chance": 75
     },
     {
       "id": 124,
@@ -3836,7 +3836,7 @@
       "team": "ARS",
       "pos": "MID",
       "price": 9.5,
-      "ownership": 11.2,
+      "ownership": 11.3,
       "points": 22,
       "gw_points": 2,
       "form": "7.3",
@@ -45164,6 +45164,107 @@
       "chance": 0
     },
     {
+      "id": 631,
+      "name": "Mbaye",
+      "team": "AVL",
+      "pos": "MID",
+      "price": 6,
+      "ownership": 0.1,
+      "points": 0,
+      "gw_points": 0,
+      "form": "0.0",
+      "fixtures": [
+        {
+          "gw": 4,
+          "opp": "NFO",
+          "home": true,
+          "fdr": 3
+        },
+        {
+          "gw": 5,
+          "opp": "TOT",
+          "home": false,
+          "fdr": 3
+        },
+        {
+          "gw": 6,
+          "opp": "BRE",
+          "home": true,
+          "fdr": 3
+        },
+        {
+          "gw": 7,
+          "opp": "NEW",
+          "home": false,
+          "fdr": 3
+        },
+        {
+          "gw": 8,
+          "opp": "MCI",
+          "home": true,
+          "fdr": 4
+        }
+      ],
+      "recent": [
+        {
+          "gw": 1,
+          "date": "2026-08-23",
+          "comp": "PL",
+          "opp": "BHA",
+          "home": false,
+          "gf": 0,
+          "ga": 4,
+          "result": "L"
+        },
+        {
+          "gw": 2,
+          "date": "2026-08-31",
+          "comp": "PL",
+          "opp": "ARS",
+          "home": true,
+          "gf": 0,
+          "ga": 1,
+          "result": "L"
+        },
+        {
+          "gw": 3,
+          "date": "2026-09-05",
+          "comp": "PL",
+          "opp": "HUL",
+          "home": false,
+          "gf": 0,
+          "ga": 0,
+          "result": "D"
+        }
+      ],
+      "other_apps": [],
+      "other_next": [
+        {
+          "date": "2026-09-08",
+          "kickoff": "2026-09-08T16:45:00+00:00",
+          "comp": "CL",
+          "opp": "Club Brugge",
+          "home": false
+        },
+        {
+          "date": "2026-09-16",
+          "kickoff": "2026-09-16T19:00:00+00:00",
+          "comp": "EFL",
+          "opp": "COV",
+          "home": false
+        },
+        {
+          "date": "2026-10-14",
+          "kickoff": "2026-10-14T19:00:00+00:00",
+          "comp": "CL",
+          "opp": "Fenerbahce",
+          "home": true
+        }
+      ],
+      "owned_by": [],
+      "fdr_avg": 3.2
+    },
+    {
       "id": 621,
       "name": "McAidoo",
       "team": "MCI",
@@ -60663,107 +60764,6 @@
       "status": "i",
       "news": "Muscular injury - Unknown return date",
       "chance": 0
-    },
-    {
-      "id": 631,
-      "name": "Mbaye",
-      "team": "AVL",
-      "pos": "MID",
-      "price": 6,
-      "ownership": 0,
-      "points": 0,
-      "gw_points": 0,
-      "form": "0.0",
-      "fixtures": [
-        {
-          "gw": 4,
-          "opp": "NFO",
-          "home": true,
-          "fdr": 3
-        },
-        {
-          "gw": 5,
-          "opp": "TOT",
-          "home": false,
-          "fdr": 3
-        },
-        {
-          "gw": 6,
-          "opp": "BRE",
-          "home": true,
-          "fdr": 3
-        },
-        {
-          "gw": 7,
-          "opp": "NEW",
-          "home": false,
-          "fdr": 3
-        },
-        {
-          "gw": 8,
-          "opp": "MCI",
-          "home": true,
-          "fdr": 4
-        }
-      ],
-      "recent": [
-        {
-          "gw": 1,
-          "date": "2026-08-23",
-          "comp": "PL",
-          "opp": "BHA",
-          "home": false,
-          "gf": 0,
-          "ga": 4,
-          "result": "L"
-        },
-        {
-          "gw": 2,
-          "date": "2026-08-31",
-          "comp": "PL",
-          "opp": "ARS",
-          "home": true,
-          "gf": 0,
-          "ga": 1,
-          "result": "L"
-        },
-        {
-          "gw": 3,
-          "date": "2026-09-05",
-          "comp": "PL",
-          "opp": "HUL",
-          "home": false,
-          "gf": 0,
-          "ga": 0,
-          "result": "D"
-        }
-      ],
-      "other_apps": [],
-      "other_next": [
-        {
-          "date": "2026-09-08",
-          "kickoff": "2026-09-08T16:45:00+00:00",
-          "comp": "CL",
-          "opp": "Club Brugge",
-          "home": false
-        },
-        {
-          "date": "2026-09-16",
-          "kickoff": "2026-09-16T19:00:00+00:00",
-          "comp": "EFL",
-          "opp": "COV",
-          "home": false
-        },
-        {
-          "date": "2026-10-14",
-          "kickoff": "2026-10-14T19:00:00+00:00",
-          "comp": "CL",
-          "opp": "Fenerbahce",
-          "home": true
-        }
-      ],
-      "owned_by": [],
-      "fdr_avg": 3.2
     },
     {
       "id": 324,
