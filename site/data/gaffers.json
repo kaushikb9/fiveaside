@@ -1,11 +1,11 @@
 {
-  "generated_at": "2026-09-07T06:15:29.550Z",
+  "generated_at": "2026-09-08T01:41:11.546Z",
   "gameweek": 4,
   "deadline_utc": "2026-09-12T12:30:00Z",
   "deadline_local": "Sat 12 Sep, 18:00",
   "live_gameweek": {
     "id": 3,
-    "finished": false
+    "finished": true
   },
   "ted": {
     "draft_opens_utc": "2026-09-08T12:30:00.000Z",
@@ -20,7 +20,7 @@
       "entered": true,
       "total_points": 202,
       "gw_points": 46,
-      "overall_rank": 2029072,
+      "overall_rank": 2121627,
       "bank": 0.7,
       "value": 100.4,
       "transfers_made": 2,
@@ -251,7 +251,7 @@
       "entered": true,
       "total_points": 241,
       "gw_points": 41,
-      "overall_rank": 79741,
+      "overall_rank": 82781,
       "bank": 0.8,
       "value": 100.4,
       "transfers_made": 2,
@@ -487,7 +487,7 @@
       "entered": true,
       "total_points": 217,
       "gw_points": 52,
-      "overall_rank": 800520,
+      "overall_rank": 831333,
       "bank": 0,
       "value": 100.6,
       "transfers_made": 2,
@@ -495,7 +495,7 @@
       "chips": [],
       "league_rank": 4,
       "active_chip": null,
-      "bench_points": 8,
+      "bench_points": 14,
       "transfers_cost": 0,
       "picks": [
         {
@@ -718,7 +718,7 @@
       "entered": true,
       "total_points": 172,
       "gw_points": 63,
-      "overall_rank": 5631214,
+      "overall_rank": 5852084,
       "bank": 0,
       "value": 100.4,
       "transfers_made": 0,
@@ -731,7 +731,7 @@
       ],
       "league_rank": 9,
       "active_chip": "wildcard",
-      "bench_points": 9,
+      "bench_points": 12,
       "transfers_cost": 0,
       "picks": [
         {
@@ -910,7 +910,7 @@
           "name": "De Cuyper",
           "team": "BHA",
           "pos": "DEF",
-          "price": 4.7,
+          "price": 4.8,
           "status": null,
           "captain": false,
           "vice": false,
@@ -954,7 +954,7 @@
       "entered": true,
       "total_points": 215,
       "gw_points": 44,
-      "overall_rank": 923974,
+      "overall_rank": 961038,
       "bank": 0.4,
       "value": 100.3,
       "transfers_made": 2,
@@ -967,7 +967,7 @@
       ],
       "league_rank": 5,
       "active_chip": null,
-      "bench_points": 15,
+      "bench_points": 21,
       "transfers_cost": 0,
       "picks": [
         {
@@ -1020,7 +1020,7 @@
           "name": "Maguire",
           "team": "MUN",
           "pos": "DEF",
-          "price": 5,
+          "price": 4.9,
           "status": null,
           "captain": false,
           "vice": false,
@@ -1048,7 +1048,7 @@
           "name": "Tzolis",
           "team": "ARS",
           "pos": "MID",
-          "price": 6.5,
+          "price": 6.4,
           "status": null,
           "captain": false,
           "vice": false,
