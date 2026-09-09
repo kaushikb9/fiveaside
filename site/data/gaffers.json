@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-08T04:58:09.247Z",
+  "generated_at": "2026-09-09T03:48:10.121Z",
   "gameweek": 4,
   "deadline_utc": "2026-09-12T12:30:00Z",
   "deadline_local": "Sat 12 Sep, 18:00",
@@ -16,17 +16,17 @@
       "nick": "Xabi",
       "club": "Chelsea",
       "team_name": "Wabi Sabi Xabi",
-      "entry": null,
+      "entry": 7149204,
       "entered": true,
       "total_points": 202,
       "gw_points": 46,
-      "overall_rank": 2121627,
+      "overall_rank": 2121580,
       "bank": 0.7,
       "value": 100.4,
       "transfers_made": 2,
       "chips_used": [],
       "chips": [],
-      "league_rank": null,
+      "league_rank": 7,
       "active_chip": null,
       "bench_points": 5,
       "transfers_cost": 0,
@@ -247,11 +247,11 @@
       "nick": "Sir Fergie",
       "club": "Man Utd",
       "team_name": "Youri kiddin’ me!",
-      "entry": null,
+      "entry": 58500,
       "entered": true,
       "total_points": 241,
       "gw_points": 41,
-      "overall_rank": 82781,
+      "overall_rank": 82778,
       "bank": 0.8,
       "value": 100.4,
       "transfers_made": 2,
@@ -262,7 +262,7 @@
           "gw": 2
         }
       ],
-      "league_rank": null,
+      "league_rank": 1,
       "active_chip": null,
       "bench_points": 9,
       "transfers_cost": 0,
@@ -483,17 +483,17 @@
       "nick": "Mr CR7",
       "club": "Man Utd",
       "team_name": "Yogesh11",
-      "entry": null,
+      "entry": 522356,
       "entered": true,
       "total_points": 217,
       "gw_points": 52,
-      "overall_rank": 831333,
+      "overall_rank": 831315,
       "bank": 0,
       "value": 100.6,
       "transfers_made": 2,
       "chips_used": [],
       "chips": [],
-      "league_rank": null,
+      "league_rank": 4,
       "active_chip": null,
       "bench_points": 14,
       "transfers_cost": 0,
@@ -714,11 +714,11 @@
       "nick": "The Special One",
       "club": "Chelsea",
       "team_name": "WorldChamps",
-      "entry": null,
+      "entry": 6485401,
       "entered": true,
       "total_points": 172,
       "gw_points": 63,
-      "overall_rank": 5852084,
+      "overall_rank": 5851940,
       "bank": 0,
       "value": 100.4,
       "transfers_made": 0,
@@ -729,7 +729,7 @@
           "gw": 3
         }
       ],
-      "league_rank": null,
+      "league_rank": 9,
       "active_chip": "wildcard",
       "bench_points": 12,
       "transfers_cost": 0,
@@ -950,11 +950,11 @@
       "nick": "Le Professeur",
       "club": "Arsenal",
       "team_name": "IceMan",
-      "entry": null,
+      "entry": 4135179,
       "entered": true,
       "total_points": 215,
       "gw_points": 44,
-      "overall_rank": 961038,
+      "overall_rank": 961019,
       "bank": 0.4,
       "value": 100.3,
       "transfers_made": 2,
@@ -965,7 +965,7 @@
           "gw": 1
         }
       ],
-      "league_rank": null,
+      "league_rank": 5,
       "active_chip": null,
       "bench_points": 21,
       "transfers_cost": 0,
@@ -1183,5 +1183,114 @@
       ]
     }
   ],
-  "league": null
+  "league": {
+    "id": 391164,
+    "name": "FPL 26-27",
+    "rows": [
+      {
+        "rank": 1,
+        "name": "Youri kiddin’ me!",
+        "entry": 58500,
+        "total": 241,
+        "event_total": 41,
+        "is_owner": false,
+        "nick": "Sir Fergie",
+        "is_gaffer": true
+      },
+      {
+        "rank": 2,
+        "name": "Gunners.exe",
+        "entry": 3265819,
+        "total": 228,
+        "event_total": 58,
+        "is_owner": false,
+        "is_gaffer": false
+      },
+      {
+        "rank": 3,
+        "name": "Vabby_Blues",
+        "entry": 5255110,
+        "total": 222,
+        "event_total": 67,
+        "is_owner": false,
+        "is_gaffer": false
+      },
+      {
+        "rank": 4,
+        "name": "Yogesh11",
+        "entry": 522356,
+        "total": 217,
+        "event_total": 52,
+        "is_owner": false,
+        "nick": "Mr CR7",
+        "is_gaffer": true
+      },
+      {
+        "rank": 5,
+        "name": "IceMan",
+        "entry": 4135179,
+        "total": 215,
+        "event_total": 44,
+        "is_owner": false,
+        "nick": "Le Professeur",
+        "is_gaffer": true
+      },
+      {
+        "rank": 6,
+        "name": "AbKiBaar?",
+        "entry": 3044473,
+        "total": 206,
+        "event_total": 55,
+        "is_owner": false,
+        "is_gaffer": false
+      },
+      {
+        "rank": 7,
+        "name": "Wabi Sabi Xabi",
+        "entry": 7149204,
+        "total": 202,
+        "event_total": 46,
+        "is_owner": true,
+        "nick": "Xabi",
+        "is_gaffer": true
+      },
+      {
+        "rank": 8,
+        "name": "Peaky Malayali FC",
+        "entry": 1654923,
+        "total": 201,
+        "event_total": 73,
+        "is_owner": false,
+        "is_gaffer": false
+      },
+      {
+        "rank": 9,
+        "name": "WorldChamps",
+        "entry": 6485401,
+        "total": 172,
+        "event_total": 63,
+        "is_owner": false,
+        "nick": "The Special One",
+        "is_gaffer": true
+      },
+      {
+        "rank": 10,
+        "name": "Mad11",
+        "entry": 5286779,
+        "total": 156,
+        "event_total": 43,
+        "is_owner": false,
+        "is_gaffer": false
+      },
+      {
+        "rank": 11,
+        "name": "CFC",
+        "entry": 4550750,
+        "total": 154,
+        "event_total": 39,
+        "is_owner": false,
+        "is_gaffer": false
+      }
+    ]
+  }
 }
