@@ -3,6 +3,12 @@
 set -euo pipefail
 cd "$(dirname "$0")"
 
+# Never ship red. ./check.sh is fast and offline; SKIP_CHECK=1 only when the
+# deploy IS the fix for the check, and say so in the commit.
+if [ "${SKIP_CHECK:-}" != "1" ]; then
+  ./check.sh >/dev/null 2>&1 || { ./check.sh 2>&1 | grep -E "^✖|FAIL|Error|not ok|failed" | head -20; echo "ERROR: ./check.sh failed — refusing to deploy. Fix it, or SKIP_CHECK=1 if the deploy IS the fix." >&2; exit 1; }
+fi
+
 # ---------------------------------------------------------------- guard
 # A deploy publishes the WORKING TREE, not a commit. On 2026-08-29 two commits
 # landed on a feature branch because `git checkout main` had aborted, the

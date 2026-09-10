@@ -133,6 +133,7 @@ described to the brain in `prompt.md`.
 ## Commands
 
 ```sh
+./check.sh                       # THE verb: pytest + ruff + 3 validators + 5 API tests + parse, ~2s offline. Gates ./deploy.sh.
 uv run pytest -q                 # 124 tests — keep green
 uv run ruff check .              # lint (line-length 100)
 node brain/validate.mjs          # digests.json
@@ -146,7 +147,7 @@ node --check site/common.js site/digest.js site/app.js site/archive/app.js \
 node brain/invite.mjs --list     # who has a gaffers code (add --local for dev)
 ./brain/curate.sh --no-deploy      # league room, full run without publishing
 ./brain/curate-fpl.sh --no-deploy  # gaffers room, ditto
-./deploy.sh                      # stamp assets, split private, push to KV, deploy
+./deploy.sh                      # runs ./check.sh first (refuses on red; SKIP_CHECK=1 if the deploy is the fix), stamp assets, split private, push to KV, deploy
 node brain/test/stars.mjs        # /api/stars auth — stubbed KV, no wrangler
 node brain/test/matches.mjs      # /api/matches — stubbed ESPN, real captured payload
 node brain/test/split-facts.mjs  # the deadline-lock fallback
@@ -494,3 +495,8 @@ to remove.
 `touchline-pl` was deleted on 2026-08-23. The Chelsea digest moved to its own
 repo the same day — `~/Code/touchline-chelsea`, weekly, backup only; retire it
 once these three rooms have run for a week.
+
+## Deferred — don't build unless asked
+
+The list is `ROADMAP.md` → "4d. Deferred by decision". Check it before
+proposing work; each line there was a decision, not a backlog.
