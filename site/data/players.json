@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-11T01:39:59.035Z",
+  "generated_at": "2026-09-11T02:56:59.665Z",
   "gameweek": 4,
   "gw_points_for": 3,
   "players": [
@@ -243,7 +243,7 @@
       "team": "ARS",
       "pos": "DEF",
       "price": 5.8,
-      "ownership": 48.2,
+      "ownership": 48.3,
       "points": 22,
       "gw_points": 2,
       "form": "7.3",
@@ -3636,7 +3636,7 @@
       "team": "NEW",
       "pos": "DEF",
       "price": 5.1,
-      "ownership": 12.4,
+      "ownership": 12.5,
       "points": 18,
       "gw_points": 4,
       "form": "6.0",
@@ -5201,14 +5201,7 @@
           "result": "L"
         }
       ],
-      "other_apps": [
-        {
-          "date": "2026-08-25",
-          "comp": "EFL",
-          "opp": "Plymouth Argyle",
-          "started": true
-        }
-      ],
+      "other_apps": [],
       "other_next": [
         {
           "date": "2026-09-16",
@@ -7909,12 +7902,110 @@
       "fdr_avg": 3.4
     },
     {
+      "id": 87,
+      "name": "Ajer",
+      "team": "BRE",
+      "pos": "DEF",
+      "price": 4.5,
+      "ownership": 4.8,
+      "points": 13,
+      "gw_points": 2,
+      "form": "4.3",
+      "fixtures": [
+        {
+          "gw": 4,
+          "opp": "BOU",
+          "home": false,
+          "fdr": 3
+        },
+        {
+          "gw": 5,
+          "opp": "CHE",
+          "home": true,
+          "fdr": 4
+        },
+        {
+          "gw": 6,
+          "opp": "AVL",
+          "home": false,
+          "fdr": 4
+        },
+        {
+          "gw": 7,
+          "opp": "LIV",
+          "home": true,
+          "fdr": 4
+        },
+        {
+          "gw": 8,
+          "opp": "HUL",
+          "home": false,
+          "fdr": 2
+        }
+      ],
+      "recent": [
+        {
+          "gw": 1,
+          "date": "2026-08-22",
+          "comp": "PL",
+          "opp": "TOT",
+          "home": true,
+          "gf": 3,
+          "ga": 0,
+          "result": "W"
+        },
+        {
+          "date": "2026-08-25",
+          "comp": "EFL",
+          "opp": "Birmingham City",
+          "home": false,
+          "gf": 6,
+          "ga": 1,
+          "result": "W"
+        },
+        {
+          "gw": 2,
+          "date": "2026-08-30",
+          "comp": "PL",
+          "opp": "LEE",
+          "home": false,
+          "gf": 1,
+          "ga": 1,
+          "result": "D"
+        },
+        {
+          "gw": 3,
+          "date": "2026-09-05",
+          "comp": "PL",
+          "opp": "SUN",
+          "home": true,
+          "gf": 1,
+          "ga": 1,
+          "result": "D"
+        }
+      ],
+      "other_apps": [],
+      "other_next": [
+        {
+          "date": "2026-09-15",
+          "kickoff": "2026-09-15T19:00:00+00:00",
+          "comp": "EFL",
+          "opp": "Reading",
+          "home": false
+        }
+      ],
+      "owned_by": [
+        "Sir Fergie"
+      ],
+      "fdr_avg": 3.4
+    },
+    {
       "id": 542,
       "name": "E.Le Fée",
       "team": "SUN",
       "pos": "MID",
       "price": 5.9,
-      "ownership": 4.9,
+      "ownership": 4.8,
       "points": 13,
       "gw_points": 8,
       "form": "4.3",
@@ -8019,104 +8110,6 @@
         "Mr CR7"
       ],
       "fdr_avg": 3.2
-    },
-    {
-      "id": 87,
-      "name": "Ajer",
-      "team": "BRE",
-      "pos": "DEF",
-      "price": 4.5,
-      "ownership": 4.8,
-      "points": 13,
-      "gw_points": 2,
-      "form": "4.3",
-      "fixtures": [
-        {
-          "gw": 4,
-          "opp": "BOU",
-          "home": false,
-          "fdr": 3
-        },
-        {
-          "gw": 5,
-          "opp": "CHE",
-          "home": true,
-          "fdr": 4
-        },
-        {
-          "gw": 6,
-          "opp": "AVL",
-          "home": false,
-          "fdr": 4
-        },
-        {
-          "gw": 7,
-          "opp": "LIV",
-          "home": true,
-          "fdr": 4
-        },
-        {
-          "gw": 8,
-          "opp": "HUL",
-          "home": false,
-          "fdr": 2
-        }
-      ],
-      "recent": [
-        {
-          "gw": 1,
-          "date": "2026-08-22",
-          "comp": "PL",
-          "opp": "TOT",
-          "home": true,
-          "gf": 3,
-          "ga": 0,
-          "result": "W"
-        },
-        {
-          "date": "2026-08-25",
-          "comp": "EFL",
-          "opp": "Birmingham City",
-          "home": false,
-          "gf": 6,
-          "ga": 1,
-          "result": "W"
-        },
-        {
-          "gw": 2,
-          "date": "2026-08-30",
-          "comp": "PL",
-          "opp": "LEE",
-          "home": false,
-          "gf": 1,
-          "ga": 1,
-          "result": "D"
-        },
-        {
-          "gw": 3,
-          "date": "2026-09-05",
-          "comp": "PL",
-          "opp": "SUN",
-          "home": true,
-          "gf": 1,
-          "ga": 1,
-          "result": "D"
-        }
-      ],
-      "other_apps": [],
-      "other_next": [
-        {
-          "date": "2026-09-15",
-          "kickoff": "2026-09-15T19:00:00+00:00",
-          "comp": "EFL",
-          "opp": "Reading",
-          "home": false
-        }
-      ],
-      "owned_by": [
-        "Sir Fergie"
-      ],
-      "fdr_avg": 3.4
     },
     {
       "id": 127,
@@ -22226,14 +22219,7 @@
           "result": "L"
         }
       ],
-      "other_apps": [
-        {
-          "date": "2026-08-25",
-          "comp": "EFL",
-          "opp": "Plymouth Argyle",
-          "started": false
-        }
-      ],
+      "other_apps": [],
       "other_next": [
         {
           "date": "2026-09-16",
@@ -23259,14 +23245,7 @@
           "result": "L"
         }
       ],
-      "other_apps": [
-        {
-          "date": "2026-08-25",
-          "comp": "EFL",
-          "opp": "Plymouth Argyle",
-          "started": false
-        }
-      ],
+      "other_apps": [],
       "other_next": [
         {
           "date": "2026-09-16",
@@ -23693,14 +23672,7 @@
           "result": "L"
         }
       ],
-      "other_apps": [
-        {
-          "date": "2026-08-25",
-          "comp": "EFL",
-          "opp": "Plymouth Argyle",
-          "started": true
-        }
-      ],
+      "other_apps": [],
       "other_next": [
         {
           "date": "2026-09-16",
@@ -28342,14 +28314,7 @@
           "result": "L"
         }
       ],
-      "other_apps": [
-        {
-          "date": "2026-08-25",
-          "comp": "EFL",
-          "opp": "Plymouth Argyle",
-          "started": true
-        }
-      ],
+      "other_apps": [],
       "other_next": [
         {
           "date": "2026-09-16",
@@ -28989,14 +28954,7 @@
           "result": "L"
         }
       ],
-      "other_apps": [
-        {
-          "date": "2026-08-25",
-          "comp": "EFL",
-          "opp": "Plymouth Argyle",
-          "started": true
-        }
-      ],
+      "other_apps": [],
       "other_next": [
         {
           "date": "2026-09-16",
@@ -39412,14 +39370,7 @@
           "result": "L"
         }
       ],
-      "other_apps": [
-        {
-          "date": "2026-08-25",
-          "comp": "EFL",
-          "opp": "Plymouth Argyle",
-          "started": true
-        }
-      ],
+      "other_apps": [],
       "other_next": [
         {
           "date": "2026-09-16",
@@ -40878,14 +40829,7 @@
           "result": "L"
         }
       ],
-      "other_apps": [
-        {
-          "date": "2026-08-25",
-          "comp": "EFL",
-          "opp": "Plymouth Argyle",
-          "started": true
-        }
-      ],
+      "other_apps": [],
       "other_next": [
         {
           "date": "2026-09-16",
@@ -41805,14 +41749,7 @@
           "result": "L"
         }
       ],
-      "other_apps": [
-        {
-          "date": "2026-08-25",
-          "comp": "EFL",
-          "opp": "Plymouth Argyle",
-          "started": false
-        }
-      ],
+      "other_apps": [],
       "other_next": [
         {
           "date": "2026-09-16",
@@ -44573,14 +44510,7 @@
           "result": "L"
         }
       ],
-      "other_apps": [
-        {
-          "date": "2026-08-25",
-          "comp": "EFL",
-          "opp": "Plymouth Argyle",
-          "started": true
-        }
-      ],
+      "other_apps": [],
       "other_next": [
         {
           "date": "2026-09-16",
@@ -47960,14 +47890,7 @@
           "result": "L"
         }
       ],
-      "other_apps": [
-        {
-          "date": "2026-08-25",
-          "comp": "EFL",
-          "opp": "Plymouth Argyle",
-          "started": false
-        }
-      ],
+      "other_apps": [],
       "other_next": [
         {
           "date": "2026-09-16",
@@ -50991,14 +50914,7 @@
           "result": "L"
         }
       ],
-      "other_apps": [
-        {
-          "date": "2026-08-25",
-          "comp": "EFL",
-          "opp": "Plymouth Argyle",
-          "started": true
-        }
-      ],
+      "other_apps": [],
       "other_next": [
         {
           "date": "2026-09-16",
@@ -51205,14 +51121,7 @@
           "result": "L"
         }
       ],
-      "other_apps": [
-        {
-          "date": "2026-08-25",
-          "comp": "EFL",
-          "opp": "Plymouth Argyle",
-          "started": true
-        }
-      ],
+      "other_apps": [],
       "other_next": [
         {
           "date": "2026-09-16",
@@ -52150,14 +52059,7 @@
           "result": "L"
         }
       ],
-      "other_apps": [
-        {
-          "date": "2026-08-25",
-          "comp": "EFL",
-          "opp": "Plymouth Argyle",
-          "started": true
-        }
-      ],
+      "other_apps": [],
       "other_next": [
         {
           "date": "2026-09-16",
@@ -57947,14 +57849,7 @@
           "result": "L"
         }
       ],
-      "other_apps": [
-        {
-          "date": "2026-08-25",
-          "comp": "EFL",
-          "opp": "Plymouth Argyle",
-          "started": false
-        }
-      ],
+      "other_apps": [],
       "other_next": [
         {
           "date": "2026-09-16",
@@ -63356,14 +63251,7 @@
           "result": "L"
         }
       ],
-      "other_apps": [
-        {
-          "date": "2026-08-25",
-          "comp": "EFL",
-          "opp": "Plymouth Argyle",
-          "started": true
-        }
-      ],
+      "other_apps": [],
       "other_next": [
         {
           "date": "2026-09-16",
