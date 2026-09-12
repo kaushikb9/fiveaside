@@ -1,15 +1,15 @@
 {
-  "generated_at": "2026-09-11T15:56:45.260Z",
-  "gameweek": 4,
-  "deadline_utc": "2026-09-12T12:30:00Z",
-  "deadline_local": "Sat 12 Sep, 18:00",
+  "generated_at": "2026-09-12T12:57:37.804Z",
+  "gameweek": 5,
+  "deadline_utc": "2026-09-18T17:30:00Z",
+  "deadline_local": "Fri 18 Sep, 23:00",
   "live_gameweek": {
     "id": 3,
     "finished": true
   },
   "ted": {
-    "draft_opens_utc": "2026-09-08T12:30:00.000Z",
-    "freeze_utc": "2026-09-12T09:30:00.000Z"
+    "draft_opens_utc": "2026-09-14T17:30:00.000Z",
+    "freeze_utc": "2026-09-18T14:30:00.000Z"
   },
   "people": [
     {
@@ -1292,5 +1292,7 @@
         "is_gaffer": false
       }
     ]
-  }
+  },
+  "people_as_of": "2026-09-11T15:56:45.260Z",
+  "people_stale": true
 }
