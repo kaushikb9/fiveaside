@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-16T01:54:52.277Z",
+  "generated_at": "2026-09-16T02:55:49.536Z",
   "gameweek": 5,
   "gw_points_for": 4,
   "players": [
@@ -4750,7 +4750,7 @@
       "team": "CHE",
       "pos": "DEF",
       "price": 6,
-      "ownership": 7.4,
+      "ownership": 7.3,
       "points": 10,
       "gw_points": 1,
       "form": "2.5",
@@ -16494,95 +16494,6 @@
       "fdr_avg": 3.2
     },
     {
-      "id": 148,
-      "name": "Hato",
-      "team": "CHE",
-      "pos": "DEF",
-      "price": 4.5,
-      "ownership": 1,
-      "points": 8,
-      "gw_points": 0,
-      "form": "2.0",
-      "fixtures": [
-        {
-          "gw": 5,
-          "opp": "BRE",
-          "home": false,
-          "fdr": 3
-        },
-        {
-          "gw": 6,
-          "opp": "BOU",
-          "home": true,
-          "fdr": 3
-        },
-        {
-          "gw": 7,
-          "opp": "EVE",
-          "home": false,
-          "fdr": 3
-        },
-        {
-          "gw": 8,
-          "opp": "TOT",
-          "home": true,
-          "fdr": 3
-        },
-        {
-          "gw": 9,
-          "opp": "MUN",
-          "home": true,
-          "fdr": 4
-        }
-      ],
-      "recent": [
-        {
-          "gw": 1,
-          "date": "2026-08-24",
-          "comp": "PL",
-          "opp": "FUL",
-          "home": false,
-          "gf": 3,
-          "ga": 2,
-          "result": "W"
-        },
-        {
-          "gw": 2,
-          "date": "2026-08-30",
-          "comp": "PL",
-          "opp": "BHA",
-          "home": true,
-          "gf": 4,
-          "ga": 3,
-          "result": "W"
-        },
-        {
-          "gw": 3,
-          "date": "2026-09-06",
-          "comp": "PL",
-          "opp": "ARS",
-          "home": false,
-          "gf": 1,
-          "ga": 2,
-          "result": "L"
-        },
-        {
-          "gw": 4,
-          "date": "2026-09-12",
-          "comp": "PL",
-          "opp": "HUL",
-          "home": true,
-          "gf": 2,
-          "ga": 2,
-          "result": "D"
-        }
-      ],
-      "other_apps": [],
-      "other_next": [],
-      "owned_by": [],
-      "fdr_avg": 3.2
-    },
-    {
       "id": 70,
       "name": "Kluivert",
       "team": "BOU",
@@ -17380,6 +17291,95 @@
           "home": true,
           "gf": 0,
           "ga": 0,
+          "result": "D"
+        }
+      ],
+      "other_apps": [],
+      "other_next": [],
+      "owned_by": [],
+      "fdr_avg": 3.2
+    },
+    {
+      "id": 148,
+      "name": "Hato",
+      "team": "CHE",
+      "pos": "DEF",
+      "price": 4.5,
+      "ownership": 0.9,
+      "points": 8,
+      "gw_points": 0,
+      "form": "2.0",
+      "fixtures": [
+        {
+          "gw": 5,
+          "opp": "BRE",
+          "home": false,
+          "fdr": 3
+        },
+        {
+          "gw": 6,
+          "opp": "BOU",
+          "home": true,
+          "fdr": 3
+        },
+        {
+          "gw": 7,
+          "opp": "EVE",
+          "home": false,
+          "fdr": 3
+        },
+        {
+          "gw": 8,
+          "opp": "TOT",
+          "home": true,
+          "fdr": 3
+        },
+        {
+          "gw": 9,
+          "opp": "MUN",
+          "home": true,
+          "fdr": 4
+        }
+      ],
+      "recent": [
+        {
+          "gw": 1,
+          "date": "2026-08-24",
+          "comp": "PL",
+          "opp": "FUL",
+          "home": false,
+          "gf": 3,
+          "ga": 2,
+          "result": "W"
+        },
+        {
+          "gw": 2,
+          "date": "2026-08-30",
+          "comp": "PL",
+          "opp": "BHA",
+          "home": true,
+          "gf": 4,
+          "ga": 3,
+          "result": "W"
+        },
+        {
+          "gw": 3,
+          "date": "2026-09-06",
+          "comp": "PL",
+          "opp": "ARS",
+          "home": false,
+          "gf": 1,
+          "ga": 2,
+          "result": "L"
+        },
+        {
+          "gw": 4,
+          "date": "2026-09-12",
+          "comp": "PL",
+          "opp": "HUL",
+          "home": true,
+          "gf": 2,
+          "ga": 2,
           "result": "D"
         }
       ],
