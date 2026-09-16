@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-16T08:00:39.365Z",
+  "generated_at": "2026-09-16T09:01:31.547Z",
   "gameweek": 5,
   "gw_points_for": 4,
   "players": [
@@ -1584,7 +1584,7 @@
       "team": "BHA",
       "pos": "MID",
       "price": 5.7,
-      "ownership": 19,
+      "ownership": 19.1,
       "points": 33,
       "gw_points": 17,
       "form": "8.2",
@@ -5469,6 +5469,95 @@
       "chance": 75
     },
     {
+      "id": 305,
+      "name": "Davis",
+      "team": "IPS",
+      "pos": "DEF",
+      "price": 4,
+      "ownership": 6.3,
+      "points": 23,
+      "gw_points": 14,
+      "form": "5.8",
+      "fixtures": [
+        {
+          "gw": 5,
+          "opp": "EVE",
+          "home": false,
+          "fdr": 3
+        },
+        {
+          "gw": 6,
+          "opp": "FUL",
+          "home": true,
+          "fdr": 2
+        },
+        {
+          "gw": 7,
+          "opp": "MCI",
+          "home": false,
+          "fdr": 5
+        },
+        {
+          "gw": 8,
+          "opp": "NFO",
+          "home": true,
+          "fdr": 3
+        },
+        {
+          "gw": 9,
+          "opp": "HUL",
+          "home": false,
+          "fdr": 2
+        }
+      ],
+      "recent": [
+        {
+          "gw": 1,
+          "date": "2026-08-22",
+          "comp": "PL",
+          "opp": "SUN",
+          "home": true,
+          "gf": 2,
+          "ga": 1,
+          "result": "W"
+        },
+        {
+          "gw": 2,
+          "date": "2026-08-30",
+          "comp": "PL",
+          "opp": "MUN",
+          "home": false,
+          "gf": 2,
+          "ga": 5,
+          "result": "L"
+        },
+        {
+          "gw": 3,
+          "date": "2026-09-04",
+          "comp": "PL",
+          "opp": "LIV",
+          "home": true,
+          "gf": 0,
+          "ga": 2,
+          "result": "L"
+        },
+        {
+          "gw": 4,
+          "date": "2026-09-12",
+          "comp": "PL",
+          "opp": "CRY",
+          "home": false,
+          "gf": 3,
+          "ga": 2,
+          "result": "W"
+        }
+      ],
+      "other_apps": [],
+      "other_next": [],
+      "owned_by": [],
+      "fdr_avg": 3
+    },
+    {
       "id": 82,
       "name": "Kelleher",
       "team": "BRE",
@@ -5645,95 +5734,6 @@
       "other_next": [],
       "owned_by": [],
       "fdr_avg": 2.8
-    },
-    {
-      "id": 305,
-      "name": "Davis",
-      "team": "IPS",
-      "pos": "DEF",
-      "price": 4,
-      "ownership": 6.2,
-      "points": 23,
-      "gw_points": 14,
-      "form": "5.8",
-      "fixtures": [
-        {
-          "gw": 5,
-          "opp": "EVE",
-          "home": false,
-          "fdr": 3
-        },
-        {
-          "gw": 6,
-          "opp": "FUL",
-          "home": true,
-          "fdr": 2
-        },
-        {
-          "gw": 7,
-          "opp": "MCI",
-          "home": false,
-          "fdr": 5
-        },
-        {
-          "gw": 8,
-          "opp": "NFO",
-          "home": true,
-          "fdr": 3
-        },
-        {
-          "gw": 9,
-          "opp": "HUL",
-          "home": false,
-          "fdr": 2
-        }
-      ],
-      "recent": [
-        {
-          "gw": 1,
-          "date": "2026-08-22",
-          "comp": "PL",
-          "opp": "SUN",
-          "home": true,
-          "gf": 2,
-          "ga": 1,
-          "result": "W"
-        },
-        {
-          "gw": 2,
-          "date": "2026-08-30",
-          "comp": "PL",
-          "opp": "MUN",
-          "home": false,
-          "gf": 2,
-          "ga": 5,
-          "result": "L"
-        },
-        {
-          "gw": 3,
-          "date": "2026-09-04",
-          "comp": "PL",
-          "opp": "LIV",
-          "home": true,
-          "gf": 0,
-          "ga": 2,
-          "result": "L"
-        },
-        {
-          "gw": 4,
-          "date": "2026-09-12",
-          "comp": "PL",
-          "opp": "CRY",
-          "home": false,
-          "gf": 3,
-          "ga": 2,
-          "result": "W"
-        }
-      ],
-      "other_apps": [],
-      "other_next": [],
-      "owned_by": [],
-      "fdr_avg": 3
     },
     {
       "id": 94,
@@ -6817,7 +6817,7 @@
       "team": "BHA",
       "pos": "MID",
       "price": 5,
-      "ownership": 4.6,
+      "ownership": 4.5,
       "points": 16,
       "gw_points": 3,
       "form": "4.0",
@@ -9769,98 +9769,6 @@
       "chance": 100
     },
     {
-      "id": 55,
-      "name": "Watkins",
-      "team": "AVL",
-      "pos": "FWD",
-      "price": 7.8,
-      "ownership": 2.8,
-      "points": 0,
-      "gw_points": 0,
-      "form": "0.0",
-      "fixtures": [
-        {
-          "gw": 5,
-          "opp": "TOT",
-          "home": false,
-          "fdr": 3
-        },
-        {
-          "gw": 6,
-          "opp": "BRE",
-          "home": true,
-          "fdr": 3
-        },
-        {
-          "gw": 7,
-          "opp": "NEW",
-          "home": false,
-          "fdr": 3
-        },
-        {
-          "gw": 8,
-          "opp": "MCI",
-          "home": true,
-          "fdr": 4
-        },
-        {
-          "gw": 9,
-          "opp": "FUL",
-          "home": true,
-          "fdr": 2
-        }
-      ],
-      "recent": [
-        {
-          "gw": 1,
-          "date": "2026-08-23",
-          "comp": "PL",
-          "opp": "BHA",
-          "home": false,
-          "gf": 0,
-          "ga": 4,
-          "result": "L"
-        },
-        {
-          "gw": 2,
-          "date": "2026-08-31",
-          "comp": "PL",
-          "opp": "ARS",
-          "home": true,
-          "gf": 0,
-          "ga": 1,
-          "result": "L"
-        },
-        {
-          "gw": 3,
-          "date": "2026-09-05",
-          "comp": "PL",
-          "opp": "HUL",
-          "home": false,
-          "gf": 0,
-          "ga": 0,
-          "result": "D"
-        },
-        {
-          "gw": 4,
-          "date": "2026-09-12",
-          "comp": "PL",
-          "opp": "NFO",
-          "home": true,
-          "gf": 1,
-          "ga": 2,
-          "result": "L"
-        }
-      ],
-      "other_apps": [],
-      "other_next": [],
-      "owned_by": [],
-      "fdr_avg": 3,
-      "status": "u",
-      "news": "Has joined Al Hilal permanently",
-      "chance": 0
-    },
-    {
       "id": 316,
       "name": "Emersonn",
       "team": "IPS",
@@ -10216,6 +10124,98 @@
       "other_next": [],
       "owned_by": [],
       "fdr_avg": 3.6
+    },
+    {
+      "id": 55,
+      "name": "Watkins",
+      "team": "AVL",
+      "pos": "FWD",
+      "price": 7.8,
+      "ownership": 2.7,
+      "points": 0,
+      "gw_points": 0,
+      "form": "0.0",
+      "fixtures": [
+        {
+          "gw": 5,
+          "opp": "TOT",
+          "home": false,
+          "fdr": 3
+        },
+        {
+          "gw": 6,
+          "opp": "BRE",
+          "home": true,
+          "fdr": 3
+        },
+        {
+          "gw": 7,
+          "opp": "NEW",
+          "home": false,
+          "fdr": 3
+        },
+        {
+          "gw": 8,
+          "opp": "MCI",
+          "home": true,
+          "fdr": 4
+        },
+        {
+          "gw": 9,
+          "opp": "FUL",
+          "home": true,
+          "fdr": 2
+        }
+      ],
+      "recent": [
+        {
+          "gw": 1,
+          "date": "2026-08-23",
+          "comp": "PL",
+          "opp": "BHA",
+          "home": false,
+          "gf": 0,
+          "ga": 4,
+          "result": "L"
+        },
+        {
+          "gw": 2,
+          "date": "2026-08-31",
+          "comp": "PL",
+          "opp": "ARS",
+          "home": true,
+          "gf": 0,
+          "ga": 1,
+          "result": "L"
+        },
+        {
+          "gw": 3,
+          "date": "2026-09-05",
+          "comp": "PL",
+          "opp": "HUL",
+          "home": false,
+          "gf": 0,
+          "ga": 0,
+          "result": "D"
+        },
+        {
+          "gw": 4,
+          "date": "2026-09-12",
+          "comp": "PL",
+          "opp": "NFO",
+          "home": true,
+          "gf": 1,
+          "ga": 2,
+          "result": "L"
+        }
+      ],
+      "other_apps": [],
+      "other_next": [],
+      "owned_by": [],
+      "fdr_avg": 3,
+      "status": "u",
+      "news": "Has joined Al Hilal permanently",
+      "chance": 0
     },
     {
       "id": 473,
