@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-17T02:12:20.365Z",
+  "generated_at": "2026-09-17T03:13:33.504Z",
   "gameweek": 5,
   "gw_points_for": 4,
   "players": [
@@ -5472,7 +5472,7 @@
       "team": "IPS",
       "pos": "DEF",
       "price": 4,
-      "ownership": 6.3,
+      "ownership": 6.4,
       "points": 23,
       "gw_points": 14,
       "form": "5.8",
@@ -26626,95 +26626,6 @@
       "fdr_avg": 3
     },
     {
-      "id": 562,
-      "name": "Maeda",
-      "team": "IPS",
-      "pos": "MID",
-      "price": 5.4,
-      "ownership": 0.3,
-      "points": 7,
-      "gw_points": 1,
-      "form": "1.8",
-      "fixtures": [
-        {
-          "gw": 5,
-          "opp": "EVE",
-          "home": false,
-          "fdr": 3
-        },
-        {
-          "gw": 6,
-          "opp": "FUL",
-          "home": true,
-          "fdr": 2
-        },
-        {
-          "gw": 7,
-          "opp": "MCI",
-          "home": false,
-          "fdr": 5
-        },
-        {
-          "gw": 8,
-          "opp": "NFO",
-          "home": true,
-          "fdr": 3
-        },
-        {
-          "gw": 9,
-          "opp": "HUL",
-          "home": false,
-          "fdr": 2
-        }
-      ],
-      "recent": [
-        {
-          "gw": 1,
-          "date": "2026-08-22",
-          "comp": "PL",
-          "opp": "SUN",
-          "home": true,
-          "gf": 2,
-          "ga": 1,
-          "result": "W"
-        },
-        {
-          "gw": 2,
-          "date": "2026-08-30",
-          "comp": "PL",
-          "opp": "MUN",
-          "home": false,
-          "gf": 2,
-          "ga": 5,
-          "result": "L"
-        },
-        {
-          "gw": 3,
-          "date": "2026-09-04",
-          "comp": "PL",
-          "opp": "LIV",
-          "home": true,
-          "gf": 0,
-          "ga": 2,
-          "result": "L"
-        },
-        {
-          "gw": 4,
-          "date": "2026-09-12",
-          "comp": "PL",
-          "opp": "CRY",
-          "home": false,
-          "gf": 3,
-          "ga": 2,
-          "result": "W"
-        }
-      ],
-      "other_apps": [],
-      "other_next": [],
-      "owned_by": [],
-      "fdr_avg": 3
-    },
-    {
       "id": 541,
       "name": "Meunier",
       "team": "SUN",
@@ -31201,6 +31112,95 @@
           "home": false,
           "gf": 2,
           "ga": 0,
+          "result": "W"
+        }
+      ],
+      "other_apps": [],
+      "other_next": [],
+      "owned_by": [],
+      "fdr_avg": 3
+    },
+    {
+      "id": 562,
+      "name": "Maeda",
+      "team": "IPS",
+      "pos": "MID",
+      "price": 5.4,
+      "ownership": 0.2,
+      "points": 7,
+      "gw_points": 1,
+      "form": "1.8",
+      "fixtures": [
+        {
+          "gw": 5,
+          "opp": "EVE",
+          "home": false,
+          "fdr": 3
+        },
+        {
+          "gw": 6,
+          "opp": "FUL",
+          "home": true,
+          "fdr": 2
+        },
+        {
+          "gw": 7,
+          "opp": "MCI",
+          "home": false,
+          "fdr": 5
+        },
+        {
+          "gw": 8,
+          "opp": "NFO",
+          "home": true,
+          "fdr": 3
+        },
+        {
+          "gw": 9,
+          "opp": "HUL",
+          "home": false,
+          "fdr": 2
+        }
+      ],
+      "recent": [
+        {
+          "gw": 1,
+          "date": "2026-08-22",
+          "comp": "PL",
+          "opp": "SUN",
+          "home": true,
+          "gf": 2,
+          "ga": 1,
+          "result": "W"
+        },
+        {
+          "gw": 2,
+          "date": "2026-08-30",
+          "comp": "PL",
+          "opp": "MUN",
+          "home": false,
+          "gf": 2,
+          "ga": 5,
+          "result": "L"
+        },
+        {
+          "gw": 3,
+          "date": "2026-09-04",
+          "comp": "PL",
+          "opp": "LIV",
+          "home": true,
+          "gf": 0,
+          "ga": 2,
+          "result": "L"
+        },
+        {
+          "gw": 4,
+          "date": "2026-09-12",
+          "comp": "PL",
+          "opp": "CRY",
+          "home": false,
+          "gf": 3,
+          "ga": 2,
           "result": "W"
         }
       ],
