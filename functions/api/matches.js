@@ -93,14 +93,41 @@ function dateInZone(date, timeZone) {
    to look at, and `errors[]` in the response will be carrying the status. */
 const UA = "curl/8.7.1";
 
-async function scoreboard(slug, window) {
-  const url = `${ESPN}/${slug}/scoreboard?dates=${window}&limit=400`;
-  const res = await fetch(url, {
-    headers: { accept: "application/json", "user-agent": UA },
-    cf: { cacheTtl: 60, cacheEverything: true },
-  });
-  if (!res.ok) throw new Error(String(res.status));
-  return res.json();
+/* ESPN's scoreboard stopped answering a date RANGE (`dates=YYYYMMDD-YYYYMMDD`)
+   on or before 2026-09-17: every such call is a 400 "Failed to get events
+   endpoint", and on that day the tab sat empty for a week while the log said
+   only "PL: 400". A single day and a whole month (`dates=YYYYMM`) still work,
+   so the window is fetched one month at a time and trimmed here. Keep in step
+   with `_months_covering` in src/touchline/sources/espn.py. */
+function monthsCovering(from, to) {
+  const out = [];
+  const d = new Date(Date.UTC(from.getUTCFullYear(), from.getUTCMonth(), 1));
+  while (d <= to) {
+    out.push(`${d.getUTCFullYear()}${String(d.getUTCMonth() + 1).padStart(2, "0")}`);
+    d.setUTCMonth(d.getUTCMonth() + 1);
+  }
+  return out;
+}
+
+async function scoreboard(slug, from, to) {
+  const seen = new Map();
+  let leagues = [];
+  for (const month of monthsCovering(from, to)) {
+    const url = `${ESPN}/${slug}/scoreboard?dates=${month}&limit=400`;
+    const res = await fetch(url, {
+      headers: { accept: "application/json", "user-agent": UA },
+      cf: { cacheTtl: 60, cacheEverything: true },
+    });
+    if (!res.ok) throw new Error(String(res.status));
+    const payload = await res.json();
+    if (!leagues.length && payload.leagues) leagues = payload.leagues;
+    for (const e of payload.events || []) {
+      const when = Date.parse(e.date);
+      if (Number.isNaN(when) || when < from.getTime() || when > to.getTime()) continue;
+      seen.set(String(e.id), e);
+    }
+  }
+  return { leagues, events: [...seen.values()] };
 }
 
 /* ESPN carries what FPL never did: the minute a goal went in, whether it was a
@@ -193,11 +220,16 @@ async function premierLeagueClubs(request) {
   return { clubs: null, timeZone: "UTC" };
 }
 
-export async function onRequestGet({ request }) {
-  const now = new Date();
+export function onRequestGet({ request }) {
+  return handle(request, new Date());
+}
+
+/* The clock is a parameter so brain/test/matches.mjs can replay a payload
+   captured on 2026-08-27 against that day rather than against whenever the
+   test happens to run. Pages calls onRequestGet, never this. */
+export async function handle(request, now) {
   const from = new Date(now.getTime() - DAYS_BACK * 864e5);
   const to = new Date(now.getTime() + DAYS_FORWARD * 864e5);
-  const window = `${ymd(from)}-${ymd(to)}`;
 
   const league = await premierLeagueClubs(request);
   const { clubs, timeZone } = league;
@@ -206,7 +238,7 @@ export async function onRequestGet({ request }) {
   const pulls = await Promise.all(
     COMPS.map(async (comp) => {
       try {
-        const payload = await scoreboard(comp.slug, window);
+        const payload = await scoreboard(comp.slug, from, to);
         return (payload.events || [])
           .map((e) => matchFrom(e, comp))
           .filter(Boolean);

@@ -65,18 +65,45 @@ def test_fetch_matches_corrupted_event_is_skipped():
 
 
 def test_fetch_matches_requests_date_window():
-    seen = {}
+    urls = []
 
     def handler(request: httpx.Request) -> httpx.Response:
-        seen["url"] = str(request.url)
+        urls.append(str(request.url))
         return httpx.Response(200, json={"leagues": [], "events": []})
 
     client = _client_with(handler)
     client.fetch_matches("PL")
-    # NOW is 2026-05-30: window = 120 days back to 45 days forward
-    assert "eng.1" in seen["url"]
-    assert "dates=20260130-20260714" in seen["url"]
-    assert "limit=400" in seen["url"]
+    # NOW is 2026-05-30: window = 120 days back to 45 days forward, i.e.
+    # 2026-01-30 .. 2026-07-14. ESPN no longer accepts a range, so that is one
+    # request per month the window touches.
+    assert all("eng.1" in u and "limit=400" in u for u in urls)
+    months = [u.split("dates=")[1].split("&")[0] for u in urls]
+    assert months == ["202601", "202602", "202603", "202604", "202605", "202606", "202607"]
+
+
+def test_fetch_matches_trims_to_window_and_dedupes():
+    def handler(request: httpx.Request) -> httpx.Response:
+        ev = lambda i, d: {  # noqa: E731
+            "id": i,
+            "date": d,
+            "competitions": [{
+                "competitors": [
+                    {"homeAway": "home", "team": {"displayName": "A"}, "score": "1"},
+                    {"homeAway": "away", "team": {"displayName": "B"}, "score": "0"},
+                ],
+                "status": {"type": {"completed": True}},
+            }],
+        }
+        return httpx.Response(200, json={"leagues": [], "events": [
+            ev("in", "2026-05-01T14:00Z"),
+            ev("in", "2026-05-01T14:00Z"),
+            ev("before", "2026-01-02T14:00Z"),
+            ev("after", "2026-07-20T14:00Z"),
+        ]})
+
+    client = _client_with(handler)
+    res = client.fetch_matches("PL")
+    assert [f.id for f in res.fixtures] == ["in"]
 
 
 def test_friendlies_league_mapping():

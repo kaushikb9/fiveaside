@@ -165,6 +165,16 @@ added; `-i` alone is not enough, it only blocks idle sleep. `auto.sh` does it.
 
 ## Rules that have bitten before
 
+- **ESPN's scoreboard no longer accepts a date range.** On 2026-09-17
+  `dates=YYYYMMDD-YYYYMMDD` started answering 400 "Failed to get events
+  endpoint" for every competition; a single day and a whole month
+  (`dates=YYYYMM`) still work. Both parsers of that feed — `monthsCovering()`
+  in `functions/api/matches.js` and `_months_covering()` in
+  `src/touchline/sources/espn.py` — now fetch one month at a time and trim to
+  the window locally. Symptom when it regresses: `/api/matches` returns 200
+  with empty `days` and six `XX: 400` errors, and the league table's `form`
+  column goes blank because the facts CLI got no results. Both tests pin the
+  month form.
 - **`auto.sh` runs hourly and writes data files, so `git checkout` is racy in
   this repo.** On 2026-08-29 a checkout aborted mid-command three times; twice
   a session's commits landed on a feature branch and once the live site ended

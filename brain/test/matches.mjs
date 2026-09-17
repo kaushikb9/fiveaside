@@ -8,7 +8,10 @@
    ========================================================================= */
 
 import { readFileSync } from "node:fs";
-import { onRequestGet } from "../../functions/api/matches.js";
+import { handle } from "../../functions/api/matches.js";
+
+/* The day the fixture payload was captured, so the ±7-day window contains it. */
+const NOW = new Date("2026-08-27T12:00:00Z");
 
 const EPL = JSON.parse(readFileSync(new URL("./fixtures/espn-eng1.json", import.meta.url)));
 
@@ -34,9 +37,12 @@ const check = (name, got, want) => {
 const ok = (name, cond, detail) => check(name, cond ? true : (detail ?? false), true);
 
 /* One knob per competition so a test can make any of them fail. */
+let requested = [];
 function install({ comps = {}, table = TABLE, tableOk = true } = {}) {
+  requested = [];
   globalThis.fetch = async (url) => {
     const u = String(url);
+    requested.push(u);
     if (u.includes("/data/table.json")) {
       if (!tableOk) return { ok: false, status: 500 };
       return { ok: true, status: 200, json: async () => table };
@@ -49,7 +55,7 @@ function install({ comps = {}, table = TABLE, tableOk = true } = {}) {
 }
 
 const call = async () => {
-  const res = await onRequestGet({ request: { url: "https://fiveaside.pages.dev/api/matches" } });
+  const res = await handle({ url: "https://fiveaside.pages.dev/api/matches" }, NOW);
   return { status: res.status, body: await res.json() };
 };
 
@@ -68,6 +74,7 @@ ok("every match has both sides named", body.days.every((d) =>
 ok("kickoffs sort within a day", body.days.every((d) =>
   d.matches.every((m, i, a) => i === 0 || a[i - 1].kickoff <= m.kickoff)));
 check("no competition errored", body.errors, []);
+
 check("the table timezone is carried into the response", body.timezone, "Asia/Kolkata");
 
 const all = body.days.flatMap((d) => d.matches);
@@ -87,6 +94,28 @@ ok("a scheduled match has NO score, not 0-0", (() => {
 })());
 ok("and no scorers either",
   all.filter((m) => m.status === "SCHEDULED").every((m) => m.scorers.length === 0));
+
+// ---- ESPN dropped date ranges (2026-09-17): one request per month, no range --
+const scoreboardUrls = requested.filter((u) => u.includes("/scoreboard"));
+ok("no scoreboard request carries a date range",
+  scoreboardUrls.every((u) => !/dates=\d{8}-\d{8}/.test(u)));
+ok("the window is fetched by month",
+  scoreboardUrls.every((u) => /dates=\d{6}&/.test(u)));
+
+// ---- a month holds more than the window; the extra is trimmed ---------------
+install({ comps: { "eng.1": { events: [
+  { id: "inside", date: "2026-08-26T19:00Z", status: { type: { name: "STATUS_FULL_TIME" } },
+    competitions: [{ competitors: [
+      { homeAway: "home", team: { displayName: "Arsenal" }, score: "1" },
+      { homeAway: "away", team: { displayName: "Chelsea" }, score: "0" } ] }] },
+  { id: "outside", date: "2026-08-08T19:00Z", status: { type: { name: "STATUS_FULL_TIME" } },
+    competitions: [{ competitors: [
+      { homeAway: "home", team: { displayName: "Arsenal" }, score: "1" },
+      { homeAway: "away", team: { displayName: "Chelsea" }, score: "0" } ] }] },
+] } } });
+({ body } = await call());
+check("events outside the window are dropped",
+  body.days.flatMap((d) => d.matches.map((m) => m.id)), ["inside"]);
 
 // ---- D5: a tie only counts when a PL club is in it ------------------------
 const EURO = {

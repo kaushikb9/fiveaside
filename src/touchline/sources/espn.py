@@ -1,7 +1,7 @@
 """ESPN unofficial API client: matches + standings behind the source protocols."""
 
 from collections.abc import Callable
-from datetime import UTC, datetime, timedelta
+from datetime import UTC, date, datetime, timedelta
 from typing import Any
 
 import httpx
@@ -43,6 +43,16 @@ PAST_DAYS = 120
 FUTURE_DAYS = 45
 
 _TBD_NAME = "TBD"
+
+
+def _months_covering(start: date, end: date) -> list[str]:
+    """Every YYYYMM from start's month to end's month, inclusive."""
+    out: list[str] = []
+    year, month = start.year, start.month
+    while (year, month) <= (end.year, end.month):
+        out.append(f"{year:04d}{month:02d}")
+        year, month = (year + 1, 1) if month == 12 else (year, month + 1)
+    return out
 
 
 def _team(payload: dict[str, Any]) -> Team:
@@ -158,19 +168,37 @@ class ESPNClient:
             return SourceResult(ok=False, fixtures=[], results=[], error=error)
 
         today = self._now_fn().date()
-        window = (
-            f"{today - timedelta(days=PAST_DAYS):%Y%m%d}-"
-            f"{today + timedelta(days=FUTURE_DAYS):%Y%m%d}"
-        )
+        start = today - timedelta(days=PAST_DAYS)
+        end = today + timedelta(days=FUTURE_DAYS)
         url = f"{self.base_url}/site/v2/sports/soccer/{league}/scoreboard"
-        try:
-            response = self._client.get(url, params={"dates": window, "limit": 400})
-            response.raise_for_status()
-            payload = response.json()
-        except httpx.HTTPError as exc:
-            return SourceResult(ok=False, fixtures=[], results=[], error=str(exc))
-        except ValueError as exc:
-            return SourceResult(ok=False, fixtures=[], results=[], error=f"invalid JSON: {exc}")
+        # ESPN stopped answering a date RANGE (dates=YYYYMMDD-YYYYMMDD) on or
+        # before 2026-09-17 — every such call is a 400 — so the window is fetched
+        # one month at a time and trimmed here. Same fix as monthsCovering() in
+        # functions/api/matches.js, the other parser of this feed.
+        payload: dict[str, Any] = {"leagues": [], "events": []}
+        seen: set[str] = set()
+        for month in _months_covering(start, end):
+            try:
+                response = self._client.get(url, params={"dates": month, "limit": 400})
+                response.raise_for_status()
+                page = response.json()
+            except httpx.HTTPError as exc:
+                return SourceResult(ok=False, fixtures=[], results=[], error=str(exc))
+            except ValueError as exc:
+                return SourceResult(
+                    ok=False, fixtures=[], results=[], error=f"invalid JSON: {exc}"
+                )
+            if not payload["leagues"] and isinstance(page, dict):
+                payload["leagues"] = page.get("leagues") or []
+            for event in (page.get("events") or []) if isinstance(page, dict) else []:
+                day = str(event.get("date", ""))[:10]
+                if not (start.isoformat() <= day <= end.isoformat()):
+                    continue
+                key = str(event.get("id"))
+                if key in seen:
+                    continue
+                seen.add(key)
+                payload["events"].append(event)
 
         try:
             return _parse_scoreboard(payload, competition)
