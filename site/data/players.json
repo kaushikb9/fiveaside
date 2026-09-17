@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-17T03:13:33.504Z",
+  "generated_at": "2026-09-17T04:14:22.270Z",
   "gameweek": 5,
   "gw_points_for": 4,
   "players": [
@@ -5828,95 +5828,6 @@
       "fdr_avg": 3.4
     },
     {
-      "id": 552,
-      "name": "Brobbey",
-      "team": "SUN",
-      "pos": "FWD",
-      "price": 5.8,
-      "ownership": 6,
-      "points": 7,
-      "gw_points": 1,
-      "form": "1.8",
-      "fixtures": [
-        {
-          "gw": 5,
-          "opp": "MCI",
-          "home": false,
-          "fdr": 5
-        },
-        {
-          "gw": 6,
-          "opp": "BHA",
-          "home": true,
-          "fdr": 2
-        },
-        {
-          "gw": 7,
-          "opp": "BOU",
-          "home": false,
-          "fdr": 3
-        },
-        {
-          "gw": 8,
-          "opp": "LEE",
-          "home": true,
-          "fdr": 2
-        },
-        {
-          "gw": 9,
-          "opp": "COV",
-          "home": false,
-          "fdr": 2
-        }
-      ],
-      "recent": [
-        {
-          "gw": 1,
-          "date": "2026-08-22",
-          "comp": "PL",
-          "opp": "IPS",
-          "home": false,
-          "gf": 1,
-          "ga": 2,
-          "result": "L"
-        },
-        {
-          "gw": 2,
-          "date": "2026-08-30",
-          "comp": "PL",
-          "opp": "FUL",
-          "home": true,
-          "gf": 1,
-          "ga": 0,
-          "result": "W"
-        },
-        {
-          "gw": 3,
-          "date": "2026-09-05",
-          "comp": "PL",
-          "opp": "BRE",
-          "home": false,
-          "gf": 1,
-          "ga": 1,
-          "result": "D"
-        },
-        {
-          "gw": 4,
-          "date": "2026-09-12",
-          "comp": "PL",
-          "opp": "ARS",
-          "home": true,
-          "gf": 0,
-          "ga": 2,
-          "result": "L"
-        }
-      ],
-      "other_apps": [],
-      "other_next": [],
-      "owned_by": [],
-      "fdr_avg": 2.8
-    },
-    {
       "id": 428,
       "name": "Cunha",
       "team": "MUN",
@@ -6004,6 +5915,95 @@
       "other_next": [],
       "owned_by": [],
       "fdr_avg": 3.2
+    },
+    {
+      "id": 552,
+      "name": "Brobbey",
+      "team": "SUN",
+      "pos": "FWD",
+      "price": 5.8,
+      "ownership": 5.9,
+      "points": 7,
+      "gw_points": 1,
+      "form": "1.8",
+      "fixtures": [
+        {
+          "gw": 5,
+          "opp": "MCI",
+          "home": false,
+          "fdr": 5
+        },
+        {
+          "gw": 6,
+          "opp": "BHA",
+          "home": true,
+          "fdr": 2
+        },
+        {
+          "gw": 7,
+          "opp": "BOU",
+          "home": false,
+          "fdr": 3
+        },
+        {
+          "gw": 8,
+          "opp": "LEE",
+          "home": true,
+          "fdr": 2
+        },
+        {
+          "gw": 9,
+          "opp": "COV",
+          "home": false,
+          "fdr": 2
+        }
+      ],
+      "recent": [
+        {
+          "gw": 1,
+          "date": "2026-08-22",
+          "comp": "PL",
+          "opp": "IPS",
+          "home": false,
+          "gf": 1,
+          "ga": 2,
+          "result": "L"
+        },
+        {
+          "gw": 2,
+          "date": "2026-08-30",
+          "comp": "PL",
+          "opp": "FUL",
+          "home": true,
+          "gf": 1,
+          "ga": 0,
+          "result": "W"
+        },
+        {
+          "gw": 3,
+          "date": "2026-09-05",
+          "comp": "PL",
+          "opp": "BRE",
+          "home": false,
+          "gf": 1,
+          "ga": 1,
+          "result": "D"
+        },
+        {
+          "gw": 4,
+          "date": "2026-09-12",
+          "comp": "PL",
+          "opp": "ARS",
+          "home": true,
+          "gf": 0,
+          "ga": 2,
+          "result": "L"
+        }
+      ],
+      "other_apps": [],
+      "other_next": [],
+      "owned_by": [],
+      "fdr_avg": 2.8
     },
     {
       "id": 69,
