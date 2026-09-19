@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-19T05:19:37.674Z",
+  "generated_at": "2026-09-19T06:59:45.383Z",
   "gameweek": 6,
   "gw_points_for": 5,
   "players": [
@@ -142,7 +142,7 @@
       "team": "CHE",
       "pos": "FWD",
       "price": 7.8,
-      "ownership": 68.6,
+      "ownership": 68.5,
       "points": 33,
       "gw_points": 0,
       "form": "6.6",
@@ -3580,7 +3580,7 @@
       "team": "ARS",
       "pos": "MID",
       "price": 6.4,
-      "ownership": 13.4,
+      "ownership": 13.3,
       "points": 14,
       "gw_points": 0,
       "form": "2.8",
@@ -5806,6 +5806,119 @@
       "penalties": true
     },
     {
+      "id": 94,
+      "name": "Schade",
+      "team": "BRE",
+      "pos": "MID",
+      "price": 6.1,
+      "ownership": 7.9,
+      "points": 39,
+      "gw_points": 9,
+      "form": "7.8",
+      "fixtures": [
+        {
+          "gw": 6,
+          "opp": "AVL",
+          "home": false,
+          "fdr": 4
+        },
+        {
+          "gw": 7,
+          "opp": "LIV",
+          "home": true,
+          "fdr": 4
+        },
+        {
+          "gw": 8,
+          "opp": "HUL",
+          "home": false,
+          "fdr": 2
+        },
+        {
+          "gw": 9,
+          "opp": "NFO",
+          "home": true,
+          "fdr": 3
+        },
+        {
+          "gw": 10,
+          "opp": "BHA",
+          "home": false,
+          "fdr": 3
+        }
+      ],
+      "recent": [
+        {
+          "gw": 2,
+          "date": "2026-08-30",
+          "comp": "PL",
+          "opp": "LEE",
+          "home": false,
+          "gf": 1,
+          "ga": 1,
+          "result": "D"
+        },
+        {
+          "gw": 3,
+          "date": "2026-09-05",
+          "comp": "PL",
+          "opp": "SUN",
+          "home": true,
+          "gf": 1,
+          "ga": 1,
+          "result": "D"
+        },
+        {
+          "gw": 4,
+          "date": "2026-09-12",
+          "comp": "PL",
+          "opp": "BOU",
+          "home": false,
+          "gf": 2,
+          "ga": 2,
+          "result": "D"
+        },
+        {
+          "date": "2026-09-15",
+          "comp": "EFL",
+          "opp": "Reading",
+          "home": false,
+          "gf": 2,
+          "ga": 1,
+          "result": "W"
+        },
+        {
+          "gw": 5,
+          "date": "2026-09-18",
+          "comp": "PL",
+          "opp": "CHE",
+          "home": true,
+          "gf": 3,
+          "ga": 0,
+          "result": "W"
+        }
+      ],
+      "other_apps": [
+        {
+          "date": "2026-08-25",
+          "comp": "EFL",
+          "opp": "Birmingham City",
+          "started": false
+        }
+      ],
+      "other_next": [
+        {
+          "date": "2026-10-28",
+          "kickoff": "2026-10-28T19:45:00+00:00",
+          "comp": "EFL",
+          "opp": "SUN",
+          "home": false
+        }
+      ],
+      "owned_by": [],
+      "fdr_avg": 3.2
+    },
+    {
       "id": 384,
       "name": "Donnarumma",
       "team": "MCI",
@@ -5930,119 +6043,6 @@
       ],
       "owned_by": [],
       "fdr_avg": 3
-    },
-    {
-      "id": 94,
-      "name": "Schade",
-      "team": "BRE",
-      "pos": "MID",
-      "price": 6.1,
-      "ownership": 7.8,
-      "points": 39,
-      "gw_points": 9,
-      "form": "7.8",
-      "fixtures": [
-        {
-          "gw": 6,
-          "opp": "AVL",
-          "home": false,
-          "fdr": 4
-        },
-        {
-          "gw": 7,
-          "opp": "LIV",
-          "home": true,
-          "fdr": 4
-        },
-        {
-          "gw": 8,
-          "opp": "HUL",
-          "home": false,
-          "fdr": 2
-        },
-        {
-          "gw": 9,
-          "opp": "NFO",
-          "home": true,
-          "fdr": 3
-        },
-        {
-          "gw": 10,
-          "opp": "BHA",
-          "home": false,
-          "fdr": 3
-        }
-      ],
-      "recent": [
-        {
-          "gw": 2,
-          "date": "2026-08-30",
-          "comp": "PL",
-          "opp": "LEE",
-          "home": false,
-          "gf": 1,
-          "ga": 1,
-          "result": "D"
-        },
-        {
-          "gw": 3,
-          "date": "2026-09-05",
-          "comp": "PL",
-          "opp": "SUN",
-          "home": true,
-          "gf": 1,
-          "ga": 1,
-          "result": "D"
-        },
-        {
-          "gw": 4,
-          "date": "2026-09-12",
-          "comp": "PL",
-          "opp": "BOU",
-          "home": false,
-          "gf": 2,
-          "ga": 2,
-          "result": "D"
-        },
-        {
-          "date": "2026-09-15",
-          "comp": "EFL",
-          "opp": "Reading",
-          "home": false,
-          "gf": 2,
-          "ga": 1,
-          "result": "W"
-        },
-        {
-          "gw": 5,
-          "date": "2026-09-18",
-          "comp": "PL",
-          "opp": "CHE",
-          "home": true,
-          "gf": 3,
-          "ga": 0,
-          "result": "W"
-        }
-      ],
-      "other_apps": [
-        {
-          "date": "2026-08-25",
-          "comp": "EFL",
-          "opp": "Birmingham City",
-          "started": false
-        }
-      ],
-      "other_next": [
-        {
-          "date": "2026-10-28",
-          "kickoff": "2026-10-28T19:45:00+00:00",
-          "comp": "EFL",
-          "opp": "SUN",
-          "home": false
-        }
-      ],
-      "owned_by": [],
-      "fdr_avg": 3.2
     },
     {
       "id": 212,
