@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-19T10:49:35.626Z",
+  "generated_at": "2026-09-19T11:51:29.310Z",
   "gameweek": 6,
   "gw_points_for": 5,
   "players": [
@@ -142,7 +142,7 @@
       "team": "CHE",
       "pos": "FWD",
       "price": 7.8,
-      "ownership": 68.5,
+      "ownership": 68.4,
       "points": 33,
       "gw_points": 0,
       "form": "6.6",
@@ -254,7 +254,7 @@
       ],
       "fdr_avg": 3.2,
       "status": "d",
-      "news": "Unspecified injury - 75% chance of playing",
+      "news": "Knee injury - 75% chance of playing",
       "chance": 75
     },
     {
@@ -386,7 +386,7 @@
       "team": "ARS",
       "pos": "GK",
       "price": 6,
-      "ownership": 41.5,
+      "ownership": 41.6,
       "points": 29,
       "gw_points": 0,
       "form": "5.8",
@@ -2679,9 +2679,9 @@
       "pos": "GK",
       "price": 4.5,
       "ownership": 18.2,
-      "points": 16,
-      "gw_points": 0,
-      "form": "3.2",
+      "points": 17,
+      "gw_points": 1,
+      "form": "3.4",
       "fixtures": [
         {
           "gw": 6,
@@ -5466,9 +5466,9 @@
       "pos": "DEF",
       "price": 5.4,
       "ownership": 8.4,
-      "points": 8,
-      "gw_points": 0,
-      "form": "1.6",
+      "points": 9,
+      "gw_points": 1,
+      "form": "1.8",
       "fixtures": [
         {
           "gw": 6,
@@ -5687,6 +5687,119 @@
       "chance": 50
     },
     {
+      "id": 94,
+      "name": "Schade",
+      "team": "BRE",
+      "pos": "MID",
+      "price": 6.1,
+      "ownership": 8,
+      "points": 39,
+      "gw_points": 9,
+      "form": "7.8",
+      "fixtures": [
+        {
+          "gw": 6,
+          "opp": "AVL",
+          "home": false,
+          "fdr": 4
+        },
+        {
+          "gw": 7,
+          "opp": "LIV",
+          "home": true,
+          "fdr": 4
+        },
+        {
+          "gw": 8,
+          "opp": "HUL",
+          "home": false,
+          "fdr": 2
+        },
+        {
+          "gw": 9,
+          "opp": "NFO",
+          "home": true,
+          "fdr": 3
+        },
+        {
+          "gw": 10,
+          "opp": "BHA",
+          "home": false,
+          "fdr": 3
+        }
+      ],
+      "recent": [
+        {
+          "gw": 2,
+          "date": "2026-08-30",
+          "comp": "PL",
+          "opp": "LEE",
+          "home": false,
+          "gf": 1,
+          "ga": 1,
+          "result": "D"
+        },
+        {
+          "gw": 3,
+          "date": "2026-09-05",
+          "comp": "PL",
+          "opp": "SUN",
+          "home": true,
+          "gf": 1,
+          "ga": 1,
+          "result": "D"
+        },
+        {
+          "gw": 4,
+          "date": "2026-09-12",
+          "comp": "PL",
+          "opp": "BOU",
+          "home": false,
+          "gf": 2,
+          "ga": 2,
+          "result": "D"
+        },
+        {
+          "date": "2026-09-15",
+          "comp": "EFL",
+          "opp": "Reading",
+          "home": false,
+          "gf": 2,
+          "ga": 1,
+          "result": "W"
+        },
+        {
+          "gw": 5,
+          "date": "2026-09-18",
+          "comp": "PL",
+          "opp": "CHE",
+          "home": true,
+          "gf": 3,
+          "ga": 0,
+          "result": "W"
+        }
+      ],
+      "other_apps": [
+        {
+          "date": "2026-08-25",
+          "comp": "EFL",
+          "opp": "Birmingham City",
+          "started": false
+        }
+      ],
+      "other_next": [
+        {
+          "date": "2026-10-28",
+          "kickoff": "2026-10-28T19:45:00+00:00",
+          "comp": "EFL",
+          "opp": "SUN",
+          "home": false
+        }
+      ],
+      "owned_by": [],
+      "fdr_avg": 3.2
+    },
+    {
       "id": 249,
       "name": "Barry",
       "team": "EVE",
@@ -5804,119 +5917,6 @@
       "owned_by": [],
       "fdr_avg": 3.2,
       "penalties": true
-    },
-    {
-      "id": 94,
-      "name": "Schade",
-      "team": "BRE",
-      "pos": "MID",
-      "price": 6.1,
-      "ownership": 7.9,
-      "points": 39,
-      "gw_points": 9,
-      "form": "7.8",
-      "fixtures": [
-        {
-          "gw": 6,
-          "opp": "AVL",
-          "home": false,
-          "fdr": 4
-        },
-        {
-          "gw": 7,
-          "opp": "LIV",
-          "home": true,
-          "fdr": 4
-        },
-        {
-          "gw": 8,
-          "opp": "HUL",
-          "home": false,
-          "fdr": 2
-        },
-        {
-          "gw": 9,
-          "opp": "NFO",
-          "home": true,
-          "fdr": 3
-        },
-        {
-          "gw": 10,
-          "opp": "BHA",
-          "home": false,
-          "fdr": 3
-        }
-      ],
-      "recent": [
-        {
-          "gw": 2,
-          "date": "2026-08-30",
-          "comp": "PL",
-          "opp": "LEE",
-          "home": false,
-          "gf": 1,
-          "ga": 1,
-          "result": "D"
-        },
-        {
-          "gw": 3,
-          "date": "2026-09-05",
-          "comp": "PL",
-          "opp": "SUN",
-          "home": true,
-          "gf": 1,
-          "ga": 1,
-          "result": "D"
-        },
-        {
-          "gw": 4,
-          "date": "2026-09-12",
-          "comp": "PL",
-          "opp": "BOU",
-          "home": false,
-          "gf": 2,
-          "ga": 2,
-          "result": "D"
-        },
-        {
-          "date": "2026-09-15",
-          "comp": "EFL",
-          "opp": "Reading",
-          "home": false,
-          "gf": 2,
-          "ga": 1,
-          "result": "W"
-        },
-        {
-          "gw": 5,
-          "date": "2026-09-18",
-          "comp": "PL",
-          "opp": "CHE",
-          "home": true,
-          "gf": 3,
-          "ga": 0,
-          "result": "W"
-        }
-      ],
-      "other_apps": [
-        {
-          "date": "2026-08-25",
-          "comp": "EFL",
-          "opp": "Birmingham City",
-          "started": false
-        }
-      ],
-      "other_next": [
-        {
-          "date": "2026-10-28",
-          "kickoff": "2026-10-28T19:45:00+00:00",
-          "comp": "EFL",
-          "opp": "SUN",
-          "home": false
-        }
-      ],
-      "owned_by": [],
-      "fdr_avg": 3.2
     },
     {
       "id": 384,
@@ -6758,9 +6758,9 @@
       "pos": "DEF",
       "price": 4.9,
       "ownership": 6.7,
-      "points": 18,
-      "gw_points": 0,
-      "form": "3.6",
+      "points": 19,
+      "gw_points": 1,
+      "form": "3.8",
       "fixtures": [
         {
           "gw": 6,
@@ -7902,7 +7902,7 @@
       "team": "NEW",
       "pos": "MID",
       "price": 6.1,
-      "ownership": 5.9,
+      "ownership": 5.8,
       "points": 18,
       "gw_points": 0,
       "form": "3.6",
@@ -10262,9 +10262,9 @@
       "pos": "DEF",
       "price": 5,
       "ownership": 4,
-      "points": 15,
-      "gw_points": 0,
-      "form": "3.0",
+      "points": 16,
+      "gw_points": 1,
+      "form": "3.2",
       "fixtures": [
         {
           "gw": 6,
@@ -13196,9 +13196,9 @@
       "pos": "DEF",
       "price": 4.4,
       "ownership": 2.6,
-      "points": 13,
-      "gw_points": 0,
-      "form": "2.6",
+      "points": 14,
+      "gw_points": 1,
+      "form": "2.8",
       "fixtures": [
         {
           "gw": 6,
@@ -14134,9 +14134,9 @@
       "pos": "FWD",
       "price": 7,
       "ownership": 2.2,
-      "points": 6,
-      "gw_points": 0,
-      "form": "1.2",
+      "points": 7,
+      "gw_points": 1,
+      "form": "1.4",
       "fixtures": [
         {
           "gw": 6,
@@ -14238,9 +14238,9 @@
       "pos": "MID",
       "price": 5.4,
       "ownership": 2.2,
-      "points": 11,
-      "gw_points": 0,
-      "form": "2.2",
+      "points": 12,
+      "gw_points": 1,
+      "form": "2.4",
       "fixtures": [
         {
           "gw": 6,
@@ -15050,9 +15050,9 @@
       "pos": "MID",
       "price": 5.3,
       "ownership": 2,
-      "points": 12,
-      "gw_points": 0,
-      "form": "2.4",
+      "points": 13,
+      "gw_points": 1,
+      "form": "2.6",
       "fixtures": [
         {
           "gw": 6,
@@ -16010,9 +16010,9 @@
       "pos": "GK",
       "price": 5,
       "ownership": 1.8,
-      "points": 14,
-      "gw_points": 0,
-      "form": "2.8",
+      "points": 15,
+      "gw_points": 1,
+      "form": "3.0",
       "fixtures": [
         {
           "gw": 6,
@@ -19446,9 +19446,9 @@
       "pos": "FWD",
       "price": 6.5,
       "ownership": 1.2,
-      "points": 4,
-      "gw_points": 0,
-      "form": "0.8",
+      "points": 5,
+      "gw_points": 1,
+      "form": "1.0",
       "fixtures": [
         {
           "gw": 6,
@@ -22532,9 +22532,9 @@
       "pos": "MID",
       "price": 5.9,
       "ownership": 0.9,
-      "points": 9,
-      "gw_points": 0,
-      "form": "1.8",
+      "points": 10,
+      "gw_points": 1,
+      "form": "2.0",
       "fixtures": [
         {
           "gw": 6,
@@ -23764,9 +23764,9 @@
       "pos": "MID",
       "price": 5.8,
       "ownership": 0.8,
-      "points": 6,
-      "gw_points": 0,
-      "form": "1.2",
+      "points": 7,
+      "gw_points": 1,
+      "form": "1.4",
       "fixtures": [
         {
           "gw": 6,
@@ -24433,9 +24433,9 @@
       "pos": "FWD",
       "price": 5.8,
       "ownership": 0.8,
-      "points": 5,
-      "gw_points": 0,
-      "form": "1.0",
+      "points": 6,
+      "gw_points": 1,
+      "form": "1.2",
       "fixtures": [
         {
           "gw": 6,
@@ -26212,9 +26212,9 @@
       "pos": "MID",
       "price": 6.5,
       "ownership": 0.7,
-      "points": 6,
-      "gw_points": 0,
-      "form": "1.2",
+      "points": 7,
+      "gw_points": 1,
+      "form": "1.4",
       "fixtures": [
         {
           "gw": 6,
@@ -31736,9 +31736,9 @@
       "pos": "DEF",
       "price": 4.5,
       "ownership": 0.4,
-      "points": 7,
-      "gw_points": 0,
-      "form": "1.4",
+      "points": 8,
+      "gw_points": 1,
+      "form": "1.6",
       "fixtures": [
         {
           "gw": 6,
@@ -34220,9 +34220,9 @@
       "pos": "MID",
       "price": 5,
       "ownership": 0.3,
-      "points": 9,
-      "gw_points": 0,
-      "form": "1.8",
+      "points": 10,
+      "gw_points": 1,
+      "form": "2.0",
       "fixtures": [
         {
           "gw": 6,
@@ -34473,9 +34473,9 @@
       "pos": "DEF",
       "price": 4.5,
       "ownership": 0.3,
-      "points": 7,
-      "gw_points": 0,
-      "form": "1.4",
+      "points": 8,
+      "gw_points": 1,
+      "form": "1.6",
       "fixtures": [
         {
           "gw": 6,
@@ -36865,9 +36865,9 @@
       "pos": "MID",
       "price": 5.5,
       "ownership": 0.2,
-      "points": 11,
-      "gw_points": 0,
-      "form": "2.2",
+      "points": 12,
+      "gw_points": 1,
+      "form": "2.4",
       "fixtures": [
         {
           "gw": 6,
@@ -42719,9 +42719,9 @@
       "pos": "DEF",
       "price": 4.5,
       "ownership": 0.2,
-      "points": 5,
-      "gw_points": 0,
-      "form": "1.2",
+      "points": 6,
+      "gw_points": 1,
+      "form": "1.5",
       "fixtures": [
         {
           "gw": 6,
@@ -43524,7 +43524,10 @@
         }
       ],
       "owned_by": [],
-      "fdr_avg": 3.2
+      "fdr_avg": 3.2,
+      "status": "d",
+      "news": "Unspecified injury - 75% chance of playing",
+      "chance": 75
     },
     {
       "id": 253,
@@ -51627,9 +51630,9 @@
       "pos": "MID",
       "price": 5.9,
       "ownership": 0.1,
-      "points": 1,
-      "gw_points": 0,
-      "form": "0.2",
+      "points": 2,
+      "gw_points": 1,
+      "form": "0.4",
       "fixtures": [
         {
           "gw": 6,
@@ -55354,9 +55357,9 @@
       "pos": "DEF",
       "price": 4.5,
       "ownership": 0.1,
-      "points": 2,
-      "gw_points": 0,
-      "form": "0.4",
+      "points": 3,
+      "gw_points": 1,
+      "form": "0.6",
       "fixtures": [
         {
           "gw": 6,
@@ -64935,9 +64938,9 @@
       "pos": "MID",
       "price": 5.5,
       "ownership": 0,
-      "points": -2,
-      "gw_points": 0,
-      "form": "-0.4",
+      "points": -1,
+      "gw_points": 1,
+      "form": "-0.2",
       "fixtures": [
         {
           "gw": 6,
