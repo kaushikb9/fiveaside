@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-19T02:33:45.777Z",
+  "generated_at": "2026-09-19T14:32:55.454Z",
   "date": "2026-09-19",
   "timezone": "Asia/Kolkata",
   "competition": "English Premier League",
@@ -132,6 +132,15 @@
     },
     {
       "pos": 15,
+      "team": "Aston Villa",
+      "played": 5,
+      "points": 4,
+      "gd": -5,
+      "crest": "https://a.espncdn.com/i/teamlogos/soccer/500/362.png",
+      "form": "LLDLW"
+    },
+    {
+      "pos": 16,
       "team": "AFC Bournemouth",
       "played": 4,
       "points": 3,
@@ -140,7 +149,7 @@
       "form": "LDDD"
     },
     {
-      "pos": 16,
+      "pos": 17,
       "team": "Crystal Palace",
       "played": 4,
       "points": 3,
@@ -149,31 +158,22 @@
       "form": "LLWL"
     },
     {
-      "pos": 17,
+      "pos": 18,
       "team": "Tottenham Hotspur",
-      "played": 4,
+      "played": 5,
       "points": 2,
-      "gd": -5,
+      "gd": -6,
       "crest": "https://a.espncdn.com/i/teamlogos/soccer/500/367.png",
-      "form": "LLDD"
+      "form": "LLDDL"
     },
     {
-      "pos": 18,
+      "pos": 19,
       "team": "Fulham",
       "played": 4,
       "points": 1,
       "gd": -3,
       "crest": "https://a.espncdn.com/i/teamlogos/soccer/500/370.png",
       "form": "LLLD"
-    },
-    {
-      "pos": 19,
-      "team": "Aston Villa",
-      "played": 4,
-      "points": 1,
-      "gd": -6,
-      "crest": "https://a.espncdn.com/i/teamlogos/soccer/500/362.png",
-      "form": "LLDL"
     },
     {
       "pos": 20,
