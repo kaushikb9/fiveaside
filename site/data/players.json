@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-19T09:47:13.609Z",
+  "generated_at": "2026-09-19T10:49:35.626Z",
   "gameweek": 6,
   "gw_points_for": 5,
   "players": [
@@ -14597,6 +14597,118 @@
       "chance": 0
     },
     {
+      "id": 268,
+      "name": "King",
+      "team": "FUL",
+      "pos": "MID",
+      "price": 5.5,
+      "ownership": 2.1,
+      "points": 22,
+      "gw_points": 0,
+      "form": "4.4",
+      "fixtures": [
+        {
+          "gw": 6,
+          "opp": "IPS",
+          "home": false,
+          "fdr": 2
+        },
+        {
+          "gw": 7,
+          "opp": "HUL",
+          "home": true,
+          "fdr": 2
+        },
+        {
+          "gw": 8,
+          "opp": "COV",
+          "home": false,
+          "fdr": 2
+        },
+        {
+          "gw": 9,
+          "opp": "AVL",
+          "home": false,
+          "fdr": 4
+        },
+        {
+          "gw": 10,
+          "opp": "NEW",
+          "home": true,
+          "fdr": 2
+        }
+      ],
+      "recent": [
+        {
+          "date": "2026-08-27",
+          "comp": "EFL",
+          "opp": "AFC Wimbledon",
+          "home": true,
+          "gf": 3,
+          "ga": 0,
+          "result": "W"
+        },
+        {
+          "gw": 2,
+          "date": "2026-08-30",
+          "comp": "PL",
+          "opp": "SUN",
+          "home": false,
+          "gf": 0,
+          "ga": 1,
+          "result": "L"
+        },
+        {
+          "gw": 3,
+          "date": "2026-09-05",
+          "comp": "PL",
+          "opp": "CRY",
+          "home": true,
+          "gf": 2,
+          "ga": 3,
+          "result": "L"
+        },
+        {
+          "gw": 4,
+          "date": "2026-09-12",
+          "comp": "PL",
+          "opp": "LIV",
+          "home": false,
+          "gf": 0,
+          "ga": 0,
+          "result": "D"
+        },
+        {
+          "date": "2026-09-15",
+          "comp": "EFL",
+          "opp": "West Ham United",
+          "home": false,
+          "gf": 3,
+          "ga": 2,
+          "result": "W"
+        }
+      ],
+      "other_apps": [
+        {
+          "date": "2026-09-15",
+          "comp": "EFL",
+          "opp": "West Ham United",
+          "started": false
+        }
+      ],
+      "other_next": [
+        {
+          "date": "2026-10-28",
+          "kickoff": "2026-10-28T19:45:00+00:00",
+          "comp": "EFL",
+          "opp": "CRY",
+          "home": true
+        }
+      ],
+      "owned_by": [],
+      "fdr_avg": 2.4
+    },
+    {
       "id": 472,
       "name": "Murillo",
       "team": "NFO",
@@ -14832,118 +14944,6 @@
       "status": "s",
       "news": "Suspended until 17 Oct",
       "chance": 0
-    },
-    {
-      "id": 268,
-      "name": "King",
-      "team": "FUL",
-      "pos": "MID",
-      "price": 5.5,
-      "ownership": 2,
-      "points": 22,
-      "gw_points": 0,
-      "form": "4.4",
-      "fixtures": [
-        {
-          "gw": 6,
-          "opp": "IPS",
-          "home": false,
-          "fdr": 2
-        },
-        {
-          "gw": 7,
-          "opp": "HUL",
-          "home": true,
-          "fdr": 2
-        },
-        {
-          "gw": 8,
-          "opp": "COV",
-          "home": false,
-          "fdr": 2
-        },
-        {
-          "gw": 9,
-          "opp": "AVL",
-          "home": false,
-          "fdr": 4
-        },
-        {
-          "gw": 10,
-          "opp": "NEW",
-          "home": true,
-          "fdr": 2
-        }
-      ],
-      "recent": [
-        {
-          "date": "2026-08-27",
-          "comp": "EFL",
-          "opp": "AFC Wimbledon",
-          "home": true,
-          "gf": 3,
-          "ga": 0,
-          "result": "W"
-        },
-        {
-          "gw": 2,
-          "date": "2026-08-30",
-          "comp": "PL",
-          "opp": "SUN",
-          "home": false,
-          "gf": 0,
-          "ga": 1,
-          "result": "L"
-        },
-        {
-          "gw": 3,
-          "date": "2026-09-05",
-          "comp": "PL",
-          "opp": "CRY",
-          "home": true,
-          "gf": 2,
-          "ga": 3,
-          "result": "L"
-        },
-        {
-          "gw": 4,
-          "date": "2026-09-12",
-          "comp": "PL",
-          "opp": "LIV",
-          "home": false,
-          "gf": 0,
-          "ga": 0,
-          "result": "D"
-        },
-        {
-          "date": "2026-09-15",
-          "comp": "EFL",
-          "opp": "West Ham United",
-          "home": false,
-          "gf": 3,
-          "ga": 2,
-          "result": "W"
-        }
-      ],
-      "other_apps": [
-        {
-          "date": "2026-09-15",
-          "comp": "EFL",
-          "opp": "West Ham United",
-          "started": false
-        }
-      ],
-      "other_next": [
-        {
-          "date": "2026-10-28",
-          "kickoff": "2026-10-28T19:45:00+00:00",
-          "comp": "EFL",
-          "opp": "CRY",
-          "home": true
-        }
-      ],
-      "owned_by": [],
-      "fdr_avg": 2.4
     },
     {
       "id": 295,
