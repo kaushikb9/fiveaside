@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-19T14:33:49.965Z",
+  "generated_at": "2026-09-19T15:37:19.111Z",
   "gameweek": 6,
   "gw_points_for": 5,
   "players": [
@@ -142,7 +142,7 @@
       "team": "CHE",
       "pos": "FWD",
       "price": 7.8,
-      "ownership": 68.3,
+      "ownership": 68.2,
       "points": 33,
       "gw_points": 0,
       "form": "6.6",
@@ -263,7 +263,7 @@
       "team": "ARS",
       "pos": "DEF",
       "price": 5.8,
-      "ownership": 50.8,
+      "ownership": 50.7,
       "points": 29,
       "gw_points": 1,
       "form": "5.8",
@@ -387,9 +387,9 @@
       "pos": "GK",
       "price": 6,
       "ownership": 41.6,
-      "points": 33,
-      "gw_points": 4,
-      "form": "6.6",
+      "points": 30,
+      "gw_points": 1,
+      "form": "6.0",
       "fixtures": [
         {
           "gw": 6,
@@ -514,7 +514,7 @@
       "team": "CHE",
       "pos": "MID",
       "price": 7.7,
-      "ownership": 40,
+      "ownership": 40.1,
       "points": 29,
       "gw_points": 2,
       "form": "5.8",
@@ -639,7 +639,7 @@
       "team": "MUN",
       "pos": "MID",
       "price": 12,
-      "ownership": 39.9,
+      "ownership": 39.8,
       "points": 29,
       "gw_points": 0,
       "form": "5.8",
@@ -761,7 +761,7 @@
       "team": "LIV",
       "pos": "MID",
       "price": 7,
-      "ownership": 34.5,
+      "ownership": 34.4,
       "points": 18,
       "gw_points": 0,
       "form": "3.6",
@@ -898,7 +898,7 @@
       "team": "MCI",
       "pos": "MID",
       "price": 7.8,
-      "ownership": 28,
+      "ownership": 27.9,
       "points": 26,
       "gw_points": 0,
       "form": "5.2",
@@ -1402,10 +1402,10 @@
       "team": "BHA",
       "pos": "DEF",
       "price": 4.9,
-      "ownership": 25.3,
-      "points": 35,
-      "gw_points": 3,
-      "form": "7.0",
+      "ownership": 25.4,
+      "points": 39,
+      "gw_points": 7,
+      "form": "7.8",
       "fixtures": [
         {
           "gw": 6,
@@ -1645,6 +1645,130 @@
       "fdr_avg": 2.8
     },
     {
+      "id": 124,
+      "name": "Groß",
+      "team": "BHA",
+      "pos": "MID",
+      "price": 5.7,
+      "ownership": 22.2,
+      "points": 47,
+      "gw_points": 14,
+      "form": "9.4",
+      "fixtures": [
+        {
+          "gw": 6,
+          "opp": "SUN",
+          "home": false,
+          "fdr": 3
+        },
+        {
+          "gw": 7,
+          "opp": "CRY",
+          "home": true,
+          "fdr": 3
+        },
+        {
+          "gw": 8,
+          "opp": "LIV",
+          "home": false,
+          "fdr": 4
+        },
+        {
+          "gw": 9,
+          "opp": "MCI",
+          "home": false,
+          "fdr": 5
+        },
+        {
+          "gw": 10,
+          "opp": "BRE",
+          "home": true,
+          "fdr": 3
+        }
+      ],
+      "recent": [
+        {
+          "gw": 1,
+          "date": "2026-08-23",
+          "comp": "PL",
+          "opp": "AVL",
+          "home": true,
+          "gf": 4,
+          "ga": 0,
+          "result": "W"
+        },
+        {
+          "gw": 2,
+          "date": "2026-08-30",
+          "comp": "PL",
+          "opp": "CHE",
+          "home": false,
+          "gf": 3,
+          "ga": 4,
+          "result": "L"
+        },
+        {
+          "gw": 3,
+          "date": "2026-09-05",
+          "comp": "PL",
+          "opp": "LEE",
+          "home": true,
+          "gf": 1,
+          "ga": 1,
+          "result": "D"
+        },
+        {
+          "gw": 4,
+          "date": "2026-09-13",
+          "comp": "PL",
+          "opp": "COV",
+          "home": false,
+          "gf": 5,
+          "ga": 0,
+          "result": "W"
+        },
+        {
+          "date": "2026-09-16",
+          "comp": "EFL",
+          "opp": "MUN",
+          "home": false,
+          "gf": 3,
+          "ga": 2,
+          "result": "W"
+        }
+      ],
+      "other_apps": [],
+      "other_next": [
+        {
+          "date": "2026-10-15",
+          "kickoff": "2026-10-15T19:00:00+00:00",
+          "comp": "UECL",
+          "opp": "Kauno Zalgiris",
+          "home": true
+        },
+        {
+          "date": "2026-10-22",
+          "kickoff": "2026-10-22T16:45:00+00:00",
+          "comp": "UECL",
+          "opp": "Jablonec",
+          "home": false
+        },
+        {
+          "date": "2026-10-28",
+          "kickoff": "2026-10-28T19:30:00+00:00",
+          "comp": "EFL",
+          "opp": "MCI",
+          "home": false
+        }
+      ],
+      "owned_by": [
+        "Mr CR7",
+        "Le Professeur"
+      ],
+      "fdr_avg": 3.6,
+      "penalties": true
+    },
+    {
       "id": 379,
       "name": "Isak",
       "team": "LIV",
@@ -1786,9 +1910,9 @@
       "pos": "GK",
       "price": 4.5,
       "ownership": 21.7,
-      "points": 18,
-      "gw_points": 1,
-      "form": "3.6",
+      "points": 23,
+      "gw_points": 6,
+      "form": "4.6",
       "fixtures": [
         {
           "gw": 6,
@@ -1902,136 +2026,12 @@
       "fdr_avg": 3.6
     },
     {
-      "id": 124,
-      "name": "Groß",
-      "team": "BHA",
-      "pos": "MID",
-      "price": 5.7,
-      "ownership": 21.6,
-      "points": 34,
-      "gw_points": 1,
-      "form": "6.8",
-      "fixtures": [
-        {
-          "gw": 6,
-          "opp": "SUN",
-          "home": false,
-          "fdr": 3
-        },
-        {
-          "gw": 7,
-          "opp": "CRY",
-          "home": true,
-          "fdr": 3
-        },
-        {
-          "gw": 8,
-          "opp": "LIV",
-          "home": false,
-          "fdr": 4
-        },
-        {
-          "gw": 9,
-          "opp": "MCI",
-          "home": false,
-          "fdr": 5
-        },
-        {
-          "gw": 10,
-          "opp": "BRE",
-          "home": true,
-          "fdr": 3
-        }
-      ],
-      "recent": [
-        {
-          "gw": 1,
-          "date": "2026-08-23",
-          "comp": "PL",
-          "opp": "AVL",
-          "home": true,
-          "gf": 4,
-          "ga": 0,
-          "result": "W"
-        },
-        {
-          "gw": 2,
-          "date": "2026-08-30",
-          "comp": "PL",
-          "opp": "CHE",
-          "home": false,
-          "gf": 3,
-          "ga": 4,
-          "result": "L"
-        },
-        {
-          "gw": 3,
-          "date": "2026-09-05",
-          "comp": "PL",
-          "opp": "LEE",
-          "home": true,
-          "gf": 1,
-          "ga": 1,
-          "result": "D"
-        },
-        {
-          "gw": 4,
-          "date": "2026-09-13",
-          "comp": "PL",
-          "opp": "COV",
-          "home": false,
-          "gf": 5,
-          "ga": 0,
-          "result": "W"
-        },
-        {
-          "date": "2026-09-16",
-          "comp": "EFL",
-          "opp": "MUN",
-          "home": false,
-          "gf": 3,
-          "ga": 2,
-          "result": "W"
-        }
-      ],
-      "other_apps": [],
-      "other_next": [
-        {
-          "date": "2026-10-15",
-          "kickoff": "2026-10-15T19:00:00+00:00",
-          "comp": "UECL",
-          "opp": "Kauno Zalgiris",
-          "home": true
-        },
-        {
-          "date": "2026-10-22",
-          "kickoff": "2026-10-22T16:45:00+00:00",
-          "comp": "UECL",
-          "opp": "Jablonec",
-          "home": false
-        },
-        {
-          "date": "2026-10-28",
-          "kickoff": "2026-10-28T19:30:00+00:00",
-          "comp": "EFL",
-          "opp": "MCI",
-          "home": false
-        }
-      ],
-      "owned_by": [
-        "Mr CR7",
-        "Le Professeur"
-      ],
-      "fdr_avg": 3.6,
-      "penalties": true
-    },
-    {
       "id": 427,
       "name": "Mbeumo",
       "team": "MUN",
       "pos": "MID",
       "price": 7.9,
-      "ownership": 21.5,
+      "ownership": 21.4,
       "points": 23,
       "gw_points": 0,
       "form": "4.6",
@@ -2164,9 +2164,9 @@
       "pos": "MID",
       "price": 6.8,
       "ownership": 20.1,
-      "points": 28,
-      "gw_points": 1,
-      "form": "5.6",
+      "points": 29,
+      "gw_points": 2,
+      "form": "5.8",
       "fixtures": [
         {
           "gw": 6,
@@ -2435,9 +2435,9 @@
       "pos": "FWD",
       "price": 6.2,
       "ownership": 19.3,
-      "points": 16,
-      "gw_points": 1,
-      "form": "3.2",
+      "points": 15,
+      "gw_points": 0,
+      "form": "3.0",
       "fixtures": [
         {
           "gw": 6,
@@ -3124,10 +3124,10 @@
       "team": "NEW",
       "pos": "DEF",
       "price": 5.2,
-      "ownership": 15,
-      "points": 26,
-      "gw_points": 8,
-      "form": "5.2",
+      "ownership": 15.1,
+      "points": 28,
+      "gw_points": 10,
+      "form": "5.6",
       "fixtures": [
         {
           "gw": 6,
@@ -3369,9 +3369,9 @@
       "pos": "DEF",
       "price": 4.2,
       "ownership": 14.3,
-      "points": 26,
-      "gw_points": 0,
-      "form": "5.2",
+      "points": 27,
+      "gw_points": 1,
+      "form": "5.4",
       "fixtures": [
         {
           "gw": 6,
@@ -3468,10 +3468,10 @@
       "team": "EVE",
       "pos": "DEF",
       "price": 6.1,
-      "ownership": 14.1,
-      "points": 35,
-      "gw_points": 6,
-      "form": "7.0",
+      "ownership": 14.2,
+      "points": 43,
+      "gw_points": 14,
+      "form": "8.6",
       "fixtures": [
         {
           "gw": 6,
@@ -3577,15 +3577,245 @@
       "fdr_avg": 3.2
     },
     {
+      "id": 259,
+      "name": "Diop",
+      "team": "IPS",
+      "pos": "DEF",
+      "price": 4,
+      "ownership": 13.2,
+      "points": 10,
+      "gw_points": 2,
+      "form": "2.0",
+      "fixtures": [
+        {
+          "gw": 6,
+          "opp": "FUL",
+          "home": true,
+          "fdr": 2
+        },
+        {
+          "gw": 7,
+          "opp": "MCI",
+          "home": false,
+          "fdr": 5
+        },
+        {
+          "gw": 8,
+          "opp": "NFO",
+          "home": true,
+          "fdr": 3
+        },
+        {
+          "gw": 9,
+          "opp": "HUL",
+          "home": false,
+          "fdr": 2
+        },
+        {
+          "gw": 10,
+          "opp": "BOU",
+          "home": true,
+          "fdr": 3
+        }
+      ],
+      "recent": [
+        {
+          "date": "2026-08-25",
+          "comp": "EFL",
+          "opp": "Leicester City",
+          "home": true,
+          "gf": 3,
+          "ga": 1,
+          "result": "W"
+        },
+        {
+          "gw": 2,
+          "date": "2026-08-30",
+          "comp": "PL",
+          "opp": "MUN",
+          "home": false,
+          "gf": 2,
+          "ga": 5,
+          "result": "L"
+        },
+        {
+          "gw": 3,
+          "date": "2026-09-04",
+          "comp": "PL",
+          "opp": "LIV",
+          "home": true,
+          "gf": 0,
+          "ga": 2,
+          "result": "L"
+        },
+        {
+          "gw": 4,
+          "date": "2026-09-12",
+          "comp": "PL",
+          "opp": "CRY",
+          "home": false,
+          "gf": 3,
+          "ga": 2,
+          "result": "W"
+        },
+        {
+          "date": "2026-09-15",
+          "comp": "EFL",
+          "opp": "ARS",
+          "home": true,
+          "gf": 2,
+          "ga": 4,
+          "result": "L"
+        }
+      ],
+      "other_apps": [],
+      "other_next": [],
+      "owned_by": [
+        "Xabi",
+        "Le Professeur"
+      ],
+      "fdr_avg": 3
+    },
+    {
+      "id": 12,
+      "name": "Saka",
+      "team": "ARS",
+      "pos": "MID",
+      "price": 9.5,
+      "ownership": 13.2,
+      "points": 32,
+      "gw_points": 2,
+      "form": "6.4",
+      "fixtures": [
+        {
+          "gw": 6,
+          "opp": "LEE",
+          "home": true,
+          "fdr": 2
+        },
+        {
+          "gw": 7,
+          "opp": "NFO",
+          "home": false,
+          "fdr": 3
+        },
+        {
+          "gw": 8,
+          "opp": "EVE",
+          "home": true,
+          "fdr": 3
+        },
+        {
+          "gw": 9,
+          "opp": "LIV",
+          "home": false,
+          "fdr": 4
+        },
+        {
+          "gw": 10,
+          "opp": "HUL",
+          "home": true,
+          "fdr": 2
+        }
+      ],
+      "recent": [
+        {
+          "gw": 2,
+          "date": "2026-08-31",
+          "comp": "PL",
+          "opp": "AVL",
+          "home": false,
+          "gf": 1,
+          "ga": 0,
+          "result": "W"
+        },
+        {
+          "gw": 3,
+          "date": "2026-09-06",
+          "comp": "PL",
+          "opp": "CHE",
+          "home": true,
+          "gf": 2,
+          "ga": 1,
+          "result": "W"
+        },
+        {
+          "date": "2026-09-09",
+          "comp": "CL",
+          "opp": "Napoli",
+          "home": false,
+          "gf": 1,
+          "ga": 0,
+          "result": "W"
+        },
+        {
+          "gw": 4,
+          "date": "2026-09-12",
+          "comp": "PL",
+          "opp": "SUN",
+          "home": false,
+          "gf": 2,
+          "ga": 0,
+          "result": "W"
+        },
+        {
+          "date": "2026-09-15",
+          "comp": "EFL",
+          "opp": "IPS",
+          "home": false,
+          "gf": 4,
+          "ga": 2,
+          "result": "W"
+        }
+      ],
+      "other_apps": [
+        {
+          "date": "2026-09-09",
+          "comp": "CL",
+          "opp": "Napoli",
+          "started": true
+        }
+      ],
+      "other_next": [
+        {
+          "date": "2026-10-13",
+          "kickoff": "2026-10-13T19:00:00+00:00",
+          "comp": "CL",
+          "opp": "Lille",
+          "home": true
+        },
+        {
+          "date": "2026-10-21",
+          "kickoff": "2026-10-21T19:00:00+00:00",
+          "comp": "CL",
+          "opp": "Bayern Munich",
+          "home": false
+        },
+        {
+          "date": "2026-10-27",
+          "kickoff": "2026-10-27T20:00:00+00:00",
+          "comp": "EFL",
+          "opp": "Fleetwood Town",
+          "home": false
+        }
+      ],
+      "owned_by": [
+        "Xabi",
+        "Le Professeur"
+      ],
+      "fdr_avg": 2.8,
+      "penalties": true
+    },
+    {
       "id": 557,
       "name": "Tzolis",
       "team": "ARS",
       "pos": "MID",
       "price": 6.4,
-      "ownership": 13.3,
-      "points": 17,
-      "gw_points": 3,
-      "form": "3.4",
+      "ownership": 13.2,
+      "points": 16,
+      "gw_points": 2,
+      "form": "3.2",
       "fixtures": [
         {
           "gw": 6,
@@ -3707,236 +3937,6 @@
       ],
       "owned_by": [],
       "fdr_avg": 2.8
-    },
-    {
-      "id": 259,
-      "name": "Diop",
-      "team": "IPS",
-      "pos": "DEF",
-      "price": 4,
-      "ownership": 13.2,
-      "points": 9,
-      "gw_points": 1,
-      "form": "1.8",
-      "fixtures": [
-        {
-          "gw": 6,
-          "opp": "FUL",
-          "home": true,
-          "fdr": 2
-        },
-        {
-          "gw": 7,
-          "opp": "MCI",
-          "home": false,
-          "fdr": 5
-        },
-        {
-          "gw": 8,
-          "opp": "NFO",
-          "home": true,
-          "fdr": 3
-        },
-        {
-          "gw": 9,
-          "opp": "HUL",
-          "home": false,
-          "fdr": 2
-        },
-        {
-          "gw": 10,
-          "opp": "BOU",
-          "home": true,
-          "fdr": 3
-        }
-      ],
-      "recent": [
-        {
-          "date": "2026-08-25",
-          "comp": "EFL",
-          "opp": "Leicester City",
-          "home": true,
-          "gf": 3,
-          "ga": 1,
-          "result": "W"
-        },
-        {
-          "gw": 2,
-          "date": "2026-08-30",
-          "comp": "PL",
-          "opp": "MUN",
-          "home": false,
-          "gf": 2,
-          "ga": 5,
-          "result": "L"
-        },
-        {
-          "gw": 3,
-          "date": "2026-09-04",
-          "comp": "PL",
-          "opp": "LIV",
-          "home": true,
-          "gf": 0,
-          "ga": 2,
-          "result": "L"
-        },
-        {
-          "gw": 4,
-          "date": "2026-09-12",
-          "comp": "PL",
-          "opp": "CRY",
-          "home": false,
-          "gf": 3,
-          "ga": 2,
-          "result": "W"
-        },
-        {
-          "date": "2026-09-15",
-          "comp": "EFL",
-          "opp": "ARS",
-          "home": true,
-          "gf": 2,
-          "ga": 4,
-          "result": "L"
-        }
-      ],
-      "other_apps": [],
-      "other_next": [],
-      "owned_by": [
-        "Xabi",
-        "Le Professeur"
-      ],
-      "fdr_avg": 3
-    },
-    {
-      "id": 12,
-      "name": "Saka",
-      "team": "ARS",
-      "pos": "MID",
-      "price": 9.5,
-      "ownership": 13.2,
-      "points": 33,
-      "gw_points": 3,
-      "form": "6.6",
-      "fixtures": [
-        {
-          "gw": 6,
-          "opp": "LEE",
-          "home": true,
-          "fdr": 2
-        },
-        {
-          "gw": 7,
-          "opp": "NFO",
-          "home": false,
-          "fdr": 3
-        },
-        {
-          "gw": 8,
-          "opp": "EVE",
-          "home": true,
-          "fdr": 3
-        },
-        {
-          "gw": 9,
-          "opp": "LIV",
-          "home": false,
-          "fdr": 4
-        },
-        {
-          "gw": 10,
-          "opp": "HUL",
-          "home": true,
-          "fdr": 2
-        }
-      ],
-      "recent": [
-        {
-          "gw": 2,
-          "date": "2026-08-31",
-          "comp": "PL",
-          "opp": "AVL",
-          "home": false,
-          "gf": 1,
-          "ga": 0,
-          "result": "W"
-        },
-        {
-          "gw": 3,
-          "date": "2026-09-06",
-          "comp": "PL",
-          "opp": "CHE",
-          "home": true,
-          "gf": 2,
-          "ga": 1,
-          "result": "W"
-        },
-        {
-          "date": "2026-09-09",
-          "comp": "CL",
-          "opp": "Napoli",
-          "home": false,
-          "gf": 1,
-          "ga": 0,
-          "result": "W"
-        },
-        {
-          "gw": 4,
-          "date": "2026-09-12",
-          "comp": "PL",
-          "opp": "SUN",
-          "home": false,
-          "gf": 2,
-          "ga": 0,
-          "result": "W"
-        },
-        {
-          "date": "2026-09-15",
-          "comp": "EFL",
-          "opp": "IPS",
-          "home": false,
-          "gf": 4,
-          "ga": 2,
-          "result": "W"
-        }
-      ],
-      "other_apps": [
-        {
-          "date": "2026-09-09",
-          "comp": "CL",
-          "opp": "Napoli",
-          "started": true
-        }
-      ],
-      "other_next": [
-        {
-          "date": "2026-10-13",
-          "kickoff": "2026-10-13T19:00:00+00:00",
-          "comp": "CL",
-          "opp": "Lille",
-          "home": true
-        },
-        {
-          "date": "2026-10-21",
-          "kickoff": "2026-10-21T19:00:00+00:00",
-          "comp": "CL",
-          "opp": "Bayern Munich",
-          "home": false
-        },
-        {
-          "date": "2026-10-27",
-          "kickoff": "2026-10-27T20:00:00+00:00",
-          "comp": "EFL",
-          "opp": "Fleetwood Town",
-          "home": false
-        }
-      ],
-      "owned_by": [
-        "Xabi",
-        "Le Professeur"
-      ],
-      "fdr_avg": 2.8,
-      "penalties": true
     },
     {
       "id": 367,
@@ -4074,9 +4074,9 @@
       "pos": "MID",
       "price": 7.4,
       "ownership": 12.4,
-      "points": 22,
-      "gw_points": 3,
-      "form": "4.4",
+      "points": 21,
+      "gw_points": 2,
+      "form": "4.2",
       "fixtures": [
         {
           "gw": 6,
@@ -4192,6 +4192,105 @@
       ],
       "owned_by": [],
       "fdr_avg": 2.8
+    },
+    {
+      "id": 572,
+      "name": "Tzolakis",
+      "team": "HUL",
+      "pos": "GK",
+      "price": 4.6,
+      "ownership": 11.6,
+      "points": 33,
+      "gw_points": 5,
+      "form": "6.6",
+      "fixtures": [
+        {
+          "gw": 6,
+          "opp": "EVE",
+          "home": true,
+          "fdr": 3
+        },
+        {
+          "gw": 7,
+          "opp": "FUL",
+          "home": false,
+          "fdr": 3
+        },
+        {
+          "gw": 8,
+          "opp": "BRE",
+          "home": true,
+          "fdr": 3
+        },
+        {
+          "gw": 9,
+          "opp": "IPS",
+          "home": true,
+          "fdr": 2
+        },
+        {
+          "gw": 10,
+          "opp": "ARS",
+          "home": false,
+          "fdr": 5
+        }
+      ],
+      "recent": [
+        {
+          "date": "2026-08-25",
+          "comp": "EFL",
+          "opp": "Stoke City",
+          "home": false,
+          "gf": 1,
+          "ga": 1,
+          "result": "D"
+        },
+        {
+          "gw": 2,
+          "date": "2026-08-29",
+          "comp": "PL",
+          "opp": "COV",
+          "home": false,
+          "gf": 1,
+          "ga": 0,
+          "result": "W"
+        },
+        {
+          "gw": 3,
+          "date": "2026-09-05",
+          "comp": "PL",
+          "opp": "AVL",
+          "home": true,
+          "gf": 0,
+          "ga": 0,
+          "result": "D"
+        },
+        {
+          "date": "2026-09-08",
+          "comp": "EFL",
+          "opp": "SUN",
+          "home": false,
+          "gf": 0,
+          "ga": 1,
+          "result": "L"
+        },
+        {
+          "gw": 4,
+          "date": "2026-09-12",
+          "comp": "PL",
+          "opp": "CHE",
+          "home": false,
+          "gf": 2,
+          "ga": 2,
+          "result": "D"
+        }
+      ],
+      "other_apps": [],
+      "other_next": [],
+      "owned_by": [
+        "The Special One"
+      ],
+      "fdr_avg": 3.2
     },
     {
       "id": 387,
@@ -4319,105 +4418,6 @@
       "owned_by": [],
       "fdr_avg": 3,
       "chance": 100
-    },
-    {
-      "id": 572,
-      "name": "Tzolakis",
-      "team": "HUL",
-      "pos": "GK",
-      "price": 4.6,
-      "ownership": 11.5,
-      "points": 28,
-      "gw_points": 0,
-      "form": "5.6",
-      "fixtures": [
-        {
-          "gw": 6,
-          "opp": "EVE",
-          "home": true,
-          "fdr": 3
-        },
-        {
-          "gw": 7,
-          "opp": "FUL",
-          "home": false,
-          "fdr": 3
-        },
-        {
-          "gw": 8,
-          "opp": "BRE",
-          "home": true,
-          "fdr": 3
-        },
-        {
-          "gw": 9,
-          "opp": "IPS",
-          "home": true,
-          "fdr": 2
-        },
-        {
-          "gw": 10,
-          "opp": "ARS",
-          "home": false,
-          "fdr": 5
-        }
-      ],
-      "recent": [
-        {
-          "date": "2026-08-25",
-          "comp": "EFL",
-          "opp": "Stoke City",
-          "home": false,
-          "gf": 1,
-          "ga": 1,
-          "result": "D"
-        },
-        {
-          "gw": 2,
-          "date": "2026-08-29",
-          "comp": "PL",
-          "opp": "COV",
-          "home": false,
-          "gf": 1,
-          "ga": 0,
-          "result": "W"
-        },
-        {
-          "gw": 3,
-          "date": "2026-09-05",
-          "comp": "PL",
-          "opp": "AVL",
-          "home": true,
-          "gf": 0,
-          "ga": 0,
-          "result": "D"
-        },
-        {
-          "date": "2026-09-08",
-          "comp": "EFL",
-          "opp": "SUN",
-          "home": false,
-          "gf": 0,
-          "ga": 1,
-          "result": "L"
-        },
-        {
-          "gw": 4,
-          "date": "2026-09-12",
-          "comp": "PL",
-          "opp": "CHE",
-          "home": false,
-          "gf": 2,
-          "ga": 2,
-          "result": "D"
-        }
-      ],
-      "other_apps": [],
-      "other_next": [],
-      "owned_by": [
-        "The Special One"
-      ],
-      "fdr_avg": 3.2
     },
     {
       "id": 565,
@@ -4670,7 +4670,7 @@
       "team": "COV",
       "pos": "DEF",
       "price": 4,
-      "ownership": 9.5,
+      "ownership": 9.4,
       "points": 6,
       "gw_points": 0,
       "form": "1.2",
@@ -4992,9 +4992,9 @@
       "pos": "GK",
       "price": 5.5,
       "ownership": 9,
-      "points": 19,
-      "gw_points": 2,
-      "form": "3.8",
+      "points": 26,
+      "gw_points": 9,
+      "form": "5.2",
       "fixtures": [
         {
           "gw": 6,
@@ -5109,7 +5109,7 @@
       "team": "BRE",
       "pos": "FWD",
       "price": 7.8,
-      "ownership": 8.9,
+      "ownership": 9,
       "points": 10,
       "gw_points": 5,
       "form": "2.0",
@@ -5342,9 +5342,9 @@
       "pos": "FWD",
       "price": 7.6,
       "ownership": 8.5,
-      "points": 18,
-      "gw_points": 1,
-      "form": "3.6",
+      "points": 19,
+      "gw_points": 2,
+      "form": "3.8",
       "fixtures": [
         {
           "gw": 6,
@@ -5570,6 +5570,119 @@
       "chance": 75
     },
     {
+      "id": 94,
+      "name": "Schade",
+      "team": "BRE",
+      "pos": "MID",
+      "price": 6.1,
+      "ownership": 8.2,
+      "points": 39,
+      "gw_points": 9,
+      "form": "7.8",
+      "fixtures": [
+        {
+          "gw": 6,
+          "opp": "AVL",
+          "home": false,
+          "fdr": 4
+        },
+        {
+          "gw": 7,
+          "opp": "LIV",
+          "home": true,
+          "fdr": 4
+        },
+        {
+          "gw": 8,
+          "opp": "HUL",
+          "home": false,
+          "fdr": 2
+        },
+        {
+          "gw": 9,
+          "opp": "NFO",
+          "home": true,
+          "fdr": 3
+        },
+        {
+          "gw": 10,
+          "opp": "BHA",
+          "home": false,
+          "fdr": 3
+        }
+      ],
+      "recent": [
+        {
+          "gw": 2,
+          "date": "2026-08-30",
+          "comp": "PL",
+          "opp": "LEE",
+          "home": false,
+          "gf": 1,
+          "ga": 1,
+          "result": "D"
+        },
+        {
+          "gw": 3,
+          "date": "2026-09-05",
+          "comp": "PL",
+          "opp": "SUN",
+          "home": true,
+          "gf": 1,
+          "ga": 1,
+          "result": "D"
+        },
+        {
+          "gw": 4,
+          "date": "2026-09-12",
+          "comp": "PL",
+          "opp": "BOU",
+          "home": false,
+          "gf": 2,
+          "ga": 2,
+          "result": "D"
+        },
+        {
+          "date": "2026-09-15",
+          "comp": "EFL",
+          "opp": "Reading",
+          "home": false,
+          "gf": 2,
+          "ga": 1,
+          "result": "W"
+        },
+        {
+          "gw": 5,
+          "date": "2026-09-18",
+          "comp": "PL",
+          "opp": "CHE",
+          "home": true,
+          "gf": 3,
+          "ga": 0,
+          "result": "W"
+        }
+      ],
+      "other_apps": [
+        {
+          "date": "2026-08-25",
+          "comp": "EFL",
+          "opp": "Birmingham City",
+          "started": false
+        }
+      ],
+      "other_next": [
+        {
+          "date": "2026-10-28",
+          "kickoff": "2026-10-28T19:45:00+00:00",
+          "comp": "EFL",
+          "opp": "SUN",
+          "home": false
+        }
+      ],
+      "owned_by": [],
+      "fdr_avg": 3.2
+    },
+    {
       "id": 423,
       "name": "Shaw",
       "team": "MUN",
@@ -5692,128 +5805,15 @@
       "chance": 50
     },
     {
-      "id": 94,
-      "name": "Schade",
-      "team": "BRE",
-      "pos": "MID",
-      "price": 6.1,
-      "ownership": 8.1,
-      "points": 39,
-      "gw_points": 9,
-      "form": "7.8",
-      "fixtures": [
-        {
-          "gw": 6,
-          "opp": "AVL",
-          "home": false,
-          "fdr": 4
-        },
-        {
-          "gw": 7,
-          "opp": "LIV",
-          "home": true,
-          "fdr": 4
-        },
-        {
-          "gw": 8,
-          "opp": "HUL",
-          "home": false,
-          "fdr": 2
-        },
-        {
-          "gw": 9,
-          "opp": "NFO",
-          "home": true,
-          "fdr": 3
-        },
-        {
-          "gw": 10,
-          "opp": "BHA",
-          "home": false,
-          "fdr": 3
-        }
-      ],
-      "recent": [
-        {
-          "gw": 2,
-          "date": "2026-08-30",
-          "comp": "PL",
-          "opp": "LEE",
-          "home": false,
-          "gf": 1,
-          "ga": 1,
-          "result": "D"
-        },
-        {
-          "gw": 3,
-          "date": "2026-09-05",
-          "comp": "PL",
-          "opp": "SUN",
-          "home": true,
-          "gf": 1,
-          "ga": 1,
-          "result": "D"
-        },
-        {
-          "gw": 4,
-          "date": "2026-09-12",
-          "comp": "PL",
-          "opp": "BOU",
-          "home": false,
-          "gf": 2,
-          "ga": 2,
-          "result": "D"
-        },
-        {
-          "date": "2026-09-15",
-          "comp": "EFL",
-          "opp": "Reading",
-          "home": false,
-          "gf": 2,
-          "ga": 1,
-          "result": "W"
-        },
-        {
-          "gw": 5,
-          "date": "2026-09-18",
-          "comp": "PL",
-          "opp": "CHE",
-          "home": true,
-          "gf": 3,
-          "ga": 0,
-          "result": "W"
-        }
-      ],
-      "other_apps": [
-        {
-          "date": "2026-08-25",
-          "comp": "EFL",
-          "opp": "Birmingham City",
-          "started": false
-        }
-      ],
-      "other_next": [
-        {
-          "date": "2026-10-28",
-          "kickoff": "2026-10-28T19:45:00+00:00",
-          "comp": "EFL",
-          "opp": "SUN",
-          "home": false
-        }
-      ],
-      "owned_by": [],
-      "fdr_avg": 3.2
-    },
-    {
       "id": 249,
       "name": "Barry",
       "team": "EVE",
       "pos": "FWD",
       "price": 5.6,
       "ownership": 7.9,
-      "points": 22,
-      "gw_points": 8,
-      "form": "4.4",
+      "points": 20,
+      "gw_points": 6,
+      "form": "4.0",
       "fixtures": [
         {
           "gw": 6,
@@ -6295,113 +6295,6 @@
       "fdr_avg": 3.2
     },
     {
-      "id": 277,
-      "name": "Egan",
-      "team": "HUL",
-      "pos": "DEF",
-      "price": 4.1,
-      "ownership": 7.2,
-      "points": 25,
-      "gw_points": 0,
-      "form": "5.0",
-      "fixtures": [
-        {
-          "gw": 6,
-          "opp": "EVE",
-          "home": true,
-          "fdr": 3
-        },
-        {
-          "gw": 7,
-          "opp": "FUL",
-          "home": false,
-          "fdr": 3
-        },
-        {
-          "gw": 8,
-          "opp": "BRE",
-          "home": true,
-          "fdr": 3
-        },
-        {
-          "gw": 9,
-          "opp": "IPS",
-          "home": true,
-          "fdr": 2
-        },
-        {
-          "gw": 10,
-          "opp": "ARS",
-          "home": false,
-          "fdr": 5
-        }
-      ],
-      "recent": [
-        {
-          "date": "2026-08-25",
-          "comp": "EFL",
-          "opp": "Stoke City",
-          "home": false,
-          "gf": 1,
-          "ga": 1,
-          "result": "D"
-        },
-        {
-          "gw": 2,
-          "date": "2026-08-29",
-          "comp": "PL",
-          "opp": "COV",
-          "home": false,
-          "gf": 1,
-          "ga": 0,
-          "result": "W"
-        },
-        {
-          "gw": 3,
-          "date": "2026-09-05",
-          "comp": "PL",
-          "opp": "AVL",
-          "home": true,
-          "gf": 0,
-          "ga": 0,
-          "result": "D"
-        },
-        {
-          "date": "2026-09-08",
-          "comp": "EFL",
-          "opp": "SUN",
-          "home": false,
-          "gf": 0,
-          "ga": 1,
-          "result": "L"
-        },
-        {
-          "gw": 4,
-          "date": "2026-09-12",
-          "comp": "PL",
-          "opp": "CHE",
-          "home": false,
-          "gf": 2,
-          "ga": 2,
-          "result": "D"
-        }
-      ],
-      "other_apps": [
-        {
-          "date": "2026-09-08",
-          "comp": "EFL",
-          "opp": "SUN",
-          "started": false
-        }
-      ],
-      "other_next": [],
-      "owned_by": [
-        "The Special One",
-        "Le Professeur"
-      ],
-      "fdr_avg": 3.2
-    },
-    {
       "id": 237,
       "name": "Ndiaye",
       "team": "MCI",
@@ -6528,12 +6421,119 @@
       "fdr_avg": 3
     },
     {
+      "id": 277,
+      "name": "Egan",
+      "team": "HUL",
+      "pos": "DEF",
+      "price": 4.1,
+      "ownership": 7.1,
+      "points": 26,
+      "gw_points": 1,
+      "form": "5.2",
+      "fixtures": [
+        {
+          "gw": 6,
+          "opp": "EVE",
+          "home": true,
+          "fdr": 3
+        },
+        {
+          "gw": 7,
+          "opp": "FUL",
+          "home": false,
+          "fdr": 3
+        },
+        {
+          "gw": 8,
+          "opp": "BRE",
+          "home": true,
+          "fdr": 3
+        },
+        {
+          "gw": 9,
+          "opp": "IPS",
+          "home": true,
+          "fdr": 2
+        },
+        {
+          "gw": 10,
+          "opp": "ARS",
+          "home": false,
+          "fdr": 5
+        }
+      ],
+      "recent": [
+        {
+          "date": "2026-08-25",
+          "comp": "EFL",
+          "opp": "Stoke City",
+          "home": false,
+          "gf": 1,
+          "ga": 1,
+          "result": "D"
+        },
+        {
+          "gw": 2,
+          "date": "2026-08-29",
+          "comp": "PL",
+          "opp": "COV",
+          "home": false,
+          "gf": 1,
+          "ga": 0,
+          "result": "W"
+        },
+        {
+          "gw": 3,
+          "date": "2026-09-05",
+          "comp": "PL",
+          "opp": "AVL",
+          "home": true,
+          "gf": 0,
+          "ga": 0,
+          "result": "D"
+        },
+        {
+          "date": "2026-09-08",
+          "comp": "EFL",
+          "opp": "SUN",
+          "home": false,
+          "gf": 0,
+          "ga": 1,
+          "result": "L"
+        },
+        {
+          "gw": 4,
+          "date": "2026-09-12",
+          "comp": "PL",
+          "opp": "CHE",
+          "home": false,
+          "gf": 2,
+          "ga": 2,
+          "result": "D"
+        }
+      ],
+      "other_apps": [
+        {
+          "date": "2026-09-08",
+          "comp": "EFL",
+          "opp": "SUN",
+          "started": false
+        }
+      ],
+      "other_next": [],
+      "owned_by": [
+        "The Special One",
+        "Le Professeur"
+      ],
+      "fdr_avg": 3.2
+    },
+    {
       "id": 200,
       "name": "Lacroix",
       "team": "CHE",
       "pos": "DEF",
       "price": 5.9,
-      "ownership": 7,
+      "ownership": 6.9,
       "points": 13,
       "gw_points": 3,
       "form": "2.6",
@@ -6653,9 +6653,9 @@
       "pos": "DEF",
       "price": 4,
       "ownership": 6.8,
-      "points": 24,
-      "gw_points": 1,
-      "form": "4.8",
+      "points": 25,
+      "gw_points": 2,
+      "form": "5.0",
       "fixtures": [
         {
           "gw": 6,
@@ -6862,119 +6862,12 @@
       "fdr_avg": 3.2
     },
     {
-      "id": 586,
-      "name": "Mendy",
-      "team": "HUL",
-      "pos": "DEF",
-      "price": 4.1,
-      "ownership": 6.5,
-      "points": 25,
-      "gw_points": 0,
-      "form": "5.0",
-      "fixtures": [
-        {
-          "gw": 6,
-          "opp": "EVE",
-          "home": true,
-          "fdr": 3
-        },
-        {
-          "gw": 7,
-          "opp": "FUL",
-          "home": false,
-          "fdr": 3
-        },
-        {
-          "gw": 8,
-          "opp": "BRE",
-          "home": true,
-          "fdr": 3
-        },
-        {
-          "gw": 9,
-          "opp": "IPS",
-          "home": true,
-          "fdr": 2
-        },
-        {
-          "gw": 10,
-          "opp": "ARS",
-          "home": false,
-          "fdr": 5
-        }
-      ],
-      "recent": [
-        {
-          "date": "2026-08-25",
-          "comp": "EFL",
-          "opp": "Stoke City",
-          "home": false,
-          "gf": 1,
-          "ga": 1,
-          "result": "D"
-        },
-        {
-          "gw": 2,
-          "date": "2026-08-29",
-          "comp": "PL",
-          "opp": "COV",
-          "home": false,
-          "gf": 1,
-          "ga": 0,
-          "result": "W"
-        },
-        {
-          "gw": 3,
-          "date": "2026-09-05",
-          "comp": "PL",
-          "opp": "AVL",
-          "home": true,
-          "gf": 0,
-          "ga": 0,
-          "result": "D"
-        },
-        {
-          "date": "2026-09-08",
-          "comp": "EFL",
-          "opp": "SUN",
-          "home": false,
-          "gf": 0,
-          "ga": 1,
-          "result": "L"
-        },
-        {
-          "gw": 4,
-          "date": "2026-09-12",
-          "comp": "PL",
-          "opp": "CHE",
-          "home": false,
-          "gf": 2,
-          "ga": 2,
-          "result": "D"
-        }
-      ],
-      "other_apps": [
-        {
-          "date": "2026-09-08",
-          "comp": "EFL",
-          "opp": "SUN",
-          "started": true
-        }
-      ],
-      "other_next": [],
-      "owned_by": [],
-      "fdr_avg": 3.2,
-      "status": "i",
-      "news": "Concussion - Expected back 11 Oct",
-      "chance": 0
-    },
-    {
       "id": 68,
       "name": "Tavernier",
       "team": "BOU",
       "pos": "MID",
       "price": 6.1,
-      "ownership": 6.5,
+      "ownership": 6.6,
       "points": 29,
       "gw_points": 0,
       "form": "5.8",
@@ -7223,15 +7116,122 @@
       "chance": 75
     },
     {
+      "id": 586,
+      "name": "Mendy",
+      "team": "HUL",
+      "pos": "DEF",
+      "price": 4.1,
+      "ownership": 6.4,
+      "points": 25,
+      "gw_points": 0,
+      "form": "5.0",
+      "fixtures": [
+        {
+          "gw": 6,
+          "opp": "EVE",
+          "home": true,
+          "fdr": 3
+        },
+        {
+          "gw": 7,
+          "opp": "FUL",
+          "home": false,
+          "fdr": 3
+        },
+        {
+          "gw": 8,
+          "opp": "BRE",
+          "home": true,
+          "fdr": 3
+        },
+        {
+          "gw": 9,
+          "opp": "IPS",
+          "home": true,
+          "fdr": 2
+        },
+        {
+          "gw": 10,
+          "opp": "ARS",
+          "home": false,
+          "fdr": 5
+        }
+      ],
+      "recent": [
+        {
+          "date": "2026-08-25",
+          "comp": "EFL",
+          "opp": "Stoke City",
+          "home": false,
+          "gf": 1,
+          "ga": 1,
+          "result": "D"
+        },
+        {
+          "gw": 2,
+          "date": "2026-08-29",
+          "comp": "PL",
+          "opp": "COV",
+          "home": false,
+          "gf": 1,
+          "ga": 0,
+          "result": "W"
+        },
+        {
+          "gw": 3,
+          "date": "2026-09-05",
+          "comp": "PL",
+          "opp": "AVL",
+          "home": true,
+          "gf": 0,
+          "ga": 0,
+          "result": "D"
+        },
+        {
+          "date": "2026-09-08",
+          "comp": "EFL",
+          "opp": "SUN",
+          "home": false,
+          "gf": 0,
+          "ga": 1,
+          "result": "L"
+        },
+        {
+          "gw": 4,
+          "date": "2026-09-12",
+          "comp": "PL",
+          "opp": "CHE",
+          "home": false,
+          "gf": 2,
+          "ga": 2,
+          "result": "D"
+        }
+      ],
+      "other_apps": [
+        {
+          "date": "2026-09-08",
+          "comp": "EFL",
+          "opp": "SUN",
+          "started": true
+        }
+      ],
+      "other_next": [],
+      "owned_by": [],
+      "fdr_avg": 3.2,
+      "status": "i",
+      "news": "Concussion - Expected back 11 Oct",
+      "chance": 0
+    },
+    {
       "id": 236,
       "name": "Dewsbury-Hall",
       "team": "EVE",
       "pos": "MID",
       "price": 6.6,
       "ownership": 6.2,
-      "points": 18,
-      "gw_points": 1,
-      "form": "3.6",
+      "points": 20,
+      "gw_points": 3,
+      "form": "4.0",
       "fixtures": [
         {
           "gw": 6,
@@ -7810,7 +7810,7 @@
       "team": "NFO",
       "pos": "DEF",
       "price": 5.4,
-      "ownership": 6,
+      "ownership": 5.9,
       "points": 3,
       "gw_points": 0,
       "form": "0.6",
@@ -7901,127 +7901,6 @@
       "other_next": [],
       "owned_by": [],
       "fdr_avg": 3.2
-    },
-    {
-      "id": 454,
-      "name": "Elanga",
-      "team": "NEW",
-      "pos": "MID",
-      "price": 6.1,
-      "ownership": 5.8,
-      "points": 18,
-      "gw_points": 0,
-      "form": "3.6",
-      "fixtures": [
-        {
-          "gw": 6,
-          "opp": "COV",
-          "home": false,
-          "fdr": 2
-        },
-        {
-          "gw": 7,
-          "opp": "AVL",
-          "home": true,
-          "fdr": 3
-        },
-        {
-          "gw": 8,
-          "opp": "CRY",
-          "home": false,
-          "fdr": 3
-        },
-        {
-          "gw": 9,
-          "opp": "EVE",
-          "home": true,
-          "fdr": 3
-        },
-        {
-          "gw": 10,
-          "opp": "FUL",
-          "home": false,
-          "fdr": 3
-        }
-      ],
-      "recent": [
-        {
-          "date": "2026-08-26",
-          "comp": "EFL",
-          "opp": "West Bromwich Albion",
-          "home": true,
-          "gf": 3,
-          "ga": 2,
-          "result": "W"
-        },
-        {
-          "gw": 2,
-          "date": "2026-08-29",
-          "comp": "PL",
-          "opp": "TOT",
-          "home": false,
-          "gf": 2,
-          "ga": 0,
-          "result": "W"
-        },
-        {
-          "gw": 3,
-          "date": "2026-09-05",
-          "comp": "PL",
-          "opp": "BOU",
-          "home": true,
-          "gf": 2,
-          "ga": 2,
-          "result": "D"
-        },
-        {
-          "date": "2026-09-08",
-          "comp": "EFL",
-          "opp": "Millwall",
-          "home": false,
-          "gf": 1,
-          "ga": 0,
-          "result": "W"
-        },
-        {
-          "gw": 4,
-          "date": "2026-09-14",
-          "comp": "PL",
-          "opp": "LEE",
-          "home": false,
-          "gf": 1,
-          "ga": 4,
-          "result": "L"
-        }
-      ],
-      "other_apps": [
-        {
-          "date": "2026-08-26",
-          "comp": "EFL",
-          "opp": "West Bromwich Albion",
-          "started": false
-        },
-        {
-          "date": "2026-09-08",
-          "comp": "EFL",
-          "opp": "Millwall",
-          "started": false
-        }
-      ],
-      "other_next": [
-        {
-          "date": "2026-10-29",
-          "kickoff": "2026-10-29T19:45:00+00:00",
-          "comp": "EFL",
-          "opp": "EVE",
-          "home": false
-        }
-      ],
-      "owned_by": [],
-      "fdr_avg": 2.8,
-      "status": "i",
-      "news": "Unspecified injury - Unknown return date",
-      "chance": 0
     },
     {
       "id": 69,
@@ -8282,6 +8161,127 @@
       "fdr_avg": 3.2
     },
     {
+      "id": 454,
+      "name": "Elanga",
+      "team": "NEW",
+      "pos": "MID",
+      "price": 6.1,
+      "ownership": 5.7,
+      "points": 18,
+      "gw_points": 0,
+      "form": "3.6",
+      "fixtures": [
+        {
+          "gw": 6,
+          "opp": "COV",
+          "home": false,
+          "fdr": 2
+        },
+        {
+          "gw": 7,
+          "opp": "AVL",
+          "home": true,
+          "fdr": 3
+        },
+        {
+          "gw": 8,
+          "opp": "CRY",
+          "home": false,
+          "fdr": 3
+        },
+        {
+          "gw": 9,
+          "opp": "EVE",
+          "home": true,
+          "fdr": 3
+        },
+        {
+          "gw": 10,
+          "opp": "FUL",
+          "home": false,
+          "fdr": 3
+        }
+      ],
+      "recent": [
+        {
+          "date": "2026-08-26",
+          "comp": "EFL",
+          "opp": "West Bromwich Albion",
+          "home": true,
+          "gf": 3,
+          "ga": 2,
+          "result": "W"
+        },
+        {
+          "gw": 2,
+          "date": "2026-08-29",
+          "comp": "PL",
+          "opp": "TOT",
+          "home": false,
+          "gf": 2,
+          "ga": 0,
+          "result": "W"
+        },
+        {
+          "gw": 3,
+          "date": "2026-09-05",
+          "comp": "PL",
+          "opp": "BOU",
+          "home": true,
+          "gf": 2,
+          "ga": 2,
+          "result": "D"
+        },
+        {
+          "date": "2026-09-08",
+          "comp": "EFL",
+          "opp": "Millwall",
+          "home": false,
+          "gf": 1,
+          "ga": 0,
+          "result": "W"
+        },
+        {
+          "gw": 4,
+          "date": "2026-09-14",
+          "comp": "PL",
+          "opp": "LEE",
+          "home": false,
+          "gf": 1,
+          "ga": 4,
+          "result": "L"
+        }
+      ],
+      "other_apps": [
+        {
+          "date": "2026-08-26",
+          "comp": "EFL",
+          "opp": "West Bromwich Albion",
+          "started": false
+        },
+        {
+          "date": "2026-09-08",
+          "comp": "EFL",
+          "opp": "Millwall",
+          "started": false
+        }
+      ],
+      "other_next": [
+        {
+          "date": "2026-10-29",
+          "kickoff": "2026-10-29T19:45:00+00:00",
+          "comp": "EFL",
+          "opp": "EVE",
+          "home": false
+        }
+      ],
+      "owned_by": [],
+      "fdr_avg": 2.8,
+      "status": "i",
+      "news": "Unspecified injury - Unknown return date",
+      "chance": 0
+    },
+    {
       "id": 272,
       "name": "Kusi-Asare",
       "team": "FUL",
@@ -8393,9 +8393,9 @@
       "pos": "MID",
       "price": 4.5,
       "ownership": 5.5,
-      "points": 14,
-      "gw_points": 1,
-      "form": "2.8",
+      "points": 15,
+      "gw_points": 2,
+      "form": "3.0",
       "fixtures": [
         {
           "gw": 6,
@@ -9090,7 +9090,7 @@
       "team": "NEW",
       "pos": "MID",
       "price": 6.1,
-      "ownership": 4.5,
+      "ownership": 4.6,
       "points": 28,
       "gw_points": 9,
       "form": "5.6",
@@ -9209,9 +9209,9 @@
       "pos": "MID",
       "price": 5.1,
       "ownership": 4.4,
-      "points": 28,
-      "gw_points": 1,
-      "form": "5.6",
+      "points": 31,
+      "gw_points": 4,
+      "form": "6.2",
       "fixtures": [
         {
           "gw": 6,
@@ -9554,9 +9554,9 @@
       "pos": "MID",
       "price": 5,
       "ownership": 4.2,
-      "points": 17,
-      "gw_points": 1,
-      "form": "3.4",
+      "points": 24,
+      "gw_points": 8,
+      "form": "4.8",
       "fixtures": [
         {
           "gw": 6,
@@ -9681,9 +9681,9 @@
       "pos": "DEF",
       "price": 4.6,
       "ownership": 4.2,
-      "points": 23,
-      "gw_points": 1,
-      "form": "4.6",
+      "points": 27,
+      "gw_points": 5,
+      "form": "5.4",
       "fixtures": [
         {
           "gw": 6,
@@ -11331,9 +11331,9 @@
       "pos": "FWD",
       "price": 5.5,
       "ownership": 3.4,
-      "points": 25,
-      "gw_points": 1,
-      "form": "5.0",
+      "points": 26,
+      "gw_points": 2,
+      "form": "5.2",
       "fixtures": [
         {
           "gw": 6,
@@ -11690,9 +11690,9 @@
       "pos": "FWD",
       "price": 7.2,
       "ownership": 3.2,
-      "points": 1,
-      "gw_points": 0,
-      "form": "0.2",
+      "points": 2,
+      "gw_points": 1,
+      "form": "0.4",
       "fixtures": [
         {
           "gw": 6,
@@ -11822,9 +11822,9 @@
       "pos": "DEF",
       "price": 5,
       "ownership": 3.2,
-      "points": 25,
-      "gw_points": 1,
-      "form": "5.0",
+      "points": 30,
+      "gw_points": 6,
+      "form": "6.0",
       "fixtures": [
         {
           "gw": 6,
@@ -12869,9 +12869,9 @@
       "pos": "DEF",
       "price": 4,
       "ownership": 2.8,
-      "points": 9,
-      "gw_points": 1,
-      "form": "1.8",
+      "points": 10,
+      "gw_points": 2,
+      "form": "2.0",
       "fixtures": [
         {
           "gw": 6,
@@ -13196,119 +13196,6 @@
       ],
       "owned_by": [],
       "fdr_avg": 2.6
-    },
-    {
-      "id": 98,
-      "name": "Janelt",
-      "team": "BRE",
-      "pos": "MID",
-      "price": 5,
-      "ownership": 2.6,
-      "points": 28,
-      "gw_points": 3,
-      "form": "5.6",
-      "fixtures": [
-        {
-          "gw": 6,
-          "opp": "AVL",
-          "home": false,
-          "fdr": 4
-        },
-        {
-          "gw": 7,
-          "opp": "LIV",
-          "home": true,
-          "fdr": 4
-        },
-        {
-          "gw": 8,
-          "opp": "HUL",
-          "home": false,
-          "fdr": 2
-        },
-        {
-          "gw": 9,
-          "opp": "NFO",
-          "home": true,
-          "fdr": 3
-        },
-        {
-          "gw": 10,
-          "opp": "BHA",
-          "home": false,
-          "fdr": 3
-        }
-      ],
-      "recent": [
-        {
-          "gw": 2,
-          "date": "2026-08-30",
-          "comp": "PL",
-          "opp": "LEE",
-          "home": false,
-          "gf": 1,
-          "ga": 1,
-          "result": "D"
-        },
-        {
-          "gw": 3,
-          "date": "2026-09-05",
-          "comp": "PL",
-          "opp": "SUN",
-          "home": true,
-          "gf": 1,
-          "ga": 1,
-          "result": "D"
-        },
-        {
-          "gw": 4,
-          "date": "2026-09-12",
-          "comp": "PL",
-          "opp": "BOU",
-          "home": false,
-          "gf": 2,
-          "ga": 2,
-          "result": "D"
-        },
-        {
-          "date": "2026-09-15",
-          "comp": "EFL",
-          "opp": "Reading",
-          "home": false,
-          "gf": 2,
-          "ga": 1,
-          "result": "W"
-        },
-        {
-          "gw": 5,
-          "date": "2026-09-18",
-          "comp": "PL",
-          "opp": "CHE",
-          "home": true,
-          "gf": 3,
-          "ga": 0,
-          "result": "W"
-        }
-      ],
-      "other_apps": [
-        {
-          "date": "2026-08-25",
-          "comp": "EFL",
-          "opp": "Birmingham City",
-          "started": true
-        }
-      ],
-      "other_next": [
-        {
-          "date": "2026-10-28",
-          "kickoff": "2026-10-28T19:45:00+00:00",
-          "comp": "EFL",
-          "opp": "SUN",
-          "home": false
-        }
-      ],
-      "owned_by": [],
-      "fdr_avg": 3.2
     },
     {
       "id": 502,
@@ -13648,6 +13535,119 @@
       "chance": 0
     },
     {
+      "id": 98,
+      "name": "Janelt",
+      "team": "BRE",
+      "pos": "MID",
+      "price": 5,
+      "ownership": 2.5,
+      "points": 28,
+      "gw_points": 3,
+      "form": "5.6",
+      "fixtures": [
+        {
+          "gw": 6,
+          "opp": "AVL",
+          "home": false,
+          "fdr": 4
+        },
+        {
+          "gw": 7,
+          "opp": "LIV",
+          "home": true,
+          "fdr": 4
+        },
+        {
+          "gw": 8,
+          "opp": "HUL",
+          "home": false,
+          "fdr": 2
+        },
+        {
+          "gw": 9,
+          "opp": "NFO",
+          "home": true,
+          "fdr": 3
+        },
+        {
+          "gw": 10,
+          "opp": "BHA",
+          "home": false,
+          "fdr": 3
+        }
+      ],
+      "recent": [
+        {
+          "gw": 2,
+          "date": "2026-08-30",
+          "comp": "PL",
+          "opp": "LEE",
+          "home": false,
+          "gf": 1,
+          "ga": 1,
+          "result": "D"
+        },
+        {
+          "gw": 3,
+          "date": "2026-09-05",
+          "comp": "PL",
+          "opp": "SUN",
+          "home": true,
+          "gf": 1,
+          "ga": 1,
+          "result": "D"
+        },
+        {
+          "gw": 4,
+          "date": "2026-09-12",
+          "comp": "PL",
+          "opp": "BOU",
+          "home": false,
+          "gf": 2,
+          "ga": 2,
+          "result": "D"
+        },
+        {
+          "date": "2026-09-15",
+          "comp": "EFL",
+          "opp": "Reading",
+          "home": false,
+          "gf": 2,
+          "ga": 1,
+          "result": "W"
+        },
+        {
+          "gw": 5,
+          "date": "2026-09-18",
+          "comp": "PL",
+          "opp": "CHE",
+          "home": true,
+          "gf": 3,
+          "ga": 0,
+          "result": "W"
+        }
+      ],
+      "other_apps": [
+        {
+          "date": "2026-08-25",
+          "comp": "EFL",
+          "opp": "Birmingham City",
+          "started": true
+        }
+      ],
+      "other_next": [
+        {
+          "date": "2026-10-28",
+          "kickoff": "2026-10-28T19:45:00+00:00",
+          "comp": "EFL",
+          "opp": "SUN",
+          "home": false
+        }
+      ],
+      "owned_by": [],
+      "fdr_avg": 3.2
+    },
+    {
       "id": 529,
       "name": "Roefs",
       "team": "SUN",
@@ -13906,9 +13906,9 @@
       "pos": "DEF",
       "price": 5.5,
       "ownership": 2.3,
-      "points": 20,
-      "gw_points": 1,
-      "form": "4.0",
+      "points": 25,
+      "gw_points": 6,
+      "form": "5.0",
       "fixtures": [
         {
           "gw": 6,
@@ -14380,9 +14380,9 @@
       "pos": "DEF",
       "price": 5,
       "ownership": 2.2,
-      "points": 11,
-      "gw_points": 1,
-      "form": "2.2",
+      "points": 12,
+      "gw_points": 2,
+      "form": "2.4",
       "fixtures": [
         {
           "gw": 6,
@@ -14962,9 +14962,9 @@
       "pos": "FWD",
       "price": 5.5,
       "ownership": 2,
-      "points": 13,
-      "gw_points": 1,
-      "form": "2.6",
+      "points": 14,
+      "gw_points": 2,
+      "form": "2.8",
       "fixtures": [
         {
           "gw": 6,
@@ -15398,138 +15398,6 @@
       "fdr_avg": 3.2
     },
     {
-      "id": 357,
-      "name": "Frimpong",
-      "team": "LIV",
-      "pos": "DEF",
-      "price": 5.3,
-      "ownership": 1.9,
-      "points": 2,
-      "gw_points": 0,
-      "form": "0.4",
-      "fixtures": [
-        {
-          "gw": 6,
-          "opp": "MCI",
-          "home": true,
-          "fdr": 4
-        },
-        {
-          "gw": 7,
-          "opp": "BRE",
-          "home": false,
-          "fdr": 3
-        },
-        {
-          "gw": 8,
-          "opp": "BHA",
-          "home": true,
-          "fdr": 2
-        },
-        {
-          "gw": 9,
-          "opp": "ARS",
-          "home": true,
-          "fdr": 4
-        },
-        {
-          "gw": 10,
-          "opp": "CRY",
-          "home": false,
-          "fdr": 3
-        }
-      ],
-      "recent": [
-        {
-          "gw": 2,
-          "date": "2026-08-29",
-          "comp": "PL",
-          "opp": "NFO",
-          "home": true,
-          "gf": 2,
-          "ga": 2,
-          "result": "D"
-        },
-        {
-          "gw": 3,
-          "date": "2026-09-04",
-          "comp": "PL",
-          "opp": "IPS",
-          "home": false,
-          "gf": 2,
-          "ga": 0,
-          "result": "W"
-        },
-        {
-          "date": "2026-09-09",
-          "comp": "CL",
-          "opp": "Atlético Madrid",
-          "home": true,
-          "gf": 2,
-          "ga": 1,
-          "result": "W"
-        },
-        {
-          "gw": 4,
-          "date": "2026-09-12",
-          "comp": "PL",
-          "opp": "FUL",
-          "home": true,
-          "gf": 0,
-          "ga": 0,
-          "result": "D"
-        },
-        {
-          "date": "2026-09-15",
-          "comp": "EFL",
-          "opp": "TOT",
-          "home": true,
-          "gf": 3,
-          "ga": 1,
-          "result": "W"
-        }
-      ],
-      "other_apps": [
-        {
-          "date": "2026-09-09",
-          "comp": "CL",
-          "opp": "Atlético Madrid",
-          "started": false
-        },
-        {
-          "date": "2026-09-15",
-          "comp": "EFL",
-          "opp": "TOT",
-          "started": true
-        }
-      ],
-      "other_next": [
-        {
-          "date": "2026-10-14",
-          "kickoff": "2026-10-14T16:45:00+00:00",
-          "comp": "CL",
-          "opp": "LASK Linz",
-          "home": false
-        },
-        {
-          "date": "2026-10-20",
-          "kickoff": "2026-10-20T19:00:00+00:00",
-          "comp": "CL",
-          "opp": "Villarreal",
-          "home": true
-        },
-        {
-          "date": "2026-10-28",
-          "kickoff": "2026-10-28T20:00:00+00:00",
-          "comp": "EFL",
-          "opp": "CHE",
-          "home": true
-        }
-      ],
-      "owned_by": [],
-      "fdr_avg": 3.2
-    },
-    {
       "id": 533,
       "name": "Mukiele",
       "team": "SUN",
@@ -15894,6 +15762,138 @@
       "owned_by": [],
       "fdr_avg": 2.8,
       "chance": 100
+    },
+    {
+      "id": 357,
+      "name": "Frimpong",
+      "team": "LIV",
+      "pos": "DEF",
+      "price": 5.3,
+      "ownership": 1.8,
+      "points": 2,
+      "gw_points": 0,
+      "form": "0.4",
+      "fixtures": [
+        {
+          "gw": 6,
+          "opp": "MCI",
+          "home": true,
+          "fdr": 4
+        },
+        {
+          "gw": 7,
+          "opp": "BRE",
+          "home": false,
+          "fdr": 3
+        },
+        {
+          "gw": 8,
+          "opp": "BHA",
+          "home": true,
+          "fdr": 2
+        },
+        {
+          "gw": 9,
+          "opp": "ARS",
+          "home": true,
+          "fdr": 4
+        },
+        {
+          "gw": 10,
+          "opp": "CRY",
+          "home": false,
+          "fdr": 3
+        }
+      ],
+      "recent": [
+        {
+          "gw": 2,
+          "date": "2026-08-29",
+          "comp": "PL",
+          "opp": "NFO",
+          "home": true,
+          "gf": 2,
+          "ga": 2,
+          "result": "D"
+        },
+        {
+          "gw": 3,
+          "date": "2026-09-04",
+          "comp": "PL",
+          "opp": "IPS",
+          "home": false,
+          "gf": 2,
+          "ga": 0,
+          "result": "W"
+        },
+        {
+          "date": "2026-09-09",
+          "comp": "CL",
+          "opp": "Atlético Madrid",
+          "home": true,
+          "gf": 2,
+          "ga": 1,
+          "result": "W"
+        },
+        {
+          "gw": 4,
+          "date": "2026-09-12",
+          "comp": "PL",
+          "opp": "FUL",
+          "home": true,
+          "gf": 0,
+          "ga": 0,
+          "result": "D"
+        },
+        {
+          "date": "2026-09-15",
+          "comp": "EFL",
+          "opp": "TOT",
+          "home": true,
+          "gf": 3,
+          "ga": 1,
+          "result": "W"
+        }
+      ],
+      "other_apps": [
+        {
+          "date": "2026-09-09",
+          "comp": "CL",
+          "opp": "Atlético Madrid",
+          "started": false
+        },
+        {
+          "date": "2026-09-15",
+          "comp": "EFL",
+          "opp": "TOT",
+          "started": true
+        }
+      ],
+      "other_next": [
+        {
+          "date": "2026-10-14",
+          "kickoff": "2026-10-14T16:45:00+00:00",
+          "comp": "CL",
+          "opp": "LASK Linz",
+          "home": false
+        },
+        {
+          "date": "2026-10-20",
+          "kickoff": "2026-10-20T19:00:00+00:00",
+          "comp": "CL",
+          "opp": "Villarreal",
+          "home": true
+        },
+        {
+          "date": "2026-10-28",
+          "kickoff": "2026-10-28T20:00:00+00:00",
+          "comp": "EFL",
+          "opp": "CHE",
+          "home": true
+        }
+      ],
+      "owned_by": [],
+      "fdr_avg": 3.2
     },
     {
       "id": 86,
@@ -16883,9 +16883,9 @@
       "pos": "DEF",
       "price": 4.4,
       "ownership": 1.6,
-      "points": 9,
-      "gw_points": 1,
-      "form": "1.8",
+      "points": 13,
+      "gw_points": 5,
+      "form": "2.6",
       "fixtures": [
         {
           "gw": 6,
@@ -17619,9 +17619,9 @@
       "pos": "GK",
       "price": 5,
       "ownership": 1.5,
-      "points": 12,
-      "gw_points": 1,
-      "form": "2.4",
+      "points": 13,
+      "gw_points": 2,
+      "form": "2.6",
       "fixtures": [
         {
           "gw": 6,
@@ -19451,6 +19451,133 @@
       "fdr_avg": 3.2
     },
     {
+      "id": 138,
+      "name": "Kostoulas",
+      "team": "BHA",
+      "pos": "FWD",
+      "price": 5.5,
+      "ownership": 1.2,
+      "points": 28,
+      "gw_points": 10,
+      "form": "5.6",
+      "fixtures": [
+        {
+          "gw": 6,
+          "opp": "SUN",
+          "home": false,
+          "fdr": 3
+        },
+        {
+          "gw": 7,
+          "opp": "CRY",
+          "home": true,
+          "fdr": 3
+        },
+        {
+          "gw": 8,
+          "opp": "LIV",
+          "home": false,
+          "fdr": 4
+        },
+        {
+          "gw": 9,
+          "opp": "MCI",
+          "home": false,
+          "fdr": 5
+        },
+        {
+          "gw": 10,
+          "opp": "BRE",
+          "home": true,
+          "fdr": 3
+        }
+      ],
+      "recent": [
+        {
+          "gw": 1,
+          "date": "2026-08-23",
+          "comp": "PL",
+          "opp": "AVL",
+          "home": true,
+          "gf": 4,
+          "ga": 0,
+          "result": "W"
+        },
+        {
+          "gw": 2,
+          "date": "2026-08-30",
+          "comp": "PL",
+          "opp": "CHE",
+          "home": false,
+          "gf": 3,
+          "ga": 4,
+          "result": "L"
+        },
+        {
+          "gw": 3,
+          "date": "2026-09-05",
+          "comp": "PL",
+          "opp": "LEE",
+          "home": true,
+          "gf": 1,
+          "ga": 1,
+          "result": "D"
+        },
+        {
+          "gw": 4,
+          "date": "2026-09-13",
+          "comp": "PL",
+          "opp": "COV",
+          "home": false,
+          "gf": 5,
+          "ga": 0,
+          "result": "W"
+        },
+        {
+          "date": "2026-09-16",
+          "comp": "EFL",
+          "opp": "MUN",
+          "home": false,
+          "gf": 3,
+          "ga": 2,
+          "result": "W"
+        }
+      ],
+      "other_apps": [
+        {
+          "date": "2026-09-16",
+          "comp": "EFL",
+          "opp": "MUN",
+          "started": true
+        }
+      ],
+      "other_next": [
+        {
+          "date": "2026-10-15",
+          "kickoff": "2026-10-15T19:00:00+00:00",
+          "comp": "UECL",
+          "opp": "Kauno Zalgiris",
+          "home": true
+        },
+        {
+          "date": "2026-10-22",
+          "kickoff": "2026-10-22T16:45:00+00:00",
+          "comp": "UECL",
+          "opp": "Jablonec",
+          "home": false
+        },
+        {
+          "date": "2026-10-28",
+          "kickoff": "2026-10-28T19:30:00+00:00",
+          "comp": "EFL",
+          "opp": "MCI",
+          "home": false
+        }
+      ],
+      "owned_by": [],
+      "fdr_avg": 3.6
+    },
+    {
       "id": 166,
       "name": "N.Jackson",
       "team": "AVL",
@@ -20770,9 +20897,9 @@
       "pos": "MID",
       "price": 6.3,
       "ownership": 1,
-      "points": 3,
-      "gw_points": 0,
-      "form": "0.6",
+      "points": 4,
+      "gw_points": 1,
+      "form": "0.8",
       "fixtures": [
         {
           "gw": 6,
@@ -21374,142 +21501,15 @@
       "fdr_avg": 2.8
     },
     {
-      "id": 138,
-      "name": "Kostoulas",
-      "team": "BHA",
-      "pos": "FWD",
-      "price": 5.5,
-      "ownership": 1,
-      "points": 19,
-      "gw_points": 1,
-      "form": "3.8",
-      "fixtures": [
-        {
-          "gw": 6,
-          "opp": "SUN",
-          "home": false,
-          "fdr": 3
-        },
-        {
-          "gw": 7,
-          "opp": "CRY",
-          "home": true,
-          "fdr": 3
-        },
-        {
-          "gw": 8,
-          "opp": "LIV",
-          "home": false,
-          "fdr": 4
-        },
-        {
-          "gw": 9,
-          "opp": "MCI",
-          "home": false,
-          "fdr": 5
-        },
-        {
-          "gw": 10,
-          "opp": "BRE",
-          "home": true,
-          "fdr": 3
-        }
-      ],
-      "recent": [
-        {
-          "gw": 1,
-          "date": "2026-08-23",
-          "comp": "PL",
-          "opp": "AVL",
-          "home": true,
-          "gf": 4,
-          "ga": 0,
-          "result": "W"
-        },
-        {
-          "gw": 2,
-          "date": "2026-08-30",
-          "comp": "PL",
-          "opp": "CHE",
-          "home": false,
-          "gf": 3,
-          "ga": 4,
-          "result": "L"
-        },
-        {
-          "gw": 3,
-          "date": "2026-09-05",
-          "comp": "PL",
-          "opp": "LEE",
-          "home": true,
-          "gf": 1,
-          "ga": 1,
-          "result": "D"
-        },
-        {
-          "gw": 4,
-          "date": "2026-09-13",
-          "comp": "PL",
-          "opp": "COV",
-          "home": false,
-          "gf": 5,
-          "ga": 0,
-          "result": "W"
-        },
-        {
-          "date": "2026-09-16",
-          "comp": "EFL",
-          "opp": "MUN",
-          "home": false,
-          "gf": 3,
-          "ga": 2,
-          "result": "W"
-        }
-      ],
-      "other_apps": [
-        {
-          "date": "2026-09-16",
-          "comp": "EFL",
-          "opp": "MUN",
-          "started": true
-        }
-      ],
-      "other_next": [
-        {
-          "date": "2026-10-15",
-          "kickoff": "2026-10-15T19:00:00+00:00",
-          "comp": "UECL",
-          "opp": "Kauno Zalgiris",
-          "home": true
-        },
-        {
-          "date": "2026-10-22",
-          "kickoff": "2026-10-22T16:45:00+00:00",
-          "comp": "UECL",
-          "opp": "Jablonec",
-          "home": false
-        },
-        {
-          "date": "2026-10-28",
-          "kickoff": "2026-10-28T19:30:00+00:00",
-          "comp": "EFL",
-          "opp": "MCI",
-          "home": false
-        }
-      ],
-      "owned_by": [],
-      "fdr_avg": 3.6
-    },
-    {
       "id": 649,
       "name": "Maitland-Niles",
       "team": "EVE",
       "pos": "DEF",
       "price": 4.5,
       "ownership": 1,
-      "points": 14,
-      "gw_points": 1,
-      "form": "4.7",
+      "points": 20,
+      "gw_points": 7,
+      "form": "6.7",
       "fixtures": [
         {
           "gw": 6,
@@ -23253,9 +23253,9 @@
       "pos": "DEF",
       "price": 4,
       "ownership": 0.9,
-      "points": 5,
-      "gw_points": 1,
-      "form": "1.0",
+      "points": 6,
+      "gw_points": 2,
+      "form": "1.2",
       "fixtures": [
         {
           "gw": 6,
@@ -23681,9 +23681,9 @@
       "pos": "MID",
       "price": 5.5,
       "ownership": 0.8,
-      "points": 14,
-      "gw_points": 1,
-      "form": "2.8",
+      "points": 15,
+      "gw_points": 2,
+      "form": "3.0",
       "fixtures": [
         {
           "gw": 6,
@@ -25131,9 +25131,9 @@
       "pos": "DEF",
       "price": 5,
       "ownership": 0.7,
-      "points": 12,
-      "gw_points": 1,
-      "form": "2.4",
+      "points": 13,
+      "gw_points": 2,
+      "form": "2.6",
       "fixtures": [
         {
           "gw": 6,
@@ -25249,9 +25249,9 @@
       "pos": "DEF",
       "price": 4,
       "ownership": 0.7,
-      "points": 13,
-      "gw_points": 0,
-      "form": "2.6",
+      "points": 14,
+      "gw_points": 1,
+      "form": "2.8",
       "fixtures": [
         {
           "gw": 6,
@@ -27237,9 +27237,9 @@
       "pos": "DEF",
       "price": 4,
       "ownership": 0.6,
-      "points": 4,
-      "gw_points": 0,
-      "form": "0.8",
+      "points": 5,
+      "gw_points": 1,
+      "form": "1.0",
       "fixtures": [
         {
           "gw": 6,
@@ -28187,9 +28187,9 @@
       "pos": "MID",
       "price": 5.3,
       "ownership": 0.6,
-      "points": 4,
-      "gw_points": 0,
-      "form": "0.8",
+      "points": 5,
+      "gw_points": 1,
+      "form": "1.0",
       "fixtures": [
         {
           "gw": 6,
@@ -28555,9 +28555,9 @@
       "pos": "MID",
       "price": 4.4,
       "ownership": 0.5,
-      "points": 4,
-      "gw_points": 1,
-      "form": "0.8",
+      "points": 3,
+      "gw_points": 0,
+      "form": "0.6",
       "fixtures": [
         {
           "gw": 6,
@@ -30114,9 +30114,9 @@
       "pos": "MID",
       "price": 5,
       "ownership": 0.5,
-      "points": 21,
-      "gw_points": 9,
-      "form": "4.2",
+      "points": 22,
+      "gw_points": 10,
+      "form": "4.4",
       "fixtures": [
         {
           "gw": 6,
@@ -30598,9 +30598,9 @@
       "pos": "MID",
       "price": 5,
       "ownership": 0.4,
-      "points": 15,
-      "gw_points": 1,
-      "form": "3.0",
+      "points": 17,
+      "gw_points": 3,
+      "form": "3.4",
       "fixtures": [
         {
           "gw": 6,
@@ -30818,9 +30818,9 @@
       "pos": "MID",
       "price": 5.4,
       "ownership": 0.4,
-      "points": 13,
-      "gw_points": 1,
-      "form": "2.6",
+      "points": 15,
+      "gw_points": 3,
+      "form": "3.0",
       "fixtures": [
         {
           "gw": 6,
@@ -31197,9 +31197,9 @@
       "pos": "MID",
       "price": 6.5,
       "ownership": 0.4,
-      "points": 4,
-      "gw_points": 1,
-      "form": "0.8",
+      "points": 6,
+      "gw_points": 3,
+      "form": "1.2",
       "fixtures": [
         {
           "gw": 6,
@@ -31622,9 +31622,9 @@
       "pos": "MID",
       "price": 5.8,
       "ownership": 0.4,
-      "points": 3,
-      "gw_points": 0,
-      "form": "0.6",
+      "points": 4,
+      "gw_points": 1,
+      "form": "0.8",
       "fixtures": [
         {
           "gw": 6,
@@ -32240,9 +32240,9 @@
       "pos": "GK",
       "price": 4.4,
       "ownership": 0.4,
-      "points": 1,
-      "gw_points": 1,
-      "form": "0.2",
+      "points": 2,
+      "gw_points": 2,
+      "form": "0.4",
       "fixtures": [
         {
           "gw": 6,
@@ -33402,9 +33402,9 @@
       "pos": "DEF",
       "price": 4.5,
       "ownership": 0.3,
-      "points": 14,
-      "gw_points": 1,
-      "form": "2.8",
+      "points": 19,
+      "gw_points": 6,
+      "form": "3.8",
       "fixtures": [
         {
           "gw": 6,
@@ -34118,9 +34118,9 @@
       "pos": "DEF",
       "price": 6.5,
       "ownership": 0.3,
-      "points": 2,
-      "gw_points": 1,
-      "form": "0.4",
+      "points": 1,
+      "gw_points": 0,
+      "form": "0.2",
       "fixtures": [
         {
           "gw": 6,
@@ -37476,9 +37476,9 @@
       "pos": "MID",
       "price": 5.4,
       "ownership": 0.2,
-      "points": 10,
-      "gw_points": 1,
-      "form": "2.0",
+      "points": 11,
+      "gw_points": 2,
+      "form": "2.2",
       "fixtures": [
         {
           "gw": 6,
@@ -38430,9 +38430,9 @@
       "pos": "MID",
       "price": 5.4,
       "ownership": 0.2,
-      "points": 10,
-      "gw_points": 1,
-      "form": "2.0",
+      "points": 8,
+      "gw_points": -1,
+      "form": "1.6",
       "fixtures": [
         {
           "gw": 6,
@@ -38518,7 +38518,10 @@
       "other_apps": [],
       "other_next": [],
       "owned_by": [],
-      "fdr_avg": 3
+      "fdr_avg": 3,
+      "status": "s",
+      "news": "Suspended until 17 Oct",
+      "chance": 0
     },
     {
       "id": 145,
@@ -38868,9 +38871,9 @@
       "pos": "MID",
       "price": 6,
       "ownership": 0.2,
-      "points": 9,
-      "gw_points": 1,
-      "form": "1.8",
+      "points": 11,
+      "gw_points": 3,
+      "form": "2.2",
       "fixtures": [
         {
           "gw": 6,
@@ -40253,9 +40256,9 @@
       "pos": "MID",
       "price": 5.4,
       "ownership": 0.2,
-      "points": 7,
-      "gw_points": 0,
-      "form": "1.4",
+      "points": 8,
+      "gw_points": 1,
+      "form": "1.6",
       "fixtures": [
         {
           "gw": 6,
@@ -41775,9 +41778,9 @@
       "pos": "DEF",
       "price": 4.9,
       "ownership": 0.2,
-      "points": 1,
-      "gw_points": 0,
-      "form": "0.2",
+      "points": 2,
+      "gw_points": 1,
+      "form": "0.4",
       "fixtures": [
         {
           "gw": 6,
@@ -42413,9 +42416,9 @@
       "pos": "DEF",
       "price": 4.9,
       "ownership": 0.2,
-      "points": 3,
-      "gw_points": 1,
-      "form": "0.6",
+      "points": 7,
+      "gw_points": 5,
+      "form": "1.4",
       "fixtures": [
         {
           "gw": 6,
@@ -47829,9 +47832,9 @@
       "pos": "FWD",
       "price": 6,
       "ownership": 0.1,
-      "points": 3,
-      "gw_points": 1,
-      "form": "1.0",
+      "points": 4,
+      "gw_points": 2,
+      "form": "1.3",
       "fixtures": [
         {
           "gw": 6,
@@ -48045,9 +48048,9 @@
       "pos": "MID",
       "price": 4.9,
       "ownership": 0.1,
-      "points": 1,
-      "gw_points": 0,
-      "form": "0.2",
+      "points": 2,
+      "gw_points": 1,
+      "form": "0.4",
       "fixtures": [
         {
           "gw": 6,
@@ -49806,9 +49809,9 @@
       "pos": "MID",
       "price": 5.9,
       "ownership": 0.1,
-      "points": 7,
-      "gw_points": 1,
-      "form": "1.4",
+      "points": 9,
+      "gw_points": 3,
+      "form": "1.8",
       "fixtures": [
         {
           "gw": 6,
@@ -50367,9 +50370,9 @@
       "pos": "MID",
       "price": 5.5,
       "ownership": 0.1,
-      "points": 9,
-      "gw_points": 1,
-      "form": "1.8",
+      "points": 12,
+      "gw_points": 4,
+      "form": "2.4",
       "fixtures": [
         {
           "gw": 6,
@@ -51185,9 +51188,9 @@
       "pos": "MID",
       "price": 5,
       "ownership": 0.1,
-      "points": 10,
-      "gw_points": 1,
-      "form": "2.0",
+      "points": 11,
+      "gw_points": 2,
+      "form": "2.2",
       "fixtures": [
         {
           "gw": 6,
@@ -54064,9 +54067,9 @@
       "pos": "MID",
       "price": 5,
       "ownership": 0.1,
-      "points": 10,
-      "gw_points": 1,
-      "form": "2.5",
+      "points": 11,
+      "gw_points": 2,
+      "form": "2.8",
       "fixtures": [
         {
           "gw": 6,
@@ -54402,9 +54405,9 @@
       "pos": "MID",
       "price": 5.4,
       "ownership": 0.1,
-      "points": 1,
-      "gw_points": 0,
-      "form": "0.2",
+      "points": 2,
+      "gw_points": 1,
+      "form": "0.4",
       "fixtures": [
         {
           "gw": 6,
@@ -55737,9 +55740,9 @@
       "pos": "MID",
       "price": 4.9,
       "ownership": 0.1,
-      "points": 6,
-      "gw_points": 1,
-      "form": "1.2",
+      "points": 8,
+      "gw_points": 3,
+      "form": "1.6",
       "fixtures": [
         {
           "gw": 6,
@@ -58426,9 +58429,9 @@
       "pos": "MID",
       "price": 5.5,
       "ownership": 0,
-      "points": 5,
-      "gw_points": 1,
-      "form": "1.7",
+      "points": 12,
+      "gw_points": 8,
+      "form": "4.0",
       "fixtures": [
         {
           "gw": 6,
@@ -61318,9 +61321,9 @@
       "pos": "MID",
       "price": 5,
       "ownership": 0,
-      "points": 3,
-      "gw_points": 0,
-      "form": "0.8",
+      "points": 9,
+      "gw_points": 6,
+      "form": "2.2",
       "fixtures": [
         {
           "gw": 6,
@@ -62776,9 +62779,9 @@
       "pos": "MID",
       "price": 5.4,
       "ownership": 0,
-      "points": 0,
-      "gw_points": 0,
-      "form": "0.0",
+      "points": 1,
+      "gw_points": 1,
+      "form": "0.2",
       "fixtures": [
         {
           "gw": 6,
@@ -67081,9 +67084,9 @@
       "pos": "MID",
       "price": 5,
       "ownership": 0,
-      "points": 1,
-      "gw_points": 0,
-      "form": "0.2",
+      "points": 2,
+      "gw_points": 1,
+      "form": "0.4",
       "fixtures": [
         {
           "gw": 6,
@@ -75103,9 +75106,9 @@
       "pos": "MID",
       "price": 5.5,
       "ownership": 0,
-      "points": 3,
-      "gw_points": 1,
-      "form": "1.0",
+      "points": 4,
+      "gw_points": 2,
+      "form": "1.3",
       "fixtures": [
         {
           "gw": 6,
