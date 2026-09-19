@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-19T02:40:34.330Z",
+  "generated_at": "2026-09-19T03:53:21.480Z",
   "gameweek": 6,
   "gw_points_for": 5,
   "players": [
@@ -3366,7 +3366,7 @@
       "team": "HUL",
       "pos": "DEF",
       "price": 4.2,
-      "ownership": 14.2,
+      "ownership": 14.3,
       "points": 26,
       "gw_points": 0,
       "form": "5.2",
@@ -11415,6 +11415,132 @@
       "chance": 100
     },
     {
+      "id": 79,
+      "name": "Evanilson",
+      "team": "BOU",
+      "pos": "FWD",
+      "price": 6,
+      "ownership": 3.3,
+      "points": 16,
+      "gw_points": 0,
+      "form": "3.2",
+      "fixtures": [
+        {
+          "gw": 6,
+          "opp": "CHE",
+          "home": false,
+          "fdr": 4
+        },
+        {
+          "gw": 7,
+          "opp": "SUN",
+          "home": true,
+          "fdr": 2
+        },
+        {
+          "gw": 8,
+          "opp": "MUN",
+          "home": false,
+          "fdr": 4
+        },
+        {
+          "gw": 9,
+          "opp": "LEE",
+          "home": true,
+          "fdr": 2
+        },
+        {
+          "gw": 10,
+          "opp": "IPS",
+          "home": false,
+          "fdr": 2
+        }
+      ],
+      "recent": [
+        {
+          "gw": 2,
+          "date": "2026-08-29",
+          "comp": "PL",
+          "opp": "EVE",
+          "home": true,
+          "gf": 1,
+          "ga": 1,
+          "result": "D"
+        },
+        {
+          "gw": 3,
+          "date": "2026-09-05",
+          "comp": "PL",
+          "opp": "NEW",
+          "home": false,
+          "gf": 2,
+          "ga": 2,
+          "result": "D"
+        },
+        {
+          "date": "2026-09-08",
+          "comp": "EFL",
+          "opp": "Lincoln City",
+          "home": true,
+          "gf": 4,
+          "ga": 0,
+          "result": "W"
+        },
+        {
+          "gw": 4,
+          "date": "2026-09-12",
+          "comp": "PL",
+          "opp": "BRE",
+          "home": true,
+          "gf": 2,
+          "ga": 2,
+          "result": "D"
+        },
+        {
+          "date": "2026-09-17",
+          "comp": "EL",
+          "opp": "Real Sociedad",
+          "home": false,
+          "gf": 2,
+          "ga": 1,
+          "result": "W"
+        }
+      ],
+      "other_apps": [
+        {
+          "date": "2026-09-17",
+          "comp": "EL",
+          "opp": "Real Sociedad",
+          "started": true
+        }
+      ],
+      "other_next": [
+        {
+          "date": "2026-10-15",
+          "kickoff": "2026-10-15T19:00:00+00:00",
+          "comp": "EL",
+          "opp": "SK Sturm Graz",
+          "home": true
+        },
+        {
+          "date": "2026-10-22",
+          "kickoff": "2026-10-22T19:00:00+00:00",
+          "comp": "EL",
+          "opp": "AC Milan",
+          "home": true
+        },
+        {
+          "date": "2026-10-28",
+          "kickoff": "2026-10-28T19:45:00+00:00",
+          "comp": "EFL",
+          "opp": "AVL",
+          "home": true
+        }
+      ],
+      "owned_by": [],
+      "fdr_avg": 2.8
+    },
+    {
       "id": 362,
       "name": "Jacquet",
       "team": "LIV",
@@ -11548,132 +11674,6 @@
       ],
       "fdr_avg": 3.2,
       "chance": 100
-    },
-    {
-      "id": 79,
-      "name": "Evanilson",
-      "team": "BOU",
-      "pos": "FWD",
-      "price": 6,
-      "ownership": 3.2,
-      "points": 16,
-      "gw_points": 0,
-      "form": "3.2",
-      "fixtures": [
-        {
-          "gw": 6,
-          "opp": "CHE",
-          "home": false,
-          "fdr": 4
-        },
-        {
-          "gw": 7,
-          "opp": "SUN",
-          "home": true,
-          "fdr": 2
-        },
-        {
-          "gw": 8,
-          "opp": "MUN",
-          "home": false,
-          "fdr": 4
-        },
-        {
-          "gw": 9,
-          "opp": "LEE",
-          "home": true,
-          "fdr": 2
-        },
-        {
-          "gw": 10,
-          "opp": "IPS",
-          "home": false,
-          "fdr": 2
-        }
-      ],
-      "recent": [
-        {
-          "gw": 2,
-          "date": "2026-08-29",
-          "comp": "PL",
-          "opp": "EVE",
-          "home": true,
-          "gf": 1,
-          "ga": 1,
-          "result": "D"
-        },
-        {
-          "gw": 3,
-          "date": "2026-09-05",
-          "comp": "PL",
-          "opp": "NEW",
-          "home": false,
-          "gf": 2,
-          "ga": 2,
-          "result": "D"
-        },
-        {
-          "date": "2026-09-08",
-          "comp": "EFL",
-          "opp": "Lincoln City",
-          "home": true,
-          "gf": 4,
-          "ga": 0,
-          "result": "W"
-        },
-        {
-          "gw": 4,
-          "date": "2026-09-12",
-          "comp": "PL",
-          "opp": "BRE",
-          "home": true,
-          "gf": 2,
-          "ga": 2,
-          "result": "D"
-        },
-        {
-          "date": "2026-09-17",
-          "comp": "EL",
-          "opp": "Real Sociedad",
-          "home": false,
-          "gf": 2,
-          "ga": 1,
-          "result": "W"
-        }
-      ],
-      "other_apps": [
-        {
-          "date": "2026-09-17",
-          "comp": "EL",
-          "opp": "Real Sociedad",
-          "started": true
-        }
-      ],
-      "other_next": [
-        {
-          "date": "2026-10-15",
-          "kickoff": "2026-10-15T19:00:00+00:00",
-          "comp": "EL",
-          "opp": "SK Sturm Graz",
-          "home": true
-        },
-        {
-          "date": "2026-10-22",
-          "kickoff": "2026-10-22T19:00:00+00:00",
-          "comp": "EL",
-          "opp": "AC Milan",
-          "home": true
-        },
-        {
-          "date": "2026-10-28",
-          "kickoff": "2026-10-28T19:45:00+00:00",
-          "comp": "EFL",
-          "opp": "AVL",
-          "home": true
-        }
-      ],
-      "owned_by": [],
-      "fdr_avg": 2.8
     },
     {
       "id": 25,
@@ -36222,107 +36222,6 @@
       "fdr_avg": 2.4
     },
     {
-      "id": 477,
-      "name": "Abbott",
-      "team": "NFO",
-      "pos": "DEF",
-      "price": 4,
-      "ownership": 0.2,
-      "points": 0,
-      "gw_points": 0,
-      "form": "0.0",
-      "fixtures": [
-        {
-          "gw": 6,
-          "opp": "CRY",
-          "home": false,
-          "fdr": 3
-        },
-        {
-          "gw": 7,
-          "opp": "ARS",
-          "home": true,
-          "fdr": 4
-        },
-        {
-          "gw": 8,
-          "opp": "IPS",
-          "home": false,
-          "fdr": 2
-        },
-        {
-          "gw": 9,
-          "opp": "BRE",
-          "home": false,
-          "fdr": 3
-        },
-        {
-          "gw": 10,
-          "opp": "MCI",
-          "home": true,
-          "fdr": 4
-        }
-      ],
-      "recent": [
-        {
-          "gw": 1,
-          "date": "2026-08-22",
-          "comp": "PL",
-          "opp": "LEE",
-          "home": true,
-          "gf": 0,
-          "ga": 1,
-          "result": "L"
-        },
-        {
-          "date": "2026-08-25",
-          "comp": "EFL",
-          "opp": "LEE",
-          "home": true,
-          "gf": 0,
-          "ga": 2,
-          "result": "L"
-        },
-        {
-          "gw": 2,
-          "date": "2026-08-29",
-          "comp": "PL",
-          "opp": "LIV",
-          "home": false,
-          "gf": 2,
-          "ga": 2,
-          "result": "D"
-        },
-        {
-          "gw": 3,
-          "date": "2026-09-05",
-          "comp": "PL",
-          "opp": "TOT",
-          "home": true,
-          "gf": 0,
-          "ga": 0,
-          "result": "D"
-        },
-        {
-          "gw": 4,
-          "date": "2026-09-12",
-          "comp": "PL",
-          "opp": "AVL",
-          "home": false,
-          "gf": 2,
-          "ga": 1,
-          "result": "W"
-        }
-      ],
-      "other_apps": [],
-      "other_next": [],
-      "owned_by": [],
-      "fdr_avg": 3.2,
-      "status": "u",
-      "news": "Has joined Southampton on loan for the rest of the season",
-      "chance": 0
-    },
-    {
       "id": 56,
       "name": "Abraham",
       "team": "AVL",
@@ -43174,6 +43073,107 @@
       "fdr_avg": 2.8,
       "status": "u",
       "news": "Has joined FC Kaiserslautern on loan for the rest of the season",
+      "chance": 0
+    },
+    {
+      "id": 477,
+      "name": "Abbott",
+      "team": "NFO",
+      "pos": "DEF",
+      "price": 4,
+      "ownership": 0.1,
+      "points": 0,
+      "gw_points": 0,
+      "form": "0.0",
+      "fixtures": [
+        {
+          "gw": 6,
+          "opp": "CRY",
+          "home": false,
+          "fdr": 3
+        },
+        {
+          "gw": 7,
+          "opp": "ARS",
+          "home": true,
+          "fdr": 4
+        },
+        {
+          "gw": 8,
+          "opp": "IPS",
+          "home": false,
+          "fdr": 2
+        },
+        {
+          "gw": 9,
+          "opp": "BRE",
+          "home": false,
+          "fdr": 3
+        },
+        {
+          "gw": 10,
+          "opp": "MCI",
+          "home": true,
+          "fdr": 4
+        }
+      ],
+      "recent": [
+        {
+          "gw": 1,
+          "date": "2026-08-22",
+          "comp": "PL",
+          "opp": "LEE",
+          "home": true,
+          "gf": 0,
+          "ga": 1,
+          "result": "L"
+        },
+        {
+          "date": "2026-08-25",
+          "comp": "EFL",
+          "opp": "LEE",
+          "home": true,
+          "gf": 0,
+          "ga": 2,
+          "result": "L"
+        },
+        {
+          "gw": 2,
+          "date": "2026-08-29",
+          "comp": "PL",
+          "opp": "LIV",
+          "home": false,
+          "gf": 2,
+          "ga": 2,
+          "result": "D"
+        },
+        {
+          "gw": 3,
+          "date": "2026-09-05",
+          "comp": "PL",
+          "opp": "TOT",
+          "home": true,
+          "gf": 0,
+          "ga": 0,
+          "result": "D"
+        },
+        {
+          "gw": 4,
+          "date": "2026-09-12",
+          "comp": "PL",
+          "opp": "AVL",
+          "home": false,
+          "gf": 2,
+          "ga": 1,
+          "result": "W"
+        }
+      ],
+      "other_apps": [],
+      "other_next": [],
+      "owned_by": [],
+      "fdr_avg": 3.2,
+      "status": "u",
+      "news": "Has joined Southampton on loan for the rest of the season",
       "chance": 0
     },
     {
