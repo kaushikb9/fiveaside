@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-09-18T02:10:57.635Z",
-  "date": "2026-09-18",
+  "generated_at": "2026-09-19T02:33:45.777Z",
+  "date": "2026-09-19",
   "timezone": "Asia/Kolkata",
   "competition": "English Premier League",
   "rows": [
@@ -24,6 +24,15 @@
     },
     {
       "pos": 3,
+      "team": "Brentford",
+      "played": 5,
+      "points": 9,
+      "gd": 6,
+      "crest": "https://a.espncdn.com/i/teamlogos/soccer/500/337.png",
+      "form": "WDDDW"
+    },
+    {
+      "pos": 4,
       "team": "Leeds United",
       "played": 4,
       "points": 8,
@@ -32,7 +41,7 @@
       "form": "WDDW"
     },
     {
-      "pos": 4,
+      "pos": 5,
       "team": "Hull City",
       "played": 4,
       "points": 8,
@@ -41,7 +50,7 @@
       "form": "WWDD"
     },
     {
-      "pos": 5,
+      "pos": 6,
       "team": "Brighton & Hove Albion",
       "played": 4,
       "points": 7,
@@ -50,22 +59,13 @@
       "form": "WLDW"
     },
     {
-      "pos": 6,
-      "team": "Chelsea",
-      "played": 4,
-      "points": 7,
-      "gd": 1,
-      "crest": "https://a.espncdn.com/i/teamlogos/soccer/500/363.png",
-      "form": "WWLD"
-    },
-    {
       "pos": 7,
-      "team": "Brentford",
-      "played": 4,
-      "points": 6,
-      "gd": 3,
-      "crest": "https://a.espncdn.com/i/teamlogos/soccer/500/337.png",
-      "form": "WDDD"
+      "team": "Chelsea",
+      "played": 5,
+      "points": 7,
+      "gd": -2,
+      "crest": "https://a.espncdn.com/i/teamlogos/soccer/500/363.png",
+      "form": "WWLDL"
     },
     {
       "pos": 8,
