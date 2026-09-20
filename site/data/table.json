@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-09-19T16:38:27.930Z",
-  "date": "2026-09-19",
+  "generated_at": "2026-09-20T06:12:30.276Z",
+  "date": "2026-09-20",
   "timezone": "Asia/Kolkata",
   "competition": "English Premier League",
   "rows": [
@@ -106,11 +106,11 @@
     {
       "pos": 12,
       "team": "Nottingham Forest",
-      "played": 4,
+      "played": 5,
       "points": 5,
-      "gd": 0,
+      "gd": -1,
       "crest": "https://a.espncdn.com/i/teamlogos/soccer/500/393.png",
-      "form": "LDDW"
+      "form": "LDDWL"
     },
     {
       "pos": 13,
@@ -159,6 +159,15 @@
     },
     {
       "pos": 18,
+      "team": "Coventry City",
+      "played": 5,
+      "points": 3,
+      "gd": -9,
+      "crest": "https://a.espncdn.com/i/teamlogos/soccer/500/388.png",
+      "form": "LLLLW"
+    },
+    {
+      "pos": 19,
       "team": "Tottenham Hotspur",
       "played": 5,
       "points": 2,
@@ -167,22 +176,13 @@
       "form": "LLDDL"
     },
     {
-      "pos": 19,
+      "pos": 20,
       "team": "Fulham",
       "played": 4,
       "points": 1,
       "gd": -3,
       "crest": "https://a.espncdn.com/i/teamlogos/soccer/500/370.png",
       "form": "LLLD"
-    },
-    {
-      "pos": 20,
-      "team": "Coventry City",
-      "played": 4,
-      "points": 0,
-      "gd": -10,
-      "crest": "https://a.espncdn.com/i/teamlogos/soccer/500/388.png",
-      "form": "LLLL"
     }
   ]
 }
