@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-22T07:34:56.772Z",
+  "generated_at": "2026-09-23T19:03:24.942Z",
   "digests": [
     {
       "date": "2026-07-25",
@@ -10508,6 +10508,186 @@
           "club": "Leeds United",
           "crest": "https://a.espncdn.com/i/teamlogos/soccer/500/357.png",
           "note": "Leeds are fifth and unbeaten, and the crowd still chanted 'forward' during the 0-0 with Palace. Farke is in the last year of his deal and a new one is expected within weeks. Trafford, over £40m from City, made one save from Pino's free-kick and Palace kept their first clean sheet after conceding 11 in four."
+        }
+      ]
+    },
+    {
+      "date": "2026-09-23",
+      "headline": "Arteta signs to 2030, United post a seventh straight loss, and Ornstein has Julian Ward back at Liverpool",
+      "week": [
+        {
+          "tag": "Football",
+          "club": "Arsenal",
+          "kicker": "Arteta agrees a new deal.",
+          "text": "Arteta has a verbal agreement on an extension of at least 3 more years, with a big rise on the £10m a season he earns now. Ornstein reports the backroom staff will renew too. Rice is into the last 2 years of his contract and the club want him tied down next."
+        },
+        {
+          "tag": "Football",
+          "club": "Manchester United",
+          "kicker": "£43m loss, £125 grass.",
+          "text": "United lost £43m before tax last year despite record revenue of £677.6m, their seventh loss in a row. Net debt rose to £577.6m after £63.5m went on land for the new stadium. The club is also selling 7cm squares of the old Old Trafford turf to fans for £125."
+        },
+        {
+          "tag": "Football",
+          "club": "Liverpool",
+          "kicker": "Ward back as sporting director.",
+          "text": "Ornstein reports Liverpool expect to appoint Julian Ward to replace Richard Hughes, who left for Al Hilal. Ward held the job in 2022-23 and signed Díaz, Gakpo, Mac Allister and Núñez. He has been FSG's technical director since."
+        },
+        {
+          "tag": "FPL",
+          "club": "Chelsea",
+          "kicker": "Estêvão has 23 league minutes.",
+          "text": "Alonso has started Estêvão twice, both in the Carabao Cup. His 4 league appearances came on in the 81st minute or later. Pedro, Palmer and Rogers have 10 goals between them, so nothing changes at Chelsea until one of those 3 is missing."
+        },
+        {
+          "tag": "FPL",
+          "kicker": "Newcastle are finishing everything.",
+          "text": "The BBC's xG piece has Newcastle with 9 goals from 4.5 expected, the lowest xG in the league. Brighton have the best attack and are also outscoring their chances. Coventry, Sunderland, Forest and Spurs have each scored 3 fewer than their chances say they should."
+        }
+      ],
+      "table": {
+        "competition": "Premier League",
+        "rows": [
+          {
+            "pos": 1,
+            "team": "Manchester City",
+            "crest": "https://a.espncdn.com/i/teamlogos/soccer/500/382.png",
+            "played": 5,
+            "points": 15,
+            "focus": true
+          },
+          {
+            "pos": 2,
+            "team": "Arsenal",
+            "crest": "https://a.espncdn.com/i/teamlogos/soccer/500/359.png",
+            "played": 5,
+            "points": 12,
+            "focus": true
+          },
+          {
+            "pos": 3,
+            "team": "Brighton & Hove Albion",
+            "crest": "https://a.espncdn.com/i/teamlogos/soccer/500/331.png",
+            "played": 5,
+            "points": 10
+          },
+          {
+            "pos": 4,
+            "team": "Brentford",
+            "crest": "https://a.espncdn.com/i/teamlogos/soccer/500/337.png",
+            "played": 5,
+            "points": 9
+          },
+          {
+            "pos": 5,
+            "team": "Leeds United",
+            "crest": "https://a.espncdn.com/i/teamlogos/soccer/500/357.png",
+            "played": 5,
+            "points": 9
+          },
+          {
+            "pos": 6,
+            "team": "Liverpool",
+            "crest": "https://a.espncdn.com/i/teamlogos/soccer/500/364.png",
+            "played": 5,
+            "points": 9,
+            "focus": true
+          },
+          {
+            "pos": 10,
+            "team": "Chelsea",
+            "crest": "https://a.espncdn.com/i/teamlogos/soccer/500/363.png",
+            "played": 5,
+            "points": 7,
+            "focus": true
+          },
+          {
+            "pos": 12,
+            "team": "Manchester United",
+            "crest": "https://a.espncdn.com/i/teamlogos/soccer/500/360.png",
+            "played": 5,
+            "points": 5,
+            "focus": true
+          }
+        ]
+      },
+      "wider": [
+        {
+          "title": "How Premier League teams have really started - according to xG",
+          "url": "https://www.bbc.co.uk/sport/football/articles/ck7v4y7jv182o",
+          "hook": "Arsenal still have the best xG difference in the league after the 3-0 at Brighton, and only 3 teams sit above United. Villa, Palace and Newcastle have been the worst 3 sides by the numbers. Hull and Ipswich are both doing better than promoted sides usually do. Chelsea have been open at the back but not as bad as 12 conceded suggests.",
+          "source": "BBC Football",
+          "image": "https://ichef.bbci.co.uk/ace/branded_sport/1200/cpsprodpb/f03d/live/016b4cd0-b6ae-11f1-8448-334c53ba4316.jpg"
+        },
+        {
+          "title": "Ten of the best-value deals from this summer's transfer window",
+          "url": "https://www.theguardian.com/football/2026/sep/23/summer-football-transfer-window-best-value-deals",
+          "hook": "The 3 promoted clubs spent £450m net between them and Hull's Stroud, the Sweden winger from Mjällby, is the pick of it. Elvedi at Leeds is on the list too. Last year's picks are revisited at the bottom. Roefs at Sunderland aged well and Sosa at Palace didn't.",
+          "source": "The Guardian Football",
+          "image": "https://i.guim.co.uk/img/media/e34ef9004ac74cfcaeda69a3a4383fd331f0f552/13_4_4964_3971/master/4964.jpg?width=1200&height=630&quality=85&auto=format&fit=crop&precrop=40:21,offset-x50,offset-y0&overlay-align=bottom%2Cleft&overlay-width=100p&overlay-base64=L2ltZy9zdGF0aWMvb3ZlcmxheXMvdGctZGVmYXVsdC5wbmc&enable=upscale&s=16eb69996aa215572dbda3b76a535d15"
+        },
+        {
+          "title": "Eriksen leaves Wolfsburg by mutual consent",
+          "url": "https://www.bbc.co.uk/sport/football/articles/cm5yezn8w4xdo",
+          "hook": "Eriksen hasn't played since collapsing in Denmark's friendly with Ukraine in June. He says he needs to be near his family in Denmark and Wolfsburg have torn up a contract that ran to 2027. He is 34 and has 151 caps.",
+          "source": "BBC Football",
+          "image": "https://ichef.bbci.co.uk/ace/branded_sport/1200/cpsprodpb/46d9/live/7e4a8ca0-b769-11f1-a7b2-f3bdba1cd194.jpg"
+        }
+      ],
+      "read": {
+        "title": "Florian Wirtz does not look like a £116m player but it is early to write him off",
+        "url": "https://www.theguardian.com/football/2026/sep/23/florian-wirtz-liverpool-playmaker-opta",
+        "hook": "Opta's answer to Carragher, who said Wirtz wouldn't be in his Liverpool team. He has 1 assist in 6 games, but 9.6 line-breaking passes per 90 against 5.2 last season, and only 5 players have won the ball in the final third more often. Last year he created 95 open-play chances, 27 more than any team-mate. Read it before the City game.",
+        "source": "The Guardian Football",
+        "image": "https://i.guim.co.uk/img/media/d8f10b3001503e5823b0b1d4be33a33bd508bd7e/63_0_5277_4222/master/5277.jpg?width=1200&height=630&quality=85&auto=format&fit=crop&precrop=40:21,offset-x50,offset-y0&overlay-align=bottom%2Cleft&overlay-width=100p&overlay-base64=L2ltZy9zdGF0aWMvb3ZlcmxheXMvdGctZGVmYXVsdC5wbmc&enable=upscale&s=4e89f5f3963eff86e9e0eb77bd038587"
+      },
+      "top_teams": [
+        {
+          "club": "Chelsea",
+          "crest": "https://a.espncdn.com/i/teamlogos/soccer/500/363.png",
+          "line": "#10 · 7 pts · PL",
+          "note": "Boehly and Walter sold their 12.8% stakes to Clearlake last week at a £5bn valuation, double what they paid in 2022. The Guardian's tally of that era is 4 league finishes of 12th, 6th, 4th and 10th, 9 managers and 5 sporting directors."
+        },
+        {
+          "club": "Arsenal",
+          "crest": "https://a.espncdn.com/i/teamlogos/soccer/500/359.png",
+          "line": "#2 · 12 pts · PL",
+          "note": "Saka says the World Cup semi-final still leaves a scar and thinks Dowman, 16, will get a senior England call soon. Carsley wants him with the under-19s this window so he plays minutes."
+        },
+        {
+          "club": "Manchester City",
+          "crest": "https://a.espncdn.com/i/teamlogos/soccer/500/382.png",
+          "line": "#1 · 15 pts · PL",
+          "note": "City spent £458m on the squad this summer, more than 3 times what United did. Their wage bill is over £100m above United's, per United's own accounts. Next up is Liverpool away on 11 October."
+        },
+        {
+          "club": "Manchester United",
+          "crest": "https://a.espncdn.com/i/teamlogos/soccer/500/360.png",
+          "line": "#12 · 5 pts · PL",
+          "note": "Berrada told investors the £155m summer window was planned with sustainability in mind, which means Carrick's budget stays tight. Fans wanted a left-back behind Shaw and a striker behind Sesko and got neither. The Amorim pay-off dropped by £8.5m when he took the Milan job."
+        },
+        {
+          "club": "Liverpool",
+          "crest": "https://a.espncdn.com/i/teamlogos/soccer/500/364.png",
+          "line": "#6 · 9 pts · PL",
+          "note": "Koumas, 21, has 5 Liverpool appearances this season and Bellamy has picked him for Wales against Portugal, Denmark and Norway. Gabbidon thinks his best position is striker and says he runs in a way his father never did."
+        }
+      ],
+      "elsewhere": [
+        {
+          "club": "Hull City",
+          "crest": "https://a.espncdn.com/i/teamlogos/soccer/500/306.png",
+          "note": "Hull are 8th and the BBC's xG piece rates their start as solid rather than lucky. Stroud, the Sweden winger signed from Mjällby, can play full-back, wing-back, left wing or in the middle and Jakirovic has used him as the runner."
+        },
+        {
+          "club": "Newcastle United",
+          "crest": "https://a.espncdn.com/i/teamlogos/soccer/500/361.png",
+          "note": "Newcastle are 9th with the lowest xG in the division and have been the least impressive team overall alongside Villa and Palace. Jaissle needs them to create more before the finishing cools."
+        },
+        {
+          "club": "Everton",
+          "crest": "https://a.espncdn.com/i/teamlogos/soccer/500/368.png",
+          "note": "Branthwaite is back in the England squad after a rehab programme at a Munich clinic that linked his hamstring and groin injuries to his brain and movement. Everton have conceded 3 fewer than their chances faced suggest."
         }
       ]
     }
