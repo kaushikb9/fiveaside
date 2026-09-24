@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-23T19:03:24.942Z",
+  "generated_at": "2026-09-24T15:44:11.355Z",
   "digests": [
     {
       "date": "2026-07-25",
@@ -10688,6 +10688,168 @@
           "club": "Everton",
           "crest": "https://a.espncdn.com/i/teamlogos/soccer/500/368.png",
           "note": "Branthwaite is back in the England squad after a rehab programme at a Munich clinic that linked his hamstring and groin injuries to his brain and movement. Everton have conceded 3 fewer than their chances faced suggest."
+        }
+      ]
+    },
+    {
+      "date": "2026-09-24",
+      "headline": "Brighton pressed the champions to death, Spurs are one of 3 teams without a win, and City open the 650,000-name database",
+      "week": [
+        {
+          "tag": "Football",
+          "club": "Arsenal",
+          "kicker": "Brighton's press beat Arsenal.",
+          "text": "Andrés marked Ødegaard man to man and Raya kept going long. Brighton scored 3 from 1.31 xG against Arsenal's 1.63, and no team makes more high turnovers per 90 this season. It was Arsenal's 4th away game in 10 days and their first defeat by 3 goals in over 3 years."
+        },
+        {
+          "tag": "Football",
+          "club": "Tottenham Hotspur",
+          "kicker": "Spurs are winless after 5.",
+          "text": "Spurs, Fulham and Bournemouth are the only clubs without a league win. De Zerbi signed 10 players in one window, kept adding after the season started, and now loses most of his squad for 3 weeks. Home form and going behind are the 2 problems the BBC's Pulis column picks out."
+        },
+        {
+          "tag": "FPL",
+          "kicker": "Nothing until 10 October.",
+          "text": "The break runs 16 days. Chelsea host Bournemouth and Arsenal host Leeds on Saturday 10 October, United have Spurs at home the same day, and Liverpool host City on the Sunday. Two of your 5 focus clubs play each other, so plan the captaincy around the other 3."
+        },
+        {
+          "tag": "Football",
+          "club": "Manchester City",
+          "kicker": "Anderson was not a data pick.",
+          "text": "City paid £116m for Anderson after their model put him low on the longlist. Forest's transitional style hid what he'd do in a possession team, so analysts remodelled his numbers for City's shape and the scouts did the rest. Viana says data is one input and the scouts decide."
+        }
+      ],
+      "table": {
+        "competition": "Premier League",
+        "rows": [
+          {
+            "pos": 1,
+            "team": "Manchester City",
+            "crest": "https://a.espncdn.com/i/teamlogos/soccer/500/382.png",
+            "played": 5,
+            "points": 15,
+            "focus": true
+          },
+          {
+            "pos": 2,
+            "team": "Arsenal",
+            "crest": "https://a.espncdn.com/i/teamlogos/soccer/500/359.png",
+            "played": 5,
+            "points": 12,
+            "focus": true
+          },
+          {
+            "pos": 3,
+            "team": "Brighton & Hove Albion",
+            "crest": "https://a.espncdn.com/i/teamlogos/soccer/500/331.png",
+            "played": 5,
+            "points": 10
+          },
+          {
+            "pos": 4,
+            "team": "Brentford",
+            "crest": "https://a.espncdn.com/i/teamlogos/soccer/500/337.png",
+            "played": 5,
+            "points": 9
+          },
+          {
+            "pos": 5,
+            "team": "Leeds United",
+            "crest": "https://a.espncdn.com/i/teamlogos/soccer/500/357.png",
+            "played": 5,
+            "points": 9
+          },
+          {
+            "pos": 6,
+            "team": "Liverpool",
+            "crest": "https://a.espncdn.com/i/teamlogos/soccer/500/364.png",
+            "played": 5,
+            "points": 9,
+            "focus": true
+          },
+          {
+            "pos": 10,
+            "team": "Chelsea",
+            "crest": "https://a.espncdn.com/i/teamlogos/soccer/500/363.png",
+            "played": 5,
+            "points": 7,
+            "focus": true
+          },
+          {
+            "pos": 12,
+            "team": "Manchester United",
+            "crest": "https://a.espncdn.com/i/teamlogos/soccer/500/360.png",
+            "played": 5,
+            "points": 5,
+            "focus": true
+          }
+        ]
+      },
+      "wider": [
+        {
+          "title": "Is this really the Premier League's 'Bermuda Triangle'?",
+          "url": "https://www.bbc.co.uk/sport/football/articles/c39w40g8n59yo",
+          "hook": "Opta checks the meme after Brentford and Brighton both won 3-0 last week. Since 2024-25 Brighton take 1.62 points a game off the big six and Bournemouth 1.35. Brentford take 0.85, less than Newcastle, Forest or Villa. Among managers outside the big six, only Dalglish's Blackburn have a better record against it than Hürzeler's Brighton.",
+          "source": "BBC Football",
+          "image": "https://ichef.bbci.co.uk/ace/branded_sport/1200/cpsprodpb/ecfe/live/925d3e30-b81e-11f1-b19f-05e2dfdadad2.jpg"
+        },
+        {
+          "title": "Anger at Tuchel over World Cup exit exposes biggest obstacle to England success",
+          "url": "https://www.theguardian.com/football/2026/sep/24/the-system-not-tuchel-led-to-world-cup-failure-but-euro-2028-offers-new-hope",
+          "hook": "Ronay before Spain at Wembley on Saturday. All 22 World Cup-winning managers shared a nationality with their players, and England lost to Argentina the way they always lose late knockout games, by losing the ball. He thinks the mood around Tuchel is a bigger problem than Tuchel.",
+          "source": "The Guardian Football",
+          "image": "https://i.guim.co.uk/img/media/0af7e1e8c2d774c3f607b4a4649772ff9cffe6fb/202_0_2020_1616/master/2020.jpg?width=1200&height=630&quality=85&auto=format&fit=crop&precrop=40:21,offset-x50,offset-y0&overlay-align=bottom%2Cleft&overlay-width=100p&overlay-base64=L2ltZy9zdGF0aWMvb3ZlcmxheXMvdGctb3BpbmlvbnMucG5n&enable=upscale&s=6abde758931f6a28f4781c091c736e89"
+        }
+      ],
+      "read": {
+        "title": "How Man City overhauled their squad from a 650,000-strong database",
+        "url": "https://www.bbc.co.uk/sport/football/articles/cm1wx51gyly5o",
+        "hook": "Mokbel inside City's data room. Only 4 players from the 2023 Treble squad are left. The model priced Álvarez at £26m to £40m when City paid River £14m, and they sold him for £81m. Khusanov missed the 50-man longlist on the ball and got in on his covering runs. The best explanation of a modern transfer department you'll read this month.",
+        "source": "BBC Football",
+        "image": "https://ichef.bbci.co.uk/ace/branded_sport/1200/cpsprodpb/a0ec/live/a3f20410-b7fa-11f1-8ef6-b9665ffdab6f.jpg"
+      },
+      "top_teams": [
+        {
+          "club": "Chelsea",
+          "crest": "https://a.espncdn.com/i/teamlogos/soccer/500/363.png",
+          "line": "#10 · 7 pts · PL",
+          "note": "Kinsella's profile of Subuloye, an 18-year-old 6ft 5in centre-back who captains the under-21s and trained with Alonso's squad before Brentford. He is contracted to 2030 and the club sees a loan this season as the route Colwill and Chalobah took."
+        },
+        {
+          "club": "Arsenal",
+          "crest": "https://a.espncdn.com/i/teamlogos/soccer/500/359.png",
+          "line": "#2 · 12 pts · PL",
+          "note": "Saliba is still injured and White didn't start at Brighton, so the right side that carried the early season was missing. Ødegaard, Rice and Saka had no pre-season after the World Cup. Arsenal have 2 more points than after 5 games last season."
+        },
+        {
+          "club": "Manchester City",
+          "crest": "https://a.espncdn.com/i/teamlogos/soccer/500/382.png",
+          "line": "#1 · 15 pts · PL",
+          "note": "City's model flagged Juventus full-back Cambiaso for his two-footedness and his habit of coming inside to build play. They passed last window and the BBC says he stays on the watch list."
+        },
+        {
+          "club": "Manchester United",
+          "crest": "https://a.espncdn.com/i/teamlogos/soccer/500/360.png",
+          "line": "#12 · 5 pts · PL",
+          "note": "The BBC gossip column carries a Teamtalk line that Shaw, 31, could leave when his deal ends next summer. Treat it as paper talk until Ornstein repeats it."
+        },
+        {
+          "club": "Liverpool",
+          "crest": "https://a.espncdn.com/i/teamlogos/soccer/500/364.png",
+          "line": "#6 · 9 pts · PL",
+          "note": "Falk in Bild says Liverpool won't sell Wirtz to Bayern in January. Bayern would only move next summer, and only if Olise turns down a new contract."
+        }
+      ],
+      "elsewhere": [
+        {
+          "club": "Brighton & Hove Albion",
+          "crest": "https://a.espncdn.com/i/teamlogos/soccer/500/331.png",
+          "note": "Three of the 4 players who covered the most distance on Saturday were Brighton's. Hürzeler's instruction on talkSPORT was to win the first header, the first tackle, the first throw-in and the first corner."
+        },
+        {
+          "club": "Fulham",
+          "crest": "https://a.espncdn.com/i/teamlogos/soccer/500/370.png",
+          "note": "Shea Charles cost £30m from Southampton, a record for a Northern Ireland player, and has 35 caps at 22. He lives with his parents and both brothers, and one of them, Pierce, is in the same NI squad."
         }
       ]
     }
