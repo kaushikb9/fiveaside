@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-24T14:22:54.696Z",
+  "generated_at": "2026-09-24T15:45:46.344Z",
   "gameweek": 6,
   "gw_points_for": 5,
   "players": [
@@ -142,7 +142,7 @@
       "team": "CHE",
       "pos": "FWD",
       "price": 7.7,
-      "ownership": 65.6,
+      "ownership": 65.5,
       "points": 33,
       "gw_points": 0,
       "form": "5.5",
@@ -263,7 +263,7 @@
       "team": "ARS",
       "pos": "DEF",
       "price": 5.8,
-      "ownership": 50.6,
+      "ownership": 50.5,
       "points": 29,
       "gw_points": 1,
       "form": "5.0",
@@ -2122,6 +2122,12 @@
       ],
       "other_apps": [
         {
+          "date": "2026-09-10",
+          "comp": "CL",
+          "opp": "Sabah FK",
+          "started": true
+        },
+        {
           "date": "2026-09-16",
           "comp": "EFL",
           "opp": "BHA",
@@ -3356,7 +3362,7 @@
       "team": "MCI",
       "pos": "MID",
       "price": 8.4,
-      "ownership": 15.6,
+      "ownership": 15.5,
       "points": 33,
       "gw_points": 17,
       "form": "7.8",
@@ -4633,7 +4639,14 @@
           "result": "D"
         }
       ],
-      "other_apps": [],
+      "other_apps": [
+        {
+          "date": "2026-09-10",
+          "comp": "CL",
+          "opp": "Sabah FK",
+          "started": true
+        }
+      ],
       "other_next": [
         {
           "date": "2026-10-13",
@@ -6307,7 +6320,7 @@
       "team": "SUN",
       "pos": "FWD",
       "price": 5.7,
-      "ownership": 7,
+      "ownership": 7.1,
       "points": 24,
       "gw_points": 17,
       "form": "5.5",
@@ -6428,6 +6441,113 @@
       "fdr_avg": 2.6
     },
     {
+      "id": 330,
+      "name": "Bogle",
+      "team": "LEE",
+      "pos": "DEF",
+      "price": 4.6,
+      "ownership": 7,
+      "points": 42,
+      "gw_points": 5,
+      "form": "9.0",
+      "fixtures": [
+        {
+          "gw": 6,
+          "opp": "ARS",
+          "home": false,
+          "fdr": 5
+        },
+        {
+          "gw": 7,
+          "opp": "MUN",
+          "home": true,
+          "fdr": 4
+        },
+        {
+          "gw": 8,
+          "opp": "SUN",
+          "home": false,
+          "fdr": 3
+        },
+        {
+          "gw": 9,
+          "opp": "BOU",
+          "home": false,
+          "fdr": 3
+        },
+        {
+          "gw": 10,
+          "opp": "TOT",
+          "home": true,
+          "fdr": 3
+        }
+      ],
+      "recent": [
+        {
+          "gw": 2,
+          "date": "2026-08-30",
+          "comp": "PL",
+          "opp": "BRE",
+          "home": true,
+          "gf": 1,
+          "ga": 1,
+          "result": "D"
+        },
+        {
+          "gw": 3,
+          "date": "2026-09-05",
+          "comp": "PL",
+          "opp": "BHA",
+          "home": false,
+          "gf": 1,
+          "ga": 1,
+          "result": "D"
+        },
+        {
+          "date": "2026-09-09",
+          "comp": "EFL",
+          "opp": "CHE",
+          "home": false,
+          "gf": 3,
+          "ga": 6,
+          "result": "L"
+        },
+        {
+          "gw": 4,
+          "date": "2026-09-14",
+          "comp": "PL",
+          "opp": "NEW",
+          "home": true,
+          "gf": 4,
+          "ga": 1,
+          "result": "W"
+        },
+        {
+          "gw": 5,
+          "date": "2026-09-20",
+          "comp": "PL",
+          "opp": "CRY",
+          "home": true,
+          "gf": 0,
+          "ga": 0,
+          "result": "D"
+        }
+      ],
+      "other_apps": [
+        {
+          "date": "2026-08-25",
+          "comp": "EFL",
+          "opp": "NFO",
+          "started": false
+        }
+      ],
+      "other_next": [],
+      "owned_by": [
+        "Xabi"
+      ],
+      "fdr_avg": 3.6
+    },
+    {
       "id": 277,
       "name": "Egan",
       "team": "HUL",
@@ -6534,113 +6654,6 @@
         "Le Professeur"
       ],
       "fdr_avg": 3.2
-    },
-    {
-      "id": 330,
-      "name": "Bogle",
-      "team": "LEE",
-      "pos": "DEF",
-      "price": 4.6,
-      "ownership": 6.9,
-      "points": 42,
-      "gw_points": 5,
-      "form": "9.0",
-      "fixtures": [
-        {
-          "gw": 6,
-          "opp": "ARS",
-          "home": false,
-          "fdr": 5
-        },
-        {
-          "gw": 7,
-          "opp": "MUN",
-          "home": true,
-          "fdr": 4
-        },
-        {
-          "gw": 8,
-          "opp": "SUN",
-          "home": false,
-          "fdr": 3
-        },
-        {
-          "gw": 9,
-          "opp": "BOU",
-          "home": false,
-          "fdr": 3
-        },
-        {
-          "gw": 10,
-          "opp": "TOT",
-          "home": true,
-          "fdr": 3
-        }
-      ],
-      "recent": [
-        {
-          "gw": 2,
-          "date": "2026-08-30",
-          "comp": "PL",
-          "opp": "BRE",
-          "home": true,
-          "gf": 1,
-          "ga": 1,
-          "result": "D"
-        },
-        {
-          "gw": 3,
-          "date": "2026-09-05",
-          "comp": "PL",
-          "opp": "BHA",
-          "home": false,
-          "gf": 1,
-          "ga": 1,
-          "result": "D"
-        },
-        {
-          "date": "2026-09-09",
-          "comp": "EFL",
-          "opp": "CHE",
-          "home": false,
-          "gf": 3,
-          "ga": 6,
-          "result": "L"
-        },
-        {
-          "gw": 4,
-          "date": "2026-09-14",
-          "comp": "PL",
-          "opp": "NEW",
-          "home": true,
-          "gf": 4,
-          "ga": 1,
-          "result": "W"
-        },
-        {
-          "gw": 5,
-          "date": "2026-09-20",
-          "comp": "PL",
-          "opp": "CRY",
-          "home": true,
-          "gf": 0,
-          "ga": 0,
-          "result": "D"
-        }
-      ],
-      "other_apps": [
-        {
-          "date": "2026-08-25",
-          "comp": "EFL",
-          "opp": "NFO",
-          "started": false
-        }
-      ],
-      "other_next": [],
-      "owned_by": [
-        "Xabi"
-      ],
-      "fdr_avg": 3.6
     },
     {
       "id": 305,
@@ -8033,6 +8046,12 @@
         }
       ],
       "other_apps": [
+        {
+          "date": "2026-09-10",
+          "comp": "CL",
+          "opp": "Sabah FK",
+          "started": true
+        },
         {
           "date": "2026-09-16",
           "comp": "EFL",
@@ -14858,128 +14877,6 @@
       "chance": 100
     },
     {
-      "id": 593,
-      "name": "Dedić",
-      "team": "NEW",
-      "pos": "DEF",
-      "price": 4.5,
-      "ownership": 1.9,
-      "points": 13,
-      "gw_points": 0,
-      "form": "3.0",
-      "fixtures": [
-        {
-          "gw": 6,
-          "opp": "COV",
-          "home": false,
-          "fdr": 2
-        },
-        {
-          "gw": 7,
-          "opp": "AVL",
-          "home": true,
-          "fdr": 3
-        },
-        {
-          "gw": 8,
-          "opp": "CRY",
-          "home": false,
-          "fdr": 3
-        },
-        {
-          "gw": 9,
-          "opp": "EVE",
-          "home": true,
-          "fdr": 3
-        },
-        {
-          "gw": 10,
-          "opp": "FUL",
-          "home": false,
-          "fdr": 3
-        }
-      ],
-      "recent": [
-        {
-          "gw": 2,
-          "date": "2026-08-29",
-          "comp": "PL",
-          "opp": "TOT",
-          "home": false,
-          "gf": 2,
-          "ga": 0,
-          "result": "W"
-        },
-        {
-          "gw": 3,
-          "date": "2026-09-05",
-          "comp": "PL",
-          "opp": "BOU",
-          "home": true,
-          "gf": 2,
-          "ga": 2,
-          "result": "D"
-        },
-        {
-          "date": "2026-09-08",
-          "comp": "EFL",
-          "opp": "Millwall",
-          "home": false,
-          "gf": 1,
-          "ga": 0,
-          "result": "W"
-        },
-        {
-          "gw": 4,
-          "date": "2026-09-14",
-          "comp": "PL",
-          "opp": "LEE",
-          "home": false,
-          "gf": 1,
-          "ga": 4,
-          "result": "L"
-        },
-        {
-          "gw": 5,
-          "date": "2026-09-19",
-          "comp": "PL",
-          "opp": "HUL",
-          "home": true,
-          "gf": 2,
-          "ga": 1,
-          "result": "W"
-        }
-      ],
-      "other_apps": [
-        {
-          "date": "2026-08-26",
-          "comp": "EFL",
-          "opp": "West Bromwich Albion",
-          "started": true
-        },
-        {
-          "date": "2026-09-08",
-          "comp": "EFL",
-          "opp": "Millwall",
-          "started": true
-        }
-      ],
-      "other_next": [
-        {
-          "date": "2026-10-29",
-          "kickoff": "2026-10-29T19:45:00+00:00",
-          "comp": "EFL",
-          "opp": "EVE",
-          "home": false
-        }
-      ],
-      "owned_by": [],
-      "fdr_avg": 2.8,
-      "status": "i",
-      "news": "Unspecified injury - Unknown return date",
-      "chance": 0
-    },
-    {
       "id": 295,
       "name": "McBurnie",
       "team": "HUL",
@@ -15806,6 +15703,128 @@
       "owned_by": [],
       "fdr_avg": 2.8,
       "chance": 100
+    },
+    {
+      "id": 593,
+      "name": "Dedić",
+      "team": "NEW",
+      "pos": "DEF",
+      "price": 4.5,
+      "ownership": 1.8,
+      "points": 13,
+      "gw_points": 0,
+      "form": "3.0",
+      "fixtures": [
+        {
+          "gw": 6,
+          "opp": "COV",
+          "home": false,
+          "fdr": 2
+        },
+        {
+          "gw": 7,
+          "opp": "AVL",
+          "home": true,
+          "fdr": 3
+        },
+        {
+          "gw": 8,
+          "opp": "CRY",
+          "home": false,
+          "fdr": 3
+        },
+        {
+          "gw": 9,
+          "opp": "EVE",
+          "home": true,
+          "fdr": 3
+        },
+        {
+          "gw": 10,
+          "opp": "FUL",
+          "home": false,
+          "fdr": 3
+        }
+      ],
+      "recent": [
+        {
+          "gw": 2,
+          "date": "2026-08-29",
+          "comp": "PL",
+          "opp": "TOT",
+          "home": false,
+          "gf": 2,
+          "ga": 0,
+          "result": "W"
+        },
+        {
+          "gw": 3,
+          "date": "2026-09-05",
+          "comp": "PL",
+          "opp": "BOU",
+          "home": true,
+          "gf": 2,
+          "ga": 2,
+          "result": "D"
+        },
+        {
+          "date": "2026-09-08",
+          "comp": "EFL",
+          "opp": "Millwall",
+          "home": false,
+          "gf": 1,
+          "ga": 0,
+          "result": "W"
+        },
+        {
+          "gw": 4,
+          "date": "2026-09-14",
+          "comp": "PL",
+          "opp": "LEE",
+          "home": false,
+          "gf": 1,
+          "ga": 4,
+          "result": "L"
+        },
+        {
+          "gw": 5,
+          "date": "2026-09-19",
+          "comp": "PL",
+          "opp": "HUL",
+          "home": true,
+          "gf": 2,
+          "ga": 1,
+          "result": "W"
+        }
+      ],
+      "other_apps": [
+        {
+          "date": "2026-08-26",
+          "comp": "EFL",
+          "opp": "West Bromwich Albion",
+          "started": true
+        },
+        {
+          "date": "2026-09-08",
+          "comp": "EFL",
+          "opp": "Millwall",
+          "started": true
+        }
+      ],
+      "other_next": [
+        {
+          "date": "2026-10-29",
+          "kickoff": "2026-10-29T19:45:00+00:00",
+          "comp": "EFL",
+          "opp": "EVE",
+          "home": false
+        }
+      ],
+      "owned_by": [],
+      "fdr_avg": 2.8,
+      "status": "i",
+      "news": "Unspecified injury - Unknown return date",
+      "chance": 0
     },
     {
       "id": 398,
@@ -16761,6 +16780,12 @@
       ],
       "other_apps": [
         {
+          "date": "2026-09-10",
+          "comp": "CL",
+          "opp": "Sabah FK",
+          "started": true
+        },
+        {
           "date": "2026-09-16",
           "comp": "EFL",
           "opp": "BHA",
@@ -17360,6 +17385,12 @@
         }
       ],
       "other_apps": [
+        {
+          "date": "2026-09-10",
+          "comp": "CL",
+          "opp": "Sabah FK",
+          "started": true
+        },
         {
           "date": "2026-09-16",
           "comp": "EFL",
@@ -18084,6 +18115,12 @@
         }
       ],
       "other_apps": [
+        {
+          "date": "2026-09-10",
+          "comp": "CL",
+          "opp": "Sabah FK",
+          "started": true
+        },
         {
           "date": "2026-09-16",
           "comp": "EFL",
@@ -19316,7 +19353,14 @@
           "result": "D"
         }
       ],
-      "other_apps": [],
+      "other_apps": [
+        {
+          "date": "2026-09-10",
+          "comp": "CL",
+          "opp": "Sabah FK",
+          "started": true
+        }
+      ],
       "other_next": [
         {
           "date": "2026-10-13",
@@ -21638,112 +21682,6 @@
       "fdr_avg": 3.2
     },
     {
-      "id": 442,
-      "name": "Pope",
-      "team": "NEW",
-      "pos": "GK",
-      "price": 4.9,
-      "ownership": 1,
-      "points": 0,
-      "gw_points": 0,
-      "form": "0.0",
-      "fixtures": [
-        {
-          "gw": 6,
-          "opp": "COV",
-          "home": false,
-          "fdr": 2
-        },
-        {
-          "gw": 7,
-          "opp": "AVL",
-          "home": true,
-          "fdr": 3
-        },
-        {
-          "gw": 8,
-          "opp": "CRY",
-          "home": false,
-          "fdr": 3
-        },
-        {
-          "gw": 9,
-          "opp": "EVE",
-          "home": true,
-          "fdr": 3
-        },
-        {
-          "gw": 10,
-          "opp": "FUL",
-          "home": false,
-          "fdr": 3
-        }
-      ],
-      "recent": [
-        {
-          "gw": 2,
-          "date": "2026-08-29",
-          "comp": "PL",
-          "opp": "TOT",
-          "home": false,
-          "gf": 2,
-          "ga": 0,
-          "result": "W"
-        },
-        {
-          "gw": 3,
-          "date": "2026-09-05",
-          "comp": "PL",
-          "opp": "BOU",
-          "home": true,
-          "gf": 2,
-          "ga": 2,
-          "result": "D"
-        },
-        {
-          "date": "2026-09-08",
-          "comp": "EFL",
-          "opp": "Millwall",
-          "home": false,
-          "gf": 1,
-          "ga": 0,
-          "result": "W"
-        },
-        {
-          "gw": 4,
-          "date": "2026-09-14",
-          "comp": "PL",
-          "opp": "LEE",
-          "home": false,
-          "gf": 1,
-          "ga": 4,
-          "result": "L"
-        },
-        {
-          "gw": 5,
-          "date": "2026-09-19",
-          "comp": "PL",
-          "opp": "HUL",
-          "home": true,
-          "gf": 2,
-          "ga": 1,
-          "result": "W"
-        }
-      ],
-      "other_apps": [],
-      "other_next": [
-        {
-          "date": "2026-10-29",
-          "kickoff": "2026-10-29T19:45:00+00:00",
-          "comp": "EFL",
-          "opp": "EVE",
-          "home": false
-        }
-      ],
-      "owned_by": [],
-      "fdr_avg": 2.8
-    },
-    {
       "id": 136,
       "name": "Welbeck",
       "team": "CHE",
@@ -23382,6 +23320,112 @@
       "other_next": [],
       "owned_by": [],
       "fdr_avg": 3
+    },
+    {
+      "id": 442,
+      "name": "Pope",
+      "team": "NEW",
+      "pos": "GK",
+      "price": 4.9,
+      "ownership": 0.9,
+      "points": 0,
+      "gw_points": 0,
+      "form": "0.0",
+      "fixtures": [
+        {
+          "gw": 6,
+          "opp": "COV",
+          "home": false,
+          "fdr": 2
+        },
+        {
+          "gw": 7,
+          "opp": "AVL",
+          "home": true,
+          "fdr": 3
+        },
+        {
+          "gw": 8,
+          "opp": "CRY",
+          "home": false,
+          "fdr": 3
+        },
+        {
+          "gw": 9,
+          "opp": "EVE",
+          "home": true,
+          "fdr": 3
+        },
+        {
+          "gw": 10,
+          "opp": "FUL",
+          "home": false,
+          "fdr": 3
+        }
+      ],
+      "recent": [
+        {
+          "gw": 2,
+          "date": "2026-08-29",
+          "comp": "PL",
+          "opp": "TOT",
+          "home": false,
+          "gf": 2,
+          "ga": 0,
+          "result": "W"
+        },
+        {
+          "gw": 3,
+          "date": "2026-09-05",
+          "comp": "PL",
+          "opp": "BOU",
+          "home": true,
+          "gf": 2,
+          "ga": 2,
+          "result": "D"
+        },
+        {
+          "date": "2026-09-08",
+          "comp": "EFL",
+          "opp": "Millwall",
+          "home": false,
+          "gf": 1,
+          "ga": 0,
+          "result": "W"
+        },
+        {
+          "gw": 4,
+          "date": "2026-09-14",
+          "comp": "PL",
+          "opp": "LEE",
+          "home": false,
+          "gf": 1,
+          "ga": 4,
+          "result": "L"
+        },
+        {
+          "gw": 5,
+          "date": "2026-09-19",
+          "comp": "PL",
+          "opp": "HUL",
+          "home": true,
+          "gf": 2,
+          "ga": 1,
+          "result": "W"
+        }
+      ],
+      "other_apps": [],
+      "other_next": [
+        {
+          "date": "2026-10-29",
+          "kickoff": "2026-10-29T19:45:00+00:00",
+          "comp": "EFL",
+          "opp": "EVE",
+          "home": false
+        }
+      ],
+      "owned_by": [],
+      "fdr_avg": 2.8
     },
     {
       "id": 490,
@@ -26371,6 +26415,12 @@
       ],
       "other_apps": [
         {
+          "date": "2026-09-10",
+          "comp": "CL",
+          "opp": "Sabah FK",
+          "started": false
+        },
+        {
           "date": "2026-09-16",
           "comp": "EFL",
           "opp": "BHA",
@@ -28774,7 +28824,14 @@
           "result": "D"
         }
       ],
-      "other_apps": [],
+      "other_apps": [
+        {
+          "date": "2026-09-10",
+          "comp": "CL",
+          "opp": "Sabah FK",
+          "started": true
+        }
+      ],
       "other_next": [
         {
           "date": "2026-10-13",
@@ -29397,6 +29454,12 @@
         }
       ],
       "other_apps": [
+        {
+          "date": "2026-09-10",
+          "comp": "CL",
+          "opp": "Sabah FK",
+          "started": true
+        },
         {
           "date": "2026-09-16",
           "comp": "EFL",
@@ -30462,6 +30525,12 @@
         }
       ],
       "other_apps": [
+        {
+          "date": "2026-09-10",
+          "comp": "CL",
+          "opp": "Sabah FK",
+          "started": true
+        },
         {
           "date": "2026-09-16",
           "comp": "EFL",
@@ -32596,6 +32665,12 @@
         }
       ],
       "other_apps": [
+        {
+          "date": "2026-09-10",
+          "comp": "CL",
+          "opp": "Sabah FK",
+          "started": false
+        },
         {
           "date": "2026-09-16",
           "comp": "EFL",
@@ -36896,7 +36971,14 @@
           "result": "D"
         }
       ],
-      "other_apps": [],
+      "other_apps": [
+        {
+          "date": "2026-09-10",
+          "comp": "CL",
+          "opp": "Sabah FK",
+          "started": false
+        }
+      ],
       "other_next": [
         {
           "date": "2026-10-13",
@@ -50416,6 +50498,12 @@
         }
       ],
       "other_apps": [
+        {
+          "date": "2026-09-10",
+          "comp": "CL",
+          "opp": "Sabah FK",
+          "started": false
+        },
         {
           "date": "2026-09-16",
           "comp": "EFL",
@@ -71993,6 +72081,12 @@
         }
       ],
       "other_apps": [
+        {
+          "date": "2026-09-10",
+          "comp": "CL",
+          "opp": "Sabah FK",
+          "started": false
+        },
         {
           "date": "2026-09-16",
           "comp": "EFL",
