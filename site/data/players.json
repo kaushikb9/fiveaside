@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-26T12:38:21.230Z",
+  "generated_at": "2026-09-26T13:40:08.342Z",
   "gameweek": 6,
   "gw_points_for": 5,
   "players": [
@@ -18032,6 +18032,119 @@
       "chance": 75
     },
     {
+      "id": 254,
+      "name": "Robinson",
+      "team": "FUL",
+      "pos": "DEF",
+      "price": 4.5,
+      "ownership": 1.5,
+      "points": 12,
+      "gw_points": 2,
+      "form": "2.8",
+      "fixtures": [
+        {
+          "gw": 6,
+          "opp": "IPS",
+          "home": false,
+          "fdr": 2
+        },
+        {
+          "gw": 7,
+          "opp": "HUL",
+          "home": true,
+          "fdr": 2
+        },
+        {
+          "gw": 8,
+          "opp": "COV",
+          "home": false,
+          "fdr": 2
+        },
+        {
+          "gw": 9,
+          "opp": "AVL",
+          "home": false,
+          "fdr": 3
+        },
+        {
+          "gw": 10,
+          "opp": "NEW",
+          "home": true,
+          "fdr": 3
+        }
+      ],
+      "recent": [
+        {
+          "gw": 2,
+          "date": "2026-08-30",
+          "comp": "PL",
+          "opp": "SUN",
+          "home": false,
+          "gf": 0,
+          "ga": 1,
+          "result": "L"
+        },
+        {
+          "gw": 3,
+          "date": "2026-09-05",
+          "comp": "PL",
+          "opp": "CRY",
+          "home": true,
+          "gf": 2,
+          "ga": 3,
+          "result": "L"
+        },
+        {
+          "gw": 4,
+          "date": "2026-09-12",
+          "comp": "PL",
+          "opp": "LIV",
+          "home": false,
+          "gf": 0,
+          "ga": 0,
+          "result": "D"
+        },
+        {
+          "date": "2026-09-15",
+          "comp": "EFL",
+          "opp": "West Ham United",
+          "home": false,
+          "gf": 3,
+          "ga": 2,
+          "result": "W"
+        },
+        {
+          "gw": 5,
+          "date": "2026-09-20",
+          "comp": "PL",
+          "opp": "MUN",
+          "home": true,
+          "gf": 1,
+          "ga": 1,
+          "result": "D"
+        }
+      ],
+      "other_apps": [
+        {
+          "date": "2026-09-15",
+          "comp": "EFL",
+          "opp": "West Ham United",
+          "started": true
+        }
+      ],
+      "other_next": [
+        {
+          "date": "2026-10-28",
+          "kickoff": "2026-10-28T19:45:00+00:00",
+          "comp": "EFL",
+          "opp": "CRY",
+          "home": true
+        }
+      ],
+      "owned_by": [],
+      "fdr_avg": 2.4
+    },
+    {
       "id": 43,
       "name": "Tielemans",
       "team": "MUN",
@@ -18770,119 +18883,6 @@
       "other_next": [],
       "owned_by": [],
       "fdr_avg": 3.2
-    },
-    {
-      "id": 254,
-      "name": "Robinson",
-      "team": "FUL",
-      "pos": "DEF",
-      "price": 4.5,
-      "ownership": 1.4,
-      "points": 12,
-      "gw_points": 2,
-      "form": "2.8",
-      "fixtures": [
-        {
-          "gw": 6,
-          "opp": "IPS",
-          "home": false,
-          "fdr": 2
-        },
-        {
-          "gw": 7,
-          "opp": "HUL",
-          "home": true,
-          "fdr": 2
-        },
-        {
-          "gw": 8,
-          "opp": "COV",
-          "home": false,
-          "fdr": 2
-        },
-        {
-          "gw": 9,
-          "opp": "AVL",
-          "home": false,
-          "fdr": 3
-        },
-        {
-          "gw": 10,
-          "opp": "NEW",
-          "home": true,
-          "fdr": 3
-        }
-      ],
-      "recent": [
-        {
-          "gw": 2,
-          "date": "2026-08-30",
-          "comp": "PL",
-          "opp": "SUN",
-          "home": false,
-          "gf": 0,
-          "ga": 1,
-          "result": "L"
-        },
-        {
-          "gw": 3,
-          "date": "2026-09-05",
-          "comp": "PL",
-          "opp": "CRY",
-          "home": true,
-          "gf": 2,
-          "ga": 3,
-          "result": "L"
-        },
-        {
-          "gw": 4,
-          "date": "2026-09-12",
-          "comp": "PL",
-          "opp": "LIV",
-          "home": false,
-          "gf": 0,
-          "ga": 0,
-          "result": "D"
-        },
-        {
-          "date": "2026-09-15",
-          "comp": "EFL",
-          "opp": "West Ham United",
-          "home": false,
-          "gf": 3,
-          "ga": 2,
-          "result": "W"
-        },
-        {
-          "gw": 5,
-          "date": "2026-09-20",
-          "comp": "PL",
-          "opp": "MUN",
-          "home": true,
-          "gf": 1,
-          "ga": 1,
-          "result": "D"
-        }
-      ],
-      "other_apps": [
-        {
-          "date": "2026-09-15",
-          "comp": "EFL",
-          "opp": "West Ham United",
-          "started": true
-        }
-      ],
-      "other_next": [
-        {
-          "date": "2026-10-28",
-          "kickoff": "2026-10-28T19:45:00+00:00",
-          "comp": "EFL",
-          "opp": "CRY",
-          "home": true
-        }
-      ],
-      "owned_by": [],
-      "fdr_avg": 2.4
     },
     {
       "id": 198,
