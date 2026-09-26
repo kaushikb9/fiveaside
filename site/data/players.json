@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-25T17:29:34.918Z",
+  "generated_at": "2026-09-26T03:20:48.801Z",
   "gameweek": 6,
   "gw_points_for": 5,
   "players": [
@@ -9,7 +9,7 @@
       "team": "MCI",
       "pos": "FWD",
       "price": 15.6,
-      "ownership": 73.7,
+      "ownership": 73.8,
       "points": 39,
       "gw_points": 6,
       "form": "9.2",
@@ -1155,7 +1155,7 @@
       "name": "De Cuyper",
       "team": "BHA",
       "pos": "DEF",
-      "price": 4.9,
+      "price": 5,
       "ownership": 27.6,
       "points": 38,
       "gw_points": 6,
@@ -1542,7 +1542,7 @@
       "team": "LEE",
       "pos": "FWD",
       "price": 6,
-      "ownership": 24.9,
+      "ownership": 24.8,
       "points": 22,
       "gw_points": 2,
       "form": "5.2",
@@ -2682,7 +2682,7 @@
       "team": "TOT",
       "pos": "GK",
       "price": 4.5,
-      "ownership": 17.4,
+      "ownership": 17.3,
       "points": 18,
       "gw_points": 2,
       "form": "4.0",
@@ -4184,7 +4184,7 @@
       "team": "ARS",
       "pos": "MID",
       "price": 7.4,
-      "ownership": 11.8,
+      "ownership": 11.7,
       "points": 20,
       "gw_points": 1,
       "form": "4.2",
@@ -4313,7 +4313,7 @@
       "team": "BRE",
       "pos": "MID",
       "price": 6.2,
-      "ownership": 11.1,
+      "ownership": 11.2,
       "points": 39,
       "gw_points": 9,
       "form": "9.0",
@@ -4400,14 +4400,7 @@
           "result": "W"
         }
       ],
-      "other_apps": [
-        {
-          "date": "2026-08-25",
-          "comp": "EFL",
-          "opp": "Birmingham City",
-          "started": false
-        }
-      ],
+      "other_apps": [],
       "other_next": [
         {
           "date": "2026-10-28",
@@ -4641,12 +4634,6 @@
         }
       ],
       "other_apps": [
-        {
-          "date": "2026-08-25",
-          "comp": "EFL",
-          "opp": "Birmingham City",
-          "started": false
-        },
         {
           "date": "2026-09-15",
           "comp": "EFL",
@@ -5005,12 +4992,6 @@
         }
       ],
       "other_apps": [
-        {
-          "date": "2026-08-25",
-          "comp": "EFL",
-          "opp": "Birmingham City",
-          "started": false
-        },
         {
           "date": "2026-09-15",
           "comp": "EFL",
@@ -6166,12 +6147,6 @@
         }
       ],
       "other_apps": [
-        {
-          "date": "2026-08-25",
-          "comp": "EFL",
-          "opp": "Birmingham City",
-          "started": false
-        },
         {
           "date": "2026-09-15",
           "comp": "EFL",
@@ -7966,132 +7941,6 @@
       "fdr_avg": 3
     },
     {
-      "id": 366,
-      "name": "Wirtz",
-      "team": "LIV",
-      "pos": "MID",
-      "price": 7.3,
-      "ownership": 5.8,
-      "points": 18,
-      "gw_points": 6,
-      "form": "4.0",
-      "fixtures": [
-        {
-          "gw": 6,
-          "opp": "MCI",
-          "home": true,
-          "fdr": 4
-        },
-        {
-          "gw": 7,
-          "opp": "BRE",
-          "home": false,
-          "fdr": 3
-        },
-        {
-          "gw": 8,
-          "opp": "BHA",
-          "home": true,
-          "fdr": 3
-        },
-        {
-          "gw": 9,
-          "opp": "ARS",
-          "home": true,
-          "fdr": 4
-        },
-        {
-          "gw": 10,
-          "opp": "CRY",
-          "home": false,
-          "fdr": 3
-        }
-      ],
-      "recent": [
-        {
-          "gw": 3,
-          "date": "2026-09-04",
-          "comp": "PL",
-          "opp": "IPS",
-          "home": false,
-          "gf": 2,
-          "ga": 0,
-          "result": "W"
-        },
-        {
-          "date": "2026-09-09",
-          "comp": "CL",
-          "opp": "Atlético Madrid",
-          "home": true,
-          "gf": 2,
-          "ga": 1,
-          "result": "W"
-        },
-        {
-          "gw": 4,
-          "date": "2026-09-12",
-          "comp": "PL",
-          "opp": "FUL",
-          "home": true,
-          "gf": 0,
-          "ga": 0,
-          "result": "D"
-        },
-        {
-          "date": "2026-09-15",
-          "comp": "EFL",
-          "opp": "TOT",
-          "home": true,
-          "gf": 3,
-          "ga": 1,
-          "result": "W"
-        },
-        {
-          "gw": 5,
-          "date": "2026-09-20",
-          "comp": "PL",
-          "opp": "BOU",
-          "home": false,
-          "gf": 1,
-          "ga": 0,
-          "result": "W"
-        }
-      ],
-      "other_apps": [
-        {
-          "date": "2026-09-09",
-          "comp": "CL",
-          "opp": "Atlético Madrid",
-          "started": true
-        }
-      ],
-      "other_next": [
-        {
-          "date": "2026-10-14",
-          "kickoff": "2026-10-14T16:45:00+00:00",
-          "comp": "CL",
-          "opp": "LASK Linz",
-          "home": false
-        },
-        {
-          "date": "2026-10-20",
-          "kickoff": "2026-10-20T19:00:00+00:00",
-          "comp": "CL",
-          "opp": "Villarreal",
-          "home": true
-        },
-        {
-          "date": "2026-10-28",
-          "kickoff": "2026-10-28T20:00:00+00:00",
-          "comp": "EFL",
-          "opp": "CHE",
-          "home": true
-        }
-      ],
-      "owned_by": [],
-      "fdr_avg": 3.4
-    },
-    {
       "id": 201,
       "name": "Muñoz",
       "team": "NFO",
@@ -8314,6 +8163,132 @@
       ],
       "owned_by": [],
       "fdr_avg": 3.2
+    },
+    {
+      "id": 366,
+      "name": "Wirtz",
+      "team": "LIV",
+      "pos": "MID",
+      "price": 7.3,
+      "ownership": 5.7,
+      "points": 18,
+      "gw_points": 6,
+      "form": "4.0",
+      "fixtures": [
+        {
+          "gw": 6,
+          "opp": "MCI",
+          "home": true,
+          "fdr": 4
+        },
+        {
+          "gw": 7,
+          "opp": "BRE",
+          "home": false,
+          "fdr": 3
+        },
+        {
+          "gw": 8,
+          "opp": "BHA",
+          "home": true,
+          "fdr": 3
+        },
+        {
+          "gw": 9,
+          "opp": "ARS",
+          "home": true,
+          "fdr": 4
+        },
+        {
+          "gw": 10,
+          "opp": "CRY",
+          "home": false,
+          "fdr": 3
+        }
+      ],
+      "recent": [
+        {
+          "gw": 3,
+          "date": "2026-09-04",
+          "comp": "PL",
+          "opp": "IPS",
+          "home": false,
+          "gf": 2,
+          "ga": 0,
+          "result": "W"
+        },
+        {
+          "date": "2026-09-09",
+          "comp": "CL",
+          "opp": "Atlético Madrid",
+          "home": true,
+          "gf": 2,
+          "ga": 1,
+          "result": "W"
+        },
+        {
+          "gw": 4,
+          "date": "2026-09-12",
+          "comp": "PL",
+          "opp": "FUL",
+          "home": true,
+          "gf": 0,
+          "ga": 0,
+          "result": "D"
+        },
+        {
+          "date": "2026-09-15",
+          "comp": "EFL",
+          "opp": "TOT",
+          "home": true,
+          "gf": 3,
+          "ga": 1,
+          "result": "W"
+        },
+        {
+          "gw": 5,
+          "date": "2026-09-20",
+          "comp": "PL",
+          "opp": "BOU",
+          "home": false,
+          "gf": 1,
+          "ga": 0,
+          "result": "W"
+        }
+      ],
+      "other_apps": [
+        {
+          "date": "2026-09-09",
+          "comp": "CL",
+          "opp": "Atlético Madrid",
+          "started": true
+        }
+      ],
+      "other_next": [
+        {
+          "date": "2026-10-14",
+          "kickoff": "2026-10-14T16:45:00+00:00",
+          "comp": "CL",
+          "opp": "LASK Linz",
+          "home": false
+        },
+        {
+          "date": "2026-10-20",
+          "kickoff": "2026-10-20T19:00:00+00:00",
+          "comp": "CL",
+          "opp": "Villarreal",
+          "home": true
+        },
+        {
+          "date": "2026-10-28",
+          "kickoff": "2026-10-28T20:00:00+00:00",
+          "comp": "EFL",
+          "opp": "CHE",
+          "home": true
+        }
+      ],
+      "owned_by": [],
+      "fdr_avg": 3.4
     },
     {
       "id": 453,
@@ -9001,7 +8976,7 @@
       "team": "AVL",
       "pos": "DEF",
       "price": 4.4,
-      "ownership": 4.9,
+      "ownership": 4.8,
       "points": 6,
       "gw_points": -1,
       "form": "1.8",
@@ -13263,7 +13238,10 @@
         }
       ],
       "owned_by": [],
-      "fdr_avg": 3
+      "fdr_avg": 3,
+      "status": "d",
+      "news": "Hamstring injury - 75% chance of playing",
+      "chance": 75
     },
     {
       "id": 98,
@@ -13358,14 +13336,7 @@
           "result": "W"
         }
       ],
-      "other_apps": [
-        {
-          "date": "2026-08-25",
-          "comp": "EFL",
-          "opp": "Birmingham City",
-          "started": true
-        }
-      ],
+      "other_apps": [],
       "other_next": [
         {
           "date": "2026-10-28",
@@ -16187,12 +16158,6 @@
         }
       ],
       "other_apps": [
-        {
-          "date": "2026-08-25",
-          "comp": "EFL",
-          "opp": "Birmingham City",
-          "started": false
-        },
         {
           "date": "2026-09-15",
           "comp": "EFL",
@@ -20868,14 +20833,7 @@
           "result": "W"
         }
       ],
-      "other_apps": [
-        {
-          "date": "2026-08-25",
-          "comp": "EFL",
-          "opp": "Birmingham City",
-          "started": true
-        }
-      ],
+      "other_apps": [],
       "other_next": [
         {
           "date": "2026-10-28",
@@ -20997,7 +20955,7 @@
       "name": "Eze",
       "team": "ARS",
       "pos": "MID",
-      "price": 6.3,
+      "price": 6.2,
       "ownership": 1,
       "points": 4,
       "gw_points": 1,
@@ -28260,12 +28218,6 @@
       ],
       "other_apps": [
         {
-          "date": "2026-08-25",
-          "comp": "EFL",
-          "opp": "Birmingham City",
-          "started": true
-        },
-        {
           "date": "2026-09-15",
           "comp": "EFL",
           "opp": "Reading",
@@ -30179,12 +30131,6 @@
       ],
       "other_apps": [
         {
-          "date": "2026-08-25",
-          "comp": "EFL",
-          "opp": "Birmingham City",
-          "started": true
-        },
-        {
           "date": "2026-09-15",
           "comp": "EFL",
           "opp": "Reading",
@@ -31272,12 +31218,6 @@
         }
       ],
       "other_apps": [
-        {
-          "date": "2026-08-25",
-          "comp": "EFL",
-          "opp": "Birmingham City",
-          "started": true
-        },
         {
           "date": "2026-09-15",
           "comp": "EFL",
@@ -35427,12 +35367,6 @@
       ],
       "other_apps": [
         {
-          "date": "2026-08-25",
-          "comp": "EFL",
-          "opp": "Birmingham City",
-          "started": true
-        },
-        {
           "date": "2026-09-15",
           "comp": "EFL",
           "opp": "Reading",
@@ -36236,12 +36170,6 @@
         }
       ],
       "other_apps": [
-        {
-          "date": "2026-08-25",
-          "comp": "EFL",
-          "opp": "Birmingham City",
-          "started": true
-        },
         {
           "date": "2026-09-15",
           "comp": "EFL",
@@ -39558,12 +39486,6 @@
         }
       ],
       "other_apps": [
-        {
-          "date": "2026-08-25",
-          "comp": "EFL",
-          "opp": "Birmingham City",
-          "started": true
-        },
         {
           "date": "2026-09-15",
           "comp": "EFL",
@@ -43789,12 +43711,6 @@
         }
       ],
       "other_apps": [
-        {
-          "date": "2026-08-25",
-          "comp": "EFL",
-          "opp": "Birmingham City",
-          "started": true
-        },
         {
           "date": "2026-09-15",
           "comp": "EFL",
@@ -48939,12 +48855,6 @@
         }
       ],
       "other_apps": [
-        {
-          "date": "2026-08-25",
-          "comp": "EFL",
-          "opp": "Birmingham City",
-          "started": true
-        },
         {
           "date": "2026-09-15",
           "comp": "EFL",
@@ -57021,14 +56931,7 @@
           "result": "W"
         }
       ],
-      "other_apps": [
-        {
-          "date": "2026-08-25",
-          "comp": "EFL",
-          "opp": "Birmingham City",
-          "started": true
-        }
-      ],
+      "other_apps": [],
       "other_next": [
         {
           "date": "2026-10-28",
@@ -65907,7 +65810,7 @@
       "name": "Gozo",
       "team": "CRY",
       "pos": "MID",
-      "price": 5,
+      "price": 4.9,
       "ownership": 0,
       "points": 2,
       "gw_points": 0,
@@ -77184,7 +77087,7 @@
       "name": "Yohanna",
       "team": "BHA",
       "pos": "MID",
-      "price": 4.9,
+      "price": 4.8,
       "ownership": 0,
       "points": 1,
       "gw_points": 0,
