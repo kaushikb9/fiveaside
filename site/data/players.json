@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-26T07:08:37.204Z",
+  "generated_at": "2026-09-26T08:13:42.598Z",
   "gameweek": 6,
   "gw_points_for": 5,
   "players": [
@@ -898,7 +898,7 @@
       "team": "BHA",
       "pos": "MID",
       "price": 5.8,
-      "ownership": 28.4,
+      "ownership": 28.5,
       "points": 47,
       "gw_points": 14,
       "form": "11.2",
@@ -2556,7 +2556,7 @@
       "team": "MCI",
       "pos": "DEF",
       "price": 6,
-      "ownership": 18.3,
+      "ownership": 18.2,
       "points": 30,
       "gw_points": 4,
       "form": "5.0",
@@ -2787,120 +2787,12 @@
       "fdr_avg": 3
     },
     {
-      "id": 497,
-      "name": "Dubravka",
-      "team": "TOT",
-      "pos": "GK",
-      "price": 4,
-      "ownership": 17.1,
-      "points": 0,
-      "gw_points": 0,
-      "form": "0.0",
-      "fixtures": [
-        {
-          "gw": 6,
-          "opp": "MUN",
-          "home": false,
-          "fdr": 4
-        },
-        {
-          "gw": 7,
-          "opp": "COV",
-          "home": true,
-          "fdr": 2
-        },
-        {
-          "gw": 8,
-          "opp": "CHE",
-          "home": false,
-          "fdr": 4
-        },
-        {
-          "gw": 9,
-          "opp": "CRY",
-          "home": true,
-          "fdr": 2
-        },
-        {
-          "gw": 10,
-          "opp": "LEE",
-          "home": false,
-          "fdr": 3
-        }
-      ],
-      "recent": [
-        {
-          "gw": 2,
-          "date": "2026-08-29",
-          "comp": "PL",
-          "opp": "NEW",
-          "home": true,
-          "gf": 0,
-          "ga": 2,
-          "result": "L"
-        },
-        {
-          "gw": 3,
-          "date": "2026-09-05",
-          "comp": "PL",
-          "opp": "NFO",
-          "home": false,
-          "gf": 0,
-          "ga": 0,
-          "result": "D"
-        },
-        {
-          "gw": 4,
-          "date": "2026-09-12",
-          "comp": "PL",
-          "opp": "EVE",
-          "home": true,
-          "gf": 0,
-          "ga": 0,
-          "result": "D"
-        },
-        {
-          "date": "2026-09-15",
-          "comp": "EFL",
-          "opp": "LIV",
-          "home": false,
-          "gf": 1,
-          "ga": 3,
-          "result": "L"
-        },
-        {
-          "gw": 5,
-          "date": "2026-09-19",
-          "comp": "PL",
-          "opp": "AVL",
-          "home": true,
-          "gf": 2,
-          "ga": 3,
-          "result": "L"
-        }
-      ],
-      "other_apps": [
-        {
-          "date": "2026-09-15",
-          "comp": "EFL",
-          "opp": "LIV",
-          "started": true
-        }
-      ],
-      "other_next": [],
-      "owned_by": [
-        "Sir Fergie",
-        "Mr CR7"
-      ],
-      "fdr_avg": 3
-    },
-    {
       "id": 449,
       "name": "Hall",
       "team": "NEW",
       "pos": "DEF",
       "price": 5.3,
-      "ownership": 17.1,
+      "ownership": 17.2,
       "points": 31,
       "gw_points": 13,
       "form": "7.0",
@@ -3012,6 +2904,114 @@
       ],
       "owned_by": [],
       "fdr_avg": 2.8
+    },
+    {
+      "id": 497,
+      "name": "Dubravka",
+      "team": "TOT",
+      "pos": "GK",
+      "price": 4,
+      "ownership": 17.1,
+      "points": 0,
+      "gw_points": 0,
+      "form": "0.0",
+      "fixtures": [
+        {
+          "gw": 6,
+          "opp": "MUN",
+          "home": false,
+          "fdr": 4
+        },
+        {
+          "gw": 7,
+          "opp": "COV",
+          "home": true,
+          "fdr": 2
+        },
+        {
+          "gw": 8,
+          "opp": "CHE",
+          "home": false,
+          "fdr": 4
+        },
+        {
+          "gw": 9,
+          "opp": "CRY",
+          "home": true,
+          "fdr": 2
+        },
+        {
+          "gw": 10,
+          "opp": "LEE",
+          "home": false,
+          "fdr": 3
+        }
+      ],
+      "recent": [
+        {
+          "gw": 2,
+          "date": "2026-08-29",
+          "comp": "PL",
+          "opp": "NEW",
+          "home": true,
+          "gf": 0,
+          "ga": 2,
+          "result": "L"
+        },
+        {
+          "gw": 3,
+          "date": "2026-09-05",
+          "comp": "PL",
+          "opp": "NFO",
+          "home": false,
+          "gf": 0,
+          "ga": 0,
+          "result": "D"
+        },
+        {
+          "gw": 4,
+          "date": "2026-09-12",
+          "comp": "PL",
+          "opp": "EVE",
+          "home": true,
+          "gf": 0,
+          "ga": 0,
+          "result": "D"
+        },
+        {
+          "date": "2026-09-15",
+          "comp": "EFL",
+          "opp": "LIV",
+          "home": false,
+          "gf": 1,
+          "ga": 3,
+          "result": "L"
+        },
+        {
+          "gw": 5,
+          "date": "2026-09-19",
+          "comp": "PL",
+          "opp": "AVL",
+          "home": true,
+          "gf": 2,
+          "ga": 3,
+          "result": "L"
+        }
+      ],
+      "other_apps": [
+        {
+          "date": "2026-09-15",
+          "comp": "EFL",
+          "opp": "LIV",
+          "started": true
+        }
+      ],
+      "other_next": [],
+      "owned_by": [
+        "Sir Fergie",
+        "Mr CR7"
+      ],
+      "fdr_avg": 3
     },
     {
       "id": 229,
@@ -3362,7 +3362,7 @@
       "team": "MCI",
       "pos": "MID",
       "price": 8.4,
-      "ownership": 15.5,
+      "ownership": 15.4,
       "points": 33,
       "gw_points": 17,
       "form": "7.8",
