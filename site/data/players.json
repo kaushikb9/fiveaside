@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-26T14:42:43.864Z",
+  "generated_at": "2026-09-26T15:44:44.818Z",
   "gameweek": 6,
   "gw_points_for": 5,
   "players": [
@@ -1156,7 +1156,7 @@
       "team": "BHA",
       "pos": "DEF",
       "price": 5,
-      "ownership": 27.6,
+      "ownership": 27.7,
       "points": 38,
       "gw_points": 6,
       "form": "5.2",
@@ -4426,7 +4426,7 @@
       "team": "MCI",
       "pos": "DEF",
       "price": 6.3,
-      "ownership": 11,
+      "ownership": 10.9,
       "points": 6,
       "gw_points": 1,
       "form": "1.0",
@@ -5719,114 +5719,6 @@
       "penalties": true
     },
     {
-      "id": 499,
-      "name": "Pedro Porro",
-      "team": "TOT",
-      "pos": "DEF",
-      "price": 5.4,
-      "ownership": 7.7,
-      "points": 9,
-      "gw_points": 1,
-      "form": "2.2",
-      "fixtures": [
-        {
-          "gw": 6,
-          "opp": "MUN",
-          "home": false,
-          "fdr": 4
-        },
-        {
-          "gw": 7,
-          "opp": "COV",
-          "home": true,
-          "fdr": 2
-        },
-        {
-          "gw": 8,
-          "opp": "CHE",
-          "home": false,
-          "fdr": 4
-        },
-        {
-          "gw": 9,
-          "opp": "CRY",
-          "home": true,
-          "fdr": 2
-        },
-        {
-          "gw": 10,
-          "opp": "LEE",
-          "home": false,
-          "fdr": 3
-        }
-      ],
-      "recent": [
-        {
-          "gw": 2,
-          "date": "2026-08-29",
-          "comp": "PL",
-          "opp": "NEW",
-          "home": true,
-          "gf": 0,
-          "ga": 2,
-          "result": "L"
-        },
-        {
-          "gw": 3,
-          "date": "2026-09-05",
-          "comp": "PL",
-          "opp": "NFO",
-          "home": false,
-          "gf": 0,
-          "ga": 0,
-          "result": "D"
-        },
-        {
-          "gw": 4,
-          "date": "2026-09-12",
-          "comp": "PL",
-          "opp": "EVE",
-          "home": true,
-          "gf": 0,
-          "ga": 0,
-          "result": "D"
-        },
-        {
-          "date": "2026-09-15",
-          "comp": "EFL",
-          "opp": "LIV",
-          "home": false,
-          "gf": 1,
-          "ga": 3,
-          "result": "L"
-        },
-        {
-          "gw": 5,
-          "date": "2026-09-19",
-          "comp": "PL",
-          "opp": "AVL",
-          "home": true,
-          "gf": 2,
-          "ga": 3,
-          "result": "L"
-        }
-      ],
-      "other_apps": [
-        {
-          "date": "2026-08-26",
-          "comp": "EFL",
-          "opp": "Charlton Athletic",
-          "started": false
-        }
-      ],
-      "other_next": [],
-      "owned_by": [],
-      "fdr_avg": 3,
-      "status": "d",
-      "news": "Hamstring injury - 75% chance of playing",
-      "chance": 75
-    },
-    {
       "id": 423,
       "name": "Shaw",
       "team": "MUN",
@@ -6190,6 +6082,114 @@
       ],
       "owned_by": [],
       "fdr_avg": 3.2
+    },
+    {
+      "id": 499,
+      "name": "Pedro Porro",
+      "team": "TOT",
+      "pos": "DEF",
+      "price": 5.4,
+      "ownership": 7.6,
+      "points": 9,
+      "gw_points": 1,
+      "form": "2.2",
+      "fixtures": [
+        {
+          "gw": 6,
+          "opp": "MUN",
+          "home": false,
+          "fdr": 4
+        },
+        {
+          "gw": 7,
+          "opp": "COV",
+          "home": true,
+          "fdr": 2
+        },
+        {
+          "gw": 8,
+          "opp": "CHE",
+          "home": false,
+          "fdr": 4
+        },
+        {
+          "gw": 9,
+          "opp": "CRY",
+          "home": true,
+          "fdr": 2
+        },
+        {
+          "gw": 10,
+          "opp": "LEE",
+          "home": false,
+          "fdr": 3
+        }
+      ],
+      "recent": [
+        {
+          "gw": 2,
+          "date": "2026-08-29",
+          "comp": "PL",
+          "opp": "NEW",
+          "home": true,
+          "gf": 0,
+          "ga": 2,
+          "result": "L"
+        },
+        {
+          "gw": 3,
+          "date": "2026-09-05",
+          "comp": "PL",
+          "opp": "NFO",
+          "home": false,
+          "gf": 0,
+          "ga": 0,
+          "result": "D"
+        },
+        {
+          "gw": 4,
+          "date": "2026-09-12",
+          "comp": "PL",
+          "opp": "EVE",
+          "home": true,
+          "gf": 0,
+          "ga": 0,
+          "result": "D"
+        },
+        {
+          "date": "2026-09-15",
+          "comp": "EFL",
+          "opp": "LIV",
+          "home": false,
+          "gf": 1,
+          "ga": 3,
+          "result": "L"
+        },
+        {
+          "gw": 5,
+          "date": "2026-09-19",
+          "comp": "PL",
+          "opp": "AVL",
+          "home": true,
+          "gf": 2,
+          "ga": 3,
+          "result": "L"
+        }
+      ],
+      "other_apps": [
+        {
+          "date": "2026-08-26",
+          "comp": "EFL",
+          "opp": "Charlton Athletic",
+          "started": false
+        }
+      ],
+      "other_next": [],
+      "owned_by": [],
+      "fdr_avg": 3,
+      "status": "d",
+      "news": "Hamstring injury - 75% chance of playing",
+      "chance": 75
     },
     {
       "id": 212,
